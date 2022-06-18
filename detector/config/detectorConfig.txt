@@ -1,0 +1,18 @@
+##################################################
+timeStamp:	1646403180.469
+ipData:	0.0.0.0
+portData:	20000
+ipCntrl:	127.0.0.1
+portCntrl:	30000
+centerFreq:	148525000.000000 
+Fs:	4000.000
+tp:	0.020000
+tip:	1.392500
+tipu:	0.060000
+tipj:	0.020000
+K:	3
+focusMode:	focus
+excldFreqs:	[Inf, -Inf]
+falseAlarmProb:	0.00080
+dataRecordPath:	/Users/mshafer/Desktop/PLAYGROUND/data_record.bin
+processedOuputPath:	/Users/mshafer/Desktop/PLAYGROUND
