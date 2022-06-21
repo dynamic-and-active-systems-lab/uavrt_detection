@@ -18,7 +18,7 @@ clear
 cfg = coder.config('exe');
 cfg.Hardware = coder.hardware('Robot Operating System 2 (ROS 2)');
 cfg.Hardware.BuildAction = 'Build and run';
-cfg.Hardware.RemoteDeviceAddress = '134.114.9.185';
+cfg.Hardware.RemoteDeviceAddress = '134.114.64.127';
 cfg.Hardware.RemoteDeviceUsername = 'dasl';
 cfg.Hardware.RemoteDevicePassword = 'dasl249!';
 cfg.Hardware.DeployTo = 'Remote Device';

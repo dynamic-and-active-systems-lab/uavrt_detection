@@ -48,10 +48,10 @@ if isempty(udpRx)
 end
 
 if ~releaseSysObj
-  %  if udpRx.LocalIPPort ~= localIPPort
-  %      udpRx.release();
+    if udpRx.LocalIPPort ~= localIPPort
+        udpRx.release();
         udpRx.LocalIPPort = localIPPort;
-   % end
+    end
     dataReceived      = udpRx();
 else
     release(udpRx);

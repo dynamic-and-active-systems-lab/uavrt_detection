@@ -62,7 +62,7 @@ end
 [f,xi]   = ksdensity(scores(:),'BoundaryCorrection','reflection','Support','positive');
 F        = cumtrapz(xi,f);
 
-%Now we linearly inpterpolate the threshold values for different noise
+%Now we linearly interpolate the threshold values for different noise
 %powers. We showed elsewhere this linear relationship hold by calculating
 %thresholds for ranges of noise power. 
 %Here we deal with points where there is no change in F. Interp needs 
@@ -72,7 +72,7 @@ nochangelogic = [false,diff(F)==0];
 threshMedPow = interp1(F(~nochangelogic),xi(~nochangelogic),1-PF,'pchip','extrap');
 powGrid    = [0 medPowAllFreqBins];
 threshGrid = [0 threshMedPow];
-newThresh = interp1(powGrid,threshGrid,freqBinPow,'linear');%,'extrap');
+newThresh = interp1(powGrid,threshGrid,freqBinPow,'linear','extrap');
 
 %Finally,extrapolating the thresholds that are a little beyond the original 
 %frequeny range can result in negative thresholds. Here we copy the first

@@ -659,7 +659,7 @@ classdef waveform < handle
                 %same size as Wf indicating which frequencies to look at.
                 
                 %IF FREQS ARE UNAVILABLE, USE NAIVE
-                if (f_lo<min(Wf)) || (f_hi>max(Wf))%isnan(obj.ps_pre.fc) %Naive
+                if (f_lo<min(Wf,[],'all')) || (f_hi>max(Wf,[],'all'))%isnan(obj.ps_pre.fc) %Naive
                     if coder.target('MATLAB')
                         warning('UAVRT:searchtype',...
                                 ['Requested informed search, but previous '...
@@ -687,7 +687,7 @@ classdef waveform < handle
             
             %If using informed search and excluded frequencies overlap with
             %priori frequencies, warn the user.
-            if strcmp(freq_searchtype,'informed') && any(freq_mask & ~excld_msk_vec)
+            if strcmp(freq_searchtype,'informed') & any(freq_mask & ~excld_msk_vec ,'all')
                 if coder.target('MATLAB')
                     warning('UAV-RT: Using informed frequency search method and excluded frequencies. Some or all of the priori frequency band used for the informed search overlaps with frequencies specified for exclusion from the search and thus will not be included.')
                 end
@@ -697,7 +697,7 @@ classdef waveform < handle
             freq_mask = (freq_mask & excld_msk_vec);
             
             %Check that we actually have something to search
-            if ~any(freq_mask)
+            if ~any(freq_mask,'all')
                 error('UAV-RT: Informed frequencies bands and/or excluded frequencies have created a scenario where no frequencies are being considered in the search. This is likely a result of informed frequeny band overlapping with one or more of the excluded frequency bands. Consider reducing the bandwidth of the excluded frequencies.')
             end
             
@@ -777,7 +777,11 @@ classdef waveform < handle
             %code below. 
             weightedSRowSubs = transpose(1:numel(Wf));
             weightedSRowSubsMat = repmat(weightedSRowSubs,1,obj.K);
-            indsOfBins = sub2ind([nZetas*nRowsOfS nColsOfS],weightedSRowSubsMat,S_cols);
+            %sub2ind doesn't support NaN values, so we focus here on those
+            %that don't have NaN
+            S_cols_withoutNan = S_cols(~isnan(S_cols));
+            weightedSRowSubsMat_withoutNan = weightedSRowSubsMat(~isnan(S_cols));
+            indsOfBins = sub2ind([nZetas*nRowsOfS nColsOfS],weightedSRowSubsMat_withoutNan,S_cols_withoutNan);
             indsOfBinsValid = indsOfBins(~isnan(indsOfBins));
             binMaskMatrix = zeros([nZetas*nRowsOfS nColsOfS]);
             binMaskMatrix(indsOfBinsValid) =  NaN;%0;
@@ -912,7 +916,7 @@ classdef waveform < handle
             
             %%------------------------------------------------
             %thresh_hold = thresh;thresh = interp1(obj.stft.f,thresh,Wf);
-            if ~any(peak_masked_curr_scores>thresh)
+            if ~any(peak_masked_curr_scores>thresh, 'all')
                 %peak_ind = [];
                 peak_ind = NaN(1,1);
                 peak     = NaN(1,1);%[];
@@ -923,7 +927,7 @@ classdef waveform < handle
             %the threshold which aren't masked as a valley, +slope, -slope,
             %or previously identified peak/sideband. 
             %figure; plot3([1:160],ones(160,1)*0,curr_scores)
-            while any(peak_masked_curr_scores>thresh)
+            while any(peak_masked_curr_scores>thresh, 'all')
              %   hold on; plot3([1:160],ones(160,1)*p,curr_scores)
                 %Identify the highest scoring peak of the currently
                 %identifed scores. 
@@ -1080,10 +1084,19 @@ classdef waveform < handle
                             %valley? Use that distance as the 1/2 width of
                             %the sideband. Do this both forwards and
                             %backwards. 
-                            bkwd_BW = min([inds_bkwd_2_thresh_xing,...
+                            if ~isempty(inds_bkwd_2_next_valley)
+                                bkwd_BW = min([inds_bkwd_2_thresh_xing,...
                                            inds_bkwd_2_next_valley],[],'all');
-                            frwd_BW = min([inds_frwd_2_next_valley,...
+                            else
+                                bkwd_BW = inds_bkwd_2_thresh_xing;
+                            end
+                            if ~isempty(inds_frwd_2_next_valley)
+                                frwd_BW = min([inds_frwd_2_next_valley,...
                                            inds_frwd_2_thresh_xing],[],'all');
+                            else
+                                frwd_BW = inds_frwd_2_thresh_xing;
+                            end
+                            
                             bandwidth_of_peak(p) = max([bkwd_BW,frwd_BW],[],'all');
                         end
                         %Make sure we aren't requesting masking of elements
@@ -1754,7 +1767,7 @@ classdef waveform < handle
                     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     conflog = maxstartlog & minstartlog;
-                    if any(conflog)
+                    if any(conflog,'all')
                         % 	Confirmed?
                         % 		True -> Confirmation = True
                         conf = true;

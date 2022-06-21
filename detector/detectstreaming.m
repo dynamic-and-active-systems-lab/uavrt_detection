@@ -104,6 +104,7 @@ framesReceived = 0;
 segmentsProcessed = 0;
 %tLast = posixtime(datetime('now'));
 state = 'idle';
+previousState = 'unspawned';
 resetUdp = true;
 %Preallocate Xhold for Coder
 Xhold = cell(maxSegments,1);
@@ -321,7 +322,7 @@ while i <= maxInd
             asyncTimeBuff.release();
             asyncWriteBuff.release();
             
-            
+            previousState = state;
             fclose(dataWriterFileID);
             %release(writer);
             break
@@ -329,6 +330,7 @@ while i <= maxInd
         otherwise
             %Should never get to this case, but jump to idle if we get
             %here.
+            previousState = state;
             state = 'idle';
     end
     
