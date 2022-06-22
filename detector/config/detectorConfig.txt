@@ -1,4 +1,5 @@
 ##################################################
+ID:	01
 timeStamp:	1646403180.469
 ipData:	0.0.0.0
 portData:	20000
@@ -16,3 +17,4 @@ excldFreqs:	[Inf, -Inf]
 falseAlarmProb:	0.00080
 dataRecordPath:	/Users/mshafer/Desktop/PLAYGROUND/data_record.bin
 processedOuputPath:	/Users/mshafer/Desktop/PLAYGROUND
+ros2enable:	true

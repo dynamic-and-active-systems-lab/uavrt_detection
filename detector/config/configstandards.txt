@@ -5,6 +5,7 @@ Each configuration type can be uniquely named, but should contain no spaces and 
 
 
 ##################################################
+ID:	01
 timeStamp:	1644944304.890
 ipData:	0.0.0.0
 portData:	20000
@@ -22,7 +23,9 @@ excldFreqs:	[Inf, -Inf]
 falseAlarmProb:	0.0010
 dataRecordPath:	/Users/mshafer/Desktop/PLAYGROUND
 processedOuputPath:	/Users/mshafer/Desktop/PLAYGROUND
+ros2enable:	false
 ##################################################
+ID:	01
 timeStamp:	1644944313.085
 ipData:	0.0.0.0
 portData:	20000
@@ -40,4 +43,5 @@ excldFreqs:	[Inf, -Inf]
 falseAlarmProb:	0.0010
 dataRecordPath:	/Users/mshafer/Desktop/PLAYGROUND
 processedOuputPath:	/Users/mshafer/Desktop/PLAYGROUND
+ros2enable:	false
 

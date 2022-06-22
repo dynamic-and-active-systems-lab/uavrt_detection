@@ -2,7 +2,7 @@ function [] = detectstreaming()
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
-configPath = 'config/detectorConfig.txt'; %Must exist in the same directory as the execution of this executable
+configPath = "config/detectorConfig.txt"; %Must exist in the same directory as the execution of this executable
 
 Config =  DetectorConfig(); %Build empty config object
 updateconfig()              %Update (fill) the configuration
@@ -15,11 +15,15 @@ configUpdatedFlag = true;
 
 
 %% ROS2 Setup
-%node = ros2node("detector");
+%if Config.ros2enable
+    node = ros2node(strcat("detector_",Config.ID));
+    pulsePub = ros2publisher(node,"/detected_pulse","uavrt_interfaces/Pulse");
+    pulseMsg = ros2message(pulsePub);
+%end
 
 
 
-pulseStatsPriori = pulsestats(Config.tp,Config.tip,Config.tipu,Config.tipj,0 ,0     ,0   ,[1 1],'D' ,makepulsestruc(),makepulsestruc(),[]        ,[]        ,[]);
+pulseStatsPriori = pulsestats(Config.tp,Config.tip,Config.tipu,Config.tipj,0 ,0     ,0   ,[1 1],"D" ,makepulsestruc(),makepulsestruc(),[]        ,[]        ,[]);
 %                                    tp,       tip,       tipu,       tipj,fp,fstart,fend,tmplt,mode,pl              ,clst            ,cmsk      ,cpki      ,thresh)
 stftOverlapFraction = 0.5;
 zetas = [0 0.5];
@@ -33,8 +37,8 @@ overlapSamples	= 0;
 sampsForKPulses = 0;
 updatebufferreadvariables(pulseStatsPriori);
 
-coder.varsize('dataReceived',[1025 1]);
-coder.varsize('state',[1 64]);
+coder.varsize("dataReceived",[1025 1]);
+coder.varsize("state",[1 64]);
 packetLength = 1025; %1024 plus a time stamp.
 
 %% Calculating the max size that would ever be needed for the buffer
@@ -98,11 +102,9 @@ ps_pre_struc.thresh = localThresh;
 
 maxInd = 4000;
 maxSegments = 100;
-%figure;
 i = 1;
 framesReceived = 0;
 segmentsProcessed = 0;
-%tLast = posixtime(datetime('now'));
 state = 'idle';
 previousState = 'unspawned';
 resetUdp = true;
@@ -180,38 +182,36 @@ while i <= maxInd
                     X = waveform(x, Config.Fs, t0, ps_pre, stftOverlapFraction);
                     %fprintf('X.x: %e \n',X.x(1));
                     X.K = Config.K;
-                    fprintf('Current ip vars|| N: %u, M: %u, J: %u,\n',uint32(X.N),uint32(X.M),uint32(X.J))
+                    fprintf('Current interpulse params || N: %u, M: %u, J: %u,\n',uint32(X.N),uint32(X.M),uint32(X.J))
                     X.setprioridependentprops(X.ps_pre)
                     fprintf('Samples in waveform: %u \n',uint32(numel(X.x)))
-                    fprintf('Current ip vars|| N: %u, M: %u, J: %u,\n',uint32(X.N),uint32(X.M),uint32(X.J))
-
-                    fprintf('Running...STFT...')
+                    tic
+                    fprintf('Computing STFT...')
                     X.spectro
+                    fprintf('complete. Elapsed time: %f seconds \n', toc)
                     fprintf('Time windows in S: %u \n',uint32(size(X.stft.S,2)))
-                    fprintf('Current ip vars|| N: %u, M: %u, J: %u,\n',uint32(X.N),uint32(X.M),uint32(X.J))
-                    fprintf('complete.\n')
 
-                    fprintf('Running...Setting mode...')
+                    
                     if strcmp(Config.focusMode,'open')
                         mode = 'D';             %Force discovery mode if in 'open' focus mode
                     else                        %Last processing decision mode selection is used in 'focus' focus mode
                         mode = X.ps_pre.mode;
                     end
-                    fprintf('complete.\n')
-                    
-                    fprintf('Running...Checking packet loss...')
+                    tic
+                    fprintf('Checking packet loss...')
                     %Here we check to see if the next segment started where
                     %we expected base on the last segment. If packets were
                     %dropped, the prediction will be less than the current
                     %t0. Default to discovery mode in this case.
                     packetLostFlag = (t0-X.t_nextsegstart)>=packetLength/Config.Fs;
                     if packetLostFlag
-                        disp('Difference between current segment start time and that predicted by the last segment is larger than expected and may indicate packet loss. Defaulting to Discovery mode.')
+                        fprintf('Difference between current segment start time and that predicted by the last segment is larger than expected and may indicate packet loss. Defaulting to Discovery mode.')
                         mode = 'D';
                     end
-                    fprintf('complete.\n')
+                    fprintf('complete. Elapsed time: %f seconds \n', toc)
                     
-                    fprintf('Running...Processing...')
+                    tic
+                    fprintf('Finding pulses...')
 
                     %xline(posixtime(datetime('now')),'--');hold on;
                     %plot(X.t,X.x); hold on
@@ -222,7 +222,9 @@ while i <= maxInd
                     segmentsProcessed = segmentsProcessed+1;
                     %pulseStatsPriori = X.ps_pos;      %Priori of next is posterior of current
                     %ps_pre = pulsestats(X.ps_pos.t_p,X.ps_pos.t_ip,X.ps_pos.t_ipu,X.ps_pos.t_ipj,X.ps_pos.fp ,X.ps_pos.fstart ,X.ps_pos.fend ,X.ps_pos.tmplt,X.ps_pos.mode,X.ps_pos.pl,pulse,[],[],[]);
-                    fprintf('complete. \n')
+                    fprintf('complete. Elapsed time: %f seconds \n', toc)
+                    tic
+                    fprintf('Updating priori...\n')
                     ps_pre_struc.t_p   = X.ps_pos.t_p;
                     ps_pre_struc.t_ip  = X.ps_pos.t_ip;
                     ps_pre_struc.t_ipu = X.ps_pos.t_ipu;
@@ -237,19 +239,65 @@ while i <= maxInd
                     ps_pre_struc.cmsk  = X.ps_pos.cmsk;
                     ps_pre_struc.cpki  = X.ps_pos.cpki;
                     ps_pre_struc.thresh= X.ps_pos.thresh;
-                    
-                    fprintf('Updating priori. \n')
-                    
-                    %updatebufferreadvariables(ps_pre);
                     updatebufferreadvariables(X.ps_pos);
-                    %[X.ps_pos.pl(:).SNR]
-                    toc
+                    fprintf('complete. Elapsed time: %f seconds \n', toc)
                     
                     Xhold{segmentsProcessed} = X;
                     for j = 1:numel(ps_pre_struc.pl)
                         fprintf('Pulse at %e Hz detected. Confirmation status: %u \n', ps_pre_struc.pl(j).fp,uint32(ps_pre_struc.pl(j).con_dec))
                     end
-                    fprintf('Mode: %s', ps_pre_struc.mode)
+
+                    if Config.ros2enable
+                        pulseCount = 0;
+                        if ~isnan(X.ps_pos.cpki)
+                            fprintf("Transmitting ROS2 pulse messages");
+                            for j = 1:numel(X.ps_pos.cpki)
+                                for k = 1:size(X.ps_pos.clst,2)
+                                    % std_msgs/String detector_id
+                                    % builtin_interfaces/Time pulse_start_time
+                                    % builtin_interfaces/Time pulse_end_time
+                                    % std_msgs/Float64 snr
+                                    % std_msgs/Float64 snr_per_sample
+                                    % std_msgs/Float64 psd_sn
+                                    % std_msgs/Float64 psd_n
+                                    % std_msgs/Float64 dft_real
+                                    % std_msgs/Float64 dft_imag
+                                    % std_msgs/UInt16 group_ind
+                                    % std_msgs/Float64 group_snr
+                                    % std_msgs/Bool detection_status
+                                    % std_msgs/Bool confirmed_status
+                                    pulseMsg.detector_id        = char(Config.ID);
+                                    pulseMsg.frequency          = X.ps_pos.clst(X.ps_pos.cpki(j),k).fp;
+                                    t_0 = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_0;
+                                    t_f = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_f;
+                                    t_nxt_0 = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_next(1);
+                                    t_nxt_f = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_next(2);
+                                    pulseMsg.start_time.sec             = int32(floor(t_0));
+                                    pulseMsg.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
+                                    pulseMsg.end_time.sec               = int32(floor(t_f));
+                                    pulseMsg.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
+                                    pulseMsg.predict_next_start.sec     = int32(floor(t_nxt_0));
+                                    pulseMsg.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
+                                    pulseMsg.predict_next_end.sec       = int32(floor(t_nxt_f));
+                                    pulseMsg.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
+                                    pulseMsg.snr                = X.ps_pos.clst(X.ps_pos.cpki(j),k).SNR;
+                                    pulseMsg.dft_real           = real(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
+                                    pulseMsg.dft_imag           = imag(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
+                                    pulseMsg.group_ind          = uint16(k);
+                                    pulseMsg.detection_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).det_dec;
+                                    pulseMsg.confirmed_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).con_dec;
+                                    send(pulsePub,pulseMsg)
+                                    pulseCount = pulseCount+1;
+                                    fprintf(".");
+                                end
+                            end
+                            fprintf("complete. Transmitted %u pulses.\n",pulseCount);
+                        else
+                            fprintf("\n");
+                        end
+                    end
+                    fprintf('Mode: %s\n', ps_pre_struc.mode)
+                    fprintf('====================================\n')
                     %sound(real(X.x)/max(real(X.x)),Config.Fs)
                 end
                 i = i+1;
@@ -391,13 +439,6 @@ end
         fprintf('Updating buffer read vars|| N: %u, M: %u, J: %u,\n',uint32(N),uint32(M),uint32(J))
         fprintf('Updating buffer read vars|| sampForKPulses: %u,  overlapSamples: %u,\n',uint32(sampsForKPulses),uint32(overlapSamples))
     end
-
-%[~] = receiver(udpReceivePort,true);
-% if coder.target('MATLAB')
-%     clear channelreceiver; %Has persistant variables. Clears them from memory.
-%     clear controlreceiver; %Has persistant variables. Clears them from memory.
-% end
-
 
 
     function state = checkcommand(cmdReceived,currentState)

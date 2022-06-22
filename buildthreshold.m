@@ -33,8 +33,6 @@ nFreqBins  = stftSz(1);
 
 Wq = buildtimecorrelatormatrix(Wfm.N, Wfm.M, Wfm.J, Wfm.K);
 %Wq = Wfm.TimeCorr.Wq(Wfm.K); %Build the Wq matrix using the Wq method of the temporalcorrelator object for K pulses
-size(Wq)
-nTimeWinds
 if nTimeWinds ~= size(Wq,1)
     error('UAV-RT: Time correlator/selection matrix must have the same number of rows as the number of columns (time windows) in the waveforms STFT matrix.')
 end

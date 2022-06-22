@@ -3,7 +3,7 @@ classdef DetectorConfig
     %to process a channel of radio data. 
     %
     %PROPERTIES
-    %
+    %   ID              A string identifier for the detector
     %   ipData          String ip from which to receive data. Enter
     %                   '0.0.0.0' to receive from any IP.
     %   portData        Port from which to receive data
@@ -28,6 +28,8 @@ classdef DetectorConfig
     %                       data
     %   processedOuputPath  Path to location to save processed
     %                       results.
+    %   ros2enable      Boolean (true/false) to enable ros2 network
+    %                   publishing
     %
     %METHODS:
     %DetectorConfig     Constructor of this class
@@ -40,31 +42,32 @@ classdef DetectorConfig
     %----------------------------------------------------------------------
     
     properties
-        ipData      (1, :) string;
-        portData    (1, 1) double {mustBeReal}%{mustBeReal, mustBePositive, mustBeInteger};
-        ipCntrl     (1, :) string;
-        portCntrl   (1, 1) double {mustBeReal}%{mustBeReal, mustBePositive, mustBeInteger};        
-        centerFreq  (1, 1) double {mustBeReal};
-        Fs          (1, 1) double {mustBeReal}%, mustBePositive};
-        tp 	        (1, 1) double {mustBeReal}%, mustBePositive};
-        tip         (1, 1) double {mustBeReal}%, mustBePositive};
-        tipu        (1, 1) double {mustBeReal}%, mustBePositive};
-        tipj        (1, 1) double {mustBeReal}%, mustBePositive};
-        K           (1, 1) double {mustBeReal}%, mustBePositive, mustBeInteger};
-        focusMode   (1, :) string;
-        excldFreqs  (:, 2) double {mustBeReal};
-        falseAlarmProb(1,1) double;
-        dataRecordPath(1,:) string;
-        processedOuputPath(1,:) string;
-        %decisionEntryPath(1,:) string;
-        %decisionEntry(:,:) threshold_database
+        ID          (1, 1) string {mustBeTextScalar}                          = "01"; 
+        ipData      (1, 1) string {mustBeTextScalar}                          = "0.0.0.0"
+        portData    (1, 1) double {mustBeReal, mustBePositive, mustBeInteger} = 1
+        ipCntrl     (1, 1) string {mustBeTextScalar}                          = "0.0.0.0"
+        portCntrl   (1, 1) double {mustBeReal, mustBePositive, mustBeInteger} = 1     
+        centerFreq  (1, 1) double {mustBeReal}                                = 0
+        Fs          (1, 1) double {mustBeReal, mustBePositive}                = 192000
+        tp 	        (1, 1) double {mustBeReal, mustBePositive}                = 0.02
+        tip         (1, 1) double {mustBeReal, mustBePositive}                = 1
+        tipu        (1, 1) double {mustBeReal, mustBeNonnegative}             = 0
+        tipj        (1, 1) double {mustBeReal, mustBeNonnegative}             = 0
+        K           (1, 1) double {mustBeReal, mustBePositive, mustBeInteger} = 1
+        focusMode   (1, 1) string {mustBeTextScalar}                          = 'open'
+        excldFreqs  (:, 2) double {mustBeReal}                                = [inf, -inf]
+        falseAlarmProb(1,1) double {mustBePositive, mustBeLessThan(falseAlarmProb,1)} = 0.01
+        dataRecordPath(1,1) string                                            = ''
+        processedOuputPath(1,1) string                                        = ''
+        ros2enable  (1,1) logical                                             = false
     end
     
     methods
-        function obj = DetectorConfig(ipData, portData,ipCntrl, portCntrl, centerFreq, Fs, tp, tip, tipu, K, focusMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath, processedOuputPath)
+        function obj = DetectorConfig(IDstr, ipData, portData,ipCntrl, portCntrl, centerFreq, Fs, tp, tip, tipu, K, focusMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath, processedOuputPath)
             %DETECTORCONFIR Construct an instance of this class
             %
             %INPUTS:
+            %   IDstr           A string identifier for the detector
             %   ipData          String ip from which to receive data. Enter
             %                   '0.0.0.0' to receive from any IP.
             %   portData        Port from which to receive data
@@ -86,46 +89,48 @@ classdef DetectorConfig
             %                       data
             %   processedOuputPath  Path to location to save processed
             %                       results. 
+            %   ros2enable      Boolean (1/0 or True/False) to enable ros2 network
+            %                   publishing
+    
             
             if nargin>0
+                obj.ID          = IDstr;
                 obj.ipData      = ipData;
                 obj.portData    = portData;
-                obj.ipCntrl      = ipCntrl;
-                obj.portCntrl    = portCntrl;               
-                obj.centerFreq = centerFreq;
-                obj.Fs      = Fs;
-                obj.tp      = tp;
-                obj.tip     = tip;
-                obj.tipu    = tipu;
-                obj.tipj    = tipj;
-                obj.K       = K;
+                obj.ipCntrl     = ipCntrl;
+                obj.portCntrl   = portCntrl;               
+                obj.centerFreq  = centerFreq;
+                obj.Fs          = Fs;
+                obj.tp          = tp;
+                obj.tip         = tip;
+                obj.tipu        = tipu;
+                obj.tipj        = tipj;
+                obj.K           = K;
                 obj.focusMode           = focusMode;
                 obj.excldFreqs          = excldFreqs;
                 obj.falseAlarmProb      = falseAlarmProb;
                 obj.dataRecordPath      = dataRecordPath;
                 obj.processedOuputPath  = processedOuputPath;
-                %obj.decisionEntryPath   = decisionEntryPath;
-                %S = load(decisionEntryPath,'decision_entry');
-                %obj.decisionEntry       = S.decision_entry;
-            else
-                obj.ipData      = '0.0.0.0';
-                obj.portData    = 0;
-                obj.ipCntrl     = '0.0.0.0';
-                obj.portCntrl   = 0;
-                obj.centerFreq = 0;
-                obj.Fs      = 0;
-                obj.tp      = 0;
-                obj.tip     = 0;
-                obj.tipu    = 0;
-                obj.tipj    = 0;
-                obj.K       = 0;
-                obj.focusMode           = 'focus';
-                obj.excldFreqs          = [inf -inf];
-                obj.falseAlarmProb      = 0.0005;
-                obj.dataRecordPath      = 'emptypath';
-                obj.processedOuputPath  = 'emptypath';
-                %obj.decisionEntryPath   = 'emptypath';
-                %obj.decisionEntry       = threshold_database();
+                obj.ros2enable          = ros2enable;
+%             else
+%                 obj.ID          = "01";
+%                 obj.ipData      = "0.0.0.0";
+%                 obj.portData    = 1;
+%                 obj.ipCntrl     = "0.0.0.0";
+%                 obj.portCntrl   = 1;
+%                 obj.centerFreq  = 0;
+%                 obj.Fs          = 0;
+%                 obj.tp          = 0;
+%                 obj.tip         = 0;
+%                 obj.tipu        = 0;
+%                 obj.tipj        = 0;
+%                 obj.K           = 0;
+%                 obj.focusMode           = "focus";
+%                 obj.excldFreqs          = [inf -inf];
+%                 obj.falseAlarmProb      = 0.0005;
+%                 obj.dataRecordPath      = "emptypath";
+%                 obj.processedOuputPath  = "emptypath";
+%                 obj.ros2enable          = false;
             end
         end
         
@@ -204,16 +209,18 @@ classdef DetectorConfig
                     configType      = lineStr(1:colonLocation(1)-1);
                     configValStr    = lineStr(firstConfigCharLocation(1):end);
                     
-                    if strcmp(configType,'ipData')
-                        obj.ipData      = configValStr;
+                    if strcmp(configType,'ID')
+                        obj.ID      = configValStr;
+                    elseif strcmp(configType,'ipData')
+                        obj.ipData  = configValStr;
                     elseif strcmp(configType,'portData')
                         obj.portData    = uint16(real(str2double(configValStr)));
                     elseif strcmp(configType,'ipCntrl')
-                        obj.ipCntrl      = configValStr;
+                        obj.ipCntrl = configValStr;
                     elseif strcmp(configType,'portCntrl')
-                        obj.portCntrl    = uint16(real(str2double(configValStr)));    
+                        obj.portCntrl   = uint16(real(str2double(configValStr)));    
                     elseif strcmp(configType,'centerFreq')
-                        obj.centerFreq = real(str2double(configValStr));
+                        obj.centerFreq  = real(str2double(configValStr));
                     elseif strcmp(configType,'Fs')
                         obj.Fs      = real(str2double(configValStr));
                     elseif strcmp(configType,'tp')
@@ -232,14 +239,12 @@ classdef DetectorConfig
                         obj.excldFreqs =  real(str2matrix(configValStr));
                     elseif strcmp(configType,'falseAlarmProb')
                         obj.falseAlarmProb = real(str2double(configValStr));
-%                     elseif strcmp(configType,'decisionEntryPath')
-%                         obj.decisionEntryPath =  configValStr;
-%                         S = load(obj.decisionEntryPath,'decision_entry');
-%                         obj.decisionEntry       = S.decision_entry;
                     elseif strcmp(configType,'dataRecordPath')
                         obj.dataRecordPath = configValStr;
                     elseif strcmp(configType,'processedOuputPath')
                         obj.processedOuputPath =  configValStr;
+                    elseif strcmp(configType,'ros2enable')
+                        obj.ros2enable =  str2bool(configValStr);
                     end
                     %Stop when we have finished reading this entry.
                     done = (feof(fid) == 1) || (ftell(fid)==sepByte(entry+1)) ;
@@ -265,7 +270,8 @@ classdef DetectorConfig
             %
             %OUTPUTS:
             %   none
-            configStr  = detectorsetting2configstr(obj.ipData, obj.portData, ...
+            configStr  = detectorsetting2configstr(obj.ID,...
+                                                   obj.ipData, obj.portData, ...
                                                    obj.ipCntrl, obj.portCntrl, ...
                                                    obj.centerFreq, ...
                                                    obj.Fs, obj.tp, ...
@@ -274,14 +280,18 @@ classdef DetectorConfig
                                                    obj.excldFreqs,...
                                                    obj.falseAlarmProb,...
                                                    obj.dataRecordPath, ...
-                                                   obj.processedOuputPath);
+                                                   obj.processedOuputPath,...
+                                                   obj.ros2enable);
                                                    %obj.decisionEntryPath,...
                                                    
             detectorconfigwrite(fullConfigPath, configStr, writeType)
         end
         function objOut = copy(obj)
-            %Creates a copy of the instance passed to the function
+            %Creates a copy of the instance passed to the function. Keep in
+            %mind that the dector ID also gets cancelled. The caller should
+            %reset the property after the copy completes.
             objOut = DetectorConfig();
+            objOut.ID          = obj.ID;
             objOut.ipData      = obj.ipData;
             objOut.portData    = obj.portData;
             objOut.ipCntrl     = obj.ipCntrl;
@@ -298,7 +308,7 @@ classdef DetectorConfig
             objOut.falseAlarmProb      = obj.falseAlarmProb;
             objOut.dataRecordPath      = obj.dataRecordPath;
             objOut.processedOuputPath  = obj.processedOuputPath;
-            %objOut.decisionEntryPath   = obj.decisionEntryPath;
+            objOut.ros2enable          = obj.ros2enable;
         end
     end
 end
