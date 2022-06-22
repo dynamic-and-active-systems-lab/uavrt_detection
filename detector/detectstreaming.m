@@ -8,23 +8,19 @@ Config =  DetectorConfig(); %Build empty config object
 updateconfig()              %Update (fill) the configuration
 configUpdatedFlag = true;
 
-% if coder.target('MATLAB')
-%     clear channelreceiver %Clear out persistent variables in channelreceiver
-%     clear controlreceiver %Clear out persistent variables in controlreceiver
-% end
-
 
 %% ROS2 Setup
-%if Config.ros2enable
-    node = ros2node(strcat("detector_",Config.ID));
-    pulsePub = ros2publisher(node,"/detected_pulse","uavrt_interfaces/Pulse");
-    pulseMsg = ros2message(pulsePub);
-%end
+node = ros2node(strcat("detector_",Config.ID));
+pulsePub = ros2publisher(node,"/detected_pulse","uavrt_interfaces/Pulse");
+pulseMsg = ros2message(pulsePub);
 
 
 
-pulseStatsPriori = pulsestats(Config.tp,Config.tip,Config.tipu,Config.tipj,0 ,0     ,0   ,[1 1],"D" ,makepulsestruc(),makepulsestruc(),[]        ,[]        ,[]);
-%                                    tp,       tip,       tipu,       tipj,fp,fstart,fend,tmplt,mode,pl              ,clst            ,cmsk      ,cpki      ,thresh)
+pulseStatsPriori = pulsestats(Config.tp, Config.tip, Config.tipu, ... % tp, tip, tipu
+                              Config.tipj, 0 , 0 ,0 , [1 1], "D" ,... % tipj, fp, fstart, fend, tmplt, mode
+                              makepulsestruc(), makepulsestruc(),...  % pl ,clst 
+                              [] ,[] ,[]);                            % cmsk ,cpki ,thresh)
+
 stftOverlapFraction = 0.5;
 zetas = [0 0.5];
 
@@ -267,9 +263,9 @@ while i <= maxInd
                                     % std_msgs/Bool detection_status
                                     % std_msgs/Bool confirmed_status
                                     pulseMsg.detector_id        = char(Config.ID);
-                                    pulseMsg.frequency          = X.ps_pos.clst(X.ps_pos.cpki(j),k).fp;
-                                    t_0 = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_0;
-                                    t_f = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_f;
+                                    pulseMsg.frequency          = Config.freqMHz + (X.ps_pos.clst(X.ps_pos.cpki(j),k).fp)*1e-6;
+                                    t_0     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_0;
+                                    t_f     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_f;
                                     t_nxt_0 = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_next(1);
                                     t_nxt_f = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_next(2);
                                     pulseMsg.start_time.sec             = int32(floor(t_0));

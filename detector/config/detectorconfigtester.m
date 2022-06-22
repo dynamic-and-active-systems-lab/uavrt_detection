@@ -1,4 +1,5 @@
 IDstr  = '01';
+freqMHz = 150.000;
 ipData = '0.0.0.0';
 portData = 20000;
 ipCntrl = '127.0.0.1';
@@ -32,7 +33,7 @@ fullConfigPath = [configPath,folderSep,configFileName];
 % configStr  = detectorsetting2configstr(ip, port, centerFreq, Fs, tp, tip, tipu, K, focusMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath, processedOuputPath);
 % detectorconfigwrite(fullConfigPath, configStr, 'a')
 
-InitialDetector = DetectorConfig(IDstr, ipData, portData, ipCntrl, portCntrl, centerFreq, Fs, tp, tip, tipu, K, focusMode, excldFreqs, falseAlarmProb, dataRecordPath, processedOuputPath, ros2enable);
+InitialDetector = DetectorConfig(IDstr, freqMHz, ipData, portData, ipCntrl, portCntrl, centerFreq, Fs, tp, tip, tipu, K, focusMode, excldFreqs, falseAlarmProb, dataRecordPath, processedOuputPath, ros2enable);
 InitialDetector.writeToFile(fullConfigPath,'a') 
 
 %SecondDetector = DetectorConfig();

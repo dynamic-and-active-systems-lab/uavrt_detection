@@ -4,6 +4,7 @@ classdef DetectorConfig
     %
     %PROPERTIES
     %   ID              A string identifier for the detector
+    %   freqMHz         Center frequency of incoming data stream in MHz
     %   ipData          String ip from which to receive data. Enter
     %                   '0.0.0.0' to receive from any IP.
     %   portData        Port from which to receive data
@@ -43,6 +44,7 @@ classdef DetectorConfig
     
     properties
         ID          (1, 1) string {mustBeTextScalar}                          = "01"; 
+        freqMHz     (1, 1) double {mustBeNonnegative, mustBeReal}             = 150.000;
         ipData      (1, 1) string {mustBeTextScalar}                          = "0.0.0.0"
         portData    (1, 1) double {mustBeReal, mustBePositive, mustBeInteger} = 1
         ipCntrl     (1, 1) string {mustBeTextScalar}                          = "0.0.0.0"
@@ -63,11 +65,13 @@ classdef DetectorConfig
     end
     
     methods
-        function obj = DetectorConfig(IDstr, ipData, portData,ipCntrl, portCntrl, centerFreq, Fs, tp, tip, tipu, K, focusMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath, processedOuputPath)
+        function obj = DetectorConfig(IDstr, freqMHz, ipData, portData,ipCntrl, portCntrl, centerFreq, Fs, tp, tip, tipu, K, focusMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath, processedOuputPath)
             %DETECTORCONFIR Construct an instance of this class
             %
             %INPUTS:
             %   IDstr           A string identifier for the detector
+            %   freqMHz         Center frequency of incoming data stream in MHz
+            %   freqMHz         Center frequency of incoming data stream in MHz
             %   ipData          String ip from which to receive data. Enter
             %                   '0.0.0.0' to receive from any IP.
             %   portData        Port from which to receive data
@@ -95,6 +99,7 @@ classdef DetectorConfig
             
             if nargin>0
                 obj.ID          = IDstr;
+                obj.freqMHz     = freqMHz;
                 obj.ipData      = ipData;
                 obj.portData    = portData;
                 obj.ipCntrl     = ipCntrl;
@@ -211,6 +216,8 @@ classdef DetectorConfig
                     
                     if strcmp(configType,'ID')
                         obj.ID      = configValStr;
+                    elseif strcmp(configType,'freqMHz')
+                        obj.freqMHz  = str2double(configValStr);
                     elseif strcmp(configType,'ipData')
                         obj.ipData  = configValStr;
                     elseif strcmp(configType,'portData')
@@ -270,7 +277,7 @@ classdef DetectorConfig
             %
             %OUTPUTS:
             %   none
-            configStr  = detectorsetting2configstr(obj.ID,...
+            configStr  = detectorsetting2configstr(obj.ID, obj.freqMHz, ...
                                                    obj.ipData, obj.portData, ...
                                                    obj.ipCntrl, obj.portCntrl, ...
                                                    obj.centerFreq, ...
@@ -292,6 +299,7 @@ classdef DetectorConfig
             %reset the property after the copy completes.
             objOut = DetectorConfig();
             objOut.ID          = obj.ID;
+            objOut.freqMHz     = obj.freqMHz;
             objOut.ipData      = obj.ipData;
             objOut.portData    = obj.portData;
             objOut.ipCntrl     = obj.ipCntrl;

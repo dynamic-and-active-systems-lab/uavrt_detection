@@ -1,9 +1,10 @@
-function [outputStr] = detectorsetting2configstr(IDstr, ipData, portData, ipCntrl, portCntrl, centerFreq, Fs, tp, tip, tipu,tipj, K, focusMode, excldFreqs, falseAlarmProb, dataRecordPath, processedOuputPath, ros2enable)
+function [outputStr] = detectorsetting2configstr(IDstr, freqMHz, ipData, portData, ipCntrl, portCntrl, centerFreq, Fs, tp, tip, tipu,tipj, K, focusMode, excldFreqs, falseAlarmProb, dataRecordPath, processedOuputPath, ros2enable)
 %DETECTORCONFIGS2STR Ingests detector parameter specs and returns a string
 %   in the proper the configuration file format, 
 %
 %INPUTS:
 %   IDstr           String of identifier for the detector
+%   freqMHz         Center frequeny in MHz incoming data to the detector
 %   ipData          String ip from which to receive data. Enter
 %                   '0.0.0.0' to receive from any IP.
 %   portData        Port from which to receive data
@@ -44,6 +45,7 @@ function [outputStr] = detectorsetting2configstr(IDstr, ipData, portData, ipCntr
 
 arguments
     IDstr       (1, 1) string {mustBeTextScalar}                = "01"
+    freqMHz     (1, 1) double {mustBeNonnegative, mustBeReal}   = 150.000;
     ipData      (1, 1) string {mustBeTextScalar}                = "0.0.0.0"
     portData    (1, 1) double {mustBeReal, mustBePositive, mustBeInteger}           = 20000
     ipCntrl     (1, 1) string {mustBeTextScalar}                = "0.0.0.0"
@@ -82,6 +84,6 @@ end
      error('UAV-RT: Unsupported ros2enable input. Must be a boolean')
  end
 
-outputStr = sprintf('##################################################\ntimeStamp:\t%0.3f\nID:\t%s\nipData:\t%s\nportData:\t%d\nipCntrl:\t%s\nportCntrl:\t%d\ncenterFreq:\t%0.6f \nFs:\t%0.3f\ntp:\t%0.6f\ntip:\t%0.6f\ntipu:\t%0.6f\ntipj:\t%0.6f\nK:\t%d\nfocusMode:\t%s\nexcldFreqs:\t%s\nfalseAlarmProb:\t%0.4f\ndataRecordPath:\t%s\nprocessedOuputPath:\t%s\ros2enable:\t%s\n',IDstr, currTime,ipData, portData, ipCntrl, portCntrl, centerFreq, Fs, tp, tip, tipu, tipj, K, focusMode, excldFreqStrPrint, falseAlarmProb, dataRecordPath, processedOuputPath, ros2enablestr);
+outputStr = sprintf('##################################################\ntimeStamp:\t%0.3f\nID:\t%s\nfreqMHz:%f\nipData:\t%s\nportData:\t%d\nipCntrl:\t%s\nportCntrl:\t%d\ncenterFreq:\t%0.6f \nFs:\t%0.3f\ntp:\t%0.6f\ntip:\t%0.6f\ntipu:\t%0.6f\ntipj:\t%0.6f\nK:\t%d\nfocusMode:\t%s\nexcldFreqs:\t%s\nfalseAlarmProb:\t%0.4f\ndataRecordPath:\t%s\nprocessedOuputPath:\t%s\ros2enable:\t%s\n',IDstr,freqMHz, currTime,ipData, portData, ipCntrl, portCntrl, centerFreq, Fs, tp, tip, tipu, tipj, K, focusMode, excldFreqStrPrint, falseAlarmProb, dataRecordPath, processedOuputPath, ros2enablestr);
 end
 
