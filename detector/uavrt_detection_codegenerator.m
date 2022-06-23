@@ -23,7 +23,7 @@ cfg.Hardware.RemoteDeviceUsername = 'dasl';
 cfg.Hardware.RemoteDevicePassword = 'dasl249!';
 cfg.Hardware.DeployTo = 'Remote Device';
 cfg.Hardware.ROS2Folder = '/opt/ros/galactic';
-cfg.Hardware.ROS2Workspace = '~/detector_ws2';
+cfg.Hardware.ROS2Workspace = '~/uavrt_ws';
 cfg.HardwareImplementation.ProdHWDeviceType = 'Intel->x86-64 (Linux 64)';
 codegen detectstreaming -args {} -config cfg
 

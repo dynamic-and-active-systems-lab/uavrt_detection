@@ -217,7 +217,7 @@ classdef DetectorConfig
                     if strcmp(configType,'ID')
                         obj.ID      = configValStr;
                     elseif strcmp(configType,'freqMHz')
-                        obj.freqMHz  = str2double(configValStr);
+                        obj.freqMHz  = real(str2double(configValStr));
                     elseif strcmp(configType,'ipData')
                         obj.ipData  = configValStr;
                     elseif strcmp(configType,'portData')

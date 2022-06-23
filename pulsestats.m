@@ -145,7 +145,7 @@ classdef pulsestats < handle
                 %first, then set.
                 %Instructions on https://www.mathworks.com/help/simulink/ug/how-working-with-matlab-classes-is-different-for-code-generation.html
                 localMode = mode;
-                coder.varsize('localMode',[1 inf],[0 1]); %dims 0 if fixed, 1 if variable
+                %coder.varsize('localMode',[1 inf],[0 1]); %dims 0 if fixed, 1 if variable
                 localPl = pl;
                 coder.varsize('localPl',[inf inf],[1 1]);
                 localClst = clst;

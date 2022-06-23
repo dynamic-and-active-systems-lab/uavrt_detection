@@ -1,4 +1,4 @@
-function [] = detectstreaming()
+function [] = uavrt_detection()
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -9,11 +9,16 @@ updateconfig()              %Update (fill) the configuration
 configUpdatedFlag = true;
 
 
-%% ROS2 Setup
-node = ros2node(strcat("detector_",Config.ID));
-pulsePub = ros2publisher(node,"/detected_pulse","uavrt_interfaces/Pulse");
-pulseMsg = ros2message(pulsePub);
-
+% ROS2 Setup
+%Only setup ROS2 for Matlab and 
+ros2Enable = true;
+if ros2Enable
+    fprintf("Preparing ROS2 Node and Messages...")
+    node = ros2node("detector",0);
+    pulsePub = ros2publisher(node,"/detected_pulse","uavrt_interfaces/Pulse");
+    pulseMsg = ros2message(pulsePub);
+    fprintf("complete.\n")
+end
 
 
 pulseStatsPriori = pulsestats(Config.tp, Config.tip, Config.tipu, ... % tp, tip, tipu
@@ -23,8 +28,6 @@ pulseStatsPriori = pulsestats(Config.tp, Config.tip, Config.tipu, ... % tp, tip,
 
 stftOverlapFraction = 0.5;
 zetas = [0 0.5];
-
-
 
 pauseWhenIdleTime   = 0.25;
 
@@ -59,6 +62,10 @@ dataWriterSamples             = dataWriterPacketsPerInterval*packetLength;
 asyncWriteBuff                = dsp.AsyncBuffer(600650); %600650 is the result of the nominal settings of ceil(150/(1024/4000)*1025.
 asyncWriteBuff.write(single(1+1i));
 dataWriterFileID              = fopen(Config.dataRecordPath,'w');
+if dataWriterFileID == -1
+    error('UAV-RT: Error opening data record file. ')
+end
+
 % writer = dsp.BinaryFileWriter(Config.dataRecordPath);
 
 %Define a pulsestats structure that isn't an object.
@@ -96,31 +103,41 @@ ps_pre_struc.cmsk   = localCmsk;
 ps_pre_struc.cpki   = localCpki;
 ps_pre_struc.thresh = localThresh;
 
+
+%Set max loops for testing purposes
 maxInd = 4000;
 maxSegments = 100;
-i = 1;
-framesReceived = 0;
-segmentsProcessed = 0;
-state = 'idle';
-previousState = 'unspawned';
-resetUdp = true;
+
 %Preallocate Xhold for Coder
 Xhold = cell(maxSegments,1);
 for i = 1:maxSegments
     Xhold{i} = waveform();
 end
 
-staleDataFlag = true;
-
+%Initialize loop variables
+framesReceived = 0;
+segmentsProcessed = 0;
+state = 'idle';
+previousState = 'unspawned';
+resetUdp = true;
+staleDataFlag = true;%Force buffer  flush on start
 idleTic = 1;
+i = 1;
+
+
+% errorFlag = true;
+% if errorFlag
+% count = fprintf(2,"UAV-RT: There was an error!\n");
+% else
+
+
 while i <= maxInd
-    
     switch state
         case 'run'
-
+            %Get data
             [dataReceived]  = channelreceiver('0.0.0.0', Config.portData,resetUdp,false);
             resetUdp = false;
-            
+            %Flush UDP buffer if data in the buffer is stale. 
             if staleDataFlag
                 fprintf('********STALE DATA FLAG: %u *********\n',uint32(staleDataFlag));
                 while ~isempty(dataReceived)
@@ -132,8 +149,7 @@ while i <= maxInd
 
             %Wait for new data if none ready. 
             if isempty(dataReceived)
-                %fprintf('Running...no data received. \n')
-                pause(packetLength/2*1/Config.Fs);%Pause for 1/2th of a packet time
+                pause(packetLength/2*1/Config.Fs);
             else
                 framesReceived = framesReceived + 1;
                 timeStamp   = singlecomplex2double(dataReceived(1));
@@ -142,10 +158,9 @@ while i <= maxInd
                 asyncDataBuff.write(iqData);
                 asyncTimeBuff.write(timeVector);
                 asyncWriteBuff.write(dataReceived);
-                if asyncWriteBuff.NumUnreadSamples ==dataWriterSamples
+                if asyncWriteBuff.NumUnreadSamples == dataWriterSamples
                     dataWriterBuffData = asyncWriteBuff.read();
                     count = fwrite(dataWriterFileID,dataWriterBuffData);
-                    %disp(['Wrote ',num2str(count),' samples to file.'])
                 end
                 if asyncDataBuff.NumUnreadSamples >= sampsForKPulses + overlapSamples
                     fprintf('Buffer Full|| sampsForKPulses: %u, overlapSamples: %u,\n',uint32(sampsForKPulses),uint32(overlapSamples))
@@ -209,15 +224,8 @@ while i <= maxInd
                     tic
                     fprintf('Finding pulses...')
 
-                    %xline(posixtime(datetime('now')),'--');hold on;
-                    %plot(X.t,X.x); hold on
-                    %figure;plot(sum(reshape([X.ps_pos.clst.yw],240,3),2));hold on;plot(X.ps_pos.thresh)
-                    
-                    %X.process(mode,Config.focusMode,'most',zetas,Config.falseAlarmProb,Config.decisionEntry,Config.excldFreqs)
                     X.process(mode,Config.focusMode,'most',zetas,Config.falseAlarmProb,Config.excldFreqs)
                     segmentsProcessed = segmentsProcessed+1;
-                    %pulseStatsPriori = X.ps_pos;      %Priori of next is posterior of current
-                    %ps_pre = pulsestats(X.ps_pos.t_p,X.ps_pos.t_ip,X.ps_pos.t_ipu,X.ps_pos.t_ipj,X.ps_pos.fp ,X.ps_pos.fstart ,X.ps_pos.fend ,X.ps_pos.tmplt,X.ps_pos.mode,X.ps_pos.pl,pulse,[],[],[]);
                     fprintf('complete. Elapsed time: %f seconds \n', toc)
                     tic
                     fprintf('Updating priori...\n')
@@ -242,26 +250,14 @@ while i <= maxInd
                     for j = 1:numel(ps_pre_struc.pl)
                         fprintf('Pulse at %e Hz detected. Confirmation status: %u \n', ps_pre_struc.pl(j).fp,uint32(ps_pre_struc.pl(j).con_dec))
                     end
-
-                    if Config.ros2enable
+                    
+                    if ros2Enable %Config.ros2enable & (coder.target('MATLAB') | coder.target("EXE"))
                         pulseCount = 0;
                         if ~isnan(X.ps_pos.cpki)
                             fprintf("Transmitting ROS2 pulse messages");
                             for j = 1:numel(X.ps_pos.cpki)
                                 for k = 1:size(X.ps_pos.clst,2)
-                                    % std_msgs/String detector_id
-                                    % builtin_interfaces/Time pulse_start_time
-                                    % builtin_interfaces/Time pulse_end_time
-                                    % std_msgs/Float64 snr
-                                    % std_msgs/Float64 snr_per_sample
-                                    % std_msgs/Float64 psd_sn
-                                    % std_msgs/Float64 psd_n
-                                    % std_msgs/Float64 dft_real
-                                    % std_msgs/Float64 dft_imag
-                                    % std_msgs/UInt16 group_ind
-                                    % std_msgs/Float64 group_snr
-                                    % std_msgs/Bool detection_status
-                                    % std_msgs/Bool confirmed_status
+                                    %Set pulseMsg parameters for sending
                                     pulseMsg.detector_id        = char(Config.ID);
                                     pulseMsg.frequency          = Config.freqMHz + (X.ps_pos.clst(X.ps_pos.cpki(j),k).fp)*1e-6;
                                     t_0     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_0;
@@ -292,9 +288,8 @@ while i <= maxInd
                             fprintf("\n");
                         end
                     end
-                    fprintf('Mode: %s\n', ps_pre_struc.mode)
+                    fprintf('Current Mode: %s\n', ps_pre_struc.mode)
                     fprintf('====================================\n')
-                    %sound(real(X.x)/max(real(X.x)),Config.Fs)
                 end
                 i = i+1;
             end
@@ -367,7 +362,10 @@ while i <= maxInd
             asyncWriteBuff.release();
             
             previousState = state;
-            fclose(dataWriterFileID);
+            fCloseStatus = fclose(dataWriterFileID);
+            if fCloseStatus == -1
+                error('UAV-RT: Error closing data record file. ')
+            end
             %release(writer);
             break
             
@@ -380,7 +378,11 @@ while i <= maxInd
     
     
     
+%end
+
 end
+
+
     function [ps] = initializeps(theConfig)
         %This sets up a standarized pulsestats object based on the config
         %passed to it. 

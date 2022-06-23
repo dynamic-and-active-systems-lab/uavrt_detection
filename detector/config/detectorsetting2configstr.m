@@ -43,27 +43,28 @@ function [outputStr] = detectorsetting2configstr(IDstr, freqMHz, ipData, portDat
 %--------------------------------------------------------------------------
 %
 
-arguments
-    IDstr       (1, 1) string {mustBeTextScalar}                = "01"
-    freqMHz     (1, 1) double {mustBeNonnegative, mustBeReal}   = 150.000;
-    ipData      (1, 1) string {mustBeTextScalar}                = "0.0.0.0"
-    portData    (1, 1) double {mustBeReal, mustBePositive, mustBeInteger}           = 20000
-    ipCntrl     (1, 1) string {mustBeTextScalar}                = "0.0.0.0"
-    portCntrl   (1, 1) double {mustBeReal, mustBePositive, mustBeInteger}            = 30000
-    centerFreq  (1, 1) double {mustBeReal}                      = 150000000
-    Fs          (1, 1) double {mustBeReal, mustBePositive}      = 4000
-    tp          (1, 1) double {mustBeReal, mustBePositive}      = 0.02
-    tip         (1, 1) double {mustBeReal, mustBePositive}      = 1
-    tipu        (1, 1) double {mustBeReal, mustBeNonnegative}   = 0
-    tipj        (1, 1) double {mustBeReal, mustBeNonnegative}   = 0
-    K           (1, 1) double {mustBeReal, mustBePositive, mustBeInteger} = 1
-    focusMode   (1, 1) string {mustBeTextScalar}         = 'D'
-    excldFreqs  (:, 2) double                            = [Inf, -Inf]
-    falseAlarmProb      (1,1) double {mustBePostive, mustBeLessThan(falseAlarmProb,1)} = 0.01
-    dataRecordPath      (1,1) string                    = ""
-    processedOuputPath  (1,1) string                    = ""
-    ros2enable          (1,1) logical                   = 'false'
-end
+% %Coder does not support function input validation
+% arguments
+%     IDstr       (1, 1) string {mustBeTextScalar}                = "01"
+%     freqMHz     (1, 1) double {mustBeNonnegative, mustBeReal}   = 150.000;
+%     ipData      (1, 1) string {mustBeTextScalar}                = "0.0.0.0"
+%     portData    (1, 1) double {mustBeReal, mustBePositive, mustBeInteger}           = 20000
+%     ipCntrl     (1, 1) string {mustBeTextScalar}                = "0.0.0.0"
+%     portCntrl   (1, 1) double {mustBeReal, mustBePositive, mustBeInteger}            = 30000
+%     centerFreq  (1, 1) double {mustBeReal}                      = 150000000
+%     Fs          (1, 1) double {mustBeReal, mustBePositive}      = 4000
+%     tp          (1, 1) double {mustBeReal, mustBePositive}      = 0.02
+%     tip         (1, 1) double {mustBeReal, mustBePositive}      = 1
+%     tipu        (1, 1) double {mustBeReal, mustBeNonnegative}   = 0
+%     tipj        (1, 1) double {mustBeReal, mustBeNonnegative}   = 0
+%     K           (1, 1) double {mustBeReal, mustBePositive, mustBeInteger} = 1
+%     focusMode   (1, 1) string {mustBeTextScalar}         = 'D'
+%     excldFreqs  (:, 2) double                            = [Inf, -Inf]
+%     falseAlarmProb      (1,1) double {mustBePostive, mustBeLessThan(falseAlarmProb,1)} = 0.01
+%     dataRecordPath      (1,1) string                    = ""
+%     processedOuputPath  (1,1) string                    = ""
+%     ros2enable          (1,1) logical                   = 'false'
+% end
 
 currTime = posixtime(datetime('now'));
 excldFreqsTrans = excldFreqs';
