@@ -283,7 +283,7 @@ while i <= maxInd
                                     fprintf(".");
                                 end
                             end
-                            fprintf("complete. Transmitted %u pulses.\n",pulseCount);
+                            fprintf("complete. Transmitted %u pulses.\n",uint32(pulseCount));
                         else
                             fprintf("\n");
                         end

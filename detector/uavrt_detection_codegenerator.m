@@ -25,7 +25,7 @@ cfg.Hardware.DeployTo = 'Remote Device';
 cfg.Hardware.ROS2Folder = '/opt/ros/galactic';
 cfg.Hardware.ROS2Workspace = '~/uavrt_ws';
 cfg.HardwareImplementation.ProdHWDeviceType = 'Intel->x86-64 (Linux 64)';
-codegen detectstreaming -args {} -config cfg
+codegen uavrt_detection -args {} -config cfg
 
 % cfg.RuntimeChecks = true;%Disable for final deployments.
 % cfg.Hardware.ROS2Workspace = '~/detector_debug_ws';
