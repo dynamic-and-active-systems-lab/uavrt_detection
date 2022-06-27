@@ -11,14 +11,14 @@ configUpdatedFlag = true;
 
 % ROS2 Setup
 %Only setup ROS2 for Matlab and 
-ros2Enable = true;
-if ros2Enable
-    fprintf("Preparing ROS2 Node and Messages...")
-    node = ros2node("detector",0);
-    pulsePub = ros2publisher(node,"/detected_pulse","uavrt_interfaces/Pulse");
-    pulseMsg = ros2message(pulsePub);
-    fprintf("complete.\n")
-end
+% ros2Enable = true;
+% if ros2Enable
+%     fprintf("Preparing ROS2 Node and Messages...")
+%     node = ros2node("detector",0);
+%     pulsePub = ros2publisher(node,"/detected_pulse","uavrt_interfaces/Pulse");
+%     pulseMsg = ros2message(pulsePub);
+%     fprintf("complete.\n")
+% end
 
 
 pulseStatsPriori = pulsestats(Config.tp, Config.tip, Config.tipu, ... % tp, tip, tipu
@@ -251,43 +251,43 @@ while i <= maxInd
                         fprintf('Pulse at %e Hz detected. Confirmation status: %u \n', ps_pre_struc.pl(j).fp,uint32(ps_pre_struc.pl(j).con_dec))
                     end
                     
-                    if ros2Enable %Config.ros2enable & (coder.target('MATLAB') | coder.target("EXE"))
-                        pulseCount = 0;
-                        if ~isnan(X.ps_pos.cpki)
-                            fprintf("Transmitting ROS2 pulse messages");
-                            for j = 1:numel(X.ps_pos.cpki)
-                                for k = 1:size(X.ps_pos.clst,2)
-                                    %Set pulseMsg parameters for sending
-                                    pulseMsg.detector_id        = char(Config.ID);
-                                    pulseMsg.frequency          = Config.freqMHz + (X.ps_pos.clst(X.ps_pos.cpki(j),k).fp)*1e-6;
-                                    t_0     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_0;
-                                    t_f     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_f;
-                                    t_nxt_0 = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_next(1);
-                                    t_nxt_f = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_next(2);
-                                    pulseMsg.start_time.sec             = int32(floor(t_0));
-                                    pulseMsg.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
-                                    pulseMsg.end_time.sec               = int32(floor(t_f));
-                                    pulseMsg.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
-                                    pulseMsg.predict_next_start.sec     = int32(floor(t_nxt_0));
-                                    pulseMsg.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
-                                    pulseMsg.predict_next_end.sec       = int32(floor(t_nxt_f));
-                                    pulseMsg.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
-                                    pulseMsg.snr                = X.ps_pos.clst(X.ps_pos.cpki(j),k).SNR;
-                                    pulseMsg.dft_real           = real(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
-                                    pulseMsg.dft_imag           = imag(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
-                                    pulseMsg.group_ind          = uint16(k);
-                                    pulseMsg.detection_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).det_dec;
-                                    pulseMsg.confirmed_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).con_dec;
-                                    send(pulsePub,pulseMsg)
-                                    pulseCount = pulseCount+1;
-                                    fprintf(".");
-                                end
-                            end
-                            fprintf("complete. Transmitted %u pulses.\n",uint32(pulseCount));
-                        else
-                            fprintf("\n");
-                        end
-                    end
+%                     if ros2Enable %Config.ros2enable & (coder.target('MATLAB') | coder.target("EXE"))
+%                         pulseCount = 0;
+%                         if ~isnan(X.ps_pos.cpki)
+%                             fprintf("Transmitting ROS2 pulse messages");
+%                             for j = 1:numel(X.ps_pos.cpki)
+%                                 for k = 1:size(X.ps_pos.clst,2)
+%                                     %Set pulseMsg parameters for sending
+%                                     pulseMsg.detector_id        = char(Config.ID);
+%                                     pulseMsg.frequency          = Config.freqMHz + (X.ps_pos.clst(X.ps_pos.cpki(j),k).fp)*1e-6;
+%                                     t_0     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_0;
+%                                     t_f     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_f;
+%                                     t_nxt_0 = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_next(1);
+%                                     t_nxt_f = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_next(2);
+%                                     pulseMsg.start_time.sec             = int32(floor(t_0));
+%                                     pulseMsg.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
+%                                     pulseMsg.end_time.sec               = int32(floor(t_f));
+%                                     pulseMsg.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
+%                                     pulseMsg.predict_next_start.sec     = int32(floor(t_nxt_0));
+%                                     pulseMsg.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
+%                                     pulseMsg.predict_next_end.sec       = int32(floor(t_nxt_f));
+%                                     pulseMsg.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
+%                                     pulseMsg.snr                = X.ps_pos.clst(X.ps_pos.cpki(j),k).SNR;
+%                                     pulseMsg.dft_real           = real(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
+%                                     pulseMsg.dft_imag           = imag(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
+%                                     pulseMsg.group_ind          = uint16(k);
+%                                     pulseMsg.detection_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).det_dec;
+%                                     pulseMsg.confirmed_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).con_dec;
+%                                     send(pulsePub,pulseMsg)
+%                                     pulseCount = pulseCount+1;
+%                                     fprintf(".");
+%                                 end
+%                             end
+%                             fprintf("complete. Transmitted %u pulses.\n",uint32(pulseCount));
+%                         else
+%                             fprintf("\n");
+%                         end
+%                     end
                     fprintf('Current Mode: %s\n', ps_pre_struc.mode)
                     fprintf('====================================\n')
                 end
