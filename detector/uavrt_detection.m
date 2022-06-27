@@ -61,9 +61,10 @@ dataWriterSamples             = dataWriterPacketsPerInterval*packetLength;
 %dataWriterBuffer             = zeros(packetLength,dataWriterPacketsPerInterval);
 asyncWriteBuff                = dsp.AsyncBuffer(600650); %600650 is the result of the nominal settings of ceil(150/(1024/4000)*1025.
 asyncWriteBuff.write(single(1+1i));
-dataWriterFileID              = fopen(Config.dataRecordPath,'w');
+[dataWriterFileID, errmsg]    = fopen(Config.dataRecordPath,'w');
 if dataWriterFileID == -1
-    error('UAV-RT: Error opening data record file. ')
+    fprintf("UAV-RT: Error opening/creating data record file with error:\n\t" + ...
+        errmsg+"\n")
 end
 
 % writer = dsp.BinaryFileWriter(Config.dataRecordPath);
