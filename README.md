@@ -58,12 +58,12 @@ colcon build
 ```
 
 ## To run the detector
-1. Create a directory for the detector. For example run `$ mkdir ~/exampdetector`.
-2. Generate a config folder within the directory. Run `$ mkdir ~/exampdetector/config`.
-3. Copy and then update (per your detection needs) the example configuration file in the repository (detectorConfig.txt) into your local config folder (`~/exampdetector/config`).
+1. Create a directory for the detector. For example run `$ mkdir ~/exampledetector`.
+2. Generate a config folder within the directory. Run `$ mkdir ~/exampledetector/config`.
+3. Copy and then update (per your detection needs) the example configuration file in the repository (detectorConfig.txt) into your local config folder (`~/exampledetector/config`).
 4. Open a terminal, navigate to your `exampledetector` directory, and source your ROS2 distribution and uavrt_ws install. Note that this package contains dependencies on libraries within [airspyhf_channelize](). You'll need to add the path the folder than contains the airspyhf_channelize executable to the LD_LIBRARY_PATH environment variable. 
 ```
-$ cd ~/exampdetector
+$ cd ~/exampledetector
 $ source opt/ros/galactic/setup.bash
 $ . ~/uavrt_ws/install/setup.bash
 $ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:<PATH TO DIRETORY CONTAINING AIRSPYHF_CHANNELIZE> (NOT THE EXECUTABLE ITSELF, BUT ITS DIRECTORY)
