@@ -37,7 +37,7 @@ cfg = coder.config('exe');
 cfg.Hardware = coder.hardware('Robot Operating System 2 (ROS 2)');
 cfg.Hardware.DeployTo = 'Localhost';
 cfg.Hardware.BuildAction = 'Build and run';
-codegen detectstreaming -args {} -config cfg
+codegen uavrt_detection -args {} -config cfg
 
 %% Local ROS2 BUILDING to uavrt_ws workspace
 cfg = coder.config('exe');
@@ -46,7 +46,7 @@ cfg.Hardware.DeployTo = 'Localhost';
 cfg.Hardware.ROS2Folder = '/opt/ros/galactic';
 cfg.Hardware.ROS2Workspace = '~/uavrt_ws';
 cfg.Hardware.BuildAction = 'Build and load';
-codegen detectstreaming -args {} -config cfg
+codegen uavrt_detection -args {} -config cfg
 
 %% LOCAL EXE Build (for non-ROS2 testing)
 cfg = coder.config('exe');

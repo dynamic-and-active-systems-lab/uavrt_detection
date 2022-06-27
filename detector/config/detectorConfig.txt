@@ -16,6 +16,6 @@ K:	3
 focusMode:	focus
 excldFreqs:	[Inf, -Inf]
 falseAlarmProb:	0.00080
-dataRecordPath:	/Users/mshafer/Desktop/PLAYGROUND/data_record.bin
-processedOuputPath:	/Users/mshafer/Desktop/PLAYGROUND
+dataRecordPath:	~/uavrt_output/data_record.bin
+processedOuputPath:	~/uavrt_output/Desktop/PLAYGROUND
 ros2enable:	true
