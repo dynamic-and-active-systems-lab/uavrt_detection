@@ -283,7 +283,7 @@ while i <= maxInd
                                     fprintf(".");
                                 end
                             end
-                            fprintf("complete. Transmitted %u pulses.\n",uint32(pulseCount));
+                            fprintf("complete. Transmitted %u pulse(s).\n",uint32(pulseCount));
                         else
                             fprintf("\n");
                         end
@@ -345,7 +345,61 @@ while i <= maxInd
                 state = previousState;
                 previousState = 'updateconfig';
             end
+        
+        case 'test'
+            if mod(idleTic,8) ==0
+                fprintf('In test mode. Publishing one test pulse per second.\n')
+                idleTic = 1;
+                ps_pre = initializeps(Config);
 
+                if ros2Enable %Config.ros2enable & (coder.target('MATLAB') | coder.target("EXE"))
+                    fprintf("Transmitting ROS2 pulse messages");
+                    pulseCount = 0;
+                    for j = 1:1
+                        %Set pulseMsg parameters for sending
+                        pulseMsg.detector_id        = char(Config.ID);
+                        pulseMsg.frequency          = Config.freqMHz ;
+                        t_0     = posixtime(datetime('now'));
+                        t_f     = 0;
+                        t_nxt_0 = 1;
+                        t_nxt_f = 2;
+                        pulseMsg.start_time.sec             = int32(floor(t_0));
+                        pulseMsg.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
+                        pulseMsg.end_time.sec               = int32(floor(t_f));
+                        pulseMsg.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
+                        pulseMsg.predict_next_start.sec     = int32(floor(t_nxt_0));
+                        pulseMsg.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
+                        pulseMsg.predict_next_end.sec       = int32(floor(t_nxt_f));
+                        pulseMsg.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
+                        pulseMsg.snr                = 1;
+                        pulseMsg.dft_real           = real(1);
+                        pulseMsg.dft_imag           = imag(1);
+                        pulseMsg.group_ind          = uint16(Config.K);
+                        pulseMsg.detection_status   = false;
+                        pulseMsg.confirmed_status   = true;
+                        send(pulsePub,pulseMsg)
+                        pulseCount = pulseCount+1;
+                        fprintf(".");
+                    end
+                    fprintf("complete. Transmitted %u pulse(s).\n",uint32(pulseCount));
+
+                    fprintf("\n");
+                end
+
+
+            end
+            idleTic = idleTic+1;
+                        
+            asyncDataBuff.reset();
+            asyncTimeBuff.reset();
+            asyncWriteBuff.reset();
+            
+            pause(pauseWhenIdleTime);%Wait a bit so to throttle idle execution
+            staleDataFlag = true;
+            resetUdp = true;
+            cmdReceived = controlreceiver('0.0.0.0', Config.portCntrl,false);
+            previousState = state;
+            state = checkcommand(cmdReceived,state);
             
         case 'kill'
             %Send command to release the udp system objects
@@ -455,6 +509,9 @@ end
             elseif cmdReceived == 2
                 fprintf('Received update config command. \n')
                 state = 'updateconfig';
+            elseif cmdReceived == 3
+                fprintf('Received test command. \n')
+                state = 'test';
             else
                 %Invalid command. Continue with current state.
                 state = currentState;
