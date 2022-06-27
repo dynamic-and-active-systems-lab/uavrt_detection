@@ -9,12 +9,11 @@
 4. Airspyhf_channelizer installed and compiled as an executable. 
 
 ### Installation Instructions
-1. On a Mac with Matlab installed, clone this repo. 
-2. On the target Linux machine, ensure that ROS2 Galactic is installed
-3. On the target Linux machine create a ROS2 workspace directory called `~/uavrt_ws`. 
-4. Clone the [uavrt_interface](https://github.com/dynamic-and-active-systems-lab/uavrt_interfaces) repository into this ROS2 workspace directory. 
-5. Determine the target machine IP address by running `$ ip addr` in terminal.
-6. The script `uavrt_detectin/detector/uavrt_detection_codegenerator.m` contains a section `%% Remote ROS2 BUILDING` in which there is set of lines that may need updating:
+1. On a Mac (non-ROS target machine) with Matlab installed, clone this repo. 
+2. On the target Linux machine create a ROS2 workspace directory called `~/uavrt_ws`. 
+3. Clone the [uavrt_interface](https://github.com/dynamic-and-active-systems-lab/uavrt_interfaces) repository into this ROS2 workspace directory. 
+4. Determine the target machine IP address by running `$ ip addr` in terminal.
+5. The script `uavrt_detectin/detector/uavrt_detection_codegenerator.m` contains a section `%% Remote ROS2 BUILDING` in which there is set of lines that may need updating:
 ```
 cfg.Hardware.RemoteDeviceAddress = 'XXX.XXX.XXX.XXX';
 cfg.Hardware.RemoteDeviceUsername = 'XXXX';
@@ -24,8 +23,8 @@ cfg.Hardware.ROS2Workspace = '~/uavrt_ws';
 ```
 On these lines, update the IP address, username, and password to that of the target machine. Check that the ros2folder is correct. If you created your `uavrt_ws` in a directory other than `~/` update the ROS2Worksapce line to match. 
 
-7. On the target Linux machine, clone the [uavrt_interface](https://github.com/dynamic-and-active-systems-lab/uavrt_interfaces) into the `~/uavrt_ws`.
-8. On the Mac within Matlab, run the lines of code in the `%% Remote ROS2 BUILDING` section. This will try to run compile, build, and run the code on the remote machine. You should see soemthing like:
+6. On the target Linux machine, clone the [uavrt_interface](https://github.com/dynamic-and-active-systems-lab/uavrt_interfaces) into the `~/uavrt_ws`.
+7. On the Mac within Matlab, run the lines of code in the `%% Remote ROS2 BUILDING` section. This will try to run compile, build, and run the code on the remote machine. You should see soemthing like:
 ```
 Connecting to ROS 2 device at '134.114.16.153'.
 Using ROS 2 workspace '~/uavrt_ws' to build ROS 2 node.
@@ -51,7 +50,7 @@ Code generation successful.
 ```
 The reported [warnings can be igonored](https://www.mathworks.com/matlabcentral/answers/1723340-how-to-run-a-ros2-node-executable-generated-by-coder#comment_2183100). 
 
-9. The code should be available now on the remote machine and ready to run. If you need to rebuild the code on the Linux machine directly, open a terminal window at `~/uavrt_ws` and run the following.
+8. The code should be available now on the remote machine and ready to run. If you need to rebuild the code on the Linux machine directly, open a terminal window at `~/uavrt_ws` and run the following.
 ```
 source /opt/ros/galactic/setup.bash
 colcon build
@@ -80,10 +79,3 @@ In separate terminal windows:
 5. Transition the detector to 'Run' state: `$ echo -e -n '\x01'| netcat -u -c localhost 30000`
 6. When ready, kill the channelize: `$ echo -e -n '\xFF'| netcat -u -c localhost 10001`
 7. When ready, kill the detector: `$ echo -e -n '\xFF'| netcat -u -c localhost 30000`
-
-
-
-
-
-
-
