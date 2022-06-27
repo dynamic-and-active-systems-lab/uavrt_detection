@@ -1,1 +1,89 @@
 # uavrt_detection
+
+## Instructions for deploying uavrt_detection to Linux
+
+### Pre-reqs
+1. Matlab installed with Matlab Coder on machine that isn't the ROS2 target machine.
+2. ROS2 Galactic installed on the Linux target machine. 
+3. Airspyhf_rx installed on the Linux target machine.
+4. Airspyhf_channelizer installed and compiled as an executable. 
+
+### Installation Instructions
+1. On a Mac with Matlab installed, clone this repo. 
+2. On the target Linux machine, ensure that ROS2 Galactic is installed
+3. On the target Linux machine create a ROS2 workspace directory called `~/uavrt_ws`. 
+4. Clone the [uavrt_interface](https://github.com/dynamic-and-active-systems-lab/uavrt_interfaces) repository into this ROS2 workspace directory. 
+5. Determine the target machine IP address by running `$ ip addr` in terminal.
+6. The script `uavrt_detectin/detector/uavrt_detection_codegenerator.m` contains a section `%% Remote ROS2 BUILDING` in which there is set of lines that may need updating:
+```
+cfg.Hardware.RemoteDeviceAddress = 'XXX.XXX.XXX.XXX';
+cfg.Hardware.RemoteDeviceUsername = 'XXXX';
+cfg.Hardware.RemoteDevicePassword = 'XXXXXXXX';
+cfg.Hardware.ROS2Folder = '/opt/ros/galactic';
+cfg.Hardware.ROS2Workspace = '~/uavrt_ws';
+```
+On these lines, update the IP address, username, and password to that of the target machine. Check that the ros2folder is correct. If you created your `uavrt_ws` in a directory other than `~/` update the ROS2Worksapce line to match. 
+
+7. On the target Linux machine, clone the [uavrt_interface](https://github.com/dynamic-and-active-systems-lab/uavrt_interfaces) into the `~/uavrt_ws`.
+8. On the Mac within Matlab, run the lines of code in the `%% Remote ROS2 BUILDING` section. This will try to run compile, build, and run the code on the remote machine. You should see soemthing like:
+```
+Connecting to ROS 2 device at '134.114.16.153'.
+Using ROS 2 workspace '~/uavrt_ws' to build ROS 2 node.
+---
+Transferring generated code for 'uavrt_detection' to ROS device.
+Starting build for ROS node.
+---
+ROS 2 project directory: /home/dasl/uavrt_ws/src
+
+
+Starting >>> uavrt_interfaces
+
+Finished <<< uavrt_interfaces [1.31s]
+Starting >>> uavrt_detection
+
+--- stderr: uavrt_detection
+:
+:
+A NUMBER OF WARNINGS
+:
+:
+Code generation successful.
+```
+The reported [warnings can be igonored](https://www.mathworks.com/matlabcentral/answers/1723340-how-to-run-a-ros2-node-executable-generated-by-coder#comment_2183100). 
+
+9. The code should be available now on the remote machine and ready to run. If you need to rebuild the code on the Linux machine directly, open a terminal window at `~/uavrt_ws` and run the following.
+```
+source /opt/ros/galactic/setup.bash
+colcon build
+```
+
+## To run the detector
+1. Create a directory for the detector. For example run `$ mkdir ~/exampdetector`.
+2. Generate a config folder within the directory. Run `$ mkdir ~/exampdetector/config`.
+3. Copy and then update (per your detection needs) the example configuration file in the repository (detectorConfig.txt) into your local config folder (`~/exampdetector/config`).
+4. Open a terminal, navigate to your `exampledetector` directory, and source your ROS2 distribution and uavrt_ws install. Note that this package contains dependencies on libraries within [airspyhf_channelize](). You'll need to add the path the folder than contains the airspyhf_channelize executable to the LD_LIBRARY_PATH environment variable. 
+```
+$ cd ~/exampdetector
+$ source opt/ros/galactic/setup.bash
+$ . ~/uavrt_ws/install/setup.bash
+$ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:<PATH TO DIRETORY CONTAINING AIRSPYHF_CHANNELIZE> (NOT THE EXECUTABLE ITSELF, BUT ITS DIRECTORY)
+```
+5. If needed, update the ROS2_DOMAIN_ID environment variable to change from the default of 0. `$ export ROS_DOMAIN_ID=0`
+6. Run the detector: `$ ros2 run uavrt_detection uavrt_detection`
+
+Note that before (or after) running the node, you'll need spin up `airspyhf_channelize` and then `airspyhf_rx` to begin the datastream to the detector. It is critical (ie. please double check) that the sample rate argument of the `airspyhf_rx`, the sample rate & decimation factor sent to `airspyhf_channelize`, and the sample rate of the detector config file are all aligned. For example, if you'd like 4000 samples per second into your detector, a sample rate of `airspyhf_rx` can be set to 192000 along with a decimation factor for `airspyhf_channelizer` of 48. 
+In separate terminal windows:
+1. Spin up the channelizer: `$ ./airspyhf_channelize 192000 48`
+2. Spin up the radio/airspyhf_rx: `$ /usr/local/bin/airspyhf_rx -f 91.7 -m on -a 192000 -r stdout -g on -l high -t 0 | netcat -u localhost 10000`
+3. Spin up the detector: `$ ros2 run uavrt_detection uavrt_detection`
+4. Transition the channelize to 'Run' state: `$ echo -e -n '\x01'| netcat -u -c localhost 10001`
+5. Transition the detector to 'Run' state: `$ echo -e -n '\x01'| netcat -u -c localhost 30000`
+6. When ready, kill the channelize: `$ echo -e -n '\xFF'| netcat -u -c localhost 10001`
+7. When ready, kill the detector: `$ echo -e -n '\xFF'| netcat -u -c localhost 30000`
+
+
+
+
+
+
+
