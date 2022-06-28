@@ -32,20 +32,25 @@ codegen uavrt_detection -args {} -config cfg
 % cfg.Hardware.ROS2Workspace = '~/detector_debug_ws';
 % codegen detectstreaming_debug -args {} -config cfg
 
-%% Local ROS2 BUILDING
+%% Local ROS2 BUILDING locally 
 cfg = coder.config('exe');
 cfg.Hardware = coder.hardware('Robot Operating System 2 (ROS 2)');
 cfg.Hardware.DeployTo = 'Localhost';
 cfg.Hardware.BuildAction = 'Build and run';
 codegen uavrt_detection -args {} -config cfg
 
-%% Local ROS2 BUILDING to uavrt_ws workspace
+%% Local ROS2 BUILDING to uavrt_ws workspace on the local machine
 cfg = coder.config('exe');
 cfg.Hardware = coder.hardware('Robot Operating System 2 (ROS 2)');
-cfg.Hardware.DeployTo = 'Localhost';
+%cfg.Hardware.DeployTo = 'Localhost';
+cfg.Hardware.RemoteDeviceAddress = '127.0.0.1';
+cfg.Hardware.RemoteDeviceUsername = 'dasl';
+cfg.Hardware.RemoteDevicePassword = 'XXXXX';
+cfg.Hardware.DeployTo = 'Remote Device';
 cfg.Hardware.ROS2Folder = '/opt/ros/galactic';
 cfg.Hardware.ROS2Workspace = '~/uavrt_ws';
 cfg.Hardware.BuildAction = 'Build and load';
+cfg.HardwareImplementation.ProdHWDeviceType = 'Intel->x86-64 (Linux 64)';
 codegen uavrt_detection -args {} -config cfg
 
 %% LOCAL EXE Build (for non-ROS2 testing)
