@@ -4,9 +4,10 @@
 
 ### Pre-reqs
 1. Matlab installed with Matlab Coder on machine that isn't the ROS2 target machine.
-2. ROS2 Galactic installed on the Linux target machine. 
-3. Airspyhf_rx installed on the Linux target machine.
-4. Airspyhf_channelizer installed and compiled as an executable. 
+2. [ROS2 Galactic installed](https://docs.ros.org/en/galactic/Installation.html) on the Linux target machine.
+3. [colcon installed](https://docs.ros.org/en/galactic/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html)on the Linux target machine
+4. [airspyhf_rx](https://github.com/airspy/airspyhf) installed on the Linux target machine.
+5. [airspyhf_channelizer](https://github.com/dynamic-and-active-systems-lab/airspyhf_channelize) installed and compiled as an executable. 
 
 ### Installation Instructions
 1. On a Mac (non-ROS target machine) with Matlab installed, clone this repo. 
