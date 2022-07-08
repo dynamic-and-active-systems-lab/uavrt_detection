@@ -8,6 +8,15 @@
 3. [colcon installed](https://docs.ros.org/en/galactic/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html)on the Linux target machine
 4. [airspyhf_rx](https://github.com/airspy/airspyhf) installed on the Linux target machine.
 5. [airspyhf_channelizer](https://github.com/dynamic-and-active-systems-lab/airspyhf_channelize) installed and compiled as an executable. Add the path to the airspyhf_channelizer local repo to your Matlab path so that it can find a dependent function needed for uavrt_detection.
+6. OpenSSH installed on the ROS2 target machine. The commands for installing ssh on a Debian based system are:
+```
+sudo apt update
+sudo apt install openssh-server
+sudo ufw allow 22
+```
+This will allow port 22 to be used for [sshd](https://linux.die.net/man/8/sshd).
+
+
 
 ### Installation Instructions
 1. On a Mac (non-ROS target machine) with Matlab installed, clone this repo. 
