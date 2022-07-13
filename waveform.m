@@ -213,17 +213,21 @@ classdef waveform < handle
             %result is,
             %samples_in_cleaved_wfm = n_ws*(K*(N+M)+J+1+1)+n_ol;
             %windows_in_cleaved_wfm = floor(samples_in_cleaved_wfm/n_ws);
-            if K~=1 %See 2022-04-12 for definitions
-                samples_in_cleaved_wfm = n_ws*(K*(N+M)-2*M)+n_ol;
-            else
-                samples_in_cleaved_wfm = n_ws*(N+M+J)+n_ol;
-            end
-            windows_in_cleaved_wfm = floor((samples_in_cleaved_wfm-n_ol)/n_ws);
             %This will produce [K*(N+M)+1+1] windows. The remainder will be
             %from the n_ol. It is okay that we don't include that fraction
             %of a window in windows_in_cleaved_wfm because that variable is
             %only used to transfer a portion of the STFT matrix into the
             %cleaved waveform.
+%             if K~=1 %See 2022-04-12 for definitions
+%                 samples_in_cleaved_wfm = n_ws*(K*(N+M)-2*M)+n_ol;
+%             else
+%                 samples_in_cleaved_wfm = n_ws*(N+M+J)+n_ol;
+%             end
+%             windows_in_cleaved_wfm = floor((samples_in_cleaved_wfm-n_ol)/n_ws);
+            %See 2022-07-11 for updates to samples def
+            samples_in_cleaved_wfm = n_ws*(K*(N+M)+J+1)+n_ol;
+            windows_in_cleaved_wfm = floor((samples_in_cleaved_wfm-n_ol)/n_ws);
+
             t = obj.t;
             %Figure out what to cut and what to keep
             inds4cleavedwfm   = 1:samples_in_cleaved_wfm;
@@ -368,13 +372,16 @@ classdef waveform < handle
             %of a window in windows_in_cleaved_wfm because that variable is
             %only used to transfer a portion of the STFT matrix into the
             %cleaved waveform.
-            if K~=1 %See 2022-04-12 for definitions
-                samples_in_cleaved_wfm = n_ws*(K*(N+M)-2*M)+n_ol;
-            else
-                samples_in_cleaved_wfm = n_ws*(N+M+J)+n_ol;
-            end
+%             if K~=1 %See 2022-04-12 for definitions
+%                 samples_in_cleaved_wfm = n_ws*(K*(N+M)-2*M)+n_ol;
+%             else
+%                 samples_in_cleaved_wfm = n_ws*(N+M+J)+n_ol;
+%             end
+%            windows_in_cleaved_wfm = floor((samples_in_cleaved_wfm-n_ol)/n_ws);
+            %See 2022-07-11 for updates to samples def
+            samples_in_cleaved_wfm = n_ws*(K*(N+M)+J+1)+n_ol;
             windows_in_cleaved_wfm = floor((samples_in_cleaved_wfm-n_ol)/n_ws);
-            
+                       
             
             %Find the location of where to start
             ind_start  = find(t<=t0,1,'last');
@@ -1338,11 +1345,14 @@ classdef waveform < handle
             K                 = obj.K;
             overlap_windows   = 2*K*(M+J);
             overlap_samps     = n_ws*overlap_windows;
-            if K ~= 1
-                samplesforKpulses = n_ws*(K*(N+M)-2*M)+n_ol;
-            else
-                samplesforKpulses = n_ws*(N+M+J+1)+n_ol;
-            end
+%             if K ~= 1
+%                 samplesforKpulses = n_ws*(K*(N+M)-2*M)+n_ol;
+%             else
+%                 samplesforKpulses = n_ws*(N+M+J+1)+n_ol;
+%             end
+            %See 2022-07-11 for updates to samples def
+            samplesforKpulses = n_ws*(K*(N+M)+J+1)+n_ol;
+            
             %obj.t_nextsegstart  = obj.t_0+(samplesforKpulses)/obj.Fs; %Don't need the overlap here since the next segment starts at samplesforKpulses+n_ol-n_ol from current sample
             obj.t_nextsegstart  = obj.t_0+(samplesforKpulses-overlap_samps)/obj.Fs; %Don't need the overlap here since the next segment starts at samplesforKpulses+n_ol-n_ol from current sample
             
@@ -1742,13 +1752,13 @@ classdef waveform < handle
                     tipu = obj.ps_pre.t_ipu;
                     tipj = obj.ps_pre.t_ipj;
                     if tref>obj.t_0 %First pulse in this segment exists in last segment as well because of overlap
-                        pulsestarttimes_nom = tref+(tip*(0:(obj.K-1)));
+                        pulsestarttimes_nom        = tref+(tip*(0:(obj.K-1)));
                         pulsestarttimes_withuncert = tref+((tip-tipu)*(0:(obj.K-1)))-tipj*ones(1,obj.K);
-                        pulseendtimes_withuncert = tref+((tip+tipu)*(0:(obj.K-1)))+tipj*ones(1,obj.K);
+                        pulseendtimes_withuncert   = tref+((tip+tipu)*(0:(obj.K-1)))+tipj*ones(1,obj.K);
                     else %First pulse in this segment does not exists in last segment as well because of overlap
-                        pulsestarttimes_nom = tref+(tip*(1:(obj.K)));
+                        pulsestarttimes_nom        = tref+(tip*(1:(obj.K)));
                         pulsestarttimes_withuncert = tref+((tip-tipu)*(1:(obj.K)))-tipj*ones(1,obj.K);
-                        pulseendtimes_withuncert = tref+((tip+tipu)*(1:(obj.K)))+tipj*ones(1,obj.K);
+                        pulseendtimes_withuncert   = tref+((tip+tipu)*(1:(obj.K)))+tipj*ones(1,obj.K);
                     end
                     %pulseendtimes_nom          = pulsestarttimes_nom+tp;
                     %pulsestarttimes_withuncert = pulsestarttimes_nom-tipu-tipj;
@@ -1767,6 +1777,7 @@ classdef waveform < handle
                     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     conflog = maxstartlog & minstartlog;
+                    [minstartlog',maxstartlog',conflog']
                     if any(conflog,'all')
                         % 	Confirmed?
                         % 		True -> Confirmation = True
