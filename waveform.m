@@ -200,7 +200,7 @@ classdef waveform < handle
             [n_p,n_w,n_ol,n_ws,t_ws,n_ip,N,M,J] = ...
                                        obj.getprioridependentprops(ps_pre);
             
-            overlap_windows        = 2*K*(M+J);
+            overlap_windows        = 2*(K*M+J);
             overlap_samps          = n_ws*overlap_windows;
             %Ideally,
             %windows_in_cleaved_wfm = (K*(N+M)+1);
@@ -354,7 +354,7 @@ classdef waveform < handle
             L = length(obj.x);
             %Get relavent variables and rename for readable code.
             [n_p,n_w,n_ol,n_ws,t_ws,n_ip,N,M,J] = obj.getprioridependentprops(ps_pre);            
-            overlap_windows        = 2*K*(M+J);
+            overlap_windows        = 2*(K*M+J);
             overlap_samps          = n_ws*overlap_windows;%K*M_in_samps;
             %Ideally,
             %windows_in_cleaved_wfm = (K*(N+M)+1);
@@ -1343,7 +1343,7 @@ classdef waveform < handle
             obj.J    = J;        %Amount of deviation from the PRI means to search
             
             K                 = obj.K;
-            overlap_windows   = 2*K*(M+J);
+            overlap_windows   = 2*(K*M+J);
             overlap_samps     = n_ws*overlap_windows;
 %             if K ~= 1
 %                 samplesforKpulses = n_ws*(K*(N+M)-2*M)+n_ol;
@@ -1610,10 +1610,11 @@ classdef waveform < handle
 %                 %cast it to a double here. Needed for Coder.
 %                 thresh_interp = interp1(obj.stft.f,double(thresh),Wf);
 %                 obj.ps_pos.thresh = thresh_interp;
-                thresh = buildthreshold(obj,PF);
+                thresh = buildthreshold(obj, PF, W);
                 
                 threshInterp = interp1(obj.stft.f,double(thresh),Wf,'linear','extrap');
                 obj.ps_pos.thresh = threshInterp;
+                %obj.ps_pos.thresh = thresh;
 
                 %Find all the potential pulses in the dataset
                 [candidatelist,msk,pk_ind] = obj.findpulse(W,Wf,time_search_type,freq_search_type,excluded_freq_bands);
@@ -1712,7 +1713,7 @@ classdef waveform < handle
 %                 %cast it to a double here. Needed for Coder.
 %                 thresh_interp = interp1(obj.stft.f,double(thresh),Wf);
 %                 obj.ps_pos.thresh = thresh_interp;               
-                thresh = buildthreshold(obj,PF);
+                thresh = buildthreshold(obj, PF, W);
                 threshInterp = interp1(obj.stft.f,double(thresh),Wf);
                 obj.ps_pos.thresh = threshInterp;
 
@@ -1855,7 +1856,7 @@ classdef waveform < handle
 %                 %cast it to a double here. Needed for Coder.
 %                 thresh_interp = interp1(obj.stft.f,double(thresh),Wf);
 %                 obj.ps_pos.thresh = thresh_interp;
-                thresh = buildthreshold(obj,PF);
+                thresh = buildthreshold(obj, PF, W);
                 threshInterp = interp1(obj.stft.f,double(thresh),Wf);
                 obj.ps_pos.thresh = threshInterp;
               

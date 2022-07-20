@@ -124,8 +124,8 @@ resetUdp = true;
 staleDataFlag = true;%Force buffer  flush on start
 idleTic = 1;
 i = 1;
-lastTimeStamp = [];
-
+lastTimeStamp = 0;
+cleanBuffer = true;
 
 % errorFlag = true;
 % if errorFlag
@@ -190,7 +190,7 @@ while i <= maxInd
                     [~] = fwrite(dataWriterFileID,dataWriterBuffData);
                 end
 
-            end
+            %end
 
             %% Process data if there is enough in the buffers
             if asyncDataBuff.NumUnreadSamples >= sampsForKPulses + overlapSamples
@@ -254,7 +254,7 @@ while i <= maxInd
                     fprintf('complete. Elapsed time: %f seconds \n', toc)
                     if Config.K > 1 & processingTime > 0.9 * sampsForKPulses/Config.Fs
                         Config.K = Config.K - 1;
-                        fprintf('WARNING!!! PROCESSING TIME TOOK LONGER THAN WAVEFORM LENGTH. STREAMING NOT POSSIBLE. REDUCINGS NUMBER OF PULSES CONSIDERED BY 1 TO K = %d \n',uint32(Config.K));
+                        fprintf('WARNING!!! PROCESSING TIME TOOK LONGER THAN WAVEFORM LENGTH. STREAMING NOT POSSIBLE. REDUCINGS NUMBER OF PULSES CONSIDERED BY 1 TO K = %u \n',uint32(Config.K));
                         fprintf('Resetting all internal data buffers and udp buffers to clear potential stale data. \n');
                         resetBuffersFlag = true;
                         staleDataFlag = true;
@@ -327,6 +327,7 @@ while i <= maxInd
                     fprintf('Current Mode: %s\n', ps_pre_struc.mode)
                     fprintf('====================================\n')
                 end
+            end
             end
 
             cmdReceived = controlreceiver('0.0.0.0', Config.portCntrl,false);
@@ -512,7 +513,7 @@ end
         %         %sampsForKPulses = Config.K*n_ws*(N+M+1+1);
         %         sampsForKPulses = n_ws*(Config.K*(N+M)+1+1);
 
-        overlapWindows  = 2*Config.K*(M+J);
+        overlapWindows  = 2*(Config.K*M+J);
         overlapSamples	= n_ws*overlapWindows;
         %         if Config.K~=1
         %             sampsForKPulses = n_ws*(Config.K*(N+M)-2*M)+n_ol;
