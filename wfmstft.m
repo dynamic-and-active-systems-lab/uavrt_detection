@@ -61,7 +61,7 @@ classdef wfmstft < handle
                 %wind = hann(waveform_obj.n_w,'periodic');
                 %wind = tukeywin(waveform_obj.n_w,0.3);
                 obj.wind = rectwin(waveform_obj.n_w);
-                [obj.S,obj.f,local_time] = stft(waveform_obj.x,waveform_obj.Fs,'Window',obj.wind,'OverlapLength',waveform_obj.n_ol,'FFTLength',waveform_obj.n_w);
+                [obj.S, obj.f, local_time] = stft(waveform_obj.x,waveform_obj.Fs,'Window',obj.wind,'OverlapLength',waveform_obj.n_ol,'FFTLength',waveform_obj.n_w);
                 obj.t = double(local_time)+waveform_obj.t_0; %Convert to global time of waveform. Double cast is needed because if x data in stft is single precision then the output t will be single as well.
                 obj.dt = 1/waveform_obj.Fs;
                 obj.T  = waveform_obj.n_w/waveform_obj.Fs;

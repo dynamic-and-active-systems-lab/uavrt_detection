@@ -19,6 +19,8 @@ classdef waveform < handle
     %	stft    A WFMSTFT object of x with properties
     %	OLF     Overlap fraction
     %	K       The number of pulses this waveform was built to contain based on its length
+    %   W       The weighting matrix
+    %   Wf      The weighting matrix frequency vector
     %         
     %	STFT window related properties
     %       (All can by updated with the updateprioridependentprops	method)
@@ -43,7 +45,8 @@ classdef waveform < handle
     %   SETPRIORIDEPENDENTPROPS updates waveform props
     %   GETSNNR     Sets Signal+noise to noise ratio for pulses in pulse list
     %   PROCESS     Processes the waveform for pulses (detection)
-    %
+    %   SETWEIGHTINGMATRIX  Sets the W and Wf properties per the other
+    %                       waveform props
     %----------------------------------------------------------------------
     %Author: Michael W. Shafer
     %Date: 2020-05-28
@@ -56,6 +59,7 @@ classdef waveform < handle
         ps_pre  %Pulse stats object from previous data (priori)
         ps_pos  %Pulse stats object after update (posteriori)
         K       %The number of pulses this waveform was built to contain based on its length
+        thresh      %Threshold object
     end
     properties (SetAccess = protected)
         x       %Vector of samples
@@ -82,10 +86,12 @@ classdef waveform < handle
         M           %Interpulse uncertainty time in units of STFT windows
         J           %Interpulse jitter in units of STFT windows
         %TimeCorr    %Temporal correlation object (includes Wq matrix as a prop)
+        W(:,:) double  %Spectral weighing matrix
+        Wf(:,1) double %Frequency output of the spectral weighting matrix
     end
     
     methods
-        function obj = waveform(x,Fs,t_0,ps_pre,OLF)
+        function obj = waveform(x, Fs, t_0, ps_pre, OLF, thresh)
             %WAVEFORM Constructs an instance of this class
             %INPUTS:
             %   x       1xn     Vector of samples
@@ -111,14 +117,17 @@ classdef waveform < handle
                                                 %Will need to be updated 
                                                 %elsewhere. 
                 obj.ps_pre  = ps_pre;
-                obj.OLF = OLF;                  %Overlap Fraction for STFT
-                obj.K = NaN;                    %Unknown number of pulses.
-                obj.stft         = wfmstft;     %Unknown values but set types
-                
+                obj.OLF     = OLF;              %Overlap Fraction for STFT
+                obj.K       = NaN;              %Unknown number of pulses.
+                obj.stft    = wfmstft;          %Unknown values but set types
+                obj.W       = [];               
+                obj.Wf      = [];               
                 %Copy over ps_
                 obj.ps_pos       = ps_pre.makepropertycopy; %Current stats are same as previous during construction
                 %obj.TimeCorr = TemporalCorrelator(10, 0, 0);%Generate a temporalcorrelator object so coder knows the type of the object
                 obj.setprioridependentprops(ps_pre)
+                obj.thresh  = thresh;
+                
             end
         end
         function t_out = t(obj)
@@ -428,7 +437,7 @@ classdef waveform < handle
                 end
             end
         end
-        function [pl_out,indiv_msk,peak_ind] = findpulse(obj,W,Wf,time_searchtype,freq_searchtype,excluded_freq_bands_in)
+        function [pl_out,indiv_msk,peak_ind] = findpulse(obj,time_searchtype,freq_searchtype,excluded_freq_bands_in)
             %FINDPULSE Looks for pulses in the waveform based on its pulse
             %statistics object
             %
@@ -527,7 +536,12 @@ classdef waveform < handle
             %The caller of this method should have already set the
             %threshold in the posteriori pulse stats. We just rename it
             %here to simplify code.
-            thresh = obj.ps_pos.thresh;
+            %thresh = obj.ps_pos.thresh;
+            %The caller of this method should have already set the
+            %threshold. We just rename it
+            %here to simplify code.
+            thresh = obj.thresh.threshVecFine;
+
             
             %NAIVE SEARCH
             if strcmp(time_searchtype,'naive')
@@ -650,8 +664,8 @@ classdef waveform < handle
             
             %Build the excluded frequency mask
             %False where we want to exclude
-            excld_msk_mtrx = ~(vecfind(Wf,'>=',excluded_freq_bands(:,1)) &...
-                             vecfind(Wf,'<=',excluded_freq_bands(:,2)));
+            excld_msk_mtrx = ~(vecfind(obj.Wf,'>=',excluded_freq_bands(:,1)) &...
+                             vecfind(obj.Wf,'<=',excluded_freq_bands(:,2)));
             excld_msk_vec  = all(excld_msk_mtrx,2);   
             
             %Build the priori frequency mask
@@ -666,7 +680,7 @@ classdef waveform < handle
                 %same size as Wf indicating which frequencies to look at.
                 
                 %IF FREQS ARE UNAVILABLE, USE NAIVE
-                if (f_lo<min(Wf,[],'all')) || (f_hi>max(Wf,[],'all'))%isnan(obj.ps_pre.fc) %Naive
+                if (f_lo<min(obj.Wf,[],'all')) || (f_hi>max(obj.Wf,[],'all'))%isnan(obj.ps_pre.fc) %Naive
                     if coder.target('MATLAB')
                         warning('UAVRT:searchtype',...
                                 ['Requested informed search, but previous '...
@@ -678,18 +692,18 @@ classdef waveform < handle
                                  ' frequency search.'])
                     end
                     freq_start = 1;
-                    freq_end   = numel(Wf);%size(Sw,1);
+                    freq_end   = numel(obj.Wf);%size(Sw,1);
                 %IF FREQS ARE AVILABLE, USE INFORMED
                 else
-                    freq_start = find(Wf>=(obj.ps_pre.fstart),1,'first');
-                    freq_end   = find(Wf<=(obj.ps_pre.fend),1,'last');
+                    freq_start = find(obj.Wf>=(obj.ps_pre.fstart),1,'first');
+                    freq_end   = find(obj.Wf<=(obj.ps_pre.fend),1,'last');
                 end
                 
                 freq_ind_rng = [freq_start,freq_end];
-                freq_mask    =  false(size(Wf));
+                freq_mask    =  false(size(obj.Wf));
                 freq_mask(freq_ind_rng(1):freq_ind_rng(2))=true;
             else %Naive frequency search
-                freq_mask    =  true(size(Wf));
+                freq_mask    =  true(size(obj.Wf));
             end
             
             %If using informed search and excluded frequencies overlap with
@@ -718,7 +732,7 @@ classdef waveform < handle
             end
             
             Wq = buildtimecorrelatormatrix(N, M, J, obj.K);
-            [yw_max_all_freq,S_cols] = incohsumtoeplitz(freq_mask,W',obj.stft.S,timeBlinderVec, Wq);%obj.TimeCorr.Wq(obj.K));
+            [yw_max_all_freq,S_cols] = incohsumtoeplitz(freq_mask,obj.W',obj.stft.S,timeBlinderVec, Wq);%obj.TimeCorr.Wq(obj.K));
 
 %Only pass a freq_msk subset of the Sw matrix to the incohsum
 %function. Run the algorithm            
@@ -775,14 +789,14 @@ classdef waveform < handle
             %freqBinPowAtZetas = psdAtZetas*(Wf(2)-Wf(1));
             [nRowsOfS, nColsOfS] = size(obj.stft.S);
             %sIndsOfBins = sub2ind([nRowsOfS nColsOfS],repmat((1:nRowsOfS)',1,nColsOfS),S_cols);
-            nZetas = numel(Wf)/nRowsOfS;
+            nZetas = numel(obj.Wf)/nRowsOfS;
             %sIndsOfBins = sub2ind([nZetas*nRowsOfS nColsOfS],transpose(1:numel(Wf)),S_cols);
             %The few lines below finds the noisePSD, but excludes regions
             %in time and frequency around possible detection. We do
             %detections as the zeta steps, but use the S matrix for PSD
             %estimates so there is a size mismatch that necessitates the
             %code below. 
-            weightedSRowSubs = transpose(1:numel(Wf));
+            weightedSRowSubs = transpose(1:numel(obj.Wf));
             weightedSRowSubsMat = repmat(weightedSRowSubs,1,obj.K);
             %sub2ind doesn't support NaN values, so we focus here on those
             %that don't have NaN
@@ -806,7 +820,7 @@ classdef waveform < handle
             dt = 1/obj.Fs;
             T = obj.n_w/obj.Fs;
             noisePSD = dt^2/T*abs(mean(obj.stft.S+freqtimeShiftedBinMaskMatrixScaled,2,'omitnan')).^2;
-            noisePSDAtZetas = interp1(obj.stft.f,noisePSD,Wf,'linear','extrap');
+            noisePSDAtZetas = interp1(obj.stft.f,noisePSD,obj.Wf,'linear','extrap');
             noisePSDAtZetas(noisePSDAtZetas<0) = 0;
             %fBinWidthZetas = Wf(2)-Wf(1);
             %noisePowers = noisePSDAtZetas*fBinWidthZetas;
@@ -1183,9 +1197,9 @@ classdef waveform < handle
             
             %Create a frequency array that accounts for the masking that
             %was done to reduce the frequency space.
-            Wf_sub = Wf(freq_mask);
+            Wf_sub = obj.Wf(freq_mask);
             %freq_found = Wf_sub(S_rows);
-            freq_found = Wf;
+            freq_found = obj.Wf;
             
             %t_found here is the start of the pulse - not the center like
             %in the time stamps in the stft, which are the centers of the
@@ -1196,8 +1210,8 @@ classdef waveform < handle
             t_found(freq_mask,:)    = obj.stft.t(S_cols(freq_mask,:))-obj.stft.t(1)+obj.t_0;%Don't forget the add the t_0 of this waveform
             %f_bands    = [Wf_sub-(Wf_sub(2)-Wf_sub(1))/2,...
             %              Wf_sub+(Wf_sub(2)-Wf_sub(1))/2];
-            f_bands    = [Wf-(Wf(2)-Wf(1))/2,...
-                          Wf+(Wf(2)-Wf(1))/2];
+            f_bands    = [obj.Wf-(obj.Wf(2)-obj.Wf(1))/2,...
+                          obj.Wf+(obj.Wf(2)-obj.Wf(1))/2];
             
             
             %Build out the pulse object for each one found
@@ -1397,7 +1411,7 @@ classdef waveform < handle
         end
         
                           
-        function [] = process(obj,mode,focus_mode,selection_mode,zetas,PF,excluded_freq_bands)
+        function [] = process(obj,mode,focus_mode,selection_mode,excluded_freq_bands)
             %PROCESS is a method that runs the pulse detection algorithm on
             %a waveform object. 
             %
@@ -1574,16 +1588,18 @@ classdef waveform < handle
         switch mode
             %% DISCOVERY MODE
             case 'D'
-                %Here we build the spectral scaling vector. We make it the same
-                %size as the FFT length in the STFT operation, so it has the
-                %same frequency resolution.
-                %How many frequency bins are there?
-                fftlength = length(obj.stft.f);
-                %Build a pulse time domain template with the same number 
-                %of samples as frequency bins:
-                w_time_domain = gettemplate(obj,fftlength);
-                %Build weighting matrix
-                [W,Wf] = weightingmatrix(w_time_domain,obj.Fs,zetas,'centered');                
+%                 %Here we build the spectral scaling vector. We make it the same
+%                 %size as the FFT length in the STFT operation, so it has the
+%                 %same frequency resolution.
+%                 %How many frequency bins are there?
+%                 fftlength = length(obj.stft.f);
+%                 %Build a pulse time domain template with the same number 
+%                 %of samples as frequency bins:
+%                 w_time_domain = gettemplate(obj,fftlength);
+%                 %Build weighting matrix
+%                 [W,Wf] = weightingmatrix(w_time_domain,obj.Fs,zetas,'centered');                
+
+
                 
                 %Here we determine if we wanted an 'informed' frequency search
                 %If the first priori pulsestats had a
@@ -1610,14 +1626,14 @@ classdef waveform < handle
 %                 %cast it to a double here. Needed for Coder.
 %                 thresh_interp = interp1(obj.stft.f,double(thresh),Wf);
 %                 obj.ps_pos.thresh = thresh_interp;
-                thresh = buildthreshold(obj, PF, W);
-                
-                threshInterp = interp1(obj.stft.f,double(thresh),Wf,'linear','extrap');
-                obj.ps_pos.thresh = threshInterp;
+%                 thresh = buildthreshold(obj, PF, W);
+%                 
+%                 threshInterp = interp1(obj.stft.f,double(thresh),Wf,'linear','extrap');
+%                 obj.ps_pos.thresh = threshInterp;
                 %obj.ps_pos.thresh = thresh;
 
                 %Find all the potential pulses in the dataset
-                [candidatelist,msk,pk_ind] = obj.findpulse(W,Wf,time_search_type,freq_search_type,excluded_freq_bands);
+                [candidatelist,msk,pk_ind] = obj.findpulse(time_search_type,freq_search_type,excluded_freq_bands);
                 if  any([candidatelist.det_dec],'all') & any(isnan(pk_ind),'all') %'all' input required by coder
                     if coder.target('MATLAB')
                         warning('UAV-RT: Candidate pulses were detected that exceeded the decision threshold, but no peaks in the scores were detected. This is likely because these high scoring pulses existed at the edges of frequency bounds. Try changing the frequency search bounds and reprocessing. ')
@@ -1662,7 +1678,7 @@ classdef waveform < handle
                     if strcmp(focus_mode,'focus')
                     %Calculate & set post. stats (reduced uncertainty)
                     %obj.update_posteriori(obj.ps_pos.pl)
-                    obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl,obj.stft.psd)
+                    obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl)
                     end
                     
                     %   Update Mode Recommendation -> Confirmation
@@ -1672,7 +1688,7 @@ classdef waveform < handle
                     %Just update the mode recommendation to 'D' so we keep 
                     %an open search
                     obj.ps_pos.mode = 'D';
-                    obj.ps_pos.updateposteriori(obj.ps_pre,[],obj.stft.psd);%No pulses to update the posteriori
+                    obj.ps_pos.updateposteriori(obj.ps_pre,[]);%No pulses to update the posteriori
                 end
                 %Set the mode in the pulse and candidate listing for 
                 %records. This records the mode that was used in the 
@@ -1688,17 +1704,16 @@ classdef waveform < handle
                 
             %% CONFIRMATION MODE
             case 'C'
-                %Here we build the spectral scaling vector. We make it the same
-                %size as the FFT length in the STFT operation, so it has the
-                %same frequency resolution.
-                
-                %How many frequency bins are there?
-                fftlength = length(obj.stft.f);
-                %Build a pulse time domaine template with the same number 
-                %of samples as frequency bins:
-                w_time_domain = gettemplate(obj,fftlength);
-                %Build weighting matrix
-                [W,Wf] = weightingmatrix(w_time_domain,obj.Fs,zetas,'centered');
+%                 %Here we build the spectral scaling vector. We make it the same
+%                 %size as the FFT length in the STFT operation, so it has the
+%                 %same frequency resolution.
+%                 %How many frequency bins are there?
+%                 fftlength = length(obj.stft.f);
+%                 %Build a pulse time domaine template with the same number 
+%                 %of samples as frequency bins:
+%                 w_time_domain = gettemplate(obj,fftlength);
+%                 %Build weighting matrix
+%                 [W,Wf] = weightingmatrix(w_time_domain,obj.Fs,zetas,'centered');
 
                 %Always in informed frequency search in confirmation mode                     
                 freq_search_type = 'informed';
@@ -1713,13 +1728,13 @@ classdef waveform < handle
 %                 %cast it to a double here. Needed for Coder.
 %                 thresh_interp = interp1(obj.stft.f,double(thresh),Wf);
 %                 obj.ps_pos.thresh = thresh_interp;               
-                thresh = buildthreshold(obj, PF, W);
-                threshInterp = interp1(obj.stft.f,double(thresh),Wf);
-                obj.ps_pos.thresh = threshInterp;
+%                 thresh = buildthreshold(obj, PF, W);
+%                 threshInterp = interp1(obj.stft.f,double(thresh),Wf);
+%                 obj.ps_pos.thresh = threshInterp;
 
                 
                 %Find all the potential pulses in the dataset
-                [candidatelist,msk,pk_ind] = obj.findpulse(W,Wf,time_search_type,freq_search_type,excluded_freq_bands);
+                [candidatelist,msk,pk_ind] = obj.findpulse(time_search_type,freq_search_type,excluded_freq_bands);
                 if any([candidatelist.det_dec],'all') & any(isnan(pk_ind),'all') %'all' input required by coder
                     if coder.target('MATLAB')
                         warning('UAV-RT: Candidate pulses were detected that exceeded the decision threshold, but no peaks in the scores were detected. This is likely because these high scoring pulses existed at the edges of frequency bounds. Try changing the frequency search bounds and reprocessing. ')
@@ -1806,7 +1821,7 @@ classdef waveform < handle
                     %most like in the discovery case above
                     %   Calculate & set post. stats (reduced uncertainty)
                     %obj.update_posteriori(obj.ps_pos.pl)%(Note this records pulse list)
-                    obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl,obj.stft.psd)
+                    obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl)
 
                     %Update mode suggestion for next segment processing
                     %   Mode -> Tracking
@@ -1816,7 +1831,7 @@ classdef waveform < handle
                     %Update mode suggestion for next segment processing
                     %	Mode -> Discovery
                     obj.ps_pos.mode = 'D';
-                    obj.ps_pos.updateposteriori(obj.ps_pre,[],obj.stft.psd); %No pulses to update the posteriori
+                    obj.ps_pos.updateposteriori(obj.ps_pre,[]); %No pulses to update the posteriori
                 end
                 %Set the mode in the pulse and candidate listing for 
                 %records. This records the mode that was used in the 
@@ -1832,17 +1847,16 @@ classdef waveform < handle
             case 'T'
                 %% TRACKING MODE
                 
-                %Here we build the spectral scaling vector. We make it the same
-                %size as the FFT length in the STFT operation, so it has the
-                %same frequency resolution.
-                
-                %How many frequency bins are there?
-                fftlength = length(obj.stft.f);
-                %Build a pulse time domaine template with the same number 
-                %of samples as frequency bins:
-                w_time_domain = gettemplate(obj,fftlength);
-                %Build weighting matrix
-                [W,Wf] = weightingmatrix(w_time_domain,obj.Fs,zetas,'centered');
+%                 %Here we build the spectral scaling vector. We make it the same
+%                 %size as the FFT length in the STFT operation, so it has the
+%                 %same frequency resolution.
+%                 %How many frequency bins are there?
+%                 fftlength = length(obj.stft.f);
+%                 %Build a pulse time domaine template with the same number 
+%                 %of samples as frequency bins:
+%                 w_time_domain = gettemplate(obj,fftlength);
+%                 %Build weighting matrix
+%                 [W,Wf] = weightingmatrix(w_time_domain,obj.Fs,zetas,'centered');
 
                 %Tracking mode always uses informed frequency search
                 freq_search_type = 'informed';
@@ -1856,12 +1870,12 @@ classdef waveform < handle
 %                 %cast it to a double here. Needed for Coder.
 %                 thresh_interp = interp1(obj.stft.f,double(thresh),Wf);
 %                 obj.ps_pos.thresh = thresh_interp;
-                thresh = buildthreshold(obj, PF, W);
-                threshInterp = interp1(obj.stft.f,double(thresh),Wf);
-                obj.ps_pos.thresh = threshInterp;
+%                 thresh = buildthreshold(obj, PF, W);
+%                 threshInterp = interp1(obj.stft.f,double(thresh),Wf);
+%                 obj.ps_pos.thresh = threshInterp;
               
                 %Find all the potential pulses in the dataset
-                [candidatelist,msk,pk_ind] = obj.findpulse(W,Wf,time_search_type,freq_search_type,excluded_freq_bands); 
+                [candidatelist,msk,pk_ind] = obj.findpulse(time_search_type,freq_search_type,excluded_freq_bands); 
                 if any([candidatelist.det_dec],'all') & any(isnan(pk_ind),'all') %'all' input required by coder
                     if coder.target('MATLAB')
                         warning('UAV-RT: Candidate pulses were detected that exceeded the decision threshold, but no peaks in the scores were detected. This is likely because these high scoring pulses existed at the edges of frequency bounds. Try changing the frequency search bounds and reprocessing. ')
@@ -1899,7 +1913,7 @@ classdef waveform < handle
                     %most like in the discovery case above
                     %   Calculate & set post. Stats (reduced uncertainty)
                     %obj.update_posteriori(obj.ps_pos.pl)
-                    obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl,obj.stft.psd)
+                    obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl)
                     %   Mode -> Tracking
                     %Update mode suggestion for next segment processing
                     obj.ps_pos.mode = 'T';
@@ -1912,7 +1926,7 @@ classdef waveform < handle
                     %Update mode suggestion for next segment processing
                     %   Mode -> Discovery
                     obj.ps_pos.mode = 'D';
-                    obj.ps_pos.updateposteriori(obj.ps_pre,[],obj.stft.psd);%No pulses to update the posteriori
+                    obj.ps_pos.updateposteriori(obj.ps_pre,[]);%No pulses to update the posteriori
                 end
                 %Set the mode in the pulse and candidate listing for 
                 %records. This records the mode that was used in the 
@@ -1930,6 +1944,32 @@ classdef waveform < handle
         end
         end
     
+        function [] = setweightingmatrix(obj, zetas)
+                %SETWEIGHTINGMATRIX method sets the W and Wf properties of
+                %the waveform. These are the weighting matrix and the
+                %frequencys (Wf) at which they are computed.
+                %INPUTS:
+                %   none
+                %OUTPUTS:
+                %   none other than setting obj.Wf and obj.W
+                %----------------------------------------------------------
+                %
+                %Here we build the spectral scaling vector. We make it the same
+                %size as the FFT length in the STFT operation, so it has the
+                %same frequency resolution.
+                %How many frequency bins are there?
+                if isempty(obj.stft.f)
+                    error('UAV-RT: Weighting matrix requires waveform stft properties to be set. Set the waveform stft property with the spectro method before setting the weighting matrix properties. ')
+                end
+                fftlength = length(obj.stft.f);
+                %Build a pulse time domain template with the same number 
+                %of samples as frequency bins:
+                w_time_domain = gettemplate(obj,fftlength);
+                %Build weighting matrix
+                [obj.W,obj.Wf] = weightingmatrix(w_time_domain,obj.Fs,zetas,'centered');                
+        end
+
+        
         function [] = displayresults(obj,ax)
             if coder.target('MATLAB')
             if nargin==1

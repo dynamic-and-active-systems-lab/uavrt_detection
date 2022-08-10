@@ -93,7 +93,7 @@ classdef pulsestats < handle
         clst    %(:,1) %'Candidate List' is a matrix of pulses objects in the waveform
         cmsk    %(:,:) logical %'Candidate List Mask' is a matrix the contains masks for each of the pulses that met the threshold.
         cpki    %(:,:) %These are the row indices of clst that were found to be peak (the center of the pulse frequency).
-        thresh  %(:,1) %Listing of decision thresholds for each row of clst
+        %thresh  %(:,1) %Listing of decision thresholds for each row of clst
         %psdHist %A matrix of power spectral densities for previous waveform segments
     end
     methods
@@ -154,15 +154,15 @@ classdef pulsestats < handle
                 coder.varsize('localCmsk',[inf inf],[1 1]);
                 localCpki = cpki;
                 coder.varsize('localCpki',[inf 1],[1 1]);
-                localThresh = thresh;
-                coder.varsize('localThresh',[inf 1],[1 1]);
+%                 localThresh = thresh;
+%                 coder.varsize('localThresh',[inf 1],[1 1]);
                 %Now actually assign them 
                 obj.mode   = localMode;
                 obj.pl   = localPl;
                 obj.clst = localClst;
                 obj.cmsk = localCmsk;
                 obj.cpki = localCpki;
-                obj.thresh = localThresh;
+                %obj.thresh = localThresh;
                 
             end
         end
@@ -180,8 +180,8 @@ classdef pulsestats < handle
                                         obj.pl,...
                                         obj.clst,...
                                         obj.cmsk,...
-                                        obj.cpki,...
-                                        obj.thresh);
+                                        obj.cpki);%,...
+                                        %obj.thresh);
         end
         function [] = copydetectionresults(obj,ps_tocopyfrom)
             %Copy the other properties not used in the constructor
@@ -190,11 +190,11 @@ classdef pulsestats < handle
             obj.clst = ps_tocopyfrom.clst;
             obj.cmsk = ps_tocopyfrom.cmsk;
             obj.cpki = ps_tocopyfrom.cpki;
-            obj.thresh = ps_tocopyfrom.thresh;
+            %obj.thresh = ps_tocopyfrom.thresh;
             %obj_out.psdHist = obj.psdHist;
         end
 
-        function [] = updateposteriori(obj,ps_pre,pulselist,psd)
+        function [] = updateposteriori(obj,ps_pre,pulselist)
             %             %UPDATEPOSTERIORI updates the posteriori pulse statistics
             %             object using the new pulse list (input), prior pulse stats
             %             and the waveforms power spectral density vector. This

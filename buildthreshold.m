@@ -1,4 +1,4 @@
-function [newThresh] = buildthreshold(Wfm, PF ,W)
+function [newThresh] = buildthreshold(Wfm, PF)
 %BUILDTHRESHOLD generates a threshold vector for the waveform argument
 %based on the false alarm probability input. 
 %
@@ -52,7 +52,7 @@ Ssynth(:,nTimeWinds+1:end,:) = [];              %Trim excess so we have the corr
 %Preform the incoherent summation using a matrix multiply.
 %Could use pagetimes.m for this, but it isn't supported for code generation
 for i = 1:trials    
-    scores(i) = max(abs(W'*Ssynth(:,:,i)).^2 * Wq, [], 'all'); %'all' call finds max across all temporal correlation sets and frequency bins just like we do in the dectection code. 
+    scores(i) = max(abs(Wfm.W'*Ssynth(:,:,i)).^2 * Wq, [], 'all'); %'all' call finds max across all temporal correlation sets and frequency bins just like we do in the dectection code. 
 end
 
 %Build the distribution for all scores. 
@@ -97,7 +97,7 @@ firstTrueThreshInd = find(~isnanThreshLogic,1,'first');
 lastTrueThreshInd  = find(~isnanThreshLogic,1,'last');
 firstTrueThresh    = newThresh(firstTrueThreshInd);
 lastTrueThresh     = newThresh(lastTrueThreshInd);
-newThresh(1:firstTrueThreshInd(1)) = firstTrueThresh; %The (1) call is needed by coder, as it doesn't know that the find call above will only produced a scalar output.
+newThresh(1:firstTrueThreshInd(1))  = firstTrueThresh; %The (1) call is needed by coder, as it doesn't know that the find call above will only produced a scalar output.
 newThresh(lastTrueThreshInd(1):end) = lastTrueThresh; %The (1) call is needed by coder, as it doesn't know that the find call above will only produced a scalar output.
 %toc
 end

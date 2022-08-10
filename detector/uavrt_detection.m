@@ -20,11 +20,17 @@ if ros2Enable
     fprintf("complete.\n")
 end
 
-
+blankThresh = threshold(Config.falseAlarmProb);
+% pulseStatsPriori = pulsestats(Config.tp, Config.tip, Config.tipu, ... % tp, tip, tipu
+%     Config.tipj, 0 , 0 ,0 , [1 1], "D" ,... % tipj, fp, fstart, fend, tmplt, mode
+%     makepulsestruc(), makepulsestruc(),...  % pl ,clst
+%     [] ,[] , []);                           % cmsk ,cpki ,thresh)
 pulseStatsPriori = pulsestats(Config.tp, Config.tip, Config.tipu, ... % tp, tip, tipu
     Config.tipj, 0 , 0 ,0 , [1 1], "D" ,... % tipj, fp, fstart, fend, tmplt, mode
     makepulsestruc(), makepulsestruc(),...  % pl ,clst
-    [] ,[] ,[]);                            % cmsk ,cpki ,thresh)
+    [] ,[]);                                % cmsk ,cpki )
+
+
 
 stftOverlapFraction = 0.5;
 zetas = [0 0.5];
@@ -85,8 +91,8 @@ localCmsk = false;
 coder.varsize('localCmsk',[inf inf],[1 1]);
 localCpki = NaN;
 coder.varsize('localCpki',[inf 1],[1 1]);
-localThresh = NaN;
-coder.varsize('localThresh',[inf 1],[1 1]);
+% localThresh = NaN;
+% coder.varsize('localThresh',[inf 1],[1 1]);
 
 ps_pre_struc.t_p    = 0;
 ps_pre_struc.t_ip   = 0;
@@ -101,7 +107,7 @@ ps_pre_struc.pl     = localPl;
 ps_pre_struc.clst   = localClst;
 ps_pre_struc.cmsk   = localCmsk;
 ps_pre_struc.cpki   = localCpki;
-ps_pre_struc.thresh = localThresh;
+% ps_pre_struc.thresh = localThresh;
 
 
 %Set max loops for testing purposes
@@ -227,18 +233,35 @@ while i <= maxInd
                         ps_pre = initializeps(Config);
                         configUpdatedFlag = false;
                     else
-                        ps_pre = pulsestats(ps_pre_struc.t_p, ps_pre_struc.t_ip, ps_pre_struc.t_ipu, ps_pre_struc.t_ipj ,ps_pre_struc.fp ,ps_pre_struc.fstart     ,ps_pre_struc.fend   ,ps_pre_struc.tmplt, ps_pre_struc.mode, ps_pre_struc.pl, ps_pre_struc.clst, ps_pre_struc.cmsk, ps_pre_struc.cpki, ps_pre_struc.thresh);
+                        %ps_pre = pulsestats(ps_pre_struc.t_p, ps_pre_struc.t_ip, ps_pre_struc.t_ipu, ps_pre_struc.t_ipj ,ps_pre_struc.fp ,ps_pre_struc.fstart     ,ps_pre_struc.fend   ,ps_pre_struc.tmplt, ps_pre_struc.mode, ps_pre_struc.pl, ps_pre_struc.clst, ps_pre_struc.cmsk, ps_pre_struc.cpki, ps_pre_struc.thresh);
+                        ps_pre = pulsestats(ps_pre_struc.t_p, ps_pre_struc.t_ip, ps_pre_struc.t_ipu, ps_pre_struc.t_ipj ,ps_pre_struc.fp ,ps_pre_struc.fstart     ,ps_pre_struc.fend   ,ps_pre_struc.tmplt, ps_pre_struc.mode, ps_pre_struc.pl, ps_pre_struc.clst, ps_pre_struc.cmsk, ps_pre_struc.cpki);
                         configUpdatedFlag = false;
                     end
                     %Prep waveform for processing/detection
-                    X = waveform(x, Config.Fs, t0, ps_pre, stftOverlapFraction);
+                    X = waveform(x, Config.Fs, t0, ps_pre, stftOverlapFraction, threshold(Config.falseAlarmProb));
                     X.K = Config.K;
                     fprintf('Current interpulse params || N: %u, M: %u, J: %u,\n',uint32(X.N),uint32(X.M),uint32(X.J))
                     X.setprioridependentprops(X.ps_pre)
                     fprintf('Samples in waveform: %u \n',uint32(numel(X.x)))
                     tic
                     fprintf('Computing STFT...')
-                    X.spectro
+                    X.spectro();
+                    fprintf('complete. Elapsed time: %f seconds \n', toc)
+                    fprintf('Building weighting matrix and generating thresholds...')
+                    tic
+                    X.setweightingmatrix(zetas);
+                    if segmentsProcessed==0
+                        X.thresh = X.thresh.makenewthreshold(X);
+                    else
+                        X.thresh = X.thresh.setthreshold(X,Xhold{segmentsProcessed});
+                    end
+                    %Threshold depends on Wq matrix, false alarm prob,
+                    %zetas, nfft in stft, and waveform pulse stats template
+                    %(tmplt) property. Also depends on the current PSD. Use
+                    %Xhold{i-1} to see if things changed?  
+%                     thresh          = buildthreshold(X, Config.falseAlarmProb);
+%                     threshInterp    = interp1(X.stft.f,double(thresh),X.Wf,'linear','extrap');
+%                     X.ps_pos.thresh = threshInterp;
                     fprintf('complete. Elapsed time: %f seconds \n', toc)
                     fprintf('Time windows in S: %u \n',uint32(size(X.stft.S,2)))
                     if strcmp(Config.focusMode,'open')
@@ -249,7 +272,7 @@ while i <= maxInd
                     %Process the waveform
                     tic
                     fprintf('Finding pulses...')
-                    X.process(mode,Config.focusMode,'most',zetas,Config.falseAlarmProb,Config.excldFreqs)
+                    X.process(mode,Config.focusMode,'most',Config.excldFreqs)
                     processingTime = toc;
                     fprintf('complete. Elapsed time: %f seconds \n', toc)
                     if Config.K > 1 & processingTime > 0.9 * sampsForKPulses/Config.Fs
@@ -277,7 +300,7 @@ while i <= maxInd
                     ps_pre_struc.clst  = X.ps_pos.clst;
                     ps_pre_struc.cmsk  = X.ps_pos.cmsk;
                     ps_pre_struc.cpki  = X.ps_pos.cpki;
-                    ps_pre_struc.thresh= X.ps_pos.thresh;
+%                    ps_pre_struc.thresh= X.ps_pos.thresh;
                     updatebufferreadvariables(X.ps_pos);
                     fprintf('complete. Elapsed time: %f seconds \n', toc)
                     
@@ -502,7 +525,7 @@ end
         %Build an empty waveform just so that we can calculate number
         %of overlapSamples. This is needed for buffer operations
         %X0 = waveform([], Config.Fs, 0, pulsestats, stftOverlapFraction);
-        X0 = waveform([], Config.Fs, 0, ps_pre, stftOverlapFraction);
+        X0 = waveform([], Config.Fs, 0, ps_pre, stftOverlapFraction, threshold(0.01));
         %end
 
         %X0.ps_pre = ps_pre;
