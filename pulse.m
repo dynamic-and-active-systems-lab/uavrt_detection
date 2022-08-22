@@ -57,6 +57,48 @@ classdef pulse %< handle
            end
         end
         
+%         function charArray = charArrayOutput(obj)
+%             propSepChars  = ', ';
+%             sepChars      = ': ';
+%             props    = properties(obj);
+%             numProps = numel(props);
+%             charArray = '';
+%             for i = 1:numProps
+%                 switch props{i}
+%                     case 'A'
+%                         formatSpec = '%3e';
+%                     case 'P'
+%                         formatSpec = '%3e';
+%                     case 'SNR'
+%                         formatSpec = '%3e';
+%                     case 'yw'
+%                         formatSpec = '%3e';
+%                     case 't_0'
+%                         formatSpec = '%6f';
+%                     case 't_f'
+%                         formatSpec = '%6f';
+%                     case 't_next'
+%                         formatSpec = '%6f';
+%                     case 'fp'
+%                         formatSpec = '%3f';
+%                     case 'f_start'
+%                         formatSpec = '%3f';
+%                     case 'f_end'
+%                         formatSpec = '%3f';
+%                     case 'mode'
+%                         formatSpec = '%c';
+%                     case 'det_dec'
+%                         formatSpec = '%u';
+%                     case 'con_dec'
+%                         formatSpec = '%u';
+%                 end
+%             
+%             propCharArray = sprintf(formatSpec, obj.(props{i}));
+%             charArray = [charArray, props{i}, sepChars, propCharArray, propSepChars];
+%             end
+%             charArray = charArray(1:end-numel(sepChars));
+%         end
+
     end
 end
 

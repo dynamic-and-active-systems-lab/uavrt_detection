@@ -6,19 +6,20 @@ Each configuration type can be uniquely named, but should contain no spaces and 
 
 ##################################################
 ID:	01
+channelCenterFreqMHz:	148.525000
 timeStamp:	1644944304.890
 ipData:	0.0.0.0
 portData:	20000
 ipCntrl:	127.0.0.1
 portCntrl:	30000
-centerFreq:	150327000.000000 
 Fs:	6000.000
+tagFreqMHz:	148.525
 tp:	0.020000
 tip:	1.300000
 tipu:	0.001000
 tipj:	0.001000
 K:	3
-focusMode:	focus
+opMode:	freqSearchHardLock
 excldFreqs:	[Inf, -Inf]
 falseAlarmProb:	0.0010
 dataRecordPath:	/Users/mshafer/Desktop/PLAYGROUND
@@ -26,19 +27,20 @@ processedOuputPath:	/Users/mshafer/Desktop/PLAYGROUND
 ros2enable:	false
 ##################################################
 ID:	01
+channelCenterFreqMHz:	148.525000
 timeStamp:	1644944313.085
 ipData:	0.0.0.0
 portData:	20000
 ipCntrl:	127.0.0.1
 portCntrl:	30000
-centerFreq:	150327000.000000 
 Fs:	6000.000
+tagFreqMHz:	148.525
 tp:	0.020000
 tip:	1.300000
 tipu:	0.001000
 tipj:	0.001000
 K:	3
-focusMode:	focus
+opMode:	freqSearchHardLock
 excldFreqs:	[Inf, -Inf]
 falseAlarmProb:	0.0010
 dataRecordPath:	/Users/mshafer/Desktop/PLAYGROUND

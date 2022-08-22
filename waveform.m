@@ -1411,7 +1411,7 @@ classdef waveform < handle
         end
         
                           
-        function [] = process(obj,mode,focus_mode,selection_mode,excluded_freq_bands)
+        function [] = process(obj,mode,selection_mode,excluded_freq_bands)
             %PROCESS is a method that runs the pulse detection algorithm on
             %a waveform object. 
             %
@@ -1568,70 +1568,57 @@ classdef waveform < handle
         
         %Enforce entry requirements on the modes so we don't get errors in
         %the 'C' and 'T' modes, as they required priori freq and time info.
-        if ~strcmp(mode,'D') && ~have_priori_time && ~have_priori_freq_band
-            if strcmp(mode,'C'); attemptedmodestring = 'confirmation';end
-            if strcmp(mode,'T'); attemptedmodestring = 'tracking';end
+        if strcmp(mode,'T') && ~have_priori_time && ~have_priori_freq_band
+            %if strcmp(mode,'C'); attemptedmodestring = 'confirmation';end
+            attemptedmodestring = 'tracking';
             if coder.target('MATLAB')
                 warning(['UAV-RT: Attempted ',attemptedmodestring,' search mode, but priori information is missing frequency and/or time data. Defaulting to discovery mode.'])
             end
             mode = 'D';
         end
-                
-        if ~strcmp(mode,'D') && ~strcmp(focus_mode,'focus')
+             
+        if strcmp(mode,'C') && ~have_priori_time 
+            attemptedmodestring = 'confirmation';
             if coder.target('MATLAB')
-                warning(['UAV-RT: Attemped confirmation or tracking search mode when not in `open` focus mode. Defaulting to discovery mode search mode.'])
+                warning(['UAV-RT: Attempted ',attemptedmodestring,' search mode, but priori information is missing frequency and/or time data. Defaulting to discovery mode.'])
+            end
+            mode = 'D';
+        end
+
+        if strcmp(mode,'I') && ~have_priori_freq_band
+            attemptedmodestring = 'frequency informed discovery';
+            if coder.target('MATLAB')
+                warning(['UAV-RT: Attempted ',attemptedmodestring,' search mode, but priori information is missing frequency and/or time data. Defaulting to discovery mode.'])
             end
             mode = 'D';
         end
         
-        
+
         switch mode
-            %% DISCOVERY MODE
             case 'D'
-%                 %Here we build the spectral scaling vector. We make it the same
-%                 %size as the FFT length in the STFT operation, so it has the
-%                 %same frequency resolution.
-%                 %How many frequency bins are there?
-%                 fftlength = length(obj.stft.f);
-%                 %Build a pulse time domain template with the same number 
-%                 %of samples as frequency bins:
-%                 w_time_domain = gettemplate(obj,fftlength);
-%                 %Build weighting matrix
-%                 [W,Wf] = weightingmatrix(w_time_domain,obj.Fs,zetas,'centered');                
-
-
-                
-                %Here we determine if we wanted an 'informed' frequency search
-                %If the first priori pulsestats had a
-                %bandwidth, use an informed frequency band, otherwise check all
-                %frequencies.  
-%                 if ~have_priori_freq_band || strcmp(focus_mode,'open')
-%                     %We don't have priori information or we are in the eyes
-%                     %open mode
-%                     freq_search_type = 'naive';
-%                 else
-%                     freq_search_type = 'informed';
-%                 end
-                %Update for alway using naive frequency in discovery mode
                 freq_search_type = 'naive';
-                
-                %Always in naive time search in discovery mode. 
                 time_search_type = 'naive';
+                runmode          = 'search';
+            case 'I'
+                freq_search_type = 'informed';
+                time_search_type = 'naive';
+                runmode          = 'search';
+            case 'C'
+                freq_search_type = 'naive';
+                time_search_type = 'naive';
+                runmode          = 'confirm';
+            case 'T'
+                freq_search_type = 'informed';
+                time_search_type = 'informed';
+                runmode          = 'track';
+               
+        end
 
-%                 %Get the decision threshold value
-%                 %thresh = getthreshold(obj,PF,decision_table);
-%                 thresh = getthresholdvec(obj,PF,decision_table,time_search_type);
-%                 %If the waveform uses single precisiondata, thresh may be
-%                 %single, but to maintain double precision thresh_interp we
-%                 %cast it to a double here. Needed for Coder.
-%                 thresh_interp = interp1(obj.stft.f,double(thresh),Wf);
-%                 obj.ps_pos.thresh = thresh_interp;
-%                 thresh = buildthreshold(obj, PF, W);
-%                 
-%                 threshInterp = interp1(obj.stft.f,double(thresh),Wf,'linear','extrap');
-%                 obj.ps_pos.thresh = threshInterp;
-                %obj.ps_pos.thresh = thresh;
 
+        switch runmode
+            %% SEARCH RUN MODE
+            case 'search'
+                
                 %Find all the potential pulses in the dataset
                 [candidatelist,msk,pk_ind] = obj.findpulse(time_search_type,freq_search_type,excluded_freq_bands);
                 if  any([candidatelist.det_dec],'all') & any(isnan(pk_ind),'all') %'all' input required by coder
@@ -1672,66 +1659,39 @@ classdef waveform < handle
                         obj.ps_pos.pl(ip).con_dec = false;
                     end
                     
-                    %Only update posteriori if we are focusing. If in open
-                    %mode, we don't evolve the understanding of pulse
-                    %timing in the priori. 
-                    if strcmp(focus_mode,'focus')
-                    %Calculate & set post. stats (reduced uncertainty)
-                    %obj.update_posteriori(obj.ps_pos.pl)
-                    obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl)
-                    end
+%                     %Only update posteriori if we are focusing. If in open
+%                     %mode, we don't evolve the understanding of pulse
+%                     %timing in the priori. 
+%                     if strcmp(focus_mode,'focus')
+%                     %Calculate & set post. stats (reduced uncertainty)
+%                     %obj.update_posteriori(obj.ps_pos.pl)
+%                     obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl)
+%                     end
                     
                     %   Update Mode Recommendation -> Confirmation
                     obj.ps_pos.mode = 'C';
                 else    %Dection was not made
                     %False ->
-                    %Just update the mode recommendation to 'D' so we keep 
-                    %an open search
-                    obj.ps_pos.mode = 'D';
-                    obj.ps_pos.updateposteriori(obj.ps_pre,[]);%No pulses to update the posteriori
+                    %Just update the mode recommendation to 'S' (search) 
+                    %so we keep an open search
+                    obj.ps_pos.mode = 'S';%'D';
+
+                    %obj.ps_pos.updateposteriori(obj.ps_pre,[]);%No pulses to update the posteriori
                 end
                 %Set the mode in the pulse and candidate listing for 
                 %records. This records the mode that was used in the 
                 %detection of the record pulses. This is useful for 
                 %debugging. 
                 for tick = 1:numel(obj.ps_pos.pl)
-                    obj.ps_pos.pl(tick).mode = 'D';
+                    obj.ps_pos.pl(tick).mode = mode;%'D';
                 end
                 for tick = 1:numel(obj.ps_pos.clst)
-                    obj.ps_pos.clst(tick).mode = 'D';
+                    obj.ps_pos.clst(tick).mode = mode;% 'D';
                 end
                 
                 
             %% CONFIRMATION MODE
-            case 'C'
-%                 %Here we build the spectral scaling vector. We make it the same
-%                 %size as the FFT length in the STFT operation, so it has the
-%                 %same frequency resolution.
-%                 %How many frequency bins are there?
-%                 fftlength = length(obj.stft.f);
-%                 %Build a pulse time domaine template with the same number 
-%                 %of samples as frequency bins:
-%                 w_time_domain = gettemplate(obj,fftlength);
-%                 %Build weighting matrix
-%                 [W,Wf] = weightingmatrix(w_time_domain,obj.Fs,zetas,'centered');
-
-                %Always in informed frequency search in confirmation mode                     
-                freq_search_type = 'informed';
-                
-                %Always in naive time search in discovery mode. 
-                time_search_type = 'naive';
-                 
-%                 %Get the decision threshold value
-%                 thresh = getthresholdvec(obj,PF,decision_table,time_search_type);
-%                 %If the waveform uses single precisiondata, thresh may be
-%                 %single, but to maintain double precision thresh_interp we
-%                 %cast it to a double here. Needed for Coder.
-%                 thresh_interp = interp1(obj.stft.f,double(thresh),Wf);
-%                 obj.ps_pos.thresh = thresh_interp;               
-%                 thresh = buildthreshold(obj, PF, W);
-%                 threshInterp = interp1(obj.stft.f,double(thresh),Wf);
-%                 obj.ps_pos.thresh = threshInterp;
-
+            case 'confirm'
                 
                 %Find all the potential pulses in the dataset
                 [candidatelist,msk,pk_ind] = obj.findpulse(time_search_type,freq_search_type,excluded_freq_bands);
@@ -1784,16 +1744,15 @@ classdef waveform < handle
                     minstartlog = [obj.ps_pos.pl(:).t_0]>=pulsestarttimes_withuncert;
                     %Check if pulses started before expected maximum start times
                     maxstartlog = [obj.ps_pos.pl(:).t_0]<=pulseendtimes_withuncert;
-                    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                    %NEED TO ADD LOGIC FOR FREQUENCY
-                    %ARE WE CHECKING ALL PULSE OR JUST FIRST?
-                    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                    conflog = maxstartlog & minstartlog;
-                    [minstartlog',maxstartlog',conflog']
+                    
+                    %Frequency check. Within +/- 100 Hz of previously
+                    %detected pulses?
+                    freqInBand = [obj.ps_pos.pl.fp] >= [obj.ps_pre.pl.fp]-100 &...
+                                 [obj.ps_pos.pl.fp] <= [obj.ps_pre.pl.fp]+100;
+
+
+                    conflog = maxstartlog & minstartlog & freqInBand;
+                    %[minstartlog', maxstartlog', freqInBand', conflog']
                     if any(conflog,'all')
                         % 	Confirmed?
                         % 		True -> Confirmation = True
@@ -1816,12 +1775,12 @@ classdef waveform < handle
                         obj.ps_pos.pl(ip).con_dec = conflog(ip);
                     end
                     
-                    %Open focus mode will never get to confirmation, so we
-                    %don't need the 'if' statement here checking the focus
-                    %most like in the discovery case above
-                    %   Calculate & set post. stats (reduced uncertainty)
-                    %obj.update_posteriori(obj.ps_pos.pl)%(Note this records pulse list)
-                    obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl)
+%                     %Open focus mode will never get to confirmation, so we
+%                     %don't need the 'if' statement here checking the focus
+%                     %most like in the discovery case above
+%                     %   Calculate & set post. stats (reduced uncertainty)
+%                     %obj.update_posteriori(obj.ps_pos.pl)%(Note this records pulse list)
+%                     obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl)
 
                     %Update mode suggestion for next segment processing
                     %   Mode -> Tracking
@@ -1830,50 +1789,23 @@ classdef waveform < handle
                     %False ->
                     %Update mode suggestion for next segment processing
                     %	Mode -> Discovery
-                    obj.ps_pos.mode = 'D';
-                    obj.ps_pos.updateposteriori(obj.ps_pre,[]); %No pulses to update the posteriori
+                    obj.ps_pos.mode = 'S';
+                    %obj.ps_pos.updateposteriori(obj.ps_pre,[]); %No pulses to update the posteriori
                 end
                 %Set the mode in the pulse and candidate listing for 
                 %records. This records the mode that was used in the 
                 %detection of the record pulses. This is useful for 
                 %debugging. 
                 for tick = 1:numel(obj.ps_pos.pl)
-                    obj.ps_pos.pl(tick).mode = 'C';
+                    obj.ps_pos.pl(tick).mode = mode;%'C';
                 end
                 for tick = 1:numel(obj.ps_pos.clst)
-                    obj.ps_pos.clst(tick).mode = 'C';
+                    obj.ps_pos.clst(tick).mode = mode;%'C';
                 end
 
-            case 'T'
+            case 'track'
                 %% TRACKING MODE
-                
-%                 %Here we build the spectral scaling vector. We make it the same
-%                 %size as the FFT length in the STFT operation, so it has the
-%                 %same frequency resolution.
-%                 %How many frequency bins are there?
-%                 fftlength = length(obj.stft.f);
-%                 %Build a pulse time domaine template with the same number 
-%                 %of samples as frequency bins:
-%                 w_time_domain = gettemplate(obj,fftlength);
-%                 %Build weighting matrix
-%                 [W,Wf] = weightingmatrix(w_time_domain,obj.Fs,zetas,'centered');
-
-                %Tracking mode always uses informed frequency search
-                freq_search_type = 'informed';
-                %Always in informed time search mode in tracking mode
-                time_search_type = 'informed';
-                
-%                 %Get the decision threshold value
-%                 thresh = getthresholdvec(obj,PF,decision_table,time_search_type);
-%                 %If the waveform uses single precisiondata, thresh may be
-%                 %single, but to maintain double precision thresh_interp we
-%                 %cast it to a double here. Needed for Coder.
-%                 thresh_interp = interp1(obj.stft.f,double(thresh),Wf);
-%                 obj.ps_pos.thresh = thresh_interp;
-%                 thresh = buildthreshold(obj, PF, W);
-%                 threshInterp = interp1(obj.stft.f,double(thresh),Wf);
-%                 obj.ps_pos.thresh = threshInterp;
-              
+             
                 %Find all the potential pulses in the dataset
                 [candidatelist,msk,pk_ind] = obj.findpulse(time_search_type,freq_search_type,excluded_freq_bands); 
                 if any([candidatelist.det_dec],'all') & any(isnan(pk_ind),'all') %'all' input required by coder
@@ -1908,15 +1840,16 @@ classdef waveform < handle
                         obj.ps_pos.pl(ip).con_dec = true;
                     end
                     
-                    %Open focus mode will never get to tracking, so we
-                    %don't need the 'if' statement here checking the focuse
-                    %most like in the discovery case above
-                    %   Calculate & set post. Stats (reduced uncertainty)
-                    %obj.update_posteriori(obj.ps_pos.pl)
-                    obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl)
+%                     %Open focus mode will never get to tracking, so we
+%                     %don't need the 'if' statement here checking the focuse
+%                     %most like in the discovery case above
+%                     %   Calculate & set post. Stats (reduced uncertainty)
+%                     %obj.update_posteriori(obj.ps_pos.pl)
+%                     obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl)
+
                     %   Mode -> Tracking
                     %Update mode suggestion for next segment processing
-                    obj.ps_pos.mode = 'T';
+                    obj.ps_pos.mode = mode;%'T';
                 else
                     %False ->
                     %Update confirmation property for each pulse. Don't need to
@@ -1925,18 +1858,19 @@ classdef waveform < handle
                     
                     %Update mode suggestion for next segment processing
                     %   Mode -> Discovery
-                    obj.ps_pos.mode = 'D';
-                    obj.ps_pos.updateposteriori(obj.ps_pre,[]);%No pulses to update the posteriori
+                    obj.ps_pos.mode = 'S';%'D';
+
+                    %obj.ps_pos.updateposteriori(obj.ps_pre,[]);%No pulses to update the posteriori
                 end
                 %Set the mode in the pulse and candidate listing for 
                 %records. This records the mode that was used in the 
                 %detection of the record pulses. This is useful for 
                 %debugging. 
                 for tick = 1:numel(obj.ps_pos.pl)
-                    obj.ps_pos.pl(tick).mode    = 'T';
+                    obj.ps_pos.pl(tick).mode    = mode;% 'T';
                 end
                 for tick = 1:numel(obj.ps_pos.clst)
-                    obj.ps_pos.clst(tick).mode  = 'T';
+                    obj.ps_pos.clst(tick).mode  = mode;% 'T';
                 end
             otherwise
                 %% SOMETHING BROKE
@@ -1968,7 +1902,82 @@ classdef waveform < handle
                 %Build weighting matrix
                 [obj.W,obj.Wf] = weightingmatrix(w_time_domain,obj.Fs,zetas,'centered');                
         end
-
+        
+%         function charArray = charArrayOutput(obj)
+%             propSepChars  = '\n';
+%             sepChars      = ': ';
+%             props    = properties(obj);
+%             numProps = numel(props);
+%             charArray = '';
+%             for i = 1:numProps
+%                 propCharArray = '';
+%                 switch props{i}
+%                     case 'K'
+%                         formatSpec = '%u';
+%                     case 'Fs'
+%                         formatSpec = '%3f';
+%                     case 'l'
+%                         formatSpec = '%u';
+%                     case 't_0'
+%                         formatSpec = '%6f';
+%                     case 't_f'
+%                         formatSpec = '%6f';
+%                     case 't_nextsegstart'
+%                         formatSpec = '%6f';
+%                     case 'OLF'
+%                         formatSpec = '%3f';
+%                     case 'n_p'
+%                         formatSpec = '%u';
+%                     case 'n_w'
+%                         formatSpec = '%u';
+%                     case 'n_ol'
+%                         formatSpec = '%u';
+%                     case 'n_ws'
+%                         formatSpec = '%u';
+%                     case 't_ws'
+%                         formatSpec = '%6f';
+%                     case 'n_ip'
+%                         formatSpec = '%u';
+%                     case 'N'
+%                         formatSpec = '%u';
+%                     case 'M'
+%                         formatSpec = '%u';
+%                     case 'J'
+%                         formatSpec = '%u';
+%                     case 'ps_pre'
+%                         if ~isempty(obj.(props{i}))
+%                             propCharArray = obj.(props{i}).charArrayOutput();
+%                         else
+%                             propCharArray = 'none';
+%                         end
+%                     case 'ps_pos'
+%                         if ~isempty(obj.(props{i}))
+%                             propCharArray = obj.(props{i}).charArrayOutput();
+%                         else
+%                             propCharArray = 'none';
+%                         end
+%                     case 'thresh'
+%                         if ~isempty(obj.(props{i}))
+%                             propCharArray = obj.(props{i}).charArrayOutput();
+%                         else
+%                             propCharArray = 'none';
+%                         end
+%                 end
+%                 vecSepChar = ', ';
+%                 %We don't write out the following properties
+%                 %stft, W, Wf
+%                 if ~(strcmp(props{i}, 'stft') | strcmp(props{i}, 'W') | strcmp(props{i}, 'Wf'))
+%                     if isempty(propCharArray)
+%                         propCharArray = sprintf(formatSpec, obj.(props{i}));                   
+%                     end
+%                 
+%                 charArray = [charArray, props{i}, sepChars, propCharArray, propSepChars];
+%                 end
+% 
+%             end
+%             %charArray = charArray(1:end-numel(sepChars));
+%             charArray  = sprintf(charArray(1:end-numel(sepChars)));
+%         end
         
         function [] = displayresults(obj,ax)
             if coder.target('MATLAB')

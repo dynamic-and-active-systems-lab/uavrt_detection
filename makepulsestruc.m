@@ -3,7 +3,7 @@ function [thepulse] = makepulsestruc(A,yw,SNR,t_0,t_f,t_next,fp,fstart,fend)
 %
 %
 %Author: Michael Shafer
-%Date:   Sometime in the summer of 2020.
+%Date:   Sometime in the summer of 2022.
 %
 %%
 %     properties

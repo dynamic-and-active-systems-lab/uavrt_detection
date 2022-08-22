@@ -4,21 +4,25 @@ classdef DetectorConfig
     %
     %PROPERTIES
     %   ID              A string identifier for the detector
-    %   freqMHz         Center frequency of incoming data stream in MHz
+    %   channelCenterFreqMHZ    Center frequency of incoming data stream in MHz
     %   ipData          String ip from which to receive data. Enter
     %                   '0.0.0.0' to receive from any IP.
     %   portData        Port from which to receive data
     %   ipCntrl         String ip from which to receive control inputs. 
     %                   Enter '0.0.0.0' to receive from any IP.
     %   portCntrl       Port from which to receive control inputs
-    %   centerFreq      Center frequency of incoming data
     %   Fs              Sample rate of incoming data
+    %   tagFreqMHz      Expected frequency of tag
     %   tp              Duration of pulse in seconds
     %   tip             Interpulse duration in seconds
     %   tipu            Interpulse duration uncertainty in seconds
     %   tipj            Interpulse duration jitter in seconds
     %   K               Number of pulses to integrate
-    %   focusMode       Focus mode to use ('focus' or 'open')
+    %   opMode          Operational mode for processing:
+    %                       freqSearchHardLock
+    %                       freqSearchSoftLock
+    %                       freqKnownHardLock
+    %                       freqAllNeverLock
     %   excldFreqs      [nx2] matrix of frequency bands to exclude
     %   falsAlarmProb   False alarm probability
     %   decisionEntryPath   Path to decision entry
@@ -44,19 +48,19 @@ classdef DetectorConfig
     
     properties
         ID          (1, 1) string {mustBeTextScalar}                          = "01"; 
-        freqMHz     (1, 1) double {mustBeNonnegative, mustBeReal}             = 150.000;
+        channelCenterFreqMHz     (1, 1) double {mustBeNonnegative, mustBeReal}             = 150.000;
         ipData      (1, 1) string {mustBeTextScalar}                          = "0.0.0.0"
         portData    (1, 1) double {mustBeReal, mustBePositive, mustBeInteger} = 1
         ipCntrl     (1, 1) string {mustBeTextScalar}                          = "0.0.0.0"
         portCntrl   (1, 1) double {mustBeReal, mustBePositive, mustBeInteger} = 1     
-        centerFreq  (1, 1) double {mustBeReal}                                = 0
         Fs          (1, 1) double {mustBeReal, mustBePositive}                = 192000
+        tagFreqMHz  (1, 1) double {mustBeReal}                                = 150.000;
         tp 	        (1, 1) double {mustBeReal, mustBePositive}                = 0.02
         tip         (1, 1) double {mustBeReal, mustBePositive}                = 1
         tipu        (1, 1) double {mustBeReal, mustBeNonnegative}             = 0
         tipj        (1, 1) double {mustBeReal, mustBeNonnegative}             = 0
         K           (1, 1) double {mustBeReal, mustBePositive, mustBeInteger} = 1
-        focusMode   (1, 1) string {mustBeTextScalar}                          = 'open'
+        opMode      (1, 1) string {mustBeTextScalar}                          = 'freqSearchHardLock'
         excldFreqs  (:, 2) double {mustBeReal}                                = [inf, -inf]
         falseAlarmProb(1,1) double {mustBePositive, mustBeLessThan(falseAlarmProb,1)} = 0.01
         dataRecordPath(1,1) string                                            = ''
@@ -65,27 +69,30 @@ classdef DetectorConfig
     end
     
     methods
-        function obj = DetectorConfig(IDstr, freqMHz, ipData, portData,ipCntrl, portCntrl, centerFreq, Fs, tp, tip, tipu, K, focusMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath, processedOuputPath)
+        function obj = DetectorConfig(IDstr, channelCenterFreqMHZ, ipData, portData,ipCntrl, portCntrl, Fs, tagFreqMHz, tp, tip, tipu, K, opMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath, processedOuputPath)
             %DETECTORCONFIR Construct an instance of this class
             %
             %INPUTS:
             %   IDstr           A string identifier for the detector
-            %   freqMHz         Center frequency of incoming data stream in MHz
-            %   freqMHz         Center frequency of incoming data stream in MHz
+            %   channelCenterFreqMHz    Center frequency of incoming data stream in MHz
             %   ipData          String ip from which to receive data. Enter
             %                   '0.0.0.0' to receive from any IP.
             %   portData        Port from which to receive data
             %   ipCntrl         String ip from which to receive control inputs.
             %                   Enter '0.0.0.0' to receive from any IP.
             %   portCntrl       Port from which to receive control inputs
-            %   centerFreq      Center frequency of incoming data
             %   Fs              Sample rate of incoming data
+            %   tagFreqMHz      Expected frequency of tag
             %   tp              Duration of pulse in seconds
             %   tip             Interpulse duration in seconds
             %   tipu            Interpulse duration uncertainty in seconds
             %   tipj            Interpulse jitter in seconds
             %   K               Number of pulses to integrate
-            %   focusMode       Focus mode to use ('focus' or 'open')
+            %   opMode          Operational mode for processing:
+            %                       freqSearchHardLock
+            %                       freqSearchSoftLock
+            %                       freqKnownHardLock
+            %                       freqAllNeverLock
             %   excldFreqs      [nx2] matrix of frequency bands to exclude
             %   falsAlarmProb   False alarm probability 
             %   decisionEntryPath   Path to decision entry
@@ -99,43 +106,25 @@ classdef DetectorConfig
             
             if nargin>0
                 obj.ID          = IDstr;
-                obj.freqMHz     = freqMHz;
+                obj.channelCenterFreqMHz     = channelCenterFreqMHZ;
                 obj.ipData      = ipData;
                 obj.portData    = portData;
                 obj.ipCntrl     = ipCntrl;
                 obj.portCntrl   = portCntrl;               
-                obj.centerFreq  = centerFreq;
                 obj.Fs          = Fs;
+                obj.tagFreqMHz  = tagFreqMHz;
                 obj.tp          = tp;
                 obj.tip         = tip;
                 obj.tipu        = tipu;
                 obj.tipj        = tipj;
                 obj.K           = K;
-                obj.focusMode           = focusMode;
+                obj.opMode           = opMode;
                 obj.excldFreqs          = excldFreqs;
                 obj.falseAlarmProb      = falseAlarmProb;
                 obj.dataRecordPath      = dataRecordPath;
                 obj.processedOuputPath  = processedOuputPath;
                 obj.ros2enable          = ros2enable;
-%             else
-%                 obj.ID          = "01";
-%                 obj.ipData      = "0.0.0.0";
-%                 obj.portData    = 1;
-%                 obj.ipCntrl     = "0.0.0.0";
-%                 obj.portCntrl   = 1;
-%                 obj.centerFreq  = 0;
-%                 obj.Fs          = 0;
-%                 obj.tp          = 0;
-%                 obj.tip         = 0;
-%                 obj.tipu        = 0;
-%                 obj.tipj        = 0;
-%                 obj.K           = 0;
-%                 obj.focusMode           = "focus";
-%                 obj.excldFreqs          = [inf -inf];
-%                 obj.falseAlarmProb      = 0.0005;
-%                 obj.dataRecordPath      = "emptypath";
-%                 obj.processedOuputPath  = "emptypath";
-%                 obj.ros2enable          = false;
+
             end
         end
         
@@ -216,8 +205,8 @@ classdef DetectorConfig
                     
                     if strcmp(configType,'ID')
                         obj.ID      = configValStr;
-                    elseif strcmp(configType,'freqMHz')
-                        obj.freqMHz  = real(str2double(configValStr));
+                    elseif strcmp(configType,'channelCenterFreqMHz')
+                        obj.channelCenterFreqMHz  = real(str2double(configValStr));
                     elseif strcmp(configType,'ipData')
                         obj.ipData  = configValStr;
                     elseif strcmp(configType,'portData')
@@ -226,10 +215,10 @@ classdef DetectorConfig
                         obj.ipCntrl = configValStr;
                     elseif strcmp(configType,'portCntrl')
                         obj.portCntrl   = uint16(real(str2double(configValStr)));    
-                    elseif strcmp(configType,'centerFreq')
-                        obj.centerFreq  = real(str2double(configValStr));
                     elseif strcmp(configType,'Fs')
                         obj.Fs      = real(str2double(configValStr));
+                    elseif strcmp(configType,'tagFreqMHz')
+                        obj.tagFreqMHz  = real(str2double(configValStr));
                     elseif strcmp(configType,'tp')
                         obj.tp      = real(str2double(configValStr));
                     elseif strcmp(configType,'tip')
@@ -240,8 +229,8 @@ classdef DetectorConfig
                         obj.tipj    = real(str2double(configValStr));
                     elseif strcmp(configType,'K')
                         obj.K       = uint8(real(str2double(configValStr)));
-                    elseif strcmp(configType,'focusMode')
-                        obj.focusMode =  configValStr;
+                    elseif strcmp(configType,'opMode')
+                        obj.opMode =  configValStr;
                     elseif strcmp(configType,'excldFreqs')
                         obj.excldFreqs =  real(str2matrix(configValStr));
                     elseif strcmp(configType,'falseAlarmProb')
@@ -277,13 +266,13 @@ classdef DetectorConfig
             %
             %OUTPUTS:
             %   none
-            configStr  = detectorsetting2configstr(obj.ID, obj.freqMHz, ...
+            configStr  = detectorsetting2configstr(obj.ID, obj.channelCenterFreqMHz, ...
                                                    obj.ipData, obj.portData, ...
                                                    obj.ipCntrl, obj.portCntrl, ...
-                                                   obj.centerFreq, ...
-                                                   obj.Fs, obj.tp, ...
-                                                   obj.tip, obj.tipu,obj.tipj,...
-                                                   obj.K, obj.focusMode,...
+                                                   obj.Fs, obj.tagFreqMHz, ...
+                                                   obj.tp, obj.tip, ...
+                                                   obj.tipu,obj.tipj,...
+                                                   obj.K, obj.opMode,...
                                                    obj.excldFreqs,...
                                                    obj.falseAlarmProb,...
                                                    obj.dataRecordPath, ...
@@ -299,19 +288,19 @@ classdef DetectorConfig
             %reset the property after the copy completes.
             objOut = DetectorConfig();
             objOut.ID          = obj.ID;
-            objOut.freqMHz     = obj.freqMHz;
+            objOut.channelCenterFreqMHz     = obj.channelCenterFreqMHz;
             objOut.ipData      = obj.ipData;
             objOut.portData    = obj.portData;
             objOut.ipCntrl     = obj.ipCntrl;
             objOut.portCntrl   = obj.portCntrl;
-            objOut.centerFreq = obj.centerFreq;
-            objOut.Fs      = obj.Fs;
-            objOut.tp      = obj.tp;
-            objOut.tip     = obj.tip;
-            objOut.tipu    = obj.tipu;
-            objOut.tipj    = obj.tipj;
-            objOut.K       = obj.K;
-            objOut.focusMode           = obj.focusMode;
+            objOut.Fs          = obj.Fs;
+            objOut.tagFreqMHz  = obj.tagFreqMHz;
+            objOut.tp          = obj.tp;
+            objOut.tip         = obj.tip;
+            objOut.tipu        = obj.tipu;
+            objOut.tipj        = obj.tipj;
+            objOut.K           = obj.K;
+            objOut.opMode      = obj.opMode;
             objOut.excldFreqs          = obj.excldFreqs;
             objOut.falseAlarmProb      = obj.falseAlarmProb;
             objOut.dataRecordPath      = obj.dataRecordPath;

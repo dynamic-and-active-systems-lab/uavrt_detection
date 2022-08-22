@@ -182,6 +182,40 @@ classdef threshold
             obj = obj.setthreshprops(threshMedPow, Wfm);
         end
         
+%         function charArray = charArrayOutput(obj)
+%             propSepChars  = '\n';
+%             sepChars      = ': ';
+%             props    = properties(obj);
+%             numProps = numel(props);
+%             charArray = '';
+%             for i = 1:numProps
+%                 switch props{i}
+%                     case 'pf'
+%                         formatSpec = '%3e';
+%                     case 'evMuParam'
+%                         formatSpec = '%3e';
+%                     case 'evSigmaParam'
+%                         formatSpec = '%3e';
+%                     case 'thresh1W'
+%                         formatSpec = '%3e';
+%                     case 'threshVecCoarse'
+%                         formatSpec = '%6e';
+%                     case 'threshVecFine'
+%                         formatSpec = '%6e';
+%                 end
+%                 vecSepChar = ', ';
+%                 if strcmp(props{i}, 'threshVecCoarse') | strcmp(props{i}, 'threshVecFine') 
+%                     propCharArray = sprintf([formatSpec, vecSepChar], obj.(props{i}));
+%                 else
+%                     propCharArray = sprintf(formatSpec, obj.(props{i}));
+%                 end
+%                 
+%                 charArray = [charArray, props{i}, sepChars, propCharArray, propSepChars];
+% 
+%             end
+%             %charArray = charArray(1:end-numel(sepChars));
+%             charArray  = sprintf(charArray(1:end-numel(sepChars)));
+%         end
     end
     methods(Access = protected)
         function [obj] = setthreshprops(obj, thresh, Wfm)
