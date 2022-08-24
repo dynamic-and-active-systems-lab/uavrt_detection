@@ -56,38 +56,37 @@ classdef waveform < handle
     %----------------------------------------------------------------------
     %%
     properties (SetAccess = public)
-        ps_pre  %Pulse stats object from previous data (priori)
-        ps_pos  %Pulse stats object after update (posteriori)
-        K       %The number of pulses this waveform was built to contain based on its length
-        thresh      %Threshold object
+        ps_pre (1, 1)       %Pulse stats object from previous data (priori)
+        ps_pos (1, 1)       %Pulse stats object after update (posteriori)
+        K      (1, 1) double%The number of pulses this waveform was built to contain based on its length
+        thresh (1, 1)       %Threshold object
     end
     properties (SetAccess = protected)
-        x       %Vector of samples
-        Fs      %Sample frequency (Hz)
-        l       %Length of x (numel)
-        t_0     %Time stamp of first element (s)
-        t_f     %Time stamp of last element (s)
-        t_nextsegstart
+        x   (:, 1) single   %Vector of samples
+        Fs  (1, 1) double   %Sample frequency (Hz)
+        l   (1, 1) double   %Length of x (numel)
+        t_0 (1, 1) double   %Time stamp of first element (s)
+        t_f (1, 1) double   %Time stamp of last element (s)
+        t_nextsegstart (1, 2) double
         %Time location where the next segement after this should
         %pick up to ensure sufficient overlap. This is only used
         %when the segment is cleaved to keep track of start and
         %stop locations of each segment.
-        stft    %a WFMSTFT object of x with properties
-        OLF     %Overlap fraction
-        %STFT window related properties
+        stft (1, 1)         %WFMSTFT object of x with properties
+        OLF  (1, 1) double  %Overlap fraction
+        W    (:, :) double  %Spectral weighing matrix
+        Wf   (:, 1) double  %Frequency output of the spectral weighting matrix
+        %% STFT window related properties
         %All can by updated with the updateprioridependentprops method
-        n_p         %Samples for each pulse
-        n_w         %Samples in each window
-        n_ol        %Samples overlapped in windows
-        n_ws        %Samples for each window step forward
-        t_ws        %Time for each window step forward (s)
-        n_ip        %Interpulse time in samples
-        N           %Interpulse time in units of STFT windows
-        M           %Interpulse uncertainty time in units of STFT windows
-        J           %Interpulse jitter in units of STFT windows
-        %TimeCorr    %Temporal correlation object (includes Wq matrix as a prop)
-        W(:,:) double  %Spectral weighing matrix
-        Wf(:,1) double %Frequency output of the spectral weighting matrix
+        n_p  (1, 1) double  %Samples for each pulse
+        n_w  (1, 1) double  %Samples in each window
+        n_ol (1, 1) double  %Samples overlapped in windows
+        n_ws (1, 1) double  %Samples for each window step forward
+        t_ws (1, 1) double  %Time for each window step forward (s)
+        n_ip (1, 1) double  %Interpulse time in samples
+        N    (1, 1) double  %Interpulse time in units of STFT windows
+        M    (1, 1) double  %Interpulse uncertainty time in units of STFT windows
+        J    (1, 1) double  %Interpulse jitter in units of STFT windows
     end
     
     methods
@@ -103,7 +102,18 @@ classdef waveform < handle
             %OUTPUTS:
             %   obj             The waveform object
             %%
-            %coder.varsize('obj.x',[1 10000])
+            
+            localx   = single(complex(zeros(1,0)));
+            localW   = double(complex(zeros(0,0)));
+            localWf  = double(zeros(0,1));
+            coder.varsize('localx',   [1,   40000], [0 1]);
+            coder.varsize('localW',   [400, 400],   [1 1]);
+            coder.varsize('localWf',  [400, 1],     [1 0]);
+            obj.x  = localx;
+            obj.W  = localW;
+            obj.Wf = localWf;
+
+
             if nargin>0
                 x       = reshape(x,1,numel(x)); %Flatten input to row
                 obj.x   = x;                    %Data vector
@@ -119,7 +129,7 @@ classdef waveform < handle
                 obj.ps_pre  = ps_pre;
                 obj.OLF     = OLF;              %Overlap Fraction for STFT
                 obj.K       = NaN;              %Unknown number of pulses.
-                obj.stft    = wfmstft;          %Unknown values but set types
+                obj.stft    = wfmstft();          %Unknown values but set types
                 obj.W       = [];               
                 obj.Wf      = [];               
                 %Copy over ps_
@@ -127,7 +137,11 @@ classdef waveform < handle
                 %obj.TimeCorr = TemporalCorrelator(10, 0, 0);%Generate a temporalcorrelator object so coder knows the type of the object
                 obj.setprioridependentprops(ps_pre)
                 obj.thresh  = thresh;
-                
+            else
+                obj.thresh = threshold();%Set custom types for coder. 
+                obj.stft   = wfmstft();
+                obj.ps_pre = pulsestats();
+                obj.ps_pos = pulsestats();
             end
         end
         function t_out = t(obj)
@@ -1611,7 +1625,10 @@ classdef waveform < handle
                 freq_search_type = 'informed';
                 time_search_type = 'informed';
                 runmode          = 'track';
-               
+            otherwise
+                freq_search_type = 'naive';
+                time_search_type = 'naive';
+                runmode          = 'search';
         end
 
 

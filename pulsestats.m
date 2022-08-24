@@ -79,22 +79,19 @@ classdef pulsestats < handle
     %   2022-04-05 Added psdHist property
     %%
     properties
-        t_p     %Duration of pulse (second)
-        %   signal energy contained for 0<=t<tp
-        t_ip    %Inter-pulse time (seconds)
-        t_ipu   %Inter-pulse time uncertainty (seconds)
-        t_ipj   %Inter-pulse time jitter (deviations from means) (seconds)
-        fp      %Pulses' peak frequency (Hz) (highest power)
-        fstart  %Pulses' lower frequency bound
-        fend    %Pulses' upper frequency bound
-        tmplt   %Time domain amplitude template of the baseband pulse
-        mode    %(1,1) char    %The tracking mode that should be use (for priori) or was used (for posteriori). 'D' 'C' or 'T'
-        pl      %(:,1) %'Pulse List' Vector of pulses objects in waveform
-        clst    %(:,1) %'Candidate List' is a matrix of pulses objects in the waveform
-        cmsk    %(:,:) logical %'Candidate List Mask' is a matrix the contains masks for each of the pulses that met the threshold.
-        cpki    %(:,:) %These are the row indices of clst that were found to be peak (the center of the pulse frequency).
-        %thresh  %(:,1) %Listing of decision thresholds for each row of clst
-        %psdHist %A matrix of power spectral densities for previous waveform segments
+        t_p   (1, 1) double %Duration of pulse (second)
+        t_ip  (1, 1) double %Inter-pulse time (seconds)
+        t_ipu (1, 1) double %Inter-pulse time uncertainty (seconds)
+        t_ipj (1, 1) double %Inter-pulse time jitter (deviations from means) (seconds)
+        fp    (1, 1) double %Pulses' peak frequency (Hz) (highest power)
+        fstart(1, 1) double %Pulses' lower frequency bound
+        fend  (1, 1) double %Pulses' upper frequency bound
+        tmplt (1, :) double %Time domain amplitude template of the baseband pulse
+        mode  (1, 1) char   %The tracking mode that should be use (for priori) or was used (for posteriori). 'D' 'C' or 'T'
+        pl    (:, 1)        %'Pulse List' Vector of pulses objects in waveform
+        clst  (:, 1)        %'Candidate List' is a matrix of pulses objects in the waveform
+        cmsk  (:, :) logical%'Candidate List Mask' is a matrix the contains masks for each of the pulses that met the threshold.
+        cpki  (:,:)  double %These are the row indices of clst that were found to be peak (the center of the pulse frequency).
     end
     methods
         function obj = pulsestats(tp,tip,tipu,tipj,fp,fstart,fend,tmplt,mode,pl,clst,cmsk,cpki,thresh)
@@ -122,7 +119,6 @@ classdef pulsestats < handle
             %%
             
             if nargin>0
-                
                 if (~isempty(tp) && isnan(tp)) ||...
                         (~isempty(tip) && isnan(tip)) ||...
                         (~isempty(tipu) && isnan(tipu)) ||...
@@ -138,33 +134,34 @@ classdef pulsestats < handle
                 obj.fstart  = fstart;
                 obj.fend    = fend;
                 obj.tmplt   = tmplt;
-                
+                obj.mode    = mode;
                 
                 %The following are variable sized properties. To tell coder
                 %that they may vary setup as a local variable size variable
                 %first, then set.
                 %Instructions on https://www.mathworks.com/help/simulink/ug/how-working-with-matlab-classes-is-different-for-code-generation.html
-                localMode = mode;
+                %localMode = mode;
                 %coder.varsize('localMode',[1 inf],[0 1]); %dims 0 if fixed, 1 if variable
                 localPl = pl;
-                coder.varsize('localPl',[inf inf],[1 1]);
                 localClst = clst;
-                coder.varsize('localClst',[inf inf],[1 1]);
                 localCmsk = cmsk;
-                coder.varsize('localCmsk',[inf inf],[1 1]);
                 localCpki = cpki;
+            else
+                localPl   = makepulsestruc();
+                localClst = makepulsestruc();
+                localCmsk = false(0,0);
+                localCpki = zeros(0,0);
+            end
+                %Tell coder these are variable size.
+                coder.varsize('localClst',[inf inf],[1 1]);
+                coder.varsize('localPl',  [inf inf],[1 1]);
+                coder.varsize('localCmsk',[inf inf],[1 1]);
                 coder.varsize('localCpki',[inf 1],[1 1]);
-%                 localThresh = thresh;
-%                 coder.varsize('localThresh',[inf 1],[1 1]);
                 %Now actually assign them 
-                obj.mode   = localMode;
                 obj.pl   = localPl;
                 obj.clst = localClst;
                 obj.cmsk = localCmsk;
                 obj.cpki = localCpki;
-                %obj.thresh = localThresh;
-                
-            end
         end
         function obj_out = makepropertycopy(obj)
             %COPY Creates an exact copy of the pulse stats object as a separate object

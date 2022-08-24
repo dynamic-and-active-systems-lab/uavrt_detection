@@ -1,21 +1,21 @@
 ##################################################
 ID:	01
-freqMHz:	148.525
+channelCenterFreqMHz:	148.525000
 timeStamp:	1646403180.469
 ipData:	0.0.0.0
 portData:	20000
 ipCntrl:	127.0.0.1
 portCntrl:	30000
-centerFreq:	148525000.000000 
 Fs:	4000.000
+tagFreqMHz:	148.525
 tp:	0.020000
 tip:	1.392500
-tipu:	0.060000
+tipu:	0.06000
 tipj:	0.020000
 K:	3
-focusMode:	focus
+opMode:	freqSearchHardLock
 excldFreqs:	[Inf, -Inf]
 falseAlarmProb:	0.00080
-dataRecordPath:	~/uavrt_output/data_record.bin
-processedOuputPath:	~/uavrt_output/Desktop/PLAYGROUND
+dataRecordPath:	/Users/mshafer/Desktop/uavrt_output/data_record.bin
+processedOuputPath:	/Users/mshafer/Desktop/uavrt_output
 ros2enable:	true

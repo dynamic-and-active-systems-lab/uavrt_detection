@@ -15,9 +15,13 @@ classdef threshold
         function obj = threshold(pf)
             %UNTITLED2 Construct an instance of this class
             %   Detailed explanation goes here
-            obj.pf           = pf;
-            obj.evMuParam    = 0;
-            obj.evSigmaParam = 0;
+            if nargin>0
+                obj.pf = pf;
+            else
+                obj.pf = 0.01;
+            end
+            obj.evMuParam        = 0;
+            obj.evSigmaParam     = 0;
             obj.thresh1W         = 0;  
             obj.threshVecCoarse  = 0;
             obj.threshVecFine    = 0;

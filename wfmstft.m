@@ -34,12 +34,12 @@ classdef wfmstft < handle
     %%
     
     properties
-        S(:,:) double	%Spectrogram ouput
-        f(:,1) double   %Frequency vector for rows of S
-        t(:,1) double   %Time vector for columns of S
-        psd %Power spectral density (W/Hz)
-        dt(1,1) double  %1/Fs of data used to generate STFT
-        T(1,1) double   %Time of each window of the STFT (n_w/Fs)
+        S   (:,:) double	%Spectrogram ouput
+        f   (:,1) double   %Frequency vector for rows of S
+        t   (:,1) double   %Time vector for columns of S
+        psd (:,1) double %Power spectral density (W/Hz)
+        dt  (1,1) double  %1/Fs of data used to generate STFT
+        T   (1,1) double   %Time of each window of the STFT (n_w/Fs)
         wind(:,1) double %Window definition used for the STFT
     end
     
@@ -57,16 +57,41 @@ classdef wfmstft < handle
             %OUTPUTS:
             %   obj             A wfmstft object
             %%
+            %
+            %The following are variable sized properties. To tell coder
+            %that they may vary setup as a local variable size variable
+            %first, then set.
+            %Instructions on https://www.mathworks.com/help/simulink/ug/how-working-with-matlab-classes-is-different-for-code-generation.html
+            localS   = double(complex(zeros(0,0)));
+            localt   = double(zeros(0, 1));
+            localf   = double(zeros(0, 1));
+            localpsd = double(zeros(0, 1));
+            localwind= double(zeros(0, 1));
+            coder.varsize('localS',   [200, 2000], [1 1]);
+            coder.varsize('localt',   [2000,   1], [1 0]);
+            coder.varsize('localf',   [200,    1], [1 0]);
+            coder.varsize('localpsd', [200,    1], [1 0]);
+            coder.varsize('localwind',[200,    1], [1 0]);%maxFs*maxpulsewidth
+            %Now actually assign them
+            obj.S   = localS;
+            obj.t   = localt;
+            obj.f   = localf;
+            obj.psd = localpsd;
+            obj.wind= localwind;
+            obj.dt  = 0;
+            obj.T   = 0;
+
+        
             if nargin>0
                 %wind = hann(waveform_obj.n_w,'periodic');
                 %wind = tukeywin(waveform_obj.n_w,0.3);
                 obj.wind = rectwin(waveform_obj.n_w);
-                [obj.S, obj.f, local_time] = stft(waveform_obj.x,waveform_obj.Fs,'Window',obj.wind,'OverlapLength',waveform_obj.n_ol,'FFTLength',waveform_obj.n_w);
+                [S, obj.f, local_time] = stft(waveform_obj.x,waveform_obj.Fs,'Window',obj.wind,'OverlapLength',waveform_obj.n_ol,'FFTLength',waveform_obj.n_w);
+                obj.S = double(S);% Incoming x data in waveform is single precision, but sparse matrix multipliation later is only supported for double precision.
                 obj.t = double(local_time)+waveform_obj.t_0; %Convert to global time of waveform. Double cast is needed because if x data in stft is single precision then the output t will be single as well.
                 obj.dt = 1/waveform_obj.Fs;
                 obj.T  = waveform_obj.n_w/waveform_obj.Fs;
                 obj.updatepsd();
-                
                 %obj.psd = obj.dt^2/obj.T*mean(abs(obj.S).^2,2);% Sxx = dt^2/T*|xhat(f)|^2 
                 %Vestigial properties no longer used. Kept in case we want
                 %to resurect them. 
