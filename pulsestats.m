@@ -88,13 +88,13 @@ classdef pulsestats < handle
         fend  (1, 1) double %Pulses' upper frequency bound
         tmplt (1, :) double %Time domain amplitude template of the baseband pulse
         mode  (1, 1) char   %The tracking mode that should be use (for priori) or was used (for posteriori). 'D' 'C' or 'T'
-        pl    (:, 1)        %'Pulse List' Vector of pulses objects in waveform
-        clst  (:, 1)        %'Candidate List' is a matrix of pulses objects in the waveform
+        pl    (1, :)        %'Pulse List' Vector of pulses objects in waveform
+        clst  (:, :)        %'Candidate List' is a matrix of pulses objects in the waveform
         cmsk  (:, :) logical%'Candidate List Mask' is a matrix the contains masks for each of the pulses that met the threshold.
         cpki  (:,:)  double %These are the row indices of clst that were found to be peak (the center of the pulse frequency).
     end
     methods
-        function obj = pulsestats(tp,tip,tipu,tipj,fp,fstart,fend,tmplt,mode,pl,clst,cmsk,cpki,thresh)
+        function obj = pulsestats(tp,tip,tipu,tipj,fp,fstart,fend,tmplt,mode,pl,clst,cmsk,cpki)
             %PULSESTATS Constructs an instance of this class
             %
             %INPUTS:

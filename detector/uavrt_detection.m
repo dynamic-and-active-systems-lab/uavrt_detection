@@ -2,6 +2,7 @@ function [] = uavrt_detection()
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
+ %#codegen
 configPath = "config/detectorConfig.txt"; %Must exist in the same directory as the execution of this executable
 
 Config =  DetectorConfig(); %Build empty config object
@@ -21,14 +22,10 @@ if ros2Enable
 end
 
 blankThresh = threshold(Config.falseAlarmProb);
-% pulseStatsPriori = pulsestats(Config.tp, Config.tip, Config.tipu, ... % tp, tip, tipu
-%     Config.tipj, 0 , 0 ,0 , [1 1], "D" ,... % tipj, fp, fstart, fend, tmplt, mode
-%     makepulsestruc(), makepulsestruc(),...  % pl ,clst
-%     [] ,[] , []);                           % cmsk ,cpki ,thresh)
 pulseStatsPriori = pulsestats(Config.tp, Config.tip, Config.tipu, ... % tp, tip, tipu
     Config.tipj, 0 , 0 ,0 , [1 1], "D" ,... % tipj, fp, fstart, fend, tmplt, mode
     makepulsestruc(), makepulsestruc(),...  % pl ,clst
-    [] ,[]);                                % cmsk ,cpki )
+    [] ,[]);                           % cmsk ,cpki)
 
 
 
@@ -44,8 +41,9 @@ updatebufferreadvariables(pulseStatsPriori);
 
 coder.varsize("dataReceived",[1025 1]);
 coder.varsize("state",[1 64]);
+coder.varsize("previousState",[1 64]);
 packetLength = 1025; %1024 plus a time stamp.
-
+fprintf('1 \n')
 %% Calculating the max size that would ever be needed for the buffer
 % maxK    = 6;
 % maxFs   = 912000/2;
@@ -59,20 +57,20 @@ packetLength = 1025; %1024 plus a time stamp.
 sampsForMaxPulses = 5800320;
 asyncDataBuff = dsp.AsyncBuffer(sampsForMaxPulses);
 asyncTimeBuff = dsp.AsyncBuffer(sampsForMaxPulses);
-
+fprintf('2 \n')
 dataWriterTimeIntervalNominal = 10; %Write interval in seconds. 2.5*60*4000*32/8 should work out the 2.4Mb of data at 4ksps.
 dataWriterPacketsPerInterval  = ceil(dataWriterTimeIntervalNominal/((packetLength-1)/Config.Fs));
 dataWriterTimeIntervalActual  = dataWriterPacketsPerInterval*packetLength/Config.Fs;
 dataWriterSamples             = dataWriterPacketsPerInterval*packetLength;
 %dataWriterBuffer             = zeros(packetLength,dataWriterPacketsPerInterval);
 asyncWriteBuff                = dsp.AsyncBuffer(600650); %600650 is the result of the nominal settings of ceil(150/(1024/4000)*1025.
-asyncWriteBuff.write(single(1+1i));%Write to give Code the type. Read to remove data. 
+asyncWriteBuff.write(single(1+1i));%Write to give Code the type. Read to remove data.
 asyncWriteBuff.read();
 dataWriterFileID    = fopen(Config.dataRecordPath,'w');
 if dataWriterFileID == -1
     fprintf("UAV-RT: Error opening/creating data record file with error:\n")
 end
-
+fprintf('3 \n')
 % writer = dsp.BinaryFileWriter(Config.dataRecordPath);
 
 %Define a pulsestats structure that isn't an object.
@@ -94,7 +92,7 @@ localCpki = NaN;
 coder.varsize('localCpki',[inf 1],[1 1]);
 % localThresh = NaN;
 % coder.varsize('localThresh',[inf 1],[1 1]);
-
+fprintf('4 \n')
 ps_pre_struc.t_p    = 0;
 ps_pre_struc.t_ip   = 0;
 ps_pre_struc.t_ipu  = 0;
@@ -110,19 +108,27 @@ ps_pre_struc.cmsk   = localCmsk;
 ps_pre_struc.cpki   = localCpki;
 % ps_pre_struc.thresh = localThresh;
 
+fprintf('5 \n')
+
+%ps_pre_struc = obj2structrecursive(ps_pre);
+
 
 %Set max segments kepts in record for testing purposes
-maxSegments = 100;
+%maxSegments = 100;
 
 % %Preallocate Xhold for Coder
-% Xhold = cell(maxSegments,1); 
-% coder.varsize("emptyData",[1, inf]);
-% emptyData = single(complex(zeros(1,0)));
+% Xhold = cell(maxSegments,1);
+ coder.varsize("emptyData",[1, inf]);
+ exampleData = single(complex(wgn(1000,1,1,'linear','complex'))).';
 % Xtemp = waveform(emptyData, Config.Fs, 0, pulseStatsPriori, stftOverlapFraction, threshold(Config.falseAlarmProb));
+Xhold = waveform(exampleData, Config.Fs, 0, pulseStatsPriori, stftOverlapFraction, threshold(Config.falseAlarmProb));
+Xhold.spectro();
+X     = waveform(exampleData, Config.Fs, 0, pulseStatsPriori, stftOverlapFraction, threshold(Config.falseAlarmProb));
+X.spectro();
 % for i = 1:maxSegments
 %     Xhold{i} = Xtemp;%waveform();
 % end
-
+fprintf('6 \n')
 %Initialize loop variables
 resetBuffersFlag  = true;
 framesReceived    = 0;
@@ -139,11 +145,13 @@ lastTimeStamp = 0;
 cleanBuffer   = true;
 trackedCount   = 0;
 
-
+latch = false;
+fprintf('7 \n')
 while true %i <= maxInd
+
     switch state
         case 'run'
-            
+
             if resetBuffersFlag
                 asyncDataBuff.reset();
                 asyncTimeBuff.reset();
@@ -198,232 +206,234 @@ while true %i <= maxInd
                     [~] = fwrite(dataWriterFileID,interleaveComplexVector(dataWriterBuffData),'single');
                 end
 
-            %end
+                %end
 
-            %% Process data if there is enough in the buffers
-            if asyncDataBuff.NumUnreadSamples >= sampsForKPulses + overlapSamples
-                fprintf('Buffer Full|| sampsForKPulses: %u, overlapSamples: %u,\n',uint32(sampsForKPulses),uint32(overlapSamples))
-                fprintf('Running...Buffer full with %d samples. Processing. \n', asyncDataBuff.NumUnreadSamples)
-                %i
-                tic
-                if cleanBuffer
-                    x = asyncDataBuff.read(sampsForKPulses);%Overlap reads back into the buffer, but there isn't anything back there on the first segment. Will fill with overlapSamples zeros at beginning of x if you specify overlap here.
-                    t = asyncTimeBuff.read(sampsForKPulses);
-                    cleanBuffer = false;
-                else
-                    x = asyncDataBuff.read(sampsForKPulses, overlapSamples);
-                    t = asyncTimeBuff.read(sampsForKPulses, overlapSamples);
-                end
-                %Check the timestamps in the buffer for gaps larger
-                %than the max interpulse uncertainty. If there are
-                %enough dropped packets such that the time is shifted
-                %by more than the interpulse uncertainty, then the
-                %detection will likely fail or produces bad results. In
-                %this case. Skip the processing and clear the buffer.
-                maxTimeUncertainty = Config.tipu + Config.tipj;
-                integratedTimeError = sum(diff(t)-1/Config.Fs);
-                if Config.K>1 & integratedTimeError > maxTimeUncertainty
-                    fprintf('Significant time differences found in timestamp record. Skipping processing and clearing buffers.\n')
-                    resetBuffersFlag = true;
-                    staleDataFlag = true;  
-                    
-                else
-                    t0 = t(1);
-                    fprintf('Running...Building priori and waveform. \n')
-                    %Set the priori info
-                    if configUpdatedFlag
-                        %Initialize states for different operational modes
-                        switch Config.opMode
-                            case 'freqSearchHardLock'
-                                fLock = false;
-                            case 'freqKnownHardLock'
-                                fLock = true;
-                            case 'freqSearchSoftLock'
-                                fLock = false;
-                            case 'freqAllNoLock'
-                                fLock = false;
-                            otherwise
-                                fLock = false;
-                        end
-                        ps_pre = initializeps(Config);
-                        %prioriRelativeFreqHz = 10e-6 * abs(Config.tagFreqMHz - Config.channelCenterFreqMHz);
-                        %ps_pre = pulsestats(Config.tp, Config.tip, Config.tipu,...
-                        %                    Config.tipj, prioriRelativeFreqHz ,0     ,0   ,[1 1],'D' ,...
-                        %                    makepulsestruc(),makepulsestruc(),false , NaN, NaN);
-                        configUpdatedFlag = false;
-                    else
-                        %ps_pre = pulsestats(ps_pre_struc.t_p, ps_pre_struc.t_ip, ps_pre_struc.t_ipu, ps_pre_struc.t_ipj ,ps_pre_struc.fp ,ps_pre_struc.fstart     ,ps_pre_struc.fend   ,ps_pre_struc.tmplt, ps_pre_struc.mode, ps_pre_struc.pl, ps_pre_struc.clst, ps_pre_struc.cmsk, ps_pre_struc.cpki, ps_pre_struc.thresh);
-                        ps_pre = pulsestats(ps_pre_struc.t_p, ps_pre_struc.t_ip, ps_pre_struc.t_ipu, ps_pre_struc.t_ipj ,ps_pre_struc.fp ,ps_pre_struc.fstart     ,ps_pre_struc.fend   ,ps_pre_struc.tmplt, ps_pre_struc.mode, ps_pre_struc.pl, ps_pre_struc.clst, ps_pre_struc.cmsk, ps_pre_struc.cpki);
-                        configUpdatedFlag = false;
-                    end
-
-                    
-                    
-                    %% PRIMARY PROCESSING BLOCK
-                    %Prep waveform for processing/detection
-                    X = waveform(x, Config.Fs, t0, ps_pre, stftOverlapFraction, threshold(Config.falseAlarmProb));
-                    X.K = Config.K;
-                    fprintf('Current interpulse params || N: %u, M: %u, J: %u,\n',uint32(X.N),uint32(X.M),uint32(X.J))
-                    X.setprioridependentprops(X.ps_pre)
-                    fprintf('Samples in waveform: %u \n',uint32(numel(X.x)))
+                %% Process data if there is enough in the buffers
+                if asyncDataBuff.NumUnreadSamples >= sampsForKPulses + overlapSamples
+                    fprintf('Buffer Full|| sampsForKPulses: %u, overlapSamples: %u,\n',uint32(sampsForKPulses),uint32(overlapSamples))
+                    fprintf('Running...Buffer full with %d samples. Processing. \n', asyncDataBuff.NumUnreadSamples)
+                    %i
                     tic
-                    fprintf('Computing STFT...')
-                    X.spectro();
-                    fprintf('complete. Elapsed time: %f seconds \n', toc)
-                    fprintf('Building weighting matrix and generating thresholds...')
-                    tic
-                    X.setweightingmatrix(zetas);
-                    
-                    switch suggestedMode
-                        case 'S'
-                            if fLock
-                                mode = 'I';
-                            else
-                                mode = 'D';
-                            end
-                        case 'C'
-                            mode = 'C';
-                        case 'T'
-                            mode = 'T';
-                            trackedCount = trackedCount + 1;
-                        otherwise
-                            msg = 'UAV-RT: Unsupported mode requested. Defaulting to Discovery (D) mode.';
-                            if coder.target('MATLAB')
-                                warning(msg)
-                            else
-                                fprintf(msg)
-                            end
-                            mode = 'D';
-                    end
-
-                    if strcmp(Config.opMode, 'freqAllNeverLock')
-                        mode = 'D';
-                    end
-                    
-                    if segmentsProcessed==0
-                        X.thresh = X.thresh.makenewthreshold(X);
+                    if cleanBuffer
+                        x = asyncDataBuff.read(sampsForKPulses);%Overlap reads back into the buffer, but there isn't anything back there on the first segment. Will fill with overlapSamples zeros at beginning of x if you specify overlap here.
+                        t = asyncTimeBuff.read(sampsForKPulses);
+                        cleanBuffer = false;
                     else
-                        %X.thresh = X.thresh.setthreshold(X,Xhold{segmentsProcessed});
-                        X.thresh = X.thresh.setthreshold(X,Xhold);
+                        x = asyncDataBuff.read(sampsForKPulses, overlapSamples);
+                        t = asyncTimeBuff.read(sampsForKPulses, overlapSamples);
                     end
-
-                    fprintf('complete. Elapsed time: %f seconds \n', toc)
-                    fprintf('Time windows in S: %u \n',uint32(size(X.stft.S,2)))
-                    fprintf('Finding pulses...')
-                    X.process(mode, 'most', Config.excldFreqs)
-                    processingTime = toc;
-                    fprintf('complete. Elapsed time: %f seconds \n', toc)
-                    
-                    %X.stft.displaystft()
-                    
-                    %% PREP FOR NEXT LOOP
-
-                    %Latch/Release the frequency lock and setup the
-                    %suggested mode
-                    suggestedMode = X.ps_pos.mode;
-                    pulsesConfirmed = all([X.ps_pos.pl.con_dec]);
-                    if pulsesConfirmed%Check if all were confirmed
-                        fLock = true;
-                    end
-                    %We only ever release if we are in softlock mode and
-                    %only do so in that case if we are no longer confirming
-                    %pulses. 
-                    if strcmp(Config.opMode, 'freqSearchSoftLock') & ~pulsesConfirmed
-                        fLock = false;
-                    end
-
-                    %Decide when/how the priori is updated for the next
-                    %segment's processing. 
-                    if pulsesConfirmed & (strcmp(mode,'C') || strcmp(mode,'T'))
-                        X.ps_pos.updateposteriori(X.ps_pre, X.ps_pos.pl, 'freq')
-                        if trackedCount > 5
-                            trackedCount = 0;
-                            X.ps_pos.updateposteriori(X.ps_pre, X.ps_pos.pl, 'time')
-                        end
-                    end
-                    
-
-
-                    %Check lagging processing
-                    if Config.K > 1 & processingTime > 0.9 * sampsForKPulses/Config.Fs
-                        Config.K = Config.K - 1;
-                        fprintf('WARNING!!! PROCESSING TIME TOOK LONGER THAN WAVEFORM LENGTH. STREAMING NOT POSSIBLE. REDUCING NUMBER OF PULSES CONSIDERED BY 1 TO K = %u \n',uint32(Config.K));
-                        fprintf('Resetting all internal data buffers and udp buffers to clear potential stale data. \n');
+                    %Check the timestamps in the buffer for gaps larger
+                    %than the max interpulse uncertainty. If there are
+                    %enough dropped packets such that the time is shifted
+                    %by more than the interpulse uncertainty, then the
+                    %detection will likely fail or produces bad results. In
+                    %this case. Skip the processing and clear the buffer.
+                    maxTimeUncertainty = Config.tipu + Config.tipj;
+                    integratedTimeError = sum(diff(t)-1/Config.Fs);
+                    if Config.K>1 & integratedTimeError > maxTimeUncertainty
+                        fprintf('Significant time differences found in timestamp record. Skipping processing and clearing buffers.\n')
                         resetBuffersFlag = true;
                         staleDataFlag = true;
-                        suggestedMode = 'S';
-                    end
-                    segmentsProcessed = segmentsProcessed+1;
 
-                    tic
-                    %Prepare priori for next segment
-                    fprintf('Updating priori...\n')
-                    ps_pre_struc.t_p   = X.ps_pos.t_p;
-                    ps_pre_struc.t_ip  = X.ps_pos.t_ip;
-                    ps_pre_struc.t_ipu = X.ps_pos.t_ipu;
-                    ps_pre_struc.t_ipj = X.ps_pos.t_ipj;
-                    ps_pre_struc.fp    = X.ps_pos.fp;
-                    ps_pre_struc.fstart= X.ps_pos.fstart;
-                    ps_pre_struc.fend  = X.ps_pos.fend;
-                    ps_pre_struc.tmplt = X.ps_pos.tmplt;
-                    ps_pre_struc.mode  = X.ps_pos.mode;
-                    ps_pre_struc.pl    = X.ps_pos.pl;
-                    ps_pre_struc.clst  = X.ps_pos.clst;
-                    ps_pre_struc.cmsk  = X.ps_pos.cmsk;
-                    ps_pre_struc.cpki  = X.ps_pos.cpki;
-                    updatebufferreadvariables(X.ps_pos);
-                    fprintf('complete. Elapsed time: %f seconds \n', toc)
-                    
-                    %Deal with detected pulses
-                    %Xhold{mod(segmentsProcessed,maxSegments)} = X;%Keep a maxSegments running record of waveforms for debugging in Matlab
-                    Xstruct = obj2structrecursive(X);
-                    Xhold = X;
-
-                    for j = 1:numel(ps_pre_struc.pl)
-                        fprintf('Pulse at %e Hz detected. Confirmation status: %u \n', ps_pre_struc.pl(j).fp,uint32(ps_pre_struc.pl(j).con_dec))
-                    end
-
-                    if ros2Enable %Config.ros2enable & (coder.target('MATLAB') | coder.target("EXE"))
-                        pulseCount = 0;
-                        if ~isnan(X.ps_pos.cpki)
-                            fprintf("Transmitting ROS2 pulse messages");
-                            for j = 1:numel(X.ps_pos.cpki)
-                                for k = 1:size(X.ps_pos.clst,2)
-                                    %Set pulseMsg parameters for sending
-                                    pulseMsg.detector_id        = char(Config.ID);
-                                    pulseMsg.frequency          = Config.channelCenterFreqMHz + (X.ps_pos.clst(X.ps_pos.cpki(j),k).fp)*1e6;
-                                    t_0     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_0;
-                                    t_f     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_f;
-                                    t_nxt_0 = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_next(1);
-                                    t_nxt_f = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_next(2);
-                                    pulseMsg.start_time.sec             = int32(floor(t_0));
-                                    pulseMsg.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
-                                    pulseMsg.end_time.sec               = int32(floor(t_f));
-                                    pulseMsg.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
-                                    pulseMsg.predict_next_start.sec     = int32(floor(t_nxt_0));
-                                    pulseMsg.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
-                                    pulseMsg.predict_next_end.sec       = int32(floor(t_nxt_f));
-                                    pulseMsg.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
-                                    pulseMsg.snr                = X.ps_pos.clst(X.ps_pos.cpki(j),k).SNR;
-                                    pulseMsg.dft_real           = real(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
-                                    pulseMsg.dft_imag           = imag(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
-                                    pulseMsg.group_ind          = uint16(k);
-                                    pulseMsg.detection_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).det_dec;
-                                    pulseMsg.confirmed_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).con_dec;
-                                    send(pulsePub,pulseMsg)
-                                    pulseCount = pulseCount+1;
-                                    fprintf(".");
-                                end
+                    else
+                        t0 = t(1);
+                        fprintf('Running...Building priori and waveform. \n')
+                        %Set the priori info
+                        if configUpdatedFlag
+                            %Initialize states for different operational modes
+                            switch Config.opMode
+                                case 'freqSearchHardLock'
+                                    fLock = false;
+                                case 'freqKnownHardLock'
+                                    fLock = true;
+                                case 'freqSearchSoftLock'
+                                    fLock = false;
+                                case 'freqAllNoLock'
+                                    fLock = false;
+                                otherwise
+                                    fLock = false;
                             end
-                            fprintf("complete. Transmitted %u pulse(s).\n",uint32(pulseCount));
+                            %ps_pre = initializeps(Config);
+                            prioriRelativeFreqHz = 10e-6 * abs(Config.tagFreqMHz - Config.channelCenterFreqMHz);
+                            ps_pre = pulsestats(Config.tp, Config.tip, Config.tipu,...
+                                Config.tipj, prioriRelativeFreqHz ,0     ,0   ,[1 1],'D' ,...
+                                makepulsestruc(),makepulsestruc(),false , NaN);
+                            configUpdatedFlag = false;
                         else
-                            fprintf("\n");
+                            %ps_pre = pulsestats(ps_pre_struc.t_p, ps_pre_struc.t_ip, ps_pre_struc.t_ipu, ps_pre_struc.t_ipj ,ps_pre_struc.fp ,ps_pre_struc.fstart     ,ps_pre_struc.fend   ,ps_pre_struc.tmplt, ps_pre_struc.mode, ps_pre_struc.pl, ps_pre_struc.clst, ps_pre_struc.cmsk, ps_pre_struc.cpki, ps_pre_struc.thresh);
+                            ps_pre = pulsestats(ps_pre_struc.t_p, ps_pre_struc.t_ip, ps_pre_struc.t_ipu, ps_pre_struc.t_ipj ,ps_pre_struc.fp ,ps_pre_struc.fstart     ,ps_pre_struc.fend   ,ps_pre_struc.tmplt, ps_pre_struc.mode, ps_pre_struc.pl, ps_pre_struc.clst, ps_pre_struc.cmsk, ps_pre_struc.cpki);
+                            configUpdatedFlag = false;
                         end
+
+
+                        %% PRIMARY PROCESSING BLOCK
+                        %Prep waveform for processing/detection
+                        X = waveform(x, Config.Fs, t0, ps_pre, stftOverlapFraction, threshold(Config.falseAlarmProb));
+                        
+                        X.K = Config.K;
+                        fprintf('Current interpulse params || N: %u, M: %u, J: %u,\n',uint32(X.N),uint32(X.M),uint32(X.J))
+                        X.setprioridependentprops(X.ps_pre)
+                        fprintf('Samples in waveform: %u \n',uint32(numel(X.x)))
+                        tic
+                        fprintf('Computing STFT...')
+                        X.spectro();
+                        fprintf('complete. Elapsed time: %f seconds \n', toc)
+                        fprintf('Building weighting matrix and generating thresholds...')
+                        tic
+                        X.setweightingmatrix(zetas);
+
+                        switch suggestedMode
+                            case 'S'
+                                if fLock
+                                    mode = 'I';
+                                else
+                                    mode = 'D';
+                                end
+                            case 'C'
+                                mode = 'C';
+                            case 'T'
+                                mode = 'T';
+                                trackedCount = trackedCount + 1;
+                            otherwise
+                                msg = 'UAV-RT: Unsupported mode requested. Defaulting to Discovery (D) mode.';
+                                if coder.target('MATLAB')
+                                    warning(msg)
+                                else
+                                    fprintf(msg)
+                                end
+                                mode = 'D';
+                        end
+
+                        if strcmp(Config.opMode, 'freqAllNeverLock')
+                            mode = 'D';
+                        end
+
+                        if segmentsProcessed==0
+                            X.thresh = X.thresh.makenewthreshold(X);
+                        else
+                            %X.thresh = X.thresh.setthreshold(X,Xhold{segmentsProcessed});
+                            X.thresh = X.thresh.setthreshold(X,Xhold);
+                        end
+
+                        fprintf('complete. Elapsed time: %f seconds \n', toc)
+                        fprintf('Time windows in S: %u \n',uint32(size(X.stft.S,2)))
+                        fprintf('Finding pulses...')
+                        X.process(mode, 'most', Config.excldFreqs)
+                        processingTime = toc;
+                        fprintf('complete. Elapsed time: %f seconds \n', toc)
+
+                        %X.stft.displaystft()
+
+                        %% PREP FOR NEXT LOOP
+
+                        %Latch/Release the frequency lock and setup the
+                        %suggested mode
+                        suggestedMode = X.ps_pos.mode;
+                        pulsesConfirmed = all([X.ps_pos.pl.con_dec],2);
+                        if pulsesConfirmed%Check if all were confirmed
+                            fLock = true;
+                        end
+                        %We only ever release if we are in softlock mode and
+                        %only do so in that case if we are no longer confirming
+                        %pulses.
+                        if strcmp(Config.opMode, 'freqSearchSoftLock') & ~pulsesConfirmed
+                            fLock = false;
+                        end
+
+                        %Decide when/how the priori is updated for the next
+                        %segment's processing.
+                        if pulsesConfirmed & (strcmp(mode,'C') || strcmp(mode,'T'))
+                            X.ps_pos.updateposteriori(X.ps_pre, X.ps_pos.pl, 'freq')
+                            if trackedCount > 5
+                                trackedCount = 0;
+                                X.ps_pos.updateposteriori(X.ps_pre, X.ps_pos.pl, 'time')
+                            end
+                        end
+
+
+
+                        %Check lagging processing
+                        if Config.K > 1 & processingTime > 0.9 * sampsForKPulses/Config.Fs
+                            Config.K = Config.K - 1;
+                            fprintf('WARNING!!! PROCESSING TIME TOOK LONGER THAN WAVEFORM LENGTH. STREAMING NOT POSSIBLE. REDUCING NUMBER OF PULSES CONSIDERED BY 1 TO K = %u \n',uint32(Config.K));
+                            fprintf('Resetting all internal data buffers and udp buffers to clear potential stale data. \n');
+                            resetBuffersFlag = true;
+                            staleDataFlag = true;
+                            suggestedMode = 'S';
+                        end
+                        segmentsProcessed = segmentsProcessed+1;
+
+                        tic
+                        %Prepare priori for next segment
+                        fprintf('Updating priori...\n')
+                        ps_pre_struc.t_p   = X.ps_pos.t_p;
+                        ps_pre_struc.t_ip  = X.ps_pos.t_ip;
+                        ps_pre_struc.t_ipu = X.ps_pos.t_ipu;
+                        ps_pre_struc.t_ipj = X.ps_pos.t_ipj;
+                        ps_pre_struc.fp    = X.ps_pos.fp;
+                        ps_pre_struc.fstart= X.ps_pos.fstart;
+                        ps_pre_struc.fend  = X.ps_pos.fend;
+                        ps_pre_struc.tmplt = X.ps_pos.tmplt;
+                        ps_pre_struc.mode  = X.ps_pos.mode;
+                        ps_pre_struc.pl    = X.ps_pos.pl;
+                        ps_pre_struc.clst  = X.ps_pos.clst;
+                        ps_pre_struc.cmsk  = X.ps_pos.cmsk;
+                        ps_pre_struc.cpki  = X.ps_pos.cpki;
+
+                        updatebufferreadvariables(X.ps_pos);
+                        fprintf('complete. Elapsed time: %f seconds \n', toc)
+
+                        %Deal with detected pulses
+                        %Xhold{mod(segmentsProcessed,maxSegments)} = X;%Keep a maxSegments running record of waveforms for debugging in Matlab
+                        Xstruct = obj2structrecursive(X);
+                        %Xhold = X;
+                        Xhold = waveformcopy(X);
+
+                        for j = 1:numel(ps_pre_struc.pl)
+                            fprintf('Pulse at %e Hz detected. Confirmation status: %u \n', ps_pre_struc.pl(j).fp,uint32(ps_pre_struc.pl(j).con_dec))
+                        end
+
+                        if ros2Enable %Config.ros2enable & (coder.target('MATLAB') | coder.target("EXE"))
+                            pulseCount = 0;
+                            if ~isnan(X.ps_pos.cpki)
+                                fprintf("Transmitting ROS2 pulse messages");
+                                for j = 1:numel(X.ps_pos.cpki)
+                                    for k = 1:size(X.ps_pos.clst,2)
+                                        %Set pulseMsg parameters for sending
+                                        pulseMsg.detector_id        = char(Config.ID);
+                                        pulseMsg.frequency          = Config.channelCenterFreqMHz + (X.ps_pos.clst(X.ps_pos.cpki(j),k).fp)*1e6;
+                                        t_0     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_0;
+                                        t_f     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_f;
+                                        t_nxt_0 = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_next(1);
+                                        t_nxt_f = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_next(2);
+                                        pulseMsg.start_time.sec             = int32(floor(t_0));
+                                        pulseMsg.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
+                                        pulseMsg.end_time.sec               = int32(floor(t_f));
+                                        pulseMsg.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
+                                        pulseMsg.predict_next_start.sec     = int32(floor(t_nxt_0));
+                                        pulseMsg.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
+                                        pulseMsg.predict_next_end.sec       = int32(floor(t_nxt_f));
+                                        pulseMsg.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
+                                        pulseMsg.snr                = X.ps_pos.clst(X.ps_pos.cpki(j),k).SNR;
+                                        pulseMsg.dft_real           = real(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
+                                        pulseMsg.dft_imag           = imag(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
+                                        pulseMsg.group_ind          = uint16(k);
+                                        pulseMsg.detection_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).det_dec;
+                                        pulseMsg.confirmed_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).con_dec;
+                                        send(pulsePub,pulseMsg)
+                                        pulseCount = pulseCount+1;
+                                        fprintf(".");
+                                    end
+                                end
+                                fprintf("complete. Transmitted %u pulse(s).\n",uint32(pulseCount));
+                            else
+                                fprintf("\n");
+                            end
+                        end
+                        fprintf('Current Mode: %s\n', ps_pre_struc.mode)
+                        fprintf('====================================\n')
                     end
-                    fprintf('Current Mode: %s\n', ps_pre_struc.mode)
-                    fprintf('====================================\n')
                 end
-            end
             end
 
             cmdReceived = controlreceiver('0.0.0.0', Config.portCntrl,false);
@@ -487,7 +497,7 @@ while true %i <= maxInd
                     for j = 1:1
                         %Set pulseMsg parameters for sending
                         pulseMsg.detector_id        = char(Config.ID);
-                        pulseMsg.frequency          = Config.tagFreqMHz; 
+                        pulseMsg.frequency          = Config.tagFreqMHz;
                         t_0     = posixtime(datetime('now'));
                         t_f     = 0;
                         t_nxt_0 = 1;
@@ -566,7 +576,7 @@ end
     function [interleaveDataOut] = interleaveComplexVector(complexDataIn)
         %This function takes a vector of complex values, and interleaves
         %the real and complex parts to generate a output vector of 2x the
-        %number of elements as the number of rows of the input. 
+        %number of elements as the number of rows of the input.
         complexDataIn = complexDataIn(:);   %Enforce column vector
         dataMatrix = [real(complexDataIn), imag(complexDataIn)].';
         interleaveDataOut = dataMatrix(:);  %Interleave
@@ -579,7 +589,7 @@ end
         ps = pulsestats(theConfig.tp, theConfig.tip, theConfig.tipu,...
             theConfig.tipj,relativeFreqHz ,0     ,0   ,[1 1],'D' ,...
             makepulsestruc(),makepulsestruc(),false ,...
-            NaN, NaN);
+            NaN);
     end
 
     function [] = updateconfig()
@@ -660,7 +670,7 @@ end
             state = currentState;
         end
     end
-    
+
 
 
 end

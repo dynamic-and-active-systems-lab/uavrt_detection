@@ -60,9 +60,9 @@ classdef waveform < handle
         ps_pos (1, 1)       %Pulse stats object after update (posteriori)
         K      (1, 1) double%The number of pulses this waveform was built to contain based on its length
         thresh (1, 1)       %Threshold object
-    end
-    properties (SetAccess = protected)
-        x   (:, 1) single   %Vector of samples
+%     end
+%     properties (SetAccess = protected)
+        x   (1, :) single   %Vector of samples
         Fs  (1, 1) double   %Sample frequency (Hz)
         l   (1, 1) double   %Length of x (numel)
         t_0 (1, 1) double   %Time stamp of first element (s)
@@ -133,7 +133,9 @@ classdef waveform < handle
                 obj.W       = [];               
                 obj.Wf      = [];               
                 %Copy over ps_
-                obj.ps_pos       = ps_pre.makepropertycopy; %Current stats are same as previous during construction
+                obj.ps_pos  = ps_pre.makepropertycopy; %Current stats are same as previous during construction
+                %obj.ps_pos = pulsestats();%TESTING FOR CODER - NEEDS TO BE REVERTED BACK TO LAST LINE
+
                 %obj.TimeCorr = TemporalCorrelator(10, 0, 0);%Generate a temporalcorrelator object so coder knows the type of the object
                 obj.setprioridependentprops(ps_pre)
                 obj.thresh  = thresh;
