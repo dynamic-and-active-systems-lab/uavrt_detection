@@ -820,8 +820,11 @@ classdef waveform < handle
             weightedSRowSubsMat_withoutNan = weightedSRowSubsMat(~isnan(S_cols));
             indsOfBins = sub2ind([nZetas*nRowsOfS nColsOfS],weightedSRowSubsMat_withoutNan,S_cols_withoutNan);
             indsOfBinsValid = indsOfBins(~isnan(indsOfBins));
+            %binMaskMatrix will be a matrix of NaN at potential pulse
+            %locations
             binMaskMatrix = zeros([nZetas*nRowsOfS nColsOfS]);
             binMaskMatrix(indsOfBinsValid) =  NaN;%0;
+            %Now add some buffer around the potential pulse locations
             freqShiftedBinMaskMatrix = binMaskMatrix + ...
                                        circshift(binMaskMatrix,1,1) + ...
                                        circshift(binMaskMatrix,-1,1) + ...
@@ -835,7 +838,8 @@ classdef waveform < handle
 
             dt = 1/obj.Fs;
             T = obj.n_w/obj.Fs;
-            noisePSD = dt^2/T*abs(mean(obj.stft.S+freqtimeShiftedBinMaskMatrixScaled,2,'omitnan')).^2;
+            %noisePSD = dt^2/T*abs(mean(obj.stft.S+freqtimeShiftedBinMaskMatrixScaled,2,'omitnan')).^2;%Add since it is 0 where we expect noise and NaN where there might be a pulse
+            noisePSD = dt^2/T*mean(abs(obj.stft.S+freqtimeShiftedBinMaskMatrixScaled).^2,2,'omitnan');%Add since it is 0 where we expect noise and NaN where there might be a pulse
             noisePSDAtZetas = interp1(obj.stft.f,noisePSD,obj.Wf,'linear','extrap');
             noisePSDAtZetas(noisePSDAtZetas<0) = 0;
             %fBinWidthZetas = Wf(2)-Wf(1);
@@ -1235,7 +1239,7 @@ classdef waveform < handle
                 for j = 1:n_freqs
                     cur_pl(j,i) = makepulsestruc(NaN,...
                         yw_max_all_freq(j,i),...
-                        SNRdB(j),...%Assume same SNR for all K pulses. 
+                        SNRdB(j,i),...
                         t_found(j,i),...
                         t_found(j,i)+obj.ps_pre.t_p,...
                         [t_found(j,i)+obj.ps_pos.t_ip-obj.ps_pos.t_ipu--obj.ps_pos.t_ipj,...
