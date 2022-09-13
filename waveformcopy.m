@@ -1,4 +1,13 @@
 function [wfmOut] = waveformcopy(wfmIn)
+%WAVEFORMCOPY makes a copy of the input waveform. Waveforms are handle
+%objects, as are some of their properties. This function make new instances
+%of these objects. 
+%
+%INPUTS:
+%   wfmIn   an individual waveform
+%OUTPUTS
+%   wfmOut  copy of input waveform
+%
 
 wfmOut = waveform();
 wfmOut.ps_pre = pulsestats(wfmIn.ps_pre.t_p, wfmIn.ps_pre.t_ip, ...
@@ -25,24 +34,24 @@ wfmOut.stft.dt   = wfmIn.stft.dt;
 wfmOut.stft.T    = wfmIn.stft.T;
 wfmOut.stft.wind = wfmIn.stft.wind;
 
-wfmOut.K = wfmIn.K;
-wfmOut.x = wfmIn.x;
-wfmOut.Fs = wfmIn.Fs;
-wfmOut.l = wfmIn.l;
-wfmOut.t_0 = wfmIn.t_0;
-wfmOut.t_0 = wfmIn.t_f;
+wfmOut.K         = wfmIn.K;
+wfmOut.x         = wfmIn.x;
+wfmOut.Fs        = wfmIn.Fs;
+wfmOut.l         = wfmIn.l;
+wfmOut.t_0       = wfmIn.t_0;
+wfmOut.t_0       = wfmIn.t_f;
 wfmOut.t_nextsegstart = wfmIn.t_nextsegstart;
-wfmOut.OLF = wfmIn.OLF;
-wfmOut.W = wfmIn.W;
-wfmOut.Wf = wfmIn.Wf;
-wfmOut.n_p = wfmIn.n_p;
-wfmOut.n_w = wfmIn.n_w;
-wfmOut.n_ol = wfmIn.n_ol;
-wfmOut.n_ws = wfmIn.n_ws;
-wfmOut.t_ws = wfmIn.t_ws;
-wfmOut.n_ip = wfmIn.n_ip;
-wfmOut.N = wfmIn.N;
-wfmOut.M = wfmIn.M;
-wfmOut.J = wfmIn.J;
+wfmOut.OLF       = wfmIn.OLF;
+wfmOut.W         = wfmIn.W;
+wfmOut.Wf        = wfmIn.Wf;
+wfmOut.n_p       = wfmIn.n_p;
+wfmOut.n_w       = wfmIn.n_w;
+wfmOut.n_ol      = wfmIn.n_ol;
+wfmOut.n_ws      = wfmIn.n_ws;
+wfmOut.t_ws      = wfmIn.t_ws;
+wfmOut.n_ip      = wfmIn.n_ip;
+wfmOut.N         = wfmIn.N;
+wfmOut.M         = wfmIn.M;
+wfmOut.J         = wfmIn.J;
 
 end

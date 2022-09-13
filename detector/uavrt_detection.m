@@ -23,15 +23,12 @@ end
 
 blankThresh = threshold(Config.falseAlarmProb);
 pulseStatsPriori = pulsestats(Config.tp, Config.tip, Config.tipu, ... % tp, tip, tipu
-    Config.tipj, 0 , 0 ,0 , [1 1], "D" ,... % tipj, fp, fstart, fend, tmplt, mode
-    makepulsestruc(), makepulsestruc(),...  % pl ,clst
-    [] ,[]);                           % cmsk ,cpki)
-
-
+                              Config.tipj, 0 , 0 ,0 , [1 1], "D" ,... % tipj, fp, fstart, fend, tmplt, mode
+                              makepulsestruc(), makepulsestruc(),...  % pl ,clst
+                              [] ,[]);                                % cmsk ,cpki)
 
 stftOverlapFraction = 0.5;
-zetas = [0 0.5];
-
+zetas               = [0 0.5];
 pauseWhenIdleTime   = 0.25;
 
 %Initialize and then set these variable needed for buffer reads
@@ -43,8 +40,10 @@ coder.varsize("dataReceived",[1025 1]);
 coder.varsize("state",[1 64]);
 coder.varsize("previousState",[1 64]);
 packetLength = 1025; %1024 plus a time stamp.
-fprintf('1 \n')
-%% Calculating the max size that would ever be needed for the buffer
+fprintf('Startup set 1 complete. \n')
+
+%% Prepare data writing buffer
+% Calculating the max size that would ever be needed for the buffer
 % maxK    = 6;
 % maxFs   = 912000/2;
 % maxtp   = 0.04;
@@ -57,12 +56,11 @@ fprintf('1 \n')
 sampsForMaxPulses = 5800320;
 asyncDataBuff = dsp.AsyncBuffer(sampsForMaxPulses);
 asyncTimeBuff = dsp.AsyncBuffer(sampsForMaxPulses);
-fprintf('2 \n')
+fprintf('Startup set 2 complete. \n')
 dataWriterTimeIntervalNominal = 10; %Write interval in seconds. 2.5*60*4000*32/8 should work out the 2.4Mb of data at 4ksps.
 dataWriterPacketsPerInterval  = ceil(dataWriterTimeIntervalNominal/((packetLength-1)/Config.Fs));
 dataWriterTimeIntervalActual  = dataWriterPacketsPerInterval*packetLength/Config.Fs;
 dataWriterSamples             = dataWriterPacketsPerInterval*packetLength;
-%dataWriterBuffer             = zeros(packetLength,dataWriterPacketsPerInterval);
 asyncWriteBuff                = dsp.AsyncBuffer(600650); %600650 is the result of the nominal settings of ceil(150/(1024/4000)*1025.
 asyncWriteBuff.write(single(1+1i));%Write to give Code the type. Read to remove data.
 asyncWriteBuff.read();
@@ -70,8 +68,8 @@ dataWriterFileID    = fopen(Config.dataRecordPath,'w');
 if dataWriterFileID == -1
     fprintf("UAV-RT: Error opening/creating data record file with error:\n")
 end
-fprintf('3 \n')
-% writer = dsp.BinaryFileWriter(Config.dataRecordPath);
+fprintf('Startup set 3 complete. \n')
+
 
 %Define a pulsestats structure that isn't an object.
 %This is needed for the loop, as Matlab coder has problems seeing
@@ -90,9 +88,7 @@ localCmsk = false;
 coder.varsize('localCmsk',[inf inf],[1 1]);
 localCpki = NaN;
 coder.varsize('localCpki',[inf 1],[1 1]);
-% localThresh = NaN;
-% coder.varsize('localThresh',[inf 1],[1 1]);
-fprintf('4 \n')
+fprintf('Startup set 4 complete. \n')
 ps_pre_struc.t_p    = 0;
 ps_pre_struc.t_ip   = 0;
 ps_pre_struc.t_ipu  = 0;
@@ -106,47 +102,37 @@ ps_pre_struc.pl     = localPl;
 ps_pre_struc.clst   = localClst;
 ps_pre_struc.cmsk   = localCmsk;
 ps_pre_struc.cpki   = localCpki;
-% ps_pre_struc.thresh = localThresh;
 
-fprintf('5 \n')
+fprintf('Startup set 5 complete. \n')
 
-%ps_pre_struc = obj2structrecursive(ps_pre);
-
-
-%Set max segments kepts in record for testing purposes
-%maxSegments = 100;
-
-% %Preallocate Xhold for Coder
-% Xhold = cell(maxSegments,1);
- coder.varsize("emptyData",[1, inf]);
- exampleData = single(complex(wgn(1000,1,1,'linear','complex'))).';
-% Xtemp = waveform(emptyData, Config.Fs, 0, pulseStatsPriori, stftOverlapFraction, threshold(Config.falseAlarmProb));
+%% Preallocate X and Xhold so that coder knows the data types.
+coder.varsize("emptyData",[1, inf]);
+exampleData = single(complex(wgn(1000,1,1,'linear','complex'))).';
 Xhold = waveform(exampleData, Config.Fs, 0, pulseStatsPriori, stftOverlapFraction, threshold(Config.falseAlarmProb));
-Xhold.spectro();
 X     = waveform(exampleData, Config.Fs, 0, pulseStatsPriori, stftOverlapFraction, threshold(Config.falseAlarmProb));
+Xhold.spectro();
 X.spectro();
-% for i = 1:maxSegments
-%     Xhold{i} = Xtemp;%waveform();
-% end
-fprintf('6 \n')
+
+fprintf('Startup set 6 complete. \n')
+
 %Initialize loop variables
 resetBuffersFlag  = true;
 framesReceived    = 0;
 segmentsProcessed = 0;
-state         = 'idle';
-previousState = 'unspawned';
-suggestedMode = 'S';
-fLock         = false;
-resetUdp      = true;
-staleDataFlag = true;%Force buffer  flush on start
-idleTic       = 1;
-i             = 1;
-lastTimeStamp = 0;
-cleanBuffer   = true;
-trackedCount   = 0;
+state             = 'idle';
+previousState     = 'unspawned';
+suggestedMode     = 'S';
+fLock             = false;
+resetUdp          = true;
+staleDataFlag     = true;%Force buffer  flush on start
+idleTic           = 1;
+i                 = 1;
+lastTimeStamp     = 0;
+cleanBuffer       = true;
+trackedCount      = 0;
 
-latch = false;
-fprintf('7 \n')
+fprintf('Startup set 7 complete. Starting processing... \n')
+
 while true %i <= maxInd
 
     switch state
@@ -180,15 +166,15 @@ while true %i <= maxInd
                 pause((packetLength-1)/2*1/Config.Fs);
             else
                 framesReceived = framesReceived + 1;
-                timeStamp   = 10^-3*singlecomplex2int(dataReceived(1));
-                iqData      = dataReceived(2:end);
-                timeVector  = timeStamp+1/Config.Fs*(0:(numel(iqData)-1)).';
+                timeStamp      = 10^-3*singlecomplex2int(dataReceived(1));
+                iqData         = dataReceived(2:end);
+                timeVector     = timeStamp+1/Config.Fs*(0:(numel(iqData)-1)).';
                 %Check for missing packets based on packet timestamps.
                 if asyncTimeBuff.NumUnreadSamples ~= 0
                     packetTimeDiffActual = timeStamp - lastTimeStamp;
                     packetTimeDiffExpect = (packetLength-1)/Config.Fs;
-                    missingTime = packetTimeDiffActual - packetTimeDiffExpect;
-                    missingPackets = missingTime*Config.Fs/(packetLength-1);
+                    missingTime          = packetTimeDiffActual - packetTimeDiffExpect;
+                    missingPackets       = missingTime*Config.Fs/(packetLength-1);
                     if  missingPackets > 1
                         fprintf('Packet drop detected. Missed %f packets, or %f seconds of data. \n', missingPackets, missingTime)
                     end
@@ -212,10 +198,17 @@ while true %i <= maxInd
                 if asyncDataBuff.NumUnreadSamples >= sampsForKPulses + overlapSamples
                     fprintf('Buffer Full|| sampsForKPulses: %u, overlapSamples: %u,\n',uint32(sampsForKPulses),uint32(overlapSamples))
                     fprintf('Running...Buffer full with %d samples. Processing. \n', asyncDataBuff.NumUnreadSamples)
-                    %i
+                    
                     tic
                     if cleanBuffer
-                        x = asyncDataBuff.read(sampsForKPulses);%Overlap reads back into the buffer, but there isn't anything back there on the first segment. Will fill with overlapSamples zeros at beginning of x if you specify overlap here.
+                        %Overlap reads back into the buffer, but there 
+                        %isn't anything back there on the first segment. 
+                        %Using an overlap will fill the output with 
+                        %overlapSamples of zeros at beginning 
+                        %of x if you specify overlap here. Don't want that
+                        %so specify zero overlap for first read after
+                        %cleaning buffer
+                        x = asyncDataBuff.read(sampsForKPulses);
                         t = asyncTimeBuff.read(sampsForKPulses);
                         cleanBuffer = false;
                     else
@@ -228,19 +221,18 @@ while true %i <= maxInd
                     %by more than the interpulse uncertainty, then the
                     %detection will likely fail or produces bad results. In
                     %this case. Skip the processing and clear the buffer.
-                    maxTimeUncertainty = Config.tipu + Config.tipj;
-                    integratedTimeError = sum(diff(t)-1/Config.Fs);
+                    maxTimeUncertainty  = Config.tipu + Config.tipj;
+                    integratedTimeError = sum(diff(t) - 1/Config.Fs);
                     if Config.K>1 & integratedTimeError > maxTimeUncertainty
                         fprintf('Significant time differences found in timestamp record. Skipping processing and clearing buffers.\n')
                         resetBuffersFlag = true;
-                        staleDataFlag = true;
-
+                        staleDataFlag    = true;
                     else
                         t0 = t(1);
                         fprintf('Running...Building priori and waveform. \n')
                         %Set the priori info
                         if configUpdatedFlag
-                            %Initialize states for different operational modes
+                            %Initialize states for operational modes
                             switch Config.opMode
                                 case 'freqSearchHardLock'
                                     fLock = false;
@@ -253,15 +245,18 @@ while true %i <= maxInd
                                 otherwise
                                     fLock = false;
                             end
-                            %ps_pre = initializeps(Config);
                             prioriRelativeFreqHz = 10e-6 * abs(Config.tagFreqMHz - Config.channelCenterFreqMHz);
                             ps_pre = pulsestats(Config.tp, Config.tip, Config.tipu,...
-                                Config.tipj, prioriRelativeFreqHz ,0     ,0   ,[1 1],'D' ,...
-                                makepulsestruc(),makepulsestruc(),false , NaN);
+                                                Config.tipj, prioriRelativeFreqHz ,0     ,0   ,[1 1],'D' ,...
+                                                makepulsestruc(),makepulsestruc(),false , NaN);
                             configUpdatedFlag = false;
                         else
-                            %ps_pre = pulsestats(ps_pre_struc.t_p, ps_pre_struc.t_ip, ps_pre_struc.t_ipu, ps_pre_struc.t_ipj ,ps_pre_struc.fp ,ps_pre_struc.fstart     ,ps_pre_struc.fend   ,ps_pre_struc.tmplt, ps_pre_struc.mode, ps_pre_struc.pl, ps_pre_struc.clst, ps_pre_struc.cmsk, ps_pre_struc.cpki, ps_pre_struc.thresh);
-                            ps_pre = pulsestats(ps_pre_struc.t_p, ps_pre_struc.t_ip, ps_pre_struc.t_ipu, ps_pre_struc.t_ipj ,ps_pre_struc.fp ,ps_pre_struc.fstart     ,ps_pre_struc.fend   ,ps_pre_struc.tmplt, ps_pre_struc.mode, ps_pre_struc.pl, ps_pre_struc.clst, ps_pre_struc.cmsk, ps_pre_struc.cpki);
+                            
+                            ps_pre = pulsestats(ps_pre_struc.t_p, ps_pre_struc.t_ip, ps_pre_struc.t_ipu, ...
+                                                ps_pre_struc.t_ipj ,ps_pre_struc.fp ,ps_pre_struc.fstart, ...
+                                                ps_pre_struc.fend   ,ps_pre_struc.tmplt, ps_pre_struc.mode, ...
+                                                ps_pre_struc.pl, ps_pre_struc.clst, ps_pre_struc.cmsk, ...
+                                                ps_pre_struc.cpki);
                             configUpdatedFlag = false;
                         end
 
@@ -269,7 +264,6 @@ while true %i <= maxInd
                         %% PRIMARY PROCESSING BLOCK
                         %Prep waveform for processing/detection
                         X = waveform(x, Config.Fs, t0, ps_pre, stftOverlapFraction, threshold(Config.falseAlarmProb));
-                        
                         X.K = Config.K;
                         fprintf('Current interpulse params || N: %u, M: %u, J: %u,\n',uint32(X.N),uint32(X.M),uint32(X.J))
                         X.setprioridependentprops(X.ps_pre)
@@ -311,7 +305,6 @@ while true %i <= maxInd
                         if segmentsProcessed==0
                             X.thresh = X.thresh.makenewthreshold(X);
                         else
-                            %X.thresh = X.thresh.setthreshold(X,Xhold{segmentsProcessed});
                             X.thresh = X.thresh.setthreshold(X,Xhold);
                         end
 
@@ -321,8 +314,6 @@ while true %i <= maxInd
                         X.process(mode, 'most', Config.excldFreqs)
                         processingTime = toc;
                         fprintf('complete. Elapsed time: %f seconds \n', toc)
-
-                        %X.stft.displaystft()
 
                         %% PREP FOR NEXT LOOP
 
@@ -385,7 +376,7 @@ while true %i <= maxInd
 
                         %Deal with detected pulses
                         %Xhold{mod(segmentsProcessed,maxSegments)} = X;%Keep a maxSegments running record of waveforms for debugging in Matlab
-                        Xstruct = obj2structrecursive(X);
+                        %Xstruct = obj2structrecursive(X);
                         %Xhold = X;
                         Xhold = waveformcopy(X);
 
@@ -401,7 +392,7 @@ while true %i <= maxInd
                                     for k = 1:size(X.ps_pos.clst,2)
                                         %Set pulseMsg parameters for sending
                                         pulseMsg.detector_id        = char(Config.ID);
-                                        pulseMsg.frequency          = Config.channelCenterFreqMHz + (X.ps_pos.clst(X.ps_pos.cpki(j),k).fp)*1e6;
+                                        pulseMsg.frequency          = Config.channelCenterFreqMHz + (X.ps_pos.clst(X.ps_pos.cpki(j),k).fp)*1e-6;
                                         t_0     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_0;
                                         t_f     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_f;
                                         t_nxt_0 = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_next(1);
@@ -418,6 +409,7 @@ while true %i <= maxInd
                                         pulseMsg.dft_real           = real(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
                                         pulseMsg.dft_imag           = imag(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
                                         pulseMsg.group_ind          = uint16(k);
+                                        pulseMsg.group_SNR          = 10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average SNR in dB
                                         pulseMsg.detection_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).det_dec;
                                         pulseMsg.confirmed_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).con_dec;
                                         send(pulsePub,pulseMsg)
@@ -514,6 +506,7 @@ while true %i <= maxInd
                         pulseMsg.dft_real           = real(1);
                         pulseMsg.dft_imag           = imag(1);
                         pulseMsg.group_ind          = uint16(Config.K);
+                        pulseMsg.group_SNR          = 1;
                         pulseMsg.detection_status   = false;
                         pulseMsg.confirmed_status   = true;
                         send(pulsePub,pulseMsg)
@@ -674,35 +667,4 @@ end
 
 
 end
-
-
-
-%                 tic
-%                 fprintf('Checking packet loss...')
-%                 %Here we check to see if the next segment started where
-%                 %we expected based on the last segment. If packets were
-%                 %dropped, the prediction will be less than the current
-%                 %t0. Default to discovery mode in this case.
-%                 if t0PrevSeg~=0
-%                     packetLostFlag = (t0-t0PrevSeg)>(sampsForKPulses-overlapSamples)/Config.Fs;
-%                     if packetLostFlag
-%                         fprintf(['\n Difference between current segment start time and that predicted by the last \n', ...
-%                             'segment is larger than expected and may indicate packet loss. Defaulting to \n',...
-%                             'Discovery mode. Flushing UDP and data buffers after processing this segment.\n'])
-%                         fprintf('Expected time difference: %f\n',(sampsForKPulses-overlapSamples)/Config.Fs)
-%                         fprintf('Actual   time difference: %f\n',t0-t0PrevSeg)
-%                         asyncDataBuff.reset();
-%                         asyncTimeBuff.reset();
-%                         staleDataFlag = true;
-%                         t0PrevSeg = 0;
-%                         mode = 'D';
-%                     else
-%                         staleDataFlag = false;
-%                         t0PrevSeg = t0;
-%                     end
-%                 else
-%                     staleDataFlag = false;
-%                     t0PrevSeg = t0;
-%                 end
-%                 fprintf('complete. Elapsed time: %f seconds \n', toc)
 
