@@ -284,7 +284,7 @@ classdef waveform < handle
                 %Create the cleaved waveform segment
                 x_out       = obj.x(inds4cleavedwfm);
                 wfmout      = waveform(x_out,obj.Fs,t(inds4cleavedwfm(1)),...
-                                       obj.ps_pre,obj.OLF);
+                                       obj.ps_pre,obj.OLF, obj.thresh);
                 
                 %wfmout.ps_pos = ps_pre.copy;
                 wfmout.ps_pos = obj.ps_pre.makepropertycopy();
@@ -418,7 +418,7 @@ classdef waveform < handle
             %and provide it as the output wavform. Otherwise we clip what
             %we need and update the waveform from which we are cleaving.
             if inds4cleavedwfm(end)>=L%samples_in_cleaved_wfm>=L%If we are at the end of the waveform
-                wfmout = waveform(obj.x(inds4cleavedwfm(1):end),obj.Fs,obj.t_0,ps_pre,obj.OLF);               
+                wfmout = waveform(obj.x(inds4cleavedwfm(1):end),obj.Fs,obj.t_0,ps_pre,obj.OLF, obj.thresh);               
                 %Maintain priori dependent properties.
                 wfmout.setprioridependentprops(wfmout.ps_pre)
                 wfmout.t_nextsegstart = obj.t_f+1/obj.Fs;
@@ -426,7 +426,7 @@ classdef waveform < handle
             else
                 %Create the cleaved waveform segment
                 x_out   = obj.x(inds4cleavedwfm);
-                wfmout  = waveform(x_out,obj.Fs,t(inds4cleavedwfm(1)),ps_pre,obj.OLF);
+                wfmout  = waveform(x_out,obj.Fs,t(inds4cleavedwfm(1)),ps_pre,obj.OLF, obj.thresh);
                 wfmout.setprioridependentprops(wfmout.ps_pre)
                 wfmout.t_nextsegstart = t(inds4remainingwfm(1));
                 wfmout.K    = K;
@@ -842,7 +842,7 @@ classdef waveform < handle
             noisePSD = dt^2/T*mean(abs(obj.stft.S+freqtimeShiftedBinMaskMatrixScaled).^2,2,'omitnan');%Add since it is 0 where we expect noise and NaN where there might be a pulse
             noisePSDAtZetas = interp1(obj.stft.f,noisePSD,obj.Wf,'linear','extrap');
             noisePSDAtZetas(noisePSDAtZetas<0) = 0;
-            %fBinWidthZetas = Wf(2)-Wf(1);
+            fBinWidthZetas = obj.stft.f(2)-obj.stft.f(1);%Not the delta f of the Wf vector, because the frequency bins are the same width, just with half bin steps %
             %noisePowers = noisePSDAtZetas*fBinWidthZetas;
             
             %Calculate the power at each of the S locations that were
@@ -851,13 +851,15 @@ classdef waveform < handle
             %the frequency bin to get power. We have to do this because the
             %psd in the stft object uses dt^2/T factor for the psd calc. 
             signalPlusNoisePSD   = dt^2/T*yw_max_all_freq;%scores;
-            signalPlusNoisePSDPulseGroup   = dt^2/T*scores;%scores;
+            %signalPlusNoisePSDPulseGroup   = dt^2/T*scores;%scores;
             signalPSD             = signalPlusNoisePSD-repmat(noisePSDAtZetas,1,n_pls);
-            signalPSDPulseGroup   = signalPlusNoisePSDPulseGroup-noisePSDAtZetas;
+            %signalPSDPulseGroup   = signalPlusNoisePSDPulseGroup-noisePSDAtZetas;
             
             signalPSD(signalPSD<0) = 0; %Can't have negative values
-            signalPSDPulseGroup(signalPSD<0)   = 0; %Can't have negative values
-            
+            %signalPSDPulseGroup(signalPSD<0)   = 0; %Can't have negative values
+            signalPowers           = signalPSD*fBinWidthZetas;
+            signalAmps             = sqrt(signalPowers);
+
             %signalPlusNoisePowers = signalPlusNoisePSD*fBinWidthZetas;
             %signalPowers          = signalPlusNoisePowers-noisePowers;
             
@@ -868,10 +870,10 @@ classdef waveform < handle
             %SNRdB = 10*log10(signalPowers./obj.K*1./noisePowers); %Average the power across all pulses
             
             SNRdB           = 10*log10(signalPSD./repmat(noisePSDAtZetas,1,n_pls));
-            SNRdBPulseGroup = 10*log10(signalPSDPulseGroup./noisePSDAtZetas);
+            %SNRdBPulseGroup = 10*log10(signalPSDPulseGroup./noisePSDAtZetas);
             
             SNRdB(SNRdB==Inf) = NaN;
-            SNRdBPulseGroup(SNRdBPulseGroup==Inf) = NaN;
+            %SNRdBPulseGroup(SNRdBPulseGroup==Inf) = NaN;
 
             %Calculate the first and second frequency derivatives of the 
             %scores. We'll use these for slope and curvature assessments.
@@ -1237,7 +1239,7 @@ classdef waveform < handle
             %Build out the pulse object for each one found
             for i = 1:n_pls
                 for j = 1:n_freqs
-                    cur_pl(j,i) = makepulsestruc(NaN,...
+                    cur_pl(j,i) = makepulsestruc(signalAmps(j,i),...%NaN,...
                         yw_max_all_freq(j,i),...
                         SNRdB(j,i),...
                         t_found(j,i),...

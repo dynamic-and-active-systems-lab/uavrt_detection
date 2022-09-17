@@ -16,7 +16,7 @@ ros2Enable = true;
 if ros2Enable
     fprintf("Preparing ROS2 Node and Messages...")
     node = ros2node("detector",0);
-    pulsePub = ros2publisher(node,"/detected_pulse","uavrt_interfaces/Pulse");
+    pulsePub = ros2publisher(node,"/pulse","uavrt_interfaces/Pulse");
     pulseMsg = ros2message(pulsePub);
     fprintf("complete.\n")
 end
