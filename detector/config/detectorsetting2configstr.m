@@ -1,4 +1,4 @@
-function [outputStr] = detectorsetting2configstr(IDstr, channelCenterFreqMHZ, ipData, portData, ipCntrl, portCntrl, Fs, tagFreqMHz, tp, tip, tipu,tipj, K, focusMode, excldFreqs, falseAlarmProb, dataRecordPath, processedOuputPath, ros2enable)
+function [outputStr] = detectorsetting2configstr(IDstr, channelCenterFreqMHZ, ipData, portData, ipCntrl, portCntrl, Fs, tagFreqMHz, tp, tip, tipu,tipj, K, opMode, excldFreqs, falseAlarmProb, dataRecordPath, processedOuputPath, ros2enable)
 %DETECTORCONFIGS2STR Ingests detector parameter specs and returns a string
 %   in the proper the configuration file format, 
 %
