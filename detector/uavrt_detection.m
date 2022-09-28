@@ -146,7 +146,7 @@ while true %i <= maxInd
             end
 
             %% Get data
-            [dataReceived]  = channelreceiver('0.0.0.0', Config.portData,resetUdp,false);
+            [dataReceived]  = channelreceiver('127.0.0.1', Config.portData,resetUdp,false);
             resetUdp = false;
 
             %% Flush UDP buffer if data in the buffer is stale.
@@ -155,7 +155,7 @@ while true %i <= maxInd
                 runs = 0;
                 while ~isempty(dataReceived)
                     fprintf('********CLEARING UDP DATA BUFFER*********\n');
-                    [dataReceived]  = channelreceiver('0.0.0.0', Config.portData,resetUdp,false);
+                    [dataReceived]  = channelreceiver('127.0.0.1', Config.portData,resetUdp,false);
                     runs = runs+1;
                 end
                 staleDataFlag = false;
@@ -428,7 +428,7 @@ while true %i <= maxInd
                 end
             end
 
-            cmdReceived = controlreceiver('0.0.0.0', Config.portCntrl,false);
+            cmdReceived = controlreceiver('127.0.0.1', Config.portCntrl,false);
             previousState = state;
             state = checkcommand(cmdReceived,state);
 
@@ -449,7 +449,7 @@ while true %i <= maxInd
             pause(pauseWhenIdleTime);%Wait a bit so to throttle idle execution
             staleDataFlag = true;
             resetUdp = true;
-            cmdReceived = controlreceiver('0.0.0.0', Config.portCntrl,false);
+            cmdReceived = controlreceiver('127.0.0.1', Config.portCntrl,false);
             previousState = state;
             state = checkcommand(cmdReceived,state);
 
@@ -469,7 +469,7 @@ while true %i <= maxInd
             %Check control and update states
             staleDataFlag = true;
             resetUdp = true;
-            cmdReceived = controlreceiver('0.0.0.0', Config.portCntrl,false);
+            cmdReceived = controlreceiver('127.0.0.1', Config.portCntrl,false);
             if ~isempty(cmdReceived)
                 previousState = state;
                 state = checkcommand(cmdReceived,state);
@@ -529,14 +529,14 @@ while true %i <= maxInd
             pause(pauseWhenIdleTime);%Wait a bit so to throttle idle execution
             staleDataFlag = true;
             resetUdp = true;
-            cmdReceived = controlreceiver('0.0.0.0', Config.portCntrl,false);
+            cmdReceived = controlreceiver('127.0.0.1', Config.portCntrl,false);
             previousState = state;
             state = checkcommand(cmdReceived,state);
 
         case 'kill'
             %Send command to release the udp system objects
-            controlreceiver('0.0.0.0', Config.portCntrl,true);
-            channelreceiver('0.0.0.0', Config.portData,true,true);
+            controlreceiver('127.0.0.1', Config.portCntrl,true);
+            channelreceiver('127.0.0.1', Config.portData,true,true);
             dataWriterBuffData = asyncWriteBuff.read();
             count = fwrite(dataWriterFileID, interleaveComplexVector(dataWriterBuffData), 'single');
 
