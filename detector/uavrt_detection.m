@@ -391,7 +391,7 @@ while true %i <= maxInd
                                 for j = 1:numel(X.ps_pos.cpki)
                                     for k = 1:size(X.ps_pos.clst,2)
                                         %Set pulseMsg parameters for sending
-                                        pulseMsg.detector_id        = char(Config.ID);
+                                        pulseMsg.tag_id             = char(Config.ID);
                                         pulseMsg.frequency          = Config.channelCenterFreqMHz + (X.ps_pos.clst(X.ps_pos.cpki(j),k).fp)*1e-6;
                                         t_0     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_0;
                                         t_f     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_f;
@@ -410,8 +410,8 @@ while true %i <= maxInd
                                         pulseMsg.dft_imag           = imag(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
                                         pulseMsg.group_ind          = uint16(k);
                                         pulseMsg.group_SNR          = 10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average SNR in dB
-                                        pulseMsg.detection_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).det_dec;
-                                        pulseMsg.confirmed_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).con_dec;
+                                        pulseMsg.detection_status   = boolean(X.ps_pos.clst(X.ps_pos.cpki(j),k).det_dec);
+                                        pulseMsg.confirmed_status   = boolean(X.ps_pos.clst(X.ps_pos.cpki(j),k).con_dec);
                                         send(pulsePub,pulseMsg)
                                         pulseCount = pulseCount+1;
                                         fprintf(".");
