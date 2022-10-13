@@ -346,7 +346,7 @@ while true %i <= maxInd
 
 
                         %Check lagging processing
-                        if Config.K > 1 & processingTime > 0.9 * sampsForKPulses/Config.Fs
+                        if segmentsProcessed ~= 0 && Config.K > 1 && processingTime > 0.9 * sampsForKPulses/Config.Fs
                             Config.K = Config.K - 1;
                             fprintf('WARNING!!! PROCESSING TIME TOOK LONGER THAN WAVEFORM LENGTH. STREAMING NOT POSSIBLE. REDUCING NUMBER OF PULSES CONSIDERED BY 1 TO K = %u \n',uint32(Config.K));
                             fprintf('Resetting all internal data buffers and udp buffers to clear potential stale data. \n');
