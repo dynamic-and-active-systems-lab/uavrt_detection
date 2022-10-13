@@ -11,9 +11,7 @@ configUpdatedFlag = true;
 
 
 % ROS2 Setup
-%Only setup ROS2 for Matlab and
-ros2Enable = true;
-if ros2Enable
+if Config.ros2enable
     fprintf("Preparing ROS2 Node and Messages...")
     node = ros2node("detector",0);
     pulsePub = ros2publisher(node,"/pulse","uavrt_interfaces/Pulse");
@@ -385,10 +383,13 @@ while true %i <= maxInd
                         Xhold = waveformcopy(X);
 
                         for j = 1:numel(ps_pre_struc.pl)
-                            fprintf('Pulse at %e Hz detected. Confirmation status: %u \n', ps_pre_struc.pl(j).fp,uint32(ps_pre_struc.pl(j).con_dec))
+                            fprintf('Pulse at %e Hz detected. SNR: %e Confirmation status: %u \n', ...
+                                ps_pre_struc.pl(j).fp, ...
+                                ps_pre_struc.pl(j).SNR, ...
+                                uint32(ps_pre_struc.pl(j).con_dec))
                         end
 
-                        if ros2Enable %Config.ros2enable & (coder.target('MATLAB') | coder.target("EXE"))
+                        if Config.ros2enable
                             pulseCount = 0;
                             if ~isnan(X.ps_pos.cpki)
                                 fprintf("Transmitting ROS2 pulse messages");
