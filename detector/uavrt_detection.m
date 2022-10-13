@@ -119,7 +119,6 @@ fprintf('Startup set 6 complete. \n')
 resetBuffersFlag  = true;
 framesReceived    = 0;
 segmentsProcessed = 0;
-state             = 'idle';
 previousState     = 'unspawned';
 suggestedMode     = 'S';
 fLock             = false;
@@ -130,6 +129,11 @@ i                 = 1;
 lastTimeStamp     = 0;
 cleanBuffer       = true;
 trackedCount      = 0;
+if Config.startInRunState
+    state = 'run';
+else
+    state = 'idle';
+end
 
 fprintf('Startup set 7 complete. Starting processing... \n')
 
