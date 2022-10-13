@@ -11,9 +11,7 @@ configUpdatedFlag = true;
 
 
 % ROS2 Setup
-%Only setup ROS2 for Matlab and
-ros2Enable = true;
-if ros2Enable
+if Config.ros2enable
     fprintf("Preparing ROS2 Node and Messages...")
     node = ros2node("detector",0);
     pulsePub = ros2publisher(node,"/pulse","uavrt_interfaces/Pulse");
@@ -119,7 +117,6 @@ fprintf('Startup set 6 complete. \n')
 resetBuffersFlag  = true;
 framesReceived    = 0;
 segmentsProcessed = 0;
-state             = 'idle';
 previousState     = 'unspawned';
 suggestedMode     = 'S';
 fLock             = false;
@@ -130,6 +127,11 @@ i                 = 1;
 lastTimeStamp     = 0;
 cleanBuffer       = true;
 trackedCount      = 0;
+if Config.startInRunState
+    state = 'run';
+else
+    state = 'idle';
+end
 
 fprintf('Startup set 7 complete. Starting processing... \n')
 
@@ -344,7 +346,7 @@ while true %i <= maxInd
 
 
                         %Check lagging processing
-                        if Config.K > 1 & processingTime > 0.9 * sampsForKPulses/Config.Fs
+                        if segmentsProcessed ~= 0 && Config.K > 1 && processingTime > 0.9 * sampsForKPulses/Config.Fs
                             Config.K = Config.K - 1;
                             fprintf('WARNING!!! PROCESSING TIME TOOK LONGER THAN WAVEFORM LENGTH. STREAMING NOT POSSIBLE. REDUCING NUMBER OF PULSES CONSIDERED BY 1 TO K = %u \n',uint32(Config.K));
                             fprintf('Resetting all internal data buffers and udp buffers to clear potential stale data. \n');
@@ -381,10 +383,13 @@ while true %i <= maxInd
                         Xhold = waveformcopy(X);
 
                         for j = 1:numel(ps_pre_struc.pl)
-                            fprintf('Pulse at %e Hz detected. Confirmation status: %u \n', ps_pre_struc.pl(j).fp,uint32(ps_pre_struc.pl(j).con_dec))
+                            fprintf('Pulse at %e Hz detected. SNR: %e Confirmation status: %u \n', ...
+                                ps_pre_struc.pl(j).fp, ...
+                                ps_pre_struc.pl(j).SNR, ...
+                                uint32(ps_pre_struc.pl(j).con_dec))
                         end
 
-                        if ros2Enable %Config.ros2enable & (coder.target('MATLAB') | coder.target("EXE"))
+                        if Config.ros2enable
                             pulseCount = 0;
                             if ~isnan(X.ps_pos.cpki)
                                 fprintf("Transmitting ROS2 pulse messages");
