@@ -117,6 +117,11 @@ classdef DetectorConfig
             %
             %
             fid = fopen(filePath);
+            if fid == -1
+                fprintf("Failed to open config file: %s\n", filePath);
+                error("Failed to open config file: %s\n", filePath);
+                return;
+            end
             configNum = 0;
             done = false;
             %coder.varsize('sepLine')

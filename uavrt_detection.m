@@ -3,7 +3,7 @@ function [] = uavrt_detection()
 %   Detailed explanation goes here
 
  %#codegen
-configPath = "config/detectorConfig.txt"; %Must exist in the same directory as the execution of this executable
+configPath = "detector/config/detectorConfig.txt"; %Must exist in the same directory as the execution of this executable
 
 Config =  DetectorConfig(); %Build empty config object
 updateconfig()              %Update (fill) the configuration
@@ -11,7 +11,7 @@ configUpdatedFlag = true;
 
 
 % ROS2 Setup
-if Config.ros2enable
+if false % Config.ros2enable
     fprintf("Preparing ROS2 Node and Messages...")
     node = ros2node("detector",0);
     pulsePub = ros2publisher(node,"/pulse","uavrt_interfaces/Pulse");
@@ -34,9 +34,7 @@ overlapSamples	= 0;
 sampsForKPulses = 0;
 updatebufferreadvariables(pulseStatsPriori);
 
-coder.varsize("dataReceived",[1025 1]);
-coder.varsize("state",[1 64]);
-coder.varsize("previousState",[1 64]);
+coder.varsize("dataReceived", [10251]);
 packetLength = 1025; %1024 plus a time stamp.
 fprintf('Startup set 1 complete. \n')
 
@@ -51,7 +49,7 @@ fprintf('Startup set 1 complete. \n')
 % Xmax = waveform([], maxFs, 0, maxpulseStatsPriori, stftOverlapFraction);
 % [~,~,~,maxn_ws,~,~,maxN,maxM] = Xmax.getprioridependentprops(Xmax.ps_pre);
 % sampsForMaxPulses = maxK*maxn_ws*(maxN+maxM+1+1);
-sampsForMaxPulses = 5800320;
+sampsForMaxPulses = 24810 * 2;
 asyncDataBuff = dsp.AsyncBuffer(sampsForMaxPulses);
 asyncTimeBuff = dsp.AsyncBuffer(sampsForMaxPulses);
 fprintf('Startup set 2 complete. \n')
@@ -59,9 +57,9 @@ dataWriterTimeIntervalNominal = 10; %Write interval in seconds. 2.5*60*4000*32/8
 dataWriterPacketsPerInterval  = ceil(dataWriterTimeIntervalNominal/((packetLength-1)/Config.Fs));
 dataWriterTimeIntervalActual  = dataWriterPacketsPerInterval*packetLength/Config.Fs;
 dataWriterSamples             = dataWriterPacketsPerInterval*packetLength;
-asyncWriteBuff                = dsp.AsyncBuffer(600650); %600650 is the result of the nominal settings of ceil(150/(1024/4000)*1025.
-asyncWriteBuff.write(single(1+1i));%Write to give Code the type. Read to remove data.
-asyncWriteBuff.read();
+%asyncWriteBuff                = dsp.AsyncBuffer(600650); %600650 is the result of the nominal settings of ceil(150/(1024/4000)*1025.
+%asyncWriteBuff.write(single(1+1i));%Write to give Code the type. Read to remove data.
+%asyncWriteBuff.read();
 dataWriterFileID    = fopen(Config.dataRecordPath,'w');
 if dataWriterFileID == -1
     fprintf("UAV-RT: Error opening/creating data record file with error:\n")
@@ -113,32 +111,25 @@ X.spectro();
 
 fprintf('Startup set 6 complete. \n')
 
+udpReceiveBufferSize = 1025;
+udpReceiver = udpReceiverSetup('127.0.0.1', Config.portData, udpReceiveBufferSize, udpReceiveBufferSize);
+
 %Initialize loop variables
 resetBuffersFlag  = true;
 framesReceived    = 0;
 segmentsProcessed = 0;
-previousState     = 'unspawned';
 suggestedMode     = 'S';
 fLock             = false;
-resetUdp          = true;
 staleDataFlag     = true;%Force buffer  flush on start
 idleTic           = 1;
 i                 = 1;
 lastTimeStamp     = 0;
 cleanBuffer       = true;
 trackedCount      = 0;
-if Config.startInRunState
-    state = 'run';
-else
-    state = 'idle';
-end
 
 fprintf('Startup set 7 complete. Starting processing... \n')
 
 while true %i <= maxInd
-
-    switch state
-        case 'run'
 
             if resetBuffersFlag
                 asyncDataBuff.reset();
@@ -147,21 +138,15 @@ while true %i <= maxInd
                 cleanBuffer = true;
             end
 
-            %% Get data
-            [dataReceived]  = channelreceiver('127.0.0.1', Config.portData,resetUdp,false);
-            resetUdp = false;
-
             %% Flush UDP buffer if data in the buffer is stale.
             if staleDataFlag
                 fprintf('********STALE DATA FLAG: %u *********\n',uint32(staleDataFlag));
-                runs = 0;
-                while ~isempty(dataReceived)
-                    fprintf('********CLEARING UDP DATA BUFFER*********\n');
-                    [dataReceived]  = channelreceiver('127.0.0.1', Config.portData,resetUdp,false);
-                    runs = runs+1;
-                end
+                udpReceiverClear(udpReceiver);
                 staleDataFlag = false;
             end
+
+            %% Get data
+            [dataReceived]  = udpReceiverRead(udpReceiver, udpReceiveBufferSize);
 
             %% Wait for new data if none ready, else put data in buffers
             if isempty(dataReceived)
@@ -187,12 +172,12 @@ while true %i <= maxInd
                 %Write out data and time.
                 asyncDataBuff.write(iqData);
                 asyncTimeBuff.write(timeVector);
-                asyncWriteBuff.write(dataReceived);
-                if asyncWriteBuff.NumUnreadSamples == dataWriterSamples
-                    dataWriterBuffData = asyncWriteBuff.read();
-                    %dataWriterBuffDataComplexInterleave = [real(dataWriterBuffData), imag(dataWriterBuffData)].';
-                    [~] = fwrite(dataWriterFileID,interleaveComplexVector(dataWriterBuffData),'single');
-                end
+                %asyncWriteBuff.write(dataReceived);
+                %if asyncWriteBuff.NumUnreadSamples == dataWriterSamples
+                %    dataWriterBuffData = asyncWriteBuff.read();
+                %    %dataWriterBuffDataComplexInterleave = [real(dataWriterBuffData), imag(dataWriterBuffData)].';
+                %    [~] = fwrite(dataWriterFileID,interleaveComplexVector(dataWriterBuffData),'single');
+                %end
 
                 %end
 
@@ -389,7 +374,7 @@ while true %i <= maxInd
                                 uint32(ps_pre_struc.pl(j).con_dec))
                         end
 
-                        if Config.ros2enable
+                        if false %Config.ros2enable
                             pulseCount = 0;
                             if ~isnan(X.ps_pos.cpki)
                                 fprintf("Transmitting ROS2 pulse messages");
@@ -432,143 +417,6 @@ while true %i <= maxInd
                     end
                 end
             end
-
-            cmdReceived = controlreceiver('127.0.0.1', Config.portCntrl,false);
-            previousState = state;
-            state = checkcommand(cmdReceived,state);
-
-
-        case 'idle'
-            if mod(idleTic,8) ==0
-                fprintf('Waiting in idle state...\n')
-                idleTic = 1;
-            end
-            idleTic = idleTic+1;
-            dataWriterBuffData = asyncWriteBuff.read();
-            count = fwrite(dataWriterFileID, interleaveComplexVector(dataWriterBuffData), 'single');
-
-            asyncDataBuff.reset();
-            asyncTimeBuff.reset();
-            asyncWriteBuff.reset();
-
-            pause(pauseWhenIdleTime);%Wait a bit so to throttle idle execution
-            staleDataFlag = true;
-            resetUdp = true;
-            cmdReceived = controlreceiver('127.0.0.1', Config.portCntrl,false);
-            previousState = state;
-            state = checkcommand(cmdReceived,state);
-
-        case 'updateconfig'
-            %Write all remaining data in buffer before clearing
-            dataWriterBuffData = asyncWriteBuff.read();
-            count = fwrite(dataWriterFileID, interleaveComplexVector(dataWriterBuffData), 'single');
-            updateconfig();
-            configUpdatedFlag = true;
-
-            %Reset all the buffers and setup the buffer read variables
-            asyncDataBuff.reset();
-            asyncTimeBuff.reset();
-            asyncWriteBuff.reset();
-            updatebufferreadvariables(initializeps(Config));
-
-            %Check control and update states
-            staleDataFlag = true;
-            resetUdp = true;
-            cmdReceived = controlreceiver('127.0.0.1', Config.portCntrl,false);
-            if ~isempty(cmdReceived)
-                previousState = state;
-                state = checkcommand(cmdReceived,state);
-            else %On no command after config update, default to previous state
-                state = previousState;
-                previousState = 'updateconfig';
-            end
-
-        case 'test'
-            if mod(idleTic,8) ==0
-                fprintf('In test mode. Publishing one test pulse per second.\n')
-                idleTic = 1;
-
-                if ros2Enable %Config.ros2enable & (coder.target('MATLAB') | coder.target("EXE"))
-                    fprintf("Transmitting ROS2 pulse messages");
-                    pulseCount = 0;
-                    for j = 1:1
-                        %Set pulseMsg parameters for sending
-                        pulseMsg.detector_id        = char(Config.ID);
-                        pulseMsg.frequency          = Config.tagFreqMHz;
-                        t_0     = posixtime(datetime('now'));
-                        t_f     = 0;
-                        t_nxt_0 = 1;
-                        t_nxt_f = 2;
-                        pulseMsg.start_time.sec             = int32(floor(t_0));
-                        pulseMsg.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
-                        pulseMsg.end_time.sec               = int32(floor(t_f));
-                        pulseMsg.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
-                        pulseMsg.predict_next_start.sec     = int32(floor(t_nxt_0));
-                        pulseMsg.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
-                        pulseMsg.predict_next_end.sec       = int32(floor(t_nxt_f));
-                        pulseMsg.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
-                        pulseMsg.snr                = 1;
-                        pulseMsg.dft_real           = real(1);
-                        pulseMsg.dft_imag           = imag(1);
-                        pulseMsg.group_ind          = uint16(Config.K);
-                        pulseMsg.group_SNR          = 1;
-                        pulseMsg.detection_status   = false;
-                        pulseMsg.confirmed_status   = true;
-                        send(pulsePub,pulseMsg)
-                        pulseCount = pulseCount+1;
-                        fprintf(".");
-                    end
-                    fprintf("complete. Transmitted %u pulse(s).\n",uint32(pulseCount));
-
-                    fprintf("\n");
-                end
-
-
-            end
-            idleTic = idleTic+1;
-
-            asyncDataBuff.reset();
-            asyncTimeBuff.reset();
-            asyncWriteBuff.reset();
-
-            pause(pauseWhenIdleTime);%Wait a bit so to throttle idle execution
-            staleDataFlag = true;
-            resetUdp = true;
-            cmdReceived = controlreceiver('127.0.0.1', Config.portCntrl,false);
-            previousState = state;
-            state = checkcommand(cmdReceived,state);
-
-        case 'kill'
-            %Send command to release the udp system objects
-            controlreceiver('127.0.0.1', Config.portCntrl,true);
-            channelreceiver('127.0.0.1', Config.portData,true,true);
-            dataWriterBuffData = asyncWriteBuff.read();
-            count = fwrite(dataWriterFileID, interleaveComplexVector(dataWriterBuffData), 'single');
-
-            asyncDataBuff.reset();
-            asyncTimeBuff.reset();
-            asyncWriteBuff.reset();
-            asyncDataBuff.release();
-            asyncTimeBuff.release();
-            asyncWriteBuff.release();
-
-            previousState = state;
-            fCloseStatus = fclose(dataWriterFileID);
-            if fCloseStatus == -1
-                error('UAV-RT: Error closing data record file. ')
-            end
-            %release(writer);
-            break
-
-        otherwise
-            %Should never get to this case, but jump to idle if we get
-            %here.
-            previousState = state;
-            state = 'idle';
-    end
-
-
-
 end
 
     function [interleaveDataOut] = interleaveComplexVector(complexDataIn)
@@ -638,38 +486,5 @@ end
         fprintf('Updating buffer read vars|| N: %u, M: %u, J: %u,\n',uint32(N),uint32(M),uint32(J))
         fprintf('Updating buffer read vars|| sampForKPulses: %u,  overlapSamples: %u,\n',uint32(sampsForKPulses),uint32(overlapSamples))
     end
-
-
-    function state = checkcommand(cmdReceived,currentState)
-        %This function is designed to check the incoming command and decide what to
-        %do based on the received command and the current state
-        if ~isempty(cmdReceived)
-            if cmdReceived == -1
-                fprintf('Received kill command. \n')
-                state = 'kill';
-            elseif cmdReceived == 0
-                fprintf('Received idle command. \n')
-                state = 'idle';
-            elseif cmdReceived == 1
-                fprintf('Received run command. \n')
-                state = 'run';
-            elseif cmdReceived == 2
-                fprintf('Received update config command. \n')
-                state = 'updateconfig';
-            elseif cmdReceived == 3
-                fprintf('Received test command. \n')
-                state = 'test';
-            else
-                %Invalid command. Continue with current state.
-                state = currentState;
-            end
-        else
-            %Nothing received. Continue with current state.
-            state = currentState;
-        end
-    end
-
-
-
 end
 
