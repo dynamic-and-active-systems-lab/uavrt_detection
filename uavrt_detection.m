@@ -10,15 +10,6 @@ updateconfig()              %Update (fill) the configuration
 configUpdatedFlag = true;
 
 
-% ROS2 Setup
-if false % Config.ros2enable
-    fprintf("Preparing ROS2 Node and Messages...")
-    node = ros2node("detector",0);
-    pulsePub = ros2publisher(node,"/pulse","uavrt_interfaces/Pulse");
-    pulseMsg = ros2message(pulsePub);
-    fprintf("complete.\n")
-end
-
 blankThresh = threshold(Config.falseAlarmProb);
 pulseStatsPriori = pulsestats(Config.tp, Config.tip, Config.tipu, ... % tp, tip, tipu
                               Config.tipj, 0 , 0 ,0 , [1 1], "D" ,... % tipj, fp, fstart, fend, tmplt, mode
