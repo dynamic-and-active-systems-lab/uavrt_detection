@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+  uavrt_detection:
+    image: uavrt_detection:#VERSION#
+    container_name: uavrt_detection
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - '/data/app/uavrt_detection/data:/data'
