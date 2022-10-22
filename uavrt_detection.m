@@ -361,11 +361,10 @@ while true %i <= maxInd
                         Xhold = waveformcopy(X);
 
                         for j = 1:numel(ps_pre_struc.pl)
-                            fprintf('Pulse at %e Hz detected. SNR: %e Confirmation status: %u \n', ...
-                                ps_pre_struc.pl(j).fp, ...
-                                ps_pre_struc.pl(j).SNR, ...
-                                uint32(ps_pre_struc.pl(j).con_dec))
-                            udpSenderSend(udpSender, [ single(ps_pre_struc.pl(j).SNR) single(ps_pre_struc.pl(j).con_dec)]);
+                            pulse = ps_pre_struc.pl(j);
+                            fprintf('Pulse at %e Hz detected. SNR: %e Confirmation status: %u \n', pulse.fp, pulse.SNR, uint32(pulse.con_dec))
+                                        t_0     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_0;
+                            udpSenderSend(udpSender, [ single(pulse.SNR) single(pulse.con_dec) single(pulse.t_0)]);
                         end
 
                         if false %Config.ros2enable

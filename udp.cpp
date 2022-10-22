@@ -98,7 +98,7 @@ void udpReceiverClear(int fdSocket)
 
 int udpSenderSend(int fdSocket, real32_T* pulseInfo)
 {
-    return send(fdSocket, pulseInfo, sizeof(real32_T) * 2, 0);
+    return send(fdSocket, pulseInfo, sizeof(real32_T) * 3, 0);
 }
 
 void udpReceiverSenderRelease(int fdSocket)
