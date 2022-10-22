@@ -3,10 +3,11 @@ FROM auterion/ubuntu-mavsdk:v0.44.0 as build-stage
 WORKDIR /matlab-extern
 COPY matlab-extern .
 WORKDIR /uavrt_detection
+COPY detector/config/detectorConfig.txt detector/config/detectorConfig.txt
 COPY udp.cpp udp.h .
 WORKDIR /uavrt_detection/codegen/exe/uavrt_detection
 COPY codegen/exe/uavrt_detection .
-RUN make -f uavrt_detection_rtw.mk
+RUN make -j12 -f uavrt_detection_rtw.mk
 
 FROM arm64v8/ubuntu as release-stage
 
@@ -20,6 +21,7 @@ RUN apt-get update \
 
 WORKDIR /app
 
+COPY --from=build-stage /uavrt_detection/detector/config/detectorConfig.txt detector/config/detectorConfig.txt
 COPY --from=build-stage /uavrt_detection/uavrt_detection /app/
 
 ENTRYPOINT [ "/app/uavrt_detection" ]

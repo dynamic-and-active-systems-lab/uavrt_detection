@@ -33,7 +33,8 @@ Temporary Items
 
 # End of https://www.toptal.com/developers/gitignore/api/macos
 
-
+# Auterion build process output folder
+output
 
 # Matlab Coder Generated Files
 *.prj
