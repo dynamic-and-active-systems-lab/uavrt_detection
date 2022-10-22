@@ -105,6 +105,8 @@ fprintf('Startup set 6 complete. \n')
 udpReceiveBufferSize = 1025;
 udpReceiver = udpReceiverSetup('127.0.0.1', Config.portData, udpReceiveBufferSize, udpReceiveBufferSize);
 
+udpSender = udpSenderSetup('127.0.0.1', 30000, 4);
+
 %Initialize loop variables
 resetBuffersFlag  = true;
 framesReceived    = 0;
@@ -363,6 +365,7 @@ while true %i <= maxInd
                                 ps_pre_struc.pl(j).fp, ...
                                 ps_pre_struc.pl(j).SNR, ...
                                 uint32(ps_pre_struc.pl(j).con_dec))
+                            udpSenderSend(udpSender, [ single(ps_pre_struc.pl(j).SNR) single(ps_pre_struc.pl(j).con_dec)]);
                         end
 
                         if false %Config.ros2enable
