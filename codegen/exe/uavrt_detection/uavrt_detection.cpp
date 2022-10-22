@@ -4,7 +4,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 21-Oct-2022 17:38:50
+// C/C++ source code generated on  : 22-Oct-2022 12:48:10
 //
 
 // Include Files
@@ -1172,6 +1172,7 @@ void uavrt_detection()
   double trackedCount;
   int q1;
   int udpReceiver;
+  int udpSender;
   signed char fileid;
   char mode;
   char suggestedMode;
@@ -1315,6 +1316,7 @@ void uavrt_detection()
   printf("Startup set 6 complete. \n");
   fflush(stdout);
   udpReceiver = udpReceiverSetup(Config.contents.portData);
+  udpSender = udpSenderSetup(30000.0);
   // Initialize loop variables
   resetBuffersFlag = true;
   segmentsProcessed = 0.0;
@@ -1944,10 +1946,14 @@ void uavrt_detection()
         Xhold = waveformcopy(&b_X, &lobj_9, &lobj_10[0], &lobj_11);
         q1 = ps_pre_struc_pl.size(1);
         for (n = 0; n < q1; n++) {
+          float pulseInfo[2];
           printf("Pulse at %e Hz detected. SNR: %e Confirmation status: %u \n",
                  ps_pre_struc_pl[n].fp, ps_pre_struc_pl[n].SNR,
                  static_cast<unsigned int>(ps_pre_struc_pl[n].con_dec));
           fflush(stdout);
+          pulseInfo[0] = static_cast<float>(ps_pre_struc_pl[n].SNR);
+          pulseInfo[1] = ps_pre_struc_pl[n].con_dec;
+          udpSenderSend(udpSender, &pulseInfo[0]);
         }
         c_varargin_1.set_size(1, 2);
         c_varargin_1[0] = mode;

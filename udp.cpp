@@ -96,9 +96,9 @@ void udpReceiverClear(int fdSocket)
     }
 }
 
-int udpSenderSend(int fdSocket, creal32_T* complexBuffer, int nComplexValues)
+int udpSenderSend(int fdSocket, real32_T* pulseInfo)
 {
-    return send(fdSocket, complexBuffer, nComplexValues * sizeof(creal32_T), 0);
+    return send(fdSocket, pulseInfo, sizeof(real32_T) * 2, 0);
 }
 
 void udpReceiverSenderRelease(int fdSocket)

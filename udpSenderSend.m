@@ -1,10 +1,10 @@
-function udpSenderSend(udpSender, complexData)
+function udpSenderSend(udpSender, pulseInfo)
 	%#codegen
 	if coder.target('MATLAB')
-		udpSender(complexData);
+		udpSender(pulseInfo);
 	else
 		coder.cinclude('udp.h');
 		coder.updateBuildInfo('addSourceFiles', 'udp.cpp');
-		coder.ceval('udpSenderSend', udpSender, coder.rref(complexData), length(complexData));
+		coder.ceval('udpSenderSend', udpSender, pulseInfo);
 	end
 end
