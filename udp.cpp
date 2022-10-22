@@ -76,8 +76,6 @@ void udpReceiverRead(int fdSocket, creal32_T* complexBuffer, int bufferSize)
             printf("Error udpReceiverRead: %s\n", strerror(errno));
         }
     }
-
-    printf("udpReceiverRead bytes: %d\n", bufferSize);
 }
 
 void udpReceiverClear(int fdSocket)
@@ -96,7 +94,6 @@ void udpReceiverClear(int fdSocket)
             break;
         }
     }
-        printf("udpReceiverClear\n");
 }
 
 int udpSenderSend(int fdSocket, creal32_T* complexBuffer, int nComplexValues)

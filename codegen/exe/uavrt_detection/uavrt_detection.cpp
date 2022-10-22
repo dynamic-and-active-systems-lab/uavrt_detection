@@ -4,7 +4,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 20-Oct-2022 20:46:49
+// C/C++ source code generated on  : 21-Oct-2022 17:38:50
 //
 
 // Include Files
@@ -1195,7 +1195,6 @@ void uavrt_detection()
   updateconfig(&Config, &configPath);
   // Update (fill) the configuration
   configUpdatedFlag = true;
-  //  ROS2 Setup
   makepulsestruc(&r.A, &r.P, &r.SNR, &r.yw, &r.t_0, &r.t_f, r.t_next, &r.fp,
                  &r.fstart, &r.fend, r.mode, &r.det_dec, &r.con_dec);
   makepulsestruc(&missingTime, &missingPackets, &timeStamp, &t5_yw, &t5_t_0,

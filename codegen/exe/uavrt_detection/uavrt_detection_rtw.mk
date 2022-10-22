@@ -2,7 +2,7 @@
 ## Makefile generated for component 'uavrt_detection'. 
 ## 
 ## Makefile     : uavrt_detection_rtw.mk
-## Generated on : Thu Oct 20 20:49:49 2022
+## Generated on : Fri Oct 21 17:41:45 2022
 ## Final product: $(START_DIR)/uavrt_detection
 ## Product type : executable
 ## 
@@ -18,7 +18,7 @@
 
 PRODUCT_NAME              = uavrt_detection
 MAKEFILE                  = uavrt_detection_rtw.mk
-MATLAB_ROOT               = /home/parallels/repos/uavrt_detection/matlab-extern
+MATLAB_ROOT               = /usr/local/MATLAB/R2022b
 MATLAB_BIN                = /usr/local/MATLAB/R2022b/bin
 MATLAB_ARCH_BIN           = $(MATLAB_BIN)/glnxa64
 START_DIR                 = /home/parallels/repos/uavrt_detection

@@ -4,7 +4,7 @@
 // File: interp1.h
 //
 // MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 20-Oct-2022 20:46:49
+// C/C++ source code generated on  : 21-Oct-2022 17:38:50
 //
 
 #ifndef INTERP1_H
