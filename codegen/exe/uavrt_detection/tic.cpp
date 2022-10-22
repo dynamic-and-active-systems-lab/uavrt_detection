@@ -4,7 +4,7 @@
 // File: tic.cpp
 //
 // MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 12:48:10
+// C/C++ source code generated on  : 22-Oct-2022 15:24:58
 //
 
 // Include Files

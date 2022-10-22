@@ -4,7 +4,7 @@
 // File: stft.cpp
 //
 // MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 12:48:10
+// C/C++ source code generated on  : 22-Oct-2022 15:24:58
 //
 
 // Include Files
@@ -483,7 +483,6 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
   double d;
   double hopSize;
   double nCol;
-  float xtmp_re;
   int acoef;
   int b_bcoef;
   int b_i1;
@@ -570,10 +569,11 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
       i2 = bcoef * k;
       i1 = c.size(0) - 1;
       for (ib = 0; ib <= i1; ib++) {
+        float b_f;
         b_i1 = b_bcoef * ib;
-        xtmp_re = obj.value[acoef * ib];
-        c[ib + c.size(0) * k].re = xtmp_re * xin[b_i1 + xin.size(0) * i2].re;
-        c[ib + c.size(0) * k].im = xtmp_re * xin[b_i1 + xin.size(0) * i2].im;
+        b_f = obj.value[acoef * ib];
+        c[ib + c.size(0) * k].re = b_f * xin[b_i1 + xin.size(0) * i2].re;
+        c[ib + c.size(0) * k].im = b_f * xin[b_i1 + xin.size(0) * i2].im;
       }
     }
   }
@@ -683,25 +683,22 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
         i2 += b_bcoef;
         ib = b_i1 + acoef;
         for (int k{0}; k <= acoef; k++) {
-          float xtmp_im;
+          creal32_T xtmp;
           bcoef = (b_i1 + k) - 1;
-          xtmp_re = varargout_1[bcoef].re;
-          xtmp_im = varargout_1[bcoef].im;
+          xtmp = varargout_1[bcoef];
           i = ib + k;
           varargout_1[bcoef] = varargout_1[i];
-          varargout_1[i].re = xtmp_re;
-          varargout_1[i].im = xtmp_im;
+          varargout_1[i] = xtmp;
         }
       }
     } else {
       i2 = 1;
       for (int b_i{0}; b_i <= npages; b_i++) {
-        float xtmp_im;
+        creal32_T xtmp;
         b_i1 = i2;
         i2 += b_bcoef;
         ib = b_i1 + acoef;
-        xtmp_re = varargout_1[ib].re;
-        xtmp_im = varargout_1[ib].im;
+        xtmp = varargout_1[ib];
         for (int k{0}; k <= acoef; k++) {
           i = ib + k;
           i1 = (b_i1 + k) - 1;
@@ -709,8 +706,7 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
           varargout_1[i1] = varargout_1[i + 1];
         }
         ib = (ib + acoef) + 1;
-        varargout_1[ib].re = xtmp_re;
-        varargout_1[ib].im = xtmp_im;
+        varargout_1[ib] = xtmp;
       }
     }
   }

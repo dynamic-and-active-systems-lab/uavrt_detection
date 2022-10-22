@@ -4,7 +4,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 12:48:10
+// C/C++ source code generated on  : 22-Oct-2022 15:24:58
 //
 
 // Include Files
@@ -1946,13 +1946,14 @@ void uavrt_detection()
         Xhold = waveformcopy(&b_X, &lobj_9, &lobj_10[0], &lobj_11);
         q1 = ps_pre_struc_pl.size(1);
         for (n = 0; n < q1; n++) {
-          float pulseInfo[2];
+          float pulseInfo[3];
           printf("Pulse at %e Hz detected. SNR: %e Confirmation status: %u \n",
                  ps_pre_struc_pl[n].fp, ps_pre_struc_pl[n].SNR,
                  static_cast<unsigned int>(ps_pre_struc_pl[n].con_dec));
           fflush(stdout);
           pulseInfo[0] = static_cast<float>(ps_pre_struc_pl[n].SNR);
           pulseInfo[1] = ps_pre_struc_pl[n].con_dec;
+          pulseInfo[2] = static_cast<float>(ps_pre_struc_pl[n].t_0);
           udpSenderSend(udpSender, &pulseInfo[0]);
         }
         c_varargin_1.set_size(1, 2);
