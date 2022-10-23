@@ -7,3 +7,6 @@ services:
     network_mode: host
     volumes:
       - '/data/app/uavrt_detection/data:/data'
+    logging:
+      options:
+        max-size: "100k"

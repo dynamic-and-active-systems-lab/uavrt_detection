@@ -1951,6 +1951,8 @@ void uavrt_detection()
                  ps_pre_struc_pl[n].fp, ps_pre_struc_pl[n].SNR,
                  static_cast<unsigned int>(ps_pre_struc_pl[n].con_dec));
           fflush(stdout);
+          printf("T: %f\n", ps_pre_struc_pl[n].t_0);
+          fflush(stdout);
           pulseInfo[0] = static_cast<float>(ps_pre_struc_pl[n].SNR);
           pulseInfo[1] = ps_pre_struc_pl[n].con_dec;
           pulseInfo[2] = static_cast<float>(ps_pre_struc_pl[n].t_0);
