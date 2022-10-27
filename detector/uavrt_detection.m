@@ -11,11 +11,13 @@ configUpdatedFlag = true;
 
 
 % ROS2 Setup
-if Config.ros2enable
+ros2Enable = true; %Hard coded switch so that can be ROS2 can be turned off for testing/debugging
+if ros2Enable
     fprintf("Preparing ROS2 Node and Messages...")
     node = ros2node("detector",0);
     pulsePub = ros2publisher(node,"/pulse","uavrt_interfaces/Pulse");
-    pulseMsg = ros2message(pulsePub);
+    %pulseMsg = ros2message(pulsePub);
+    pulseMsg = ros2message("uavrt_interfaces/Pulse");
     fprintf("complete.\n")
 end
 
@@ -389,14 +391,14 @@ while true %i <= maxInd
                                 uint32(ps_pre_struc.pl(j).con_dec))
                         end
 
-                        if Config.ros2enable
+                        if ros2Enable
                             pulseCount = 0;
                             if ~isnan(X.ps_pos.cpki)
                                 fprintf("Transmitting ROS2 pulse messages");
                                 for j = 1:numel(X.ps_pos.cpki)
                                     for k = 1:size(X.ps_pos.clst,2)
                                         %Set pulseMsg parameters for sending
-                                        pulseMsg.tag_id             = char(Config.ID);
+                                        pulseMsg.detector_id        = char(Config.ID);%ID is a string
                                         pulseMsg.frequency          = Config.channelCenterFreqMHz + (X.ps_pos.clst(X.ps_pos.cpki(j),k).fp)*1e-6;
                                         t_0     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_0;
                                         t_f     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_f;
@@ -414,9 +416,18 @@ while true %i <= maxInd
                                         pulseMsg.dft_real           = real(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
                                         pulseMsg.dft_imag           = imag(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
                                         pulseMsg.group_ind          = uint16(k);
-                                        pulseMsg.group_SNR          = 10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average SNR in dB
-                                        pulseMsg.detection_status   = boolean(X.ps_pos.clst(X.ps_pos.cpki(j),k).det_dec);
-                                        pulseMsg.confirmed_status   = boolean(X.ps_pos.clst(X.ps_pos.cpki(j),k).con_dec);
+                                        groupSNRList                = 10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10);%Average SNR in dB
+                                        groupSNRMeanLinear          = mean(groupSNRList,'all');
+                                        if groupSNRMeanLinear<0
+                                            groupSNRMeanDB          = -Inf;
+                                        else
+                                            groupSNRMeanDB          = 10*log10(groupSNRMeanLinear);
+                                        end
+                                        %10log10 can produce complex results and group_snr required a real value. Otherwise coder will
+                                        %generate type errors
+                                        pulseMsg.group_snr          = double(groupSNRMeanDB);%10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average SNR in dB
+                                        pulseMsg.detection_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).det_dec;
+                                        pulseMsg.confirmed_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).con_dec;
                                         send(pulsePub,pulseMsg)
                                         pulseCount = pulseCount+1;
                                         fprintf(".");
@@ -488,12 +499,12 @@ while true %i <= maxInd
                 fprintf('In test mode. Publishing one test pulse per second.\n')
                 idleTic = 1;
 
-                if ros2Enable %Config.ros2enable & (coder.target('MATLAB') | coder.target("EXE"))
+                if ros2Enable & (coder.target('MATLAB') | coder.target("EXE"))
                     fprintf("Transmitting ROS2 pulse messages");
                     pulseCount = 0;
                     for j = 1:1
                         %Set pulseMsg parameters for sending
-                        pulseMsg.detector_id        = char(Config.ID);
+                        pulseMsg.detector_id        = char(Config.ID); %ID is a string
                         pulseMsg.frequency          = Config.tagFreqMHz;
                         t_0     = posixtime(datetime('now'));
                         t_f     = 0;
@@ -511,7 +522,7 @@ while true %i <= maxInd
                         pulseMsg.dft_real           = real(1);
                         pulseMsg.dft_imag           = imag(1);
                         pulseMsg.group_ind          = uint16(Config.K);
-                        pulseMsg.group_SNR          = 1;
+                        pulseMsg.group_snr          = 1;
                         pulseMsg.detection_status   = false;
                         pulseMsg.confirmed_status   = true;
                         send(pulsePub,pulseMsg)

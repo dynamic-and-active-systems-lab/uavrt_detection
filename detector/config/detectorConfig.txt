@@ -1,8 +1,8 @@
 ##################################################
 ID:	01
-channelCenterFreqMHz:	148.525000
+channelCenterFreqMHz:	148.525
 timeStamp:	1646403180.469
-ipData:	0.0.0.0
+ipData:	127.0.0.1
 portData:	20000
 ipCntrl:	127.0.0.1
 portCntrl:	30000

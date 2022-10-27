@@ -33,8 +33,6 @@ classdef DetectorConfig
     %                       data
     %   processedOuputPath  Path to location to save processed
     %                       results.
-    %   ros2enable      Boolean (true/false) to enable ros2 network
-    %                   publishing
     %
     %METHODS:
     %DetectorConfig     Constructor of this class
