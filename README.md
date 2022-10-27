@@ -35,6 +35,14 @@ cfg.Hardware.ROS2Folder = '/opt/ros/galactic';
 cfg.Hardware.ROS2Workspace = '~/uavrt_ws';
 ```
 On these lines, update the IP address, username, and password to that of the target machine. Check that the ros2folder is correct. If you created your `uavrt_ws` in a directory other than `~/` update the ROS2Worksapce line to match. 
+
+NOTE: THERE IS CURRENTLY A BUG IN MATLAB THAT WILL CAUSE AN ERROR WITH THE MAKE FILES THAT IS DISCUSSED [HERE](https://www.mathworks.com/matlabcentral/answers/1831848-coder-ros2-build-error-colcon-with-custom-ros2-message#comment_2433218). As a temporary fix, do the following:
+* Type  `>> edit ros.internal.codegen.ros2node` at the Matlab commandline
+* Go to constructor of the ros2node class.
+* Change `obj.NodeHandle = coder.opaque('rclcpp::Node::SharedPtr','getGlobalNodeHandle','HeaderFile','mlros2_node.h');` to `obj.NodeHandle = coder.opaque('rclcpp::Node::SharedPtr','HeaderFile','mlros2_node.h');`
+* Save & close the file. 
+* Generate the code
+
 9. On the Mac within Matlab, run the lines of code in the `%% Remote ROS2 BUILDING` section. This will try to run compile, build, and run the code on the remote machine. You should see soemthing like:
 ```
 Connecting to ROS 2 device at '134.114.16.153'.
