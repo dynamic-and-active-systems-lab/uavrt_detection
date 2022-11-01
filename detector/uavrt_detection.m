@@ -345,12 +345,10 @@ while true %i <= maxInd
                             end
                         end
 
-
-
                         %Check lagging processing
                         if segmentsProcessed ~= 0 && Config.K > 1 && processingTime > 0.9 * sampsForKPulses/Config.Fs
-                            Config.K = Config.K - 1;
-                            fprintf('WARNING!!! PROCESSING TIME TOOK LONGER THAN WAVEFORM LENGTH. STREAMING NOT POSSIBLE. REDUCING NUMBER OF PULSES CONSIDERED BY 1 TO K = %u \n',uint32(Config.K));
+                            %Config.K = Config.K - 1;
+                            fprintf('WARNING!!! PROCESSING TIME TOOK LONGER THAN WAVEFORM LENGTH. STREAMING NOT POSSIBLE. TRY REDUCING NUMBER OF PULSES CONSIDERED BY 1 TO K = %u \n',uint32(Config.K));
                             fprintf('Resetting all internal data buffers and udp buffers to clear potential stale data. \n');
                             resetBuffersFlag = true;
                             staleDataFlag = true;
@@ -395,15 +393,46 @@ while true %i <= maxInd
                             pulseCount = 0;
                             if ~isnan(X.ps_pos.cpki)
                                 fprintf("Transmitting ROS2 pulse messages");
-                                for j = 1:numel(X.ps_pos.cpki)
-                                    for k = 1:size(X.ps_pos.clst,2)
+                                for j = 1:numel(X.ps_pos.pl)
+%                                 for j = 1%1:numel(X.ps_pos.cpki) %Only send the highest strength pulse
+%                                     for k = 1:size(X.ps_pos.clst,2)
                                         %Set pulseMsg parameters for sending
                                         pulseMsg.detector_id        = char(Config.ID);%ID is a string
-                                        pulseMsg.frequency          = Config.channelCenterFreqMHz + (X.ps_pos.clst(X.ps_pos.cpki(j),k).fp)*1e-6;
-                                        t_0     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_0;
-                                        t_f     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_f;
-                                        t_nxt_0 = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_next(1);
-                                        t_nxt_f = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_next(2);
+%                                         pulseMsg.frequency          = Config.channelCenterFreqMHz + (X.ps_pos.clst(X.ps_pos.cpki(j),k).fp)*1e-6;
+%                                         t_0     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_0;
+%                                         t_f     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_f;
+%                                         t_nxt_0 = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_next(1);
+%                                         t_nxt_f = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_next(2);
+%                                         pulseMsg.start_time.sec             = int32(floor(t_0));
+%                                         pulseMsg.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
+%                                         pulseMsg.end_time.sec               = int32(floor(t_f));
+%                                         pulseMsg.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
+%                                         pulseMsg.predict_next_start.sec     = int32(floor(t_nxt_0));
+%                                         pulseMsg.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
+%                                         pulseMsg.predict_next_end.sec       = int32(floor(t_nxt_f));
+%                                         pulseMsg.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
+%                                         pulseMsg.snr                = X.ps_pos.clst(X.ps_pos.cpki(j),k).SNR;
+%                                         pulseMsg.dft_real           = real(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
+%                                         pulseMsg.dft_imag           = imag(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
+%                                         pulseMsg.group_ind          = uint16(k);
+%                                         groupSNRList                = 10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10);%Average SNR in dB
+%                                         groupSNRMeanLinear          = mean(groupSNRList,'all');
+%                                         if groupSNRMeanLinear<0
+%                                             groupSNRMeanDB          = -Inf;
+%                                         else
+%                                             groupSNRMeanDB          = 10*log10(groupSNRMeanLinear);
+%                                         end
+%                                         %10log10 can produce complex results and group_snr required a real value. Otherwise coder will
+%                                         %generate type errors
+%                                         pulseMsg.group_snr          = double(groupSNRMeanDB);%10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average SNR in dB
+%                                         pulseMsg.detection_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).det_dec;
+%                                         pulseMsg.confirmed_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).con_dec
+
+                                        pulseMsg.frequency          = Config.channelCenterFreqMHz + (X.ps_pos.pl(j).fp)*1e-6;
+                                        t_0     = X.ps_pos.pl(j).t_0;
+                                        t_f     = X.ps_pos.pl(j).t_f;
+                                        t_nxt_0 = X.ps_pos.pl(j).t_next(1);
+                                        t_nxt_f = X.ps_pos.pl(j).t_next(2);
                                         pulseMsg.start_time.sec             = int32(floor(t_0));
                                         pulseMsg.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
                                         pulseMsg.end_time.sec               = int32(floor(t_f));
@@ -412,11 +441,11 @@ while true %i <= maxInd
                                         pulseMsg.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
                                         pulseMsg.predict_next_end.sec       = int32(floor(t_nxt_f));
                                         pulseMsg.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
-                                        pulseMsg.snr                = X.ps_pos.clst(X.ps_pos.cpki(j),k).SNR;
-                                        pulseMsg.dft_real           = real(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
-                                        pulseMsg.dft_imag           = imag(X.ps_pos.clst(X.ps_pos.cpki(j),k).yw);
-                                        pulseMsg.group_ind          = uint16(k);
-                                        groupSNRList                = 10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10);%Average SNR in dB
+                                        pulseMsg.snr                = X.ps_pos.pl(j).SNR;
+                                        pulseMsg.dft_real           = real(X.ps_pos.pl(j).yw);
+                                        pulseMsg.dft_imag           = imag(X.ps_pos.pl(j).yw);
+                                        pulseMsg.group_ind          = uint16(j);
+                                        groupSNRList                = 10.^([X.ps_pos.pl(:).SNR]/10);%Average SNR in dB
                                         groupSNRMeanLinear          = mean(groupSNRList,'all');
                                         if groupSNRMeanLinear<0
                                             groupSNRMeanDB          = -Inf;
@@ -426,12 +455,13 @@ while true %i <= maxInd
                                         %10log10 can produce complex results and group_snr required a real value. Otherwise coder will
                                         %generate type errors
                                         pulseMsg.group_snr          = double(groupSNRMeanDB);%10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average SNR in dB
-                                        pulseMsg.detection_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).det_dec;
-                                        pulseMsg.confirmed_status   = X.ps_pos.clst(X.ps_pos.cpki(j),k).con_dec;
+                                        pulseMsg.detection_status   = X.ps_pos.pl(j).det_dec;
+                                        pulseMsg.confirmed_status   = X.ps_pos.pl(j).con_dec
+
                                         send(pulsePub,pulseMsg)
                                         pulseCount = pulseCount+1;
                                         fprintf(".");
-                                    end
+%                                    end
                                 end
                                 fprintf("complete. Transmitted %u pulse(s).\n",uint32(pulseCount));
                             else

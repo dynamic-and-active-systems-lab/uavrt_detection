@@ -167,7 +167,7 @@ classdef wfmstft < handle
             %has no functionality when deployed outside of Matlab. 
             if coder.target('MATLAB')
                 figure
-                contourf(obj.t,obj.f,abs(obj.S),'EdgeColor','none')
+                contourf(obj.t-obj.t(1),obj.f,abs(obj.S),'EdgeColor','none')
                 xlabel('Time (s)');
                 ylabel('Frequency (Hz)')
                 title('Spectrogram')

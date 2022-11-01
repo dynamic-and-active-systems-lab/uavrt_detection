@@ -565,9 +565,9 @@ classdef waveform < handle
                 wind_end   = naive_wind_end;
             %INFORMED SEARCH BUT NOT PRIORI FOR START TIME
             elseif strcmp(time_searchtype,'informed') && isempty(obj.ps_pre.pl(1).t_0)
-                if coder.target('MATLAB')
-                    warning('Requested informed search, but previous segment did not have at least one pulse with a recorded start time. Using naive search method.')
-                end
+                %if coder.target('MATLAB')
+                    fprintf('Requested informed search, but previous segment did not have at least one pulse with a recorded start time. Using naive search method. \n')
+                %end
                 wind_start = naive_wind_start;
                 wind_end   = naive_wind_end;
             %INFORMED SEARCH WITH PRIORI FOR START TIME    
@@ -652,7 +652,13 @@ classdef waveform < handle
                     end
                 end
             end
-            
+
+            if isempty(wind_start) | isempty(wind_start) 
+                fprintf('UAV-RT: An error occured when trying to determine a time window search range based on prior information. Defaulting to naive search.\n')
+                wind_start = naive_wind_start;
+                wind_end   = naive_wind_end;
+            end
+
             %time_search_range = [wind_start,wind_end];
             %Build a time search range matrix with one row for each pulse
             %The first column is the first window where that pulse might
@@ -694,7 +700,6 @@ classdef waveform < handle
                 %as NaN, this will fail and will default to the naive
                 %search. Freq_mask variable is a logicial vector of the
                 %same size as Wf indicating which frequencies to look at.
-                
                 %IF FREQS ARE UNAVILABLE, USE NAIVE
                 if (f_lo<min(obj.Wf,[],'all')) || (f_hi>max(obj.Wf,[],'all'))%isnan(obj.ps_pre.fc) %Naive
                     if coder.target('MATLAB')
@@ -714,7 +719,6 @@ classdef waveform < handle
                     freq_start = find(obj.Wf>=(obj.ps_pre.fstart),1,'first');
                     freq_end   = find(obj.Wf<=(obj.ps_pre.fend),1,'last');
                 end
-                
                 freq_ind_rng = [freq_start,freq_end];
                 freq_mask    =  false(size(obj.Wf));
                 freq_mask(freq_ind_rng(1):freq_ind_rng(2))=true;
@@ -732,7 +736,7 @@ classdef waveform < handle
                         
             %Combine the masks
             freq_mask = (freq_mask & excld_msk_vec);
-            
+
             %Check that we actually have something to search
             if ~any(freq_mask,'all')
                 error('UAV-RT: Informed frequencies bands and/or excluded frequencies have created a scenario where no frequencies are being considered in the search. This is likely a result of informed frequeny band overlapping with one or more of the excluded frequency bands. Consider reducing the bandwidth of the excluded frequencies.')
@@ -746,7 +750,6 @@ classdef waveform < handle
                       [' Insufficient samples to be sure even one '...
                        'pulse is in segment'])
             end
-            
             Wq = buildtimecorrelatormatrix(N, M, J, obj.K);
             [yw_max_all_freq,S_cols] = incohsumtoeplitz(freq_mask,obj.W',obj.stft.S,timeBlinderVec, Wq);%obj.TimeCorr.Wq(obj.K));
 
@@ -792,7 +795,6 @@ classdef waveform < handle
             % next highest score, repeating the sideband identification.
             % This continues until no more scores that exceed the decision
             % threshold remain. 
-            
             %Number of pulses identified for each frequency. This should be
             %equal to the K pulses of the search or n_blks. 
             n_pls    = size(yw_max_all_freq,2);
@@ -835,7 +837,6 @@ classdef waveform < handle
                                        circshift(freqShiftedBinMaskMatrix,-1,2);
             freqtimeShiftedBinMaskMatrixScaled = imresize(freqtimeShiftedBinMaskMatrix,[nRowsOfS, nColsOfS]);
             %figure;spy(freqtimeShiftedBinMaskMatrix_scaled)
-
             dt = 1/obj.Fs;
             T = obj.n_w/obj.Fs;
             %noisePSD = dt^2/T*abs(mean(obj.stft.S+freqtimeShiftedBinMaskMatrixScaled,2,'omitnan')).^2;%Add since it is 0 where we expect noise and NaN where there might be a pulse
@@ -956,7 +957,6 @@ classdef waveform < handle
             peak_masked_curr_scores = peak_masked_curr_scores.*(peak_masked_curr_scores>=thresh);
            
             
-            
             %%------------------------------------------------
             %thresh_hold = thresh;thresh = interp1(obj.stft.f,thresh,Wf);
             if ~any(peak_masked_curr_scores>thresh, 'all')
@@ -964,7 +964,6 @@ classdef waveform < handle
                 peak_ind = NaN(1,1);
                 peak     = NaN(1,1);%[];
             end
-            
             
             %Keep doing this loop below while there are scores that exceed
             %the threshold which aren't masked as a valley, +slope, -slope,
@@ -991,7 +990,6 @@ classdef waveform < handle
                     n_diff_to_curr_pk = abs(S_cols(peak_ind(p),k)-S_cols(:,k));
                     n_diff_check_back = nan(n_freqs,1);
                     n_diff_check_for  = nan(n_freqs,1);
-                    
                     %Remember that the segments are long enough to
                     %guarentee K pulses, but can get K+1. If we identified
                     %the first or last K peaks, but there is an extra, its
@@ -1010,7 +1008,6 @@ classdef waveform < handle
                     elseif k>=2 %Don't compute backward check when k=1
                         n_diff_check_back  =  abs(S_cols(peak_ind(p),k)-S_cols(:,k-1));
                     end
-                    
                     %There could be instances when a single block contains
                     %two pulses, as mentioned above, but if the search is
                     %only for one pulse (K = 1) then the if statments above
@@ -1025,7 +1022,6 @@ classdef waveform < handle
                     diff_check_curr_blk_bkwd = (S_cols(:,k)>S_cols(peak_ind(p),k)-N-M)&...
                                                  (S_cols(:,k)<S_cols(peak_ind(p),k)-N+M);
                     diff_check_curr = diff_check_curr_blk_frwd | diff_check_curr_blk_bkwd;
-                    
                     %This code below builds a mask that highlights the 
                     %sidebands of the peak. It looks for the frequency bin
                     %(higher and lower) where the score no longer meets 
@@ -1041,7 +1037,6 @@ classdef waveform < handle
                     %inds_frwd_2_thresh_xing = find(scores(peak_ind(p)+1:end)<thresh,1,'first')-1;
                     inds_bkwd_2_thresh_xing = find(scores(peak_ind(p)-1:-1:1,1)<thresh(peak_ind(p)-1:-1:1,1),1,'first')-1;
                     inds_frwd_2_thresh_xing = find(scores(peak_ind(p)+1:end,1)<thresh(peak_ind(p)+1:end,1),1,'first')-1;
-                    
                     %Here we look for the location where the slope changes.
                     %We don't use the -1 like above because we want to be
                     %sure to capture the entire saddle between peaks, so
@@ -1052,7 +1047,6 @@ classdef waveform < handle
                     %picked up later as an additional peak. 
                     inds_bkwd_2_next_valley = find(slope_val(peak_ind(p)-1:-1:1,1)==1,1,'first');
                     inds_frwd_2_next_valley = find(slope_val(peak_ind(p)+1:end,1)>0,1,'first');
-                    
                     %Wf_sub = Wf(freq_mask);
                     
                     if isempty(inds_frwd_2_thresh_xing) && isempty(inds_bkwd_2_thresh_xing)
@@ -1086,7 +1080,6 @@ classdef waveform < handle
                                 inds_frwd_2_next_valley))...
                                 = true;
                         end
-                        
                     %If there was a threhold crossing before and/or after 
                     %the peak, sort out the sidebands here
                     else 
@@ -1168,7 +1161,6 @@ classdef waveform < handle
                                  (n_diff_check_back<=diff_thresh)|...
                                  (n_diff_check_for<=diff_thresh))|...
                                  diff_check_curr);                 
-                    
                 end
                 %Extract the mask for this peak and no others
                 indiv_msk(:,p) = msk(:,p+1)-msk(:,p);
@@ -1202,7 +1194,6 @@ classdef waveform < handle
             %yw_max_all_freq that are not associated in time with the first
             %or second highest power peak.
             
-            
             %% CODE FOR REPORTING A CANDIDATE PULSE AT ALL THE FREQUENCY
             %%BINS WITHOUTH DOING THE THRESHOLDING.
             
@@ -1216,26 +1207,40 @@ classdef waveform < handle
             %cur_pl(n_freqs,n_pls) = pulse;
             blankPulse = makepulsestruc();
             cur_pl = repmat(blankPulse,n_freqs,n_pls);
-            
             %Create a frequency array that accounts for the masking that
             %was done to reduce the frequency space.
             Wf_sub = obj.Wf(freq_mask);
             %freq_found = Wf_sub(S_rows);
             freq_found = obj.Wf;
-            
             %t_found here is the start of the pulse - not the center like
             %in the time stamps in the stft, which are the centers of the
             %windows. The dt_stft/2 term offfset would affect both the first
             %and second terms of the equation below and therefore cancel.
             t_found    = NaN(n_freqs,n_pls);
             %t_found    = obj.stft.t(S_cols)-obj.stft.t(1)+obj.t_0;%Don't forget the add the t_0 of this waveform
-            t_found(freq_mask,:)    = obj.stft.t(S_cols(freq_mask,:))-obj.stft.t(1)+obj.t_0;%Don't forget the add the t_0 of this waveform
+
+
+           %The lines below effectively do the following operation:
+           %    t_found(freq_mask,:)    = obj.stft.t(S_cols(freq_mask,:))-obj.stft.t(1)+obj.t_0;
+           %but in a way that doesn't generate errors in the C++ generated
+           %executable for cases when S_cols_freq_mask goes from an nxK
+           %matrix to a 1xK matrix. This could sometimes happen when
+           %switching between values of tip mid-processing through changes
+           %to the interpulse spec. Coder had assumed at compile time that
+           %the result of S_cols(freq_mask,:) was a matrix and then would
+           %error our it it became a row vector at runtime. This method
+           %does everythe as a vector input. 
+           S_cols_freq_mask    = S_cols(freq_mask,:);
+           t_found_inds = reshape(1:numel(t_found),size(t_found));
+           t_found_freq_mask_inds = t_found_inds(freq_mask,:);
+           t_found(t_found_freq_mask_inds) = obj.stft.t(S_cols_freq_mask(:))-obj.stft.t(1)+obj.t_0;
+
             %f_bands    = [Wf_sub-(Wf_sub(2)-Wf_sub(1))/2,...
             %              Wf_sub+(Wf_sub(2)-Wf_sub(1))/2];
             f_bands    = [obj.Wf-(obj.Wf(2)-obj.Wf(1))/2,...
                           obj.Wf+(obj.Wf(2)-obj.Wf(1))/2];
             
-            
+
             %Build out the pulse object for each one found
             for i = 1:n_pls
                 for j = 1:n_freqs
@@ -1257,7 +1262,6 @@ classdef waveform < handle
             end
             
             pl_out   = cur_pl;
-            
         end    
         %WHAT WAS DONE BY THIS METHOD IS NOW DONE BY A METHOD OF THE
         %PULSESTATS CLASS. 
