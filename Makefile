@@ -12,7 +12,7 @@ artifactPath=$(shell pwd)/output/$(appName)_$(version).auterionos
 endif
 
 build-docker:
-	docker build --platform=$(architecture) . -t $(appName):$(version)
+	docker build --network=host --platform=$(architecture) . -t $(appName):$(version)
 
 build: build-docker Dockerfile codegen/exe/uavrt_detection/uavrt_detection_rtw.mk
 	mkdir -p output

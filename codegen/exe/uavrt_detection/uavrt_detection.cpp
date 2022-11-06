@@ -1946,17 +1946,24 @@ void uavrt_detection()
         Xhold = waveformcopy(&b_X, &lobj_9, &lobj_10[0], &lobj_11);
         q1 = ps_pre_struc_pl.size(1);
         for (n = 0; n < q1; n++) {
-          float pulseInfo[3];
-          printf("Pulse at %e Hz detected. SNR: %e Confirmation status: %u \n",
-                 ps_pre_struc_pl[n].fp, ps_pre_struc_pl[n].SNR,
-                 static_cast<unsigned int>(ps_pre_struc_pl[n].con_dec));
+
+    typedef struct {
+        double snr;
+        double confirmationStatus;
+        double timeSeconds;
+    } PulseInfo_T;
+
+          PulseInfo_T pulseInfo;
+          printf("Pulse - t:freq:snr:conf %f %f %f %u\n",
+                    ps_pre_struc_pl[n].t_0,
+                    ps_pre_struc_pl[n].fp, 
+                    ps_pre_struc_pl[n].SNR,
+                    static_cast<unsigned int>(ps_pre_struc_pl[n].con_dec));
           fflush(stdout);
-          printf("T: %f\n", ps_pre_struc_pl[n].t_0);
-          fflush(stdout);
-          pulseInfo[0] = static_cast<float>(ps_pre_struc_pl[n].SNR);
-          pulseInfo[1] = ps_pre_struc_pl[n].con_dec;
-          pulseInfo[2] = static_cast<float>(ps_pre_struc_pl[n].t_0);
-          udpSenderSend(udpSender, &pulseInfo[0]);
+          pulseInfo.snr                 = ps_pre_struc_pl[n].SNR;
+          pulseInfo.confirmationStatus  = ps_pre_struc_pl[n].con_dec;
+          pulseInfo.timeSeconds         = ps_pre_struc_pl[n].t_0;
+          udpSenderSend(udpSender, (double*)&pulseInfo);
         }
         c_varargin_1.set_size(1, 2);
         c_varargin_1[0] = mode;
