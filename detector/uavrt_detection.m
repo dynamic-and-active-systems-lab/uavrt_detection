@@ -8,7 +8,40 @@ configPath = "config/detectorConfig.txt"; %Must exist in the same directory as t
 Config =  DetectorConfig(); %Build empty config object
 updateconfig()              %Update (fill) the configuration
 configUpdatedFlag = true;
+ 
+% %Get current working directory
+% if coder.target('MATLAB')
+%     currDir = pwd;
+% else
+%     %Solution from https://www.mathworks.com/matlabcentral/answers/1843008-using-coder-ceval-to-getcwd
+%     coder.cinclude('unistd.h');
+%     bufferTemplate = repmat('c', 1, 200);
+%     untokenizedDir = coder.nullcopy(bufferTemplate);
+%     coder.ceval('getcwd', coder.ref(untokenizedDir), 200);
+%     currDir = strtok(untokenizedDir, char(0));
+% end
 
+
+%Attempts at catching a failed getcwd() call
+% Get current working directory
+if coder.target('MATLAB')
+    currDir = pwd;
+else
+     coder.cinclude('unistd.h');
+     nullVal = coder.opaque('char*', 'NULL', 'HeaderFile', 'stdio.h');
+     retVal = nullVal;
+     bufferTemplate = repmat('c', 1, 200);
+     untokenizedDir = coder.nullcopy(bufferTemplate);
+     retVal = coder.ceval('getcwd', coder.ref(untokenizedDir), 200);
+     if retVal == nullVal
+         % Do some error handling here
+         currDir = 'current_working_directory_error';
+     else
+         currDir = strtok(untokenizedDir, char(0));
+     end
+end
+
+fprintf('Curr Directory is: %s\n',currDir)
 
 % ROS2 Setup
 ros2Enable = true; %Hard coded switch so that can be ROS2 can be turned off for testing/debugging
@@ -64,11 +97,24 @@ dataWriterSamples             = dataWriterPacketsPerInterval*packetLength;
 asyncWriteBuff                = dsp.AsyncBuffer(600650); %600650 is the result of the nominal settings of ceil(150/(1024/4000)*1025.
 asyncWriteBuff.write(single(1+1i));%Write to give Code the type. Read to remove data.
 asyncWriteBuff.read();
-dataWriterFileID    = fopen(Config.dataRecordPath,'w');
+%dataWriterFileID    = fopen(Config.dataRecordPath,'w');
+dataWriterFileID    = fopen('output/data.bin','w');
 if dataWriterFileID == -1
     fprintf("UAV-RT: Error opening/creating data record file with error:\n")
 end
 fprintf('Startup set 3 complete. \n')
+
+
+%pulseWriterFileID    = fopen(cat(2,char(Config.processedOuputPath),'PULSE_LOG.txt'),'w');
+%pulseWriterFileID    = fopen('pulse_log','w');
+% pulseWriterFileID    = fopen('/config/data2.bin','w');
+% if dataWriterFileID == -1
+%     fprintf("UAV-RT: Error opening/creating pulse record file with error:\n")
+% end
+% 
+
+fprintf('Startup set 4 complete. \n')
+
 
 
 %Define a pulsestats structure that isn't an object.
@@ -88,7 +134,7 @@ localCmsk = false;
 coder.varsize('localCmsk',[inf inf],[1 1]);
 localCpki = NaN;
 coder.varsize('localCpki',[inf 1],[1 1]);
-fprintf('Startup set 4 complete. \n')
+fprintf('Startup set 5 complete. \n')
 ps_pre_struc.t_p    = 0;
 ps_pre_struc.t_ip   = 0;
 ps_pre_struc.t_ipu  = 0;
@@ -103,7 +149,7 @@ ps_pre_struc.clst   = localClst;
 ps_pre_struc.cmsk   = localCmsk;
 ps_pre_struc.cpki   = localCpki;
 
-fprintf('Startup set 5 complete. \n')
+fprintf('Startup set 6 complete. \n')
 
 %% Preallocate X and Xhold so that coder knows the data types.
 coder.varsize("emptyData",[1, inf]);
@@ -113,7 +159,7 @@ X     = waveform(exampleData, Config.Fs, 0, pulseStatsPriori, stftOverlapFractio
 Xhold.spectro();
 X.spectro();
 
-fprintf('Startup set 6 complete. \n')
+fprintf('Startup set 7 complete. \n')
 
 %Initialize loop variables
 resetBuffersFlag  = true;
@@ -135,7 +181,7 @@ else
     state = 'idle';
 end
 
-fprintf('Startup set 7 complete. Starting processing... \n')
+fprintf('Startup set 8 complete. Starting processing... \n')
 
 while true %i <= maxInd
 
@@ -397,7 +443,8 @@ while true %i <= maxInd
 %                                 for j = 1%1:numel(X.ps_pos.cpki) %Only send the highest strength pulse
 %                                     for k = 1:size(X.ps_pos.clst,2)
                                         %Set pulseMsg parameters for sending
-                                        pulseMsg.detector_id        = char(Config.ID);%ID is a string
+                                        pulseMsg.tag_id        = char(Config.ID);%ID is a string
+                                        pulseMsg.detector_dir  = currDir;%ID is a string
 %                                         pulseMsg.frequency          = Config.channelCenterFreqMHz + (X.ps_pos.clst(X.ps_pos.cpki(j),k).fp)*1e-6;
 %                                         t_0     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_0;
 %                                         t_f     = X.ps_pos.clst(X.ps_pos.cpki(j),k).t_f;
@@ -456,10 +503,54 @@ while true %i <= maxInd
                                         %generate type errors
                                         pulseMsg.group_snr          = double(groupSNRMeanDB);%10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average SNR in dB
                                         pulseMsg.detection_status   = X.ps_pos.pl(j).det_dec;
-                                        pulseMsg.confirmed_status   = X.ps_pos.pl(j).con_dec
+                                        pulseMsg.confirmed_status   = X.ps_pos.pl(j).con_dec;
 
                                         send(pulsePub,pulseMsg)
                                         pulseCount = pulseCount+1;
+                                        
+                                        
+                                        % %s pulseMsg.detector_dir
+                                        % %s pulseMsg.tag_id
+                                        % %.6f pulseMsg.frequency
+                                        % %d pulseMsg.start_time.sec
+                                        % %u pulseMsg.start_time.nanosec
+                                        % %d pulseMsg.end_time.sec
+                                        % %u pulseMsg.end_time.nanosec
+                                        % %d pulseMsg.predict_next_start.sec
+                                        % %u pulseMsg.predict_next_start.nanosec
+                                        % %d pulseMsg.predict_next_end.sec
+                                        % %u pulseMsg.predict_next_end.nanosec
+                                        % %.2f pulseMsg.snr
+                                        % %.3e pulseMsg.dft_real
+                                        % %.3e pulseMsg.dft_imag
+                                        % %u pulseMsg.group_ind
+                                        % %.2e pulseMsg.group_snr
+                                        % logicalStr = {'0','1'}
+                                        % %u logicalStr{int8(pulseMsg.detection_status)+1}
+                                        % %u logicalStr{int8(pulseMsg.confirmed_status)+1}
+%                                         
+%                                         logicalStr = {'0','1'};
+%                                         formatSpecPulseMsg = ['%.6f',',','%d',',','%u','%d',',','%u',',','%d',',','%u',',','%d',',','%u',',',...
+%                                                               '%.2f',',','%.3e',',','%.3e',',','%u',',','%.2e',',','%c',',','%c','\n'];
+%                                         
+%                                         fprintf(pulseWriterFileID,formatSpecPulseMsg,...
+%                                             pulseMsg.frequency,...
+%                                             pulseMsg.start_time.sec,...
+%                                             pulseMsg.start_time.nanosec,...
+%                                             pulseMsg.end_time.sec,...
+%                                             pulseMsg.end_time.nanosec,...
+%                                             pulseMsg.predict_next_start.sec,...
+%                                             pulseMsg.predict_next_start.nanosec,...
+%                                             pulseMsg.predict_next_end.sec,...
+%                                             pulseMsg.predict_next_end.nanosec,...
+%                                             pulseMsg.snr,...
+%                                             pulseMsg.dft_real,...
+%                                             pulseMsg.dft_imag,...
+%                                             pulseMsg.group_ind,...
+%                                             pulseMsg.group_snr,...
+%                                             logicalStr{int8(pulseMsg.detection_status)+1},...
+%                                             logicalStr{int8(pulseMsg.confirmed_status)+1});
+
                                         fprintf(".");
 %                                    end
                                 end
@@ -534,7 +625,8 @@ while true %i <= maxInd
                     pulseCount = 0;
                     for j = 1:1
                         %Set pulseMsg parameters for sending
-                        pulseMsg.detector_id        = char(Config.ID); %ID is a string
+                        pulseMsg.tag_id        = char(Config.ID); %ID is a string
+                        pulseMsg.detector_dir  = currDir; %ID is a string
                         pulseMsg.frequency          = Config.tagFreqMHz;
                         t_0     = posixtime(datetime('now'));
                         t_f     = 0;
@@ -598,6 +690,13 @@ while true %i <= maxInd
             if fCloseStatus == -1
                 error('UAV-RT: Error closing data record file. ')
             end
+
+            
+%             fCloseStatusPulseWriter = fclose(pulseWriterFileID);
+%             if fCloseStatusPulseWriter == -1
+%                 error('UAV-RT: Error closing pulse record file. ')
+%             end
+
             %release(writer);
             break
 

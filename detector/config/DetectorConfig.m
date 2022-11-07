@@ -115,6 +115,11 @@ classdef DetectorConfig
             %
             %
             fid = fopen(filePath);
+            
+            if fid == -1
+                fprintf("UAV-RT: Error opening configurationfile file with error. Attempted to find config file at the location %s:\n", filePath)
+            end
+
             configNum = 0;
             done = false;
             %coder.varsize('sepLine')

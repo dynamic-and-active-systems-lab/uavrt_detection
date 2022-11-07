@@ -1,17 +1,17 @@
 ##################################################
 ID:	01
-channelCenterFreqMHz:	148.525
+channelCenterFreqMHz:	148.525000
 timeStamp:	1646403180.469
-ipData:	127.0.0.1
+ipData:	0.0.0.0
 portData:	20000
 ipCntrl:	127.0.0.1
 portCntrl:	30000
 Fs:	4000.000
 tagFreqMHz:	148.525
 tp:	0.020000
-tip:	1.392500
-tipu:	0.06000
-tipj:	0.020000
+tip:	1.38
+tipu:	0.200
+tipj:	0.01000
 K:	3
 opMode:	freqSearchHardLock
 excldFreqs:	[Inf, -Inf]
