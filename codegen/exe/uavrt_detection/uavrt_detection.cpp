@@ -559,8 +559,6 @@ updatebufferreadvariables(const coder::b_captured_var *Config,
   } else {
     u2 = 0U;
   }
-  printf("Updating buffer read vars|| N: %u, M: %u, J: %u,\n", u, u1, u2);
-  fflush(stdout);
   a__1 = std::round(sampsForKPulses->contents);
   if (a__1 < 4.294967296E+9) {
     if (a__1 >= 0.0) {
@@ -585,10 +583,6 @@ updatebufferreadvariables(const coder::b_captured_var *Config,
   } else {
     u1 = 0U;
   }
-  printf(
-      "Updating buffer read vars|| sampForKPulses: %u,  overlapSamples: %u,\n",
-      u, u1);
-  fflush(stdout);
 }
 
 //
@@ -1539,9 +1533,6 @@ void uavrt_detection()
       } else {
         varargin_2 = 0U;
       }
-      printf("Buffer Full|| sampsForKPulses: %u, overlapSamples: %u,\n",
-             varargin_1, varargin_2);
-      fflush(stdout);
       if ((asyncDataBuff.pBuffer.WritePointer >= 0) &&
           (asyncDataBuff.pBuffer.ReadPointer <
            asyncDataBuff.pBuffer.WritePointer - MAX_int32_T)) {
@@ -1579,8 +1570,6 @@ void uavrt_detection()
                  asyncDataBuff.pBuffer.WritePointer) {
         qY = 49620;
       }
-      printf("Running...Buffer full with %d samples. Processing. \n", qY);
-      fflush(stdout);
       coder::tic();
       if (cleanBuffer) {
         // Overlap reads back into the buffer, but there
@@ -1627,8 +1616,6 @@ void uavrt_detection()
       if (guard1) {
         unsigned int validatedHoleFilling[3];
         unsigned int varargin_3;
-        printf("Running...Building priori and waveform. \n");
-        fflush(stdout);
         // Set the priori info
         if (configUpdatedFlag) {
           // Initialize states for operational modes
@@ -1741,23 +1728,11 @@ void uavrt_detection()
         }
         coder::internal::validate_print_arguments(
             varargin_1, varargin_2, varargin_3, validatedHoleFilling);
-        printf("Current interpulse params || N: %u, M: %u, J: %u,\n",
-               validatedHoleFilling[0], validatedHoleFilling[1],
-               validatedHoleFilling[2]);
-        fflush(stdout);
         b_X.setprioridependentprops(b_X.ps_pre);
         varargin_1 = static_cast<unsigned int>(b_X.x.size(1));
-        printf("Samples in waveform: %u \n", varargin_1);
-        fflush(stdout);
         coder::tic();
-        printf("Computing STFT...");
-        fflush(stdout);
         b_X.spectro(&lobj_12);
         missingPackets = coder::toc();
-        printf("complete. Elapsed time: %f seconds \n", missingPackets);
-        fflush(stdout);
-        printf("Building weighting matrix and generating thresholds...");
-        fflush(stdout);
         coder::tic();
         b_X.setweightingmatrix();
         if (suggestedMode == 'S') {
@@ -1804,18 +1779,10 @@ void uavrt_detection()
           b_X.thresh = val;
         }
         missingPackets = coder::toc();
-        printf("complete. Elapsed time: %f seconds \n", missingPackets);
-        fflush(stdout);
         varargin_1 = static_cast<unsigned int>(b_X.stft->S.size(1));
-        printf("Time windows in S: %u \n", varargin_1);
-        fflush(stdout);
-        printf("Finding pulses...");
-        fflush(stdout);
         b_X.process(mode, Config.contents.excldFreqs);
         missingTime = coder::toc();
         missingPackets = coder::toc();
-        printf("complete. Elapsed time: %f seconds \n", missingPackets);
-        fflush(stdout);
         //                         %% PREP FOR NEXT LOOP
         // Latch/Release the frequency lock and setup the
         // suggested mode
@@ -1898,8 +1865,6 @@ void uavrt_detection()
         segmentsProcessed++;
         coder::tic();
         // Prepare priori for next segment
-        printf("Updating priori...\n");
-        fflush(stdout);
         t5_t_0 = b_X.ps_pos->t_p;
         t5_t_f = b_X.ps_pos->t_ip;
         t5_fp = b_X.ps_pos->t_ipu;
@@ -1937,8 +1902,6 @@ void uavrt_detection()
                                   &overlapSamples, &sampsForKPulses,
                                   b_X.ps_pos);
         missingPackets = coder::toc();
-        printf("complete. Elapsed time: %f seconds \n", missingPackets);
-        fflush(stdout);
         // Deal with detected pulses
         // Xhold{mod(segmentsProcessed,maxSegments)} = X;%Keep a maxSegments
         // running record of waveforms for debugging in Matlab Xstruct =
@@ -1954,7 +1917,7 @@ void uavrt_detection()
     } PulseInfo_T;
 
           PulseInfo_T pulseInfo;
-          printf("Pulse - t:freq:snr:conf %f %f %f %u\n",
+          printf("%.1f:t %4.0f:freq %5.1f:snr %u:conf\n",
                     ps_pre_struc_pl[n].t_0,
                     ps_pre_struc_pl[n].fp, 
                     ps_pre_struc_pl[n].SNR,
@@ -1965,12 +1928,7 @@ void uavrt_detection()
           pulseInfo.timeSeconds         = ps_pre_struc_pl[n].t_0;
           udpSenderSend(udpSender, (double*)&pulseInfo);
         }
-        c_varargin_1.set_size(1, 2);
-        c_varargin_1[0] = mode;
-        c_varargin_1[1] = '\x00';
-        printf("Current Mode: %s\n", &c_varargin_1[0]);
-        fflush(stdout);
-        printf("====================================\n");
+        printf("- %c:mode\n", mode);
         fflush(stdout);
       }
     }

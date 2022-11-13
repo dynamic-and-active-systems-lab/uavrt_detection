@@ -664,12 +664,6 @@ void threshold::setthreshold(const waveform *WfmCurr, const waveform *WfmPrev)
     evMuParam = val;
     b_val = WfmPrev->thresh.evSigmaParam;
     evSigmaParam = b_val;
-    printf("%f\n", val);
-    fflush(stdout);
-    printf("%f\n", val);
-    fflush(stdout);
-    printf("%f\n", pf);
-    fflush(stdout);
     theFunc.workspace.mu = val;
     theFunc.workspace.sigma = b_val;
     theFunc.workspace.pf = pf;
