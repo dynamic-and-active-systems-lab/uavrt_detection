@@ -102,7 +102,7 @@ X.spectro();
 
 fprintf('Startup set 6 complete. \n')
 
-samplesPerFrame = 2048 + 1;
+samplesPerFrame = 2048;
 udpReceiveBufferSize = samplesPerFrame * 2;
 %udpReceiver = udpReceiverSetup('127.0.0.1', Config.portData, udpReceiveBufferSize, udpReceiveBufferSize);
 udpReceiver = udpReceiverSetup('127.0.0.1', 20000, udpReceiveBufferSize, samplesPerFrame);
@@ -141,30 +141,15 @@ while true %i <= maxInd
             end
 
             %% Get data
-            [dataReceived]  = udpReceiverRead(udpReceiver, udpReceiveBufferSize);
+            [iqData]  = udpReceiverRead(udpReceiver, udpReceiveBufferSize);
 
             %% Wait for new data if none ready, else put data in buffers
-            if isempty(dataReceived)
+            if isempty(iqData)
                 pause((packetLength-1)/2*1/Config.Fs);
             else
-                numel(dataReceived)
                 framesReceived = framesReceived + 1;
-                timeStamp      = 10^-3*singlecomplex2int(dataReceived(1));
-                iqData         = dataReceived(2:end);
+                timeStamp      = posixtime(datetime('now'));
                 timeVector     = timeStamp+1/Config.Fs*(0:(numel(iqData)-1)).';
-                %Check for missing packets based on packet timestamps.
-                if asyncTimeBuff.NumUnreadSamples ~= 0
-                    packetTimeDiffActual = timeStamp - lastTimeStamp;
-                    packetTimeDiffExpect = (packetLength-1)/Config.Fs;
-                    missingTime          = packetTimeDiffActual - packetTimeDiffExpect;
-                    missingPackets       = missingTime*Config.Fs/(packetLength-1);
-                    if  missingPackets > 1
-                        fprintf('Packet drop detected. Missed %f packets, or %f seconds of data. \n', missingPackets, missingTime)
-                    end
-                    lastTimeStamp = timeStamp;
-                else
-                    lastTimeStamp = timeStamp;
-                end
                 %Write out data and time.
                 asyncDataBuff.write(iqData);
                 asyncTimeBuff.write(timeVector);
