@@ -102,8 +102,10 @@ X.spectro();
 
 fprintf('Startup set 6 complete. \n')
 
-udpReceiveBufferSize = 1025;
-udpReceiver = udpReceiverSetup('127.0.0.1', Config.portData, udpReceiveBufferSize, udpReceiveBufferSize);
+samplesPerFrame = 2048 + 1;
+udpReceiveBufferSize = samplesPerFrame * 2;
+%udpReceiver = udpReceiverSetup('127.0.0.1', Config.portData, udpReceiveBufferSize, udpReceiveBufferSize);
+udpReceiver = udpReceiverSetup('127.0.0.1', 20000, udpReceiveBufferSize, samplesPerFrame);
 
 udpSender = udpSenderSetup('127.0.0.1', 30000, 4);
 
@@ -145,6 +147,7 @@ while true %i <= maxInd
             if isempty(dataReceived)
                 pause((packetLength-1)/2*1/Config.Fs);
             else
+                numel(dataReceived)
                 framesReceived = framesReceived + 1;
                 timeStamp      = 10^-3*singlecomplex2int(dataReceived(1));
                 iqData         = dataReceived(2:end);
