@@ -37,7 +37,6 @@ Temporary Items
 output
 
 # Matlab Coder Generated Files
-*.prj
 msgdef
 build_ros2_model.sh
 ReportInfo.mat
