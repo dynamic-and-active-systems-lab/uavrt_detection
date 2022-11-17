@@ -6726,6 +6726,8 @@ void waveform::setweightingmatrix()
 
   // Simulink (coder?) didn't like the new round inputs
   // freqs = round(freqs,3);
+  #if 0
+  // Remove rounding
   output_samps.set_size(1, output_samps.size(1));
   loop_ub = output_samps.size(1) - 1;
   for (i = 0; i <= loop_ub; i++) {
@@ -6743,10 +6745,15 @@ void waveform::setweightingmatrix()
   for (i = 0; i <= loop_ub; i++) {
     output_samps[i] = output_samps[i] / 1000.0;
   }
+  #endif
 
   // Shift everything so we use a negative frequencies
   // A little non-matlab notation to get this to run in simulink.
+#if 0  
   xtmp_im = std::floor(b_Fs / 2.0);
+#else
+  xtmp_im = b_Fs;
+#endif
   b_output_samps.set_size(1, output_samps.size(1));
   loop_ub = output_samps.size(1);
   for (i = 0; i < loop_ub; i++) {
