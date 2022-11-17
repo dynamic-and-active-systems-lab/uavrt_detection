@@ -1,48 +1,48 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: wgn.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// wgn.cpp
+//
+// Code generation for function 'wgn'
 //
 
-// Include Files
+// Include files
 #include "wgn.h"
 #include "randn.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection_data.h"
 #include "coder_array.h"
 #include <cmath>
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : creal_T y[1000]
-// Return Type  : void
-//
 namespace coder {
 void wgn(creal_T y[1000])
 {
+  static const char b[7]{'c', 'o', 'm', 'p', 'l', 'e', 'x'};
   static const char b_cv1[7]{'c', 'o', 'm', 'p', 'l', 'e', 'x'};
-  static const char b[6]{'l', 'i', 'n', 'e', 'a', 'r'};
+  static const char b_b[6]{'l', 'i', 'n', 'e', 'a', 'r'};
   static const char b_cv[6]{'l', 'i', 'n', 'e', 'a', 'r'};
   array<char, 2U> b_y;
   array<char, 2U> x;
   double noisePower;
+  int exitg1;
   int i;
-  char a_data[7];
+  char cplxMode_data[7];
   boolean_T b_bool;
-  x.set_size(1, 6);
-  for (i = 0; i < 6; i++) {
-    x[i] = b[i];
+  for (i = 0; i < 7; i++) {
+    cplxMode_data[i] = b[i];
   }
+  x.set_size(1, 6);
   b_y.set_size(1, 6);
   for (i = 0; i < 6; i++) {
+    x[i] = b_b[i];
     b_y[i] = cv[static_cast<int>(x[i])];
   }
   b_bool = false;
   i = 0;
-  int exitg1;
   do {
     exitg1 = 0;
     if (i < 6) {
@@ -66,31 +66,44 @@ void wgn(creal_T y[1000])
   } else {
     noisePower = 0.0012589254117941675;
   }
-  for (i = 0; i < 7; i++) {
-    a_data[i] = b_cv1[i];
-  }
-  if (cv[static_cast<int>(a_data[0])] == 'r') {
-    double b_b[1000];
-    noisePower = std::sqrt(noisePower);
-    randn(b_b);
+  b_bool = false;
+  i = 0;
+  do {
+    exitg1 = 0;
+    if (i < 7) {
+      if (cplxMode_data[i] != b_cv1[i]) {
+        exitg1 = 1;
+      } else {
+        i++;
+      }
+    } else {
+      b_bool = true;
+      exitg1 = 1;
+    }
+  } while (exitg1 == 0);
+  if (b_bool) {
+    double c_b[1000];
+    double dv[1000];
+    randn(c_b);
+    noisePower = std::sqrt(noisePower / 2.0);
+    randn(dv);
     for (i = 0; i < 1000; i++) {
-      y[i].re = noisePower * b_b[i];
-      y[i].im = 0.0;
+      double d;
+      d = c_b[i];
+      y[i].re = noisePower * (dv[i] + 0.0 * d);
+      y[i].im = noisePower * d;
     }
   } else {
+    double c_b[1000];
     noisePower = std::sqrt(noisePower);
-    complexLike(y);
+    randn(c_b);
     for (i = 0; i < 1000; i++) {
-      y[i].re *= noisePower;
-      y[i].im *= noisePower;
+      y[i].re = noisePower * c_b[i];
+      y[i].im = 0.0;
     }
   }
 }
 
 } // namespace coder
 
-//
-// File trailer for wgn.cpp
-//
-// [EOF]
-//
+// End of code generation (wgn.cpp)

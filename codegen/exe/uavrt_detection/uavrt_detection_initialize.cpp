@@ -1,13 +1,14 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: uavrt_detection_initialize.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// uavrt_detection_initialize.cpp
+//
+// Code generation for function 'uavrt_detection_initialize'
 //
 
-// Include Files
+// Include files
 #include "uavrt_detection_initialize.h"
 #include "CoderTimeAPI.h"
 #include "eml_rand_mt19937ar_stateful.h"
@@ -16,12 +17,9 @@
 #include "timeKeeper.h"
 #include "uavrt_detection_data.h"
 #include "omp.h"
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : void
-// Return Type  : void
-//
 void uavrt_detection_initialize()
 {
   omp_init_nest_lock(&uavrt_detection_nestLockGlobal);
@@ -32,8 +30,4 @@ void uavrt_detection_initialize()
   isInitialized_uavrt_detection = true;
 }
 
-//
-// File trailer for uavrt_detection_initialize.cpp
-//
-// [EOF]
-//
+// End of code generation (uavrt_detection_initialize.cpp)

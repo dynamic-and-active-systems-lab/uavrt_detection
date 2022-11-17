@@ -1,16 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: _coder_uavrt_detection_mex.h
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// _coder_uavrt_detection_mex.h
+//
+// Code generation for function 'uavrt_detection'
 //
 
 #ifndef _CODER_UAVRT_DETECTION_MEX_H
 #define _CODER_UAVRT_DETECTION_MEX_H
 
-// Include Files
+// Include files
 #include "emlrt.h"
 #include "mex.h"
 #include "tmwtypes.h"
@@ -24,8 +25,4 @@ emlrtCTX mexFunctionCreateRootTLS();
 void unsafe_uavrt_detection_mexFunction(int32_T nlhs, int32_T nrhs);
 
 #endif
-//
-// File trailer for _coder_uavrt_detection_mex.h
-//
-// [EOF]
-//
+// End of code generation (_coder_uavrt_detection_mex.h)

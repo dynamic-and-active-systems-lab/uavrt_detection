@@ -1,24 +1,19 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: validate_print_arguments.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// validate_print_arguments.cpp
+//
+// Code generation for function 'validate_print_arguments'
 //
 
-// Include Files
+// Include files
 #include "validate_print_arguments.h"
 #include "rt_nonfinite.h"
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : unsigned int varargin_1
-//                unsigned int varargin_2
-//                unsigned int varargin_3
-//                unsigned int validatedArguments[3]
-// Return Type  : void
-//
 namespace coder {
 namespace internal {
 void validate_print_arguments(unsigned int varargin_1, unsigned int varargin_2,
@@ -33,8 +28,4 @@ void validate_print_arguments(unsigned int varargin_1, unsigned int varargin_2,
 } // namespace internal
 } // namespace coder
 
-//
-// File trailer for validate_print_arguments.cpp
-//
-// [EOF]
-//
+// End of code generation (validate_print_arguments.cpp)

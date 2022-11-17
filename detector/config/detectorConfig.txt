@@ -6,7 +6,7 @@ ipData:	0.0.0.0
 portData:	20000
 ipCntrl:	127.0.0.1
 portCntrl:	30000
-Fs:	3906.25
+Fs:	2929.6875
 tagFreqMHz:	146
 tp:	0.015
 tip:	2

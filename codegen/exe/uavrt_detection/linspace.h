@@ -1,16 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: linspace.h
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// linspace.h
+//
+// Code generation for function 'linspace'
 //
 
 #ifndef LINSPACE_H
 #define LINSPACE_H
 
-// Include Files
+// Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -23,8 +24,4 @@ void linspace(double d2, double n, ::coder::array<double, 2U> &y);
 }
 
 #endif
-//
-// File trailer for linspace.h
-//
-// [EOF]
-//
+// End of code generation (linspace.h)

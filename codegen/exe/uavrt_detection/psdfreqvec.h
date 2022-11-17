@@ -1,16 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: psdfreqvec.h
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// psdfreqvec.h
+//
+// Code generation for function 'psdfreqvec'
 //
 
 #ifndef PSDFREQVEC_H
 #define PSDFREQVEC_H
 
-// Include Files
+// Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -24,8 +25,4 @@ void psdfreqvec(double varargin_2, double varargin_4,
 }
 
 #endif
-//
-// File trailer for psdfreqvec.h
-//
-// [EOF]
-//
+// End of code generation (psdfreqvec.h)

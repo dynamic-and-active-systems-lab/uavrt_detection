@@ -1,27 +1,24 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: DetectorConfig.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// DetectorConfig.cpp
+//
+// Code generation for function 'DetectorConfig'
 //
 
-// Include Files
+// Include files
 #include "DetectorConfig.h"
 #include "rt_nonfinite.h"
 #include "string1.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : void
-// Return Type  : void
-//
 void DetectorConfig::init()
 {
   channelCenterFreqMHz = 150.0;
-  portData = 1.0;
   Fs = 192000.0;
   tagFreqMHz = 150.0;
   tp = 0.02;
@@ -37,8 +34,4 @@ void DetectorConfig::init()
   dataRecordPath.Value.set_size(1, 0);
 }
 
-//
-// File trailer for DetectorConfig.cpp
-//
-// [EOF]
-//
+// End of code generation (DetectorConfig.cpp)

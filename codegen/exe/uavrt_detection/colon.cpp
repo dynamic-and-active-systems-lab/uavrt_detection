@@ -1,25 +1,21 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: colon.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// colon.cpp
+//
+// Code generation for function 'colon'
 //
 
-// Include Files
+// Include files
 #include "colon.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include <cmath>
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : double a
-//                double b
-//                ::coder::array<double, 2U> &y
-// Return Type  : void
-//
 namespace coder {
 void eml_float_colon(double a, double b, ::coder::array<double, 2U> &y)
 {
@@ -65,24 +61,19 @@ void eml_float_colon(double a, double b, ::coder::array<double, 2U> &y)
   }
 }
 
-//
-// Arguments    : int a
-//                ::coder::array<int, 2U> &y
-// Return Type  : void
-//
 void eml_integer_colon_dispatcher(int a, ::coder::array<int, 2U> &y)
 {
   int n;
   if (a > 49621) {
     n = 0;
   } else {
-    unsigned int u;
+    unsigned int b_a;
     if (a < 0) {
-      u = 49621U - static_cast<unsigned int>(a);
+      b_a = 49621U - a;
     } else {
-      u = static_cast<unsigned int>(49621 - a);
+      b_a = static_cast<unsigned int>(49621 - a);
     }
-    n = static_cast<int>(u) + 1;
+    n = static_cast<int>(b_a) + 1;
   }
   y.set_size(1, n);
   if (n > 0) {
@@ -98,8 +89,4 @@ void eml_integer_colon_dispatcher(int a, ::coder::array<int, 2U> &y)
 
 } // namespace coder
 
-//
-// File trailer for colon.cpp
-//
-// [EOF]
-//
+// End of code generation (colon.cpp)

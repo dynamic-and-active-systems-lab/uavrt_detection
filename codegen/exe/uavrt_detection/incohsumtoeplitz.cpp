@@ -1,13 +1,14 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: incohsumtoeplitz.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// incohsumtoeplitz.cpp
+//
+// Code generation for function 'incohsumtoeplitz'
 //
 
-// Include Files
+// Include files
 #include "incohsumtoeplitz.h"
 #include "any1.h"
 #include "find.h"
@@ -19,107 +20,9 @@
 #include "sum.h"
 #include "uavrt_detection_rtwutil.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Definitions
-//
-// INCOHSUMTOEPLITZ Performs the incoherent summation of time windows of an
-// input matrix S per the elements in the time selection matrix Wq.
-//    This function performs the incoherent summation of time elements within
-//    the short time Fourier transform matrix S per the selections within the
-//    Wq matrix. The rows of the S matrix represent frequency bins, whereas
-//    the columns represent the time windows. The Wq matrix is a Toeplitz
-//    based matrix with non-zero elements of each column used to select and
-//    then sum through matrix multiplication the time windows of S.
-//     abs(S).^2    *  Wq
-//    [1   2  3  4]  [1 0]
-//    [5   6  7  8]  [0 1]
-//    [9  10 11 12]  [1 0]
-//    [13 14 15 16]  [0 1]
-//
-//    The other matricies are used to select and weight the frequency and
-//    time elements of S through matrix multiplication. The Wfherm matrix
-//    applies weightings to the S matrix across frequency in order to capture
-//    energy spread across frequency bins. Fb is a matrix or a vector with 1s
-//    in elements associated with the frequency bins of Wh that are to be
-//    included for consideration. Similarly, the Tb matrix (vector) uses 1s
-//    to select time elements for consideration. Both Fb and Tb can use zeros
-//    to exclude particular frequencies or times from consideration in
-//    processing.
-//
-//    The code performs the matrix multiplication Fb*Wfherm*abs(S).^2*Tb*Wq.
-//    The sizes of these matricies must be set so that this matrix
-//    multiplication can be performed. The functions checks for correct
-//    dimensions and will generate an error of dimensional mismatch occurs.
-//    After performing the matrix multiplication of Fb*Wfherm*S*Tb*Wq, it
-//    determines which columns of the resulting matrix are maximum in each
-//    row (frequency bin). The function reports the a matrix that has the
-//    same number of rows as Fb and K columns that contains the scores for
-//    in each S time window that the maximum summed score based on the Wq
-//    matrix selections for each frequency bin. It also reports a similarly
-//    size matrix that contains the columns in S where these max scores were
-//    found
-//
-//    The number of pulses for summation (K) is extracted from Wq by querying
-//    the number of non-zero elements in the first column of the Wq matrix.
-//
-//
-// INPUTS:
-//    Fb      Frequency blinder matrix: A matrix (fz x fz) or vector (fz x 1)
-//            of elements with 1s for frequencies of the Wfherm matrix that
-//            should be considered when looking for maximum incoheren
-//            summation. If the rows of the Wfherm matrix represent
-//            frequencies of [100 50 0 -50 -100] and the search needs to
-//            focus only on the 0 and 50 Hz bins, Fb should be [0 1 1 0 0]
-//            or diag([0 1 1 0 0]). Inputs can be full or sparse.
-//    Wfherm  Hermitian of the spectral weighting matrix. This matrix should
-//            have the same number of columns as the number of rows in S. See
-//            weightingmatrix.m for information on this matrix. The function
-//            weightingmatrix.m generates Wf, so when passing Wf to this
-//            function, Wf' should be used.
-//    S       STFT output matrix
-//    Tb      Time blinder matrix: A matrix with only diagonal elements or a
-//            vector that contains 1s that corresponds to the columns (time
-//            windows) of the S matrix that should be considered for
-//            summation. If priori information informs the caller as to the
-//            potential location of the pulses in the block being processed,
-//            the Tb matrix can be used to exclude other times from
-//            consideration which can considerably decrease processing time
-//            for this function. If no-priori is available, this entry should
-//            be the identity matrix or vector of size equal to the number
-//            of columns of S.
-//    Wq      Time correlation matrix: A matrix containing 1s in entries in
-//            each column for S matrix time windows that should be summed.
-//            Wq must have the same number of rows as columns of S, but can
-//            have as many columns as summation cases that need to be
-//            considered.
-//
-// OUTPUTS:
-//    Sscores The results of the incoherent summation of S per the time
-//            selections of the inputs after looking for maximums for each
-//            frequency bin. This has the same number of rows as that of the
-//            input Fb and the same number of columns a the number of pulses
-//            used for summation. The matrix has K columns. The scores
-//            represent the square magnitudes of the selected elements of the
-//            S matrix.
-//
-//    Scols   A matrix of the columns of S (time windows of STFT)
-//            that correspond to the potential pulses identified
-//            in Sscors. The size of this matrix is the same as Sscores.
-//
-//
-// Author: Michael W. Shafer
-// Date:   2022-03-31
-//
-//
-// Arguments    : const coder::array<boolean_T, 1U> &Fb
-//                const coder::array<creal_T, 2U> &Wfherm
-//                const coder::array<creal_T, 2U> &S
-//                const coder::array<double, 1U> &Tb
-//                const coder::sparse *Wq
-//                coder::array<double, 2U> &Sscores
-//                coder::array<double, 2U> &Scols
-// Return Type  : void
-//
 void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
                       const coder::array<creal_T, 2U> &Wfherm,
                       const coder::array<creal_T, 2U> &S,
@@ -165,6 +68,92 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   int numelFbDiagElements;
   int vk;
   boolean_T found;
+  // INCOHSUMTOEPLITZ Performs the incoherent summation of time windows of an
+  // input matrix S per the elements in the time selection matrix Wq.
+  //    This function performs the incoherent summation of time elements within
+  //    the short time Fourier transform matrix S per the selections within the
+  //    Wq matrix. The rows of the S matrix represent frequency bins, whereas
+  //    the columns represent the time windows. The Wq matrix is a Toeplitz
+  //    based matrix with non-zero elements of each column used to select and
+  //    then sum through matrix multiplication the time windows of S.
+  //     abs(S).^2    *  Wq
+  //    [1   2  3  4]  [1 0]
+  //    [5   6  7  8]  [0 1]
+  //    [9  10 11 12]  [1 0]
+  //    [13 14 15 16]  [0 1]
+  //
+  //    The other matricies are used to select and weight the frequency and
+  //    time elements of S through matrix multiplication. The Wfherm matrix
+  //    applies weightings to the S matrix across frequency in order to capture
+  //    energy spread across frequency bins. Fb is a matrix or a vector with 1s
+  //    in elements associated with the frequency bins of Wh that are to be
+  //    included for consideration. Similarly, the Tb matrix (vector) uses 1s
+  //    to select time elements for consideration. Both Fb and Tb can use zeros
+  //    to exclude particular frequencies or times from consideration in
+  //    processing.
+  //
+  //    The code performs the matrix multiplication Fb*Wfherm*abs(S).^2*Tb*Wq.
+  //    The sizes of these matricies must be set so that this matrix
+  //    multiplication can be performed. The functions checks for correct
+  //    dimensions and will generate an error of dimensional mismatch occurs.
+  //    After performing the matrix multiplication of Fb*Wfherm*S*Tb*Wq, it
+  //    determines which columns of the resulting matrix are maximum in each
+  //    row (frequency bin). The function reports the a matrix that has the
+  //    same number of rows as Fb and K columns that contains the scores for
+  //    in each S time window that the maximum summed score based on the Wq
+  //    matrix selections for each frequency bin. It also reports a similarly
+  //    size matrix that contains the columns in S where these max scores were
+  //    found
+  //
+  //    The number of pulses for summation (K) is extracted from Wq by querying
+  //    the number of non-zero elements in the first column of the Wq matrix.
+  //
+  // INPUTS:
+  //    Fb      Frequency blinder matrix: A matrix (fz x fz) or vector (fz x 1)
+  //            of elements with 1s for frequencies of the Wfherm matrix that
+  //            should be considered when looking for maximum incoheren
+  //            summation. If the rows of the Wfherm matrix represent
+  //            frequencies of [100 50 0 -50 -100] and the search needs to
+  //            focus only on the 0 and 50 Hz bins, Fb should be [0 1 1 0 0]
+  //            or diag([0 1 1 0 0]). Inputs can be full or sparse.
+  //    Wfherm  Hermitian of the spectral weighting matrix. This matrix should
+  //            have the same number of columns as the number of rows in S. See
+  //            weightingmatrix.m for information on this matrix. The function
+  //            weightingmatrix.m generates Wf, so when passing Wf to this
+  //            function, Wf' should be used.
+  //    S       STFT output matrix
+  //    Tb      Time blinder matrix: A matrix with only diagonal elements or a
+  //            vector that contains 1s that corresponds to the columns (time
+  //            windows) of the S matrix that should be considered for
+  //            summation. If priori information informs the caller as to the
+  //            potential location of the pulses in the block being processed,
+  //            the Tb matrix can be used to exclude other times from
+  //            consideration which can considerably decrease processing time
+  //            for this function. If no-priori is available, this entry should
+  //            be the identity matrix or vector of size equal to the number
+  //            of columns of S.
+  //    Wq      Time correlation matrix: A matrix containing 1s in entries in
+  //            each column for S matrix time windows that should be summed.
+  //            Wq must have the same number of rows as columns of S, but can
+  //            have as many columns as summation cases that need to be
+  //            considered.
+  //
+  // OUTPUTS:
+  //    Sscores The results of the incoherent summation of S per the time
+  //            selections of the inputs after looking for maximums for each
+  //            frequency bin. This has the same number of rows as that of the
+  //            input Fb and the same number of columns a the number of pulses
+  //            used for summation. The matrix has K columns. The scores
+  //            represent the square magnitudes of the selected elements of the
+  //            S matrix.
+  //
+  //    Scols   A matrix of the columns of S (time windows of STFT)
+  //            that correspond to the potential pulses identified
+  //            in Sscors. The size of this matrix is the same as Sscores.
+  //
+  // Author: Michael W. Shafer
+  // Date:   2022-03-31
+  //
   // Make sure the number of pulses considered for all Wq columns is the same
   coder::sum(Wq, &pulsesInEachColumn);
   b_S.set_size(1, pulsesInEachColumn.n);
@@ -221,7 +210,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
     b_y.set_size(1, numelFbDiagElements);
     for (k = 0; k <= vk; k++) {
       FbmatDiagInds[k] = static_cast<double>(k) + 1.0;
-      b_y[k] = static_cast<unsigned int>(k) + 1U;
+      b_y[k] = k + 1U;
     }
   }
   FbmatDiagInds.set_size(1, FbmatDiagInds.size(1));
@@ -330,7 +319,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
     b_y.set_size(1, numelFbDiagElements);
     for (k = 0; k <= vk; k++) {
       FbmatDiagInds[k] = static_cast<double>(k) + 1.0;
-      b_y[k] = static_cast<unsigned int>(k) + 1U;
+      b_y[k] = k + 1U;
     }
   }
   FbmatDiagInds.set_size(1, FbmatDiagInds.size(1));
@@ -471,7 +460,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
     b_y.set_size(1, Wfherm.size(0));
     loop_ub = Wfherm.size(0) - 1;
     for (k = 0; k <= loop_ub; k++) {
-      b_y[k] = static_cast<unsigned int>(k) + 1U;
+      b_y[k] = k + 1U;
     }
   }
   ex.set_size(b_y.size(1));
@@ -548,8 +537,4 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   }
 }
 
-//
-// File trailer for incohsumtoeplitz.cpp
-//
-// [EOF]
-//
+// End of code generation (incohsumtoeplitz.cpp)

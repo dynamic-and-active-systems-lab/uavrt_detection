@@ -351,7 +351,7 @@ while true %i <= maxInd
                         for j = 1:numel(ps_pre_struc.pl)
                             pulse = ps_pre_struc.pl(j);
                             fprintf('Pulse at %e Hz detected. SNR: %e Confirmation status: %u \n', pulse.fp, pulse.SNR, uint32(pulse.con_dec));
-                            udpSenderSend(udpSender, [ single(pulse.SNR) single(pulse.con_dec) single(pulse.t_0)]);
+                            udpSenderSend(udpSender, [ pulse.SNR pulse.con_dec pulse.t_0]);
                         end
 
                         if false %Config.ros2enable

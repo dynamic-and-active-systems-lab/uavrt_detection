@@ -1,13 +1,14 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: _coder_uavrt_detection_api.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// _coder_uavrt_detection_api.cpp
+//
+// Code generation for function 'uavrt_detection'
 //
 
-// Include Files
+// Include files
 #include "_coder_uavrt_detection_api.h"
 #include "_coder_uavrt_detection_mex.h"
 
@@ -17,7 +18,7 @@ emlrtCTX emlrtRootTLSGlobal{nullptr};
 emlrtContext emlrtContextGlobal{
     true,                                                 // bFirstTime
     false,                                                // bInitialized
-    131627U,                                              // fVersionInfo
+    131626U,                                              // fVersionInfo
     nullptr,                                              // fErrorFunction
     "uavrt_detection",                                    // fFunctionName
     nullptr,                                              // fRTCallStack
@@ -27,20 +28,12 @@ emlrtContext emlrtContextGlobal{
 };
 
 // Function Definitions
-//
-// Arguments    : void
-// Return Type  : void
-//
 void uavrt_detection_api()
 {
   // Invoke the target function
   uavrt_detection();
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
 void uavrt_detection_atexit()
 {
   emlrtStack st{
@@ -51,16 +44,13 @@ void uavrt_detection_atexit()
   mexFunctionCreateRootTLS();
   st.tls = emlrtRootTLSGlobal;
   emlrtEnterRtStackR2012b(&st);
+  emlrtLeaveRtStackR2012b(&st);
   emlrtDestroyRootTLS(&emlrtRootTLSGlobal);
   uavrt_detection_xil_terminate();
   uavrt_detection_xil_shutdown();
   emlrtExitTimeCleanup(&emlrtContextGlobal);
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
 void uavrt_detection_initialize()
 {
   emlrtStack st{
@@ -75,17 +65,16 @@ void uavrt_detection_initialize()
   emlrtFirstTimeR2012b(emlrtRootTLSGlobal);
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
 void uavrt_detection_terminate()
 {
+  emlrtStack st{
+      nullptr, // site
+      nullptr, // tls
+      nullptr  // prev
+  };
+  st.tls = emlrtRootTLSGlobal;
+  emlrtLeaveRtStackR2012b(&st);
   emlrtDestroyRootTLS(&emlrtRootTLSGlobal);
 }
 
-//
-// File trailer for _coder_uavrt_detection_api.cpp
-//
-// [EOF]
-//
+// End of code generation (_coder_uavrt_detection_api.cpp)

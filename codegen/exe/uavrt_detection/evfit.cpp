@@ -1,23 +1,21 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: evfit.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// evfit.cpp
+//
+// Code generation for function 'evfit'
 //
 
-// Include Files
+// Include files
 #include "evfit.h"
 #include "rt_nonfinite.h"
 #include <cmath>
+#include <math.h>
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : const double x[100]
-//                double parmhat[2]
-// Return Type  : void
-//
 namespace coder {
 void evfit(const double x[100], double parmhat[2])
 {
@@ -25,6 +23,7 @@ void evfit(const double x[100], double parmhat[2])
   double rangex;
   double tempMax;
   double tempMin;
+  int exponent;
   tempMin = rtInf;
   tempMax = rtMinusInf;
   for (int i{0}; i < 100; i++) {
@@ -172,6 +171,7 @@ void evfit(const double x[100], double parmhat[2])
     fb = (upper + wgtmeanUnc) - fb / tempMin;
     if (scale == 0.0) {
       upper = sigmahat;
+      fb = scale;
     } else if (!(fb == 0.0)) {
       double c;
       double d;
@@ -259,6 +259,11 @@ void evfit(const double x[100], double parmhat[2])
         }
       }
     }
+    tempMin = std::abs(fb);
+    if ((!std::isinf(tempMin)) && (!std::isnan(tempMin)) &&
+        (!(tempMin <= 2.2250738585072014E-308))) {
+      frexp(tempMin, &exponent);
+    }
     for (int i{0}; i < 100; i++) {
       x0[i] = std::exp(x0[i] / upper);
     }
@@ -273,8 +278,4 @@ void evfit(const double x[100], double parmhat[2])
 
 } // namespace coder
 
-//
-// File trailer for evfit.cpp
-//
-// [EOF]
-//
+// End of code generation (evfit.cpp)

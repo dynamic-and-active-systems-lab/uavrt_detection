@@ -1,16 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: timeKeeper.h
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// timeKeeper.h
+//
+// Code generation for function 'timeKeeper'
 //
 
 #ifndef TIMEKEEPER_H
 #define TIMEKEEPER_H
 
-// Include Files
+// Include files
 #include "rtwtypes.h"
 #include <cstddef>
 #include <cstdlib>
@@ -31,8 +32,4 @@ void timeKeeper(double *outTime_tv_sec, double *outTime_tv_nsec);
 void savedTime_not_empty_init();
 
 #endif
-//
-// File trailer for timeKeeper.h
-//
-// [EOF]
-//
+// End of code generation (timeKeeper.h)

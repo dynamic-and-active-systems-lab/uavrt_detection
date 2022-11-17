@@ -1,54 +1,32 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: AsyncBuffercgHelper.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// AsyncBuffercgHelper.cpp
+//
+// Code generation for function 'AsyncBuffercgHelper'
 //
 
-// Include Files
+// Include files
 #include "AsyncBuffercgHelper.h"
 #include "rt_nonfinite.h"
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : void
-// Return Type  : void
-//
 namespace coder {
 namespace dsp {
 namespace internal {
-void AsyncBuffercgHelper::SystemCore_delete()
-{
-  release();
-}
-
-//
-// Arguments    : void
-// Return Type  : void
-//
 void b_AsyncBuffercgHelper::SystemCore_delete()
 {
   release();
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
-void AsyncBuffercgHelper::matlabCodegenDestructor()
+void AsyncBuffercgHelper::SystemCore_delete()
 {
-  if (!matlabCodegenIsDeleted) {
-    matlabCodegenIsDeleted = true;
-    SystemCore_delete();
-  }
+  release();
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
 void b_AsyncBuffercgHelper::matlabCodegenDestructor()
 {
   if (!matlabCodegenIsDeleted) {
@@ -57,22 +35,14 @@ void b_AsyncBuffercgHelper::matlabCodegenDestructor()
   }
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
-void AsyncBuffercgHelper::release()
+void AsyncBuffercgHelper::matlabCodegenDestructor()
 {
-  if (isInitialized == 1) {
-    isInitialized = 2;
-    releaseWrapper();
+  if (!matlabCodegenIsDeleted) {
+    matlabCodegenIsDeleted = true;
+    SystemCore_delete();
   }
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
 void b_AsyncBuffercgHelper::release()
 {
   if (isInitialized == 1) {
@@ -81,24 +51,14 @@ void b_AsyncBuffercgHelper::release()
   }
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
-void AsyncBuffercgHelper::releaseImpl()
+void AsyncBuffercgHelper::release()
 {
-  ReadPointer = 1;
-  WritePointer = 2;
-  CumulativeOverrun = 0;
-  CumulativeUnderrun = 0;
-  AsyncBuffercgHelper_isInitialized = false;
-  NumChannels = -1;
+  if (isInitialized == 1) {
+    isInitialized = 2;
+    releaseWrapper();
+  }
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
 void b_AsyncBuffercgHelper::releaseImpl()
 {
   ReadPointer = 1;
@@ -109,21 +69,16 @@ void b_AsyncBuffercgHelper::releaseImpl()
   NumChannels = -1;
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
-void AsyncBuffercgHelper::releaseWrapper()
+void AsyncBuffercgHelper::releaseImpl()
 {
-  if (isSetupComplete) {
-    releaseImpl();
-  }
+  ReadPointer = 1;
+  WritePointer = 2;
+  CumulativeOverrun = 0;
+  CumulativeUnderrun = 0;
+  AsyncBuffercgHelper_isInitialized = false;
+  NumChannels = -1;
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
 void b_AsyncBuffercgHelper::releaseWrapper()
 {
   if (isSetupComplete) {
@@ -131,38 +86,29 @@ void b_AsyncBuffercgHelper::releaseWrapper()
   }
 }
 
-//
-// Arguments    : void
-// Return Type  : AsyncBuffercgHelper
-//
-AsyncBuffercgHelper::AsyncBuffercgHelper()
+void AsyncBuffercgHelper::releaseWrapper()
 {
-  matlabCodegenIsDeleted = true;
+  if (isSetupComplete) {
+    releaseImpl();
+  }
 }
 
-//
-// Arguments    : void
-// Return Type  : b_AsyncBuffercgHelper
-//
 b_AsyncBuffercgHelper::b_AsyncBuffercgHelper()
 {
   matlabCodegenIsDeleted = true;
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
-AsyncBuffercgHelper::~AsyncBuffercgHelper()
+AsyncBuffercgHelper::AsyncBuffercgHelper()
+{
+  matlabCodegenIsDeleted = true;
+}
+
+b_AsyncBuffercgHelper::~b_AsyncBuffercgHelper()
 {
   matlabCodegenDestructor();
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
-b_AsyncBuffercgHelper::~b_AsyncBuffercgHelper()
+AsyncBuffercgHelper::~AsyncBuffercgHelper()
 {
   matlabCodegenDestructor();
 }
@@ -171,8 +117,4 @@ b_AsyncBuffercgHelper::~b_AsyncBuffercgHelper()
 } // namespace dsp
 } // namespace coder
 
-//
-// File trailer for AsyncBuffercgHelper.cpp
-//
-// [EOF]
-//
+// End of code generation (AsyncBuffercgHelper.cpp)

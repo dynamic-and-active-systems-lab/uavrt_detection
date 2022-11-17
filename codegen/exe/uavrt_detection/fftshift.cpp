@@ -1,28 +1,26 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: fftshift.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// fftshift.cpp
+//
+// Code generation for function 'fftshift'
 //
 
-// Include Files
+// Include files
 #include "fftshift.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : ::coder::array<creal_T, 2U> &x
-// Return Type  : void
-//
 namespace coder {
 void fftshift(::coder::array<creal_T, 2U> &x)
 {
   if (x.size(0) > 1) {
     int vlend2;
-    vlend2 = static_cast<int>(static_cast<unsigned int>(x.size(0)) >> 1) - 1;
+    vlend2 = x.size(0) / 2 - 1;
     if ((vlend2 + 1) << 1 == x.size(0)) {
       for (int k{0}; k <= vlend2; k++) {
         double xtmp_im;
@@ -55,8 +53,4 @@ void fftshift(::coder::array<creal_T, 2U> &x)
 
 } // namespace coder
 
-//
-// File trailer for fftshift.cpp
-//
-// [EOF]
-//
+// End of code generation (fftshift.cpp)

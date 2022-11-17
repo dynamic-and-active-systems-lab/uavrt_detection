@@ -1,16 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: rtGetNaN.h
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// rtGetNaN.h
+//
+// Code generation for function 'uavrt_detection'
 //
 
 #ifndef RTGETNAN_H
 #define RTGETNAN_H
 
-// Include Files
+// Include files
 #include "rtwtypes.h"
 
 #ifdef __cplusplus
@@ -24,8 +25,4 @@ extern real32_T rtGetNaNF(void);
 }
 #endif
 #endif
-//
-// File trailer for rtGetNaN.h
-//
-// [EOF]
-//
+// End of code generation (rtGetNaN.h)

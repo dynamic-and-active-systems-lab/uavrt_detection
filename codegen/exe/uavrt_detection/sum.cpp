@@ -1,23 +1,21 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: sum.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// sum.cpp
+//
+// Code generation for function 'sum'
 //
 
-// Include Files
+// Include files
 #include "sum.h"
 #include "rt_nonfinite.h"
 #include "sparse1.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : const ::coder::array<double, 1U> &x
-// Return Type  : double
-//
 namespace coder {
 double sum(const ::coder::array<double, 1U> &x)
 {
@@ -34,7 +32,7 @@ double sum(const ::coder::array<double, 1U> &x)
       nblocks = 1;
     } else {
       firstBlockLength = 1024;
-      nblocks = static_cast<int>(static_cast<unsigned int>(x.size(0)) >> 10);
+      nblocks = x.size(0) / 1024;
       lastBlockLength = x.size(0) - (nblocks << 10);
       if (lastBlockLength > 0) {
         nblocks++;
@@ -65,11 +63,6 @@ double sum(const ::coder::array<double, 1U> &x)
   return y;
 }
 
-//
-// Arguments    : const sparse *x
-//                b_sparse *y
-// Return Type  : void
-//
 void sum(const sparse *x, b_sparse *y)
 {
   if ((x->m == 0) || (x->n == 0) || (x->m == 0)) {
@@ -125,11 +118,6 @@ void sum(const sparse *x, b_sparse *y)
   }
 }
 
-//
-// Arguments    : const g_sparse *x
-//                e_sparse *y
-// Return Type  : void
-//
 void sum(const g_sparse *x, e_sparse *y)
 {
   if (x->m == 0) {
@@ -165,11 +153,6 @@ void sum(const g_sparse *x, e_sparse *y)
   }
 }
 
-//
-// Arguments    : const ::coder::array<double, 2U> &x
-//                ::coder::array<double, 1U> &y
-// Return Type  : void
-//
 void sum(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y)
 {
   array<double, 1U> bsum;
@@ -197,7 +180,7 @@ void sum(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y)
       nblocks = 1;
     } else {
       firstBlockLength = 1024;
-      nblocks = static_cast<int>(static_cast<unsigned int>(x.size(1)) >> 10);
+      nblocks = x.size(1) / 1024;
       lastBlockLength = x.size(1) - (nblocks << 10);
       if (lastBlockLength > 0) {
         nblocks++;
@@ -241,8 +224,4 @@ void sum(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y)
 
 } // namespace coder
 
-//
-// File trailer for sum.cpp
-//
-// [EOF]
-//
+// End of code generation (sum.cpp)

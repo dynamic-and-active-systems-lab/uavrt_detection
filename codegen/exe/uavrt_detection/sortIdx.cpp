@@ -1,16 +1,18 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: sortIdx.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// sortIdx.cpp
+//
+// Code generation for function 'sortIdx'
 //
 
-// Include Files
+// Include files
 #include "sortIdx.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Declarations
 namespace coder {
@@ -27,16 +29,6 @@ static void merge(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
 } // namespace coder
 
 // Function Definitions
-//
-// Arguments    : ::coder::array<int, 2U> &idx
-//                ::coder::array<double, 2U> &x
-//                int offset
-//                int np
-//                int nq
-//                ::coder::array<int, 1U> &iwork
-//                ::coder::array<double, 1U> &xwork
-// Return Type  : void
-//
 namespace coder {
 namespace internal {
 static void merge(::coder::array<int, 2U> &idx, ::coder::array<double, 2U> &x,
@@ -88,16 +80,6 @@ static void merge(::coder::array<int, 2U> &idx, ::coder::array<double, 2U> &x,
   }
 }
 
-//
-// Arguments    : ::coder::array<int, 1U> &idx
-//                ::coder::array<double, 1U> &x
-//                int offset
-//                int np
-//                int nq
-//                ::coder::array<int, 1U> &iwork
-//                ::coder::array<double, 1U> &xwork
-// Return Type  : void
-//
 static void merge(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
                   int offset, int np, int nq, ::coder::array<int, 1U> &iwork,
                   ::coder::array<double, 1U> &xwork)
@@ -147,16 +129,6 @@ static void merge(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
   }
 }
 
-//
-// Arguments    : ::coder::array<int, 2U> &idx
-//                ::coder::array<double, 2U> &x
-//                int offset
-//                int n
-//                int preSortLevel
-//                ::coder::array<int, 1U> &iwork
-//                ::coder::array<double, 1U> &xwork
-// Return Type  : void
-//
 void merge_block(::coder::array<int, 2U> &idx, ::coder::array<double, 2U> &x,
                  int offset, int n, int preSortLevel,
                  ::coder::array<int, 1U> &iwork,
@@ -189,16 +161,6 @@ void merge_block(::coder::array<int, 2U> &idx, ::coder::array<double, 2U> &x,
   }
 }
 
-//
-// Arguments    : ::coder::array<int, 1U> &idx
-//                ::coder::array<double, 1U> &x
-//                int offset
-//                int n
-//                int preSortLevel
-//                ::coder::array<int, 1U> &iwork
-//                ::coder::array<double, 1U> &xwork
-// Return Type  : void
-//
 void merge_block(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
                  int offset, int n, int preSortLevel,
                  ::coder::array<int, 1U> &iwork,
@@ -234,8 +196,4 @@ void merge_block(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
 } // namespace internal
 } // namespace coder
 
-//
-// File trailer for sortIdx.cpp
-//
-// [EOF]
-//
+// End of code generation (sortIdx.cpp)

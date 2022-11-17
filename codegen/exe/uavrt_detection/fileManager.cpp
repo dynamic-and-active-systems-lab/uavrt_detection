@@ -1,17 +1,20 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: fileManager.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// fileManager.cpp
+//
+// Code generation for function 'fileManager'
 //
 
-// Include Files
+// Include files
 #include "fileManager.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
+#include <cmath>
 #include <stdio.h>
+#include <string.h>
 
 // Variable Definitions
 static FILE *eml_openfiles[20];
@@ -23,10 +26,6 @@ static signed char filedata();
 }
 
 // Function Definitions
-//
-// Arguments    : void
-// Return Type  : signed char
-//
 namespace coder {
 static signed char filedata()
 {
@@ -47,10 +46,6 @@ static signed char filedata()
   return f;
 }
 
-//
-// Arguments    : double fid
-// Return Type  : int
-//
 int cfclose(double fid)
 {
   FILE *filestar;
@@ -58,8 +53,8 @@ int cfclose(double fid)
   signed char b_fileid;
   signed char fileid;
   st = -1;
-  fileid = static_cast<signed char>(fid);
-  if (fid != static_cast<signed char>(fid)) {
+  fileid = static_cast<signed char>(std::round(fid));
+  if ((fileid < 0) || (fid != fileid)) {
     fileid = -1;
   }
   b_fileid = fileid;
@@ -88,10 +83,6 @@ int cfclose(double fid)
   return st;
 }
 
-//
-// Arguments    : const char cfilename[34]
-// Return Type  : signed char
-//
 signed char cfopen(const char cfilename[34])
 {
   signed char fileid;
@@ -119,10 +110,6 @@ signed char cfopen(const char cfilename[34])
   return fileid;
 }
 
-//
-// Arguments    : const ::coder::array<char, 2U> &cfilename
-// Return Type  : signed char
-//
 signed char cfopen(const ::coder::array<char, 2U> &cfilename)
 {
   array<char, 2U> ccfilename;
@@ -153,16 +140,12 @@ signed char cfopen(const ::coder::array<char, 2U> &cfilename)
   return fileid;
 }
 
-//
-// Arguments    : double varargin_1
-// Return Type  : FILE*
-//
 FILE *fileManager(double varargin_1)
 {
   FILE *f;
   signed char fileid;
-  fileid = static_cast<signed char>(varargin_1);
-  if (varargin_1 != static_cast<signed char>(varargin_1)) {
+  fileid = static_cast<signed char>(std::round(varargin_1));
+  if ((fileid < 0) || (varargin_1 != fileid)) {
     fileid = -1;
   }
   if (fileid >= 3) {
@@ -179,10 +162,6 @@ FILE *fileManager(double varargin_1)
   return f;
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
 } // namespace coder
 void filedata_init()
 {
@@ -193,8 +172,4 @@ void filedata_init()
   }
 }
 
-//
-// File trailer for fileManager.cpp
-//
-// [EOF]
-//
+// End of code generation (fileManager.cpp)

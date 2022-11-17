@@ -1,13 +1,14 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: AsyncBuffer.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// AsyncBuffer.cpp
+//
+// Code generation for function 'AsyncBuffer'
 //
 
-// Include Files
+// Include files
 #include "AsyncBuffer.h"
 #include "AsyncBuffercgHelper.h"
 #include "colon.h"
@@ -15,25 +16,11 @@
 #include "coder_array.h"
 #include <cmath>
 #include <cstring>
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : void
-// Return Type  : void
-//
 namespace coder {
 namespace dsp {
-void AsyncBuffer::matlabCodegenDestructor()
-{
-  if (!matlabCodegenIsDeleted) {
-    matlabCodegenIsDeleted = true;
-  }
-}
-
-//
-// Arguments    : void
-// Return Type  : void
-//
 void b_AsyncBuffer::matlabCodegenDestructor()
 {
   if (!matlabCodegenIsDeleted) {
@@ -41,67 +28,36 @@ void b_AsyncBuffer::matlabCodegenDestructor()
   }
 }
 
-//
-// Arguments    : void
-// Return Type  : AsyncBuffer
-//
-AsyncBuffer::AsyncBuffer()
+void AsyncBuffer::matlabCodegenDestructor()
 {
-  matlabCodegenIsDeleted = true;
+  if (!matlabCodegenIsDeleted) {
+    matlabCodegenIsDeleted = true;
+  }
 }
 
-//
-// Arguments    : void
-// Return Type  : b_AsyncBuffer
-//
 b_AsyncBuffer::b_AsyncBuffer()
 {
   matlabCodegenIsDeleted = true;
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
-AsyncBuffer::~AsyncBuffer()
+AsyncBuffer::AsyncBuffer()
 {
-  matlabCodegenDestructor();
+  matlabCodegenIsDeleted = true;
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
 b_AsyncBuffer::~b_AsyncBuffer()
 {
   matlabCodegenDestructor();
 }
 
-//
-// Arguments    : void
-// Return Type  : AsyncBuffer *
-//
-AsyncBuffer *AsyncBuffer::init()
+AsyncBuffer::~AsyncBuffer()
 {
-  AsyncBuffer *obj;
-  obj = this;
-  obj->pBuffer.NumChannels = -1;
-  obj->pBuffer.ReadPointer = 1;
-  obj->pBuffer.WritePointer = 2;
-  obj->pBuffer.isInitialized = 0;
-  obj->pBuffer.matlabCodegenIsDeleted = false;
-  obj->matlabCodegenIsDeleted = false;
-  return obj;
+  matlabCodegenDestructor();
 }
 
-//
-// Arguments    : double numRows
-//                ::coder::array<creal32_T, 1U> &out
-// Return Type  : void
-//
-void b_AsyncBuffer::read(double numRows, ::coder::array<creal32_T, 1U> &out)
+void AsyncBuffer::read(double numRows, ::coder::array<creal32_T, 1U> &out)
 {
-  internal::b_AsyncBuffercgHelper *obj;
+  internal::AsyncBuffercgHelper *obj;
   array<creal32_T, 1U> b_out;
   array<int, 2U> r;
   array<int, 2U> readIdx;
@@ -164,13 +120,13 @@ void b_AsyncBuffer::read(double numRows, ::coder::array<creal32_T, 1U> &out)
     if (rPtr > 49621) {
       n = 0;
     } else {
-      unsigned int u;
+      unsigned int b_rPtr;
       if (rPtr < 0) {
-        u = 49621U - static_cast<unsigned int>(rPtr);
+        b_rPtr = 49621U - rPtr;
       } else {
-        u = static_cast<unsigned int>(49621 - rPtr);
+        b_rPtr = static_cast<unsigned int>(49621 - rPtr);
       }
-      n = static_cast<int>(u) + 1;
+      n = static_cast<int>(b_rPtr) + 1;
     }
     r.set_size(1, n);
     if (n > 0) {
@@ -304,14 +260,9 @@ void b_AsyncBuffer::read(double numRows, ::coder::array<creal32_T, 1U> &out)
   }
 }
 
-//
-// Arguments    : double numRows
-//                ::coder::array<double, 1U> &out
-// Return Type  : void
-//
-void AsyncBuffer::read(double numRows, ::coder::array<double, 1U> &out)
+void b_AsyncBuffer::read(double numRows, ::coder::array<double, 1U> &out)
 {
-  internal::AsyncBuffercgHelper *obj;
+  internal::b_AsyncBuffercgHelper *obj;
   array<double, 1U> b_out;
   array<int, 2U> r;
   array<int, 2U> readIdx;
@@ -374,13 +325,13 @@ void AsyncBuffer::read(double numRows, ::coder::array<double, 1U> &out)
     if (rPtr > 49621) {
       n = 0;
     } else {
-      unsigned int u;
+      unsigned int b_rPtr;
       if (rPtr < 0) {
-        u = 49621U - static_cast<unsigned int>(rPtr);
+        b_rPtr = 49621U - rPtr;
       } else {
-        u = static_cast<unsigned int>(49621 - rPtr);
+        b_rPtr = static_cast<unsigned int>(49621 - rPtr);
       }
-      n = static_cast<int>(u) + 1;
+      n = static_cast<int>(b_rPtr) + 1;
     }
     r.set_size(1, n);
     if (n > 0) {
@@ -512,14 +463,8 @@ void AsyncBuffer::read(double numRows, ::coder::array<double, 1U> &out)
   }
 }
 
-//
-// Arguments    : double numRows
-//                double overlap
-//                ::coder::array<creal32_T, 1U> &out
-// Return Type  : void
-//
-void b_AsyncBuffer::read(double numRows, double overlap,
-                         ::coder::array<creal32_T, 1U> &out)
+void AsyncBuffer::read(double numRows, double overlap,
+                       ::coder::array<creal32_T, 1U> &out)
 {
   array<creal32_T, 1U> b_out;
   array<int, 2U> r;
@@ -910,14 +855,8 @@ void b_AsyncBuffer::read(double numRows, double overlap,
   }
 }
 
-//
-// Arguments    : double numRows
-//                double overlap
-//                ::coder::array<double, 1U> &out
-// Return Type  : void
-//
-void AsyncBuffer::read(double numRows, double overlap,
-                       ::coder::array<double, 1U> &out)
+void b_AsyncBuffer::read(double numRows, double overlap,
+                         ::coder::array<double, 1U> &out)
 {
   array<double, 1U> b_out;
   array<int, 2U> r;
@@ -1304,11 +1243,7 @@ void AsyncBuffer::read(double numRows, double overlap,
   }
 }
 
-//
-// Arguments    : const creal32_T in_data[]
-// Return Type  : void
-//
-void b_AsyncBuffer::write(const creal32_T in_data[])
+void AsyncBuffer::write(const creal32_T in[4096])
 {
   array<int, 2U> bc;
   array<int, 2U> r1;
@@ -1322,6 +1257,7 @@ void b_AsyncBuffer::write(const creal32_T in_data[])
   int wPtr;
   int yk;
   if (pBuffer.isInitialized != 1) {
+    pBuffer.isSetupComplete = false;
     pBuffer.isInitialized = 1;
     pBuffer.NumChannels = 1;
     pBuffer.AsyncBuffercgHelper_isInitialized = true;
@@ -1335,10 +1271,10 @@ void b_AsyncBuffer::write(const creal32_T in_data[])
   wPtr = pBuffer.WritePointer;
   rPtr = pBuffer.ReadPointer;
   qY = 0;
-  if (wPtr > 2147482623) {
+  if (wPtr > 2147479551) {
     b_qY = MAX_int32_T;
   } else {
-    b_qY = wPtr + 1024;
+    b_qY = wPtr + 4096;
   }
   c = b_qY - 1;
   if (b_qY - 1 > 49621) {
@@ -1353,13 +1289,13 @@ void b_AsyncBuffer::write(const creal32_T in_data[])
     if (wPtr > 49621) {
       n = 0;
     } else {
-      unsigned int u;
+      unsigned int b_wPtr;
       if (wPtr < 0) {
-        u = 49621U - static_cast<unsigned int>(wPtr);
+        b_wPtr = 49621U - wPtr;
       } else {
-        u = static_cast<unsigned int>(49621 - wPtr);
+        b_wPtr = static_cast<unsigned int>(49621 - wPtr);
       }
-      n = static_cast<int>(u) + 1;
+      n = static_cast<int>(b_wPtr) + 1;
     }
     r1.set_size(1, n);
     if (n > 0) {
@@ -1445,8 +1381,9 @@ void b_AsyncBuffer::write(const creal32_T in_data[])
     r[yk] =
         static_cast<unsigned short>(static_cast<unsigned short>(bc[yk]) - 1U);
   }
-  for (yk = 0; yk < 1024; yk++) {
-    pBuffer.Cache[r[yk]] = in_data[yk];
+  n = r.size(0);
+  for (yk = 0; yk < n; yk++) {
+    pBuffer.Cache[r[yk]] = in[yk];
   }
   if (c + 1 > 49621) {
     wPtr = 1;
@@ -1469,11 +1406,7 @@ void b_AsyncBuffer::write(const creal32_T in_data[])
   pBuffer.ReadPointer = rPtr;
 }
 
-//
-// Arguments    : const double in_data[]
-// Return Type  : void
-//
-void AsyncBuffer::write(const double in_data[])
+void b_AsyncBuffer::write(const double in[4096])
 {
   array<int, 2U> bc;
   array<int, 2U> r1;
@@ -1487,6 +1420,7 @@ void AsyncBuffer::write(const double in_data[])
   int wPtr;
   int yk;
   if (pBuffer.isInitialized != 1) {
+    pBuffer.isSetupComplete = false;
     pBuffer.isInitialized = 1;
     pBuffer.NumChannels = 1;
     pBuffer.AsyncBuffercgHelper_isInitialized = true;
@@ -1500,10 +1434,10 @@ void AsyncBuffer::write(const double in_data[])
   wPtr = pBuffer.WritePointer;
   rPtr = pBuffer.ReadPointer;
   qY = 0;
-  if (wPtr > 2147482623) {
+  if (wPtr > 2147479551) {
     b_qY = MAX_int32_T;
   } else {
-    b_qY = wPtr + 1024;
+    b_qY = wPtr + 4096;
   }
   c = b_qY - 1;
   if (b_qY - 1 > 49621) {
@@ -1518,13 +1452,13 @@ void AsyncBuffer::write(const double in_data[])
     if (wPtr > 49621) {
       n = 0;
     } else {
-      unsigned int u;
+      unsigned int b_wPtr;
       if (wPtr < 0) {
-        u = 49621U - static_cast<unsigned int>(wPtr);
+        b_wPtr = 49621U - wPtr;
       } else {
-        u = static_cast<unsigned int>(49621 - wPtr);
+        b_wPtr = static_cast<unsigned int>(49621 - wPtr);
       }
-      n = static_cast<int>(u) + 1;
+      n = static_cast<int>(b_wPtr) + 1;
     }
     r1.set_size(1, n);
     if (n > 0) {
@@ -1610,8 +1544,9 @@ void AsyncBuffer::write(const double in_data[])
     r[yk] =
         static_cast<unsigned short>(static_cast<unsigned short>(bc[yk]) - 1U);
   }
-  for (yk = 0; yk < 1024; yk++) {
-    pBuffer.Cache[r[yk]] = in_data[yk];
+  n = r.size(0);
+  for (yk = 0; yk < n; yk++) {
+    pBuffer.Cache[r[yk]] = in[yk];
   }
   if (c + 1 > 49621) {
     wPtr = 1;
@@ -1637,8 +1572,4 @@ void AsyncBuffer::write(const double in_data[])
 } // namespace dsp
 } // namespace coder
 
-//
-// File trailer for AsyncBuffer.cpp
-//
-// [EOF]
-//
+// End of code generation (AsyncBuffer.cpp)

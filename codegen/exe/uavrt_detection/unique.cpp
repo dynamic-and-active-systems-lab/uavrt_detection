@@ -1,24 +1,21 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: unique.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// unique.cpp
+//
+// Code generation for function 'unique'
 //
 
-// Include Files
+// Include files
 #include "unique.h"
 #include "rt_nonfinite.h"
 #include "sortLE.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : const ::coder::array<double, 2U> &a
-//                ::coder::array<double, 2U> &b
-// Return Type  : void
-//
 namespace coder {
 void unique_rows(const ::coder::array<double, 2U> &a,
                  ::coder::array<double, 2U> &b)
@@ -176,20 +173,16 @@ void unique_rows(const ::coder::array<double, 2U> &a,
     } else {
       pEnd = i2 + 1;
     }
-    i2 = b.size(1);
-    for (i = 0; i < i2; i++) {
+    i2 = b.size(1) - 1;
+    for (i = 0; i <= i2; i++) {
       for (i1 = 0; i1 < pEnd; i1++) {
         b[i1 + pEnd * i] = b[i1 + b.size(0) * i];
       }
     }
-    b.set_size(pEnd, b.size(1));
+    b.set_size(pEnd, i2 + 1);
   }
 }
 
 } // namespace coder
 
-//
-// File trailer for unique.cpp
-//
-// [EOF]
-//
+// End of code generation (unique.cpp)

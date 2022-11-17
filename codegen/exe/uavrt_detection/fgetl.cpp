@@ -1,26 +1,24 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: fgetl.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// fgetl.cpp
+//
+// Code generation for function 'fgetl'
 //
 
-// Include Files
+// Include files
 #include "fgetl.h"
 #include "fileManager.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
+#include "stdio.h"
 #include <cstddef>
 #include <stdio.h>
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : double fileID
-//                ::coder::array<char, 2U> &out
-// Return Type  : void
-//
 namespace coder {
 void fgetl(double fileID, ::coder::array<char, 2U> &out)
 {
@@ -221,8 +219,4 @@ void fgetl(double fileID, ::coder::array<char, 2U> &out)
 
 } // namespace coder
 
-//
-// File trailer for fgetl.cpp
-//
-// [EOF]
-//
+// End of code generation (fgetl.cpp)

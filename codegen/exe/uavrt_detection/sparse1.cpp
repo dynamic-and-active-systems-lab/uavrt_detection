@@ -1,13 +1,14 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: sparse1.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// sparse1.cpp
+//
+// Code generation for function 'sparse1'
 //
 
-// Include Files
+// Include files
 #include "sparse1.h"
 #include "anonymous_function.h"
 #include "locBsearch.h"
@@ -18,16 +19,9 @@
 #include "coder_array.h"
 #include <cstddef>
 #include <cstring>
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : f_sparse *b_this
-//                int numAllocRequested
-//                int ub1
-//                int lb2
-//                int ub2
-// Return Type  : void
-//
 namespace coder {
 void sparse::b_realloc(f_sparse *b_this, int numAllocRequested, int ub1,
                        int lb2, int ub2)
@@ -110,11 +104,6 @@ void sparse::b_realloc(f_sparse *b_this, int numAllocRequested, int ub1,
   }
 }
 
-//
-// Arguments    : const ::coder::array<double, 2U> &a
-//                ::coder::array<double, 2U> &c
-// Return Type  : void
-//
 void f_sparse::b_mtimes(const ::coder::array<double, 2U> &a,
                         ::coder::array<double, 2U> &c) const
 {
@@ -198,10 +187,6 @@ void f_sparse::b_mtimes(const ::coder::array<double, 2U> &a,
   }
 }
 
-//
-// Arguments    : c_sparse *out
-// Return Type  : void
-//
 void c_sparse::b_not(c_sparse *out) const
 {
   int curPosition;
@@ -250,11 +235,6 @@ void c_sparse::b_not(c_sparse *out) const
   out->colidx[n] = curPosition;
 }
 
-//
-// Arguments    : const e_sparse *b
-//                c_sparse *s
-// Return Type  : void
-//
 void b_sparse::eq(const e_sparse *b, c_sparse *s) const
 {
   d_anonymous_function uniOp;
@@ -356,13 +336,6 @@ void b_sparse::eq(const e_sparse *b, c_sparse *s) const
   }
 }
 
-//
-// Arguments    : int ndiag
-//                int b_m
-//                int b_n
-//                sparse *b_I
-// Return Type  : void
-//
 void sparse::eyeLike(int ndiag, int b_m, int b_n, sparse *b_I)
 {
   int i;
@@ -392,10 +365,6 @@ void sparse::eyeLike(int ndiag, int b_m, int b_n, sparse *b_I)
   }
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
 void sparse::fillIn()
 {
   int i;
@@ -433,10 +402,6 @@ void sparse::fillIn()
   colidx[colidx.size(0) - 1] = idx;
 }
 
-//
-// Arguments    : f_sparse *y
-// Return Type  : void
-//
 void sparse::logical(f_sparse *y) const
 {
   int i;
@@ -480,11 +445,6 @@ void sparse::logical(f_sparse *y) const
   }
 }
 
-//
-// Arguments    : const ::coder::array<double, 2U> &b
-//                ::coder::array<double, 2U> &c
-// Return Type  : void
-//
 void f_sparse::mtimes(const ::coder::array<double, 2U> &b,
                       ::coder::array<double, 2U> &c) const
 {
@@ -580,11 +540,6 @@ void f_sparse::mtimes(const ::coder::array<double, 2U> &b,
   }
 }
 
-//
-// Arguments    : const ::coder::array<double, 2U> &a
-//                ::coder::array<double, 2U> &c
-// Return Type  : void
-//
 void sparse::mtimes(const ::coder::array<double, 2U> &a,
                     ::coder::array<double, 2U> &c) const
 {
@@ -663,11 +618,6 @@ void sparse::mtimes(const ::coder::array<double, 2U> &a,
   }
 }
 
-//
-// Arguments    : const h_sparse *rhs
-//                const ::coder::array<double, 2U> &varargin_1
-// Return Type  : void
-//
 void f_sparse::parenAssign(const h_sparse *rhs,
                            const ::coder::array<double, 2U> &varargin_1)
 {
@@ -714,11 +664,6 @@ void f_sparse::parenAssign(const h_sparse *rhs,
   }
 }
 
-//
-// Arguments    : const ::coder::array<double, 2U> &rhs
-//                const ::coder::array<double, 2U> &varargin_1
-// Return Type  : void
-//
 void f_sparse::parenAssign(const ::coder::array<double, 2U> &rhs,
                            const ::coder::array<double, 2U> &varargin_1)
 {
@@ -786,12 +731,6 @@ void f_sparse::parenAssign(const ::coder::array<double, 2U> &rhs,
   }
 }
 
-//
-// Arguments    : boolean_T rhs
-//                double r
-//                double c
-// Return Type  : void
-//
 void f_sparse::parenAssign2D(boolean_T rhs, double r, double c)
 {
   int vidx;
@@ -848,10 +787,6 @@ void f_sparse::parenAssign2D(boolean_T rhs, double r, double c)
   }
 }
 
-//
-// Arguments    : g_sparse *s
-// Return Type  : void
-//
 void sparse::parenReference(g_sparse *s) const
 {
   int i;
@@ -885,11 +820,6 @@ void sparse::parenReference(g_sparse *s) const
   }
 }
 
-//
-// Arguments    : const ::coder::array<double, 1U> &varargin_2
-//                sparse *s
-// Return Type  : void
-//
 void sparse::parenReference(const ::coder::array<double, 1U> &varargin_2,
                             sparse *s) const
 {
@@ -944,34 +874,29 @@ void sparse::parenReference(const ::coder::array<double, 1U> &varargin_2,
   }
 }
 
-//
-// Arguments    : const ::coder::array<double, 2U> &varargin_1
-//                c_sparse *s
-// Return Type  : void
-//
 void f_sparse::parenReference(const ::coder::array<double, 2U> &varargin_1,
                               c_sparse *s) const
 {
   int colNnz;
+  int i;
   int idx;
   int loop_ub;
-  int ncol;
   int varargout_1_tmp_idx_0;
   int vk;
   boolean_T found;
-  ncol = varargin_1.size(1);
+  i = varargin_1.size(1) - 1;
   varargout_1_tmp_idx_0 = m;
   s->n = varargin_1.size(1);
   s->d.set_size(0);
   s->rowidx.set_size(0);
-  s->colidx.set_size(varargin_1.size(1) + 1);
   loop_ub = varargin_1.size(1);
+  s->colidx.set_size(varargin_1.size(1) + 1);
   for (vk = 0; vk <= loop_ub; vk++) {
     s->colidx[vk] = 0;
   }
   s->colidx[0] = 1;
   colNnz = 1;
-  for (int cidx{0}; cidx < ncol; cidx++) {
+  for (int cidx{0}; cidx <= i; cidx++) {
     loop_ub = static_cast<int>(varargin_1[cidx]);
     vk = div_s32(loop_ub - 1, varargout_1_tmp_idx_0);
     sparse_locBsearch(rowidx,
@@ -998,8 +923,4 @@ void f_sparse::parenReference(const ::coder::array<double, 2U> &varargin_1,
 
 } // namespace coder
 
-//
-// File trailer for sparse1.cpp
-//
-// [EOF]
-//
+// End of code generation (sparse1.cpp)

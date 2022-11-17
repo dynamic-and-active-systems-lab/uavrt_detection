@@ -1,24 +1,22 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: sort.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// sort.cpp
+//
+// Code generation for function 'sort'
 //
 
-// Include Files
+// Include files
 #include "sort.h"
 #include "rt_nonfinite.h"
 #include "sortIdx.h"
 #include "coder_array.h"
 #include <cmath>
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : ::coder::array<double, 2U> &x
-// Return Type  : void
-//
 namespace coder {
 namespace internal {
 void sort(::coder::array<double, 2U> &x)
@@ -26,25 +24,27 @@ void sort(::coder::array<double, 2U> &x)
   array<double, 1U> xwork;
   array<int, 2U> idx;
   array<int, 1U> iwork;
-  int i;
   int ib;
+  int quartetOffset;
+  signed char perm[4];
   idx.set_size(1, x.size(1));
-  ib = x.size(1);
-  for (i = 0; i < ib; i++) {
-    idx[i] = 0;
+  quartetOffset = x.size(1);
+  for (ib = 0; ib < quartetOffset; ib++) {
+    idx[ib] = 0;
   }
   if (x.size(1) != 0) {
     double x4[4];
     int idx4[4];
     int bLen;
+    int b_n;
     int i2;
     int i3;
     int i4;
     int idx_tmp;
     int n;
     int nNonNaN;
-    int quartetOffset;
     n = x.size(1);
+    b_n = x.size(1);
     x4[0] = 0.0;
     idx4[0] = 0;
     x4[1] = 0.0;
@@ -53,35 +53,31 @@ void sort(::coder::array<double, 2U> &x)
     idx4[2] = 0;
     x4[3] = 0.0;
     idx4[3] = 0;
-    ib = x.size(1);
-    iwork.set_size(ib);
-    for (i = 0; i < ib; i++) {
-      iwork[i] = 0;
+    quartetOffset = x.size(1);
+    iwork.set_size(quartetOffset);
+    for (ib = 0; ib < quartetOffset; ib++) {
+      iwork[ib] = 0;
     }
-    ib = x.size(1);
-    xwork.set_size(ib);
-    for (i = 0; i < ib; i++) {
-      xwork[i] = 0.0;
+    quartetOffset = x.size(1);
+    xwork.set_size(quartetOffset);
+    for (ib = 0; ib < quartetOffset; ib++) {
+      xwork[ib] = 0.0;
     }
     bLen = 0;
-    ib = 0;
-    for (int k{0}; k < n; k++) {
+    ib = -1;
+    for (int k{0}; k < b_n; k++) {
       if (std::isnan(x[k])) {
-        idx_tmp = (n - bLen) - 1;
+        idx_tmp = (b_n - bLen) - 1;
         idx[idx_tmp] = k + 1;
         xwork[idx_tmp] = x[k];
         bLen++;
       } else {
         ib++;
-        idx4[ib - 1] = k + 1;
-        x4[ib - 1] = x[k];
-        if (ib == 4) {
+        idx4[ib] = k + 1;
+        x4[ib] = x[k];
+        if (ib + 1 == 4) {
           double d;
           double d1;
-          signed char b_i2;
-          signed char b_i3;
-          signed char b_i4;
-          signed char i1;
           quartetOffset = k - bLen;
           if (x4[0] <= x4[1]) {
             ib = 1;
@@ -102,63 +98,62 @@ void sort(::coder::array<double, 2U> &x)
           if (d <= d1) {
             d = x4[i2 - 1];
             if (d <= d1) {
-              i1 = static_cast<signed char>(ib);
-              b_i2 = static_cast<signed char>(i2);
-              b_i3 = static_cast<signed char>(i3);
-              b_i4 = static_cast<signed char>(i4);
+              perm[0] = static_cast<signed char>(ib);
+              perm[1] = static_cast<signed char>(i2);
+              perm[2] = static_cast<signed char>(i3);
+              perm[3] = static_cast<signed char>(i4);
             } else if (d <= x4[i4 - 1]) {
-              i1 = static_cast<signed char>(ib);
-              b_i2 = static_cast<signed char>(i3);
-              b_i3 = static_cast<signed char>(i2);
-              b_i4 = static_cast<signed char>(i4);
+              perm[0] = static_cast<signed char>(ib);
+              perm[1] = static_cast<signed char>(i3);
+              perm[2] = static_cast<signed char>(i2);
+              perm[3] = static_cast<signed char>(i4);
             } else {
-              i1 = static_cast<signed char>(ib);
-              b_i2 = static_cast<signed char>(i3);
-              b_i3 = static_cast<signed char>(i4);
-              b_i4 = static_cast<signed char>(i2);
+              perm[0] = static_cast<signed char>(ib);
+              perm[1] = static_cast<signed char>(i3);
+              perm[2] = static_cast<signed char>(i4);
+              perm[3] = static_cast<signed char>(i2);
             }
           } else {
             d1 = x4[i4 - 1];
             if (d <= d1) {
               if (x4[i2 - 1] <= d1) {
-                i1 = static_cast<signed char>(i3);
-                b_i2 = static_cast<signed char>(ib);
-                b_i3 = static_cast<signed char>(i2);
-                b_i4 = static_cast<signed char>(i4);
+                perm[0] = static_cast<signed char>(i3);
+                perm[1] = static_cast<signed char>(ib);
+                perm[2] = static_cast<signed char>(i2);
+                perm[3] = static_cast<signed char>(i4);
               } else {
-                i1 = static_cast<signed char>(i3);
-                b_i2 = static_cast<signed char>(ib);
-                b_i3 = static_cast<signed char>(i4);
-                b_i4 = static_cast<signed char>(i2);
+                perm[0] = static_cast<signed char>(i3);
+                perm[1] = static_cast<signed char>(ib);
+                perm[2] = static_cast<signed char>(i4);
+                perm[3] = static_cast<signed char>(i2);
               }
             } else {
-              i1 = static_cast<signed char>(i3);
-              b_i2 = static_cast<signed char>(i4);
-              b_i3 = static_cast<signed char>(ib);
-              b_i4 = static_cast<signed char>(i2);
+              perm[0] = static_cast<signed char>(i3);
+              perm[1] = static_cast<signed char>(i4);
+              perm[2] = static_cast<signed char>(ib);
+              perm[3] = static_cast<signed char>(i2);
             }
           }
-          idx[quartetOffset - 3] = idx4[i1 - 1];
-          idx[quartetOffset - 2] = idx4[b_i2 - 1];
-          idx[quartetOffset - 1] = idx4[b_i3 - 1];
-          idx[quartetOffset] = idx4[b_i4 - 1];
-          x[quartetOffset - 3] = x4[i1 - 1];
-          x[quartetOffset - 2] = x4[b_i2 - 1];
-          x[quartetOffset - 1] = x4[b_i3 - 1];
-          x[quartetOffset] = x4[b_i4 - 1];
-          ib = 0;
+          idx[quartetOffset - 3] = idx4[perm[0] - 1];
+          idx[quartetOffset - 2] = idx4[perm[1] - 1];
+          idx[quartetOffset - 1] = idx4[perm[2] - 1];
+          idx[quartetOffset] = idx4[perm[3] - 1];
+          x[quartetOffset - 3] = x4[perm[0] - 1];
+          x[quartetOffset - 2] = x4[perm[1] - 1];
+          x[quartetOffset - 1] = x4[perm[2] - 1];
+          x[quartetOffset] = x4[perm[3] - 1];
+          ib = -1;
         }
       }
     }
-    i3 = x.size(1) - bLen;
-    if (ib > 0) {
-      signed char perm[4];
+    i3 = (b_n - bLen) - 1;
+    if (ib + 1 > 0) {
       perm[1] = 0;
       perm[2] = 0;
       perm[3] = 0;
-      if (ib == 1) {
+      if (ib + 1 == 1) {
         perm[0] = 1;
-      } else if (ib == 2) {
+      } else if (ib + 1 == 2) {
         if (x4[0] <= x4[1]) {
           perm[0] = 1;
           perm[1] = 2;
@@ -193,32 +188,31 @@ void sort(::coder::array<double, 2U> &x)
         perm[1] = 2;
         perm[2] = 1;
       }
-      i = static_cast<unsigned char>(ib);
-      for (int k{0}; k < i; k++) {
+      for (int k{0}; k <= ib; k++) {
         idx_tmp = perm[k] - 1;
         quartetOffset = (i3 - ib) + k;
         idx[quartetOffset] = idx4[idx_tmp];
         x[quartetOffset] = x4[idx_tmp];
       }
     }
-    ib = bLen >> 1;
-    for (int k{0}; k < ib; k++) {
-      quartetOffset = i3 + k;
+    ib = (bLen >> 1) + 1;
+    for (int k{0}; k <= ib - 2; k++) {
+      quartetOffset = (i3 + k) + 1;
       i2 = idx[quartetOffset];
-      idx_tmp = (n - k) - 1;
+      idx_tmp = (b_n - k) - 1;
       idx[quartetOffset] = idx[idx_tmp];
       idx[idx_tmp] = i2;
       x[quartetOffset] = xwork[idx_tmp];
       x[idx_tmp] = xwork[quartetOffset];
     }
     if ((bLen & 1) != 0) {
-      i = i3 + ib;
-      x[i] = xwork[i];
+      ib += i3;
+      x[ib] = xwork[ib];
     }
-    nNonNaN = x.size(1) - bLen;
-    ib = 2;
+    nNonNaN = n - bLen;
+    quartetOffset = 2;
     if (nNonNaN > 1) {
-      if (x.size(1) >= 256) {
+      if (n >= 256) {
         int nBlocks;
         nBlocks = nNonNaN >> 8;
         if (nBlocks > 0) {
@@ -228,11 +222,11 @@ void sort(::coder::array<double, 2U> &x)
             i4 = (b << 8) - 1;
             for (int b_b{0}; b_b < 6; b_b++) {
               bLen = 1 << (b_b + 2);
-              n = bLen << 1;
-              i = 256 >> (b_b + 3);
-              for (int k{0}; k < i; k++) {
-                i2 = (i4 + k * n) + 1;
-                for (quartetOffset = 0; quartetOffset < n; quartetOffset++) {
+              b_n = bLen << 1;
+              n = 256 >> (b_b + 3);
+              for (int k{0}; k < n; k++) {
+                i2 = (i4 + k * b_n) + 1;
+                for (quartetOffset = 0; quartetOffset < b_n; quartetOffset++) {
                   ib = i2 + quartetOffset;
                   b_iwork[quartetOffset] = idx[ib];
                   b_xwork[quartetOffset] = x[ib];
@@ -255,7 +249,7 @@ void sort(::coder::array<double, 2U> &x)
                   } else {
                     idx[ib] = b_iwork[quartetOffset];
                     x[ib] = b_xwork[quartetOffset];
-                    if (quartetOffset + 1 < n) {
+                    if (quartetOffset + 1 < b_n) {
                       quartetOffset++;
                     } else {
                       ib -= i3;
@@ -272,24 +266,19 @@ void sort(::coder::array<double, 2U> &x)
               }
             }
           }
-          ib = nBlocks << 8;
-          quartetOffset = nNonNaN - ib;
-          if (quartetOffset > 0) {
-            merge_block(idx, x, ib, quartetOffset, 2, iwork, xwork);
+          quartetOffset = nBlocks << 8;
+          ib = nNonNaN - quartetOffset;
+          if (ib > 0) {
+            merge_block(idx, x, quartetOffset, ib, 2, iwork, xwork);
           }
-          ib = 8;
+          quartetOffset = 8;
         }
       }
-      merge_block(idx, x, 0, nNonNaN, ib, iwork, xwork);
+      merge_block(idx, x, 0, nNonNaN, quartetOffset, iwork, xwork);
     }
   }
 }
 
-//
-// Arguments    : ::coder::array<double, 1U> &x
-//                ::coder::array<int, 1U> &idx
-// Return Type  : void
-//
 void sort(::coder::array<double, 1U> &x, ::coder::array<int, 1U> &idx)
 {
   array<double, 1U> b_xwork;
@@ -299,20 +288,21 @@ void sort(::coder::array<double, 1U> &x, ::coder::array<int, 1U> &idx)
   array<int, 1U> iidx;
   array<int, 1U> iwork;
   int dim;
-  int i;
+  int i2;
   int vlen;
   int vstride;
+  signed char perm[4];
   dim = 0;
   if (x.size(0) != 1) {
     dim = -1;
   }
   if (dim + 2 <= 1) {
-    i = x.size(0);
+    i2 = x.size(0);
   } else {
-    i = 1;
+    i2 = 1;
   }
-  vlen = i - 1;
-  vwork.set_size(i);
+  vlen = i2 - 1;
+  vwork.set_size(i2);
   idx.set_size(x.size(0));
   vstride = 1;
   for (int k{0}; k <= dim; k++) {
@@ -324,21 +314,22 @@ void sort(::coder::array<double, 1U> &x, ::coder::array<int, 1U> &idx)
     }
     iidx.set_size(vwork.size(0));
     dim = vwork.size(0);
-    for (i = 0; i < dim; i++) {
-      iidx[i] = 0;
+    for (i2 = 0; i2 < dim; i2++) {
+      iidx[i2] = 0;
     }
     if (vwork.size(0) != 0) {
       double x4[4];
       int idx4[4];
-      int bLen2;
+      int bLen;
+      int b_n;
       int i1;
-      int i2;
       int i3;
       int i4;
       int iidx_tmp;
       int n;
       int nNonNaN;
       n = vwork.size(0);
+      b_n = vwork.size(0);
       x4[0] = 0.0;
       idx4[0] = 0;
       x4[1] = 0.0;
@@ -349,34 +340,30 @@ void sort(::coder::array<double, 1U> &x, ::coder::array<int, 1U> &idx)
       idx4[3] = 0;
       iwork.set_size(vwork.size(0));
       dim = vwork.size(0);
-      for (i = 0; i < dim; i++) {
-        iwork[i] = 0;
+      for (i2 = 0; i2 < dim; i2++) {
+        iwork[i2] = 0;
       }
       xwork.set_size(vwork.size(0));
       dim = vwork.size(0);
-      for (i = 0; i < dim; i++) {
-        xwork[i] = 0.0;
+      for (i2 = 0; i2 < dim; i2++) {
+        xwork[i2] = 0.0;
       }
-      bLen2 = 0;
-      dim = 0;
-      for (int k{0}; k < n; k++) {
+      bLen = 0;
+      dim = -1;
+      for (int k{0}; k < b_n; k++) {
         if (std::isnan(vwork[k])) {
-          iidx_tmp = (n - bLen2) - 1;
+          iidx_tmp = (b_n - bLen) - 1;
           iidx[iidx_tmp] = k + 1;
           xwork[iidx_tmp] = vwork[k];
-          bLen2++;
+          bLen++;
         } else {
           dim++;
-          idx4[dim - 1] = k + 1;
-          x4[dim - 1] = vwork[k];
-          if (dim == 4) {
+          idx4[dim] = k + 1;
+          x4[dim] = vwork[k];
+          if (dim + 1 == 4) {
             double d;
             double d1;
-            signed char b_i1;
-            signed char b_i2;
-            signed char b_i3;
-            signed char b_i4;
-            dim = k - bLen2;
+            dim = k - bLen;
             if (x4[0] <= x4[1]) {
               i1 = 1;
               i2 = 2;
@@ -396,63 +383,62 @@ void sort(::coder::array<double, 1U> &x, ::coder::array<int, 1U> &idx)
             if (d <= d1) {
               d = x4[i2 - 1];
               if (d <= d1) {
-                b_i1 = static_cast<signed char>(i1);
-                b_i2 = static_cast<signed char>(i2);
-                b_i3 = static_cast<signed char>(i3);
-                b_i4 = static_cast<signed char>(i4);
+                perm[0] = static_cast<signed char>(i1);
+                perm[1] = static_cast<signed char>(i2);
+                perm[2] = static_cast<signed char>(i3);
+                perm[3] = static_cast<signed char>(i4);
               } else if (d <= x4[i4 - 1]) {
-                b_i1 = static_cast<signed char>(i1);
-                b_i2 = static_cast<signed char>(i3);
-                b_i3 = static_cast<signed char>(i2);
-                b_i4 = static_cast<signed char>(i4);
+                perm[0] = static_cast<signed char>(i1);
+                perm[1] = static_cast<signed char>(i3);
+                perm[2] = static_cast<signed char>(i2);
+                perm[3] = static_cast<signed char>(i4);
               } else {
-                b_i1 = static_cast<signed char>(i1);
-                b_i2 = static_cast<signed char>(i3);
-                b_i3 = static_cast<signed char>(i4);
-                b_i4 = static_cast<signed char>(i2);
+                perm[0] = static_cast<signed char>(i1);
+                perm[1] = static_cast<signed char>(i3);
+                perm[2] = static_cast<signed char>(i4);
+                perm[3] = static_cast<signed char>(i2);
               }
             } else {
               d1 = x4[i4 - 1];
               if (d <= d1) {
                 if (x4[i2 - 1] <= d1) {
-                  b_i1 = static_cast<signed char>(i3);
-                  b_i2 = static_cast<signed char>(i1);
-                  b_i3 = static_cast<signed char>(i2);
-                  b_i4 = static_cast<signed char>(i4);
+                  perm[0] = static_cast<signed char>(i3);
+                  perm[1] = static_cast<signed char>(i1);
+                  perm[2] = static_cast<signed char>(i2);
+                  perm[3] = static_cast<signed char>(i4);
                 } else {
-                  b_i1 = static_cast<signed char>(i3);
-                  b_i2 = static_cast<signed char>(i1);
-                  b_i3 = static_cast<signed char>(i4);
-                  b_i4 = static_cast<signed char>(i2);
+                  perm[0] = static_cast<signed char>(i3);
+                  perm[1] = static_cast<signed char>(i1);
+                  perm[2] = static_cast<signed char>(i4);
+                  perm[3] = static_cast<signed char>(i2);
                 }
               } else {
-                b_i1 = static_cast<signed char>(i3);
-                b_i2 = static_cast<signed char>(i4);
-                b_i3 = static_cast<signed char>(i1);
-                b_i4 = static_cast<signed char>(i2);
+                perm[0] = static_cast<signed char>(i3);
+                perm[1] = static_cast<signed char>(i4);
+                perm[2] = static_cast<signed char>(i1);
+                perm[3] = static_cast<signed char>(i2);
               }
             }
-            iidx[dim - 3] = idx4[b_i1 - 1];
-            iidx[dim - 2] = idx4[b_i2 - 1];
-            iidx[dim - 1] = idx4[b_i3 - 1];
-            iidx[dim] = idx4[b_i4 - 1];
-            vwork[dim - 3] = x4[b_i1 - 1];
-            vwork[dim - 2] = x4[b_i2 - 1];
-            vwork[dim - 1] = x4[b_i3 - 1];
-            vwork[dim] = x4[b_i4 - 1];
-            dim = 0;
+            iidx[dim - 3] = idx4[perm[0] - 1];
+            iidx[dim - 2] = idx4[perm[1] - 1];
+            iidx[dim - 1] = idx4[perm[2] - 1];
+            iidx[dim] = idx4[perm[3] - 1];
+            vwork[dim - 3] = x4[perm[0] - 1];
+            vwork[dim - 2] = x4[perm[1] - 1];
+            vwork[dim - 1] = x4[perm[2] - 1];
+            vwork[dim] = x4[perm[3] - 1];
+            dim = -1;
           }
         }
       }
-      i3 = vwork.size(0) - bLen2;
-      if (dim > 0) {
-        signed char perm[4];
+      i3 = (b_n - bLen) - 1;
+      if (dim + 1 > 0) {
         perm[1] = 0;
         perm[2] = 0;
         perm[3] = 0;
-        if (dim == 1) {
+        if (dim + 1 == 1) {
           perm[0] = 1;
-        } else if (dim == 2) {
+        } else if (dim + 1 == 2) {
           if (x4[0] <= x4[1]) {
             perm[0] = 1;
             perm[1] = 2;
@@ -487,32 +473,31 @@ void sort(::coder::array<double, 1U> &x, ::coder::array<int, 1U> &idx)
           perm[1] = 2;
           perm[2] = 1;
         }
-        i = static_cast<unsigned char>(dim);
-        for (int k{0}; k < i; k++) {
+        for (int k{0}; k <= dim; k++) {
           iidx_tmp = perm[k] - 1;
           i1 = (i3 - dim) + k;
           iidx[i1] = idx4[iidx_tmp];
           vwork[i1] = x4[iidx_tmp];
         }
       }
-      dim = bLen2 >> 1;
-      for (int k{0}; k < dim; k++) {
-        i1 = i3 + k;
+      dim = (bLen >> 1) + 1;
+      for (int k{0}; k <= dim - 2; k++) {
+        i1 = (i3 + k) + 1;
         i2 = iidx[i1];
-        iidx_tmp = (n - k) - 1;
+        iidx_tmp = (b_n - k) - 1;
         iidx[i1] = iidx[iidx_tmp];
         iidx[iidx_tmp] = i2;
         vwork[i1] = xwork[iidx_tmp];
         vwork[iidx_tmp] = xwork[i1];
       }
-      if ((bLen2 & 1) != 0) {
+      if ((bLen & 1) != 0) {
         dim += i3;
         vwork[dim] = xwork[dim];
       }
-      nNonNaN = vwork.size(0) - bLen2;
+      nNonNaN = n - bLen;
       i1 = 2;
       if (nNonNaN > 1) {
-        if (vwork.size(0) >= 256) {
+        if (n >= 256) {
           int nBlocks;
           nBlocks = nNonNaN >> 8;
           if (nBlocks > 0) {
@@ -521,18 +506,18 @@ void sort(::coder::array<double, 1U> &x, ::coder::array<int, 1U> &idx)
               int c_iwork[256];
               i4 = (b << 8) - 1;
               for (int b_b{0}; b_b < 6; b_b++) {
-                n = 1 << (b_b + 2);
-                bLen2 = n << 1;
-                i = 256 >> (b_b + 3);
-                for (int k{0}; k < i; k++) {
-                  i2 = (i4 + k * bLen2) + 1;
-                  for (i1 = 0; i1 < bLen2; i1++) {
+                bLen = 1 << (b_b + 2);
+                b_n = bLen << 1;
+                n = 256 >> (b_b + 3);
+                for (int k{0}; k < n; k++) {
+                  i2 = (i4 + k * b_n) + 1;
+                  for (i1 = 0; i1 < b_n; i1++) {
                     dim = i2 + i1;
                     c_iwork[i1] = iidx[dim];
                     c_xwork[i1] = vwork[dim];
                   }
                   i3 = 0;
-                  i1 = n;
+                  i1 = bLen;
                   dim = i2 - 1;
                   int exitg1;
                   do {
@@ -541,7 +526,7 @@ void sort(::coder::array<double, 1U> &x, ::coder::array<int, 1U> &idx)
                     if (c_xwork[i3] <= c_xwork[i1]) {
                       iidx[dim] = c_iwork[i3];
                       vwork[dim] = c_xwork[i3];
-                      if (i3 + 1 < n) {
+                      if (i3 + 1 < bLen) {
                         i3++;
                       } else {
                         exitg1 = 1;
@@ -549,11 +534,11 @@ void sort(::coder::array<double, 1U> &x, ::coder::array<int, 1U> &idx)
                     } else {
                       iidx[dim] = c_iwork[i1];
                       vwork[dim] = c_xwork[i1];
-                      if (i1 + 1 < bLen2) {
+                      if (i1 + 1 < b_n) {
                         i1++;
                       } else {
                         dim -= i3;
-                        for (i1 = i3 + 1; i1 <= n; i1++) {
+                        for (i1 = i3 + 1; i1 <= bLen; i1++) {
                           iidx_tmp = dim + i1;
                           iidx[iidx_tmp] = c_iwork[i1 - 1];
                           vwork[iidx_tmp] = c_xwork[i1 - 1];
@@ -575,21 +560,21 @@ void sort(::coder::array<double, 1U> &x, ::coder::array<int, 1U> &idx)
         }
         dim = iwork.size(0);
         b_iwork.set_size(iwork.size(0));
-        for (i = 0; i < dim; i++) {
-          b_iwork[i] = iwork[i];
+        for (i2 = 0; i2 < dim; i2++) {
+          b_iwork[i2] = iwork[i2];
         }
         b_xwork.set_size(xwork.size(0));
         dim = xwork.size(0);
-        for (i = 0; i < dim; i++) {
-          b_xwork[i] = xwork[i];
+        for (i2 = 0; i2 < dim; i2++) {
+          b_xwork[i2] = xwork[i2];
         }
         merge_block(iidx, vwork, 0, nNonNaN, i1, b_iwork, b_xwork);
       }
     }
     for (int k{0}; k <= vlen; k++) {
-      i = j + k * vstride;
-      x[i] = vwork[k];
-      idx[i] = iidx[k];
+      i2 = j + k * vstride;
+      x[i2] = vwork[k];
+      idx[i2] = iidx[k];
     }
   }
 }
@@ -597,8 +582,4 @@ void sort(::coder::array<double, 1U> &x, ::coder::array<int, 1U> &idx)
 } // namespace internal
 } // namespace coder
 
-//
-// File trailer for sort.cpp
-//
-// [EOF]
-//
+// End of code generation (sort.cpp)

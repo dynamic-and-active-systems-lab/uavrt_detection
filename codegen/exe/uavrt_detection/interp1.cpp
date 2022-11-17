@@ -1,18 +1,20 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: interp1.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// interp1.cpp
+//
+// Code generation for function 'interp1'
 //
 
-// Include Files
+// Include files
 #include "interp1.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include "omp.h"
 #include <cmath>
+#include <string.h>
 
 // Function Declarations
 namespace coder {
@@ -24,14 +26,6 @@ static void interp1Linear(const ::coder::array<double, 1U> &y, int nyrows,
 }
 
 // Function Definitions
-//
-// Arguments    : const ::coder::array<double, 1U> &y
-//                int nyrows
-//                const ::coder::array<double, 1U> &xi
-//                ::coder::array<double, 1U> &yi
-//                const ::coder::array<double, 1U> &varargin_1
-// Return Type  : void
-//
 namespace coder {
 static void interp1Linear(const ::coder::array<double, 1U> &y, int nyrows,
                           const ::coder::array<double, 1U> &xi,
@@ -95,13 +89,6 @@ static void interp1Linear(const ::coder::array<double, 1U> &y, int nyrows,
   }
 }
 
-//
-// Arguments    : const ::coder::array<double, 1U> &varargin_1
-//                const ::coder::array<double, 1U> &varargin_2
-//                const ::coder::array<double, 1U> &varargin_3
-//                ::coder::array<double, 1U> &Vq
-// Return Type  : void
-//
 void interp1(const ::coder::array<double, 1U> &varargin_1,
              const ::coder::array<double, 1U> &varargin_2,
              const ::coder::array<double, 1U> &varargin_3,
@@ -168,13 +155,6 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
   }
 }
 
-//
-// Arguments    : const double y[2]
-//                const ::coder::array<double, 2U> &xi
-//                ::coder::array<double, 2U> &yi
-//                const double varargin_1[2]
-// Return Type  : void
-//
 void interp1Linear(const double y[2], const ::coder::array<double, 2U> &xi,
                    ::coder::array<double, 2U> &yi, const double varargin_1[2])
 {
@@ -206,12 +186,6 @@ void interp1Linear(const double y[2], const ::coder::array<double, 2U> &xi,
   }
 }
 
-//
-// Arguments    : const double y[2]
-//                const ::coder::array<double, 1U> &xi
-//                ::coder::array<double, 1U> &yi
-// Return Type  : void
-//
 void interp1Linear(const double y[2], const ::coder::array<double, 1U> &xi,
                    ::coder::array<double, 1U> &yi)
 {
@@ -240,8 +214,4 @@ void interp1Linear(const double y[2], const ::coder::array<double, 1U> &xi,
 
 } // namespace coder
 
-//
-// File trailer for interp1.cpp
-//
-// [EOF]
-//
+// End of code generation (interp1.cpp)

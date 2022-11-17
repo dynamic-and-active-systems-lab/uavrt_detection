@@ -1,13 +1,14 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: introsort.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// introsort.cpp
+//
+// Code generation for function 'introsort'
 //
 
-// Include Files
+// Include files
 #include "introsort.h"
 #include "anonymous_function.h"
 #include "heapsort.h"
@@ -16,15 +17,9 @@
 #include "stack1.h"
 #include "uavrt_detection_internal_types.h"
 #include "coder_array.h"
-#include "coder_bounded_array.h"
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : ::coder::array<int, 1U> &x
-//                int xend
-//                const c_anonymous_function *cmp
-// Return Type  : void
-//
 namespace coder {
 namespace internal {
 void introsort(::coder::array<int, 1U> &x, int xend,
@@ -62,7 +57,6 @@ void introsort(::coder::array<int, 1U> &x, int xend,
       frame.xend = xend;
       frame.depth = 0;
       pmax = MAXDEPTH << 1;
-      st.d.size[0] = pmax;
       for (pmin = 0; pmin < pmax; pmin++) {
         st.d.data[pmin] = frame;
       }
@@ -146,12 +140,6 @@ void introsort(::coder::array<int, 1U> &x, int xend,
   }
 }
 
-//
-// Arguments    : ::coder::array<int, 1U> &x
-//                int xend
-//                const anonymous_function *cmp
-// Return Type  : void
-//
 void introsort(::coder::array<int, 1U> &x, int xend,
                const anonymous_function *cmp)
 {
@@ -188,7 +176,6 @@ void introsort(::coder::array<int, 1U> &x, int xend,
       frame.xend = xend;
       frame.depth = 0;
       pmax = MAXDEPTH << 1;
-      st.d.size[0] = pmax;
       for (i = 0; i < pmax; i++) {
         st.d.data[i] = frame;
       }
@@ -333,8 +320,4 @@ void introsort(::coder::array<int, 1U> &x, int xend,
 } // namespace internal
 } // namespace coder
 
-//
-// File trailer for introsort.cpp
-//
-// [EOF]
-//
+// End of code generation (introsort.cpp)

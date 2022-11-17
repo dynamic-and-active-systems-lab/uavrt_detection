@@ -1,13 +1,14 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: buildtimecorrelatormatrix.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// buildtimecorrelatormatrix.cpp
+//
+// Code generation for function 'buildtimecorrelatormatrix'
 //
 
-// Include Files
+// Include files
 #include "buildtimecorrelatormatrix.h"
 #include "anonymous_function.h"
 #include "assembleWq.h"
@@ -21,19 +22,9 @@
 #include "unique.h"
 #include "coder_array.h"
 #include <cmath>
+#include <string.h>
 
 // Function Definitions
-//
-// UNTITLED Summary of this function goes here
-//    Detailed explanation goes here
-//
-// Arguments    : double pri
-//                double priUncert
-//                double priJtr
-//                double reps
-//                coder::sparse *Wq
-// Return Type  : void
-//
 void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
                                double reps, coder::sparse *Wq)
 {
@@ -52,7 +43,6 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   double n_shifts;
   double num_position_patterns;
   double num_rows_C;
-  int b_loop_ub;
   int i;
   int i1;
   int i2;
@@ -60,14 +50,16 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   int ibcol;
   int ibmat;
   int itilerow;
+  int jcol;
   int loop_ub;
   int ncols;
   int nrows;
   int num_members_per_set;
-  int num_rows_C_tmp;
   int sizes_idx_1;
   signed char input_sizes_idx_1;
   boolean_T empty_non_axis_sizes;
+  // UNTITLED Summary of this function goes here
+  //    Detailed explanation goes here
   // First check to make sure all inputs contain the same number of
   // elements
   // Change names to align with other code.
@@ -81,17 +73,17 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
     priMeansList.set_size(1, 1);
     priMeansList[0] = rtNaN;
   } else if (std::floor(-priUncert) == -priUncert) {
-    loop_ub = static_cast<int>(priUncert - (-priUncert));
-    priMeansList.set_size(1, loop_ub + 1);
-    for (i = 0; i <= loop_ub; i++) {
+    nrows = static_cast<int>(priUncert - (-priUncert));
+    priMeansList.set_size(1, nrows + 1);
+    for (i = 0; i <= nrows; i++) {
       priMeansList[i] = -priUncert + static_cast<double>(i);
     }
   } else {
     coder::eml_float_colon(-priUncert, priUncert, priMeansList);
   }
   priMeansList.set_size(1, priMeansList.size(1));
-  loop_ub = priMeansList.size(1) - 1;
-  for (i = 0; i <= loop_ub; i++) {
+  nrows = priMeansList.size(1) - 1;
+  for (i = 0; i <= nrows; i++) {
     priMeansList[i] = pri + priMeansList[i];
   }
   if (std::isnan(-priJtr) || std::isnan(priJtr)) {
@@ -104,9 +96,9 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
     WqColInds.set_size(1, 1);
     WqColInds[0] = rtNaN;
   } else if (std::floor(-priJtr) == -priJtr) {
-    loop_ub = static_cast<int>(priJtr - (-priJtr));
-    WqColInds.set_size(1, loop_ub + 1);
-    for (i = 0; i <= loop_ub; i++) {
+    nrows = static_cast<int>(priJtr - (-priJtr));
+    WqColInds.set_size(1, nrows + 1);
+    for (i = 0; i <= nrows; i++) {
       WqColInds[i] = -priJtr + static_cast<double>(i);
     }
   } else {
@@ -114,6 +106,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   }
   // PPM Contains the column positions (time windows) in the S matrix to search
   // for the K pulses assuming the first pulse arrives at window 1.
+  //  generate_pulse_positions_func.m
   //  INPUTS:
   //    PRI_mean_value          row vector of PRI means (scale/index is STFT
   //    step
@@ -132,7 +125,6 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   //  CALLS:
   //                            cartesion_prod_func()
   //
-  //  generate_pulse_positions_func.m
   //  Author: Paul G. Flikkema
   //  Date:   1 Oct 2021
   n_shifts = rt_powd_snf(static_cast<double>(WqColInds.size(1)), reps - 1.0);
@@ -141,12 +133,12 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   //  pulse_position_value(k, i_position, i_mean )
   pulse_position_value.set_size(static_cast<int>(reps), WqColInds.size(1),
                                 priMeansList.size(1));
-  loop_ub = static_cast<int>(reps) * WqColInds.size(1) * priMeansList.size(1);
-  for (i = 0; i < loop_ub; i++) {
+  nrows = static_cast<int>(reps) * WqColInds.size(1) * priMeansList.size(1);
+  for (i = 0; i < nrows; i++) {
     pulse_position_value[i] = 0.0;
   }
-  loop_ub = priMeansList.size(1);
-  for (i = 0; i < loop_ub; i++) {
+  nrows = priMeansList.size(1);
+  for (i = 0; i < nrows; i++) {
     sizes_idx_1 = WqColInds.size(1);
     for (i1 = 0; i1 < sizes_idx_1; i1++) {
       pulse_position_value[pulse_position_value.size(0) * i1 +
@@ -158,18 +150,17 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   //  loop through the mean PRI values
   i = priMeansList.size(1);
   for (sizes_idx_1 = 0; sizes_idx_1 < i; sizes_idx_1++) {
-    i1 = static_cast<int>(reps - 1.0);
-    for (loop_ub = 0; loop_ub < i1; loop_ub++) {
-      i2 = WqColInds.size(1);
-      for (iacol = 0; iacol < i2; iacol++) {
-        pulse_position_value[((loop_ub + pulse_position_value.size(0) * iacol) +
+    i1 = static_cast<int>(reps + -1.0);
+    for (int k{0}; k < i1; k++) {
+      ncols = WqColInds.size(1);
+      for (iacol = 0; iacol < ncols; iacol++) {
+        pulse_position_value[((k + pulse_position_value.size(0) * iacol) +
                               pulse_position_value.size(0) *
                                   pulse_position_value.size(1) * sizes_idx_1) +
-                             1] =
-            (((static_cast<double>(loop_ub) + 2.0) - 1.0) *
-                 priMeansList[sizes_idx_1] +
-             1.0) +
-            WqColInds[iacol];
+                             1] = (((static_cast<double>(k) + 2.0) - 1.0) *
+                                       priMeansList[sizes_idx_1] +
+                                   1.0) +
+                                  WqColInds[iacol];
       }
     }
   }
@@ -189,28 +180,29 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       rt_powd_snf(static_cast<double>(WqColInds.size(1)), reps - 1.0);
   pulsePositionMatrix.set_size(static_cast<int>(num_position_patterns),
                                static_cast<int>(reps - 1.0));
-  loop_ub =
+  nrows =
       static_cast<int>(num_position_patterns) * static_cast<int>(reps - 1.0);
-  for (i = 0; i < loop_ub; i++) {
+  for (i = 0; i < nrows; i++) {
     pulsePositionMatrix[i] = 0.0;
   }
   //  number of rows per PRI mean
   i = priMeansList.size(1);
   if (priMeansList.size(1) - 1 >= 0) {
     if (pulse_position_value.size(0) < 2) {
-      nrows = 1;
-      ncols = 0;
+      jcol = -1;
+      i2 = -1;
     } else {
-      nrows = 2;
-      ncols = pulse_position_value.size(0);
+      jcol = 0;
+      i2 = pulse_position_value.size(0) - 1;
     }
     num_members_per_set = pulse_position_value.size(1);
-    num_rows_C_tmp = ncols - nrows;
+    iacol = i2 - jcol;
     num_rows_C = rt_powd_snf(static_cast<double>(pulse_position_value.size(1)),
-                             static_cast<double>(num_rows_C_tmp) + 1.0);
-    b_loop_ub = static_cast<int>(num_rows_C) * (num_rows_C_tmp + 1);
+                             static_cast<double>(iacol));
+    loop_ub = static_cast<int>(num_rows_C) * iacol;
+    itilerow = iacol - 1;
   }
-  for (ibcol = 0; ibcol < i; ibcol++) {
+  for (ibmat = 0; ibmat < i; ibmat++) {
     double d;
     //      % DEBUG
     //      a = [ 1 1 1 ]; b = [ 309 310 311 ]; c = [ 618 619 620 ];
@@ -222,24 +214,24 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
     //    of the input matrix A.
     //    Each row of A is taken as a set to draw from
     //    Assumes all sets have the same number of members
-    i1 = ncols - nrows;
-    pattern_matrix.set_size(static_cast<int>(num_rows_C), i1 + 1);
-    for (i2 = 0; i2 < b_loop_ub; i2++) {
-      pattern_matrix[i2] = 0.0;
+    pattern_matrix.set_size(static_cast<int>(num_rows_C), i2 - jcol);
+    for (i1 = 0; i1 < loop_ub; i1++) {
+      pattern_matrix[i1] = 0.0;
     }
     //  loop through columns of C
-    for (sizes_idx_1 = 0; sizes_idx_1 <= num_rows_C_tmp; sizes_idx_1++) {
+    for (sizes_idx_1 = 0; sizes_idx_1 <= itilerow; sizes_idx_1++) {
       double stride;
       unsigned int i_col_A;
       //  fill the column (aka fill the elements in the column)
       //  stride is number of elements to repeat in a column
       //  num_strides is number of strides per column
-      stride = rt_powd_snf(static_cast<double>(num_members_per_set),
-                           static_cast<double>(i1 - sizes_idx_1));
+      stride =
+          rt_powd_snf(static_cast<double>(num_members_per_set),
+                      static_cast<double>(((i2 - jcol) - sizes_idx_1) - 1));
       i_col_A = 0U;
       //  the column in A that we use
-      i2 = static_cast<int>(num_rows_C / stride);
-      for (iacol = 0; iacol < i2; iacol++) {
+      i1 = static_cast<int>(num_rows_C / stride);
+      for (iacol = 0; iacol < i1; iacol++) {
         double star;
         i_col_A++;
         if (i_col_A > static_cast<unsigned int>(num_members_per_set)) {
@@ -249,39 +241,39 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
         //  column of C gets elements from row of A
         d = (star + stride) - 1.0;
         if (star > d) {
-          itilerow = 0;
-          ibmat = 0;
+          ncols = 0;
+          ibcol = 0;
         } else {
-          itilerow = static_cast<int>(star) - 1;
-          ibmat = static_cast<int>(d);
+          ncols = static_cast<int>(star) - 1;
+          ibcol = static_cast<int>(d);
         }
-        loop_ub = ibmat - itilerow;
-        for (ibmat = 0; ibmat < loop_ub; ibmat++) {
-          pattern_matrix[(itilerow + ibmat) +
+        nrows = ibcol - ncols;
+        for (ibcol = 0; ibcol < nrows; ibcol++) {
+          pattern_matrix[(ncols + ibcol) +
                          pattern_matrix.size(0) * sizes_idx_1] =
-              pulse_position_value[(((nrows + sizes_idx_1) +
+              pulse_position_value[(((jcol + sizes_idx_1) +
                                      pulse_position_value.size(0) *
                                          (static_cast<int>(i_col_A) - 1)) +
                                     pulse_position_value.size(0) *
-                                        pulse_position_value.size(1) * ibcol) -
+                                        pulse_position_value.size(1) * ibmat) +
                                    1];
         }
       }
     }
-    d = ((static_cast<double>(ibcol) + 1.0) - 1.0) * n_shifts + 1.0;
-    if (d > (static_cast<double>(ibcol) + 1.0) * n_shifts) {
+    d = ((static_cast<double>(ibmat) + 1.0) - 1.0) * n_shifts + 1.0;
+    if (d > (static_cast<double>(ibmat) + 1.0) * n_shifts) {
       i1 = 1;
     } else {
       i1 = static_cast<int>(d);
     }
-    loop_ub = pattern_matrix.size(1);
-    for (i2 = 0; i2 < loop_ub; i2++) {
+    nrows = pattern_matrix.size(1);
+    for (ncols = 0; ncols < nrows; ncols++) {
       sizes_idx_1 = pattern_matrix.size(0);
-      for (itilerow = 0; itilerow < sizes_idx_1; itilerow++) {
-        pulsePositionMatrix[((i1 + itilerow) +
-                             pulsePositionMatrix.size(0) * i2) -
+      for (ibcol = 0; ibcol < sizes_idx_1; ibcol++) {
+        pulsePositionMatrix[((i1 + ibcol) +
+                             pulsePositionMatrix.size(0) * ncols) -
                             1] =
-            pattern_matrix[itilerow + pattern_matrix.size(0) * i2];
+            pattern_matrix[ibcol + pattern_matrix.size(0) * ncols];
       }
     }
   }
@@ -313,8 +305,8 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   }
   //  remove duplicate patterns
   pattern_matrix.set_size(iacol, input_sizes_idx_1 + sizes_idx_1);
-  loop_ub = input_sizes_idx_1;
-  for (i = 0; i < loop_ub; i++) {
+  nrows = input_sizes_idx_1;
+  for (i = 0; i < nrows; i++) {
     for (i1 = 0; i1 < iacol; i1++) {
       pattern_matrix[i1] = 1.0;
     }
@@ -384,16 +376,13 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   nrows = pulsePositionMatrix.size(0);
   ncols = pulsePositionMatrix.size(1);
   sizes_idx_1 = static_cast<int>(n_shifts + 1.0);
-  for (num_members_per_set = 0; num_members_per_set < ncols;
-       num_members_per_set++) {
-    iacol = num_members_per_set * nrows;
-    ibmat =
-        num_members_per_set * (nrows * static_cast<int>(n_shifts + 1.0)) - 1;
+  for (jcol = 0; jcol < ncols; jcol++) {
+    iacol = jcol * nrows;
+    ibmat = jcol * (nrows * static_cast<int>(n_shifts + 1.0)) - 1;
     for (itilerow = 0; itilerow < sizes_idx_1; itilerow++) {
       ibcol = ibmat + itilerow * nrows;
-      for (loop_ub = 0; loop_ub < nrows; loop_ub++) {
-        pattern_matrix[(ibcol + loop_ub) + 1] =
-            pulsePositionMatrix[iacol + loop_ub];
+      for (int k{0}; k < nrows; k++) {
+        pattern_matrix[(ibcol + k) + 1] = pulsePositionMatrix[iacol + k];
       }
     }
   }
@@ -408,19 +397,18 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
     priMeansList.set_size(1, 0);
   } else {
     priMeansList.set_size(1, static_cast<int>(n_shifts) + 1);
-    loop_ub = static_cast<int>(n_shifts);
-    for (i = 0; i <= loop_ub; i++) {
+    nrows = static_cast<int>(n_shifts);
+    for (i = 0; i <= nrows; i++) {
       priMeansList[i] = i;
     }
   }
   shiftermat.set_size(pulsePositionMatrix.size(0), priMeansList.size(1));
   ncols = priMeansList.size(1);
   sizes_idx_1 = pulsePositionMatrix.size(0);
-  for (num_members_per_set = 0; num_members_per_set < ncols;
-       num_members_per_set++) {
-    ibmat = num_members_per_set * sizes_idx_1;
+  for (jcol = 0; jcol < ncols; jcol++) {
+    ibmat = jcol * sizes_idx_1;
     for (itilerow = 0; itilerow < sizes_idx_1; itilerow++) {
-      shiftermat[ibmat + itilerow] = priMeansList[num_members_per_set];
+      shiftermat[ibmat + itilerow] = priMeansList[jcol];
     }
   }
   // Create a matrix of the shifts needed for each copy of the PPM matrix
@@ -430,14 +418,14 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   iacol = pulsePositionMatrix.size(1);
   for (ibmat = 0; ibmat < iacol; ibmat++) {
     sizes_idx_1 = ibmat * nrows;
-    for (loop_ub = 0; loop_ub < nrows; loop_ub++) {
-      WqRowInds[sizes_idx_1 + loop_ub] = shiftermat[loop_ub];
+    for (int k{0}; k < nrows; k++) {
+      WqRowInds[sizes_idx_1 + k] = shiftermat[k];
     }
   }
   if ((WqRowInds.size(0) == pattern_matrix.size(0)) &&
       (WqRowInds.size(1) == pattern_matrix.size(1))) {
-    loop_ub = WqRowInds.size(0) * WqRowInds.size(1);
-    for (i = 0; i < loop_ub; i++) {
+    nrows = WqRowInds.size(0) * WqRowInds.size(1);
+    for (i = 0; i < nrows; i++) {
       WqRowInds[i] = WqRowInds[i] + pattern_matrix[i];
     }
   } else {
@@ -447,8 +435,8 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
     priMeansList.set_size(1, 0);
   } else {
     priMeansList.set_size(1, pattern_matrix.size(0));
-    loop_ub = pattern_matrix.size(0) - 1;
-    for (i = 0; i <= loop_ub; i++) {
+    nrows = pattern_matrix.size(0) - 1;
+    for (i = 0; i <= nrows; i++) {
       priMeansList[i] = static_cast<double>(i) + 1.0;
     }
   }
@@ -457,46 +445,44 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   iacol = pulsePositionMatrix.size(1);
   for (ibmat = 0; ibmat < iacol; ibmat++) {
     sizes_idx_1 = ibmat * ncols;
-    for (num_members_per_set = 0; num_members_per_set < ncols;
-         num_members_per_set++) {
-      WqColInds[sizes_idx_1 + num_members_per_set] =
-          priMeansList[num_members_per_set];
+    for (jcol = 0; jcol < ncols; jcol++) {
+      WqColInds[sizes_idx_1 + jcol] = priMeansList[jcol];
     }
   }
   ibmat = WqColInds.size(1);
   iacol = WqRowInds.size(0) * WqRowInds.size(1);
   b_this.workspace.b.set_size(WqRowInds.size(0) * WqRowInds.size(1));
-  for (loop_ub = 0; loop_ub < iacol; loop_ub++) {
-    b_this.workspace.b[loop_ub] = static_cast<int>(WqRowInds[loop_ub]);
+  for (int k{0}; k < iacol; k++) {
+    b_this.workspace.b[k] = static_cast<int>(WqRowInds[k]);
   }
   iacol = WqColInds.size(1);
   b_this.workspace.a.set_size(WqColInds.size(1));
-  for (loop_ub = 0; loop_ub < iacol; loop_ub++) {
-    b_this.workspace.a[loop_ub] = static_cast<int>(WqColInds[loop_ub]);
+  for (int k{0}; k < iacol; k++) {
+    b_this.workspace.a[k] = static_cast<int>(WqColInds[k]);
   }
   sortedIndices.set_size(WqColInds.size(1));
-  for (loop_ub = 0; loop_ub < ibmat; loop_ub++) {
-    sortedIndices[loop_ub] = loop_ub + 1;
+  for (int k{0}; k < ibmat; k++) {
+    sortedIndices[k] = k + 1;
   }
   coder::internal::introsort(sortedIndices, b_this.workspace.a.size(0),
                              &b_this);
   iacol = b_this.workspace.a.size(0);
   t.set_size(b_this.workspace.a.size(0));
-  loop_ub = b_this.workspace.a.size(0);
-  for (i = 0; i < loop_ub; i++) {
+  nrows = b_this.workspace.a.size(0);
+  for (i = 0; i < nrows; i++) {
     t[i] = b_this.workspace.a[i];
   }
-  for (loop_ub = 0; loop_ub < iacol; loop_ub++) {
-    b_this.workspace.a[loop_ub] = t[sortedIndices[loop_ub] - 1];
+  for (int k{0}; k < iacol; k++) {
+    b_this.workspace.a[k] = t[sortedIndices[k] - 1];
   }
   iacol = b_this.workspace.b.size(0);
   t.set_size(b_this.workspace.b.size(0));
-  loop_ub = b_this.workspace.b.size(0);
-  for (i = 0; i < loop_ub; i++) {
+  nrows = b_this.workspace.b.size(0);
+  for (i = 0; i < nrows; i++) {
     t[i] = b_this.workspace.b[i];
   }
-  for (loop_ub = 0; loop_ub < iacol; loop_ub++) {
-    b_this.workspace.b[loop_ub] = t[sortedIndices[loop_ub] - 1];
+  for (int k{0}; k < iacol; k++) {
+    b_this.workspace.b[k] = t[sortedIndices[k] - 1];
   }
   if ((b_this.workspace.b.size(0) == 0) || (b_this.workspace.a.size(0) == 0)) {
     sizes_idx_1 = 0;
@@ -504,8 +490,8 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   } else {
     iacol = b_this.workspace.b.size(0);
     sizes_idx_1 = b_this.workspace.b[0];
-    for (loop_ub = 2; loop_ub <= iacol; loop_ub++) {
-      i = b_this.workspace.b[loop_ub - 1];
+    for (int k{2}; k <= iacol; k++) {
+      i = b_this.workspace.b[k - 1];
       if (sizes_idx_1 < i) {
         sizes_idx_1 = i;
       }
@@ -536,15 +522,11 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
     }
     Wq->colidx[sizes_idx_1 + 1] = iacol + 1;
   }
-  for (loop_ub = 0; loop_ub < ibmat; loop_ub++) {
-    Wq->d[loop_ub] = 1.0;
+  for (int k{0}; k < ibmat; k++) {
+    Wq->d[k] = 1.0;
   }
   Wq->fillIn();
   // , obj.reps(i));
 }
 
-//
-// File trailer for buildtimecorrelatormatrix.cpp
-//
-// [EOF]
-//
+// End of code generation (buildtimecorrelatormatrix.cpp)

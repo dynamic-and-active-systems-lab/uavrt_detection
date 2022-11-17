@@ -1,16 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: ftell.h
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// ftell.h
+//
+// Code generation for function 'ftell'
 //
 
 #ifndef FTELL_H
 #define FTELL_H
 
-// Include Files
+// Include files
 #include "rtwtypes.h"
 #include <cstddef>
 #include <cstdlib>
@@ -22,8 +23,4 @@ double b_ftell(double fileID);
 }
 
 #endif
-//
-// File trailer for ftell.h
-//
-// [EOF]
-//
+// End of code generation (ftell.h)

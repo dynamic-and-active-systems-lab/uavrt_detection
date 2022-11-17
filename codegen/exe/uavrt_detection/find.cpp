@@ -1,13 +1,14 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: find.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// find.cpp
+//
+// Code generation for function 'find'
 //
 
-// Include Files
+// Include files
 #include "find.h"
 #include "rt_nonfinite.h"
 #include "sparse1.h"
@@ -15,21 +16,9 @@
 #include "uavrt_detection_rtwutil.h"
 #include "waveform.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : int in1_data[]
-//                int *in1_size
-//                const coder::array<double, 1U> &in2
-//                int in3
-//                int in4
-//                int in5
-//                const waveform *in6
-//                int in7
-//                int in8
-//                int in9
-// Return Type  : void
-//
 void b_binary_expand_op(int in1_data[], int *in1_size,
                         const coder::array<double, 1U> &in2, int in3, int in4,
                         int in5, const waveform *in6, int in7, int in8, int in9)
@@ -59,51 +48,34 @@ void b_binary_expand_op(int in1_data[], int *in1_size,
   coder::c_eml_find(b_in2, in1_data, in1_size);
 }
 
-//
-// Arguments    : int in1_data[]
-//                int *in1_size
-//                const coder::array<double, 1U> &in2
-//                int in3
-//                int in4
-//                const waveform *in5
-//                int in6
-//                int in7
-// Return Type  : void
-//
 void b_binary_expand_op(int in1_data[], int *in1_size,
                         const coder::array<double, 1U> &in2, int in3, int in4,
                         const waveform *in5, int in6, int in7)
 {
   coder::array<boolean_T, 1U> b_in2;
-  int i;
+  int b_in7;
   int loop_ub;
-  int stride_0_0;
   int stride_1_0;
   if ((in7 - in6) + 1 == 1) {
-    i = (in4 - in3) + 1;
+    b_in7 = (in4 - in3) + 1;
   } else {
-    i = (in7 - in6) + 1;
+    b_in7 = (in7 - in6) + 1;
   }
-  b_in2.set_size(i);
-  stride_0_0 = ((in4 - in3) + 1 != 1);
+  b_in2.set_size(b_in7);
+  b_in7 = ((in4 - in3) + 1 != 1);
   stride_1_0 = ((in7 - in6) + 1 != 1);
   if ((in7 - in6) + 1 == 1) {
     loop_ub = (in4 - in3) + 1;
   } else {
     loop_ub = (in7 - in6) + 1;
   }
-  for (i = 0; i < loop_ub; i++) {
-    b_in2[i] = (in2[in3 + i * stride_0_0] <
+  for (int i{0}; i < loop_ub; i++) {
+    b_in2[i] = (in2[in3 + i * b_in7] <
                 in5->thresh.threshVecFine[in6 + i * stride_1_0]);
   }
   coder::c_eml_find(b_in2, in1_data, in1_size);
 }
 
-//
-// Arguments    : const ::coder::array<boolean_T, 2U> &x
-//                ::coder::array<int, 2U> &i
-// Return Type  : void
-//
 namespace coder {
 void b_eml_find(const ::coder::array<boolean_T, 2U> &x,
                 ::coder::array<int, 2U> &i)
@@ -142,12 +114,6 @@ void b_eml_find(const ::coder::array<boolean_T, 2U> &x,
   }
 }
 
-//
-// Arguments    : const ::coder::array<boolean_T, 1U> &x
-//                int i_data[]
-//                int *i_size
-// Return Type  : void
-//
 void c_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[],
                 int *i_size)
 {
@@ -176,12 +142,6 @@ void c_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[],
   }
 }
 
-//
-// Arguments    : const ::coder::array<boolean_T, 1U> &x
-//                int i_data[]
-//                int *i_size
-// Return Type  : void
-//
 void d_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[],
                 int *i_size)
 {
@@ -210,12 +170,6 @@ void d_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[],
   }
 }
 
-//
-// Arguments    : const sparse *x
-//                ::coder::array<int, 1U> &i
-//                ::coder::array<int, 1U> &j
-// Return Type  : void
-//
 void e_eml_find(const sparse *x, ::coder::array<int, 1U> &i,
                 ::coder::array<int, 1U> &j)
 {
@@ -262,12 +216,6 @@ void e_eml_find(const sparse *x, ::coder::array<int, 1U> &i,
   }
 }
 
-//
-// Arguments    : const ::coder::array<boolean_T, 2U> &x
-//                int i_data[]
-//                int i_size[2]
-// Return Type  : void
-//
 void eml_find(const ::coder::array<boolean_T, 2U> &x, int i_data[],
               int i_size[2])
 {
@@ -311,8 +259,4 @@ void eml_find(const ::coder::array<boolean_T, 2U> &x, int i_data[],
 
 } // namespace coder
 
-//
-// File trailer for find.cpp
-//
-// [EOF]
-//
+// End of code generation (find.cpp)

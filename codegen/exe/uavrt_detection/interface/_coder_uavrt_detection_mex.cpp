@@ -1,24 +1,18 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: _coder_uavrt_detection_mex.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// _coder_uavrt_detection_mex.cpp
+//
+// Code generation for function 'uavrt_detection'
 //
 
-// Include Files
+// Include files
 #include "_coder_uavrt_detection_mex.h"
 #include "_coder_uavrt_detection_api.h"
 
 // Function Definitions
-//
-// Arguments    : int32_T nlhs
-//                mxArray *plhs[]
-//                int32_T nrhs
-//                const mxArray *prhs[]
-// Return Type  : void
-//
 void mexFunction(int32_T nlhs, mxArray *[], int32_T nrhs, const mxArray *[])
 {
   mexAtExit(&uavrt_detection_atexit);
@@ -30,22 +24,13 @@ void mexFunction(int32_T nlhs, mxArray *[], int32_T nrhs, const mxArray *[])
   uavrt_detection_terminate();
 }
 
-//
-// Arguments    : void
-// Return Type  : emlrtCTX
-//
 emlrtCTX mexFunctionCreateRootTLS()
 {
   emlrtCreateRootTLSR2022a(&emlrtRootTLSGlobal, &emlrtContextGlobal, nullptr, 1,
-                           nullptr, "UTF-8", true);
+                           nullptr, (const char_T *)"UTF-8", true);
   return emlrtRootTLSGlobal;
 }
 
-//
-// Arguments    : int32_T nlhs
-//                int32_T nrhs
-// Return Type  : void
-//
 void unsafe_uavrt_detection_mexFunction(int32_T nlhs, int32_T nrhs)
 {
   emlrtStack st{
@@ -67,8 +52,4 @@ void unsafe_uavrt_detection_mexFunction(int32_T nlhs, int32_T nrhs)
   uavrt_detection_api();
 }
 
-//
-// File trailer for _coder_uavrt_detection_mex.cpp
-//
-// [EOF]
-//
+// End of code generation (_coder_uavrt_detection_mex.cpp)

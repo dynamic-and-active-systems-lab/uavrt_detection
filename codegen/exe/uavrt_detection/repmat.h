@@ -1,16 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: repmat.h
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// repmat.h
+//
+// Code generation for function 'repmat'
 //
 
 #ifndef REPMAT_H
 #define REPMAT_H
 
-// Include Files
+// Include files
 #include "rtwtypes.h"
 #include "uavrt_detection_internal_types.h"
 #include "coder_array.h"
@@ -25,8 +26,4 @@ void repmat(const c_struct_T *a, double varargin_1, double varargin_2,
 }
 
 #endif
-//
-// File trailer for repmat.h
-//
-// [EOF]
-//
+// End of code generation (repmat.h)

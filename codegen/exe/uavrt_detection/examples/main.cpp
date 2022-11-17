@@ -1,10 +1,11 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: main.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// main.cpp
+//
+// Code generation for function 'main'
 //
 
 /*************************************************************************/
@@ -32,18 +33,23 @@
 /*                                                                       */
 /*************************************************************************/
 
-// Include Files
+// Include files
 #include "main.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection.h"
 #include "uavrt_detection_terminate.h"
+#include <string.h>
+
+// Function Declarations
+static void main_uavrt_detection();
 
 // Function Definitions
-//
-// Arguments    : int argc
-//                char **argv
-// Return Type  : int
-//
+static void main_uavrt_detection()
+{
+  // Call the entry-point 'uavrt_detection'.
+  uavrt_detection();
+}
+
 int main(int, char **)
 {
   // The initialize function is being called automatically from your entry-point
@@ -57,18 +63,4 @@ int main(int, char **)
   return 0;
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
-void main_uavrt_detection()
-{
-  // Call the entry-point 'uavrt_detection'.
-  uavrt_detection();
-}
-
-//
-// File trailer for main.cpp
-//
-// [EOF]
-//
+// End of code generation (main.cpp)
