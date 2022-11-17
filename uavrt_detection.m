@@ -104,10 +104,9 @@ fprintf('Startup set 6 complete. \n')
 
 samplesPerFrame = 2048;
 udpReceiveBufferSize = samplesPerFrame * 2;
-%udpReceiver = udpReceiverSetup('127.0.0.1', Config.portData, udpReceiveBufferSize, udpReceiveBufferSize);
-udpReceiver = udpReceiverSetup('127.0.0.1', 20000, udpReceiveBufferSize, samplesPerFrame);
+udpReceiver = udpReceiverSetup(Config.ipData, Config.portData, udpReceiveBufferSize, samplesPerFrame);
 
-udpSender = udpSenderSetup('127.0.0.1', 30000, 4);
+udpSender = udpSenderSetup('127.0.0.1', udpReceiveBufferSize, samplesPerFrame);
 
 %Initialize loop variables
 resetBuffersFlag  = true;
@@ -118,6 +117,7 @@ fLock             = false;
 staleDataFlag     = true;%Force buffer  flush on start
 idleTic           = 1;
 i                 = 1;
+timeStamp         = 0;
 lastTimeStamp     = 0;
 cleanBuffer       = true;
 trackedCount      = 0;
@@ -148,8 +148,8 @@ while true %i <= maxInd
                 pause((packetLength-1)/2*1/Config.Fs);
             else
                 framesReceived = framesReceived + 1;
-                timeStamp      = posixtime(datetime('now'));
                 timeVector     = timeStamp+1/Config.Fs*(0:(numel(iqData)-1)).';
+                timeStamp      = timeStamp + (numel(iqData) / Config.Fs);
                 %Write out data and time.
                 asyncDataBuff.write(iqData);
                 asyncTimeBuff.write(timeVector);
@@ -351,7 +351,7 @@ while true %i <= maxInd
                         for j = 1:numel(ps_pre_struc.pl)
                             pulse = ps_pre_struc.pl(j);
                             fprintf('Pulse at %e Hz detected. SNR: %e Confirmation status: %u \n', pulse.fp, pulse.SNR, uint32(pulse.con_dec));
-                            udpSenderSend(udpSender, [ single(pulse.SNR) single(pulse.con_dec) single(pulse.t_0)]);
+                            udpSenderSend(udpSender, [ pulse.SNR pulse.con_dec pulse.t_0]);
                         end
 
                         if false %Config.ros2enable
