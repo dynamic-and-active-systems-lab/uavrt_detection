@@ -52,3 +52,4 @@ src
 *.zip
 
 uavrt_detection
+*.o
