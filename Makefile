@@ -175,7 +175,8 @@ ALL_SRCS = $(SRCS)
 ## OBJECTS
 ###########################################################################
 
-OBJS = $(patsubst %.cpp, %.o, $(SRCS))
+OBJS1 = $(patsubst %.cpp, %.o, $(SRCS))
+OBJS = $(patsubst %.c, %.o, $(OBJS1))
 
 ALL_OBJS = $(OBJS)
 
