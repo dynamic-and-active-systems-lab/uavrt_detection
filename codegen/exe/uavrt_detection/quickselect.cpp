@@ -2,13 +2,13 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: quickselect.cpp
 //
-// quickselect.cpp
-//
-// Code generation for function 'quickselect'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "quickselect.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
@@ -21,8 +21,15 @@ static int thirdOfFive(const ::coder::array<double, 1U> &v, int ia, int ib);
 
 }
 } // namespace coder
+static int div_nzp_s32(int numerator);
 
 // Function Definitions
+//
+// Arguments    : const ::coder::array<double, 1U> &v
+//                int ia
+//                int ib
+// Return Type  : int
+//
 namespace coder {
 namespace internal {
 static int thirdOfFive(const ::coder::array<double, 1U> &v, int ia, int ib)
@@ -112,6 +119,41 @@ static int thirdOfFive(const ::coder::array<double, 1U> &v, int ia, int ib)
   return im;
 }
 
+//
+// Arguments    : int numerator
+// Return Type  : int
+//
+} // namespace internal
+} // namespace coder
+static int div_nzp_s32(int numerator)
+{
+  unsigned int b_numerator;
+  int quotient;
+  if (numerator < 0) {
+    b_numerator = ~static_cast<unsigned int>(numerator) + 1U;
+  } else {
+    b_numerator = static_cast<unsigned int>(numerator);
+  }
+  b_numerator /= 5U;
+  if (numerator < 0) {
+    quotient = -static_cast<int>(b_numerator);
+  } else {
+    quotient = static_cast<int>(b_numerator);
+  }
+  return quotient;
+}
+
+//
+// Arguments    : ::coder::array<double, 1U> &v
+//                int n
+//                int vlen
+//                double *vn
+//                int *nfirst
+//                int *nlast
+// Return Type  : void
+//
+namespace coder {
+namespace internal {
 void quickselect(::coder::array<double, 1U> &v, int n, int vlen, double *vn,
                  int *nfirst, int *nlast)
 {
@@ -125,9 +167,9 @@ void quickselect(::coder::array<double, 1U> &v, int n, int vlen, double *vn,
     int ilast;
     int ipiv;
     int oldnv;
-    boolean_T checkspeed;
-    boolean_T exitg1;
-    boolean_T isslow;
+    bool checkspeed;
+    bool exitg1;
+    bool isslow;
     ipiv = n;
     ia = 0;
     ib = vlen - 1;
@@ -139,7 +181,7 @@ void quickselect(::coder::array<double, 1U> &v, int n, int vlen, double *vn,
     exitg1 = false;
     while ((!exitg1) && (ia + 1 < ib + 1)) {
       double vref;
-      boolean_T guard1{false};
+      bool guard1{false};
       vref = v[ipiv - 1];
       v[ipiv - 1] = v[ib];
       v[ib] = vref;
@@ -180,14 +222,14 @@ void quickselect(::coder::array<double, 1U> &v, int n, int vlen, double *vn,
         int c;
         c = (ib - ia) + 1;
         if (checkspeed) {
-          isslow = (c > oldnv / 2);
+          isslow = (c > ((oldnv + (oldnv < 0)) >> 1));
           oldnv = c;
         }
         checkspeed = !checkspeed;
         if (isslow) {
           while (c > 1) {
             int ngroupsof5;
-            ngroupsof5 = c / 5;
+            ngroupsof5 = div_nzp_s32(c);
             *nlast = c - ngroupsof5 * 5;
             c = ngroupsof5;
             for (int k{0}; k < ngroupsof5; k++) {
@@ -209,7 +251,7 @@ void quickselect(::coder::array<double, 1U> &v, int n, int vlen, double *vn,
             }
           }
         } else if (c >= 3) {
-          ipiv = ia + (c - 1) / 2;
+          ipiv = ia + ((c - 1) >> 1);
           if (v[ia] < v[ipiv]) {
             if (!(v[ipiv] < v[ib])) {
               if (v[ia] < v[ib]) {
@@ -242,4 +284,8 @@ void quickselect(::coder::array<double, 1U> &v, int n, int vlen, double *vn,
 } // namespace internal
 } // namespace coder
 
-// End of code generation (quickselect.cpp)
+//
+// File trailer for quickselect.cpp
+//
+// [EOF]
+//

@@ -2,20 +2,27 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: movSumProdOrMean.cpp
 //
-// movSumProdOrMean.cpp
-//
-// Code generation for function 'movSumProdOrMean'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "movSumProdOrMean.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include "omp.h"
 #include <string.h>
 
 // Function Definitions
+//
+// Arguments    : const ::coder::array<double, 1U> &x
+//                int nx
+//                ::coder::array<double, 1U> &y
+// Return Type  : void
+//
 namespace coder {
 void vmovfun(const ::coder::array<double, 1U> &x, int nx,
              ::coder::array<double, 1U> &y)
@@ -35,6 +42,9 @@ void vmovfun(const ::coder::array<double, 1U> &x, int nx,
   loop_ub = x.size(0);
   for (int i{0}; i < loop_ub; i++) {
     y[i] = 0.0;
+  }
+  if (nx > 2147483646) {
+    check_forloop_overflow_error();
   }
   loop_ub = nx - 1;
 #pragma omp parallel for num_threads(omp_get_max_threads()) private(           \
@@ -62,7 +72,7 @@ void vmovfun(const ::coder::array<double, 1U> &x, int nx,
         nblocks = 1;
       } else {
         firstBlockLength = 1024;
-        nblocks = vlen / 1024;
+        nblocks = vlen >> 10;
         lastBlockLength = vlen - (nblocks << 10);
         if (lastBlockLength > 0) {
           nblocks++;
@@ -94,4 +104,8 @@ void vmovfun(const ::coder::array<double, 1U> &x, int nx,
 
 } // namespace coder
 
-// End of code generation (movSumProdOrMean.cpp)
+//
+// File trailer for movSumProdOrMean.cpp
+//
+// [EOF]
+//

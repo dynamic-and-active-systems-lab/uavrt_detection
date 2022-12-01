@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: int2str.h
 //
-// int2str.h
-//
-// Code generation for function 'int2str'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef INT2STR_H
 #define INT2STR_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include <cstddef>
 #include <cstdlib>
@@ -20,7 +20,13 @@
 namespace coder {
 void int2str(double xin, char s_data[], int s_size[2]);
 
-}
+void int2str(int xin, char s_data[], int s_size[2]);
+
+} // namespace coder
 
 #endif
-// End of code generation (int2str.h)
+//
+// File trailer for int2str.h
+//
+// [EOF]
+//

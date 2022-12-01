@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: fileManager.h
 //
-// fileManager.h
-//
-// Code generation for function 'fileManager'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef FILEMANAGER_H
 #define FILEMANAGER_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -32,4 +32,8 @@ FILE *fileManager(double varargin_1);
 void filedata_init();
 
 #endif
-// End of code generation (fileManager.h)
+//
+// File trailer for fileManager.h
+//
+// [EOF]
+//

@@ -2,13 +2,13 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: string1.cpp
 //
-// string1.cpp
-//
-// Code generation for function 'string1'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "string1.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection_data.h"
@@ -16,16 +16,20 @@
 #include <string.h>
 
 // Variable Definitions
-static const char cv1[18]{'f', 'r', 'e', 'q', 'S', 'e', 'a', 'r', 'c',
+static const char cv3[18]{'f', 'r', 'e', 'q', 'S', 'e', 'a', 'r', 'c',
                           'h', 'H', 'a', 'r', 'd', 'L', 'o', 'c', 'k'};
 
 // Function Definitions
+//
+// Arguments    : void
+// Return Type  : bool
+//
 namespace coder {
-boolean_T b_rtString::b_eq() const
+bool b_rtString::b_eq() const
 {
   static const char b_cv[17]{'f', 'r', 'e', 'q', 'K', 'n', 'o', 'w', 'n',
                              'H', 'a', 'r', 'd', 'L', 'o', 'c', 'k'};
-  boolean_T equal;
+  bool equal;
   equal = false;
   if (Value.size(1) == 17) {
     int kstr;
@@ -48,9 +52,13 @@ boolean_T b_rtString::b_eq() const
   return equal;
 }
 
-boolean_T b_rtString::c_eq() const
+//
+// Arguments    : void
+// Return Type  : bool
+//
+bool b_rtString::c_eq() const
 {
-  boolean_T equal;
+  bool equal;
   equal = false;
   if (Value.size(1) == 18) {
     int kstr;
@@ -59,7 +67,7 @@ boolean_T b_rtString::c_eq() const
     do {
       exitg1 = 0;
       if (kstr < 18) {
-        if (cv2[kstr] != Value[kstr]) {
+        if (cv4[kstr] != Value[kstr]) {
           exitg1 = 1;
         } else {
           kstr++;
@@ -73,11 +81,15 @@ boolean_T b_rtString::c_eq() const
   return equal;
 }
 
-boolean_T b_rtString::d_eq() const
+//
+// Arguments    : void
+// Return Type  : bool
+//
+bool b_rtString::d_eq() const
 {
   static const char b_cv[13]{'f', 'r', 'e', 'q', 'A', 'l', 'l',
                              'N', 'o', 'L', 'o', 'c', 'k'};
-  boolean_T equal;
+  bool equal;
   equal = false;
   if (Value.size(1) == 13) {
     int kstr;
@@ -100,9 +112,13 @@ boolean_T b_rtString::d_eq() const
   return equal;
 }
 
-boolean_T b_rtString::eq() const
+//
+// Arguments    : void
+// Return Type  : bool
+//
+bool b_rtString::eq() const
 {
-  boolean_T equal;
+  bool equal;
   equal = false;
   if (Value.size(1) == 18) {
     int kstr;
@@ -111,7 +127,7 @@ boolean_T b_rtString::eq() const
     do {
       exitg1 = 0;
       if (kstr < 18) {
-        if (cv1[kstr] != Value[kstr]) {
+        if (cv3[kstr] != Value[kstr]) {
           exitg1 = 1;
         } else {
           kstr++;
@@ -125,6 +141,10 @@ boolean_T b_rtString::eq() const
   return equal;
 }
 
+//
+// Arguments    : void
+// Return Type  : void
+//
 void rtString::init()
 {
   static const char b_cv[34]{'d', 'e', 't', 'e', 'c', 't', 'o', 'r', '/',
@@ -136,14 +156,22 @@ void rtString::init()
   }
 }
 
+//
+// Arguments    : void
+// Return Type  : void
+//
 void b_rtString::init()
 {
   Value.set_size(1, 18);
   for (int i{0}; i < 18; i++) {
-    Value[i] = cv1[i];
+    Value[i] = cv3[i];
   }
 }
 
 } // namespace coder
 
-// End of code generation (string1.cpp)
+//
+// File trailer for string1.cpp
+//
+// [EOF]
+//

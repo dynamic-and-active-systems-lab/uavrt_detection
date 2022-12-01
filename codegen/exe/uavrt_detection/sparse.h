@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: sparse.h
 //
-// sparse.h
-//
-// Code generation for function 'sparse'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef SPARSE_H
 #define SPARSE_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -19,7 +19,9 @@
 
 // Type Declarations
 namespace coder {
-class c_sparse;
+class sparse;
+
+class d_sparse;
 
 class g_sparse;
 
@@ -27,11 +29,19 @@ class g_sparse;
 
 // Function Declarations
 namespace coder {
-void i_sparse(const ::coder::array<boolean_T, 2U> &varargin_1, c_sparse *y);
+void i_sparse(const ::coder::array<double, 1U> &varargin_1, g_sparse *y);
 
-void j_sparse(const ::coder::array<double, 1U> &varargin_1, g_sparse *y);
+void i_sparse(const ::coder::array<double, 1U> &varargin_1,
+              const ::coder::array<double, 1U> &varargin_2,
+              const ::coder::array<double, 1U> &varargin_3, sparse *y);
+
+void j_sparse(const ::coder::array<bool, 2U> &varargin_1, d_sparse *y);
 
 } // namespace coder
 
 #endif
-// End of code generation (sparse.h)
+//
+// File trailer for sparse.h
+//
+// [EOF]
+//

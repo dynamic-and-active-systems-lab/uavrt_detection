@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: AsyncBuffercgHelper.h
 //
-// AsyncBuffercgHelper.h
-//
-// Code generation for function 'AsyncBuffercgHelper'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef ASYNCBUFFERCGHELPER_H
 #define ASYNCBUFFERCGHELPER_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include <cstddef>
 #include <cstdlib>
@@ -39,16 +39,16 @@ private:
   void SystemCore_delete();
 
 public:
-  boolean_T matlabCodegenIsDeleted;
+  bool matlabCodegenIsDeleted;
   int isInitialized;
-  boolean_T isSetupComplete;
+  bool isSetupComplete;
   int NumChannels;
   creal32_T Cache[49621];
   int CumulativeOverrun;
   int CumulativeUnderrun;
   int ReadPointer;
   int WritePointer;
-  boolean_T AsyncBuffercgHelper_isInitialized;
+  bool AsyncBuffercgHelper_isInitialized;
 
 private:
   cell_wrap_3 inputVarSize[1];
@@ -69,16 +69,16 @@ private:
   void SystemCore_delete();
 
 public:
-  boolean_T matlabCodegenIsDeleted;
+  bool matlabCodegenIsDeleted;
   int isInitialized;
-  boolean_T isSetupComplete;
+  bool isSetupComplete;
   int NumChannels;
   double Cache[49621];
   int CumulativeOverrun;
   int CumulativeUnderrun;
   int ReadPointer;
   int WritePointer;
-  boolean_T AsyncBuffercgHelper_isInitialized;
+  bool AsyncBuffercgHelper_isInitialized;
 
 private:
   cell_wrap_3 inputVarSize[1];
@@ -89,4 +89,8 @@ private:
 } // namespace coder
 
 #endif
-// End of code generation (AsyncBuffercgHelper.h)
+//
+// File trailer for AsyncBuffercgHelper.h
+//
+// [EOF]
+//

@@ -1,9 +1,9 @@
-###########################################################################
+﻿###########################################################################
 ## Makefile generated for component 'uavrt_detection'. 
 ## 
 ## Makefile     : uavrt_detection_rtw.mk
-## Generated on : Tue Nov 15 11:39:13 2022
-## Final product: $(START_DIR)/uavrt_detection
+## Generated on : Thu Dec 01 10:06:02 2022
+## Final product: $(START_DIR)\uavrt_detection.exe
 ## Product type : executable
 ## 
 ###########################################################################
@@ -15,27 +15,32 @@
 # Macro Descriptions:
 # PRODUCT_NAME            Name of the system to build
 # MAKEFILE                Name of this makefile
+# COMPILER_COMMAND_FILE   Compiler command listing model reference header paths
+# CMD_FILE                Command file
 
 PRODUCT_NAME              = uavrt_detection
 MAKEFILE                  = uavrt_detection_rtw.mk
-MATLAB_ROOT               = ../../../../matlab-extern
-MATLAB_BIN                = /home/dasl/Documents/MATLAB/bin
-MATLAB_ARCH_BIN           = $(MATLAB_BIN)/glnxa64
-START_DIR                 = ../../..
+MATLAB_ROOT               = C:\PROGRA~1\MATLAB
+MATLAB_BIN                = C:\PROGRA~1\MATLAB\bin
+MATLAB_ARCH_BIN           = $(MATLAB_BIN)\win64
+START_DIR                 = H:\repos\uavrt_detection
 TGT_FCN_LIB               = ISO_C++11
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0
 MODEL_HAS_DYNAMICALLY_LOADED_SFCNS = 
-RELATIVE_PATH_TO_ANCHOR   = ../../..
-C_STANDARD_OPTS           = -fwrapv
-CPP_STANDARD_OPTS         = -fwrapv
+RELATIVE_PATH_TO_ANCHOR   = ..\..\..
+COMPILER_COMMAND_FILE     = uavrt_detection_rtw_comp.rsp
+CMD_FILE                  = uavrt_detection_rtw.rsp
+C_STANDARD_OPTS           = 
+CPP_STANDARD_OPTS         = 
+NODEBUG                   = 1
 
 ###########################################################################
 ## TOOLCHAIN SPECIFICATIONS
 ###########################################################################
 
-# Toolchain Name:          GNU gcc/g++ | gmake (64-bit Linux)
-# Supported Version(s):    
+# Toolchain Name:          Microsoft Visual C++ 2019 v16.0 | nmake (64-bit Windows)
+# Supported Version(s):    16.0
 # ToolchainInfo Version:   2022a
 # Specification Revision:  1.0
 # 
@@ -43,17 +48,26 @@ CPP_STANDARD_OPTS         = -fwrapv
 # Macros assumed to be defined elsewhere
 #-------------------------------------------
 
-# C_STANDARD_OPTS
-# CPP_STANDARD_OPTS
+# NODEBUG
+# cvarsdll
+# cvarsmt
+# conlibsmt
+# ldebug
+# conflags
+# cflags
 
 #-----------
 # MACROS
 #-----------
 
-WARN_FLAGS         = -Wall -W -Wwrite-strings -Winline -Wstrict-prototypes -Wnested-externs -Wpointer-arith -Wcast-align
-WARN_FLAGS_MAX     = $(WARN_FLAGS) -Wcast-qual -Wshadow
-CPP_WARN_FLAGS     = -Wall -W -Wwrite-strings -Winline -Wpointer-arith -Wcast-align
-CPP_WARN_FLAGS_MAX = $(CPP_WARN_FLAGS) -Wcast-qual -Wshadow
+MW_EXTERNLIB_DIR    = $(MATLAB_ROOT)\extern\lib\win64\microsoft
+MW_LIB_DIR          = $(MATLAB_ROOT)\lib\win64
+CPU                 = AMD64
+APPVER              = 5.02
+CVARSFLAG           = $(cvarsmt)
+CFLAGS_ADDITIONAL   = -D_CRT_SECURE_NO_WARNINGS
+CPPFLAGS_ADDITIONAL = -EHs -D_CRT_SECURE_NO_WARNINGS /wd4251 /Zc:__cplusplus
+LIBS_TOOLCHAIN      = $(conlibs)
 
 TOOLCHAIN_SRCS = 
 TOOLCHAIN_INCS = 
@@ -63,24 +77,24 @@ TOOLCHAIN_LIBS =
 # BUILD TOOL COMMANDS
 #------------------------
 
-# C Compiler: GNU C Compiler
-CC = gcc
+# C Compiler: Microsoft Visual C Compiler
+CC = cl
 
-# Linker: GNU Linker
-LD = g++
+# Linker: Microsoft Visual C Linker
+LD = link
 
-# C++ Compiler: GNU C++ Compiler
-CPP = g++
+# C++ Compiler: Microsoft Visual C++ Compiler
+CPP = cl
 
-# C++ Linker: GNU C++ Linker
-CPP_LD = g++
+# C++ Linker: Microsoft Visual C++ Linker
+CPP_LD = link
 
-# Archiver: GNU Archiver
-AR = ar
+# Archiver: Microsoft Visual C/C++ Archiver
+AR = lib
 
 # MEX Tool: MEX Tool
 MEX_PATH = $(MATLAB_ARCH_BIN)
-MEX = "$(MEX_PATH)/mex"
+MEX = "$(MEX_PATH)\mex"
 
 # Download: Download
 DOWNLOAD =
@@ -88,51 +102,52 @@ DOWNLOAD =
 # Execute: Execute
 EXECUTE = $(PRODUCT)
 
-# Builder: GMAKE Utility
-MAKE_PATH = %MATLAB%/bin/glnxa64
-MAKE = "$(MAKE_PATH)/gmake"
+# Builder: NMAKE Utility
+MAKE = nmake
 
 
 #-------------------------
 # Directives/Utilities
 #-------------------------
 
-CDEBUG              = -g
-C_OUTPUT_FLAG       = -o
-LDDEBUG             = -g
-OUTPUT_FLAG         = -o
-CPPDEBUG            = -g
-CPP_OUTPUT_FLAG     = -o
-CPPLDDEBUG          = -g
-OUTPUT_FLAG         = -o
+CDEBUG              = -Zi
+C_OUTPUT_FLAG       = -Fo
+LDDEBUG             = /DEBUG
+OUTPUT_FLAG         = -out:
+CPPDEBUG            = -Zi
+CPP_OUTPUT_FLAG     = -Fo
+CPPLDDEBUG          = /DEBUG
+OUTPUT_FLAG         = -out:
 ARDEBUG             =
-STATICLIB_OUTPUT_FLAG =
+STATICLIB_OUTPUT_FLAG = -out:
 MEX_DEBUG           = -g
-RM                  = @rm -f
+RM                  = @del
 ECHO                = @echo
-MV                  = @mv
-RUN                 =
+MV                  = @ren
+RUN                 = @cmd /C
 
 #--------------------------------------
 # "Faster Runs" Build Configuration
 #--------------------------------------
 
-ARFLAGS              = ruvs
-CFLAGS               = -c $(C_STANDARD_OPTS) -fPIC \
-                       -O3 -fno-loop-optimize -fno-aggressive-loop-optimizations
-CPPFLAGS             = -c $(CPP_STANDARD_OPTS) -fPIC \
-                       -O3 -fno-loop-optimize -fno-aggressive-loop-optimizations
-CPP_LDFLAGS          =
-CPP_SHAREDLIB_LDFLAGS  = -shared -Wl,--no-undefined
+ARFLAGS              = /nologo
+CFLAGS               = $(cflags) $(CVARSFLAG) $(CFLAGS_ADDITIONAL) \
+                       /O2 /Oy-
+CPPFLAGS             = /TP $(cflags) $(CVARSFLAG) $(CPPFLAGS_ADDITIONAL) \
+                       /O2 /Oy-
+CPP_LDFLAGS          = $(ldebug) $(conflags) $(LIBS_TOOLCHAIN)
+CPP_SHAREDLIB_LDFLAGS  = $(ldebug) $(conflags) $(LIBS_TOOLCHAIN) \
+                         -dll -def:$(DEF_FILE)
 DOWNLOAD_FLAGS       =
 EXECUTE_FLAGS        =
-LDFLAGS              =
+LDFLAGS              = $(ldebug) $(conflags) $(LIBS_TOOLCHAIN)
 MEX_CPPFLAGS         =
 MEX_CPPLDFLAGS       =
 MEX_CFLAGS           =
 MEX_LDFLAGS          =
 MAKE_FLAGS           = -f $(MAKEFILE)
-SHAREDLIB_LDFLAGS    = -shared -Wl,--no-undefined
+SHAREDLIB_LDFLAGS    = $(ldebug) $(conflags) $(LIBS_TOOLCHAIN) \
+                       -dll -def:$(DEF_FILE)
 
 
 
@@ -140,7 +155,7 @@ SHAREDLIB_LDFLAGS    = -shared -Wl,--no-undefined
 ## OUTPUT INFO
 ###########################################################################
 
-PRODUCT = $(START_DIR)/uavrt_detection
+PRODUCT = $(START_DIR)\uavrt_detection.exe
 PRODUCT_TYPE = "executable"
 BUILD_TYPE = "Executable"
 
@@ -148,7 +163,7 @@ BUILD_TYPE = "Executable"
 ## INCLUDE PATHS
 ###########################################################################
 
-INCLUDES_BUILDINFO = -I$(START_DIR)/codegen/exe/uavrt_detection -I$(START_DIR) -I$(MATLAB_ROOT)/extern/include
+INCLUDES_BUILDINFO = 
 
 INCLUDES = $(INCLUDES_BUILDINFO)
 
@@ -165,7 +180,7 @@ DEFINES = $(DEFINES_CUSTOM) $(DEFINES_STANDARD)
 ## SOURCE FILES
 ###########################################################################
 
-SRCS = $(START_DIR)/udp.cpp $(START_DIR)/codegen/exe/uavrt_detection/coder_posix_time.c $(START_DIR)/codegen/exe/uavrt_detection/uavrt_detection_data.cpp $(START_DIR)/codegen/exe/uavrt_detection/rt_nonfinite.cpp $(START_DIR)/codegen/exe/uavrt_detection/rtGetNaN.cpp $(START_DIR)/codegen/exe/uavrt_detection/rtGetInf.cpp $(START_DIR)/codegen/exe/uavrt_detection/uavrt_detection_initialize.cpp $(START_DIR)/codegen/exe/uavrt_detection/uavrt_detection_terminate.cpp $(START_DIR)/codegen/exe/uavrt_detection/uavrt_detection.cpp $(START_DIR)/codegen/exe/uavrt_detection/fileManager.cpp $(START_DIR)/codegen/exe/uavrt_detection/fgetl.cpp $(START_DIR)/codegen/exe/uavrt_detection/feof.cpp $(START_DIR)/codegen/exe/uavrt_detection/ftell.cpp $(START_DIR)/codegen/exe/uavrt_detection/fseek.cpp $(START_DIR)/codegen/exe/uavrt_detection/find.cpp $(START_DIR)/codegen/exe/uavrt_detection/str2double.cpp $(START_DIR)/codegen/exe/uavrt_detection/str2matrix.cpp $(START_DIR)/codegen/exe/uavrt_detection/validator_check_size.cpp $(START_DIR)/codegen/exe/uavrt_detection/int2str.cpp $(START_DIR)/codegen/exe/uavrt_detection/makepulsestruc.cpp $(START_DIR)/codegen/exe/uavrt_detection/validate_print_arguments.cpp $(START_DIR)/codegen/exe/uavrt_detection/wgn.cpp $(START_DIR)/codegen/exe/uavrt_detection/randn.cpp $(START_DIR)/codegen/exe/uavrt_detection/stft.cpp $(START_DIR)/codegen/exe/uavrt_detection/psdfreqvec.cpp $(START_DIR)/codegen/exe/uavrt_detection/abs.cpp $(START_DIR)/codegen/exe/uavrt_detection/movSumProdOrMean.cpp $(START_DIR)/codegen/exe/uavrt_detection/quickselect.cpp $(START_DIR)/codegen/exe/uavrt_detection/mean.cpp $(START_DIR)/codegen/exe/uavrt_detection/getLocalTime.cpp $(START_DIR)/codegen/exe/uavrt_detection/plus.cpp $(START_DIR)/codegen/exe/uavrt_detection/colon.cpp $(START_DIR)/codegen/exe/uavrt_detection/tic.cpp $(START_DIR)/codegen/exe/uavrt_detection/timeKeeper.cpp $(START_DIR)/codegen/exe/uavrt_detection/diff.cpp $(START_DIR)/codegen/exe/uavrt_detection/sum.cpp $(START_DIR)/codegen/exe/uavrt_detection/toc.cpp $(START_DIR)/codegen/exe/uavrt_detection/linspace.cpp $(START_DIR)/codegen/exe/uavrt_detection/buildtimecorrelatormatrix.cpp $(START_DIR)/codegen/exe/uavrt_detection/unique.cpp $(START_DIR)/codegen/exe/uavrt_detection/sortLE.cpp $(START_DIR)/codegen/exe/uavrt_detection/minOrMax.cpp $(START_DIR)/codegen/exe/uavrt_detection/evfit.cpp $(START_DIR)/codegen/exe/uavrt_detection/fzero.cpp $(START_DIR)/codegen/exe/uavrt_detection/interp1.cpp $(START_DIR)/codegen/exe/uavrt_detection/all.cpp $(START_DIR)/codegen/exe/uavrt_detection/unaryMinOrMax.cpp $(START_DIR)/codegen/exe/uavrt_detection/incohsumtoeplitz.cpp $(START_DIR)/codegen/exe/uavrt_detection/locBsearch.cpp $(START_DIR)/codegen/exe/uavrt_detection/sparse.cpp $(START_DIR)/codegen/exe/uavrt_detection/any1.cpp $(START_DIR)/codegen/exe/uavrt_detection/imresize.cpp $(START_DIR)/codegen/exe/uavrt_detection/repmat.cpp $(START_DIR)/codegen/exe/uavrt_detection/ifWhileCond.cpp $(START_DIR)/codegen/exe/uavrt_detection/blockedSummation.cpp $(START_DIR)/codegen/exe/uavrt_detection/waveformcopy.cpp $(START_DIR)/codegen/exe/uavrt_detection/eml_rand_mt19937ar_stateful.cpp $(START_DIR)/codegen/exe/uavrt_detection/CoderTimeAPI.cpp $(START_DIR)/codegen/exe/uavrt_detection/strcmp.cpp $(START_DIR)/codegen/exe/uavrt_detection/str2double1.cpp $(START_DIR)/codegen/exe/uavrt_detection/sort.cpp $(START_DIR)/codegen/exe/uavrt_detection/sortIdx.cpp $(START_DIR)/codegen/exe/uavrt_detection/eml_rand_mt19937ar.cpp $(START_DIR)/codegen/exe/uavrt_detection/formatSTFTOutput.cpp $(START_DIR)/codegen/exe/uavrt_detection/insertionsort.cpp $(START_DIR)/codegen/exe/uavrt_detection/introsort.cpp $(START_DIR)/codegen/exe/uavrt_detection/heapsort.cpp $(START_DIR)/codegen/exe/uavrt_detection/circshift.cpp $(START_DIR)/codegen/exe/uavrt_detection/fftshift.cpp $(START_DIR)/codegen/exe/uavrt_detection/wfmstft.cpp $(START_DIR)/codegen/exe/uavrt_detection/div.cpp $(START_DIR)/codegen/exe/uavrt_detection/weightingmatrix.cpp $(START_DIR)/codegen/exe/uavrt_detection/assembleWq.cpp $(START_DIR)/codegen/exe/uavrt_detection/waveform.cpp $(START_DIR)/codegen/exe/uavrt_detection/threshold.cpp $(START_DIR)/codegen/exe/uavrt_detection/string1.cpp $(START_DIR)/codegen/exe/uavrt_detection/DetectorConfig.cpp $(START_DIR)/codegen/exe/uavrt_detection/pulsestats.cpp $(START_DIR)/codegen/exe/uavrt_detection/AsyncBuffercgHelper.cpp $(START_DIR)/codegen/exe/uavrt_detection/AsyncBuffer.cpp $(START_DIR)/codegen/exe/uavrt_detection/datetime.cpp $(START_DIR)/codegen/exe/uavrt_detection/sparse1.cpp $(START_DIR)/codegen/exe/uavrt_detection/FFTImplementationCallback.cpp $(START_DIR)/codegen/exe/uavrt_detection/uavrt_detection_rtwutil.cpp $(START_DIR)/codegen/exe/uavrt_detection/examples/main.cpp
+SRCS = $(START_DIR)\udp.cpp $(START_DIR)\codegen\exe\uavrt_detection\coder_posix_time.c $(START_DIR)\codegen\exe\uavrt_detection\uavrt_detection_data.cpp $(START_DIR)\codegen\exe\uavrt_detection\rt_nonfinite.cpp $(START_DIR)\codegen\exe\uavrt_detection\rtGetNaN.cpp $(START_DIR)\codegen\exe\uavrt_detection\rtGetInf.cpp $(START_DIR)\codegen\exe\uavrt_detection\uavrt_detection_initialize.cpp $(START_DIR)\codegen\exe\uavrt_detection\uavrt_detection_terminate.cpp $(START_DIR)\codegen\exe\uavrt_detection\uavrt_detection.cpp $(START_DIR)\codegen\exe\uavrt_detection\fileManager.cpp $(START_DIR)\codegen\exe\uavrt_detection\fgetl.cpp $(START_DIR)\codegen\exe\uavrt_detection\feof.cpp $(START_DIR)\codegen\exe\uavrt_detection\ftell.cpp $(START_DIR)\codegen\exe\uavrt_detection\fseek.cpp $(START_DIR)\codegen\exe\uavrt_detection\find.cpp $(START_DIR)\codegen\exe\uavrt_detection\str2double.cpp $(START_DIR)\codegen\exe\uavrt_detection\str2matrix.cpp $(START_DIR)\codegen\exe\uavrt_detection\validator_check_size.cpp $(START_DIR)\codegen\exe\uavrt_detection\int2str.cpp $(START_DIR)\codegen\exe\uavrt_detection\lower.cpp $(START_DIR)\codegen\exe\uavrt_detection\makepulsestruc.cpp $(START_DIR)\codegen\exe\uavrt_detection\validate_print_arguments.cpp $(START_DIR)\codegen\exe\uavrt_detection\wgn.cpp $(START_DIR)\codegen\exe\uavrt_detection\randn.cpp $(START_DIR)\codegen\exe\uavrt_detection\stft.cpp $(START_DIR)\codegen\exe\uavrt_detection\validateattributes.cpp $(START_DIR)\codegen\exe\uavrt_detection\iseven.cpp $(START_DIR)\codegen\exe\uavrt_detection\computeDFT.cpp $(START_DIR)\codegen\exe\uavrt_detection\psdfreqvec.cpp $(START_DIR)\codegen\exe\uavrt_detection\indexShapeCheck.cpp $(START_DIR)\codegen\exe\uavrt_detection\abs.cpp $(START_DIR)\codegen\exe\uavrt_detection\movSumProdOrMean.cpp $(START_DIR)\codegen\exe\uavrt_detection\quickselect.cpp $(START_DIR)\codegen\exe\uavrt_detection\repmat.cpp $(START_DIR)\codegen\exe\uavrt_detection\assertValidSizeArg.cpp $(START_DIR)\codegen\exe\uavrt_detection\mean.cpp $(START_DIR)\codegen\exe\uavrt_detection\colon.cpp $(START_DIR)\codegen\exe\uavrt_detection\tic.cpp $(START_DIR)\codegen\exe\uavrt_detection\timeKeeper.cpp $(START_DIR)\codegen\exe\uavrt_detection\diff.cpp $(START_DIR)\codegen\exe\uavrt_detection\sum.cpp $(START_DIR)\codegen\exe\uavrt_detection\toc.cpp $(START_DIR)\codegen\exe\uavrt_detection\linspace.cpp $(START_DIR)\codegen\exe\uavrt_detection\interp1.cpp $(START_DIR)\codegen\exe\uavrt_detection\norm.cpp $(START_DIR)\codegen\exe\uavrt_detection\buildtimecorrelatormatrix.cpp $(START_DIR)\codegen\exe\uavrt_detection\unique.cpp $(START_DIR)\codegen\exe\uavrt_detection\sortLE.cpp $(START_DIR)\codegen\exe\uavrt_detection\minOrMax.cpp $(START_DIR)\codegen\exe\uavrt_detection\sparse.cpp $(START_DIR)\codegen\exe\uavrt_detection\unaryMinOrMax.cpp $(START_DIR)\codegen\exe\uavrt_detection\evfit.cpp $(START_DIR)\codegen\exe\uavrt_detection\fzero.cpp $(START_DIR)\codegen\exe\uavrt_detection\allOrAny.cpp $(START_DIR)\codegen\exe\uavrt_detection\all.cpp $(START_DIR)\codegen\exe\uavrt_detection\incohsumtoeplitz.cpp $(START_DIR)\codegen\exe\uavrt_detection\locBsearch.cpp $(START_DIR)\codegen\exe\uavrt_detection\any1.cpp $(START_DIR)\codegen\exe\uavrt_detection\sub2ind.cpp $(START_DIR)\codegen\exe\uavrt_detection\bigProduct.cpp $(START_DIR)\codegen\exe\uavrt_detection\ind2sub.cpp $(START_DIR)\codegen\exe\uavrt_detection\mtimes.cpp $(START_DIR)\codegen\exe\uavrt_detection\imresize.cpp $(START_DIR)\codegen\exe\uavrt_detection\assertCompatibleDims.cpp $(START_DIR)\codegen\exe\uavrt_detection\ifWhileCond.cpp $(START_DIR)\codegen\exe\uavrt_detection\horzcatStructList.cpp $(START_DIR)\codegen\exe\uavrt_detection\blockedSummation.cpp $(START_DIR)\codegen\exe\uavrt_detection\waveformcopy.cpp $(START_DIR)\codegen\exe\uavrt_detection\eml_rand_mt19937ar_stateful.cpp $(START_DIR)\codegen\exe\uavrt_detection\CoderTimeAPI.cpp $(START_DIR)\codegen\exe\uavrt_detection\strcmp.cpp $(START_DIR)\codegen\exe\uavrt_detection\eml_int_forloop_overflow_check.cpp $(START_DIR)\codegen\exe\uavrt_detection\str2double1.cpp $(START_DIR)\codegen\exe\uavrt_detection\nullAssignment.cpp $(START_DIR)\codegen\exe\uavrt_detection\sort.cpp $(START_DIR)\codegen\exe\uavrt_detection\sortIdx.cpp $(START_DIR)\codegen\exe\uavrt_detection\eml_rand_mt19937ar.cpp $(START_DIR)\codegen\exe\uavrt_detection\insertionsort.cpp $(START_DIR)\codegen\exe\uavrt_detection\introsort.cpp $(START_DIR)\codegen\exe\uavrt_detection\heapsort.cpp $(START_DIR)\codegen\exe\uavrt_detection\centerest.cpp $(START_DIR)\codegen\exe\uavrt_detection\circshift.cpp $(START_DIR)\codegen\exe\uavrt_detection\sqrt.cpp $(START_DIR)\codegen\exe\uavrt_detection\log10.cpp $(START_DIR)\codegen\exe\uavrt_detection\fftshift.cpp $(START_DIR)\codegen\exe\uavrt_detection\wfmstft.cpp $(START_DIR)\codegen\exe\uavrt_detection\div.cpp $(START_DIR)\codegen\exe\uavrt_detection\weightingmatrix.cpp $(START_DIR)\codegen\exe\uavrt_detection\assembleWq.cpp $(START_DIR)\codegen\exe\uavrt_detection\waveform.cpp $(START_DIR)\codegen\exe\uavrt_detection\function_handle.cpp $(START_DIR)\codegen\exe\uavrt_detection\vecfind.cpp $(START_DIR)\codegen\exe\uavrt_detection\threshold.cpp $(START_DIR)\codegen\exe\uavrt_detection\string1.cpp $(START_DIR)\codegen\exe\uavrt_detection\DetectorConfig.cpp $(START_DIR)\codegen\exe\uavrt_detection\pulsestats.cpp $(START_DIR)\codegen\exe\uavrt_detection\AsyncBuffercgHelper.cpp $(START_DIR)\codegen\exe\uavrt_detection\AsyncBuffer.cpp $(START_DIR)\codegen\exe\uavrt_detection\sparse1.cpp $(START_DIR)\codegen\exe\uavrt_detection\FFTImplementationCallback.cpp $(START_DIR)\codegen\exe\uavrt_detection\uavrt_detection_rtwutil.cpp
 
 ALL_SRCS = $(SRCS)
 
@@ -173,7 +188,7 @@ ALL_SRCS = $(SRCS)
 ## OBJECTS
 ###########################################################################
 
-OBJS = main.o udp.o coder_posix_time.o uavrt_detection_data.o rt_nonfinite.o rtGetNaN.o rtGetInf.o uavrt_detection_initialize.o uavrt_detection_terminate.o uavrt_detection.o fileManager.o fgetl.o feof.o ftell.o fseek.o find.o str2double.o str2matrix.o validator_check_size.o int2str.o makepulsestruc.o validate_print_arguments.o wgn.o randn.o stft.o psdfreqvec.o abs.o movSumProdOrMean.o quickselect.o mean.o getLocalTime.o plus.o colon.o tic.o timeKeeper.o diff.o sum.o toc.o linspace.o buildtimecorrelatormatrix.o unique.o sortLE.o minOrMax.o evfit.o fzero.o interp1.o all.o unaryMinOrMax.o incohsumtoeplitz.o locBsearch.o sparse.o any1.o imresize.o repmat.o ifWhileCond.o blockedSummation.o waveformcopy.o eml_rand_mt19937ar_stateful.o CoderTimeAPI.o strcmp.o str2double1.o sort.o sortIdx.o eml_rand_mt19937ar.o formatSTFTOutput.o insertionsort.o introsort.o heapsort.o circshift.o fftshift.o wfmstft.o div.o weightingmatrix.o assembleWq.o waveform.o threshold.o string1.o DetectorConfig.o pulsestats.o AsyncBuffercgHelper.o AsyncBuffer.o datetime.o sparse1.o FFTImplementationCallback.o uavrt_detection_rtwutil.o
+OBJS = udp.obj coder_posix_time.obj uavrt_detection_data.obj rt_nonfinite.obj rtGetNaN.obj rtGetInf.obj uavrt_detection_initialize.obj uavrt_detection_terminate.obj uavrt_detection.obj fileManager.obj fgetl.obj feof.obj ftell.obj fseek.obj find.obj str2double.obj str2matrix.obj validator_check_size.obj int2str.obj lower.obj makepulsestruc.obj validate_print_arguments.obj wgn.obj randn.obj stft.obj validateattributes.obj iseven.obj computeDFT.obj psdfreqvec.obj indexShapeCheck.obj abs.obj movSumProdOrMean.obj quickselect.obj repmat.obj assertValidSizeArg.obj mean.obj colon.obj tic.obj timeKeeper.obj diff.obj sum.obj toc.obj linspace.obj interp1.obj norm.obj buildtimecorrelatormatrix.obj unique.obj sortLE.obj minOrMax.obj sparse.obj unaryMinOrMax.obj evfit.obj fzero.obj allOrAny.obj all.obj incohsumtoeplitz.obj locBsearch.obj any1.obj sub2ind.obj bigProduct.obj ind2sub.obj mtimes.obj imresize.obj assertCompatibleDims.obj ifWhileCond.obj horzcatStructList.obj blockedSummation.obj waveformcopy.obj eml_rand_mt19937ar_stateful.obj CoderTimeAPI.obj strcmp.obj eml_int_forloop_overflow_check.obj str2double1.obj nullAssignment.obj sort.obj sortIdx.obj eml_rand_mt19937ar.obj insertionsort.obj introsort.obj heapsort.obj centerest.obj circshift.obj sqrt.obj log10.obj fftshift.obj wfmstft.obj div.obj weightingmatrix.obj assembleWq.obj waveform.obj function_handle.obj vecfind.obj threshold.obj string1.obj DetectorConfig.obj pulsestats.obj AsyncBuffercgHelper.obj AsyncBuffer.obj sparse1.obj FFTImplementationCallback.obj uavrt_detection_rtwutil.obj
 
 ALL_OBJS = $(OBJS)
 
@@ -193,7 +208,7 @@ LIBS =
 ## SYSTEM LIBRARIES
 ###########################################################################
 
-SYSTEM_LIBS =  -L"$(MATLAB_ROOT)/sys/os/glnxa64" -lm -lstdc++ -lgomp
+SYSTEM_LIBS =  /LIBPATH:"$(MATLAB_ROOT)\bin\win64" "$(MATLAB_ROOT)\bin\win64\libiomp5md.lib"
 
 ###########################################################################
 ## ADDITIONAL TOOLCHAIN FLAGS
@@ -203,40 +218,78 @@ SYSTEM_LIBS =  -L"$(MATLAB_ROOT)/sys/os/glnxa64" -lm -lstdc++ -lgomp
 # C Compiler
 #---------------
 
-CFLAGS_OPTS = -fopenmp
-CFLAGS_BASIC = $(DEFINES) $(INCLUDES)
+CFLAGS_ = /source-charset:utf-8
+CFLAGS_OPTS = /openmp /wd4101
+CFLAGS_BASIC = $(DEFINES) @$(COMPILER_COMMAND_FILE)
 
-CFLAGS += $(CFLAGS_OPTS) $(CFLAGS_BASIC)
+CFLAGS = $(CFLAGS) $(CFLAGS_) $(CFLAGS_OPTS) $(CFLAGS_BASIC)
 
 #-----------------
 # C++ Compiler
 #-----------------
 
-CPPFLAGS_OPTS = -fopenmp
-CPPFLAGS_BASIC = $(DEFINES) $(INCLUDES)
+CPPFLAGS_ = /source-charset:utf-8
+CPPFLAGS_OPTS = /openmp /wd4101
+CPPFLAGS_BASIC = $(DEFINES) @$(COMPILER_COMMAND_FILE)
 
-CPPFLAGS += $(CPPFLAGS_OPTS) $(CPPFLAGS_BASIC)
+CPPFLAGS = $(CPPFLAGS) $(CPPFLAGS_) $(CPPFLAGS_OPTS) $(CPPFLAGS_BASIC)
+
+#---------------
+# C++ Linker
+#---------------
+
+CPP_LDFLAGS_ = /nodefaultlib:vcomp  
+
+CPP_LDFLAGS = $(CPP_LDFLAGS) $(CPP_LDFLAGS_)
+
+#------------------------------
+# C++ Shared Library Linker
+#------------------------------
+
+CPP_SHAREDLIB_LDFLAGS_ = /nodefaultlib:vcomp  
+
+CPP_SHAREDLIB_LDFLAGS = $(CPP_SHAREDLIB_LDFLAGS) $(CPP_SHAREDLIB_LDFLAGS_)
+
+#-----------
+# Linker
+#-----------
+
+LDFLAGS_ = /nodefaultlib:vcomp  
+
+LDFLAGS = $(LDFLAGS) $(LDFLAGS_)
+
+#--------------------------
+# Shared Library Linker
+#--------------------------
+
+SHAREDLIB_LDFLAGS_ = /nodefaultlib:vcomp  
+
+SHAREDLIB_LDFLAGS = $(SHAREDLIB_LDFLAGS) $(SHAREDLIB_LDFLAGS_)
 
 ###########################################################################
 ## INLINED COMMANDS
 ###########################################################################
 
+
+!include $(MATLAB_ROOT)\rtw\c\tools\vcdefs.mak
+
+
 ###########################################################################
 ## PHONY TARGETS
 ###########################################################################
 
-.PHONY : all build buildobj clean info prebuild download execute
+.PHONY : all build buildobj clean info prebuild download execute set_environment_variables
 
 
 all : build
-	@echo "### Successfully generated all binary outputs."
+	@cmd /C "@echo ### Successfully generated all binary outputs."
 
 
-build : prebuild $(PRODUCT)
+build : set_environment_variables prebuild $(PRODUCT)
 
 
-buildobj : prebuild $(OBJS) $(PREBUILT_OBJS)
-	@echo "### Successfully generated all binary outputs."
+buildobj : set_environment_variables prebuild $(OBJS) $(PREBUILT_OBJS)
+	@cmd /C "@echo ### Successfully generated all binary outputs."
 
 
 prebuild : 
@@ -246,9 +299,14 @@ download : $(PRODUCT)
 
 
 execute : download
-	@echo "### Invoking postbuild tool "Execute" ..."
+	@cmd /C "@echo ### Invoking postbuild tool "Execute" ..."
 	$(EXECUTE) $(EXECUTE_FLAGS)
-	@echo "### Done invoking postbuild tool."
+	@cmd /C "@echo ### Done invoking postbuild tool."
+
+
+set_environment_variables : 
+	@set INCLUDE=$(INCLUDES);$(INCLUDE)
+	@set LIB=$(LIB)
 
 
 ###########################################################################
@@ -260,9 +318,9 @@ execute : download
 #-------------------------------------------
 
 $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
-	@echo "### Creating standalone executable "$(PRODUCT)" ..."
-	$(CPP_LD) $(CPP_LDFLAGS) -o $(PRODUCT) $(OBJS) $(SYSTEM_LIBS) $(TOOLCHAIN_LIBS)
-	@echo "### Created: $(PRODUCT)"
+	@cmd /C "@echo ### Creating standalone executable "$(PRODUCT)" ..."
+	$(CPP_LD) $(CPP_LDFLAGS) -out:$(PRODUCT) @$(CMD_FILE) $(SYSTEM_LIBS) $(TOOLCHAIN_LIBS)
+	@cmd /C "@echo ### Created: $(PRODUCT)"
 
 
 ###########################################################################
@@ -273,382 +331,447 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
 # SOURCE-TO-OBJECT
 #---------------------
 
-%.o : %.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+.c.obj :
+	$(CC) $(CFLAGS) -Fo"$@" "$<"
 
 
-%.o : %.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+.cpp.obj :
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$<"
 
 
-%.o : $(RELATIVE_PATH_TO_ANCHOR)/%.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+{$(RELATIVE_PATH_TO_ANCHOR)}.c.obj :
+	$(CC) $(CFLAGS) -Fo"$@" "$<"
 
 
-%.o : $(RELATIVE_PATH_TO_ANCHOR)/%.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+{$(RELATIVE_PATH_TO_ANCHOR)}.cpp.obj :
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$<"
 
 
-%.o : $(START_DIR)/codegen/exe/uavrt_detection/%.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+{$(START_DIR)\codegen\exe\uavrt_detection}.c.obj :
+	$(CC) $(CFLAGS) -Fo"$@" "$<"
 
 
-%.o : $(START_DIR)/codegen/exe/uavrt_detection/%.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+{$(START_DIR)\codegen\exe\uavrt_detection}.cpp.obj :
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$<"
 
 
-%.o : $(START_DIR)/%.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+{$(START_DIR)}.c.obj :
+	$(CC) $(CFLAGS) -Fo"$@" "$<"
 
 
-%.o : $(START_DIR)/%.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+{$(START_DIR)}.cpp.obj :
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$<"
 
 
-udp.o : $(START_DIR)/udp.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+udp.obj : "$(START_DIR)\udp.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\udp.cpp"
 
 
-coder_posix_time.o : $(START_DIR)/codegen/exe/uavrt_detection/coder_posix_time.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+coder_posix_time.obj : "$(START_DIR)\codegen\exe\uavrt_detection\coder_posix_time.c"
+	$(CC) $(CFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\coder_posix_time.c"
 
 
-uavrt_detection_data.o : $(START_DIR)/codegen/exe/uavrt_detection/uavrt_detection_data.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+uavrt_detection_data.obj : "$(START_DIR)\codegen\exe\uavrt_detection\uavrt_detection_data.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\uavrt_detection_data.cpp"
 
 
-rt_nonfinite.o : $(START_DIR)/codegen/exe/uavrt_detection/rt_nonfinite.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+rt_nonfinite.obj : "$(START_DIR)\codegen\exe\uavrt_detection\rt_nonfinite.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\rt_nonfinite.cpp"
 
 
-rtGetNaN.o : $(START_DIR)/codegen/exe/uavrt_detection/rtGetNaN.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+rtGetNaN.obj : "$(START_DIR)\codegen\exe\uavrt_detection\rtGetNaN.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\rtGetNaN.cpp"
 
 
-rtGetInf.o : $(START_DIR)/codegen/exe/uavrt_detection/rtGetInf.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+rtGetInf.obj : "$(START_DIR)\codegen\exe\uavrt_detection\rtGetInf.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\rtGetInf.cpp"
 
 
-uavrt_detection_initialize.o : $(START_DIR)/codegen/exe/uavrt_detection/uavrt_detection_initialize.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+uavrt_detection_initialize.obj : "$(START_DIR)\codegen\exe\uavrt_detection\uavrt_detection_initialize.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\uavrt_detection_initialize.cpp"
 
 
-uavrt_detection_terminate.o : $(START_DIR)/codegen/exe/uavrt_detection/uavrt_detection_terminate.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+uavrt_detection_terminate.obj : "$(START_DIR)\codegen\exe\uavrt_detection\uavrt_detection_terminate.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\uavrt_detection_terminate.cpp"
 
 
-uavrt_detection.o : $(START_DIR)/codegen/exe/uavrt_detection/uavrt_detection.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+uavrt_detection.obj : "$(START_DIR)\codegen\exe\uavrt_detection\uavrt_detection.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\uavrt_detection.cpp"
 
 
-fileManager.o : $(START_DIR)/codegen/exe/uavrt_detection/fileManager.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+fileManager.obj : "$(START_DIR)\codegen\exe\uavrt_detection\fileManager.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\fileManager.cpp"
 
 
-fgetl.o : $(START_DIR)/codegen/exe/uavrt_detection/fgetl.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+fgetl.obj : "$(START_DIR)\codegen\exe\uavrt_detection\fgetl.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\fgetl.cpp"
 
 
-feof.o : $(START_DIR)/codegen/exe/uavrt_detection/feof.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+feof.obj : "$(START_DIR)\codegen\exe\uavrt_detection\feof.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\feof.cpp"
 
 
-ftell.o : $(START_DIR)/codegen/exe/uavrt_detection/ftell.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+ftell.obj : "$(START_DIR)\codegen\exe\uavrt_detection\ftell.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\ftell.cpp"
 
 
-fseek.o : $(START_DIR)/codegen/exe/uavrt_detection/fseek.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+fseek.obj : "$(START_DIR)\codegen\exe\uavrt_detection\fseek.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\fseek.cpp"
 
 
-find.o : $(START_DIR)/codegen/exe/uavrt_detection/find.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+find.obj : "$(START_DIR)\codegen\exe\uavrt_detection\find.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\find.cpp"
 
 
-str2double.o : $(START_DIR)/codegen/exe/uavrt_detection/str2double.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+str2double.obj : "$(START_DIR)\codegen\exe\uavrt_detection\str2double.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\str2double.cpp"
 
 
-str2matrix.o : $(START_DIR)/codegen/exe/uavrt_detection/str2matrix.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+str2matrix.obj : "$(START_DIR)\codegen\exe\uavrt_detection\str2matrix.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\str2matrix.cpp"
 
 
-validator_check_size.o : $(START_DIR)/codegen/exe/uavrt_detection/validator_check_size.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+validator_check_size.obj : "$(START_DIR)\codegen\exe\uavrt_detection\validator_check_size.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\validator_check_size.cpp"
 
 
-int2str.o : $(START_DIR)/codegen/exe/uavrt_detection/int2str.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+int2str.obj : "$(START_DIR)\codegen\exe\uavrt_detection\int2str.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\int2str.cpp"
 
 
-makepulsestruc.o : $(START_DIR)/codegen/exe/uavrt_detection/makepulsestruc.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+lower.obj : "$(START_DIR)\codegen\exe\uavrt_detection\lower.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\lower.cpp"
 
 
-validate_print_arguments.o : $(START_DIR)/codegen/exe/uavrt_detection/validate_print_arguments.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+makepulsestruc.obj : "$(START_DIR)\codegen\exe\uavrt_detection\makepulsestruc.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\makepulsestruc.cpp"
 
 
-wgn.o : $(START_DIR)/codegen/exe/uavrt_detection/wgn.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+validate_print_arguments.obj : "$(START_DIR)\codegen\exe\uavrt_detection\validate_print_arguments.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\validate_print_arguments.cpp"
 
 
-randn.o : $(START_DIR)/codegen/exe/uavrt_detection/randn.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+wgn.obj : "$(START_DIR)\codegen\exe\uavrt_detection\wgn.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\wgn.cpp"
 
 
-stft.o : $(START_DIR)/codegen/exe/uavrt_detection/stft.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+randn.obj : "$(START_DIR)\codegen\exe\uavrt_detection\randn.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\randn.cpp"
 
 
-psdfreqvec.o : $(START_DIR)/codegen/exe/uavrt_detection/psdfreqvec.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+stft.obj : "$(START_DIR)\codegen\exe\uavrt_detection\stft.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\stft.cpp"
 
 
-abs.o : $(START_DIR)/codegen/exe/uavrt_detection/abs.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+validateattributes.obj : "$(START_DIR)\codegen\exe\uavrt_detection\validateattributes.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\validateattributes.cpp"
 
 
-movSumProdOrMean.o : $(START_DIR)/codegen/exe/uavrt_detection/movSumProdOrMean.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+iseven.obj : "$(START_DIR)\codegen\exe\uavrt_detection\iseven.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\iseven.cpp"
 
 
-quickselect.o : $(START_DIR)/codegen/exe/uavrt_detection/quickselect.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+computeDFT.obj : "$(START_DIR)\codegen\exe\uavrt_detection\computeDFT.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\computeDFT.cpp"
 
 
-mean.o : $(START_DIR)/codegen/exe/uavrt_detection/mean.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+psdfreqvec.obj : "$(START_DIR)\codegen\exe\uavrt_detection\psdfreqvec.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\psdfreqvec.cpp"
 
 
-getLocalTime.o : $(START_DIR)/codegen/exe/uavrt_detection/getLocalTime.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+indexShapeCheck.obj : "$(START_DIR)\codegen\exe\uavrt_detection\indexShapeCheck.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\indexShapeCheck.cpp"
 
 
-plus.o : $(START_DIR)/codegen/exe/uavrt_detection/plus.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+abs.obj : "$(START_DIR)\codegen\exe\uavrt_detection\abs.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\abs.cpp"
 
 
-colon.o : $(START_DIR)/codegen/exe/uavrt_detection/colon.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+movSumProdOrMean.obj : "$(START_DIR)\codegen\exe\uavrt_detection\movSumProdOrMean.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\movSumProdOrMean.cpp"
 
 
-tic.o : $(START_DIR)/codegen/exe/uavrt_detection/tic.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+quickselect.obj : "$(START_DIR)\codegen\exe\uavrt_detection\quickselect.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\quickselect.cpp"
 
 
-timeKeeper.o : $(START_DIR)/codegen/exe/uavrt_detection/timeKeeper.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+repmat.obj : "$(START_DIR)\codegen\exe\uavrt_detection\repmat.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\repmat.cpp"
 
 
-diff.o : $(START_DIR)/codegen/exe/uavrt_detection/diff.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+assertValidSizeArg.obj : "$(START_DIR)\codegen\exe\uavrt_detection\assertValidSizeArg.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\assertValidSizeArg.cpp"
 
 
-sum.o : $(START_DIR)/codegen/exe/uavrt_detection/sum.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+mean.obj : "$(START_DIR)\codegen\exe\uavrt_detection\mean.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\mean.cpp"
 
 
-toc.o : $(START_DIR)/codegen/exe/uavrt_detection/toc.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+colon.obj : "$(START_DIR)\codegen\exe\uavrt_detection\colon.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\colon.cpp"
 
 
-linspace.o : $(START_DIR)/codegen/exe/uavrt_detection/linspace.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+tic.obj : "$(START_DIR)\codegen\exe\uavrt_detection\tic.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\tic.cpp"
 
 
-buildtimecorrelatormatrix.o : $(START_DIR)/codegen/exe/uavrt_detection/buildtimecorrelatormatrix.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+timeKeeper.obj : "$(START_DIR)\codegen\exe\uavrt_detection\timeKeeper.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\timeKeeper.cpp"
 
 
-unique.o : $(START_DIR)/codegen/exe/uavrt_detection/unique.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+diff.obj : "$(START_DIR)\codegen\exe\uavrt_detection\diff.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\diff.cpp"
 
 
-sortLE.o : $(START_DIR)/codegen/exe/uavrt_detection/sortLE.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+sum.obj : "$(START_DIR)\codegen\exe\uavrt_detection\sum.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\sum.cpp"
 
 
-minOrMax.o : $(START_DIR)/codegen/exe/uavrt_detection/minOrMax.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+toc.obj : "$(START_DIR)\codegen\exe\uavrt_detection\toc.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\toc.cpp"
 
 
-evfit.o : $(START_DIR)/codegen/exe/uavrt_detection/evfit.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+linspace.obj : "$(START_DIR)\codegen\exe\uavrt_detection\linspace.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\linspace.cpp"
 
 
-fzero.o : $(START_DIR)/codegen/exe/uavrt_detection/fzero.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+interp1.obj : "$(START_DIR)\codegen\exe\uavrt_detection\interp1.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\interp1.cpp"
 
 
-interp1.o : $(START_DIR)/codegen/exe/uavrt_detection/interp1.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+norm.obj : "$(START_DIR)\codegen\exe\uavrt_detection\norm.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\norm.cpp"
 
 
-all.o : $(START_DIR)/codegen/exe/uavrt_detection/all.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+buildtimecorrelatormatrix.obj : "$(START_DIR)\codegen\exe\uavrt_detection\buildtimecorrelatormatrix.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\buildtimecorrelatormatrix.cpp"
 
 
-unaryMinOrMax.o : $(START_DIR)/codegen/exe/uavrt_detection/unaryMinOrMax.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+unique.obj : "$(START_DIR)\codegen\exe\uavrt_detection\unique.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\unique.cpp"
 
 
-incohsumtoeplitz.o : $(START_DIR)/codegen/exe/uavrt_detection/incohsumtoeplitz.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+sortLE.obj : "$(START_DIR)\codegen\exe\uavrt_detection\sortLE.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\sortLE.cpp"
 
 
-locBsearch.o : $(START_DIR)/codegen/exe/uavrt_detection/locBsearch.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+minOrMax.obj : "$(START_DIR)\codegen\exe\uavrt_detection\minOrMax.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\minOrMax.cpp"
 
 
-sparse.o : $(START_DIR)/codegen/exe/uavrt_detection/sparse.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+sparse.obj : "$(START_DIR)\codegen\exe\uavrt_detection\sparse.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\sparse.cpp"
 
 
-any1.o : $(START_DIR)/codegen/exe/uavrt_detection/any1.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+unaryMinOrMax.obj : "$(START_DIR)\codegen\exe\uavrt_detection\unaryMinOrMax.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\unaryMinOrMax.cpp"
 
 
-imresize.o : $(START_DIR)/codegen/exe/uavrt_detection/imresize.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+evfit.obj : "$(START_DIR)\codegen\exe\uavrt_detection\evfit.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\evfit.cpp"
 
 
-repmat.o : $(START_DIR)/codegen/exe/uavrt_detection/repmat.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+fzero.obj : "$(START_DIR)\codegen\exe\uavrt_detection\fzero.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\fzero.cpp"
 
 
-ifWhileCond.o : $(START_DIR)/codegen/exe/uavrt_detection/ifWhileCond.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+allOrAny.obj : "$(START_DIR)\codegen\exe\uavrt_detection\allOrAny.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\allOrAny.cpp"
 
 
-blockedSummation.o : $(START_DIR)/codegen/exe/uavrt_detection/blockedSummation.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+all.obj : "$(START_DIR)\codegen\exe\uavrt_detection\all.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\all.cpp"
 
 
-waveformcopy.o : $(START_DIR)/codegen/exe/uavrt_detection/waveformcopy.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+incohsumtoeplitz.obj : "$(START_DIR)\codegen\exe\uavrt_detection\incohsumtoeplitz.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\incohsumtoeplitz.cpp"
 
 
-eml_rand_mt19937ar_stateful.o : $(START_DIR)/codegen/exe/uavrt_detection/eml_rand_mt19937ar_stateful.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+locBsearch.obj : "$(START_DIR)\codegen\exe\uavrt_detection\locBsearch.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\locBsearch.cpp"
 
 
-CoderTimeAPI.o : $(START_DIR)/codegen/exe/uavrt_detection/CoderTimeAPI.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+any1.obj : "$(START_DIR)\codegen\exe\uavrt_detection\any1.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\any1.cpp"
 
 
-strcmp.o : $(START_DIR)/codegen/exe/uavrt_detection/strcmp.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+sub2ind.obj : "$(START_DIR)\codegen\exe\uavrt_detection\sub2ind.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\sub2ind.cpp"
 
 
-str2double1.o : $(START_DIR)/codegen/exe/uavrt_detection/str2double1.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+bigProduct.obj : "$(START_DIR)\codegen\exe\uavrt_detection\bigProduct.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\bigProduct.cpp"
 
 
-sort.o : $(START_DIR)/codegen/exe/uavrt_detection/sort.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+ind2sub.obj : "$(START_DIR)\codegen\exe\uavrt_detection\ind2sub.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\ind2sub.cpp"
 
 
-sortIdx.o : $(START_DIR)/codegen/exe/uavrt_detection/sortIdx.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+mtimes.obj : "$(START_DIR)\codegen\exe\uavrt_detection\mtimes.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\mtimes.cpp"
 
 
-eml_rand_mt19937ar.o : $(START_DIR)/codegen/exe/uavrt_detection/eml_rand_mt19937ar.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+imresize.obj : "$(START_DIR)\codegen\exe\uavrt_detection\imresize.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\imresize.cpp"
 
 
-formatSTFTOutput.o : $(START_DIR)/codegen/exe/uavrt_detection/formatSTFTOutput.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+assertCompatibleDims.obj : "$(START_DIR)\codegen\exe\uavrt_detection\assertCompatibleDims.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\assertCompatibleDims.cpp"
 
 
-insertionsort.o : $(START_DIR)/codegen/exe/uavrt_detection/insertionsort.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+ifWhileCond.obj : "$(START_DIR)\codegen\exe\uavrt_detection\ifWhileCond.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\ifWhileCond.cpp"
 
 
-introsort.o : $(START_DIR)/codegen/exe/uavrt_detection/introsort.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+horzcatStructList.obj : "$(START_DIR)\codegen\exe\uavrt_detection\horzcatStructList.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\horzcatStructList.cpp"
 
 
-heapsort.o : $(START_DIR)/codegen/exe/uavrt_detection/heapsort.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+blockedSummation.obj : "$(START_DIR)\codegen\exe\uavrt_detection\blockedSummation.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\blockedSummation.cpp"
 
 
-circshift.o : $(START_DIR)/codegen/exe/uavrt_detection/circshift.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+waveformcopy.obj : "$(START_DIR)\codegen\exe\uavrt_detection\waveformcopy.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\waveformcopy.cpp"
 
 
-fftshift.o : $(START_DIR)/codegen/exe/uavrt_detection/fftshift.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+eml_rand_mt19937ar_stateful.obj : "$(START_DIR)\codegen\exe\uavrt_detection\eml_rand_mt19937ar_stateful.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\eml_rand_mt19937ar_stateful.cpp"
 
 
-wfmstft.o : $(START_DIR)/codegen/exe/uavrt_detection/wfmstft.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+CoderTimeAPI.obj : "$(START_DIR)\codegen\exe\uavrt_detection\CoderTimeAPI.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\CoderTimeAPI.cpp"
 
 
-div.o : $(START_DIR)/codegen/exe/uavrt_detection/div.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+strcmp.obj : "$(START_DIR)\codegen\exe\uavrt_detection\strcmp.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\strcmp.cpp"
 
 
-weightingmatrix.o : $(START_DIR)/codegen/exe/uavrt_detection/weightingmatrix.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+eml_int_forloop_overflow_check.obj : "$(START_DIR)\codegen\exe\uavrt_detection\eml_int_forloop_overflow_check.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\eml_int_forloop_overflow_check.cpp"
 
 
-assembleWq.o : $(START_DIR)/codegen/exe/uavrt_detection/assembleWq.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+str2double1.obj : "$(START_DIR)\codegen\exe\uavrt_detection\str2double1.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\str2double1.cpp"
 
 
-waveform.o : $(START_DIR)/codegen/exe/uavrt_detection/waveform.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+nullAssignment.obj : "$(START_DIR)\codegen\exe\uavrt_detection\nullAssignment.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\nullAssignment.cpp"
 
 
-threshold.o : $(START_DIR)/codegen/exe/uavrt_detection/threshold.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+sort.obj : "$(START_DIR)\codegen\exe\uavrt_detection\sort.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\sort.cpp"
 
 
-string1.o : $(START_DIR)/codegen/exe/uavrt_detection/string1.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+sortIdx.obj : "$(START_DIR)\codegen\exe\uavrt_detection\sortIdx.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\sortIdx.cpp"
 
 
-DetectorConfig.o : $(START_DIR)/codegen/exe/uavrt_detection/DetectorConfig.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+eml_rand_mt19937ar.obj : "$(START_DIR)\codegen\exe\uavrt_detection\eml_rand_mt19937ar.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\eml_rand_mt19937ar.cpp"
 
 
-pulsestats.o : $(START_DIR)/codegen/exe/uavrt_detection/pulsestats.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+insertionsort.obj : "$(START_DIR)\codegen\exe\uavrt_detection\insertionsort.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\insertionsort.cpp"
 
 
-AsyncBuffercgHelper.o : $(START_DIR)/codegen/exe/uavrt_detection/AsyncBuffercgHelper.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+introsort.obj : "$(START_DIR)\codegen\exe\uavrt_detection\introsort.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\introsort.cpp"
 
 
-AsyncBuffer.o : $(START_DIR)/codegen/exe/uavrt_detection/AsyncBuffer.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+heapsort.obj : "$(START_DIR)\codegen\exe\uavrt_detection\heapsort.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\heapsort.cpp"
 
 
-datetime.o : $(START_DIR)/codegen/exe/uavrt_detection/datetime.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+centerest.obj : "$(START_DIR)\codegen\exe\uavrt_detection\centerest.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\centerest.cpp"
 
 
-sparse1.o : $(START_DIR)/codegen/exe/uavrt_detection/sparse1.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+circshift.obj : "$(START_DIR)\codegen\exe\uavrt_detection\circshift.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\circshift.cpp"
 
 
-FFTImplementationCallback.o : $(START_DIR)/codegen/exe/uavrt_detection/FFTImplementationCallback.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+sqrt.obj : "$(START_DIR)\codegen\exe\uavrt_detection\sqrt.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\sqrt.cpp"
 
 
-uavrt_detection_rtwutil.o : $(START_DIR)/codegen/exe/uavrt_detection/uavrt_detection_rtwutil.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+log10.obj : "$(START_DIR)\codegen\exe\uavrt_detection\log10.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\log10.cpp"
 
 
-main.o : $(START_DIR)/codegen/exe/uavrt_detection/examples/main.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+fftshift.obj : "$(START_DIR)\codegen\exe\uavrt_detection\fftshift.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\fftshift.cpp"
+
+
+wfmstft.obj : "$(START_DIR)\codegen\exe\uavrt_detection\wfmstft.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\wfmstft.cpp"
+
+
+div.obj : "$(START_DIR)\codegen\exe\uavrt_detection\div.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\div.cpp"
+
+
+weightingmatrix.obj : "$(START_DIR)\codegen\exe\uavrt_detection\weightingmatrix.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\weightingmatrix.cpp"
+
+
+assembleWq.obj : "$(START_DIR)\codegen\exe\uavrt_detection\assembleWq.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\assembleWq.cpp"
+
+
+waveform.obj : "$(START_DIR)\codegen\exe\uavrt_detection\waveform.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\waveform.cpp"
+
+
+function_handle.obj : "$(START_DIR)\codegen\exe\uavrt_detection\function_handle.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\function_handle.cpp"
+
+
+vecfind.obj : "$(START_DIR)\codegen\exe\uavrt_detection\vecfind.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\vecfind.cpp"
+
+
+threshold.obj : "$(START_DIR)\codegen\exe\uavrt_detection\threshold.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\threshold.cpp"
+
+
+string1.obj : "$(START_DIR)\codegen\exe\uavrt_detection\string1.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\string1.cpp"
+
+
+DetectorConfig.obj : "$(START_DIR)\codegen\exe\uavrt_detection\DetectorConfig.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\DetectorConfig.cpp"
+
+
+pulsestats.obj : "$(START_DIR)\codegen\exe\uavrt_detection\pulsestats.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\pulsestats.cpp"
+
+
+AsyncBuffercgHelper.obj : "$(START_DIR)\codegen\exe\uavrt_detection\AsyncBuffercgHelper.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\AsyncBuffercgHelper.cpp"
+
+
+AsyncBuffer.obj : "$(START_DIR)\codegen\exe\uavrt_detection\AsyncBuffer.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\AsyncBuffer.cpp"
+
+
+sparse1.obj : "$(START_DIR)\codegen\exe\uavrt_detection\sparse1.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\sparse1.cpp"
+
+
+FFTImplementationCallback.obj : "$(START_DIR)\codegen\exe\uavrt_detection\FFTImplementationCallback.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\FFTImplementationCallback.cpp"
+
+
+uavrt_detection_rtwutil.obj : "$(START_DIR)\codegen\exe\uavrt_detection\uavrt_detection_rtwutil.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\codegen\exe\uavrt_detection\uavrt_detection_rtwutil.cpp"
+
 
 ###########################################################################
 ## DEPENDENCIES
 ###########################################################################
 
-$(ALL_OBJS) : rtw_proj.tmw $(MAKEFILE)
+$(ALL_OBJS) : rtw_proj.tmw $(COMPILER_COMMAND_FILE) $(MAKEFILE)
 
 
 ###########################################################################
@@ -656,36 +779,36 @@ $(ALL_OBJS) : rtw_proj.tmw $(MAKEFILE)
 ###########################################################################
 
 info : 
-	@echo "### PRODUCT = $(PRODUCT)"
-	@echo "### PRODUCT_TYPE = $(PRODUCT_TYPE)"
-	@echo "### BUILD_TYPE = $(BUILD_TYPE)"
-	@echo "### INCLUDES = $(INCLUDES)"
-	@echo "### DEFINES = $(DEFINES)"
-	@echo "### ALL_SRCS = $(ALL_SRCS)"
-	@echo "### ALL_OBJS = $(ALL_OBJS)"
-	@echo "### LIBS = $(LIBS)"
-	@echo "### MODELREF_LIBS = $(MODELREF_LIBS)"
-	@echo "### SYSTEM_LIBS = $(SYSTEM_LIBS)"
-	@echo "### TOOLCHAIN_LIBS = $(TOOLCHAIN_LIBS)"
-	@echo "### CFLAGS = $(CFLAGS)"
-	@echo "### LDFLAGS = $(LDFLAGS)"
-	@echo "### SHAREDLIB_LDFLAGS = $(SHAREDLIB_LDFLAGS)"
-	@echo "### CPPFLAGS = $(CPPFLAGS)"
-	@echo "### CPP_LDFLAGS = $(CPP_LDFLAGS)"
-	@echo "### CPP_SHAREDLIB_LDFLAGS = $(CPP_SHAREDLIB_LDFLAGS)"
-	@echo "### ARFLAGS = $(ARFLAGS)"
-	@echo "### MEX_CFLAGS = $(MEX_CFLAGS)"
-	@echo "### MEX_CPPFLAGS = $(MEX_CPPFLAGS)"
-	@echo "### MEX_LDFLAGS = $(MEX_LDFLAGS)"
-	@echo "### MEX_CPPLDFLAGS = $(MEX_CPPLDFLAGS)"
-	@echo "### DOWNLOAD_FLAGS = $(DOWNLOAD_FLAGS)"
-	@echo "### EXECUTE_FLAGS = $(EXECUTE_FLAGS)"
-	@echo "### MAKE_FLAGS = $(MAKE_FLAGS)"
+	@cmd /C "@echo ### PRODUCT = $(PRODUCT)"
+	@cmd /C "@echo ### PRODUCT_TYPE = $(PRODUCT_TYPE)"
+	@cmd /C "@echo ### BUILD_TYPE = $(BUILD_TYPE)"
+	@cmd /C "@echo ### INCLUDES = $(INCLUDES)"
+	@cmd /C "@echo ### DEFINES = $(DEFINES)"
+	@cmd /C "@echo ### ALL_SRCS = $(ALL_SRCS)"
+	@cmd /C "@echo ### ALL_OBJS = $(ALL_OBJS)"
+	@cmd /C "@echo ### LIBS = $(LIBS)"
+	@cmd /C "@echo ### MODELREF_LIBS = $(MODELREF_LIBS)"
+	@cmd /C "@echo ### SYSTEM_LIBS = $(SYSTEM_LIBS)"
+	@cmd /C "@echo ### TOOLCHAIN_LIBS = $(TOOLCHAIN_LIBS)"
+	@cmd /C "@echo ### CFLAGS = $(CFLAGS)"
+	@cmd /C "@echo ### LDFLAGS = $(LDFLAGS)"
+	@cmd /C "@echo ### SHAREDLIB_LDFLAGS = $(SHAREDLIB_LDFLAGS)"
+	@cmd /C "@echo ### CPPFLAGS = $(CPPFLAGS)"
+	@cmd /C "@echo ### CPP_LDFLAGS = $(CPP_LDFLAGS)"
+	@cmd /C "@echo ### CPP_SHAREDLIB_LDFLAGS = $(CPP_SHAREDLIB_LDFLAGS)"
+	@cmd /C "@echo ### ARFLAGS = $(ARFLAGS)"
+	@cmd /C "@echo ### MEX_CFLAGS = $(MEX_CFLAGS)"
+	@cmd /C "@echo ### MEX_CPPFLAGS = $(MEX_CPPFLAGS)"
+	@cmd /C "@echo ### MEX_LDFLAGS = $(MEX_LDFLAGS)"
+	@cmd /C "@echo ### MEX_CPPLDFLAGS = $(MEX_CPPLDFLAGS)"
+	@cmd /C "@echo ### DOWNLOAD_FLAGS = $(DOWNLOAD_FLAGS)"
+	@cmd /C "@echo ### EXECUTE_FLAGS = $(EXECUTE_FLAGS)"
+	@cmd /C "@echo ### MAKE_FLAGS = $(MAKE_FLAGS)"
 
 
 clean : 
 	$(ECHO) "### Deleting all derived files..."
-	$(RM) $(PRODUCT)
+	@if exist $(PRODUCT) $(RM) $(PRODUCT)
 	$(RM) $(ALL_OBJS)
 	$(ECHO) "### Deleted all derived files."
 

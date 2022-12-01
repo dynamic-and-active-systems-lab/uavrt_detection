@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: _coder_uavrt_detection_api.h
 //
-// _coder_uavrt_detection_api.h
-//
-// Code generation for function 'uavrt_detection'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef _CODER_UAVRT_DETECTION_API_H
 #define _CODER_UAVRT_DETECTION_API_H
 
-// Include files
+// Include Files
 #include "emlrt.h"
 #include "tmwtypes.h"
 #include <algorithm>
@@ -37,4 +37,8 @@ void uavrt_detection_xil_shutdown();
 void uavrt_detection_xil_terminate();
 
 #endif
-// End of code generation (_coder_uavrt_detection_api.h)
+//
+// File trailer for _coder_uavrt_detection_api.h
+//
+// [EOF]
+//

@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: unique.h
 //
-// unique.h
-//
-// Code generation for function 'unique'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef UNIQUE_H
 #define UNIQUE_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -25,4 +25,8 @@ void unique_rows(const ::coder::array<double, 2U> &a,
 }
 
 #endif
-// End of code generation (unique.h)
+//
+// File trailer for unique.h
+//
+// [EOF]
+//

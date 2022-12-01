@@ -2,29 +2,40 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: sortLE.cpp
 //
-// sortLE.cpp
-//
-// Code generation for function 'sortLE'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "sortLE.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include <cmath>
 #include <string.h>
 
 // Function Definitions
+//
+// Arguments    : const ::coder::array<double, 2U> &v
+//                const ::coder::array<int, 2U> &dir
+//                int idx1
+//                int idx2
+// Return Type  : bool
+//
 namespace coder {
 namespace internal {
-boolean_T sortLE(const ::coder::array<double, 2U> &v,
-                 const ::coder::array<int, 2U> &dir, int idx1, int idx2)
+bool sortLE(const ::coder::array<double, 2U> &v,
+            const ::coder::array<int, 2U> &dir, int idx1, int idx2)
 {
   int k;
-  boolean_T exitg1;
-  boolean_T p;
+  bool exitg1;
+  bool p;
   p = true;
+  if (dir.size(1) > 2147483646) {
+    check_forloop_overflow_error();
+  }
   k = 0;
   exitg1 = false;
   while ((!exitg1) && (k <= dir.size(1) - 1)) {
@@ -47,4 +58,8 @@ boolean_T sortLE(const ::coder::array<double, 2U> &v,
 } // namespace internal
 } // namespace coder
 
-// End of code generation (sortLE.cpp)
+//
+// File trailer for sortLE.cpp
+//
+// [EOF]
+//

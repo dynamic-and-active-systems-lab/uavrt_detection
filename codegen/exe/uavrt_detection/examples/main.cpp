@@ -2,10 +2,10 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: main.cpp
 //
-// main.cpp
-//
-// Code generation for function 'main'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 /*************************************************************************/
@@ -33,25 +33,71 @@
 /*                                                                       */
 /*************************************************************************/
 
-// Include files
+// Include Files
 #include "main.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection.h"
 #include "uavrt_detection_terminate.h"
+#include "uavrt_detection_types.h"
+#include "omp.h"
+#include <cstdio>
+#include <cstdlib>
+#include <sstream>
+#include <stdexcept>
 #include <string.h>
+#include <string>
 
 // Function Declarations
+static void hc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
 static void main_uavrt_detection();
 
 // Function Definitions
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void hc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Example main does not support command line arguments.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : void
+// Return Type  : void
+//
 static void main_uavrt_detection()
 {
   // Call the entry-point 'uavrt_detection'.
   uavrt_detection();
 }
 
-int main(int, char **)
+//
+// Arguments    : int argc
+//                char **argv
+// Return Type  : int
+//
+int main(int argc, char **)
 {
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      1,                // lineNo
+      "uavrt_detection" // fName
+  };
+  if (argc > 1) {
+    hc_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+  }
   // The initialize function is being called automatically from your entry-point
   // function. So, a call to initialize is not included here. Invoke the
   // entry-point functions.
@@ -63,4 +109,8 @@ int main(int, char **)
   return 0;
 }
 
-// End of code generation (main.cpp)
+//
+// File trailer for main.cpp
+//
+// [EOF]
+//

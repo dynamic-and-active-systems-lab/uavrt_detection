@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: sortIdx.h
 //
-// sortIdx.h
-//
-// Code generation for function 'sortIdx'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef SORTIDX_H
 #define SORTIDX_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -34,4 +34,8 @@ void merge_block(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
 } // namespace coder
 
 #endif
-// End of code generation (sortIdx.h)
+//
+// File trailer for sortIdx.h
+//
+// [EOF]
+//

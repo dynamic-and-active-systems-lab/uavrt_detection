@@ -2,15 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: any1.cpp
 //
-// any1.cpp
-//
-// Code generation for function 'any1'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "any1.h"
 #include "anonymous_function.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "introsort.h"
 #include "rt_nonfinite.h"
 #include "sparse1.h"
@@ -19,8 +20,13 @@
 #include <string.h>
 
 // Function Definitions
+//
+// Arguments    : const d_sparse *x
+//                e_sparse *y
+// Return Type  : void
+//
 namespace coder {
-void any(const c_sparse *x, d_sparse *y)
+void any(const d_sparse *x, e_sparse *y)
 {
   c_anonymous_function b_this;
   array<int, 2U> b_y;
@@ -40,6 +46,9 @@ void any(const c_sparse *x, d_sparse *y)
     int yk;
     xnnz = x->colidx[x->colidx.size(0) - 1];
     n = 0;
+    if (x->colidx[x->colidx.size(0) - 1] - 1 > 2147483646) {
+      check_forloop_overflow_error();
+    }
     for (int k{0}; k <= xnnz - 2; k++) {
       if (n == 0) {
         n = 1;
@@ -79,6 +88,9 @@ void any(const c_sparse *x, d_sparse *y)
     if (n > 0) {
       b_y[0] = 1;
       yk = 1;
+      if (n > 2147483646) {
+        check_forloop_overflow_error();
+      }
       for (k = 2; k <= n; k++) {
         yk++;
         b_y[k - 1] = yk;
@@ -117,6 +129,9 @@ void any(const c_sparse *x, d_sparse *y)
     y->colidx.set_size(2);
     y->colidx[0] = 1;
     y->colidx[1] = yk + 1;
+    if (yk > 2147483646) {
+      check_forloop_overflow_error();
+    }
     for (k = 0; k < yk; k++) {
       y->rowidx[k] = xrowidx[k];
     }
@@ -129,4 +144,8 @@ void any(const c_sparse *x, d_sparse *y)
 
 } // namespace coder
 
-// End of code generation (any1.cpp)
+//
+// File trailer for any1.cpp
+//
+// [EOF]
+//

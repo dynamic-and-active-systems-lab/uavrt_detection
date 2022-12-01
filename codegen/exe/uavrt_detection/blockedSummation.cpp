@@ -2,13 +2,13 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: blockedSummation.cpp
 //
-// blockedSummation.cpp
-//
-// Code generation for function 'blockedSummation'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "blockedSummation.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
@@ -16,6 +16,13 @@
 #include <string.h>
 
 // Function Definitions
+//
+// Arguments    : const ::coder::array<double, 1U> &x
+//                int vlen
+//                double *y
+//                int *counts
+// Return Type  : void
+//
 namespace coder {
 void colMajorFlatIter(const ::coder::array<double, 1U> &x, int vlen, double *y,
                       int *counts)
@@ -30,7 +37,7 @@ void colMajorFlatIter(const ::coder::array<double, 1U> &x, int vlen, double *y,
     nblocks = 1;
   } else {
     firstBlockLength = 1024;
-    nblocks = vlen / 1024;
+    nblocks = vlen >> 10;
     lastBlockLength = vlen - (nblocks << 10);
     if (lastBlockLength > 0) {
       nblocks++;
@@ -80,4 +87,8 @@ void colMajorFlatIter(const ::coder::array<double, 1U> &x, int vlen, double *y,
 
 } // namespace coder
 
-// End of code generation (blockedSummation.cpp)
+//
+// File trailer for blockedSummation.cpp
+//
+// [EOF]
+//

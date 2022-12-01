@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: stft.h
 //
-// stft.h
-//
-// Code generation for function 'stft'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef STFT_H
 #define STFT_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -34,4 +34,8 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
 } // namespace coder
 
 #endif
-// End of code generation (stft.h)
+//
+// File trailer for stft.h
+//
+// [EOF]
+//

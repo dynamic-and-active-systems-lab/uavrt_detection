@@ -2,22 +2,30 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: weightingmatrix.cpp
 //
-// weightingmatrix.cpp
-//
-// Code generation for function 'weightingmatrix'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "weightingmatrix.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include <string.h>
 
 // Function Definitions
-void b_binary_expand_op(coder::array<creal_T, 2U> &in1,
-                        const coder::array<creal_T, 2U> &in2, int in3, int in4,
-                        const coder::array<double, 2U> &in5)
+//
+// Arguments    : coder::array<creal_T, 2U> &in1
+//                const coder::array<creal_T, 2U> &in2
+//                int in3
+//                int in4
+//                const coder::array<double, 2U> &in5
+// Return Type  : void
+//
+void binary_expand_op(coder::array<creal_T, 2U> &in1,
+                      const coder::array<creal_T, 2U> &in2, int in3, int in4,
+                      const coder::array<double, 2U> &in5)
 {
   int i;
   int loop_ub;
@@ -44,4 +52,8 @@ void b_binary_expand_op(coder::array<creal_T, 2U> &in1,
   }
 }
 
-// End of code generation (weightingmatrix.cpp)
+//
+// File trailer for weightingmatrix.cpp
+//
+// [EOF]
+//

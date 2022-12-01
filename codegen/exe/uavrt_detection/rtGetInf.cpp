@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: rtGetInf.cpp
 //
-// rtGetInf.cpp
-//
-// Code generation for function 'uavrt_detection'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 // Abstract:
 //       MATLAB for code generation function to initialize non-finite, Inf and
 //       MinusInf
-// Include files
+// Include Files
 #include "rtGetInf.h"
 #include "rt_nonfinite.h"
 
@@ -51,4 +51,8 @@ real32_T rtGetMinusInfF(void)
   return rtMinusInfF;
 }
 
-// End of code generation (rtGetInf.cpp)
+//
+// File trailer for rtGetInf.cpp
+//
+// [EOF]
+//

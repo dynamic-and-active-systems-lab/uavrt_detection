@@ -2,22 +2,30 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: CoderTimeAPI.cpp
 //
-// CoderTimeAPI.cpp
-//
-// Code generation for function 'CoderTimeAPI'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "CoderTimeAPI.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection_data.h"
 #include <string.h>
 
 // Function Definitions
+//
+// Arguments    : void
+// Return Type  : void
+//
 void freq_not_empty_init()
 {
   freq_not_empty = false;
 }
 
-// End of code generation (CoderTimeAPI.cpp)
+//
+// File trailer for CoderTimeAPI.cpp
+//
+// [EOF]
+//

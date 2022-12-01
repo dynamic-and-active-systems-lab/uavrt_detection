@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: fzero.h
 //
-// fzero.h
-//
-// Code generation for function 'fzero'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef FZERO_H
 #define FZERO_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include <cstddef>
 #include <cstdlib>
@@ -29,4 +29,8 @@ double fzero(const b_anonymous_function FunFcn);
 }
 
 #endif
-// End of code generation (fzero.h)
+//
+// File trailer for fzero.h
+//
+// [EOF]
+//

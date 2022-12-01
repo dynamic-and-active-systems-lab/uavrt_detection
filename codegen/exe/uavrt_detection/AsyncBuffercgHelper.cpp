@@ -2,18 +2,22 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: AsyncBuffercgHelper.cpp
 //
-// AsyncBuffercgHelper.cpp
-//
-// Code generation for function 'AsyncBuffercgHelper'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "AsyncBuffercgHelper.h"
 #include "rt_nonfinite.h"
 #include <string.h>
 
 // Function Definitions
+//
+// Arguments    : void
+// Return Type  : void
+//
 namespace coder {
 namespace dsp {
 namespace internal {
@@ -22,11 +26,19 @@ void b_AsyncBuffercgHelper::SystemCore_delete()
   release();
 }
 
+//
+// Arguments    : void
+// Return Type  : void
+//
 void AsyncBuffercgHelper::SystemCore_delete()
 {
   release();
 }
 
+//
+// Arguments    : void
+// Return Type  : void
+//
 void b_AsyncBuffercgHelper::matlabCodegenDestructor()
 {
   if (!matlabCodegenIsDeleted) {
@@ -35,6 +47,10 @@ void b_AsyncBuffercgHelper::matlabCodegenDestructor()
   }
 }
 
+//
+// Arguments    : void
+// Return Type  : void
+//
 void AsyncBuffercgHelper::matlabCodegenDestructor()
 {
   if (!matlabCodegenIsDeleted) {
@@ -43,6 +59,10 @@ void AsyncBuffercgHelper::matlabCodegenDestructor()
   }
 }
 
+//
+// Arguments    : void
+// Return Type  : void
+//
 void b_AsyncBuffercgHelper::release()
 {
   if (isInitialized == 1) {
@@ -51,6 +71,10 @@ void b_AsyncBuffercgHelper::release()
   }
 }
 
+//
+// Arguments    : void
+// Return Type  : void
+//
 void AsyncBuffercgHelper::release()
 {
   if (isInitialized == 1) {
@@ -59,6 +83,10 @@ void AsyncBuffercgHelper::release()
   }
 }
 
+//
+// Arguments    : void
+// Return Type  : void
+//
 void b_AsyncBuffercgHelper::releaseImpl()
 {
   ReadPointer = 1;
@@ -69,6 +97,10 @@ void b_AsyncBuffercgHelper::releaseImpl()
   NumChannels = -1;
 }
 
+//
+// Arguments    : void
+// Return Type  : void
+//
 void AsyncBuffercgHelper::releaseImpl()
 {
   ReadPointer = 1;
@@ -79,6 +111,10 @@ void AsyncBuffercgHelper::releaseImpl()
   NumChannels = -1;
 }
 
+//
+// Arguments    : void
+// Return Type  : void
+//
 void b_AsyncBuffercgHelper::releaseWrapper()
 {
   if (isSetupComplete) {
@@ -86,6 +122,10 @@ void b_AsyncBuffercgHelper::releaseWrapper()
   }
 }
 
+//
+// Arguments    : void
+// Return Type  : void
+//
 void AsyncBuffercgHelper::releaseWrapper()
 {
   if (isSetupComplete) {
@@ -93,21 +133,37 @@ void AsyncBuffercgHelper::releaseWrapper()
   }
 }
 
+//
+// Arguments    : void
+// Return Type  : b_AsyncBuffercgHelper
+//
 b_AsyncBuffercgHelper::b_AsyncBuffercgHelper()
 {
   matlabCodegenIsDeleted = true;
 }
 
+//
+// Arguments    : void
+// Return Type  : AsyncBuffercgHelper
+//
 AsyncBuffercgHelper::AsyncBuffercgHelper()
 {
   matlabCodegenIsDeleted = true;
 }
 
+//
+// Arguments    : void
+// Return Type  : void
+//
 b_AsyncBuffercgHelper::~b_AsyncBuffercgHelper()
 {
   matlabCodegenDestructor();
 }
 
+//
+// Arguments    : void
+// Return Type  : void
+//
 AsyncBuffercgHelper::~AsyncBuffercgHelper()
 {
   matlabCodegenDestructor();
@@ -117,4 +173,8 @@ AsyncBuffercgHelper::~AsyncBuffercgHelper()
 } // namespace dsp
 } // namespace coder
 
-// End of code generation (AsyncBuffercgHelper.cpp)
+//
+// File trailer for AsyncBuffercgHelper.cpp
+//
+// [EOF]
+//

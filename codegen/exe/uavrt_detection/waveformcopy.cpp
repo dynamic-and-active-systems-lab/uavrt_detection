@@ -2,13 +2,13 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: waveformcopy.cpp
 //
-// waveformcopy.cpp
-//
-// Code generation for function 'waveformcopy'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "waveformcopy.h"
 #include "makepulsestruc.h"
 #include "pulsestats.h"
@@ -22,6 +22,23 @@
 #include <string.h>
 
 // Function Definitions
+//
+// WAVEFORMCOPY makes a copy of the input waveform. Waveforms are handle
+// objects, as are some of their properties. This function make new instances
+// of these objects.
+//
+// INPUTS:
+//    wfmIn   an individual waveform
+// OUTPUTS
+//    wfmOut  copy of input waveform
+//
+//
+// Arguments    : waveform *wfmIn
+//                wfmstft *iobj_0
+//                pulsestats *iobj_1
+//                waveform *iobj_2
+// Return Type  : waveform *
+//
 waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
                        waveform *iobj_2)
 {
@@ -47,25 +64,15 @@ waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
   coder::array<double, 1U> b_tmp_data;
   coder::array<double, 1U> c_val;
   coder::array<double, 1U> j_val;
-  coder::array<boolean_T, 2U> c_tmp_data;
-  coder::array<boolean_T, 2U> e_tmp_data;
-  coder::array<boolean_T, 2U> f_val;
+  coder::array<bool, 2U> c_tmp_data;
+  coder::array<bool, 2U> e_tmp_data;
+  coder::array<bool, 2U> f_val;
   c_struct_T r2;
   emxArray_struct_T_1x1 r3;
   double tmp_data[400];
   double c_wfmIn[2];
   double k_val;
   int loop_ub;
-  // WAVEFORMCOPY makes a copy of the input waveform. Waveforms are handle
-  // objects, as are some of their properties. This function make new instances
-  // of these objects.
-  //
-  // INPUTS:
-  //    wfmIn   an individual waveform
-  // OUTPUTS
-  //    wfmOut  copy of input waveform
-  //
-  wfmOut = iobj_2;
   // WAVEFORM Constructs an instance of this class
   // INPUTS:
   //    x       1xn     Vector of samples
@@ -77,6 +84,7 @@ waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
   // OUTPUTS:
   //    obj             The waveform object
   //             %%
+  wfmOut = iobj_2;
   r.set(nullptr, 1, 0);
   coder::internal::validator_check_size(r, val);
   iobj_2->x.set_size(1, val.size(1));
@@ -468,4 +476,8 @@ waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
   return wfmOut;
 }
 
-// End of code generation (waveformcopy.cpp)
+//
+// File trailer for waveformcopy.cpp
+//
+// [EOF]
+//

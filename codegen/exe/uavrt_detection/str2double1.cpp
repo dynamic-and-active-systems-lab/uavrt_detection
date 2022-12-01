@@ -2,39 +2,50 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: str2double1.cpp
 //
-// str2double1.cpp
-//
-// Code generation for function 'str2double1'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "str2double1.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection_data.h"
+#include "uavrt_detection_rtwutil.h"
+#include "uavrt_detection_types.h"
 #include "coder_array.h"
 #include <string.h>
 
 // Function Declarations
 namespace coder {
 namespace internal {
-static boolean_T copydigits(::coder::array<char, 2U> &s1, int *idx,
-                            const ::coder::array<char, 2U> &s, int *k, int n,
-                            boolean_T allowpoint);
+static bool copydigits(::coder::array<char, 2U> &s1, int *idx,
+                       const ::coder::array<char, 2U> &s, int *k, int n,
+                       bool allowpoint);
 
 }
 } // namespace coder
 
 // Function Definitions
+//
+// Arguments    : ::coder::array<char, 2U> &s1
+//                int *idx
+//                const ::coder::array<char, 2U> &s
+//                int *k
+//                int n
+//                bool allowpoint
+// Return Type  : bool
+//
 namespace coder {
 namespace internal {
-static boolean_T copydigits(::coder::array<char, 2U> &s1, int *idx,
-                            const ::coder::array<char, 2U> &s, int *k, int n,
-                            boolean_T allowpoint)
+static bool copydigits(::coder::array<char, 2U> &s1, int *idx,
+                       const ::coder::array<char, 2U> &s, int *k, int n,
+                       bool allowpoint)
 {
-  boolean_T exitg1;
-  boolean_T haspoint;
-  boolean_T success;
+  bool exitg1;
+  bool haspoint;
+  bool success;
   success = (*k <= n);
   haspoint = false;
   exitg1 = false;
@@ -66,17 +77,31 @@ static boolean_T copydigits(::coder::array<char, 2U> &s1, int *idx,
   return success;
 }
 
+//
+// Arguments    : ::coder::array<char, 2U> &s1
+//                int *idx
+//                const ::coder::array<char, 2U> &s
+//                int *k
+//                int n
+//                bool allowimag
+//                bool *isimag
+//                bool *b_finite
+//                double *nfv
+//                bool *foundsign
+//                bool *success
+// Return Type  : void
+//
 void readfloat(::coder::array<char, 2U> &s1, int *idx,
-               const ::coder::array<char, 2U> &s, int *k, int n,
-               boolean_T allowimag, boolean_T *isimag, boolean_T *b_finite,
-               double *nfv, boolean_T *foundsign, boolean_T *success)
+               const ::coder::array<char, 2U> &s, int *k, int n, bool allowimag,
+               bool *isimag, bool *b_finite, double *nfv, bool *foundsign,
+               bool *success)
 {
   int b_idx;
   int b_k;
   char c_idx_0;
-  boolean_T a__3;
-  boolean_T exitg1;
-  boolean_T isneg;
+  bool a__3;
+  bool exitg1;
+  bool isneg;
   *isimag = false;
   *b_finite = true;
   *nfv = 0.0;
@@ -95,10 +120,15 @@ void readfloat(::coder::array<char, 2U> &s1, int *idx,
     } else if (c_idx_0 == '+') {
       *foundsign = true;
       (*k)++;
-    } else if (!bv[static_cast<unsigned char>(c_idx_0) & 127]) {
-      exitg1 = true;
     } else {
-      (*k)++;
+      if (static_cast<unsigned char>(c_idx_0) > 127) {
+        pc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
+      }
+      if (!bv[static_cast<unsigned char>(s[*k - 1]) & 127]) {
+        exitg1 = true;
+      } else {
+        (*k)++;
+      }
     }
   }
   *success = (*k <= n);
@@ -114,8 +144,8 @@ void readfloat(::coder::array<char, 2U> &s1, int *idx,
   if (*success) {
     char c_idx_1;
     char c_idx_2;
-    boolean_T guard1{false};
-    boolean_T guard2{false};
+    bool guard1{false};
+    bool guard2{false};
     guard1 = false;
     guard2 = false;
     if (*k <= n) {
@@ -174,6 +204,9 @@ void readfloat(::coder::array<char, 2U> &s1, int *idx,
         exitg1 = false;
         while ((!exitg1) && (*k <= n)) {
           c_idx_0 = s[*k - 1];
+          if (static_cast<unsigned char>(c_idx_0) > 127) {
+            pc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
+          }
           if (bv[static_cast<unsigned char>(c_idx_0) & 127] ||
               (c_idx_0 == '\x00') || (c_idx_0 == ',')) {
             (*k)++;
@@ -275,6 +308,9 @@ void readfloat(::coder::array<char, 2U> &s1, int *idx,
       }
       exitg1 = false;
       while ((!exitg1) && (*k <= n)) {
+        if (static_cast<unsigned char>(s[*k - 1]) > 127) {
+          pc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
+        }
         if (bv[static_cast<unsigned char>(s[*k - 1]) & 127]) {
           (*k)++;
         } else {
@@ -288,9 +324,17 @@ void readfloat(::coder::array<char, 2U> &s1, int *idx,
       }
       if ((*k <= n) && (s[*k - 1] == '*')) {
         (*k)++;
-        while ((*k <= n) && (bv[static_cast<unsigned char>(s[*k - 1]) & 127] ||
-                             (s[*k - 1] == '\x00') || (s[*k - 1] == ','))) {
-          (*k)++;
+        exitg1 = false;
+        while ((!exitg1) && (*k <= n)) {
+          if (static_cast<unsigned char>(s[*k - 1]) > 127) {
+            pc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
+          }
+          if (bv[static_cast<unsigned char>(s[*k - 1]) & 127] ||
+              (s[*k - 1] == '\x00') || (s[*k - 1] == ',')) {
+            (*k)++;
+          } else {
+            exitg1 = true;
+          }
         }
       }
       if (*k <= n) {
@@ -305,6 +349,9 @@ void readfloat(::coder::array<char, 2U> &s1, int *idx,
     do {
       exitg3 = 0;
       if (*k <= n) {
+        if (static_cast<unsigned char>(s[*k - 1]) > 127) {
+          pc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
+        }
         if (bv[static_cast<unsigned char>(s[*k - 1]) & 127]) {
           (*k)++;
         } else {
@@ -325,4 +372,8 @@ void readfloat(::coder::array<char, 2U> &s1, int *idx,
 } // namespace internal
 } // namespace coder
 
-// End of code generation (str2double1.cpp)
+//
+// File trailer for str2double1.cpp
+//
+// [EOF]
+//

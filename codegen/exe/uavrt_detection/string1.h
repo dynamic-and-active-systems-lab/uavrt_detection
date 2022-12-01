@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: string1.h
 //
-// string1.h
-//
-// Code generation for function 'string1'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef STRING1_H
 #define STRING1_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -27,10 +27,10 @@ public:
 
 class b_rtString {
 public:
-  boolean_T eq() const;
-  boolean_T b_eq() const;
-  boolean_T c_eq() const;
-  boolean_T d_eq() const;
+  bool eq() const;
+  bool b_eq() const;
+  bool c_eq() const;
+  bool d_eq() const;
   void init();
   array<char, 2U> Value;
 };
@@ -38,4 +38,8 @@ public:
 } // namespace coder
 
 #endif
-// End of code generation (string1.h)
+//
+// File trailer for string1.h
+//
+// [EOF]
+//

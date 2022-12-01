@@ -2,22 +2,29 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: str2double.cpp
 //
-// str2double.cpp
-//
-// Code generation for function 'str2double'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "str2double.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "str2double1.h"
 #include "uavrt_detection_data.h"
+#include "uavrt_detection_rtwutil.h"
+#include "uavrt_detection_types.h"
 #include "coder_array.h"
 #include <stdio.h>
 #include <string.h>
 
 // Function Definitions
+//
+// Arguments    : const ::coder::array<char, 2U> &s
+// Return Type  : creal_T
+//
 namespace coder {
 creal_T str2double(const ::coder::array<char, 2U> &s)
 {
@@ -27,24 +34,30 @@ creal_T str2double(const ::coder::array<char, 2U> &s)
   double scanned2;
   int idx;
   int k;
-  boolean_T a__1;
-  boolean_T foundsign;
-  boolean_T isfinite1;
-  boolean_T isfinite2;
-  boolean_T isimag1;
-  boolean_T success;
+  bool a__1;
+  bool foundsign;
+  bool isfinite1;
+  bool isfinite2;
+  bool isimag1;
+  bool success;
   x.re = rtNaN;
   x.im = 0.0;
   if (s.size(1) >= 1) {
+    int i;
     int ntoread;
-    boolean_T exitg1;
+    bool exitg1;
+    if (s.size(1) + 2 > 2147483646) {
+      check_forloop_overflow_error();
+    }
     ntoread = 0;
-    k = 1;
+    k = 0;
     exitg1 = false;
-    while ((!exitg1) && (k <= s.size(1))) {
-      char c;
-      c = s[k - 1];
-      if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00')) {
+    while ((!exitg1) && (k + 1 <= s.size(1))) {
+      i = static_cast<unsigned char>(s[k]);
+      if (i > 127) {
+        pc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
+      }
+      if (bv[i] || (s[k] == '\x00')) {
         k++;
       } else {
         exitg1 = true;
@@ -52,10 +65,11 @@ creal_T str2double(const ::coder::array<char, 2U> &s)
     }
     s1.set_size(1, s.size(1) + 2);
     idx = s.size(1) + 2;
-    for (int i{0}; i < idx; i++) {
+    for (i = 0; i < idx; i++) {
       s1[i] = '\x00';
     }
     idx = 1;
+    k++;
     internal::readfloat(s1, &idx, s, &k, s.size(1), true, &isimag1, &isfinite1,
                         &scanned1, &a__1, &success);
     if (isfinite1) {
@@ -69,8 +83,8 @@ creal_T str2double(const ::coder::array<char, 2U> &s)
       if (isfinite2) {
         ntoread++;
       }
-      if (success && (k > s.size(1)) &&
-          (static_cast<boolean_T>(isimag1 ^ a__1)) && foundsign) {
+      if (success && (k > s.size(1)) && (static_cast<bool>(isimag1 ^ a__1)) &&
+          foundsign) {
         success = true;
       } else {
         success = false;
@@ -112,4 +126,8 @@ creal_T str2double(const ::coder::array<char, 2U> &s)
 
 } // namespace coder
 
-// End of code generation (str2double.cpp)
+//
+// File trailer for str2double.cpp
+//
+// [EOF]
+//

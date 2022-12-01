@@ -2,29 +2,40 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: insertionsort.cpp
 //
-// insertionsort.cpp
-//
-// Code generation for function 'insertionsort'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "insertionsort.h"
 #include "anonymous_function.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection_internal_types.h"
 #include "coder_array.h"
 #include <string.h>
 
 // Function Definitions
+//
+// Arguments    : ::coder::array<int, 1U> &x
+//                int xstart
+//                int xend
+//                const c_anonymous_function *cmp
+// Return Type  : void
+//
 namespace coder {
 namespace internal {
 void insertionsort(::coder::array<int, 1U> &x, int xstart, int xend,
                    const c_anonymous_function *cmp)
 {
-  int i;
-  i = xstart + 1;
-  for (int k{i}; k <= xend; k++) {
+  int a;
+  a = xstart + 1;
+  if ((xstart + 1 <= xend) && (xend > 2147483646)) {
+    check_forloop_overflow_error();
+  }
+  for (int k{a}; k <= xend; k++) {
     int idx;
     int xc;
     xc = x[k - 1];
@@ -38,20 +49,30 @@ void insertionsort(::coder::array<int, 1U> &x, int xstart, int xend,
   }
 }
 
+//
+// Arguments    : ::coder::array<int, 1U> &x
+//                int xstart
+//                int xend
+//                const anonymous_function *cmp
+// Return Type  : void
+//
 void insertionsort(::coder::array<int, 1U> &x, int xstart, int xend,
                    const anonymous_function *cmp)
 {
-  int i;
-  i = xstart + 1;
-  for (int k{i}; k <= xend; k++) {
+  int a;
+  a = xstart + 1;
+  if ((xstart + 1 <= xend) && (xend > 2147483646)) {
+    check_forloop_overflow_error();
+  }
+  for (int k{a}; k <= xend; k++) {
     int idx;
     int xc;
-    boolean_T exitg1;
+    bool exitg1;
     xc = x[k - 1] - 1;
     idx = k - 2;
     exitg1 = false;
     while ((!exitg1) && (idx + 1 >= xstart)) {
-      boolean_T varargout_1;
+      bool varargout_1;
       if (cmp->workspace.a[xc] < cmp->workspace.a[x[idx] - 1]) {
         varargout_1 = true;
       } else if (cmp->workspace.a[xc] == cmp->workspace.a[x[idx] - 1]) {
@@ -73,4 +94,8 @@ void insertionsort(::coder::array<int, 1U> &x, int xstart, int xend,
 } // namespace internal
 } // namespace coder
 
-// End of code generation (insertionsort.cpp)
+//
+// File trailer for insertionsort.cpp
+//
+// [EOF]
+//

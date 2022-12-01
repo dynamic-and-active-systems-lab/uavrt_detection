@@ -2,14 +2,15 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: sortIdx.cpp
 //
-// sortIdx.cpp
-//
-// Code generation for function 'sortIdx'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "sortIdx.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include <string.h>
@@ -29,6 +30,16 @@ static void merge(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
 } // namespace coder
 
 // Function Definitions
+//
+// Arguments    : ::coder::array<int, 2U> &idx
+//                ::coder::array<double, 2U> &x
+//                int offset
+//                int np
+//                int nq
+//                ::coder::array<int, 1U> &iwork
+//                ::coder::array<double, 1U> &xwork
+// Return Type  : void
+//
 namespace coder {
 namespace internal {
 static void merge(::coder::array<int, 2U> &idx, ::coder::array<double, 2U> &x,
@@ -41,6 +52,9 @@ static void merge(::coder::array<int, 2U> &idx, ::coder::array<double, 2U> &x,
     int p;
     int q;
     n_tmp = np + nq;
+    if (n_tmp > 2147483646) {
+      check_forloop_overflow_error();
+    }
     for (int j{0}; j < n_tmp; j++) {
       iout = offset + j;
       iwork[j] = idx[iout];
@@ -68,6 +82,9 @@ static void merge(::coder::array<int, 2U> &idx, ::coder::array<double, 2U> &x,
           q++;
         } else {
           q = iout - p;
+          if ((p + 1 <= np) && (np > 2147483646)) {
+            check_forloop_overflow_error();
+          }
           for (int j{p + 1}; j <= np; j++) {
             iout = q + j;
             idx[iout] = iwork[j - 1];
@@ -80,6 +97,16 @@ static void merge(::coder::array<int, 2U> &idx, ::coder::array<double, 2U> &x,
   }
 }
 
+//
+// Arguments    : ::coder::array<int, 1U> &idx
+//                ::coder::array<double, 1U> &x
+//                int offset
+//                int np
+//                int nq
+//                ::coder::array<int, 1U> &iwork
+//                ::coder::array<double, 1U> &xwork
+// Return Type  : void
+//
 static void merge(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
                   int offset, int np, int nq, ::coder::array<int, 1U> &iwork,
                   ::coder::array<double, 1U> &xwork)
@@ -90,6 +117,9 @@ static void merge(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
     int p;
     int q;
     n_tmp = np + nq;
+    if (n_tmp > 2147483646) {
+      check_forloop_overflow_error();
+    }
     for (int j{0}; j < n_tmp; j++) {
       iout = offset + j;
       iwork[j] = idx[iout];
@@ -117,6 +147,9 @@ static void merge(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
           q++;
         } else {
           q = iout - p;
+          if ((p + 1 <= np) && (np > 2147483646)) {
+            check_forloop_overflow_error();
+          }
           for (int j{p + 1}; j <= np; j++) {
             iout = q + j;
             idx[iout] = iwork[j - 1];
@@ -129,6 +162,16 @@ static void merge(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
   }
 }
 
+//
+// Arguments    : ::coder::array<int, 2U> &idx
+//                ::coder::array<double, 2U> &x
+//                int offset
+//                int n
+//                int preSortLevel
+//                ::coder::array<int, 1U> &iwork
+//                ::coder::array<double, 1U> &xwork
+// Return Type  : void
+//
 void merge_block(::coder::array<int, 2U> &idx, ::coder::array<double, 2U> &x,
                  int offset, int n, int preSortLevel,
                  ::coder::array<int, 1U> &iwork,
@@ -161,6 +204,16 @@ void merge_block(::coder::array<int, 2U> &idx, ::coder::array<double, 2U> &x,
   }
 }
 
+//
+// Arguments    : ::coder::array<int, 1U> &idx
+//                ::coder::array<double, 1U> &x
+//                int offset
+//                int n
+//                int preSortLevel
+//                ::coder::array<int, 1U> &iwork
+//                ::coder::array<double, 1U> &xwork
+// Return Type  : void
+//
 void merge_block(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
                  int offset, int n, int preSortLevel,
                  ::coder::array<int, 1U> &iwork,
@@ -196,4 +249,8 @@ void merge_block(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
 } // namespace internal
 } // namespace coder
 
-// End of code generation (sortIdx.cpp)
+//
+// File trailer for sortIdx.cpp
+//
+// [EOF]
+//

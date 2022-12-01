@@ -2,21 +2,29 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: fseek.cpp
 //
-// fseek.cpp
-//
-// Code generation for function 'fseek'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "fseek.h"
 #include "fileManager.h"
 #include "rt_nonfinite.h"
+#include "uavrt_detection_data.h"
+#include "uavrt_detection_rtwutil.h"
+#include "uavrt_detection_types.h"
 #include <cmath>
 #include <stdio.h>
 #include <string.h>
 
 // Function Definitions
+//
+// Arguments    : double fileID
+//                double offset
+// Return Type  : void
+//
 namespace coder {
 void b_fseek(double fileID, double offset)
 {
@@ -26,6 +34,9 @@ void b_fseek(double fileID, double offset)
       (std::floor(offset) == offset)) {
     FILE *filestar;
     filestar = fileManager(fileID);
+    if (filestar == NULL) {
+      d_rtErrorWithMessageID(c_emlrtRTEI.fName, c_emlrtRTEI.lineNo);
+    }
     if ((!(fileID != 0.0)) || (!(fileID != 1.0)) || (!(fileID != 2.0))) {
       filestar = NULL;
     }
@@ -37,4 +48,8 @@ void b_fseek(double fileID, double offset)
 
 } // namespace coder
 
-// End of code generation (fseek.cpp)
+//
+// File trailer for fseek.cpp
+//
+// [EOF]
+//

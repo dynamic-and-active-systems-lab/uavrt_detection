@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: interp1.h
 //
-// interp1.h
-//
-// Code generation for function 'interp1'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef INTERP1_H
 #define INTERP1_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -19,13 +19,14 @@
 
 // Function Declarations
 namespace coder {
+void interp1(const double varargin_1[2], const double varargin_2[2],
+             const ::coder::array<double, 2U> &varargin_3,
+             ::coder::array<double, 2U> &Vq);
+
 void interp1(const ::coder::array<double, 1U> &varargin_1,
              const ::coder::array<double, 1U> &varargin_2,
              const ::coder::array<double, 1U> &varargin_3,
              ::coder::array<double, 1U> &Vq);
-
-void interp1Linear(const double y[2], const ::coder::array<double, 2U> &xi,
-                   ::coder::array<double, 2U> &yi, const double varargin_1[2]);
 
 void interp1Linear(const double y[2], const ::coder::array<double, 1U> &xi,
                    ::coder::array<double, 1U> &yi);
@@ -33,4 +34,8 @@ void interp1Linear(const double y[2], const ::coder::array<double, 1U> &xi,
 } // namespace coder
 
 #endif
-// End of code generation (interp1.h)
+//
+// File trailer for interp1.h
+//
+// [EOF]
+//

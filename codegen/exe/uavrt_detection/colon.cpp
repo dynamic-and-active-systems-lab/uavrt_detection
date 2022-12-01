@@ -2,23 +2,64 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: colon.cpp
 //
-// colon.cpp
-//
-// Code generation for function 'colon'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "colon.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
+#include "uavrt_detection_rtwutil.h"
+#include "uavrt_detection_types.h"
 #include "coder_array.h"
 #include <cmath>
 #include <string.h>
 
 // Function Definitions
+//
+// Arguments    : int b
+//                ::coder::array<int, 2U> &y
+// Return Type  : void
+//
 namespace coder {
+void b_eml_integer_colon_dispatcher(int b, ::coder::array<int, 2U> &y)
+{
+  int n;
+  if (b < 1) {
+    n = 0;
+  } else {
+    n = b;
+  }
+  y.set_size(1, n);
+  if (n > 0) {
+    int yk;
+    y[0] = 1;
+    yk = 1;
+    if (n > 2147483646) {
+      check_forloop_overflow_error();
+    }
+    for (int k{2}; k <= n; k++) {
+      yk++;
+      y[k - 1] = yk;
+    }
+  }
+}
+
+//
+// Arguments    : double a
+//                double b
+//                ::coder::array<double, 2U> &y
+// Return Type  : void
+//
 void eml_float_colon(double a, double b, ::coder::array<double, 2U> &y)
 {
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      419,              // lineNo
+      "assert_pmaxsize" // fName
+  };
   double apnd;
   double cdiff;
   double ndbl;
@@ -40,13 +81,16 @@ void eml_float_colon(double a, double b, ::coder::array<double, 2U> &y)
   } else {
     n = 0;
   }
+  if (ndbl > 2.147483647E+9) {
+    m_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+  }
   y.set_size(1, n);
   if (n > 0) {
     y[0] = a;
     if (n > 1) {
       int nm1d2;
       y[n - 1] = apnd;
-      nm1d2 = (n - 1) / 2;
+      nm1d2 = (n - 1) >> 1;
       for (int k{0}; k <= nm1d2 - 2; k++) {
         y[k + 1] = a + (static_cast<double>(k) + 1.0);
         y[(n - k) - 2] = apnd - (static_cast<double>(k) + 1.0);
@@ -61,6 +105,48 @@ void eml_float_colon(double a, double b, ::coder::array<double, 2U> &y)
   }
 }
 
+//
+// Arguments    : int a
+//                int b
+//                ::coder::array<int, 2U> &y
+// Return Type  : void
+//
+void eml_integer_colon_dispatcher(int a, int b, ::coder::array<int, 2U> &y)
+{
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      291,                           // lineNo
+      "integer_colon_length_nonnegd" // fName
+  };
+  int bma;
+  if (b < a) {
+    bma = 0;
+  } else {
+    bma = b - a;
+    if (bma < 0) {
+      h_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+    }
+    bma++;
+  }
+  y.set_size(1, bma);
+  if (bma > 0) {
+    int yk;
+    y[0] = a;
+    yk = a;
+    if (bma > 2147483646) {
+      check_forloop_overflow_error();
+    }
+    for (int k{2}; k <= bma; k++) {
+      yk++;
+      y[k - 1] = yk;
+    }
+  }
+}
+
+//
+// Arguments    : int a
+//                ::coder::array<int, 2U> &y
+// Return Type  : void
+//
 void eml_integer_colon_dispatcher(int a, ::coder::array<int, 2U> &y)
 {
   int n;
@@ -80,6 +166,9 @@ void eml_integer_colon_dispatcher(int a, ::coder::array<int, 2U> &y)
     int yk;
     y[0] = a;
     yk = a;
+    if (n > 2147483646) {
+      check_forloop_overflow_error();
+    }
     for (int k{2}; k <= n; k++) {
       yk++;
       y[k - 1] = yk;
@@ -89,4 +178,8 @@ void eml_integer_colon_dispatcher(int a, ::coder::array<int, 2U> &y)
 
 } // namespace coder
 
-// End of code generation (colon.cpp)
+//
+// File trailer for colon.cpp
+//
+// [EOF]
+//

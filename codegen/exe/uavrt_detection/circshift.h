@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: circshift.h
 //
-// circshift.h
-//
-// Code generation for function 'circshift'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef CIRCSHIFT_H
 #define CIRCSHIFT_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -23,6 +23,8 @@ void b_circshift(::coder::array<double, 2U> &a);
 
 void c_circshift(::coder::array<double, 2U> &a);
 
+void circshift(::coder::array<creal_T, 2U> &a);
+
 void circshift(::coder::array<double, 2U> &a);
 
 void d_circshift(::coder::array<double, 2U> &a);
@@ -31,9 +33,13 @@ void e_circshift(::coder::array<double, 2U> &a);
 
 void f_circshift(::coder::array<double, 2U> &a);
 
-void g_circshift(::coder::array<boolean_T, 2U> &a);
+void g_circshift(::coder::array<bool, 2U> &a);
 
 } // namespace coder
 
 #endif
-// End of code generation (circshift.h)
+//
+// File trailer for circshift.h
+//
+// [EOF]
+//

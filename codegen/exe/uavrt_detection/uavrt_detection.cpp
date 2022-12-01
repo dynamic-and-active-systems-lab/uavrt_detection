@@ -2,20 +2,20 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: uavrt_detection.cpp
 //
-// uavrt_detection.cpp
-//
-// Code generation for function 'uavrt_detection'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "uavrt_detection.h"
 #include "AsyncBuffer.h"
 #include "AsyncBuffercgHelper.h"
 #include "DetectorConfig.h"
 #include "all.h"
-#include "datetime.h"
 #include "diff.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "feof.h"
 #include "fgetl.h"
 #include "fileManager.h"
@@ -23,6 +23,7 @@
 #include "fseek.h"
 #include "ftell.h"
 #include "ifWhileCond.h"
+#include "lower.h"
 #include "makepulsestruc.h"
 #include "pulsestats.h"
 #include "ref.h"
@@ -38,6 +39,8 @@
 #include "uavrt_detection_data.h"
 #include "uavrt_detection_initialize.h"
 #include "uavrt_detection_internal_types.h"
+#include "uavrt_detection_rtwutil.h"
+#include "uavrt_detection_types.h"
 #include "validate_print_arguments.h"
 #include "validator_check_size.h"
 #include "waveform.h"
@@ -45,13 +48,33 @@
 #include "wfmstft.h"
 #include "wgn.h"
 #include "coder_array.h"
+#include "omp.h"
 #include "udp.h"
 #include <cmath>
-#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <sstream>
+#include <stdexcept>
 #include <stdio.h>
 #include <string.h>
+#include <string>
+
+// Variable Definitions
+static rtRunTimeErrorInfo b_emlrtRTEI{
+    10,              // lineNo
+    "mustBePositive" // fName
+};
 
 // Function Declarations
+static void b_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+static void c_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+static void i_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+static void rtErrorWithMessageID(const char *r, const char *aFcnName,
+                                 int aLineNum);
+
 static void
 updatebufferreadvariables(const coder::b_captured_var *Config,
                           const coder::c_captured_var *stftOverlapFraction,
@@ -63,6 +86,105 @@ static void updateconfig(coder::b_captured_var *Config,
                          const coder::captured_var *configPath);
 
 // Function Definitions
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void b_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Value must be nonnegative.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void c_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Value must be positive.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void i_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Value must be integer.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *r
+//                const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void rtErrorWithMessageID(const char *r, const char *aFcnName,
+                                 int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  ((outStream << "Value must be less than ") << r) << ".";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// This function updates the buffer reading variables as needed by
+// the priori information about the pulse statistics. The segment
+// lengths depend on the interpulse duration and uncertainty
+// parameters.
+//
+// Arguments    : const coder::b_captured_var *Config
+//                const coder::c_captured_var *stftOverlapFraction
+//                coder::c_captured_var *overlapSamples
+//                coder::c_captured_var *sampsForKPulses
+//                const pulsestats *ps_input
+// Return Type  : void
+//
 static void
 updatebufferreadvariables(const coder::b_captured_var *Config,
                           const coder::c_captured_var *stftOverlapFraction,
@@ -88,10 +210,6 @@ updatebufferreadvariables(const coder::b_captured_var *Config,
   unsigned int u;
   unsigned int u1;
   unsigned int u2;
-  // This function updates the buffer reading variables as needed by
-  // the priori information about the pulse statistics. The segment
-  // lengths depend on the interpulse duration and uncertainty
-  // parameters.
   // persistent X0
   // if isempty(X0)
   // Build an empty waveform just so that we can calculate number
@@ -153,6 +271,12 @@ updatebufferreadvariables(const coder::b_captured_var *Config,
   //    None (This method modifies the waveform object properties)
   //
   //             %%
+  // GETPRIORIDEPENDENTVARS returns the properties in the
+  // waveform that are dependent on prior pulse data estimates. It
+  // depends on the waveform properties list Fs etc, as well as
+  // pulse stats like t_ip, etc.
+  // INPUTS:  ps_obj  1x1 pulse stats object
+  // OUTPUTS:  pulse stats object
   // WHAT WAS DONE BY THIS METHOD IS NOW DONE BY A METHOD OF THE
   // PULSESTATS CLASS.
   //          function [] = update_posteriori(obj,pulselist)
@@ -236,12 +360,6 @@ updatebufferreadvariables(const coder::b_captured_var *Config,
   //
   //              obj.ps_pos.psdHist = obj.stft.psd
   //          end
-  // GETPRIORIDEPENDENTVARS returns the properties in the
-  // waveform that are dependent on prior pulse data estimates. It
-  // depends on the waveform properties list Fs etc, as well as
-  // pulse stats like t_ip, etc.
-  // INPUTS:  ps_obj  1x1 pulse stats object
-  // OUTPUTS:  pulse stats object
   // Samples per pulse
   // Number of elements in STFT window
   // Number of elements overlap in STFT window
@@ -284,6 +402,12 @@ updatebufferreadvariables(const coder::b_captured_var *Config,
   //    None (This method modifies the waveform object properties)
   //
   //             %%
+  // GETPRIORIDEPENDENTVARS returns the properties in the
+  // waveform that are dependent on prior pulse data estimates. It
+  // depends on the waveform properties list Fs etc, as well as
+  // pulse stats like t_ip, etc.
+  // INPUTS:  ps_obj  1x1 pulse stats object
+  // OUTPUTS:  pulse stats object
   // WHAT WAS DONE BY THIS METHOD IS NOW DONE BY A METHOD OF THE
   // PULSESTATS CLASS.
   //          function [] = update_posteriori(obj,pulselist)
@@ -367,12 +491,6 @@ updatebufferreadvariables(const coder::b_captured_var *Config,
   //
   //              obj.ps_pos.psdHist = obj.stft.psd
   //          end
-  // GETPRIORIDEPENDENTVARS returns the properties in the
-  // waveform that are dependent on prior pulse data estimates. It
-  // depends on the waveform properties list Fs etc, as well as
-  // pulse stats like t_ip, etc.
-  // INPUTS:  ps_obj  1x1 pulse stats object
-  // OUTPUTS:  pulse stats object
   // Samples per pulse
   // Number of elements in STFT window
   // Number of elements overlap in STFT window
@@ -402,6 +520,12 @@ updatebufferreadvariables(const coder::b_captured_var *Config,
   //              else
   //                  obj.TimeCorr.update(N, M, J);
   //              end
+  // GETPRIORIDEPENDENTVARS returns the properties in the
+  // waveform that are dependent on prior pulse data estimates. It
+  // depends on the waveform properties list Fs etc, as well as
+  // pulse stats like t_ip, etc.
+  // INPUTS:  ps_obj  1x1 pulse stats object
+  // OUTPUTS:  pulse stats object
   // WHAT WAS DONE BY THIS METHOD IS NOW DONE BY A METHOD OF THE
   // PULSESTATS CLASS.
   //          function [] = update_posteriori(obj,pulselist)
@@ -485,12 +609,6 @@ updatebufferreadvariables(const coder::b_captured_var *Config,
   //
   //              obj.ps_pos.psdHist = obj.stft.psd
   //          end
-  // GETPRIORIDEPENDENTVARS returns the properties in the
-  // waveform that are dependent on prior pulse data estimates. It
-  // depends on the waveform properties list Fs etc, as well as
-  // pulse stats like t_ip, etc.
-  // INPUTS:  ps_obj  1x1 pulse stats object
-  // OUTPUTS:  pulse stats object
   a__1 = std::ceil(ps_input->t_p * X0.Fs);
   // Samples per pulse
   // Number of elements in STFT window
@@ -580,16 +698,137 @@ updatebufferreadvariables(const coder::b_captured_var *Config,
   fflush(stdout);
 }
 
+//
+// Add code here to update the variables within the function that are
+// part of the configuration file. Will first need to load the correct
+// file and
+//
+//
+// Arguments    : coder::b_captured_var *Config
+//                const coder::captured_var *configPath
+// Return Type  : void
+//
 static void updateconfig(coder::b_captured_var *Config,
                          const coder::captured_var *configPath)
 {
-  static const char b_cv1[20]{'c', 'h', 'a', 'n', 'n', 'e', 'l', 'C', 'e', 'n',
-                              't', 'e', 'r', 'F', 'r', 'e', 'q', 'M', 'H', 'z'};
-  static const char cv5[9]{'p', 'o', 'r', 't', 'C', 'n', 't', 'r', 'l'};
-  static const char cv3[8]{'p', 'o', 'r', 't', 'D', 'a', 't', 'a'};
-  static const char cv4[7]{'i', 'p', 'C', 'n', 't', 'r', 'l'};
-  static const char b_cv2[6]{'i', 'p', 'D', 'a', 't', 'a'};
-  static const char b_cv[2]{'I', 'D'};
+  static rtBoundsCheckInfo eb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      136,                          // lineNo
+      28,                           // colNo
+      "rawLine",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo fb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      167,                          // lineNo
+      31,                           // colNo
+      "sepByte",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo gb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      171,                          // lineNo
+      28,                           // colNo
+      "lineStr",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo hb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      174,                          // lineNo
+      55,                           // colNo
+      "tabLocs",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo ib_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      175,                          // lineNo
+      63,                           // colNo
+      "colonLocation",              // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo jb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      220,                          // lineNo
+      69,                           // colNo
+      "sepByte",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo kb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      176,                          // lineNo
+      47,                           // colNo
+      "lineStr",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo lb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      176,                          // lineNo
+      74,                           // colNo
+      "lineStr",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo mb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      175,                          // lineNo
+      47,                           // colNo
+      "lineStr",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo nb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      175,                          // lineNo
+      49,                           // colNo
+      "lineStr",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo ob_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      222,                          // lineNo
+      69,                           // colNo
+      "sepByte",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      18,                    // lineNo
+      "binaryRelopValidator" // fName
+  };
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      10,                 // lineNo
+      "mustBeNonnegative" // fName
+  };
   coder::b_rtString _in;
   coder::array<creal_T, 2U> r;
   coder::array<double, 2U> sepByte;
@@ -597,19 +836,11 @@ static void updateconfig(coder::b_captured_var *Config,
   coder::array<int, 2U> match_out;
   coder::array<int, 2U> matches;
   coder::array<unsigned int, 2U> tabLocs;
-  coder::array<char, 2U> configValStr;
+  coder::array<char, 2U> c_lineStr;
   coder::array<char, 2U> lineStr;
-  coder::array<boolean_T, 2U> b_lineStr;
-  double configNum;
-  double d;
-  int colonLocation_data;
-  int i;
+  coder::array<bool, 2U> b_lineStr;
+  int ii_data;
   signed char fileid;
-  boolean_T done;
-  // Add code here to update the variables within the function that are
-  // part of the configuration file. Will first need to load the correct
-  // file and
-  //
   Config->contents.init();
   // fillFromFile Replaces the properties of the instance passed to
   // it with the values specified in the configuration file passed
@@ -631,611 +862,646 @@ static void updateconfig(coder::b_captured_var *Config,
   //    none (method modifies the properties of the instance)
   //
   fileid = coder::cfopen(configPath->contents.Value);
-  configNum = 0.0;
-  done = false;
-  // coder.varsize('sepLine')
-  sepByte.set_size(1, 1);
-  sepByte[0] = 0.0;
-  // First figure out where the separator lines are
-  while (!done) {
-    // currByte = ftell(fid);
-    coder::fgetl(static_cast<double>(fileid), lineStr);
-    if (lineStr[0] == '#') {
-      // && lineNum~=1
-      if (configNum == 0.0) {
-        sepByte.set_size(1, 1);
-        d = coder::b_ftell(static_cast<double>(fileid));
-        sepByte[0] = d;
-      } else {
-        // sepByte(configNum) = ftell(fid);
-        d = coder::b_ftell(static_cast<double>(fileid));
-        i = sepByte.size(1);
-        sepByte.set_size(1, sepByte.size(1) + 1);
-        sepByte[i] = d;
-        // Modified for Coder compatibility
-      }
-      configNum++;
+  if (fileid == -1) {
+    char varargin_1[35];
+    for (int i{0}; i < 34; i++) {
+      varargin_1[i] = configPath->contents.Value[i];
     }
-    done = (coder::b_feof(static_cast<double>(fileid)) == 1.0);
-  }
-  // sepByte(configNum) = ftell(fid);
-  d = coder::b_ftell(static_cast<double>(fileid));
-  i = sepByte.size(1);
-  sepByte.set_size(1, sepByte.size(1) + 1);
-  sepByte[i] = d;
-  // Modified for Coder compatibility
-  // Jump to the line for the entry requested
-  coder::b_fseek(static_cast<double>(fileid),
-                 sepByte[static_cast<int>(configNum) - 1]);
-  done = false;
-  while (!done) {
-    coder::fgetl(static_cast<double>(fileid), lineStr);
-    if (lineStr[0] != '#') {
-      int exitg1;
-      int match_idx;
-      int text_len;
-      boolean_T b_bool;
-      b_lineStr.set_size(1, lineStr.size(1));
-      match_idx = lineStr.size(1);
-      for (i = 0; i < match_idx; i++) {
-        b_lineStr[i] = (lineStr[i] == ':');
+    varargin_1[34] = '\x00';
+    printf("Failed to open config file: %s\n", &varargin_1[0]);
+    fflush(stdout);
+    rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
+  } else {
+    double configNum;
+    double d;
+    int i;
+    bool done;
+    configNum = 0.0;
+    done = false;
+    // coder.varsize('sepLine')
+    sepByte.set_size(1, 1);
+    sepByte[0] = 0.0;
+    // First figure out where the separator lines are
+    while (!done) {
+      // currByte = ftell(fid);
+      coder::fgetl(static_cast<double>(fileid), lineStr);
+      if (lineStr.size(1) < 1) {
+        rtDynamicBoundsError(1, 1, lineStr.size(1), &eb_emlrtBCI);
       }
-      int colonLocation_size[2];
-      coder::eml_find(b_lineStr, (int *)&colonLocation_data,
-                      colonLocation_size);
-      // note regexp is not supported for code generation
-      if (lineStr.size(1) == 0) {
-        tabLocs.set_size(1, 0);
-      } else {
-        text_len = lineStr.size(1);
-        matches.set_size(1, lineStr.size(1));
-        match_idx = 0;
-        for (i = 0; i < text_len; i++) {
-          if (lineStr[i] == '\x09') {
-            matches[match_idx] = i + 1;
-            match_idx++;
-          }
-        }
-        match_out.set_size(1, match_idx);
-        for (i = 0; i < match_idx; i++) {
-          match_out[i] = matches[i];
-        }
-        tabLocs.set_size(1, match_out.size(1));
-        match_idx = match_out.size(1);
-        for (i = 0; i < match_idx; i++) {
-          tabLocs[i] = static_cast<unsigned int>(match_out[i]);
-        }
-      }
-      // Thanks to
-      // https://www.mathworks.com/matlabcentral/answers/529668-how-do-i-detect-a-tab-character-in-a-line-of-text-read-by-fgetl
-      // note regexp is not supported for code generation
-      if (static_cast<double>(colonLocation_data) - 1.0 < 1.0) {
-        match_idx = 0;
-      } else {
-        match_idx = colonLocation_data - 1;
-      }
-      if (tabLocs[0] + 1U > static_cast<unsigned int>(lineStr.size(1))) {
-        i = 0;
-        colonLocation_data = 0;
-      } else {
-        i = static_cast<int>(tabLocs[0]);
-        colonLocation_data = lineStr.size(1);
-      }
-      b_bool = false;
-      if (match_idx == 2) {
-        text_len = 0;
-        do {
-          exitg1 = 0;
-          if (text_len < 2) {
-            if (lineStr[text_len] != b_cv[text_len]) {
-              exitg1 = 1;
-            } else {
-              text_len++;
-            }
-          } else {
-            b_bool = true;
-            exitg1 = 1;
-          }
-        } while (exitg1 == 0);
-      }
-      if (!b_bool) {
-        b_bool = false;
-        if (match_idx == 20) {
-          text_len = 0;
-          do {
-            exitg1 = 0;
-            if (text_len < 20) {
-              if (lineStr[text_len] != b_cv1[text_len]) {
-                exitg1 = 1;
-              } else {
-                text_len++;
-              }
-            } else {
-              b_bool = true;
-              exitg1 = 1;
-            }
-          } while (exitg1 == 0);
-        }
-        if (b_bool) {
-          match_idx = colonLocation_data - i;
-          configValStr.set_size(1, match_idx);
-          for (colonLocation_data = 0; colonLocation_data < match_idx;
-               colonLocation_data++) {
-            configValStr[colonLocation_data] = lineStr[i + colonLocation_data];
-          }
-          creal_T dc;
-          dc = coder::str2double(configValStr);
-          Config->contents.channelCenterFreqMHz = dc.re;
+      if (lineStr[0] == '#') {
+        // && lineNum~=1
+        if (configNum == 0.0) {
+          sepByte.set_size(1, 1);
+          d = coder::b_ftell(static_cast<double>(fileid));
+          sepByte[0] = d;
         } else {
-          b_bool = false;
-          if (match_idx == 6) {
-            text_len = 0;
-            do {
-              exitg1 = 0;
-              if (text_len < 6) {
-                if (lineStr[text_len] != b_cv2[text_len]) {
-                  exitg1 = 1;
-                } else {
-                  text_len++;
-                }
-              } else {
-                b_bool = true;
-                exitg1 = 1;
-              }
-            } while (exitg1 == 0);
+          // sepByte(configNum) = ftell(fid);
+          d = coder::b_ftell(static_cast<double>(fileid));
+          i = sepByte.size(1);
+          sepByte.set_size(1, sepByte.size(1) + 1);
+          sepByte[i] = d;
+          // Modified for Coder compatibility
+        }
+        configNum++;
+      }
+      done = (coder::b_feof(static_cast<double>(fileid)) == 1.0);
+    }
+    // sepByte(configNum) = ftell(fid);
+    d = coder::b_ftell(static_cast<double>(fileid));
+    i = sepByte.size(1);
+    sepByte.set_size(1, sepByte.size(1) + 1);
+    sepByte[i] = d;
+    // Modified for Coder compatibility
+    // Jump to the line for the entry requested
+    if ((static_cast<int>(configNum) < 1) ||
+        (static_cast<int>(configNum) > sepByte.size(1))) {
+      rtDynamicBoundsError(static_cast<int>(configNum), 1, sepByte.size(1),
+                           &fb_emlrtBCI);
+    }
+    coder::b_fseek(static_cast<double>(fileid),
+                   sepByte[static_cast<int>(configNum) - 1]);
+    done = false;
+    int exitg1;
+    do {
+      exitg1 = 0;
+      if (!done) {
+        coder::fgetl(static_cast<double>(fileid), lineStr);
+        if (lineStr.size(1) < 1) {
+          rtDynamicBoundsError(1, 1, lineStr.size(1), &gb_emlrtBCI);
+        }
+        if (lineStr[0] != '#') {
+          int ii_size[2];
+          int match_idx;
+          int text_len;
+          b_lineStr.set_size(1, lineStr.size(1));
+          text_len = lineStr.size(1);
+          for (i = 0; i < text_len; i++) {
+            b_lineStr[i] = (lineStr[i] == ':');
           }
-          if (!b_bool) {
-            b_bool = false;
-            if (match_idx == 8) {
-              text_len = 0;
-              do {
-                exitg1 = 0;
-                if (text_len < 8) {
-                  if (lineStr[text_len] != cv3[text_len]) {
-                    exitg1 = 1;
-                  } else {
-                    text_len++;
-                  }
-                } else {
-                  b_bool = true;
-                  exitg1 = 1;
-                }
-              } while (exitg1 == 0);
+          coder::eml_find(b_lineStr, (int *)&ii_data, ii_size);
+          // note regexp is not supported for code generation
+          if (lineStr.size(1) == 0) {
+            tabLocs.set_size(1, 0);
+          } else {
+            text_len = lineStr.size(1);
+            matches.set_size(1, lineStr.size(1));
+            match_idx = 0;
+            if (lineStr.size(1) > 2147483646) {
+              coder::check_forloop_overflow_error();
             }
-            if (b_bool) {
-              match_idx = colonLocation_data - i;
-              configValStr.set_size(1, match_idx);
-              for (colonLocation_data = 0; colonLocation_data < match_idx;
-                   colonLocation_data++) {
-                configValStr[colonLocation_data] =
-                    lineStr[i + colonLocation_data];
+            for (i = 0; i < text_len; i++) {
+              if (lineStr[i] == '	') {
+                matches[match_idx] = i + 1;
+                match_idx++;
               }
-              coder::str2double(configValStr);
+            }
+            match_out.set_size(1, match_idx);
+            if (match_idx > 2147483646) {
+              coder::check_forloop_overflow_error();
+            }
+            for (i = 0; i < match_idx; i++) {
+              match_out[i] = matches[i];
+            }
+            tabLocs.set_size(1, match_out.size(1));
+            text_len = match_out.size(1);
+            for (i = 0; i < text_len; i++) {
+              tabLocs[i] = static_cast<unsigned int>(match_out[i]);
+            }
+          }
+          // Thanks to
+          // https://www.mathworks.com/matlabcentral/answers/529668-how-do-i-detect-a-tab-character-in-a-line-of-text-read-by-fgetl
+          if (tabLocs.size(1) < 1) {
+            rtDynamicBoundsError(1, 1, tabLocs.size(1), &hb_emlrtBCI);
+          }
+          // note regexp is not supported for code generation
+          if (ii_size[1] < 1) {
+            rtDynamicBoundsError(1, 1, ii_size[1], &ib_emlrtBCI);
+          }
+          if (static_cast<double>(ii_data) - 1.0 < 1.0) {
+            text_len = 0;
+          } else {
+            if (lineStr.size(1) < 1) {
+              rtDynamicBoundsError(1, 1, lineStr.size(1), &mb_emlrtBCI);
+            }
+            if ((ii_data - 1 < 1) || (ii_data - 1 > lineStr.size(1))) {
+              rtDynamicBoundsError(ii_data - 1, 1, lineStr.size(1),
+                                   &nb_emlrtBCI);
+            }
+            text_len = ii_data - 1;
+          }
+          if (tabLocs[0] + 1U > static_cast<unsigned int>(lineStr.size(1))) {
+            i = 0;
+            match_idx = 0;
+          } else {
+            i = static_cast<int>(tabLocs[0] + 1U);
+            if ((i < 1) || (i > lineStr.size(1))) {
+              rtDynamicBoundsError(i, 1, lineStr.size(1), &kb_emlrtBCI);
+            }
+            i--;
+            if (lineStr.size(1) < 1) {
+              rtDynamicBoundsError(lineStr.size(1), 1, lineStr.size(1),
+                                   &lb_emlrtBCI);
+            }
+            match_idx = lineStr.size(1);
+          }
+          c_lineStr.set_size(1, text_len);
+          for (ii_data = 0; ii_data < text_len; ii_data++) {
+            c_lineStr[ii_data] = lineStr[ii_data];
+          }
+          if (!coder::internal::b_strcmp(c_lineStr)) {
+            c_lineStr.set_size(1, text_len);
+            for (ii_data = 0; ii_data < text_len; ii_data++) {
+              c_lineStr[ii_data] = lineStr[ii_data];
+            }
+            if (coder::internal::c_strcmp(c_lineStr)) {
+              creal_T dc;
+              text_len = match_idx - i;
+              c_lineStr.set_size(1, text_len);
+              for (match_idx = 0; match_idx < text_len; match_idx++) {
+                c_lineStr[match_idx] = lineStr[i + match_idx];
+              }
+              dc = coder::str2double(c_lineStr);
+              if (!(dc.re >= 0.0)) {
+                b_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+              }
+              Config->contents.channelCenterFreqMHz = dc.re;
             } else {
-              b_bool = false;
-              if (match_idx == 7) {
-                text_len = 0;
-                do {
-                  exitg1 = 0;
-                  if (text_len < 7) {
-                    if (lineStr[text_len] != cv4[text_len]) {
-                      exitg1 = 1;
-                    } else {
-                      text_len++;
-                    }
-                  } else {
-                    b_bool = true;
-                    exitg1 = 1;
-                  }
-                } while (exitg1 == 0);
+              c_lineStr.set_size(1, text_len);
+              for (ii_data = 0; ii_data < text_len; ii_data++) {
+                c_lineStr[ii_data] = lineStr[ii_data];
               }
-              if (!b_bool) {
-                b_bool = false;
-                if (match_idx == 9) {
-                  text_len = 0;
-                  do {
-                    exitg1 = 0;
-                    if (text_len < 9) {
-                      if (lineStr[text_len] != cv5[text_len]) {
-                        exitg1 = 1;
-                      } else {
-                        text_len++;
-                      }
-                    } else {
-                      b_bool = true;
-                      exitg1 = 1;
-                    }
-                  } while (exitg1 == 0);
+              if (!coder::internal::d_strcmp(c_lineStr)) {
+                c_lineStr.set_size(1, text_len);
+                for (ii_data = 0; ii_data < text_len; ii_data++) {
+                  c_lineStr[ii_data] = lineStr[ii_data];
                 }
-                if (b_bool) {
-                  match_idx = colonLocation_data - i;
-                  configValStr.set_size(1, match_idx);
-                  for (colonLocation_data = 0; colonLocation_data < match_idx;
-                       colonLocation_data++) {
-                    configValStr[colonLocation_data] =
-                        lineStr[i + colonLocation_data];
+                if (coder::internal::e_strcmp(c_lineStr)) {
+                  unsigned short in;
+                  text_len = match_idx - i;
+                  c_lineStr.set_size(1, text_len);
+                  for (match_idx = 0; match_idx < text_len; match_idx++) {
+                    c_lineStr[match_idx] = lineStr[i + match_idx];
                   }
-                  coder::str2double(configValStr);
-                } else {
-                  configValStr.set_size(1, match_idx);
-                  for (text_len = 0; text_len < match_idx; text_len++) {
-                    configValStr[text_len] = lineStr[text_len];
-                  }
-                  if (coder::internal::b_strcmp(configValStr)) {
-                    match_idx = colonLocation_data - i;
-                    configValStr.set_size(1, match_idx);
-                    for (colonLocation_data = 0; colonLocation_data < match_idx;
-                         colonLocation_data++) {
-                      configValStr[colonLocation_data] =
-                          lineStr[i + colonLocation_data];
+                  creal_T dc;
+                  dc = coder::str2double(c_lineStr);
+                  d = std::round(dc.re);
+                  if (d < 65536.0) {
+                    if (d >= 0.0) {
+                      in = static_cast<unsigned short>(d);
+                    } else {
+                      in = 0U;
                     }
-                    creal_T dc;
-                    dc = coder::str2double(configValStr);
-                    Config->contents.Fs = dc.re;
+                  } else if (d >= 65536.0) {
+                    in = MAX_uint16_T;
                   } else {
-                    configValStr.set_size(1, match_idx);
-                    for (text_len = 0; text_len < match_idx; text_len++) {
-                      configValStr[text_len] = lineStr[text_len];
+                    in = 0U;
+                  }
+                  Config->contents.portData = in;
+                  if (in <= 0) {
+                    c_rtErrorWithMessageID(b_emlrtRTEI.fName,
+                                           b_emlrtRTEI.lineNo);
+                  }
+                } else {
+                  c_lineStr.set_size(1, text_len);
+                  for (ii_data = 0; ii_data < text_len; ii_data++) {
+                    c_lineStr[ii_data] = lineStr[ii_data];
+                  }
+                  if (!coder::internal::f_strcmp(c_lineStr)) {
+                    c_lineStr.set_size(1, text_len);
+                    for (ii_data = 0; ii_data < text_len; ii_data++) {
+                      c_lineStr[ii_data] = lineStr[ii_data];
                     }
-                    if (coder::internal::c_strcmp(configValStr)) {
-                      match_idx = colonLocation_data - i;
-                      configValStr.set_size(1, match_idx);
-                      for (colonLocation_data = 0;
-                           colonLocation_data < match_idx;
-                           colonLocation_data++) {
-                        configValStr[colonLocation_data] =
-                            lineStr[i + colonLocation_data];
+                    if (coder::internal::g_strcmp(c_lineStr)) {
+                      unsigned short in;
+                      text_len = match_idx - i;
+                      c_lineStr.set_size(1, text_len);
+                      for (match_idx = 0; match_idx < text_len; match_idx++) {
+                        c_lineStr[match_idx] = lineStr[i + match_idx];
                       }
                       creal_T dc;
-                      dc = coder::str2double(configValStr);
-                      Config->contents.tagFreqMHz = dc.re;
-                    } else {
-                      configValStr.set_size(1, match_idx);
-                      for (text_len = 0; text_len < match_idx; text_len++) {
-                        configValStr[text_len] = lineStr[text_len];
-                      }
-                      if (coder::internal::d_strcmp(configValStr)) {
-                        match_idx = colonLocation_data - i;
-                        configValStr.set_size(1, match_idx);
-                        for (colonLocation_data = 0;
-                             colonLocation_data < match_idx;
-                             colonLocation_data++) {
-                          configValStr[colonLocation_data] =
-                              lineStr[i + colonLocation_data];
+                      dc = coder::str2double(c_lineStr);
+                      d = std::round(dc.re);
+                      if (d < 65536.0) {
+                        if (d >= 0.0) {
+                          in = static_cast<unsigned short>(d);
+                        } else {
+                          in = 0U;
                         }
-                        creal_T dc;
-                        dc = coder::str2double(configValStr);
-                        Config->contents.tp = dc.re;
+                      } else if (d >= 65536.0) {
+                        in = MAX_uint16_T;
                       } else {
-                        configValStr.set_size(1, match_idx);
-                        for (text_len = 0; text_len < match_idx; text_len++) {
-                          configValStr[text_len] = lineStr[text_len];
+                        in = 0U;
+                      }
+                      if (in <= 0) {
+                        c_rtErrorWithMessageID(b_emlrtRTEI.fName,
+                                               b_emlrtRTEI.lineNo);
+                      }
+                    } else {
+                      c_lineStr.set_size(1, text_len);
+                      for (ii_data = 0; ii_data < text_len; ii_data++) {
+                        c_lineStr[ii_data] = lineStr[ii_data];
+                      }
+                      if (coder::internal::h_strcmp(c_lineStr)) {
+                        creal_T dc;
+                        text_len = match_idx - i;
+                        c_lineStr.set_size(1, text_len);
+                        for (match_idx = 0; match_idx < text_len; match_idx++) {
+                          c_lineStr[match_idx] = lineStr[i + match_idx];
                         }
-                        if (coder::internal::e_strcmp(configValStr)) {
-                          match_idx = colonLocation_data - i;
-                          configValStr.set_size(1, match_idx);
-                          for (colonLocation_data = 0;
-                               colonLocation_data < match_idx;
-                               colonLocation_data++) {
-                            configValStr[colonLocation_data] =
-                                lineStr[i + colonLocation_data];
+                        dc = coder::str2double(c_lineStr);
+                        if (!(dc.re > 0.0)) {
+                          c_rtErrorWithMessageID(b_emlrtRTEI.fName,
+                                                 b_emlrtRTEI.lineNo);
+                        }
+                        Config->contents.Fs = dc.re;
+                      } else {
+                        c_lineStr.set_size(1, text_len);
+                        for (ii_data = 0; ii_data < text_len; ii_data++) {
+                          c_lineStr[ii_data] = lineStr[ii_data];
+                        }
+                        if (coder::internal::i_strcmp(c_lineStr)) {
+                          text_len = match_idx - i;
+                          c_lineStr.set_size(1, text_len);
+                          for (match_idx = 0; match_idx < text_len;
+                               match_idx++) {
+                            c_lineStr[match_idx] = lineStr[i + match_idx];
                           }
                           creal_T dc;
-                          dc = coder::str2double(configValStr);
-                          Config->contents.tip = dc.re;
+                          dc = coder::str2double(c_lineStr);
+                          Config->contents.tagFreqMHz = dc.re;
                         } else {
-                          configValStr.set_size(1, match_idx);
-                          for (text_len = 0; text_len < match_idx; text_len++) {
-                            configValStr[text_len] = lineStr[text_len];
+                          c_lineStr.set_size(1, text_len);
+                          for (ii_data = 0; ii_data < text_len; ii_data++) {
+                            c_lineStr[ii_data] = lineStr[ii_data];
                           }
-                          if (coder::internal::f_strcmp(configValStr)) {
-                            match_idx = colonLocation_data - i;
-                            configValStr.set_size(1, match_idx);
-                            for (colonLocation_data = 0;
-                                 colonLocation_data < match_idx;
-                                 colonLocation_data++) {
-                              configValStr[colonLocation_data] =
-                                  lineStr[i + colonLocation_data];
-                            }
+                          if (coder::internal::j_strcmp(c_lineStr)) {
                             creal_T dc;
-                            dc = coder::str2double(configValStr);
-                            Config->contents.tipu = dc.re;
-                          } else {
-                            configValStr.set_size(1, match_idx);
-                            for (text_len = 0; text_len < match_idx;
-                                 text_len++) {
-                              configValStr[text_len] = lineStr[text_len];
+                            text_len = match_idx - i;
+                            c_lineStr.set_size(1, text_len);
+                            for (match_idx = 0; match_idx < text_len;
+                                 match_idx++) {
+                              c_lineStr[match_idx] = lineStr[i + match_idx];
                             }
-                            if (coder::internal::g_strcmp(configValStr)) {
-                              match_idx = colonLocation_data - i;
-                              configValStr.set_size(1, match_idx);
-                              for (colonLocation_data = 0;
-                                   colonLocation_data < match_idx;
-                                   colonLocation_data++) {
-                                configValStr[colonLocation_data] =
-                                    lineStr[i + colonLocation_data];
-                              }
+                            dc = coder::str2double(c_lineStr);
+                            if (!(dc.re > 0.0)) {
+                              c_rtErrorWithMessageID(b_emlrtRTEI.fName,
+                                                     b_emlrtRTEI.lineNo);
+                            }
+                            Config->contents.tp = dc.re;
+                          } else {
+                            c_lineStr.set_size(1, text_len);
+                            for (ii_data = 0; ii_data < text_len; ii_data++) {
+                              c_lineStr[ii_data] = lineStr[ii_data];
+                            }
+                            if (coder::internal::k_strcmp(c_lineStr)) {
                               creal_T dc;
-                              dc = coder::str2double(configValStr);
-                              Config->contents.tipj = dc.re;
-                            } else {
-                              b_bool = false;
-                              if ((match_idx == 1) && (lineStr[0] == 'K')) {
-                                b_bool = true;
+                              text_len = match_idx - i;
+                              c_lineStr.set_size(1, text_len);
+                              for (match_idx = 0; match_idx < text_len;
+                                   match_idx++) {
+                                c_lineStr[match_idx] = lineStr[i + match_idx];
                               }
-                              if (b_bool) {
-                                unsigned char in;
-                                match_idx = colonLocation_data - i;
-                                configValStr.set_size(1, match_idx);
-                                for (colonLocation_data = 0;
-                                     colonLocation_data < match_idx;
-                                     colonLocation_data++) {
-                                  configValStr[colonLocation_data] =
-                                      lineStr[i + colonLocation_data];
-                                }
+                              dc = coder::str2double(c_lineStr);
+                              if (!(dc.re > 0.0)) {
+                                c_rtErrorWithMessageID(b_emlrtRTEI.fName,
+                                                       b_emlrtRTEI.lineNo);
+                              }
+                              Config->contents.tip = dc.re;
+                            } else {
+                              c_lineStr.set_size(1, text_len);
+                              for (ii_data = 0; ii_data < text_len; ii_data++) {
+                                c_lineStr[ii_data] = lineStr[ii_data];
+                              }
+                              if (coder::internal::l_strcmp(c_lineStr)) {
                                 creal_T dc;
-                                dc = coder::str2double(configValStr);
-                                d = std::round(dc.re);
-                                if (d < 256.0) {
-                                  if (d >= 0.0) {
-                                    in = static_cast<unsigned char>(d);
-                                  } else {
-                                    in = 0U;
-                                  }
-                                } else if (d >= 256.0) {
-                                  in = MAX_uint8_T;
-                                } else {
-                                  in = 0U;
+                                text_len = match_idx - i;
+                                c_lineStr.set_size(1, text_len);
+                                for (match_idx = 0; match_idx < text_len;
+                                     match_idx++) {
+                                  c_lineStr[match_idx] = lineStr[i + match_idx];
                                 }
-                                Config->contents.K = in;
+                                dc = coder::str2double(c_lineStr);
+                                if (!(dc.re >= 0.0)) {
+                                  b_rtErrorWithMessageID(rc_emlrtRTEI.fName,
+                                                         rc_emlrtRTEI.lineNo);
+                                }
+                                Config->contents.tipu = dc.re;
                               } else {
-                                configValStr.set_size(1, match_idx);
-                                for (text_len = 0; text_len < match_idx;
-                                     text_len++) {
-                                  configValStr[text_len] = lineStr[text_len];
+                                c_lineStr.set_size(1, text_len);
+                                for (ii_data = 0; ii_data < text_len;
+                                     ii_data++) {
+                                  c_lineStr[ii_data] = lineStr[ii_data];
                                 }
-                                if (coder::internal::h_strcmp(configValStr)) {
-                                  match_idx = colonLocation_data - i;
-                                  _in.Value.set_size(1, match_idx);
-                                  for (colonLocation_data = 0;
-                                       colonLocation_data < match_idx;
-                                       colonLocation_data++) {
-                                    _in.Value[colonLocation_data] =
-                                        lineStr[i + colonLocation_data];
+                                if (coder::internal::m_strcmp(c_lineStr)) {
+                                  creal_T dc;
+                                  text_len = match_idx - i;
+                                  c_lineStr.set_size(1, text_len);
+                                  for (match_idx = 0; match_idx < text_len;
+                                       match_idx++) {
+                                    c_lineStr[match_idx] =
+                                        lineStr[i + match_idx];
                                   }
-                                  Config->contents.opMode = _in;
+                                  dc = coder::str2double(c_lineStr);
+                                  if (!(dc.re >= 0.0)) {
+                                    b_rtErrorWithMessageID(rc_emlrtRTEI.fName,
+                                                           rc_emlrtRTEI.lineNo);
+                                  }
+                                  Config->contents.tipj = dc.re;
                                 } else {
-                                  configValStr.set_size(1, match_idx);
-                                  for (text_len = 0; text_len < match_idx;
-                                       text_len++) {
-                                    configValStr[text_len] = lineStr[text_len];
+                                  bool b_bool;
+                                  b_bool = false;
+                                  if ((text_len == 1) && (lineStr[0] == 'K')) {
+                                    b_bool = true;
                                   }
-                                  if (coder::internal::i_strcmp(configValStr)) {
-                                    match_idx = colonLocation_data - i;
-                                    configValStr.set_size(1, match_idx);
-                                    for (colonLocation_data = 0;
-                                         colonLocation_data < match_idx;
-                                         colonLocation_data++) {
-                                      configValStr[colonLocation_data] =
-                                          lineStr[i + colonLocation_data];
+                                  if (b_bool) {
+                                    unsigned char b_in;
+                                    text_len = match_idx - i;
+                                    c_lineStr.set_size(1, text_len);
+                                    for (match_idx = 0; match_idx < text_len;
+                                         match_idx++) {
+                                      c_lineStr[match_idx] =
+                                          lineStr[i + match_idx];
                                     }
-                                    str2matrix(configValStr, r);
-                                    val.set_size(r.size(0), r.size(1));
-                                    match_idx = r.size(0) * r.size(1);
-                                    for (i = 0; i < match_idx; i++) {
-                                      val[i] = r[i].re;
-                                    }
-                                    coder::internal::validator_check_size(
-                                        val, Config->contents.excldFreqs);
-                                  } else {
-                                    configValStr.set_size(1, match_idx);
-                                    for (text_len = 0; text_len < match_idx;
-                                         text_len++) {
-                                      configValStr[text_len] =
-                                          lineStr[text_len];
-                                    }
-                                    if (coder::internal::j_strcmp(
-                                            configValStr)) {
-                                      match_idx = colonLocation_data - i;
-                                      configValStr.set_size(1, match_idx);
-                                      for (colonLocation_data = 0;
-                                           colonLocation_data < match_idx;
-                                           colonLocation_data++) {
-                                        configValStr[colonLocation_data] =
-                                            lineStr[i + colonLocation_data];
-                                      }
-                                      creal_T dc;
-                                      dc = coder::str2double(configValStr);
-                                      Config->contents.falseAlarmProb = dc.re;
-                                    } else {
-                                      configValStr.set_size(1, match_idx);
-                                      for (text_len = 0; text_len < match_idx;
-                                           text_len++) {
-                                        configValStr[text_len] =
-                                            lineStr[text_len];
-                                      }
-                                      if (coder::internal::k_strcmp(
-                                              configValStr)) {
-                                        match_idx = colonLocation_data - i;
-                                        _in.Value.set_size(1, match_idx);
-                                        for (colonLocation_data = 0;
-                                             colonLocation_data < match_idx;
-                                             colonLocation_data++) {
-                                          _in.Value[colonLocation_data] =
-                                              lineStr[i + colonLocation_data];
-                                        }
-                                        Config->contents.dataRecordPath = _in;
+                                    creal_T dc;
+                                    dc = coder::str2double(c_lineStr);
+                                    d = std::round(dc.re);
+                                    if (d < 256.0) {
+                                      if (d >= 0.0) {
+                                        b_in = static_cast<unsigned char>(d);
                                       } else {
-                                        configValStr.set_size(1, match_idx);
-                                        for (text_len = 0; text_len < match_idx;
-                                             text_len++) {
-                                          configValStr[text_len] =
-                                              lineStr[text_len];
+                                        b_in = 0U;
+                                      }
+                                    } else if (d >= 256.0) {
+                                      b_in = MAX_uint8_T;
+                                    } else {
+                                      b_in = 0U;
+                                    }
+                                    Config->contents.K = b_in;
+                                    if (b_in <= 0) {
+                                      c_rtErrorWithMessageID(
+                                          b_emlrtRTEI.fName,
+                                          b_emlrtRTEI.lineNo);
+                                    }
+                                  } else {
+                                    c_lineStr.set_size(1, text_len);
+                                    for (ii_data = 0; ii_data < text_len;
+                                         ii_data++) {
+                                      c_lineStr[ii_data] = lineStr[ii_data];
+                                    }
+                                    if (coder::internal::n_strcmp(c_lineStr)) {
+                                      text_len = match_idx - i;
+                                      _in.Value.set_size(1, text_len);
+                                      for (match_idx = 0; match_idx < text_len;
+                                           match_idx++) {
+                                        _in.Value[match_idx] =
+                                            lineStr[i + match_idx];
+                                      }
+                                      Config->contents.opMode = _in;
+                                    } else {
+                                      c_lineStr.set_size(1, text_len);
+                                      for (ii_data = 0; ii_data < text_len;
+                                           ii_data++) {
+                                        c_lineStr[ii_data] = lineStr[ii_data];
+                                      }
+                                      if (coder::internal::o_strcmp(
+                                              c_lineStr)) {
+                                        text_len = match_idx - i;
+                                        c_lineStr.set_size(1, text_len);
+                                        for (match_idx = 0;
+                                             match_idx < text_len;
+                                             match_idx++) {
+                                          c_lineStr[match_idx] =
+                                              lineStr[i + match_idx];
                                         }
-                                        if (!coder::internal::l_strcmp(
-                                                configValStr)) {
-                                          configValStr.set_size(1, match_idx);
-                                          for (text_len = 0;
-                                               text_len < match_idx;
-                                               text_len++) {
-                                            configValStr[text_len] =
-                                                lineStr[text_len];
+                                        str2matrix(c_lineStr, r);
+                                        val.set_size(r.size(0), r.size(1));
+                                        text_len = r.size(0) * r.size(1);
+                                        for (i = 0; i < text_len; i++) {
+                                          val[i] = r[i].re;
+                                        }
+                                        coder::internal::validator_check_size(
+                                            val, Config->contents.excldFreqs);
+                                      } else {
+                                        c_lineStr.set_size(1, text_len);
+                                        for (ii_data = 0; ii_data < text_len;
+                                             ii_data++) {
+                                          c_lineStr[ii_data] = lineStr[ii_data];
+                                        }
+                                        if (coder::internal::p_strcmp(
+                                                c_lineStr)) {
+                                          creal_T dc;
+                                          text_len = match_idx - i;
+                                          c_lineStr.set_size(1, text_len);
+                                          for (match_idx = 0;
+                                               match_idx < text_len;
+                                               match_idx++) {
+                                            c_lineStr[match_idx] =
+                                                lineStr[i + match_idx];
                                           }
-                                          if (coder::internal::m_strcmp(
-                                                  configValStr)) {
-                                            // STR2BOOL Converts a string in to
-                                            // a boolean.
-                                            //    This function converts a
-                                            //    string to a boolean output.
-                                            //    Valid input strings are '1',
-                                            //    '0', 'true', or 'false'. The
-                                            //    input is case insensitive. If
-                                            //    input is invalid, the function
-                                            //    returns an empty false of size
-                                            //    0x1.
-                                            //
-                                            // INPUTS:
-                                            //    stringIn    string of '1',
-                                            //    '0', 'true', or 'false', case
-                                            //    insensitive.
-                                            //
-                                            // OUTPUTS:
-                                            //    boolOut     boolean
-                                            //
-                                            // Author: Michael W. Shafer
-                                            // Date:   2022-06-21
-                                            // --------------------------------------------------------------------------
-                                            colonLocation_data -= i;
-                                            configValStr.set_size(
-                                                1, colonLocation_data);
-                                            colonLocation_data--;
-                                            for (text_len = 0;
-                                                 text_len <= colonLocation_data;
-                                                 text_len++) {
-                                              configValStr[text_len] =
-                                                  cv[static_cast<unsigned char>(
-                                                         lineStr[i +
-                                                                 text_len]) &
-                                                     127];
+                                          dc = coder::str2double(c_lineStr);
+                                          if (!(dc.re > 0.0)) {
+                                            c_rtErrorWithMessageID(
+                                                b_emlrtRTEI.fName,
+                                                b_emlrtRTEI.lineNo);
+                                          }
+                                          if (!(dc.re < 1.0)) {
+                                            rtErrorWithMessageID(
+                                                "  1.000000000000000e+00",
+                                                qc_emlrtRTEI.fName,
+                                                qc_emlrtRTEI.lineNo);
+                                          }
+                                          Config->contents.falseAlarmProb =
+                                              dc.re;
+                                        } else {
+                                          c_lineStr.set_size(1, text_len);
+                                          for (ii_data = 0; ii_data < text_len;
+                                               ii_data++) {
+                                            c_lineStr[ii_data] =
+                                                lineStr[ii_data];
+                                          }
+                                          if (coder::internal::q_strcmp(
+                                                  c_lineStr)) {
+                                            text_len = match_idx - i;
+                                            _in.Value.set_size(1, text_len);
+                                            for (match_idx = 0;
+                                                 match_idx < text_len;
+                                                 match_idx++) {
+                                              _in.Value[match_idx] =
+                                                  lineStr[i + match_idx];
                                             }
-                                            b_bool = false;
-                                            if ((configValStr.size(1) == 1) &&
-                                                (configValStr[0] == '1')) {
-                                              b_bool = true;
-                                            }
-                                            if (b_bool) {
-                                              text_len = 1;
-                                              b_bool = true;
-                                            } else {
-                                              b_bool = false;
-                                              if ((configValStr.size(1) == 1) &&
-                                                  (configValStr[0] == '0')) {
-                                                b_bool = true;
-                                              }
-                                              if (b_bool) {
-                                                text_len = 1;
-                                                b_bool = false;
-                                              } else if (
-                                                  coder::internal::n_strcmp(
-                                                      configValStr)) {
-                                                text_len = 1;
-                                                b_bool = true;
-                                              } else if (
-                                                  coder::internal::o_strcmp(
-                                                      configValStr)) {
-                                                text_len = 1;
-                                                b_bool = false;
-                                              } else {
-                                                text_len = 0;
-                                              }
-                                            }
-                                            coder::internal::
-                                                b_validator_check_size(
-                                                    (const boolean_T *)&b_bool,
-                                                    text_len);
+                                            Config->contents.dataRecordPath =
+                                                _in;
                                           } else {
-                                            configValStr.set_size(1, match_idx);
-                                            for (text_len = 0;
-                                                 text_len < match_idx;
-                                                 text_len++) {
-                                              configValStr[text_len] =
-                                                  lineStr[text_len];
+                                            c_lineStr.set_size(1, text_len);
+                                            for (ii_data = 0;
+                                                 ii_data < text_len;
+                                                 ii_data++) {
+                                              c_lineStr[ii_data] =
+                                                  lineStr[ii_data];
                                             }
-                                            if (coder::internal::p_strcmp(
-                                                    configValStr)) {
-                                              // STR2BOOL Converts a string in
-                                              // to a boolean.
-                                              //    This function converts a
-                                              //    string to a boolean output.
-                                              //    Valid input strings are '1',
-                                              //    '0', 'true', or 'false'. The
-                                              //    input is case insensitive.
-                                              //    If input is invalid, the
-                                              //    function returns an empty
-                                              //    false of size 0x1.
-                                              //
-                                              // INPUTS:
-                                              //    stringIn    string of '1',
-                                              //    '0', 'true', or 'false',
-                                              //    case insensitive.
-                                              //
-                                              // OUTPUTS:
-                                              //    boolOut     boolean
-                                              //
-                                              // Author: Michael W. Shafer
-                                              // Date:   2022-06-21
-                                              // --------------------------------------------------------------------------
-                                              configValStr.set_size(
-                                                  1, colonLocation_data - i);
-                                              colonLocation_data =
-                                                  (colonLocation_data - i) - 1;
-                                              for (text_len = 0;
-                                                   text_len <=
-                                                   colonLocation_data;
-                                                   text_len++) {
-                                                configValStr[text_len] = cv
-                                                    [static_cast<unsigned char>(
-                                                         lineStr[i +
-                                                                 text_len]) &
-                                                     127];
+                                            if (!coder::internal::r_strcmp(
+                                                    c_lineStr)) {
+                                              c_lineStr.set_size(1, text_len);
+                                              for (ii_data = 0;
+                                                   ii_data < text_len;
+                                                   ii_data++) {
+                                                c_lineStr[ii_data] =
+                                                    lineStr[ii_data];
                                               }
-                                              b_bool = false;
-                                              if ((configValStr.size(1) == 1) &&
-                                                  (configValStr[0] == '1')) {
-                                                b_bool = true;
-                                              }
-                                              if (b_bool) {
-                                                text_len = 1;
-                                                b_bool = true;
-                                              } else {
+                                              if (coder::internal::s_strcmp(
+                                                      c_lineStr)) {
+                                                // STR2BOOL Converts a string in
+                                                // to a boolean.
+                                                //    This function converts a
+                                                //    string to a boolean
+                                                //    output. Valid input
+                                                //    strings are '1', '0',
+                                                //    'true', or 'false'. The
+                                                //    input is case insensitive.
+                                                //    If input is invalid, the
+                                                //    function returns an empty
+                                                //    false of size 0x1.
+                                                //
+                                                // INPUTS:
+                                                //    stringIn    string of '1',
+                                                //    '0', 'true', or 'false',
+                                                //    case insensitive.
+                                                //
+                                                // OUTPUTS:
+                                                //    boolOut     boolean
+                                                //
+                                                // Author: Michael W. Shafer
+                                                // Date:   2022-06-21
+                                                // --------------------------------------------------------------------------
+                                                text_len = match_idx - i;
+                                                c_lineStr.set_size(1, text_len);
+                                                for (match_idx = 0;
+                                                     match_idx < text_len;
+                                                     match_idx++) {
+                                                  c_lineStr[match_idx] =
+                                                      lineStr[i + match_idx];
+                                                }
+                                                coder::lower(c_lineStr,
+                                                             lineStr);
                                                 b_bool = false;
-                                                if ((configValStr.size(1) ==
-                                                     1) &&
-                                                    (configValStr[0] == '0')) {
+                                                if ((lineStr.size(1) == 1) &&
+                                                    (lineStr[0] == '1')) {
                                                   b_bool = true;
                                                 }
                                                 if (b_bool) {
                                                   text_len = 1;
-                                                  b_bool = false;
-                                                } else if (
-                                                    coder::internal::n_strcmp(
-                                                        configValStr)) {
-                                                  text_len = 1;
                                                   b_bool = true;
-                                                } else if (
-                                                    coder::internal::o_strcmp(
-                                                        configValStr)) {
-                                                  text_len = 1;
-                                                  b_bool = false;
                                                 } else {
-                                                  text_len = 0;
+                                                  b_bool = false;
+                                                  if ((lineStr.size(1) == 1) &&
+                                                      (lineStr[0] == '0')) {
+                                                    b_bool = true;
+                                                  }
+                                                  if (b_bool) {
+                                                    text_len = 1;
+                                                    b_bool = false;
+                                                  } else if (coder::internal::
+                                                                 t_strcmp(
+                                                                     lineStr)) {
+                                                    text_len = 1;
+                                                    b_bool = true;
+                                                  } else if (coder::internal::
+                                                                 u_strcmp(
+                                                                     lineStr)) {
+                                                    text_len = 1;
+                                                    b_bool = false;
+                                                  } else {
+                                                    text_len = 0;
+                                                  }
+                                                }
+                                                coder::internal::
+                                                    b_validator_check_size(
+                                                        (const bool *)&b_bool,
+                                                        text_len);
+                                              } else {
+                                                c_lineStr.set_size(1, text_len);
+                                                for (ii_data = 0;
+                                                     ii_data < text_len;
+                                                     ii_data++) {
+                                                  c_lineStr[ii_data] =
+                                                      lineStr[ii_data];
+                                                }
+                                                if (coder::internal::v_strcmp(
+                                                        c_lineStr)) {
+                                                  // STR2BOOL Converts a string
+                                                  // in to a boolean.
+                                                  //    This function converts a
+                                                  //    string to a boolean
+                                                  //    output. Valid input
+                                                  //    strings are '1', '0',
+                                                  //    'true', or 'false'. The
+                                                  //    input is case
+                                                  //    insensitive. If input is
+                                                  //    invalid, the function
+                                                  //    returns an empty false
+                                                  //    of size 0x1.
+                                                  //
+                                                  // INPUTS:
+                                                  //    stringIn    string of
+                                                  //    '1', '0', 'true', or
+                                                  //    'false', case
+                                                  //    insensitive.
+                                                  //
+                                                  // OUTPUTS:
+                                                  //    boolOut     boolean
+                                                  //
+                                                  // Author: Michael W. Shafer
+                                                  // Date:   2022-06-21
+                                                  // --------------------------------------------------------------------------
+                                                  text_len = match_idx - i;
+                                                  c_lineStr.set_size(1,
+                                                                     text_len);
+                                                  for (match_idx = 0;
+                                                       match_idx < text_len;
+                                                       match_idx++) {
+                                                    c_lineStr[match_idx] =
+                                                        lineStr[i + match_idx];
+                                                  }
+                                                  coder::lower(c_lineStr,
+                                                               lineStr);
+                                                  b_bool = false;
+                                                  if ((lineStr.size(1) == 1) &&
+                                                      (lineStr[0] == '1')) {
+                                                    b_bool = true;
+                                                  }
+                                                  if (b_bool) {
+                                                    text_len = 1;
+                                                    b_bool = true;
+                                                  } else {
+                                                    b_bool = false;
+                                                    if ((lineStr.size(1) ==
+                                                         1) &&
+                                                        (lineStr[0] == '0')) {
+                                                      b_bool = true;
+                                                    }
+                                                    if (b_bool) {
+                                                      text_len = 1;
+                                                      b_bool = false;
+                                                    } else if (
+                                                        coder::internal::
+                                                            t_strcmp(lineStr)) {
+                                                      text_len = 1;
+                                                      b_bool = true;
+                                                    } else if (
+                                                        coder::internal::
+                                                            u_strcmp(lineStr)) {
+                                                      text_len = 1;
+                                                      b_bool = false;
+                                                    } else {
+                                                      text_len = 0;
+                                                    }
+                                                  }
+                                                  coder::internal::
+                                                      b_validator_check_size(
+                                                          (const bool *)&b_bool,
+                                                          text_len);
                                                 }
                                               }
-                                              coder::internal::
-                                                  b_validator_check_size(
-                                                      (const boolean_T
-                                                           *)&b_bool,
-                                                      text_len);
                                             }
                                           }
                                         }
@@ -1254,40 +1520,94 @@ static void updateconfig(coder::b_captured_var *Config,
               }
             }
           }
-        }
-      }
-      // Stop when we have finished reading this entry.
-      if ((coder::b_feof(static_cast<double>(fileid)) == 1.0) ||
-          (coder::b_ftell(static_cast<double>(fileid)) ==
-           sepByte[static_cast<int>(static_cast<unsigned int>(configNum))])) {
-        done = true;
-      }
-    } else if ((coder::b_feof(static_cast<double>(fileid)) == 1.0) ||
-               (coder::b_ftell(static_cast<double>(fileid)) ==
+          // Stop when we have finished reading this entry.
+          if (coder::b_feof(static_cast<double>(fileid)) == 1.0) {
+            done = true;
+          } else {
+            if ((static_cast<int>(static_cast<unsigned int>(configNum) + 1U) <
+                 1) ||
+                (static_cast<int>(static_cast<unsigned int>(configNum) + 1U) >
+                 sepByte.size(1))) {
+              rtDynamicBoundsError(
+                  static_cast<int>(static_cast<unsigned int>(configNum) + 1U),
+                  1, sepByte.size(1), &jb_emlrtBCI);
+            }
+            if (coder::b_ftell(static_cast<double>(fileid)) ==
                 sepByte[static_cast<int>(
-                    static_cast<unsigned int>(configNum))])) {
-      done = true;
-    }
+                    static_cast<unsigned int>(configNum))]) {
+              done = true;
+            }
+          }
+        } else if (coder::b_feof(static_cast<double>(fileid)) == 1.0) {
+          done = true;
+        } else {
+          if ((static_cast<int>(static_cast<unsigned int>(configNum) + 1U) <
+               1) ||
+              (static_cast<int>(static_cast<unsigned int>(configNum) + 1U) >
+               sepByte.size(1))) {
+            rtDynamicBoundsError(
+                static_cast<int>(static_cast<unsigned int>(configNum) + 1U), 1,
+                sepByte.size(1), &ob_emlrtBCI);
+          }
+          if (coder::b_ftell(static_cast<double>(fileid)) ==
+              sepByte[static_cast<int>(static_cast<unsigned int>(configNum))]) {
+            done = true;
+          }
+        }
+      } else {
+        exitg1 = 1;
+      }
+    } while (exitg1 == 0);
+    coder::cfclose(static_cast<double>(fileid));
   }
-  coder::cfclose(static_cast<double>(fileid));
   // Do we update the tip and tipu or use the ones that were adapted from
   // the previous detections? Probably just use the file. The supervisor
   // will have access to the detected pulses and can update these values if
   // it sees fit.
 }
 
+//
+// UNTITLED Summary of this function goes here
+//    Detailed explanation goes here
+//
+// Arguments    : void
+// Return Type  : void
+//
 void uavrt_detection()
 {
   static coder::dsp::AsyncBuffer asyncDataBuff;
   static coder::dsp::b_AsyncBuffer asyncTimeBuff;
+  static rtBoundsCheckInfo eb_emlrtBCI{
+      -1,                                              // iFirst
+      -1,                                              // iLast
+      199,                                             // lineNo
+      32,                                              // colNo
+      "t",                                             // aName
+      "uavrt_detection",                               // fName
+      "H:\\repos\\uavrt_detection\\uavrt_detection.m", // pName
+      0                                                // checkKind
+  };
+  static rtBoundsCheckInfo fb_emlrtBCI{
+      -1,                                              // iFirst
+      -1,                                              // iLast
+      352,                                             // lineNo
+      53,                                              // colNo
+      "ps_pre_struc.pl",                               // aName
+      "uavrt_detection",                               // fName
+      "H:\\repos\\uavrt_detection\\uavrt_detection.m", // pName
+      0                                                // checkKind
+  };
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      10,             // lineNo
+      "mustBeInteger" // fName
+  };
+  DetectorConfig *obj;
   b_waveform X;
-  coder::array<c_struct_T, 2U> *structure;
   coder::b_captured_var Config;
   coder::c_captured_var overlapSamples;
   coder::c_captured_var sampsForKPulses;
   coder::c_captured_var stftOverlapFraction;
   coder::captured_var configPath;
-  coder::datetime b_this;
   pulsestats lobj_10[4];
   pulsestats lobj_19[2];
   pulsestats lobj_13;
@@ -1310,27 +1630,27 @@ void uavrt_detection()
   coder::array<double, 1U> r1;
   coder::array<double, 1U> t;
   coder::array<char, 2U> d_varargin_1;
-  coder::array<boolean_T, 2U> b_varargin_1;
-  coder::array<boolean_T, 2U> c_varargin_1;
-  coder::array<boolean_T, 2U> ps_pre_struc_cmsk;
-  coder::array<boolean_T, 1U> b_tmp_data;
-  coder::array<boolean_T, 1U> r2;
+  coder::array<bool, 2U> b_varargin_1;
+  coder::array<bool, 2U> c_varargin_1;
+  coder::array<bool, 2U> ps_pre_struc_cmsk;
+  coder::array<bool, 1U> b_tmp_data;
+  coder::array<bool, 1U> r2;
   c_struct_T b_expl_temp;
   c_struct_T expl_temp;
   c_struct_T r;
   creal_T dcv[1000];
   creal32_T exampleData[1000];
   double ps_pre_struc_tmplt[2];
-  double ps_pre_struc_fend;
+  double integratedTimeError;
   double segmentsProcessed;
-  double t5_P;
-  double t5_SNR;
-  double t5_fend;
-  double t5_fp;
-  double t5_fstart;
-  double t5_t_0;
-  double t5_t_f;
-  double t5_yw;
+  double t9_P;
+  double t9_SNR;
+  double t9_fend;
+  double t9_fp;
+  double t9_fstart;
+  double t9_t_0;
+  double t9_t_f;
+  double t9_yw;
   double timeStamp;
   double trackedCount;
   int i;
@@ -1339,19 +1659,17 @@ void uavrt_detection()
   signed char fileid;
   char mode;
   char suggestedMode;
-  boolean_T cleanBuffer;
-  boolean_T configUpdatedFlag;
-  boolean_T fLock;
-  boolean_T resetBuffersFlag;
-  boolean_T staleDataFlag;
-  boolean_T t5_con_dec;
-  boolean_T t5_det_dec;
-  boolean_T tmp_data;
+  bool cleanBuffer;
+  bool configUpdatedFlag;
+  bool fLock;
+  bool resetBuffersFlag;
+  bool staleDataFlag;
+  bool t9_con_dec;
+  bool t9_det_dec;
+  bool tmp_data;
   if (!isInitialized_uavrt_detection) {
     uavrt_detection_initialize();
   }
-  // UNTITLED Summary of this function goes here
-  //    Detailed explanation goes here
   configPath.contents.init();
   // Must exist in the same directory as the execution of this executable
   Config.contents.init();
@@ -1361,20 +1679,20 @@ void uavrt_detection()
   configUpdatedFlag = true;
   makepulsestruc(&r.A, &r.P, &r.SNR, &r.yw, &r.t_0, &r.t_f, r.t_next, &r.fp,
                  &r.fstart, &r.fend, r.mode, &r.det_dec, &r.con_dec);
-  makepulsestruc(&timeStamp, &t5_P, &t5_SNR, &t5_yw, &t5_t_0, &t5_t_f,
-                 expl_temp.t_next, &t5_fp, &t5_fstart, &t5_fend, expl_temp.mode,
-                 &t5_det_dec, &t5_con_dec);
-  expl_temp.con_dec = t5_con_dec;
-  expl_temp.det_dec = t5_det_dec;
-  expl_temp.fend = t5_fend;
-  expl_temp.fstart = t5_fstart;
-  expl_temp.fp = t5_fp;
-  expl_temp.t_f = t5_t_f;
-  expl_temp.t_0 = t5_t_0;
-  expl_temp.yw = t5_yw;
-  expl_temp.SNR = t5_SNR;
-  expl_temp.P = t5_P;
-  expl_temp.A = timeStamp;
+  makepulsestruc(&integratedTimeError, &t9_P, &t9_SNR, &t9_yw, &t9_t_0, &t9_t_f,
+                 expl_temp.t_next, &t9_fp, &t9_fstart, &t9_fend, expl_temp.mode,
+                 &t9_det_dec, &t9_con_dec);
+  expl_temp.con_dec = t9_con_dec;
+  expl_temp.det_dec = t9_det_dec;
+  expl_temp.fend = t9_fend;
+  expl_temp.fstart = t9_fstart;
+  expl_temp.fp = t9_fp;
+  expl_temp.t_f = t9_t_f;
+  expl_temp.t_0 = t9_t_0;
+  expl_temp.yw = t9_yw;
+  expl_temp.SNR = t9_SNR;
+  expl_temp.P = t9_P;
+  expl_temp.A = integratedTimeError;
   pulseStatsPriori = lobj_19[1].init(Config.contents.tp, Config.contents.tip,
                                      Config.contents.tipu, Config.contents.tipj,
                                      &r, &expl_temp);
@@ -1436,13 +1754,13 @@ void uavrt_detection()
   // dims 0 if fixed, 1 if variable
   printf("Startup set 4 complete. \n");
   fflush(stdout);
-  t5_yw = 0.0;
-  t5_t_0 = 0.0;
-  t5_t_f = 0.0;
-  t5_fp = 0.0;
-  t5_fstart = 0.0;
-  t5_fend = 0.0;
-  ps_pre_struc_fend = 0.0;
+  t9_SNR = 0.0;
+  t9_yw = 0.0;
+  t9_t_0 = 0.0;
+  t9_t_f = 0.0;
+  t9_fp = 0.0;
+  t9_fstart = 0.0;
+  t9_fend = 0.0;
   ps_pre_struc_tmplt[0] = 1.0;
   ps_pre_struc_tmplt[1] = 1.0;
   makepulsestruc(&r.A, &r.P, &r.SNR, &r.yw, &r.t_0, &r.t_f, r.t_next, &r.fp,
@@ -1465,9 +1783,10 @@ void uavrt_detection()
     exampleData[i].re = static_cast<float>(dcv[i].re);
     exampleData[i].im = static_cast<float>(dcv[i].im);
   }
+  integratedTimeError = Config.contents.falseAlarmProb;
   // UNTITLED2 Construct an instance of this class
   //    Detailed explanation goes here
-  val.pf = Config.contents.falseAlarmProb;
+  val.pf = integratedTimeError;
   val.evMuParam = 0.0;
   val.evSigmaParam = 0.0;
   val.threshVecFine.set_size(1);
@@ -1481,10 +1800,14 @@ void uavrt_detection()
   X.spectro(&lobj_17[0]);
   printf("Startup set 6 complete. \n");
   fflush(stdout);
-  // udpReceiver = udpReceiverSetup('127.0.0.1', Config.portData,
-  // udpReceiveBufferSize, udpReceiveBufferSize);
-  udpReceiver = udpReceiverSetup(20000.0);
-  udpSender = udpSenderSetup(30000.0);
+  udpReceiver = udpReceiverSetup(Config.contents.portData);
+  if (udpReceiver <= 0) {
+    rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
+  }
+  udpSender = udpSenderSetup(4096.0);
+  if (udpSender <= 0) {
+    rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
+  }
   // Initialize loop variables
   resetBuffersFlag = true;
   segmentsProcessed = 0.0;
@@ -1492,35 +1815,20 @@ void uavrt_detection()
   fLock = false;
   staleDataFlag = true;
   // Force buffer  flush on start
+  timeStamp = 0.0;
   cleanBuffer = true;
   trackedCount = 0.0;
   printf("Startup set 7 complete. Starting processing... \n");
   fflush(stdout);
-  int exitg1;
-  do {
+  while (1) {
     creal32_T complexBuffer[4096];
-    double b_timeStamp[4096];
+    double timeVector[4096];
     int n;
     int qY;
-    exitg1 = 0;
     // i <= maxInd
     if (resetBuffersFlag) {
-      if (asyncDataBuff.pBuffer.isInitialized == 1) {
-        asyncDataBuff.pBuffer.ReadPointer = 1;
-        asyncDataBuff.pBuffer.WritePointer = 2;
-        asyncDataBuff.pBuffer.CumulativeOverrun = 0;
-        asyncDataBuff.pBuffer.CumulativeUnderrun = 0;
-        std::memset(&asyncDataBuff.pBuffer.Cache[0], 0,
-                    49621U * sizeof(creal32_T));
-      }
-      if (asyncTimeBuff.pBuffer.isInitialized == 1) {
-        asyncTimeBuff.pBuffer.ReadPointer = 1;
-        asyncTimeBuff.pBuffer.WritePointer = 2;
-        asyncTimeBuff.pBuffer.CumulativeOverrun = 0;
-        asyncTimeBuff.pBuffer.CumulativeUnderrun = 0;
-        std::memset(&asyncTimeBuff.pBuffer.Cache[0], 0,
-                    49621U * sizeof(double));
-      }
+      asyncDataBuff.reset();
+      asyncTimeBuff.reset();
       resetBuffersFlag = false;
       cleanBuffer = true;
     }
@@ -1534,15 +1842,14 @@ void uavrt_detection()
     //             %% Get data
     udpReceiverRead(udpReceiver, &complexBuffer[0], 4096.0);
     //             %% Wait for new data if none ready, else put data in buffers
-    b_this.init();
-    timeStamp = b_this.data.re / 1000.0;
-    t5_SNR = 1.0 / Config.contents.Fs;
+    integratedTimeError = 1.0 / Config.contents.Fs;
+    for (i = 0; i < 4096; i++) {
+      timeVector[i] = timeStamp + integratedTimeError * static_cast<double>(i);
+    }
+    timeStamp += 4096.0 / Config.contents.Fs;
     // Write out data and time.
     asyncDataBuff.write(complexBuffer);
-    for (i = 0; i < 4096; i++) {
-      b_timeStamp[i] = timeStamp + t5_SNR * static_cast<double>(i);
-    }
-    asyncTimeBuff.write(b_timeStamp);
+    asyncTimeBuff.write(timeVector);
     // asyncWriteBuff.write(dataReceived);
     // if asyncWriteBuff.NumUnreadSamples == dataWriterSamples
     //     dataWriterBuffData = asyncWriteBuff.read();
@@ -1592,27 +1899,26 @@ void uavrt_detection()
     if (qY >= sampsForKPulses.contents + overlapSamples.contents) {
       unsigned int varargin_1;
       unsigned int varargin_2;
-      boolean_T guard1{false};
-      t5_P = std::round(sampsForKPulses.contents);
-      if (t5_P < 4.294967296E+9) {
-        if (t5_P >= 0.0) {
-          varargin_1 = static_cast<unsigned int>(t5_P);
+      t9_P = std::round(sampsForKPulses.contents);
+      if (t9_P < 4.294967296E+9) {
+        if (t9_P >= 0.0) {
+          varargin_1 = static_cast<unsigned int>(t9_P);
         } else {
           varargin_1 = 0U;
         }
-      } else if (t5_P >= 4.294967296E+9) {
+      } else if (t9_P >= 4.294967296E+9) {
         varargin_1 = MAX_uint32_T;
       } else {
         varargin_1 = 0U;
       }
-      t5_P = std::round(overlapSamples.contents);
-      if (t5_P < 4.294967296E+9) {
-        if (t5_P >= 0.0) {
-          varargin_2 = static_cast<unsigned int>(t5_P);
+      t9_P = std::round(overlapSamples.contents);
+      if (t9_P < 4.294967296E+9) {
+        if (t9_P >= 0.0) {
+          varargin_2 = static_cast<unsigned int>(t9_P);
         } else {
           varargin_2 = 0U;
         }
-      } else if (t5_P >= 4.294967296E+9) {
+      } else if (t9_P >= 4.294967296E+9) {
         varargin_2 = MAX_uint32_T;
       } else {
         varargin_2 = 0U;
@@ -1683,28 +1989,25 @@ void uavrt_detection()
       // by more than the interpulse uncertainty, then the
       // detection will likely fail or produces bad results. In
       // this case. Skip the processing and clear the buffer.
-      guard1 = false;
-      if (Config.contents.K > 1.0) {
-        coder::diff(t, r1);
-        qY = r1.size(0);
-        for (i = 0; i < qY; i++) {
-          r1[i] = r1[i] - t5_SNR;
-        }
-        if (coder::sum(r1) > Config.contents.tipu + Config.contents.tipj) {
-          printf("Significant time differences found in timestamp record. "
-                 "Skipping processing and clearing buffers.\n");
-          fflush(stdout);
-          resetBuffersFlag = true;
-          staleDataFlag = true;
-        } else {
-          guard1 = true;
-        }
-      } else {
-        guard1 = true;
+      coder::diff(t, r1);
+      qY = r1.size(0);
+      for (i = 0; i < qY; i++) {
+        r1[i] = r1[i] - integratedTimeError;
       }
-      if (guard1) {
+      integratedTimeError = coder::sum(r1);
+      if ((Config.contents.K > 1.0) &&
+          (integratedTimeError > Config.contents.tipu + Config.contents.tipj)) {
+        printf("Significant time differences found in timestamp record. "
+               "Skipping processing and clearing buffers.\n");
+        fflush(stdout);
+        resetBuffersFlag = true;
+        staleDataFlag = true;
+      } else {
         unsigned int validatedHoleFilling[3];
         unsigned int varargin_3;
+        if (t.size(0) < 1) {
+          rtDynamicBoundsError(1, 1, t.size(0), &eb_emlrtBCI);
+        }
         printf("Running...Building priori and waveform. \n");
         fflush(stdout);
         // Set the priori info
@@ -1741,27 +2044,27 @@ void uavrt_detection()
           makepulsestruc(&r.A, &r.P, &r.SNR, &r.yw, &r.t_0, &r.t_f, r.t_next,
                          &r.fp, &r.fstart, &r.fend, r.mode, &r.det_dec,
                          &r.con_dec);
-          makepulsestruc(&timeStamp, &t5_P, &t5_SNR, &t5_yw, &t5_t_0, &t5_t_f,
-                         expl_temp.t_next, &t5_fp, &t5_fstart, &t5_fend,
-                         expl_temp.mode, &t5_det_dec, &t5_con_dec);
-          b_expl_temp.con_dec = t5_con_dec;
-          b_expl_temp.det_dec = t5_det_dec;
+          makepulsestruc(&integratedTimeError, &t9_P, &t9_SNR, &t9_yw, &t9_t_0,
+                         &t9_t_f, expl_temp.t_next, &t9_fp, &t9_fstart,
+                         &t9_fend, expl_temp.mode, &t9_det_dec, &t9_con_dec);
+          b_expl_temp.con_dec = t9_con_dec;
+          b_expl_temp.det_dec = t9_det_dec;
           b_expl_temp.mode.set_size(1, expl_temp.mode.size(1));
           qY = expl_temp.mode.size(1);
           for (i = 0; i < qY; i++) {
             b_expl_temp.mode[i] = expl_temp.mode[i];
           }
-          b_expl_temp.fend = t5_fend;
-          b_expl_temp.fstart = t5_fstart;
-          b_expl_temp.fp = t5_fp;
+          b_expl_temp.fend = t9_fend;
+          b_expl_temp.fstart = t9_fstart;
+          b_expl_temp.fp = t9_fp;
           b_expl_temp.t_next[0] = expl_temp.t_next[0];
           b_expl_temp.t_next[1] = expl_temp.t_next[1];
-          b_expl_temp.t_f = t5_t_f;
-          b_expl_temp.t_0 = t5_t_0;
-          b_expl_temp.yw = t5_yw;
-          b_expl_temp.SNR = t5_SNR;
-          b_expl_temp.P = t5_P;
-          b_expl_temp.A = timeStamp;
+          b_expl_temp.t_f = t9_t_f;
+          b_expl_temp.t_0 = t9_t_0;
+          b_expl_temp.yw = t9_yw;
+          b_expl_temp.SNR = t9_SNR;
+          b_expl_temp.P = t9_P;
+          b_expl_temp.A = integratedTimeError;
           pulseStatsPriori = lobj_13.init(
               Config.contents.tp, Config.contents.tip, Config.contents.tipu,
               Config.contents.tipj,
@@ -1770,17 +2073,17 @@ void uavrt_detection()
               &r, &b_expl_temp);
           configUpdatedFlag = false;
         } else {
-          pulseStatsPriori =
-              lobj_16.c_init(t5_yw, t5_t_0, t5_t_f, t5_fp, t5_fstart, t5_fend,
-                             ps_pre_struc_fend, ps_pre_struc_tmplt,
-                             (char *)&mode, ps_pre_struc_pl, ps_pre_struc_clst,
-                             ps_pre_struc_cmsk, ps_pre_struc_cpki);
+          pulseStatsPriori = lobj_16.c_init(
+              t9_SNR, t9_yw, t9_t_0, t9_t_f, t9_fp, t9_fstart, t9_fend,
+              ps_pre_struc_tmplt, (char *)&mode, ps_pre_struc_pl,
+              ps_pre_struc_clst, ps_pre_struc_cmsk, ps_pre_struc_cpki);
         }
         //                         %% PRIMARY PROCESSING BLOCK
         // Prep waveform for processing/detection
+        integratedTimeError = Config.contents.falseAlarmProb;
         // UNTITLED2 Construct an instance of this class
         //    Detailed explanation goes here
-        val.pf = Config.contents.falseAlarmProb;
+        val.pf = integratedTimeError;
         val.evMuParam = 0.0;
         val.evSigmaParam = 0.0;
         val.threshVecFine.set_size(1);
@@ -1788,38 +2091,38 @@ void uavrt_detection()
         b_X.init(x, Config.contents.Fs, t[0], pulseStatsPriori, &val, &lobj_15,
                  &lobj_14);
         b_X.K = Config.contents.K;
-        t5_P = std::round(b_X.N);
-        if (t5_P < 4.294967296E+9) {
-          if (t5_P >= 0.0) {
-            varargin_1 = static_cast<unsigned int>(t5_P);
+        t9_P = std::round(b_X.N);
+        if (t9_P < 4.294967296E+9) {
+          if (t9_P >= 0.0) {
+            varargin_1 = static_cast<unsigned int>(t9_P);
           } else {
             varargin_1 = 0U;
           }
-        } else if (t5_P >= 4.294967296E+9) {
+        } else if (t9_P >= 4.294967296E+9) {
           varargin_1 = MAX_uint32_T;
         } else {
           varargin_1 = 0U;
         }
-        t5_P = std::round(b_X.M);
-        if (t5_P < 4.294967296E+9) {
-          if (t5_P >= 0.0) {
-            varargin_2 = static_cast<unsigned int>(t5_P);
+        t9_P = std::round(b_X.M);
+        if (t9_P < 4.294967296E+9) {
+          if (t9_P >= 0.0) {
+            varargin_2 = static_cast<unsigned int>(t9_P);
           } else {
             varargin_2 = 0U;
           }
-        } else if (t5_P >= 4.294967296E+9) {
+        } else if (t9_P >= 4.294967296E+9) {
           varargin_2 = MAX_uint32_T;
         } else {
           varargin_2 = 0U;
         }
-        t5_P = std::round(b_X.J);
-        if (t5_P < 4.294967296E+9) {
-          if (t5_P >= 0.0) {
-            varargin_3 = static_cast<unsigned int>(t5_P);
+        t9_P = std::round(b_X.J);
+        if (t9_P < 4.294967296E+9) {
+          if (t9_P >= 0.0) {
+            varargin_3 = static_cast<unsigned int>(t9_P);
           } else {
             varargin_3 = 0U;
           }
-        } else if (t5_P >= 4.294967296E+9) {
+        } else if (t9_P >= 4.294967296E+9) {
           varargin_3 = MAX_uint32_T;
         } else {
           varargin_3 = 0U;
@@ -1838,8 +2141,8 @@ void uavrt_detection()
         printf("Computing STFT...");
         fflush(stdout);
         b_X.spectro(&lobj_12);
-        t5_P = coder::toc();
-        printf("complete. Elapsed time: %f seconds \n", t5_P);
+        t9_P = coder::toc();
+        printf("complete. Elapsed time: %f seconds \n", t9_P);
         fflush(stdout);
         printf("Building weighting matrix and generating thresholds...");
         fflush(stdout);
@@ -1888,8 +2191,8 @@ void uavrt_detection()
           val.setthreshold(&b_X, Xhold);
           b_X.thresh = val;
         }
-        t5_P = coder::toc();
-        printf("complete. Elapsed time: %f seconds \n", t5_P);
+        t9_P = coder::toc();
+        printf("complete. Elapsed time: %f seconds \n", t9_P);
         fflush(stdout);
         varargin_1 = static_cast<unsigned int>(b_X.stft->S.size(1));
         printf("Time windows in S: %u \n", varargin_1);
@@ -1897,24 +2200,31 @@ void uavrt_detection()
         printf("Finding pulses...");
         fflush(stdout);
         b_X.process(mode, Config.contents.excldFreqs);
-        timeStamp = coder::toc();
-        t5_P = coder::toc();
-        printf("complete. Elapsed time: %f seconds \n", t5_P);
+        integratedTimeError = coder::toc();
+        t9_P = coder::toc();
+        printf("complete. Elapsed time: %f seconds \n", t9_P);
         fflush(stdout);
         //                         %% PREP FOR NEXT LOOP
         // Latch/Release the frequency lock and setup the
         // suggested mode
         suggestedMode = b_X.ps_pos->mode;
-        structure = &b_X.ps_pos->pl;
-        n = structure->size(1);
-        if (structure->size(1) == 0) {
+        ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
+        qY = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
+        for (i = 0; i <= qY; i++) {
+          ps_pre_struc_pl[i] = b_X.ps_pos->pl[i];
+        }
+        n = ps_pre_struc_pl.size(1);
+        if (ps_pre_struc_pl.size(1) == 0) {
           i = 0;
         } else {
-          i = structure->size(1);
+          i = ps_pre_struc_pl.size(1);
         }
         b_varargin_1.set_size(1, i);
+        if (ps_pre_struc_pl.size(1) > 2147483646) {
+          coder::check_forloop_overflow_error();
+        }
         for (qY = 0; qY < n; qY++) {
-          b_varargin_1[qY] = (*structure)[qY].con_dec;
+          b_varargin_1[qY] = ps_pre_struc_pl[qY].con_dec;
         }
         if (b_varargin_1.size(1) != 0) {
           n = b_varargin_1.size(1);
@@ -1950,7 +2260,7 @@ void uavrt_detection()
           for (i = 0; i <= qY; i++) {
             ps_pre_struc_pl[i] = b_X.ps_pos->pl[i];
           }
-          b_X.ps_pos->updateposteriori(ps_pre_struc_pl);
+          b_X.ps_pos->updateposteriori(b_X.ps_pre, ps_pre_struc_pl);
           if (trackedCount > 5.0) {
             trackedCount = 0.0;
             ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
@@ -1958,19 +2268,34 @@ void uavrt_detection()
             for (i = 0; i <= qY; i++) {
               ps_pre_struc_pl[i] = b_X.ps_pos->pl[i];
             }
-            b_X.ps_pos->updateposteriori(b_X.ps_pre, ps_pre_struc_pl);
+            b_X.ps_pos->b_updateposteriori(b_X.ps_pre, ps_pre_struc_pl);
           }
         }
         // Check lagging processing
         if ((segmentsProcessed != 0.0) && (Config.contents.K > 1.0) &&
-            (timeStamp > 0.9 * sampsForKPulses.contents / Config.contents.Fs)) {
-          timeStamp = Config.contents.K - 1.0;
-          Config.contents.K--;
-          t5_P = std::round(timeStamp);
-          if (t5_P < 4.294967296E+9) {
-            varargin_1 = static_cast<unsigned int>(t5_P);
-          } else {
+            (integratedTimeError >
+             0.9 * sampsForKPulses.contents / Config.contents.Fs)) {
+          obj = &Config.contents;
+          integratedTimeError = Config.contents.K - 1.0;
+          if (!(integratedTimeError > 0.0)) {
+            c_rtErrorWithMessageID(b_emlrtRTEI.fName, b_emlrtRTEI.lineNo);
+          }
+          if (std::isinf(integratedTimeError) ||
+              (!(integratedTimeError == std::floor(integratedTimeError)))) {
+            i_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+          }
+          obj->K = integratedTimeError;
+          t9_P = std::round(Config.contents.K);
+          if (t9_P < 4.294967296E+9) {
+            if (t9_P >= 0.0) {
+              varargin_1 = static_cast<unsigned int>(t9_P);
+            } else {
+              varargin_1 = 0U;
+            }
+          } else if (t9_P >= 4.294967296E+9) {
             varargin_1 = MAX_uint32_T;
+          } else {
+            varargin_1 = 0U;
           }
           printf("WARNING!!! PROCESSING TIME TOOK LONGER THAN WAVEFORM LENGTH. "
                  "STREAMING NOT POSSIBLE. REDUCING NUMBER OF PULSES CONSIDERED "
@@ -1990,13 +2315,13 @@ void uavrt_detection()
         // Prepare priori for next segment
         printf("Updating priori...\n");
         fflush(stdout);
-        t5_yw = b_X.ps_pos->t_p;
-        t5_t_0 = b_X.ps_pos->t_ip;
-        t5_t_f = b_X.ps_pos->t_ipu;
-        t5_fp = b_X.ps_pos->t_ipj;
-        t5_fstart = b_X.ps_pos->fp;
-        t5_fend = b_X.ps_pos->fstart;
-        ps_pre_struc_fend = b_X.ps_pos->fend;
+        t9_SNR = b_X.ps_pos->t_p;
+        t9_yw = b_X.ps_pos->t_ip;
+        t9_t_0 = b_X.ps_pos->t_ipu;
+        t9_t_f = b_X.ps_pos->t_ipj;
+        t9_fp = b_X.ps_pos->fp;
+        t9_fstart = b_X.ps_pos->fstart;
+        t9_fend = b_X.ps_pos->fend;
         ps_pre_struc_tmplt[0] = b_X.ps_pos->tmplt[0];
         ps_pre_struc_tmplt[1] = b_X.ps_pos->tmplt[1];
         mode = b_X.ps_pos->mode;
@@ -2026,8 +2351,8 @@ void uavrt_detection()
         updatebufferreadvariables(&Config, &stftOverlapFraction,
                                   &overlapSamples, &sampsForKPulses,
                                   b_X.ps_pos);
-        t5_P = coder::toc();
-        printf("complete. Elapsed time: %f seconds \n", t5_P);
+        t9_P = coder::toc();
+        printf("complete. Elapsed time: %f seconds \n", t9_P);
         fflush(stdout);
         // Deal with detected pulses
         // Xhold{mod(segmentsProcessed,maxSegments)} = X;%Keep a maxSegments
@@ -2037,6 +2362,10 @@ void uavrt_detection()
         i = ps_pre_struc_pl.size(1);
         for (qY = 0; qY < i; qY++) {
           double pulseInfo[3];
+          if (qY + 1 > ps_pre_struc_pl.size(1)) {
+            rtDynamicBoundsError(qY + 1, 1, ps_pre_struc_pl.size(1),
+                                 &fb_emlrtBCI);
+          }
           printf("Pulse at %e Hz detected. SNR: %e Confirmation status: %u \n",
                  ps_pre_struc_pl[qY].fp, ps_pre_struc_pl[qY].SNR,
                  static_cast<unsigned int>(ps_pre_struc_pl[qY].con_dec));
@@ -2055,7 +2384,11 @@ void uavrt_detection()
         fflush(stdout);
       }
     }
-  } while (exitg1 == 0);
+  }
 }
 
-// End of code generation (uavrt_detection.cpp)
+//
+// File trailer for uavrt_detection.cpp
+//
+// [EOF]
+//

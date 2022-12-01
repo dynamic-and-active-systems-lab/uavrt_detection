@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: feof.h
 //
-// feof.h
-//
-// Code generation for function 'feof'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef FEOF_H
 #define FEOF_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include <cstddef>
 #include <cstdlib>
@@ -23,4 +23,8 @@ double b_feof(double fileID);
 }
 
 #endif
-// End of code generation (feof.h)
+//
+// File trailer for feof.h
+//
+// [EOF]
+//

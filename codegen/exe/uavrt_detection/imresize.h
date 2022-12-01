@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: imresize.h
 //
-// imresize.h
-//
-// Code generation for function 'imresize'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef IMRESIZE_H
 #define IMRESIZE_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -25,4 +25,8 @@ void imresize(const ::coder::array<double, 2U> &Ain, const double varargin_1[2],
 }
 
 #endif
-// End of code generation (imresize.h)
+//
+// File trailer for imresize.h
+//
+// [EOF]
+//

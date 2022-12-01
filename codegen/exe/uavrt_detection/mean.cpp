@@ -2,21 +2,30 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: mean.cpp
 //
-// mean.cpp
-//
-// Code generation for function 'mean'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "mean.h"
 #include "div.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
+#include "uavrt_detection_data.h"
+#include "uavrt_detection_rtwutil.h"
+#include "uavrt_detection_types.h"
 #include "coder_array.h"
 #include <cmath>
 #include <string.h>
 
 // Function Definitions
+//
+// Arguments    : const ::coder::array<double, 2U> &x
+//                ::coder::array<double, 1U> &y
+// Return Type  : void
+//
 namespace coder {
 void mean(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y)
 {
@@ -42,7 +51,7 @@ void mean(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y)
     int nblocks;
     int vstride;
     int xoffset;
-    vstride = x.size(0) - 1;
+    vstride = x.size(0);
     bvstride = x.size(0) << 10;
     y.set_size(x.size(0));
     counts.set_size(x.size(0));
@@ -53,7 +62,7 @@ void mean(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y)
       nblocks = 1;
     } else {
       firstBlockLength = 1024;
-      nblocks = x.size(1) / 1024;
+      nblocks = x.size(1) >> 10;
       lastBlockLength = x.size(1) - (nblocks << 10);
       if (lastBlockLength > 0) {
         nblocks++;
@@ -61,7 +70,10 @@ void mean(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y)
         lastBlockLength = 1024;
       }
     }
-    for (int xj{0}; xj <= vstride; xj++) {
+    if (x.size(0) > 2147483646) {
+      check_forloop_overflow_error();
+    }
+    for (int xj{0}; xj < vstride; xj++) {
       if (std::isnan(x[xj])) {
         y[xj] = 0.0;
         counts[xj] = 0;
@@ -72,8 +84,11 @@ void mean(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y)
       bsum[xj] = 0.0;
     }
     for (int k{2}; k <= firstBlockLength; k++) {
-      xoffset = (k - 1) * (vstride + 1);
-      for (int xj{0}; xj <= vstride; xj++) {
+      xoffset = (k - 1) * vstride;
+      if (vstride > 2147483646) {
+        check_forloop_overflow_error();
+      }
+      for (int xj{0}; xj < vstride; xj++) {
         ix = xoffset + xj;
         if (!std::isnan(x[ix])) {
           y[xj] = y[xj] + x[ix];
@@ -83,7 +98,10 @@ void mean(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y)
     }
     for (int ib{2}; ib <= nblocks; ib++) {
       xblockoffset = (ib - 1) * bvstride;
-      for (int xj{0}; xj <= vstride; xj++) {
+      if (vstride > 2147483646) {
+        check_forloop_overflow_error();
+      }
+      for (int xj{0}; xj < vstride; xj++) {
         ix = xblockoffset + xj;
         if (std::isnan(x[ix])) {
           bsum[xj] = 0.0;
@@ -98,8 +116,8 @@ void mean(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y)
         firstBlockLength = 1024;
       }
       for (int k{2}; k <= firstBlockLength; k++) {
-        xoffset = xblockoffset + (k - 1) * (vstride + 1);
-        for (int xj{0}; xj <= vstride; xj++) {
+        xoffset = xblockoffset + (k - 1) * vstride;
+        for (int xj{0}; xj < vstride; xj++) {
           ix = xoffset + xj;
           if (!std::isnan(x[ix])) {
             bsum[xj] = bsum[xj] + x[ix];
@@ -107,22 +125,33 @@ void mean(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y)
           }
         }
       }
-      for (int xj{0}; xj <= vstride; xj++) {
+      for (int xj{0}; xj < vstride; xj++) {
         y[xj] = y[xj] + bsum[xj];
       }
     }
   }
-  if (y.size(0) == counts.size(0)) {
+  bsum.set_size(counts.size(0));
+  firstBlockLength = counts.size(0);
+  for (xblockoffset = 0; xblockoffset < firstBlockLength; xblockoffset++) {
+    bsum[xblockoffset] = counts[xblockoffset];
+  }
+  if ((y.size(0) != 1) && (bsum.size(0) != 1) && (y.size(0) != bsum.size(0))) {
+    v_rtErrorWithMessageID(jb_emlrtRTEI.fName, jb_emlrtRTEI.lineNo);
+  }
+  if (y.size(0) == bsum.size(0)) {
     firstBlockLength = y.size(0);
     for (xblockoffset = 0; xblockoffset < firstBlockLength; xblockoffset++) {
-      y[xblockoffset] =
-          y[xblockoffset] / static_cast<double>(counts[xblockoffset]);
+      y[xblockoffset] = y[xblockoffset] / bsum[xblockoffset];
     }
   } else {
-    b_binary_expand_op(y, counts);
+    rdivide(y, bsum);
   }
 }
 
 } // namespace coder
 
-// End of code generation (mean.cpp)
+//
+// File trailer for mean.cpp
+//
+// [EOF]
+//

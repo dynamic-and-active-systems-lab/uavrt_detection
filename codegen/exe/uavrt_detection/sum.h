@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: sum.h
 //
-// sum.h
-//
-// Code generation for function 'sum'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef SUM_H
 #define SUM_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -25,7 +25,7 @@ class b_sparse;
 
 class g_sparse;
 
-class e_sparse;
+class c_sparse;
 
 } // namespace coder
 
@@ -35,11 +35,15 @@ double sum(const ::coder::array<double, 1U> &x);
 
 void sum(const sparse *x, b_sparse *y);
 
-void sum(const g_sparse *x, e_sparse *y);
+void sum(const g_sparse *x, c_sparse *y);
 
 void sum(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y);
 
 } // namespace coder
 
 #endif
-// End of code generation (sum.h)
+//
+// File trailer for sum.h
+//
+// [EOF]
+//

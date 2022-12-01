@@ -2,15 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: heapsort.cpp
 //
-// heapsort.cpp
-//
-// Code generation for function 'heapsort'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "heapsort.h"
 #include "anonymous_function.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection_internal_types.h"
 #include "coder_array.h"
@@ -29,6 +30,14 @@ static void heapify(::coder::array<int, 1U> &x, int idx, int xstart, int xend,
 } // namespace coder
 
 // Function Definitions
+//
+// Arguments    : ::coder::array<int, 1U> &x
+//                int idx
+//                int xstart
+//                int xend
+//                const c_anonymous_function *cmp
+// Return Type  : void
+//
 namespace coder {
 namespace internal {
 static void heapify(::coder::array<int, 1U> &x, int idx, int xstart, int xend,
@@ -38,8 +47,8 @@ static void heapify(::coder::array<int, 1U> &x, int idx, int xstart, int xend,
   int extremum;
   int extremumIdx;
   int leftIdx;
-  boolean_T changed;
-  boolean_T exitg1;
+  bool changed;
+  bool exitg1;
   changed = true;
   extremumIdx = (idx + xstart) - 2;
   leftIdx = ((idx << 1) + xstart) - 1;
@@ -75,6 +84,14 @@ static void heapify(::coder::array<int, 1U> &x, int idx, int xstart, int xend,
   }
 }
 
+//
+// Arguments    : ::coder::array<int, 1U> &x
+//                int idx
+//                int xstart
+//                int xend
+//                const anonymous_function *cmp
+// Return Type  : void
+//
 static void heapify(::coder::array<int, 1U> &x, int idx, int xstart, int xend,
                     const anonymous_function *cmp)
 {
@@ -83,9 +100,9 @@ static void heapify(::coder::array<int, 1U> &x, int idx, int xstart, int xend,
   int i;
   int i1;
   int leftIdx;
-  boolean_T changed;
-  boolean_T exitg1;
-  boolean_T varargout_1;
+  bool changed;
+  bool exitg1;
+  bool varargout_1;
   changed = true;
   extremumIdx = (idx + xstart) - 2;
   leftIdx = ((idx << 1) + xstart) - 2;
@@ -151,16 +168,26 @@ static void heapify(::coder::array<int, 1U> &x, int idx, int xstart, int xend,
   }
 }
 
+//
+// Arguments    : ::coder::array<int, 1U> &x
+//                int xstart
+//                int xend
+//                const c_anonymous_function *cmp
+// Return Type  : void
+//
 void b_heapsort(::coder::array<int, 1U> &x, int xstart, int xend,
                 const c_anonymous_function *cmp)
 {
   int idx;
   int n;
-  n = (xend - xstart) - 1;
-  for (idx = n + 2; idx >= 1; idx--) {
+  n = xend - xstart;
+  for (idx = n + 1; idx >= 1; idx--) {
     heapify(x, idx, xstart, xend, cmp);
   }
-  for (int k{0}; k <= n; k++) {
+  if (n > 2147483646) {
+    check_forloop_overflow_error();
+  }
+  for (int k{0}; k < n; k++) {
     int t;
     idx = (xend - k) - 1;
     t = x[idx];
@@ -170,16 +197,26 @@ void b_heapsort(::coder::array<int, 1U> &x, int xstart, int xend,
   }
 }
 
+//
+// Arguments    : ::coder::array<int, 1U> &x
+//                int xstart
+//                int xend
+//                const anonymous_function *cmp
+// Return Type  : void
+//
 void b_heapsort(::coder::array<int, 1U> &x, int xstart, int xend,
                 const anonymous_function *cmp)
 {
   int idx;
   int n;
-  n = (xend - xstart) - 1;
-  for (idx = n + 2; idx >= 1; idx--) {
+  n = xend - xstart;
+  for (idx = n + 1; idx >= 1; idx--) {
     heapify(x, idx, xstart, xend, cmp);
   }
-  for (int k{0}; k <= n; k++) {
+  if (n > 2147483646) {
+    check_forloop_overflow_error();
+  }
+  for (int k{0}; k < n; k++) {
     int t;
     idx = (xend - k) - 1;
     t = x[idx];
@@ -192,4 +229,8 @@ void b_heapsort(::coder::array<int, 1U> &x, int xstart, int xend,
 } // namespace internal
 } // namespace coder
 
-// End of code generation (heapsort.cpp)
+//
+// File trailer for heapsort.cpp
+//
+// [EOF]
+//

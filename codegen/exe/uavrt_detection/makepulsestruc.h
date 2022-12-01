@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: makepulsestruc.h
 //
-// makepulsestruc.h
-//
-// Code generation for function 'makepulsestruc'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef MAKEPULSESTRUC_H
 #define MAKEPULSESTRUC_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -31,7 +31,11 @@ void makepulsestruc(double *thepulse_A, double *thepulse_P,
                     double thepulse_t_next[2], double *thepulse_fp,
                     double *thepulse_fstart, double *thepulse_fend,
                     coder::array<char, 2U> &thepulse_mode,
-                    boolean_T *thepulse_det_dec, boolean_T *thepulse_con_dec);
+                    bool *thepulse_det_dec, bool *thepulse_con_dec);
 
 #endif
-// End of code generation (makepulsestruc.h)
+//
+// File trailer for makepulsestruc.h
+//
+// [EOF]
+//

@@ -2,19 +2,24 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: assembleWq.cpp
 //
-// assembleWq.cpp
-//
-// Code generation for function 'assembleWq'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "assembleWq.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include <string.h>
 
 // Function Definitions
+//
+// Arguments    : coder::array<double, 2U> &in1
+//                const coder::array<double, 2U> &in2
+// Return Type  : void
+//
 void plus(coder::array<double, 2U> &in1, const coder::array<double, 2U> &in2)
 {
   coder::array<double, 2U> b_in1;
@@ -74,4 +79,8 @@ void plus(coder::array<double, 2U> &in1, const coder::array<double, 2U> &in2)
   }
 }
 
-// End of code generation (assembleWq.cpp)
+//
+// File trailer for assembleWq.cpp
+//
+// [EOF]
+//

@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: stack1.h
 //
-// stack1.h
-//
-// Code generation for function 'stack1'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef STACK1_H
 #define STACK1_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include "uavrt_detection_internal_types.h"
 #include <cstddef>
@@ -30,4 +30,8 @@ public:
 } // namespace coder
 
 #endif
-// End of code generation (stack1.h)
+//
+// File trailer for stack1.h
+//
+// [EOF]
+//

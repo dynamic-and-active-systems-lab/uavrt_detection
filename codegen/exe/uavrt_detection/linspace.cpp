@@ -2,24 +2,71 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: linspace.cpp
 //
-// linspace.cpp
-//
-// Code generation for function 'linspace'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "linspace.h"
 #include "rt_nonfinite.h"
+#include "uavrt_detection_types.h"
 #include "coder_array.h"
+#include "omp.h"
 #include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <sstream>
+#include <stdexcept>
 #include <string.h>
+#include <string>
+
+// Function Declarations
+static void k_rtErrorWithMessageID(const char *r, const char *aFcnName,
+                                   int aLineNum);
 
 // Function Definitions
+//
+// Arguments    : const char *r
+//                const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void k_rtErrorWithMessageID(const char *r, const char *aFcnName,
+                                   int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  ((outStream << "For code generation, ") << r) << " must not be NaN.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : double d2
+//                double n
+//                ::coder::array<double, 2U> &y
+// Return Type  : void
+//
 namespace coder {
 void linspace(double d2, double n, ::coder::array<double, 2U> &y)
 {
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      33,        // lineNo
+      "linspace" // fName
+  };
   if (!(n >= 0.0)) {
+    if (std::isnan(n)) {
+      k_rtErrorWithMessageID("N", qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+    }
     y.set_size(1, 0);
   } else {
     double delta1;
@@ -65,4 +112,8 @@ void linspace(double d2, double n, ::coder::array<double, 2U> &y)
 
 } // namespace coder
 
-// End of code generation (linspace.cpp)
+//
+// File trailer for linspace.cpp
+//
+// [EOF]
+//

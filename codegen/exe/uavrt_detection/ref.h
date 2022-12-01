@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: ref.h
 //
-// ref.h
-//
-// Code generation for function 'ref'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef REF_H
 #define REF_H
 
-// Include files
+// Include Files
 #include "DetectorConfig.h"
 #include "rtwtypes.h"
 #include "string1.h"
@@ -38,4 +38,8 @@ public:
 } // namespace coder
 
 #endif
-// End of code generation (ref.h)
+//
+// File trailer for ref.h
+//
+// [EOF]
+//

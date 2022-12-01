@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: str2double1.h
 //
-// str2double1.h
-//
-// Code generation for function 'str2double1'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef STR2DOUBLE1_H
 #define STR2DOUBLE1_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -21,12 +21,16 @@
 namespace coder {
 namespace internal {
 void readfloat(::coder::array<char, 2U> &s1, int *idx,
-               const ::coder::array<char, 2U> &s, int *k, int n,
-               boolean_T allowimag, boolean_T *isimag, boolean_T *b_finite,
-               double *nfv, boolean_T *foundsign, boolean_T *success);
+               const ::coder::array<char, 2U> &s, int *k, int n, bool allowimag,
+               bool *isimag, bool *b_finite, double *nfv, bool *foundsign,
+               bool *success);
 
 }
 } // namespace coder
 
 #endif
-// End of code generation (str2double1.h)
+//
+// File trailer for str2double1.h
+//
+// [EOF]
+//

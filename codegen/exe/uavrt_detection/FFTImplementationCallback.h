@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: FFTImplementationCallback.h
 //
-// FFTImplementationCallback.h
-//
-// Code generation for function 'FFTImplementationCallback'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef FFTIMPLEMENTATIONCALLBACK_H
 #define FFTIMPLEMENTATIONCALLBACK_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -22,8 +22,7 @@ namespace coder {
 namespace internal {
 class FFTImplementationCallback {
 public:
-  static void get_algo_sizes(int nfft, boolean_T useRadix2, int *n2blue,
-                             int *nRows);
+  static void get_algo_sizes(int nfft, bool useRadix2, int *n2blue, int *nRows);
   static void r2br_r2dit_trig(const ::coder::array<creal32_T, 2U> &x,
                               int n1_unsigned,
                               const ::coder::array<float, 2U> &costab,
@@ -34,7 +33,7 @@ public:
                              const ::coder::array<float, 2U> &sintab,
                              const ::coder::array<float, 2U> &sintabinv,
                              ::coder::array<creal32_T, 2U> &y);
-  static void generate_twiddle_tables(int nRows, boolean_T useRadix2,
+  static void generate_twiddle_tables(int nRows, bool useRadix2,
                                       ::coder::array<double, 2U> &costab,
                                       ::coder::array<double, 2U> &sintab,
                                       ::coder::array<double, 2U> &sintabinv);
@@ -76,4 +75,8 @@ protected:
 } // namespace coder
 
 #endif
-// End of code generation (FFTImplementationCallback.h)
+//
+// File trailer for FFTImplementationCallback.h
+//
+// [EOF]
+//

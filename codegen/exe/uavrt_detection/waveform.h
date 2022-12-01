@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: waveform.h
 //
-// waveform.h
-//
-// Code generation for function 'waveform'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef WAVEFORM_H
 #define WAVEFORM_H
 
-// Include files
+// Include Files
 #include "pulsestats.h"
 #include "rtwtypes.h"
 #include "threshold.h"
@@ -35,7 +35,7 @@ public:
                  const int freq_searchtype_size[2],
                  const coder::array<double, 2U> &excluded_freq_bands_in,
                  coder::array<c_struct_T, 2U> &pl_out,
-                 coder::array<boolean_T, 2U> &indiv_msk,
+                 coder::array<bool, 2U> &indiv_msk,
                  coder::array<double, 1U> &peak_ind) const;
   void spectro(wfmstft *iobj_0);
   waveform *init(const creal32_T b_x[1000], double b_Fs, pulsestats *b_ps_pre,
@@ -88,4 +88,8 @@ public:
 };
 
 #endif
-// End of code generation (waveform.h)
+//
+// File trailer for waveform.h
+//
+// [EOF]
+//

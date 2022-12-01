@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: movSumProdOrMean.h
 //
-// movSumProdOrMean.h
-//
-// Code generation for function 'movSumProdOrMean'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef MOVSUMPRODORMEAN_H
 #define MOVSUMPRODORMEAN_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -25,4 +25,8 @@ void vmovfun(const ::coder::array<double, 1U> &x, int nx,
 }
 
 #endif
-// End of code generation (movSumProdOrMean.h)
+//
+// File trailer for movSumProdOrMean.h
+//
+// [EOF]
+//

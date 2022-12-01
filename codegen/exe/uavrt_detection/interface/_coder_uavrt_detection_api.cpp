@@ -2,13 +2,13 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: _coder_uavrt_detection_api.cpp
 //
-// _coder_uavrt_detection_api.cpp
-//
-// Code generation for function 'uavrt_detection'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "_coder_uavrt_detection_api.h"
 #include "_coder_uavrt_detection_mex.h"
 
@@ -28,12 +28,20 @@ emlrtContext emlrtContextGlobal{
 };
 
 // Function Definitions
+//
+// Arguments    : void
+// Return Type  : void
+//
 void uavrt_detection_api()
 {
   // Invoke the target function
   uavrt_detection();
 }
 
+//
+// Arguments    : void
+// Return Type  : void
+//
 void uavrt_detection_atexit()
 {
   emlrtStack st{
@@ -51,6 +59,10 @@ void uavrt_detection_atexit()
   emlrtExitTimeCleanup(&emlrtContextGlobal);
 }
 
+//
+// Arguments    : void
+// Return Type  : void
+//
 void uavrt_detection_initialize()
 {
   emlrtStack st{
@@ -65,6 +77,10 @@ void uavrt_detection_initialize()
   emlrtFirstTimeR2012b(emlrtRootTLSGlobal);
 }
 
+//
+// Arguments    : void
+// Return Type  : void
+//
 void uavrt_detection_terminate()
 {
   emlrtStack st{
@@ -77,4 +93,8 @@ void uavrt_detection_terminate()
   emlrtDestroyRootTLS(&emlrtRootTLSGlobal);
 }
 
-// End of code generation (_coder_uavrt_detection_api.cpp)
+//
+// File trailer for _coder_uavrt_detection_api.cpp
+//
+// [EOF]
+//

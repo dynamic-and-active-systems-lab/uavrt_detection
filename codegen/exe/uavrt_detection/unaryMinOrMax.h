@@ -2,16 +2,16 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: unaryMinOrMax.h
 //
-// unaryMinOrMax.h
-//
-// Code generation for function 'unaryMinOrMax'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
 #ifndef UNARYMINORMAX_H
 #define UNARYMINORMAX_H
 
-// Include files
+// Include Files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -20,10 +20,16 @@
 // Function Declarations
 namespace coder {
 namespace internal {
+double b_unaryMinOrMax_anonFcn1(const ::coder::array<double, 1U> &x);
+
 double unaryMinOrMax_anonFcn1(const ::coder::array<double, 1U> &x);
 
-}
+} // namespace internal
 } // namespace coder
 
 #endif
-// End of code generation (unaryMinOrMax.h)
+//
+// File trailer for unaryMinOrMax.h
+//
+// [EOF]
+//

@@ -2,36 +2,66 @@
 // Academic License - for use in teaching, academic research, and meeting
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
+// File: fileManager.cpp
 //
-// fileManager.cpp
-//
-// Code generation for function 'fileManager'
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 01-Dec-2022 10:02:54
 //
 
-// Include files
+// Include Files
 #include "fileManager.h"
 #include "rt_nonfinite.h"
+#include "uavrt_detection_rtwutil.h"
+#include "uavrt_detection_types.h"
 #include "coder_array.h"
+#include "omp.h"
 #include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <sstream>
+#include <stdexcept>
 #include <stdio.h>
 #include <string.h>
+#include <string>
 
 // Variable Definitions
 static FILE *eml_openfiles[20];
+
+static rtRunTimeErrorInfo e_emlrtRTEI{
+    292,                    // lineNo
+    "cast_and_validate_fid" // fName
+};
+
+static rtRunTimeErrorInfo f_emlrtRTEI{
+    144,          // lineNo
+    "getfilestar" // fName
+};
+
+static rtRunTimeErrorInfo mc_emlrtRTEI{
+    111,     // lineNo
+    "cfopen" // fName
+};
 
 // Function Declarations
 namespace coder {
 static signed char filedata();
 
 }
+static void g_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+static void rc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
+//
+// Arguments    : void
+// Return Type  : signed char
+//
 namespace coder {
 static signed char filedata()
 {
   int k;
   signed char f;
-  boolean_T exitg1;
+  bool exitg1;
   f = 0;
   k = 0;
   exitg1 = false;
@@ -46,50 +76,117 @@ static signed char filedata()
   return f;
 }
 
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+} // namespace coder
+static void g_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Invalid file identifier.  Use fopen to generate a valid file "
+               "identifier.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void rc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  ((outStream << "For code generation, maximum number of open files is ") << 20)
+      << ".";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : double fid
+// Return Type  : int
+//
+namespace coder {
 int cfclose(double fid)
 {
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      165,                // lineNo
+      "conditionalAssert" // fName
+  };
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      288,                    // lineNo
+      "cast_and_validate_fid" // fName
+  };
   FILE *filestar;
+  int cst;
   int st;
-  signed char b_fileid;
   signed char fileid;
   st = -1;
   fileid = static_cast<signed char>(std::round(fid));
-  if ((fileid < 0) || (fid != fileid)) {
+  if (fid != fileid) {
+    d_rtErrorWithMessageID(e_emlrtRTEI.fName, e_emlrtRTEI.lineNo);
+  }
+  if (static_cast<int>(fid) != fileid) {
     fileid = -1;
   }
-  b_fileid = fileid;
   if (fileid < 0) {
-    b_fileid = -1;
+    d_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
   }
-  if (b_fileid >= 3) {
-    filestar = eml_openfiles[b_fileid - 3];
-  } else if (b_fileid == 0) {
-    filestar = stdin;
-  } else if (b_fileid == 1) {
-    filestar = stdout;
-  } else if (b_fileid == 2) {
-    filestar = stderr;
-  } else {
-    filestar = NULL;
-  }
-  if ((filestar != NULL) && (fileid >= 3)) {
-    int cst;
-    cst = fclose(filestar);
-    if (cst == 0) {
-      st = 0;
-      eml_openfiles[fileid - 3] = NULL;
+  if (fileid >= 3) {
+    filestar = eml_openfiles[fileid - 3];
+    if (eml_openfiles[fileid - 3] == NULL) {
+      g_rtErrorWithMessageID(f_emlrtRTEI.fName, f_emlrtRTEI.lineNo);
     }
+  } else if (fileid == 0) {
+    filestar = stdin;
+  } else if (fileid == 1) {
+    filestar = stdout;
+  } else {
+    filestar = stderr;
+  }
+  if ((!(filestar != NULL)) || (fileid < 3)) {
+    d_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+  }
+  cst = fclose(filestar);
+  if (cst == 0) {
+    st = 0;
+    eml_openfiles[fileid - 3] = NULL;
   }
   return st;
 }
 
+//
+// Arguments    : const char cfilename[34]
+// Return Type  : signed char
+//
 signed char cfopen(const char cfilename[34])
 {
   signed char fileid;
   signed char j;
   fileid = -1;
   j = filedata();
-  if (j >= 1) {
+  if (j < 1) {
+    rc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+  } else {
     FILE *filestar;
     int i;
     char ccfilename[35];
@@ -110,6 +207,10 @@ signed char cfopen(const char cfilename[34])
   return fileid;
 }
 
+//
+// Arguments    : const ::coder::array<char, 2U> &cfilename
+// Return Type  : signed char
+//
 signed char cfopen(const ::coder::array<char, 2U> &cfilename)
 {
   array<char, 2U> ccfilename;
@@ -117,7 +218,9 @@ signed char cfopen(const ::coder::array<char, 2U> &cfilename)
   signed char j;
   fileid = -1;
   j = filedata();
-  if (j >= 1) {
+  if (j < 1) {
+    rc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+  } else {
     FILE *filestar;
     int i;
     int loop_ub;
@@ -140,16 +243,26 @@ signed char cfopen(const ::coder::array<char, 2U> &cfilename)
   return fileid;
 }
 
+//
+// Arguments    : double varargin_1
+// Return Type  : FILE*
+//
 FILE *fileManager(double varargin_1)
 {
   FILE *f;
   signed char fileid;
   fileid = static_cast<signed char>(std::round(varargin_1));
-  if ((fileid < 0) || (varargin_1 != fileid)) {
+  if (varargin_1 != fileid) {
+    d_rtErrorWithMessageID(e_emlrtRTEI.fName, e_emlrtRTEI.lineNo);
+  }
+  if (static_cast<int>(varargin_1) != fileid) {
     fileid = -1;
   }
   if (fileid >= 3) {
     f = eml_openfiles[fileid - 3];
+    if (eml_openfiles[fileid - 3] == NULL) {
+      g_rtErrorWithMessageID(f_emlrtRTEI.fName, f_emlrtRTEI.lineNo);
+    }
   } else if (fileid == 0) {
     f = stdin;
   } else if (fileid == 1) {
@@ -162,6 +275,10 @@ FILE *fileManager(double varargin_1)
   return f;
 }
 
+//
+// Arguments    : void
+// Return Type  : void
+//
 } // namespace coder
 void filedata_init()
 {
@@ -172,4 +289,8 @@ void filedata_init()
   }
 }
 
-// End of code generation (fileManager.cpp)
+//
+// File trailer for fileManager.cpp
+//
+// [EOF]
+//
