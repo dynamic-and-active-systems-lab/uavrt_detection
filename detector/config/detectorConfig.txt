@@ -2,7 +2,7 @@
 ID:	01
 channelCenterFreqMHz:	146
 timeStamp:	1646403180.469
-ipData:	10.0.0.16
+ipData:	127.0.0.1
 portData:	20000
 ipCntrl:	127.0.0.1
 portCntrl:	30000
