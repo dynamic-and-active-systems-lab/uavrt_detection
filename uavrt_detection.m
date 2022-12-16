@@ -118,7 +118,6 @@ staleDataFlag     = true;%Force buffer  flush on start
 idleTic           = 1;
 i                 = 1;
 timeStamp         = 0;
-lastTimeStamp     = 0;
 cleanBuffer       = true;
 trackedCount      = 0;
 
@@ -152,6 +151,7 @@ while true %i <= maxInd
             else
                 actualSequenceCount = real(iqData(1));
                 iqData = iqData(2:end);
+                sampleCount = numel(iqData)
 
                 if resetExpectedSequenceCount
                     expectedSequenceCount = actualSequenceCount;
@@ -167,8 +167,8 @@ while true %i <= maxInd
                 end
 
                 framesReceived = framesReceived + 1;
-                timeVector     = timeStamp+1/Config.Fs*(0:(numel(iqData)-1)).';
-                timeStamp      = timeStamp + (numel(iqData) / Config.Fs);
+                timeVector     = timeStamp + (1 / Config.Fs) * (0 : (sampleCount - 1)).';
+                timeStamp      = timeStamp + (sampleCount / Config.Fs);
                 %Write out data and time.
                 asyncDataBuff.write(iqData);
                 asyncTimeBuff.write(timeVector);
