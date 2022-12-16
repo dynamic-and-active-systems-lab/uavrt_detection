@@ -151,7 +151,7 @@ while true %i <= maxInd
             else
                 actualSequenceCount = real(iqData(1));
                 iqData = iqData(2:end);
-                sampleCount = numel(iqData)
+                sampleCount = numel(iqData);
 
                 if resetExpectedSequenceCount
                     expectedSequenceCount = actualSequenceCount;
