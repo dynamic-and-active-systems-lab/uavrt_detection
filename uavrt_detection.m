@@ -122,6 +122,9 @@ lastTimeStamp     = 0;
 cleanBuffer       = true;
 trackedCount      = 0;
 
+expectedSequenceCount       = 0;
+resetExpectedSequenceCount  = true;
+
 fprintf('Startup set 7 complete. Starting processing... \n')
 
 while true %i <= maxInd
@@ -138,15 +141,31 @@ while true %i <= maxInd
                 fprintf('********STALE DATA FLAG: %u *********\n',uint32(staleDataFlag));
                 udpReceiverClear(udpReceiver);
                 staleDataFlag = false;
+                resetExpectedSequenceCount = true;
             end
 
             %% Get data
             [iqData]  = udpReceiverRead(udpReceiver, udpReceiveBufferSize);
-
             %% Wait for new data if none ready, else put data in buffers
             if isempty(iqData)
                 pause((packetLength-1)/2*1/Config.Fs);
             else
+                actualSequenceCount = real(iqData(1));
+                iqData = iqData(2:end);
+
+                if resetExpectedSequenceCount
+                    expectedSequenceCount = actualSequenceCount;
+                    resetExpectedSequenceCount = false;
+                end
+                if actualSequenceCount ~= expectedSequenceCount
+                    expectedSequenceCount = actualSequenceCount;
+                    fprintf("OVERFLOW\n");
+                end
+                expectedSequenceCount = expectedSequenceCount + 1;
+                if expectedSequenceCount == 65536
+                    expectedSequenceCount = 0;
+                end
+
                 framesReceived = framesReceived + 1;
                 timeVector     = timeStamp+1/Config.Fs*(0:(numel(iqData)-1)).';
                 timeStamp      = timeStamp + (numel(iqData) / Config.Fs);
