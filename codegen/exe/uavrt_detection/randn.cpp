@@ -1,10 +1,11 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: randn.cpp
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 // Include Files
@@ -12,87 +13,17 @@
 #include "eml_rand_mt19937ar.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection_data.h"
+#include "uavrt_detection_rtwutil.h"
+#include "uavrt_detection_types.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : creal_T r[1000]
-// Return Type  : void
-//
-namespace coder {
-void complexLike(creal_T r[1000])
-{
-  double im;
-  double re;
-  for (int k{0}; k < 1000; k++) {
-    re = eml_rand_mt19937ar(state);
-    im = eml_rand_mt19937ar(state);
-    r[k].re = re;
-    r[k].im = im;
-  }
-  for (int k{0}; k < 1000; k++) {
-    double ai;
-    im = r[k].re;
-    ai = r[k].im;
-    if (ai == 0.0) {
-      re = im / 1.4142135623730951;
-      im = 0.0;
-    } else if (im == 0.0) {
-      re = 0.0;
-      im = ai / 1.4142135623730951;
-    } else {
-      re = im / 1.4142135623730951;
-      im = ai / 1.4142135623730951;
-    }
-    r[k].re = re;
-    r[k].im = im;
-  }
-}
-
-//
-// Arguments    : double varargin_1
-//                ::coder::array<creal_T, 2U> &r
-// Return Type  : void
-//
-void complexLike(double varargin_1, ::coder::array<creal_T, 2U> &r)
-{
-  double im;
-  double re;
-  int i;
-  int k;
-  r.set_size(static_cast<int>(varargin_1), 100);
-  i = static_cast<int>(varargin_1) * 100;
-  for (k = 0; k < i; k++) {
-    re = eml_rand_mt19937ar(state);
-    im = eml_rand_mt19937ar(state);
-    r[k].re = re;
-    r[k].im = im;
-  }
-  k = r.size(0) * 100;
-  r.set_size(r.size(0), 100);
-  for (i = 0; i < k; i++) {
-    double ai;
-    im = r[i].re;
-    ai = r[i].im;
-    if (ai == 0.0) {
-      re = im / 1.4142135623730951;
-      im = 0.0;
-    } else if (im == 0.0) {
-      re = 0.0;
-      im = ai / 1.4142135623730951;
-    } else {
-      re = im / 1.4142135623730951;
-      im = ai / 1.4142135623730951;
-    }
-    r[i].re = re;
-    r[i].im = im;
-  }
-}
-
 //
 // Arguments    : double r[1000]
 // Return Type  : void
 //
+namespace coder {
 void randn(double r[1000])
 {
   for (int k{0}; k < 1000; k++) {
@@ -107,7 +38,19 @@ void randn(double r[1000])
 //
 void randn(double varargin_1, ::coder::array<double, 2U> &r)
 {
+  static rtDoubleCheckInfo t_emlrtDCI{
+      37,                            // lineNo
+      34,                            // colNo
+      "eml_rand_mt19937ar_stateful", // fName
+      "C:\\Program "
+      "Files\\MATLAB\\toolbox\\eml\\lib\\matlab\\randfun\\private\\eml_rand_"
+      "mt19937ar_stateful.m", // pName
+      4                       // checkKind
+  };
   int i;
+  if (!(varargin_1 >= 0.0)) {
+    rtNonNegativeError(varargin_1, &t_emlrtDCI);
+  }
   r.set_size(static_cast<int>(varargin_1), 100);
   i = static_cast<int>(varargin_1) * 100;
   for (int k{0}; k < i; k++) {

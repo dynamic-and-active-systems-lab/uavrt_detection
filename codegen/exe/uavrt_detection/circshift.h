@@ -1,10 +1,11 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: circshift.h
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 #ifndef CIRCSHIFT_H
@@ -21,6 +22,8 @@ namespace coder {
 void b_circshift(::coder::array<double, 2U> &a);
 
 void c_circshift(::coder::array<double, 2U> &a);
+
+void circshift(::coder::array<creal_T, 2U> &a);
 
 void circshift(::coder::array<double, 2U> &a);
 

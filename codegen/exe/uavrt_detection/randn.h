@@ -1,10 +1,11 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: randn.h
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 #ifndef RANDN_H
@@ -18,10 +19,6 @@
 
 // Function Declarations
 namespace coder {
-void complexLike(creal_T r[1000]);
-
-void complexLike(double varargin_1, ::coder::array<creal_T, 2U> &r);
-
 void randn(double r[1000]);
 
 void randn(double varargin_1, ::coder::array<double, 2U> &r);

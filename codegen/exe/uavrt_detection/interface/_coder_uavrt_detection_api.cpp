@@ -1,10 +1,11 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: _coder_uavrt_detection_api.cpp
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 // Include Files
@@ -17,7 +18,7 @@ emlrtCTX emlrtRootTLSGlobal{nullptr};
 emlrtContext emlrtContextGlobal{
     true,                                                 // bFirstTime
     false,                                                // bInitialized
-    131627U,                                              // fVersionInfo
+    131626U,                                              // fVersionInfo
     nullptr,                                              // fErrorFunction
     "uavrt_detection",                                    // fFunctionName
     nullptr,                                              // fRTCallStack
@@ -51,6 +52,7 @@ void uavrt_detection_atexit()
   mexFunctionCreateRootTLS();
   st.tls = emlrtRootTLSGlobal;
   emlrtEnterRtStackR2012b(&st);
+  emlrtLeaveRtStackR2012b(&st);
   emlrtDestroyRootTLS(&emlrtRootTLSGlobal);
   uavrt_detection_xil_terminate();
   uavrt_detection_xil_shutdown();
@@ -81,6 +83,13 @@ void uavrt_detection_initialize()
 //
 void uavrt_detection_terminate()
 {
+  emlrtStack st{
+      nullptr, // site
+      nullptr, // tls
+      nullptr  // prev
+  };
+  st.tls = emlrtRootTLSGlobal;
+  emlrtLeaveRtStackR2012b(&st);
   emlrtDestroyRootTLS(&emlrtRootTLSGlobal);
 }
 

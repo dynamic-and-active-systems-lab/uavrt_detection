@@ -1,10 +1,11 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: repmat.h
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 #ifndef REPMAT_H
@@ -22,7 +23,13 @@ namespace coder {
 void repmat(const c_struct_T *a, double varargin_1, double varargin_2,
             ::coder::array<c_struct_T, 2U> &b);
 
-}
+void repmat(const ::coder::array<double, 2U> &a, double varargin_1,
+            ::coder::array<double, 2U> &b);
+
+void repmat(const ::coder::array<double, 1U> &a, double varargin_2,
+            ::coder::array<double, 2U> &b);
+
+} // namespace coder
 
 #endif
 //

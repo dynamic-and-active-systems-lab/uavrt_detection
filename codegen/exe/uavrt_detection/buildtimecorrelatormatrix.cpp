@@ -1,28 +1,64 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: buildtimecorrelatormatrix.cpp
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 // Include Files
 #include "buildtimecorrelatormatrix.h"
-#include "anonymous_function.h"
 #include "assembleWq.h"
+#include "assertValidSizeArg.h"
 #include "colon.h"
-#include "introsort.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "minOrMax.h"
+#include "repmat.h"
 #include "rt_nonfinite.h"
+#include "sparse.h"
 #include "sparse1.h"
-#include "uavrt_detection_internal_types.h"
+#include "uavrt_detection_data.h"
 #include "uavrt_detection_rtwutil.h"
+#include "uavrt_detection_types.h"
 #include "unique.h"
 #include "coder_array.h"
+#include "omp.h"
 #include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <sstream>
+#include <stdexcept>
+#include <string.h>
+#include <string>
+
+// Function Declarations
+static void fb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void fb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Domain error. To compute complex results, make at least one "
+               "input complex, e.g. \'power(complex(a),b)\'.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
 //
 // UNTITLED Summary of this function goes here
 //    Detailed explanation goes here
@@ -37,80 +73,435 @@
 void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
                                double reps, coder::sparse *Wq)
 {
-  coder::anonymous_function b_this;
+  static rtBoundsCheckInfo eb_emlrtBCI{
+      -1,                                                            // iFirst
+      -1,                                                            // iLast
+      31,                                                            // lineNo
+      27,                                                            // colNo
+      "pulse_position_matrix",                                       // aName
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo fb_emlrtBCI{
+      -1,                                                            // iFirst
+      -1,                                                            // iLast
+      36,                                                            // lineNo
+      23,                                                            // colNo
+      "pulse_position_value",                                        // aName
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo gb_emlrtBCI{
+      -1,                                                            // iFirst
+      -1,                                                            // iLast
+      42,                                                            // lineNo
+      42,                                                            // colNo
+      "PRI_mean_value",                                              // aName
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo hb_emlrtBCI{
+      -1,                                                            // iFirst
+      -1,                                                            // iLast
+      42,                                                            // lineNo
+      69,                                                            // colNo
+      "PRI_jitter_value",                                            // aName
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo ib_emlrtBCI{
+      -1,                                                            // iFirst
+      -1,                                                            // iLast
+      41,                                                            // lineNo
+      35,                                                            // colNo
+      "pulse_position_value",                                        // aName
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo jb_emlrtBCI{
+      -1,                                                            // iFirst
+      -1,                                                            // iLast
+      41,                                                            // lineNo
+      38,                                                            // colNo
+      "pulse_position_value",                                        // aName
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo kb_emlrtBCI{
+      -1,                                                            // iFirst
+      -1,                                                            // iLast
+      41,                                                            // lineNo
+      48,                                                            // colNo
+      "pulse_position_value",                                        // aName
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo lb_emlrtBCI{
+      -1,                                                            // iFirst
+      -1,                                                            // iLast
+      71,                                                            // lineNo
+      75,                                                            // colNo
+      "pulse_position_value",                                        // aName
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo mb_emlrtBCI{
+      -1,                                                  // iFirst
+      -1,                                                  // iLast
+      31,                                                  // lineNo
+      32,                                                  // colNo
+      "C",                                                 // aName
+      "cartesian_prod_func",                               // fName
+      "H:\\repos\\uavrt_detection\\cartesian_prod_func.m", // pName
+      0                                                    // checkKind
+  };
+  static rtBoundsCheckInfo nb_emlrtBCI{
+      -1,                                                  // iFirst
+      -1,                                                  // iLast
+      31,                                                  // lineNo
+      9,                                                   // colNo
+      "A",                                                 // aName
+      "cartesian_prod_func",                               // fName
+      "H:\\repos\\uavrt_detection\\cartesian_prod_func.m", // pName
+      0                                                    // checkKind
+  };
+  static rtBoundsCheckInfo ob_emlrtBCI{
+      -1,                                                  // iFirst
+      -1,                                                  // iLast
+      31,                                                  // lineNo
+      12,                                                  // colNo
+      "C",                                                 // aName
+      "cartesian_prod_func",                               // fName
+      "H:\\repos\\uavrt_detection\\cartesian_prod_func.m", // pName
+      0                                                    // checkKind
+  };
+  static rtBoundsCheckInfo pb_emlrtBCI{
+      -1,                                                  // iFirst
+      -1,                                                  // iLast
+      31,                                                  // lineNo
+      17,                                                  // colNo
+      "C",                                                 // aName
+      "cartesian_prod_func",                               // fName
+      "H:\\repos\\uavrt_detection\\cartesian_prod_func.m", // pName
+      0                                                    // checkKind
+  };
+  static rtBoundsCheckInfo qb_emlrtBCI{
+      -1,                                                            // iFirst
+      -1,                                                            // iLast
+      72,                                                            // lineNo
+      30,                                                            // colNo
+      "pulse_position_matrix",                                       // aName
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo rb_emlrtBCI{
+      -1,                                                            // iFirst
+      -1,                                                            // iLast
+      72,                                                            // lineNo
+      55,                                                            // colNo
+      "pulse_position_matrix",                                       // aName
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      0 // checkKind
+  };
+  static rtDoubleCheckInfo ab_emlrtDCI{
+      29,                                                            // lineNo
+      50,                                                            // colNo
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      4 // checkKind
+  };
+  static rtDoubleCheckInfo bb_emlrtDCI{
+      29,                                                            // lineNo
+      50,                                                            // colNo
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      1 // checkKind
+  };
+  static rtDoubleCheckInfo cb_emlrtDCI{
+      31,                                                            // lineNo
+      39,                                                            // colNo
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      1 // checkKind
+  };
+  static rtDoubleCheckInfo db_emlrtDCI{
+      35,                                                            // lineNo
+      31,                                                            // colNo
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      1 // checkKind
+  };
+  static rtDoubleCheckInfo eb_emlrtDCI{
+      35,                                                            // lineNo
+      1,                                                             // colNo
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      1 // checkKind
+  };
+  static rtDoubleCheckInfo fb_emlrtDCI{
+      59,                                                            // lineNo
+      32,                                                            // colNo
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      4 // checkKind
+  };
+  static rtDoubleCheckInfo gb_emlrtDCI{
+      59,                                                            // lineNo
+      32,                                                            // colNo
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      1 // checkKind
+  };
+  static rtDoubleCheckInfo hb_emlrtDCI{
+      5,                                          // lineNo
+      1,                                          // colNo
+      "assembleWq",                               // fName
+      "H:\\repos\\uavrt_detection\\assembleWq.m", // pName
+      1                                           // checkKind
+  };
+  static rtDoubleCheckInfo ib_emlrtDCI{
+      13,                                                  // lineNo
+      12,                                                  // colNo
+      "cartesian_prod_func",                               // fName
+      "H:\\repos\\uavrt_detection\\cartesian_prod_func.m", // pName
+      1                                                    // checkKind
+  };
+  static rtDoubleCheckInfo jb_emlrtDCI{
+      71,                                                            // lineNo
+      5,                                                             // colNo
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      1 // checkKind
+  };
+  static rtDoubleCheckInfo kb_emlrtDCI{
+      31,                                                  // lineNo
+      12,                                                  // colNo
+      "cartesian_prod_func",                               // fName
+      "H:\\repos\\uavrt_detection\\cartesian_prod_func.m", // pName
+      1                                                    // checkKind
+  };
+  static rtDoubleCheckInfo lb_emlrtDCI{
+      31,                                                  // lineNo
+      17,                                                  // colNo
+      "cartesian_prod_func",                               // fName
+      "H:\\repos\\uavrt_detection\\cartesian_prod_func.m", // pName
+      1                                                    // checkKind
+  };
+  static rtDoubleCheckInfo mb_emlrtDCI{
+      72,                                                            // lineNo
+      30,                                                            // colNo
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      1 // checkKind
+  };
+  static rtDoubleCheckInfo nb_emlrtDCI{
+      72,                                                            // lineNo
+      55,                                                            // colNo
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      1 // checkKind
+  };
+  static rtDoubleCheckInfo ob_emlrtDCI{
+      75,                                                            // lineNo
+      20,                                                            // colNo
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      1 // checkKind
+  };
+  static rtDoubleCheckInfo t_emlrtDCI{
+      15,                                                        // lineNo
+      24,                                                        // colNo
+      "buildtimecorrelatormatrix",                               // fName
+      "H:\\repos\\uavrt_detection\\buildtimecorrelatormatrix.m", // pName
+      4                                                          // checkKind
+  };
+  static rtDoubleCheckInfo u_emlrtDCI{
+      15,                                                        // lineNo
+      24,                                                        // colNo
+      "buildtimecorrelatormatrix",                               // fName
+      "H:\\repos\\uavrt_detection\\buildtimecorrelatormatrix.m", // pName
+      1                                                          // checkKind
+  };
+  static rtDoubleCheckInfo v_emlrtDCI{
+      16,                                                        // lineNo
+      24,                                                        // colNo
+      "buildtimecorrelatormatrix",                               // fName
+      "H:\\repos\\uavrt_detection\\buildtimecorrelatormatrix.m", // pName
+      4                                                          // checkKind
+  };
+  static rtDoubleCheckInfo w_emlrtDCI{
+      16,                                                        // lineNo
+      24,                                                        // colNo
+      "buildtimecorrelatormatrix",                               // fName
+      "H:\\repos\\uavrt_detection\\buildtimecorrelatormatrix.m", // pName
+      1                                                          // checkKind
+  };
+  static rtDoubleCheckInfo x_emlrtDCI{
+      29,                                                            // lineNo
+      32,                                                            // colNo
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      4 // checkKind
+  };
+  static rtDoubleCheckInfo y_emlrtDCI{
+      29,                                                            // lineNo
+      32,                                                            // colNo
+      "generate_pulse_positions_func",                               // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m", // pName
+      1 // checkKind
+  };
+  static rtEqualityCheckInfo g_emlrtECI{
+      1,                                         // nDims
+      55,                                        // lineNo
+      15,                                        // colNo
+      "assembleWq",                              // fName
+      "H:\\repos\\uavrt_detection\\assembleWq.m" // pName
+  };
+  static rtEqualityCheckInfo h_emlrtECI{
+      -1,                                                       // nDims
+      24,                                                       // lineNo
+      5,                                                        // colNo
+      "buildtimecorrelatormatrix",                              // fName
+      "H:\\repos\\uavrt_detection\\buildtimecorrelatormatrix.m" // pName
+  };
+  static rtEqualityCheckInfo i_emlrtECI{
+      -1,                                                       // nDims
+      25,                                                       // lineNo
+      5,                                                        // colNo
+      "buildtimecorrelatormatrix",                              // fName
+      "H:\\repos\\uavrt_detection\\buildtimecorrelatormatrix.m" // pName
+  };
+  static rtEqualityCheckInfo j_emlrtECI{
+      -1,                                                           // nDims
+      31,                                                           // lineNo
+      1,                                                            // colNo
+      "generate_pulse_positions_func",                              // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m" // pName
+  };
+  static rtEqualityCheckInfo k_emlrtECI{
+      -1,                                                           // nDims
+      72,                                                           // lineNo
+      5,                                                            // colNo
+      "generate_pulse_positions_func",                              // fName
+      "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m" // pName
+  };
+  static rtEqualityCheckInfo l_emlrtECI{
+      2,                                         // nDims
+      55,                                        // lineNo
+      15,                                        // colNo
+      "assembleWq",                              // fName
+      "H:\\repos\\uavrt_detection\\assembleWq.m" // pName
+  };
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      82,        // lineNo
+      "fltpower" // fName
+  };
   coder::array<double, 3U> pulse_position_value;
-  coder::array<double, 2U> WqColInds;
   coder::array<double, 2U> WqRowInds;
   coder::array<double, 2U> pattern_matrix;
+  coder::array<double, 2U> priJtrList;
   coder::array<double, 2U> priMeansList;
   coder::array<double, 2U> pulsePositionMatrix;
   coder::array<double, 2U> shiftermat;
-  coder::array<double, 1U> b_WqColInds;
+  coder::array<double, 1U> b_WqRowInds;
   coder::array<double, 1U> b_priMeansList;
-  coder::array<int, 1U> sortedIndices;
-  coder::array<int, 1U> t;
-  double n_shifts;
+  coder::array<double, 1U> r;
+  double d;
+  double d1;
+  double n_rows;
+  double num_PRI_patterns;
   double num_position_patterns;
-  double num_rows_C;
-  int b_loop_ub;
+  double stride;
+  int sizes[2];
+  int a;
   int i;
   int i1;
   int i2;
+  int i3;
   int iacol;
   int ibcol;
   int ibmat;
   int itilerow;
-  int loop_ub;
+  int jcol;
   int ncols;
   int nrows;
+  int ntilerows;
   int num_members_per_set;
-  int num_rows_C_tmp;
-  int sizes_idx_1;
   signed char input_sizes_idx_1;
   boolean_T empty_non_axis_sizes;
   // First check to make sure all inputs contain the same number of
   // elements
+  d = 2.0 * priUncert + 1.0;
+  if (!(d >= 0.0)) {
+    rtNonNegativeError(d, &t_emlrtDCI);
+  }
+  if (d != static_cast<int>(std::floor(d))) {
+    rtIntegerError(d, &u_emlrtDCI);
+  }
+  d1 = 2.0 * priJtr + 1.0;
+  if (!(d1 >= 0.0)) {
+    rtNonNegativeError(d1, &v_emlrtDCI);
+  }
+  if (d1 != static_cast<int>(std::floor(d1))) {
+    rtIntegerError(d1, &w_emlrtDCI);
+  }
   // Change names to align with other code.
   if (std::isnan(-priUncert) || std::isnan(priUncert)) {
-    priMeansList.set_size(1, 1);
-    priMeansList[0] = rtNaN;
+    priJtrList.set_size(1, 1);
+    priJtrList[0] = rtNaN;
   } else if (priUncert < -priUncert) {
-    priMeansList.set_size(priMeansList.size(0), 0);
+    priJtrList.set_size(1, 0);
   } else if ((std::isinf(-priUncert) || std::isinf(priUncert)) &&
              (-priUncert == priUncert)) {
-    priMeansList.set_size(1, 1);
-    priMeansList[0] = rtNaN;
+    priJtrList.set_size(1, 1);
+    priJtrList[0] = rtNaN;
   } else if (std::floor(-priUncert) == -priUncert) {
-    loop_ub = static_cast<int>(priUncert - (-priUncert));
-    priMeansList.set_size(1, loop_ub + 1);
-    for (i = 0; i <= loop_ub; i++) {
-      priMeansList[i] = -priUncert + static_cast<double>(i);
+    ibmat = static_cast<int>(priUncert - (-priUncert));
+    priJtrList.set_size(1, ibmat + 1);
+    for (i = 0; i <= ibmat; i++) {
+      priJtrList[i] = -priUncert + static_cast<double>(i);
     }
   } else {
-    coder::eml_float_colon(-priUncert, priUncert, priMeansList);
+    coder::eml_float_colon(-priUncert, priUncert, priJtrList);
   }
-  priMeansList.set_size(1, priMeansList.size(1));
-  loop_ub = priMeansList.size(1) - 1;
-  for (i = 0; i <= loop_ub; i++) {
-    priMeansList[i] = pri + priMeansList[i];
+  if (static_cast<int>(d) != priJtrList.size(1)) {
+    rtSizeEq1DError(static_cast<int>(d), priJtrList.size(1), &h_emlrtECI);
+  }
+  priMeansList.set_size(1, priJtrList.size(1));
+  ibmat = priJtrList.size(1);
+  for (i = 0; i < ibmat; i++) {
+    priMeansList[i] = pri + priJtrList[i];
   }
   if (std::isnan(-priJtr) || std::isnan(priJtr)) {
-    WqColInds.set_size(1, 1);
-    WqColInds[0] = rtNaN;
+    priJtrList.set_size(1, 1);
+    priJtrList[0] = rtNaN;
   } else if (priJtr < -priJtr) {
-    WqColInds.set_size(1, 0);
+    priJtrList.set_size(1, 0);
   } else if ((std::isinf(-priJtr) || std::isinf(priJtr)) &&
              (-priJtr == priJtr)) {
-    WqColInds.set_size(1, 1);
-    WqColInds[0] = rtNaN;
+    priJtrList.set_size(1, 1);
+    priJtrList[0] = rtNaN;
   } else if (std::floor(-priJtr) == -priJtr) {
-    loop_ub = static_cast<int>(priJtr - (-priJtr));
-    WqColInds.set_size(1, loop_ub + 1);
-    for (i = 0; i <= loop_ub; i++) {
-      WqColInds[i] = -priJtr + static_cast<double>(i);
+    ibmat = static_cast<int>(priJtr - (-priJtr));
+    priJtrList.set_size(1, ibmat + 1);
+    for (i = 0; i <= ibmat; i++) {
+      priJtrList[i] = -priJtr + static_cast<double>(i);
     }
   } else {
-    coder::eml_float_colon(-priJtr, priJtr, WqColInds);
+    coder::eml_float_colon(-priJtr, priJtr, priJtrList);
+  }
+  if (static_cast<int>(d1) != priJtrList.size(1)) {
+    rtSizeEq1DError(static_cast<int>(d1), priJtrList.size(1), &i_emlrtECI);
   }
   // PPM Contains the column positions (time windows) in the S matrix to search
   // for the K pulses assuming the first pulse arrives at window 1.
@@ -135,21 +526,58 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   //  generate_pulse_positions_func.m
   //  Author: Paul G. Flikkema
   //  Date:   1 Oct 2021
-  n_shifts = rt_powd_snf(static_cast<double>(WqColInds.size(1)), reps - 1.0);
+  nrows = priJtrList.size(1);
+  if ((nrows < 0) && (!std::isnan(reps - 1.0)) &&
+      (std::floor(reps - 1.0) != reps - 1.0)) {
+    fb_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+  }
+  num_PRI_patterns = static_cast<double>(priMeansList.size(1)) *
+                     rt_powd_snf(static_cast<double>(nrows), reps - 1.0);
+  if (!(num_PRI_patterns >= 0.0)) {
+    rtNonNegativeError(num_PRI_patterns, &x_emlrtDCI);
+  }
+  d = static_cast<int>(std::floor(num_PRI_patterns));
+  if (num_PRI_patterns != d) {
+    rtIntegerError(num_PRI_patterns, &y_emlrtDCI);
+  }
+  if (!(reps >= 0.0)) {
+    rtNonNegativeError(reps, &ab_emlrtDCI);
+  }
+  i = static_cast<int>(std::floor(reps));
+  if (reps != i) {
+    rtIntegerError(reps, &bb_emlrtDCI);
+  }
   //  place first pulse at pulse position q = 1
+  if (static_cast<int>(reps) < 1) {
+    rtDynamicBoundsError(1, 1, static_cast<int>(reps), &eb_emlrtBCI);
+  }
+  if (num_PRI_patterns != d) {
+    rtIntegerError(num_PRI_patterns, &cb_emlrtDCI);
+  }
+  nrows = static_cast<int>(num_PRI_patterns);
+  rtSubAssignSizeCheck(&nrows, 1, &nrows, 1, &j_emlrtECI);
   //  based on the model, generate all the pulse position values in a 3D matrix
   //  pulse_position_value(k, i_position, i_mean )
-  pulse_position_value.set_size(static_cast<int>(reps), WqColInds.size(1),
-                                priMeansList.size(1));
-  loop_ub = static_cast<int>(reps) * WqColInds.size(1) * priMeansList.size(1);
-  for (i = 0; i < loop_ub; i++) {
+  if (reps != i) {
+    rtIntegerError(reps, &db_emlrtDCI);
+  }
+  i1 = static_cast<int>(reps);
+  pulse_position_value.set_size(i1, priJtrList.size(1), priMeansList.size(1));
+  if (i1 != i) {
+    rtIntegerError(reps, &eb_emlrtDCI);
+  }
+  ibmat = i1 * priJtrList.size(1) * priMeansList.size(1);
+  for (i = 0; i < ibmat; i++) {
     pulse_position_value[i] = 0.0;
   }
-  loop_ub = priMeansList.size(1);
-  for (i = 0; i < loop_ub; i++) {
-    sizes_idx_1 = WqColInds.size(1);
-    for (i1 = 0; i1 < sizes_idx_1; i1++) {
-      pulse_position_value[pulse_position_value.size(0) * i1 +
+  if (reps < 1.0) {
+    rtDynamicBoundsError(1, 1, 0, &fb_emlrtBCI);
+  }
+  ibmat = priMeansList.size(1);
+  for (i = 0; i < ibmat; i++) {
+    nrows = priJtrList.size(1);
+    for (itilerow = 0; itilerow < nrows; itilerow++) {
+      pulse_position_value[pulse_position_value.size(0) * itilerow +
                            pulse_position_value.size(0) *
                                pulse_position_value.size(1) * i] = 1.0;
     }
@@ -157,19 +585,38 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   //  first pulse is always in position 1
   //  loop through the mean PRI values
   i = priMeansList.size(1);
-  for (sizes_idx_1 = 0; sizes_idx_1 < i; sizes_idx_1++) {
-    i1 = static_cast<int>(reps - 1.0);
-    for (loop_ub = 0; loop_ub < i1; loop_ub++) {
-      i2 = WqColInds.size(1);
-      for (iacol = 0; iacol < i2; iacol++) {
-        pulse_position_value[((loop_ub + pulse_position_value.size(0) * iacol) +
+  for (nrows = 0; nrows < i; nrows++) {
+    itilerow = i1 + -1;
+    for (int k{0}; k < itilerow; k++) {
+      ncols = priJtrList.size(1);
+      for (ntilerows = 0; ntilerows < ncols; ntilerows++) {
+        if (nrows + 1 > priMeansList.size(1)) {
+          rtDynamicBoundsError(nrows + 1, 1, priMeansList.size(1),
+                               &gb_emlrtBCI);
+        }
+        if (ntilerows + 1 > priJtrList.size(1)) {
+          rtDynamicBoundsError(ntilerows + 1, 1, priJtrList.size(1),
+                               &hb_emlrtBCI);
+        }
+        if (static_cast<int>(k + 2U) > pulse_position_value.size(0)) {
+          rtDynamicBoundsError(static_cast<int>(k + 2U), 1,
+                               pulse_position_value.size(0), &ib_emlrtBCI);
+        }
+        if (ntilerows + 1 > pulse_position_value.size(1)) {
+          rtDynamicBoundsError(ntilerows + 1, 1, pulse_position_value.size(1),
+                               &jb_emlrtBCI);
+        }
+        if (nrows + 1 > pulse_position_value.size(2)) {
+          rtDynamicBoundsError(nrows + 1, 1, pulse_position_value.size(2),
+                               &kb_emlrtBCI);
+        }
+        pulse_position_value[((k + pulse_position_value.size(0) * ntilerows) +
                               pulse_position_value.size(0) *
-                                  pulse_position_value.size(1) * sizes_idx_1) +
+                                  pulse_position_value.size(1) * nrows) +
                              1] =
-            (((static_cast<double>(loop_ub) + 2.0) - 1.0) *
-                 priMeansList[sizes_idx_1] +
+            (((static_cast<double>(k) + 2.0) - 1.0) * priMeansList[nrows] +
              1.0) +
-            WqColInds[iacol];
+            priJtrList[ntilerows];
       }
     }
   }
@@ -184,62 +631,88 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   //  using the function cartesian_prod_func
   //
   //  we stack matrices vertically into the pulse_position_matrix
+  nrows = priJtrList.size(1);
+  ntilerows = i1 - 1;
   num_position_patterns =
       static_cast<double>(priMeansList.size(1)) *
-      rt_powd_snf(static_cast<double>(WqColInds.size(1)), reps - 1.0);
+      rt_powd_snf(static_cast<double>(nrows), static_cast<double>(i1 - 1));
+  if (!(num_position_patterns >= 0.0)) {
+    rtNonNegativeError(num_position_patterns, &fb_emlrtDCI);
+  }
+  d = static_cast<int>(std::floor(num_position_patterns));
+  if (num_position_patterns != d) {
+    rtIntegerError(num_position_patterns, &gb_emlrtDCI);
+  }
   pulsePositionMatrix.set_size(static_cast<int>(num_position_patterns),
-                               static_cast<int>(reps - 1.0));
-  loop_ub =
-      static_cast<int>(num_position_patterns) * static_cast<int>(reps - 1.0);
-  for (i = 0; i < loop_ub; i++) {
+                               pulsePositionMatrix.size(1));
+  pulsePositionMatrix.set_size(pulsePositionMatrix.size(0), ntilerows);
+  if (num_position_patterns != d) {
+    rtIntegerError(num_position_patterns, &hb_emlrtDCI);
+  }
+  ibmat = static_cast<int>(num_position_patterns) * (i1 - 1);
+  for (i = 0; i < ibmat; i++) {
     pulsePositionMatrix[i] = 0.0;
   }
+  nrows = priJtrList.size(1);
+  n_rows = rt_powd_snf(static_cast<double>(nrows), static_cast<double>(i1 - 1));
   //  number of rows per PRI mean
   i = priMeansList.size(1);
   if (priMeansList.size(1) - 1 >= 0) {
     if (pulse_position_value.size(0) < 2) {
-      nrows = 1;
-      ncols = 0;
+      jcol = -1;
+      i2 = -1;
     } else {
-      nrows = 2;
-      ncols = pulse_position_value.size(0);
+      jcol = 0;
+      i2 = pulse_position_value.size(0) - 1;
     }
     num_members_per_set = pulse_position_value.size(1);
-    num_rows_C_tmp = ncols - nrows;
-    num_rows_C = rt_powd_snf(static_cast<double>(pulse_position_value.size(1)),
-                             static_cast<double>(num_rows_C_tmp) + 1.0);
-    b_loop_ub = static_cast<int>(num_rows_C) * (num_rows_C_tmp + 1);
+    a = pulse_position_value.size(1);
+    i3 = (i2 - jcol) - 1;
   }
   for (ibcol = 0; ibcol < i; ibcol++) {
-    double d;
     //      % DEBUG
     //      a = [ 1 1 1 ]; b = [ 309 310 311 ]; c = [ 618 619 620 ];
     //      A = [ a; b; c ];
     //  since pattern is "fundamental" pattern starting with a pulse in the
     //  first STFT window, we only need to look at combinations
     //  rows 2:end, and then add the column of ones
+    if (ibcol + 1 > pulse_position_value.size(2)) {
+      rtDynamicBoundsError(ibcol + 1, 1, pulse_position_value.size(2),
+                           &lb_emlrtBCI);
+    }
     //    returns the Cartesian product C of the (values in the) rows
     //    of the input matrix A.
     //    Each row of A is taken as a set to draw from
     //    Assumes all sets have the same number of members
-    i1 = ncols - nrows;
-    pattern_matrix.set_size(static_cast<int>(num_rows_C), i1 + 1);
-    for (i2 = 0; i2 < b_loop_ub; i2++) {
-      pattern_matrix[i2] = 0.0;
+    num_PRI_patterns =
+        rt_powd_snf(static_cast<double>(a), static_cast<double>(i2 - jcol));
+    i1 = static_cast<int>(std::floor(num_PRI_patterns));
+    if (num_PRI_patterns != i1) {
+      rtIntegerError(num_PRI_patterns, &ib_emlrtDCI);
+    }
+    itilerow = i2 - jcol;
+    ncols = static_cast<int>(num_PRI_patterns);
+    pattern_matrix.set_size(ncols, itilerow);
+    if (ncols != i1) {
+      rtIntegerError(num_PRI_patterns, &jb_emlrtDCI);
+    }
+    ibmat = ncols * itilerow;
+    for (i1 = 0; i1 < ibmat; i1++) {
+      pattern_matrix[i1] = 0.0;
     }
     //  loop through columns of C
-    for (sizes_idx_1 = 0; sizes_idx_1 <= num_rows_C_tmp; sizes_idx_1++) {
-      double stride;
+    for (nrows = 0; nrows <= i3; nrows++) {
       unsigned int i_col_A;
       //  fill the column (aka fill the elements in the column)
       //  stride is number of elements to repeat in a column
       //  num_strides is number of strides per column
+      ntilerows = i2 - jcol;
       stride = rt_powd_snf(static_cast<double>(num_members_per_set),
-                           static_cast<double>(i1 - sizes_idx_1));
+                           static_cast<double>((ntilerows - nrows) - 1));
       i_col_A = 0U;
       //  the column in A that we use
-      i2 = static_cast<int>(num_rows_C / stride);
-      for (iacol = 0; iacol < i2; iacol++) {
+      i1 = static_cast<int>(num_PRI_patterns / stride);
+      for (iacol = 0; iacol < i1; iacol++) {
         double star;
         i_col_A++;
         if (i_col_A > static_cast<unsigned int>(num_members_per_set)) {
@@ -247,59 +720,116 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
         }
         star = ((static_cast<double>(iacol) + 1.0) - 1.0) * stride + 1.0;
         //  column of C gets elements from row of A
-        d = (star + stride) - 1.0;
-        if (star > d) {
+        d1 = (star + stride) - 1.0;
+        if (star > d1) {
           itilerow = 0;
-          ibmat = 0;
+          ncols = 0;
         } else {
+          if (star != static_cast<int>(std::floor(star))) {
+            rtIntegerError(star, &kb_emlrtDCI);
+          }
+          if ((static_cast<int>(star) < 1) ||
+              (static_cast<int>(star) > pattern_matrix.size(0))) {
+            rtDynamicBoundsError(static_cast<int>(star), 1,
+                                 pattern_matrix.size(0), &ob_emlrtBCI);
+          }
           itilerow = static_cast<int>(star) - 1;
-          ibmat = static_cast<int>(d);
+          if (d1 != static_cast<int>(std::floor(d1))) {
+            rtIntegerError(d1, &lb_emlrtDCI);
+          }
+          if ((static_cast<int>(d1) < 1) ||
+              (static_cast<int>(d1) > pattern_matrix.size(0))) {
+            rtDynamicBoundsError(static_cast<int>(d1), 1,
+                                 pattern_matrix.size(0), &pb_emlrtBCI);
+          }
+          ncols = static_cast<int>(d1);
         }
-        loop_ub = ibmat - itilerow;
-        for (ibmat = 0; ibmat < loop_ub; ibmat++) {
-          pattern_matrix[(itilerow + ibmat) +
-                         pattern_matrix.size(0) * sizes_idx_1] =
-              pulse_position_value[(((nrows + sizes_idx_1) +
+        if (nrows + 1 > pattern_matrix.size(1)) {
+          rtDynamicBoundsError(nrows + 1, 1, pattern_matrix.size(1),
+                               &mb_emlrtBCI);
+        }
+        ibmat = ncols - itilerow;
+        for (ncols = 0; ncols < ibmat; ncols++) {
+          if (nrows + 1 > ntilerows) {
+            rtDynamicBoundsError(nrows + 1, 1, ntilerows, &nb_emlrtBCI);
+          }
+          if ((static_cast<int>(i_col_A) < 1) ||
+              (static_cast<int>(i_col_A) > pulse_position_value.size(1))) {
+            rtDynamicBoundsError(static_cast<int>(i_col_A), 1,
+                                 pulse_position_value.size(1), &nb_emlrtBCI);
+          }
+          pattern_matrix[(itilerow + ncols) + pattern_matrix.size(0) * nrows] =
+              pulse_position_value[(((jcol + nrows) +
                                      pulse_position_value.size(0) *
                                          (static_cast<int>(i_col_A) - 1)) +
                                     pulse_position_value.size(0) *
-                                        pulse_position_value.size(1) * ibcol) -
+                                        pulse_position_value.size(1) * ibcol) +
                                    1];
         }
       }
     }
-    d = ((static_cast<double>(ibcol) + 1.0) - 1.0) * n_shifts + 1.0;
-    if (d > (static_cast<double>(ibcol) + 1.0) * n_shifts) {
-      i1 = 1;
+    d1 = ((static_cast<double>(ibcol) + 1.0) - 1.0) * n_rows + 1.0;
+    num_PRI_patterns = (static_cast<double>(ibcol) + 1.0) * n_rows;
+    if (d1 > num_PRI_patterns) {
+      i1 = 0;
+      itilerow = 0;
     } else {
-      i1 = static_cast<int>(d);
+      if (d1 != static_cast<int>(std::floor(d1))) {
+        rtIntegerError(d1, &mb_emlrtDCI);
+      }
+      if ((static_cast<int>(d1) < 1) ||
+          (static_cast<int>(d1) > pulsePositionMatrix.size(0))) {
+        rtDynamicBoundsError(static_cast<int>(d1), 1,
+                             pulsePositionMatrix.size(0), &qb_emlrtBCI);
+      }
+      i1 = static_cast<int>(d1) - 1;
+      if (num_PRI_patterns != static_cast<int>(std::floor(num_PRI_patterns))) {
+        rtIntegerError(num_PRI_patterns, &nb_emlrtDCI);
+      }
+      if ((static_cast<int>(num_PRI_patterns) < 1) ||
+          (static_cast<int>(num_PRI_patterns) > pulsePositionMatrix.size(0))) {
+        rtDynamicBoundsError(static_cast<int>(num_PRI_patterns), 1,
+                             pulsePositionMatrix.size(0), &rb_emlrtBCI);
+      }
+      itilerow = static_cast<int>(num_PRI_patterns);
     }
-    loop_ub = pattern_matrix.size(1);
-    for (i2 = 0; i2 < loop_ub; i2++) {
-      sizes_idx_1 = pattern_matrix.size(0);
-      for (itilerow = 0; itilerow < sizes_idx_1; itilerow++) {
-        pulsePositionMatrix[((i1 + itilerow) +
-                             pulsePositionMatrix.size(0) * i2) -
-                            1] =
-            pattern_matrix[itilerow + pattern_matrix.size(0) * i2];
+    sizes[0] = itilerow - i1;
+    sizes[1] = pulsePositionMatrix.size(1);
+    rtSubAssignSizeCheck(&sizes[0], 2, pattern_matrix.size(), 2, &k_emlrtECI);
+    ibmat = pattern_matrix.size(1);
+    for (itilerow = 0; itilerow < ibmat; itilerow++) {
+      nrows = pattern_matrix.size(0);
+      for (ncols = 0; ncols < nrows; ncols++) {
+        pulsePositionMatrix[(i1 + ncols) +
+                            pulsePositionMatrix.size(0) * itilerow] =
+            pattern_matrix[ncols + pattern_matrix.size(0) * itilerow];
       }
     }
   }
+  if (num_position_patterns != d) {
+    rtIntegerError(num_position_patterns, &ob_emlrtDCI);
+  }
   if (static_cast<int>(num_position_patterns) != 0) {
-    iacol = static_cast<int>(num_position_patterns);
+    nrows = static_cast<int>(num_position_patterns);
   } else if ((pulsePositionMatrix.size(0) != 0) &&
              (pulsePositionMatrix.size(1) != 0)) {
-    iacol = pulsePositionMatrix.size(0);
+    nrows = pulsePositionMatrix.size(0);
   } else {
-    iacol = static_cast<int>(num_position_patterns);
-    if (iacol < 0) {
-      iacol = 0;
-    }
-    if (pulsePositionMatrix.size(0) > iacol) {
-      iacol = pulsePositionMatrix.size(0);
+    nrows = static_cast<int>(num_position_patterns);
+    if (pulsePositionMatrix.size(0) > nrows) {
+      nrows = pulsePositionMatrix.size(0);
     }
   }
-  empty_non_axis_sizes = (iacol == 0);
+  if ((static_cast<int>(num_position_patterns) != nrows) &&
+      (static_cast<int>(num_position_patterns) != 0)) {
+    eb_rtErrorWithMessageID(vb_emlrtRTEI.fName, vb_emlrtRTEI.lineNo);
+  }
+  if ((pulsePositionMatrix.size(0) != nrows) &&
+      ((pulsePositionMatrix.size(0) != 0) &&
+       (pulsePositionMatrix.size(1) != 0))) {
+    eb_rtErrorWithMessageID(vb_emlrtRTEI.fName, vb_emlrtRTEI.lineNo);
+  }
+  empty_non_axis_sizes = (nrows == 0);
   if (empty_non_axis_sizes || (static_cast<int>(num_position_patterns) != 0)) {
     input_sizes_idx_1 = 1;
   } else {
@@ -307,22 +837,23 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   }
   if (empty_non_axis_sizes || ((pulsePositionMatrix.size(0) != 0) &&
                                (pulsePositionMatrix.size(1) != 0))) {
-    sizes_idx_1 = pulsePositionMatrix.size(1);
+    sizes[1] = pulsePositionMatrix.size(1);
   } else {
-    sizes_idx_1 = 0;
+    sizes[1] = 0;
   }
   //  remove duplicate patterns
-  pattern_matrix.set_size(iacol, input_sizes_idx_1 + sizes_idx_1);
-  loop_ub = input_sizes_idx_1;
-  for (i = 0; i < loop_ub; i++) {
-    for (i1 = 0; i1 < iacol; i1++) {
+  pattern_matrix.set_size(nrows, input_sizes_idx_1 + sizes[1]);
+  ibmat = input_sizes_idx_1;
+  for (i = 0; i < ibmat; i++) {
+    for (i1 = 0; i1 < nrows; i1++) {
       pattern_matrix[i1] = 1.0;
     }
   }
-  for (i = 0; i < sizes_idx_1; i++) {
-    for (i1 = 0; i1 < iacol; i1++) {
+  ibmat = sizes[1];
+  for (i = 0; i < ibmat; i++) {
+    for (i1 = 0; i1 < nrows; i1++) {
       pattern_matrix[i1 + pattern_matrix.size(0) * (i + input_sizes_idx_1)] =
-          pulsePositionMatrix[i1 + iacol * i];
+          pulsePositionMatrix[i1 + nrows * i];
     }
   }
   coder::unique_rows(pattern_matrix, pulsePositionMatrix);
@@ -363,37 +894,48 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   // extra jitter when shifting for K>1.
   //
   if (reps > 1.0) {
-    iacol = priMeansList.size(1);
-    b_priMeansList = priMeansList.reshape(iacol);
-    n_shifts = coder::internal::maximum(b_priMeansList);
+    ntilerows = priMeansList.size(1);
+    b_priMeansList = priMeansList.reshape(ntilerows);
+    num_PRI_patterns = coder::internal::maximum(b_priMeansList);
     // Equivalent to N+M+J-J
   } else {
-    iacol = priMeansList.size(1);
-    sizes_idx_1 = WqColInds.size(1);
-    b_priMeansList = priMeansList.reshape(iacol);
-    b_WqColInds = WqColInds.reshape(sizes_idx_1);
-    n_shifts = coder::internal::maximum(b_priMeansList) +
-               coder::internal::maximum(b_WqColInds);
+    ntilerows = priMeansList.size(1);
+    b_priMeansList = priMeansList.reshape(ntilerows);
+    num_PRI_patterns = coder::internal::maximum(b_priMeansList);
+    nrows = priJtrList.size(1);
+    b_priMeansList = priJtrList.reshape(nrows);
+    stride = coder::internal::maximum(b_priMeansList);
+    num_PRI_patterns += stride;
     // Equivalent to N+M+J
   }
   // Number of rows in pulse_position_matrix
   // Number of cols in pulse_position_matrix --- should always be K
+  coder::internal::assertValidSizeArg(num_PRI_patterns + 1.0);
+  if (!(num_PRI_patterns + 1.0 >= 0.0)) {
+    rtNonNegativeError(num_PRI_patterns + 1.0, &n_emlrtDCI);
+  }
   pattern_matrix.set_size(pulsePositionMatrix.size(0) *
-                              static_cast<int>(n_shifts + 1.0),
+                              static_cast<int>(num_PRI_patterns + 1.0),
                           pulsePositionMatrix.size(1));
   nrows = pulsePositionMatrix.size(0);
   ncols = pulsePositionMatrix.size(1);
-  sizes_idx_1 = static_cast<int>(n_shifts + 1.0);
-  for (num_members_per_set = 0; num_members_per_set < ncols;
-       num_members_per_set++) {
-    iacol = num_members_per_set * nrows;
-    ibmat =
-        num_members_per_set * (nrows * static_cast<int>(n_shifts + 1.0)) - 1;
-    for (itilerow = 0; itilerow < sizes_idx_1; itilerow++) {
+  ntilerows = static_cast<int>(num_PRI_patterns + 1.0);
+  if (pulsePositionMatrix.size(1) > 2147483646) {
+    coder::check_forloop_overflow_error();
+  }
+  for (jcol = 0; jcol < ncols; jcol++) {
+    iacol = jcol * nrows;
+    ibmat = jcol * (nrows * static_cast<int>(num_PRI_patterns + 1.0)) - 1;
+    if (static_cast<int>(num_PRI_patterns + 1.0) > 2147483646) {
+      coder::check_forloop_overflow_error();
+    }
+    for (itilerow = 0; itilerow < ntilerows; itilerow++) {
       ibcol = ibmat + itilerow * nrows;
-      for (loop_ub = 0; loop_ub < nrows; loop_ub++) {
-        pattern_matrix[(ibcol + loop_ub) + 1] =
-            pulsePositionMatrix[iacol + loop_ub];
+      if (nrows > 2147483646) {
+        coder::check_forloop_overflow_error();
+      }
+      for (int k{0}; k < nrows; k++) {
+        pattern_matrix[(ibcol + k) + 1] = pulsePositionMatrix[iacol + k];
       }
     }
   }
@@ -401,145 +943,77 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   // shifted. The second copy will get a 1 added to it, the third a 2 added, and
   // so on up to n_shifts. Use n_shifts+1 to account for the first one that
   // receives no shifting. Get the number of rows in the big PPM matrix
-  if (std::isnan(n_shifts)) {
-    priMeansList.set_size(1, 1);
-    priMeansList[0] = rtNaN;
-  } else if (n_shifts < 0.0) {
-    priMeansList.set_size(1, 0);
+  if (std::isnan(num_PRI_patterns)) {
+    priJtrList.set_size(1, 1);
+    priJtrList[0] = rtNaN;
+  } else if (num_PRI_patterns < 0.0) {
+    priJtrList.set_size(1, 0);
   } else {
-    priMeansList.set_size(1, static_cast<int>(n_shifts) + 1);
-    loop_ub = static_cast<int>(n_shifts);
-    for (i = 0; i <= loop_ub; i++) {
-      priMeansList[i] = i;
+    priJtrList.set_size(1, static_cast<int>(num_PRI_patterns) + 1);
+    ibmat = static_cast<int>(num_PRI_patterns);
+    for (i = 0; i <= ibmat; i++) {
+      priJtrList[i] = i;
     }
   }
-  shiftermat.set_size(pulsePositionMatrix.size(0), priMeansList.size(1));
-  ncols = priMeansList.size(1);
-  sizes_idx_1 = pulsePositionMatrix.size(0);
-  for (num_members_per_set = 0; num_members_per_set < ncols;
-       num_members_per_set++) {
-    ibmat = num_members_per_set * sizes_idx_1;
-    for (itilerow = 0; itilerow < sizes_idx_1; itilerow++) {
-      shiftermat[ibmat + itilerow] = priMeansList[num_members_per_set];
-    }
-  }
+  coder::repmat(priJtrList, static_cast<double>(pulsePositionMatrix.size(0)),
+                shiftermat);
   // Create a matrix of the shifts needed for each copy of the PPM matrix
-  WqRowInds.set_size(shiftermat.size(0) * shiftermat.size(1),
-                     pulsePositionMatrix.size(1));
   nrows = shiftermat.size(0) * shiftermat.size(1);
-  iacol = pulsePositionMatrix.size(1);
-  for (ibmat = 0; ibmat < iacol; ibmat++) {
-    sizes_idx_1 = ibmat * nrows;
-    for (loop_ub = 0; loop_ub < nrows; loop_ub++) {
-      WqRowInds[sizes_idx_1 + loop_ub] = shiftermat[loop_ub];
-    }
+  b_priMeansList = shiftermat.reshape(nrows);
+  coder::repmat(b_priMeansList,
+                static_cast<double>(pulsePositionMatrix.size(1)), WqRowInds);
+  if ((WqRowInds.size(0) != pattern_matrix.size(0)) &&
+      ((WqRowInds.size(0) != 1) && (pattern_matrix.size(0) != 1))) {
+    emlrtDimSizeImpxCheckR2021b(WqRowInds.size(0), pattern_matrix.size(0),
+                                &g_emlrtECI);
+  }
+  if ((WqRowInds.size(1) != pattern_matrix.size(1)) &&
+      ((WqRowInds.size(1) != 1) && (pattern_matrix.size(1) != 1))) {
+    emlrtDimSizeImpxCheckR2021b(WqRowInds.size(1), pattern_matrix.size(1),
+                                &l_emlrtECI);
   }
   if ((WqRowInds.size(0) == pattern_matrix.size(0)) &&
       (WqRowInds.size(1) == pattern_matrix.size(1))) {
-    loop_ub = WqRowInds.size(0) * WqRowInds.size(1);
-    for (i = 0; i < loop_ub; i++) {
+    ibmat = WqRowInds.size(0) * WqRowInds.size(1);
+    for (i = 0; i < ibmat; i++) {
       WqRowInds[i] = WqRowInds[i] + pattern_matrix[i];
     }
   } else {
     plus(WqRowInds, pattern_matrix);
   }
   if (pattern_matrix.size(0) < 1) {
-    priMeansList.set_size(1, 0);
+    priJtrList.set_size(1, 0);
   } else {
-    priMeansList.set_size(1, pattern_matrix.size(0));
-    loop_ub = pattern_matrix.size(0) - 1;
-    for (i = 0; i <= loop_ub; i++) {
-      priMeansList[i] = static_cast<double>(i) + 1.0;
+    priJtrList.set_size(1, pattern_matrix.size(0));
+    ibmat = pattern_matrix.size(0) - 1;
+    for (i = 0; i <= ibmat; i++) {
+      priJtrList[i] = static_cast<double>(i) + 1.0;
     }
   }
-  WqColInds.set_size(1, priMeansList.size(1) * pulsePositionMatrix.size(1));
-  ncols = priMeansList.size(1);
-  iacol = pulsePositionMatrix.size(1);
-  for (ibmat = 0; ibmat < iacol; ibmat++) {
-    sizes_idx_1 = ibmat * ncols;
-    for (num_members_per_set = 0; num_members_per_set < ncols;
-         num_members_per_set++) {
-      WqColInds[sizes_idx_1 + num_members_per_set] =
-          priMeansList[num_members_per_set];
+  coder::internal::assertValidSizeArg(
+      static_cast<double>(pulsePositionMatrix.size(1)));
+  priMeansList.set_size(1, priJtrList.size(1) * pulsePositionMatrix.size(1));
+  ncols = priJtrList.size(1);
+  nrows = pulsePositionMatrix.size(1);
+  for (iacol = 0; iacol < nrows; iacol++) {
+    ntilerows = iacol * ncols;
+    if (ncols > 2147483646) {
+      coder::check_forloop_overflow_error();
+    }
+    for (jcol = 0; jcol < ncols; jcol++) {
+      priMeansList[ntilerows + jcol] = priJtrList[jcol];
     }
   }
-  ibmat = WqColInds.size(1);
   iacol = WqRowInds.size(0) * WqRowInds.size(1);
-  b_this.workspace.b.set_size(WqRowInds.size(0) * WqRowInds.size(1));
-  for (loop_ub = 0; loop_ub < iacol; loop_ub++) {
-    b_this.workspace.b[loop_ub] = static_cast<int>(WqRowInds[loop_ub]);
+  ntilerows = priMeansList.size(1);
+  nrows = WqRowInds.size(0) * WqRowInds.size(1);
+  r.set_size(nrows);
+  for (i = 0; i < nrows; i++) {
+    r[i] = 1.0;
   }
-  iacol = WqColInds.size(1);
-  b_this.workspace.a.set_size(WqColInds.size(1));
-  for (loop_ub = 0; loop_ub < iacol; loop_ub++) {
-    b_this.workspace.a[loop_ub] = static_cast<int>(WqColInds[loop_ub]);
-  }
-  sortedIndices.set_size(WqColInds.size(1));
-  for (loop_ub = 0; loop_ub < ibmat; loop_ub++) {
-    sortedIndices[loop_ub] = loop_ub + 1;
-  }
-  coder::internal::introsort(sortedIndices, b_this.workspace.a.size(0),
-                             &b_this);
-  iacol = b_this.workspace.a.size(0);
-  t.set_size(b_this.workspace.a.size(0));
-  loop_ub = b_this.workspace.a.size(0);
-  for (i = 0; i < loop_ub; i++) {
-    t[i] = b_this.workspace.a[i];
-  }
-  for (loop_ub = 0; loop_ub < iacol; loop_ub++) {
-    b_this.workspace.a[loop_ub] = t[sortedIndices[loop_ub] - 1];
-  }
-  iacol = b_this.workspace.b.size(0);
-  t.set_size(b_this.workspace.b.size(0));
-  loop_ub = b_this.workspace.b.size(0);
-  for (i = 0; i < loop_ub; i++) {
-    t[i] = b_this.workspace.b[i];
-  }
-  for (loop_ub = 0; loop_ub < iacol; loop_ub++) {
-    b_this.workspace.b[loop_ub] = t[sortedIndices[loop_ub] - 1];
-  }
-  if ((b_this.workspace.b.size(0) == 0) || (b_this.workspace.a.size(0) == 0)) {
-    sizes_idx_1 = 0;
-    Wq->n = 0;
-  } else {
-    iacol = b_this.workspace.b.size(0);
-    sizes_idx_1 = b_this.workspace.b[0];
-    for (loop_ub = 2; loop_ub <= iacol; loop_ub++) {
-      i = b_this.workspace.b[loop_ub - 1];
-      if (sizes_idx_1 < i) {
-        sizes_idx_1 = i;
-      }
-    }
-    Wq->n = b_this.workspace.a[b_this.workspace.a.size(0) - 1];
-  }
-  Wq->m = sizes_idx_1;
-  sizes_idx_1 = WqColInds.size(1);
-  if (sizes_idx_1 < 1) {
-    sizes_idx_1 = 1;
-  }
-  Wq->d.set_size(sizes_idx_1);
-  Wq->maxnz = sizes_idx_1;
-  Wq->colidx.set_size(Wq->n + 1);
-  Wq->colidx[0] = 1;
-  Wq->rowidx.set_size(sizes_idx_1);
-  for (i = 0; i < sizes_idx_1; i++) {
-    Wq->d[i] = 0.0;
-    Wq->rowidx[i] = 0;
-  }
-  iacol = 0;
-  i = Wq->n;
-  for (sizes_idx_1 = 0; sizes_idx_1 < i; sizes_idx_1++) {
-    while ((iacol + 1 <= ibmat) &&
-           (b_this.workspace.a[iacol] == sizes_idx_1 + 1)) {
-      Wq->rowidx[iacol] = b_this.workspace.b[iacol];
-      iacol++;
-    }
-    Wq->colidx[sizes_idx_1 + 1] = iacol + 1;
-  }
-  for (loop_ub = 0; loop_ub < ibmat; loop_ub++) {
-    Wq->d[loop_ub] = 1.0;
-  }
-  Wq->fillIn();
+  b_WqRowInds = WqRowInds.reshape(iacol);
+  b_priMeansList = priMeansList.reshape(ntilerows);
+  coder::i_sparse(b_WqRowInds, b_priMeansList, r, Wq);
   // , obj.reps(i));
 }
 

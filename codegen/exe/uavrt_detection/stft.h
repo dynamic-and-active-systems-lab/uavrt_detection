@@ -1,10 +1,11 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: stft.h
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 #ifndef STFT_H
@@ -16,26 +17,19 @@
 #include <cstddef>
 #include <cstdlib>
 
-// Type Declarations
-namespace coder {
-namespace internal {
-class s_stickyStruct;
-
-}
-} // namespace coder
-
 // Function Declarations
 namespace coder {
-void computeSTFT(const ::coder::array<creal_T, 2U> &x,
-                 const internal::s_stickyStruct *opts,
-                 ::coder::array<creal_T, 3U> &S, ::coder::array<double, 1U> &F,
-                 ::coder::array<double, 2U> &T);
-
 void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
           const ::coder::array<double, 1U> &varargin_3, double varargin_5,
           double varargin_7, ::coder::array<creal32_T, 2U> &varargout_1,
           ::coder::array<float, 1U> &varargout_2,
           ::coder::array<float, 1U> &varargout_3);
+
+void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
+          const ::coder::array<double, 1U> &varargin_3, double varargin_5,
+          double varargin_7, ::coder::array<creal_T, 3U> &varargout_1,
+          ::coder::array<double, 1U> &varargout_2,
+          ::coder::array<double, 1U> &varargout_3);
 
 } // namespace coder
 

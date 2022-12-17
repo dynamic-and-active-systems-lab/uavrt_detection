@@ -1,18 +1,21 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: insertionsort.cpp
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 // Include Files
 #include "insertionsort.h"
 #include "anonymous_function.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection_internal_types.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Definitions
 //
@@ -27,9 +30,12 @@ namespace internal {
 void insertionsort(::coder::array<int, 1U> &x, int xstart, int xend,
                    const c_anonymous_function *cmp)
 {
-  int i;
-  i = xstart + 1;
-  for (int k{i}; k <= xend; k++) {
+  int a;
+  a = xstart + 1;
+  if ((xstart + 1 <= xend) && (xend > 2147483646)) {
+    check_forloop_overflow_error();
+  }
+  for (int k{a}; k <= xend; k++) {
     int idx;
     int xc;
     xc = x[k - 1];
@@ -53,9 +59,12 @@ void insertionsort(::coder::array<int, 1U> &x, int xstart, int xend,
 void insertionsort(::coder::array<int, 1U> &x, int xstart, int xend,
                    const anonymous_function *cmp)
 {
-  int i;
-  i = xstart + 1;
-  for (int k{i}; k <= xend; k++) {
+  int a;
+  a = xstart + 1;
+  if ((xstart + 1 <= xend) && (xend > 2147483646)) {
+    check_forloop_overflow_error();
+  }
+  for (int k{a}; k <= xend; k++) {
     int idx;
     int xc;
     boolean_T exitg1;

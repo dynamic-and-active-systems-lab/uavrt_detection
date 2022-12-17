@@ -1,16 +1,18 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: quickselect.cpp
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 // Include Files
 #include "quickselect.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Declarations
 namespace coder {
@@ -222,7 +224,7 @@ void quickselect(::coder::array<double, 1U> &v, int n, int vlen, double *vn,
             }
           }
         } else if (c >= 3) {
-          ipiv = ia + static_cast<int>(static_cast<unsigned int>(c - 1) >> 1);
+          ipiv = ia + (c - 1) / 2;
           if (v[ia] < v[ipiv]) {
             if (!(v[ipiv] < v[ib])) {
               if (v[ia] < v[ib]) {

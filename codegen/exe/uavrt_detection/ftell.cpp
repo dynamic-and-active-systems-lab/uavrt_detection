@@ -1,17 +1,22 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: ftell.cpp
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 // Include Files
 #include "ftell.h"
 #include "fileManager.h"
 #include "rt_nonfinite.h"
+#include "uavrt_detection_data.h"
+#include "uavrt_detection_rtwutil.h"
+#include "uavrt_detection_types.h"
 #include <stdio.h>
+#include <string.h>
 
 // Function Definitions
 //
@@ -24,6 +29,9 @@ double b_ftell(double fileID)
   FILE *filestar;
   double position;
   filestar = fileManager(fileID);
+  if (filestar == NULL) {
+    d_rtErrorWithMessageID(c_emlrtRTEI.fName, c_emlrtRTEI.lineNo);
+  }
   if ((!(fileID != 0.0)) || (!(fileID != 1.0)) || (!(fileID != 2.0))) {
     filestar = NULL;
   }

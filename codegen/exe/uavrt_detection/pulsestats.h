@@ -1,10 +1,11 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: pulsestats.h
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 #ifndef PULSESTATS_H
@@ -38,9 +39,10 @@ public:
                      const coder::array<c_struct_T, 2U> &b_clst,
                      const coder::array<boolean_T, 2U> &b_cmsk,
                      const coder::array<double, 2U> &b_cpki);
-  void updateposteriori(const coder::array<c_struct_T, 2U> &pulselist);
   void updateposteriori(const pulsestats *ps_pre,
                         const coder::array<c_struct_T, 2U> &pulselist);
+  void b_updateposteriori(const pulsestats *ps_pre,
+                          const coder::array<c_struct_T, 2U> &pulselist);
   double t_p;
   double t_ip;
   double t_ipu;

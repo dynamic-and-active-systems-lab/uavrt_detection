@@ -1,10 +1,11 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: AsyncBuffercgHelper.h
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 #ifndef ASYNCBUFFERCGHELPER_H
@@ -16,7 +17,7 @@
 #include <cstdlib>
 
 // Type Definitions
-struct cell_wrap_2 {
+struct cell_wrap_3 {
   unsigned int f1[8];
 };
 
@@ -42,7 +43,7 @@ public:
   int isInitialized;
   boolean_T isSetupComplete;
   int NumChannels;
-  double Cache[49621];
+  creal32_T Cache[49621];
   int CumulativeOverrun;
   int CumulativeUnderrun;
   int ReadPointer;
@@ -50,7 +51,7 @@ public:
   boolean_T AsyncBuffercgHelper_isInitialized;
 
 private:
-  cell_wrap_2 inputVarSize[1];
+  cell_wrap_3 inputVarSize[1];
 };
 
 class b_AsyncBuffercgHelper {
@@ -72,7 +73,7 @@ public:
   int isInitialized;
   boolean_T isSetupComplete;
   int NumChannels;
-  creal32_T Cache[49621];
+  double Cache[49621];
   int CumulativeOverrun;
   int CumulativeUnderrun;
   int ReadPointer;
@@ -80,7 +81,7 @@ public:
   boolean_T AsyncBuffercgHelper_isInitialized;
 
 private:
-  cell_wrap_2 inputVarSize[1];
+  cell_wrap_3 inputVarSize[1];
 };
 
 } // namespace internal

@@ -1,10 +1,11 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: strcmp.h
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 #ifndef STRCMP_H
@@ -48,6 +49,38 @@ boolean_T e_strcmp(const char a_data[], const int a_size[2]);
 boolean_T f_strcmp(const ::coder::array<char, 2U> &a);
 
 boolean_T f_strcmp(const char a_data[], const int a_size[2]);
+
+boolean_T g_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T h_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T i_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T j_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T k_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T l_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T m_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T n_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T o_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T p_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T q_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T r_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T s_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T t_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T u_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T v_strcmp(const ::coder::array<char, 2U> &a);
 
 } // namespace internal
 } // namespace coder

@@ -1,16 +1,19 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: ifWhileCond.cpp
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 // Include Files
 #include "ifWhileCond.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Definitions
 //
@@ -26,6 +29,9 @@ boolean_T ifWhileCond(const ::coder::array<boolean_T, 1U> &x)
   if (y) {
     int k;
     boolean_T exitg1;
+    if (x.size(0) > 2147483646) {
+      check_forloop_overflow_error();
+    }
     k = 0;
     exitg1 = false;
     while ((!exitg1) && (k <= x.size(0) - 1)) {

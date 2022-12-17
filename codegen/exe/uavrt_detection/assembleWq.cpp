@@ -1,16 +1,18 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: assembleWq.cpp
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 // Include Files
 #include "assembleWq.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Definitions
 //
@@ -54,11 +56,10 @@ void plus(coder::array<double, 2U> &in1, const coder::array<double, 2U> &in2)
     loop_ub = in2.size(1);
   }
   for (i = 0; i < loop_ub; i++) {
-    i1 = in2.size(0);
-    if (i1 == 1) {
+    if (in2.size(0) == 1) {
       b_loop_ub = in1.size(0);
     } else {
-      b_loop_ub = i1;
+      b_loop_ub = in2.size(0);
     }
     for (i1 = 0; i1 < b_loop_ub; i1++) {
       b_in1[i1 + b_in1.size(0) * i] =

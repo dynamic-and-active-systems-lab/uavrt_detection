@@ -1,10 +1,11 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: introsort.cpp
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 // Include Files
@@ -15,10 +16,58 @@
 #include "rt_nonfinite.h"
 #include "stack1.h"
 #include "uavrt_detection_internal_types.h"
+#include "uavrt_detection_rtwutil.h"
+#include "uavrt_detection_types.h"
 #include "coder_array.h"
-#include "coder_bounded_array.h"
+#include "omp.h"
+#include <cstdio>
+#include <cstdlib>
+#include <sstream>
+#include <stdexcept>
+#include <string.h>
+#include <string>
+
+// Variable Definitions
+static rtRunTimeErrorInfo nc_emlrtRTEI{
+    62,          // lineNo
+    "stack/push" // fName
+};
+
+static rtDoubleCheckInfo s_emlrtDCI{
+    48,            // lineNo
+    48,            // colNo
+    "stack/stack", // fName
+    "C:\\Program "
+    "Files\\MATLAB\\toolbox\\shared\\coder\\coder\\lib\\+coder\\+"
+    "internal\\stack.m", // pName
+    4                    // checkKind
+};
+
+// Function Declarations
+static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Cannot push onto a fixed-size stack which is at capacity.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
 //
 // Arguments    : ::coder::array<int, 1U> &x
 //                int xend
@@ -37,10 +86,10 @@ void introsort(::coder::array<int, 1U> &x, int xend,
       insertionsort(x, 1, xend, cmp);
     } else {
       stack st;
-      int MAXDEPTH;
       int pmax;
       int pmin;
       int pow2p;
+      int unnamed_idx_0;
       boolean_T exitg1;
       pmax = 31;
       pmin = 0;
@@ -57,25 +106,31 @@ void introsort(::coder::array<int, 1U> &x, int xend,
           pmin = j;
         }
       }
-      MAXDEPTH = (pmax - 1) << 1;
+      pow2p = (pmax - 1) << 1;
       frame.xstart = 1;
       frame.xend = xend;
       frame.depth = 0;
-      pmax = MAXDEPTH << 1;
-      st.d.size[0] = pmax;
-      for (pmin = 0; pmin < pmax; pmin++) {
+      unnamed_idx_0 = pow2p << 1;
+      if (unnamed_idx_0 < 0) {
+        rtNonNegativeError(static_cast<double>(unnamed_idx_0), &s_emlrtDCI);
+      }
+      for (pmin = 0; pmin < unnamed_idx_0; pmin++) {
         st.d.data[pmin] = frame;
+      }
+      if (unnamed_idx_0 <= 0) {
+        kc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
       }
       st.d.data[0] = frame;
       st.n = 1;
       while (st.n > 0) {
-        pow2p = st.n - 1;
+        int frame_tmp_tmp;
+        frame_tmp_tmp = st.n - 1;
         frame = st.d.data[st.n - 1];
         st.n--;
         pmin = frame.xend - frame.xstart;
         if (pmin + 1 <= 32) {
           insertionsort(x, frame.xstart, frame.xend, cmp);
-        } else if (frame.depth == MAXDEPTH) {
+        } else if (frame.depth == pow2p) {
           b_heapsort(x, frame.xstart, frame.xend, cmp);
         } else {
           int pivot;
@@ -129,12 +184,18 @@ void introsort(::coder::array<int, 1U> &x, int xend,
           x[frame.xend - 2] = x[pmax];
           x[pmax] = pivot;
           if (pmax + 2 < frame.xend) {
-            st.d.data[pow2p].xstart = pmax + 2;
-            st.d.data[pow2p].xend = frame.xend;
-            st.d.data[pow2p].depth = frame.depth + 1;
-            st.n = pow2p + 1;
+            if (frame_tmp_tmp >= unnamed_idx_0) {
+              kc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+            }
+            st.d.data[frame_tmp_tmp].xstart = pmax + 2;
+            st.d.data[frame_tmp_tmp].xend = frame.xend;
+            st.d.data[frame_tmp_tmp].depth = frame.depth + 1;
+            st.n = frame_tmp_tmp + 1;
           }
           if (frame.xstart < pmax + 1) {
+            if (st.n >= unnamed_idx_0) {
+              kc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+            }
             st.d.data[st.n].xstart = frame.xstart;
             st.d.data[st.n].xend = pmax + 1;
             st.d.data[st.n].depth = frame.depth + 1;
@@ -167,6 +228,7 @@ void introsort(::coder::array<int, 1U> &x, int xend,
       int pmax;
       int pmin;
       int pow2p;
+      int unnamed_idx_0;
       boolean_T exitg1;
       pmax = 31;
       pmin = 0;
@@ -187,10 +249,15 @@ void introsort(::coder::array<int, 1U> &x, int xend,
       frame.xstart = 1;
       frame.xend = xend;
       frame.depth = 0;
-      pmax = MAXDEPTH << 1;
-      st.d.size[0] = pmax;
-      for (i = 0; i < pmax; i++) {
+      unnamed_idx_0 = MAXDEPTH << 1;
+      if (unnamed_idx_0 < 0) {
+        rtNonNegativeError(static_cast<double>(unnamed_idx_0), &s_emlrtDCI);
+      }
+      for (i = 0; i < unnamed_idx_0; i++) {
         st.d.data[i] = frame;
+      }
+      if (unnamed_idx_0 <= 0) {
+        kc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
       }
       st.d.data[0] = frame;
       st.n = 1;
@@ -313,12 +380,18 @@ void introsort(::coder::array<int, 1U> &x, int xend,
           x[frame.xend - 2] = x[pmin];
           x[pmin] = pivot + 1;
           if (pmin + 2 < frame.xend) {
+            if (frame_tmp_tmp >= unnamed_idx_0) {
+              kc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+            }
             st.d.data[frame_tmp_tmp].xstart = pmin + 2;
             st.d.data[frame_tmp_tmp].xend = frame.xend;
             st.d.data[frame_tmp_tmp].depth = frame.depth + 1;
             st.n = frame_tmp_tmp + 1;
           }
           if (frame.xstart < pmin + 1) {
+            if (st.n >= unnamed_idx_0) {
+              kc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+            }
             st.d.data[st.n].xstart = frame.xstart;
             st.d.data[st.n].xend = pmin + 1;
             st.d.data[st.n].depth = frame.depth + 1;

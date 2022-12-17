@@ -1,10 +1,11 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: uavrt_detection_internal_types.h
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 #ifndef UAVRT_DETECTION_INTERNAL_TYPES_H
@@ -44,6 +45,11 @@ struct c_struct_T {
   boolean_T con_dec;
 };
 
+struct emxArray_struct_T_1x1 {
+  c_struct_T data[1];
+  int size[2];
+};
+
 struct d_struct_T {
   coder::array<int, 1U> a;
   coder::array<int, 1U> b;
@@ -55,6 +61,10 @@ struct e_struct_T {
 
 struct f_struct_T {
   double sb;
+};
+
+struct emxArray_struct_T_120 {
+  struct_T data[120];
 };
 
 #endif

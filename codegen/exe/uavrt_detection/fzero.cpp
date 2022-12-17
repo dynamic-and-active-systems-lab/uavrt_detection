@@ -1,10 +1,11 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: fzero.cpp
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 // Include Files
@@ -12,9 +13,41 @@
 #include "anonymous_function.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection_internal_types.h"
+#include "uavrt_detection_types.h"
+#include "omp.h"
 #include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <sstream>
+#include <stdexcept>
+#include <string.h>
+#include <string>
+
+// Function Declarations
+static void qb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void qb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Initial function value must be finite and real.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
 //
 // Arguments    : const b_anonymous_function FunFcn
 // Return Type  : double
@@ -22,6 +55,10 @@
 namespace coder {
 double fzero(const b_anonymous_function FunFcn)
 {
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      83,     // lineNo
+      "fzero" // fName
+  };
   double b;
   double fx;
   fx = (1.0 - std::exp(-std::exp((-0.0 - FunFcn.workspace.mu) /
@@ -34,6 +71,9 @@ double fzero(const b_anonymous_function FunFcn)
     double dx;
     double fb;
     int exitg2;
+    if (std::isinf(fx) || std::isnan(fx)) {
+      qb_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+    }
     dx = 0.02;
     a = 0.0;
     b = 0.0;

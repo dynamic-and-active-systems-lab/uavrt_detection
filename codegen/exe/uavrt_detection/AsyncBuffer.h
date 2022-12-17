@@ -1,10 +1,11 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: AsyncBuffer.h
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 #ifndef ASYNCBUFFER_H
@@ -22,11 +23,11 @@ namespace coder {
 namespace dsp {
 class AsyncBuffer {
 public:
-  void read(double numRows, ::coder::array<double, 1U> &out);
-  void read(double numRows, double overlap, ::coder::array<double, 1U> &out);
-  AsyncBuffer *init();
+  void reset();
+  void write(const creal32_T in[4096]);
+  void read(double numRows, ::coder::array<creal32_T, 1U> &out);
+  void read(double numRows, double overlap, ::coder::array<creal32_T, 1U> &out);
   void matlabCodegenDestructor();
-  void write(const double in_data[]);
   ~AsyncBuffer();
   AsyncBuffer();
   boolean_T matlabCodegenIsDeleted;
@@ -35,10 +36,11 @@ public:
 
 class b_AsyncBuffer {
 public:
-  void read(double numRows, ::coder::array<creal32_T, 1U> &out);
-  void read(double numRows, double overlap, ::coder::array<creal32_T, 1U> &out);
+  void write(const double in[4096]);
+  void read(double numRows, ::coder::array<double, 1U> &out);
+  void read(double numRows, double overlap, ::coder::array<double, 1U> &out);
+  void reset();
   void matlabCodegenDestructor();
-  void write(const creal32_T in_data[]);
   ~b_AsyncBuffer();
   b_AsyncBuffer();
   boolean_T matlabCodegenIsDeleted;

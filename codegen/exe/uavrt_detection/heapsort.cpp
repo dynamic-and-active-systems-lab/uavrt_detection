@@ -1,18 +1,21 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: heapsort.cpp
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 // Include Files
 #include "heapsort.h"
 #include "anonymous_function.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection_internal_types.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Declarations
 namespace coder {
@@ -177,11 +180,14 @@ void b_heapsort(::coder::array<int, 1U> &x, int xstart, int xend,
 {
   int idx;
   int n;
-  n = (xend - xstart) - 1;
-  for (idx = n + 2; idx >= 1; idx--) {
+  n = xend - xstart;
+  for (idx = n + 1; idx >= 1; idx--) {
     heapify(x, idx, xstart, xend, cmp);
   }
-  for (int k{0}; k <= n; k++) {
+  if (n > 2147483646) {
+    check_forloop_overflow_error();
+  }
+  for (int k{0}; k < n; k++) {
     int t;
     idx = (xend - k) - 1;
     t = x[idx];
@@ -203,11 +209,14 @@ void b_heapsort(::coder::array<int, 1U> &x, int xstart, int xend,
 {
   int idx;
   int n;
-  n = (xend - xstart) - 1;
-  for (idx = n + 2; idx >= 1; idx--) {
+  n = xend - xstart;
+  for (idx = n + 1; idx >= 1; idx--) {
     heapify(x, idx, xstart, xend, cmp);
   }
-  for (int k{0}; k <= n; k++) {
+  if (n > 2147483646) {
+    check_forloop_overflow_error();
+  }
+  for (int k{0}; k < n; k++) {
     int t;
     idx = (xend - k) - 1;
     t = x[idx];

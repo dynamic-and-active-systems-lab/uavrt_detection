@@ -1,10 +1,11 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: str2double1.h
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 #ifndef STR2DOUBLE1_H
@@ -21,8 +22,8 @@ namespace coder {
 namespace internal {
 void readfloat(::coder::array<char, 2U> &s1, int *idx,
                const ::coder::array<char, 2U> &s, int *k, int n,
-               boolean_T *isimag, boolean_T *b_finite, double *nfv,
-               boolean_T *foundsign, boolean_T *success);
+               boolean_T allowimag, boolean_T *isimag, boolean_T *b_finite,
+               double *nfv, boolean_T *foundsign, boolean_T *success);
 
 }
 } // namespace coder

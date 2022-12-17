@@ -1,10 +1,11 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: string1.cpp
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 // Include Files
@@ -12,9 +13,10 @@
 #include "rt_nonfinite.h"
 #include "uavrt_detection_data.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Variable Definitions
-static const char cv1[18]{'f', 'r', 'e', 'q', 'S', 'e', 'a', 'r', 'c',
+static const char cv3[18]{'f', 'r', 'e', 'q', 'S', 'e', 'a', 'r', 'c',
                           'h', 'H', 'a', 'r', 'd', 'L', 'o', 'c', 'k'};
 
 // Function Definitions
@@ -65,7 +67,7 @@ boolean_T b_rtString::c_eq() const
     do {
       exitg1 = 0;
       if (kstr < 18) {
-        if (cv2[kstr] != Value[kstr]) {
+        if (cv4[kstr] != Value[kstr]) {
           exitg1 = 1;
         } else {
           kstr++;
@@ -125,7 +127,7 @@ boolean_T b_rtString::eq() const
     do {
       exitg1 = 0;
       if (kstr < 18) {
-        if (cv1[kstr] != Value[kstr]) {
+        if (cv3[kstr] != Value[kstr]) {
           exitg1 = 1;
         } else {
           kstr++;
@@ -162,7 +164,7 @@ void b_rtString::init()
 {
   Value.set_size(1, 18);
   for (int i{0}; i < 18; i++) {
-    Value[i] = cv1[i];
+    Value[i] = cv3[i];
   }
 }
 

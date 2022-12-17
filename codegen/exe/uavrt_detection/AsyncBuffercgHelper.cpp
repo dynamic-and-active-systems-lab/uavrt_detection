@@ -1,15 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: AsyncBuffercgHelper.cpp
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 // Include Files
 #include "AsyncBuffercgHelper.h"
 #include "rt_nonfinite.h"
+#include <string.h>
 
 // Function Definitions
 //
@@ -19,15 +21,6 @@
 namespace coder {
 namespace dsp {
 namespace internal {
-void AsyncBuffercgHelper::SystemCore_delete()
-{
-  release();
-}
-
-//
-// Arguments    : void
-// Return Type  : void
-//
 void b_AsyncBuffercgHelper::SystemCore_delete()
 {
   release();
@@ -37,12 +30,9 @@ void b_AsyncBuffercgHelper::SystemCore_delete()
 // Arguments    : void
 // Return Type  : void
 //
-void AsyncBuffercgHelper::matlabCodegenDestructor()
+void AsyncBuffercgHelper::SystemCore_delete()
 {
-  if (!matlabCodegenIsDeleted) {
-    matlabCodegenIsDeleted = true;
-    SystemCore_delete();
-  }
+  release();
 }
 
 //
@@ -61,11 +51,11 @@ void b_AsyncBuffercgHelper::matlabCodegenDestructor()
 // Arguments    : void
 // Return Type  : void
 //
-void AsyncBuffercgHelper::release()
+void AsyncBuffercgHelper::matlabCodegenDestructor()
 {
-  if (isInitialized == 1) {
-    isInitialized = 2;
-    releaseWrapper();
+  if (!matlabCodegenIsDeleted) {
+    matlabCodegenIsDeleted = true;
+    SystemCore_delete();
   }
 }
 
@@ -85,14 +75,12 @@ void b_AsyncBuffercgHelper::release()
 // Arguments    : void
 // Return Type  : void
 //
-void AsyncBuffercgHelper::releaseImpl()
+void AsyncBuffercgHelper::release()
 {
-  ReadPointer = 1;
-  WritePointer = 2;
-  CumulativeOverrun = 0;
-  CumulativeUnderrun = 0;
-  AsyncBuffercgHelper_isInitialized = false;
-  NumChannels = -1;
+  if (isInitialized == 1) {
+    isInitialized = 2;
+    releaseWrapper();
+  }
 }
 
 //
@@ -113,11 +101,14 @@ void b_AsyncBuffercgHelper::releaseImpl()
 // Arguments    : void
 // Return Type  : void
 //
-void AsyncBuffercgHelper::releaseWrapper()
+void AsyncBuffercgHelper::releaseImpl()
 {
-  if (isSetupComplete) {
-    releaseImpl();
-  }
+  ReadPointer = 1;
+  WritePointer = 2;
+  CumulativeOverrun = 0;
+  CumulativeUnderrun = 0;
+  AsyncBuffercgHelper_isInitialized = false;
+  NumChannels = -1;
 }
 
 //
@@ -133,11 +124,13 @@ void b_AsyncBuffercgHelper::releaseWrapper()
 
 //
 // Arguments    : void
-// Return Type  : AsyncBuffercgHelper
+// Return Type  : void
 //
-AsyncBuffercgHelper::AsyncBuffercgHelper()
+void AsyncBuffercgHelper::releaseWrapper()
 {
-  matlabCodegenIsDeleted = true;
+  if (isSetupComplete) {
+    releaseImpl();
+  }
 }
 
 //
@@ -151,9 +144,18 @@ b_AsyncBuffercgHelper::b_AsyncBuffercgHelper()
 
 //
 // Arguments    : void
+// Return Type  : AsyncBuffercgHelper
+//
+AsyncBuffercgHelper::AsyncBuffercgHelper()
+{
+  matlabCodegenIsDeleted = true;
+}
+
+//
+// Arguments    : void
 // Return Type  : void
 //
-AsyncBuffercgHelper::~AsyncBuffercgHelper()
+b_AsyncBuffercgHelper::~b_AsyncBuffercgHelper()
 {
   matlabCodegenDestructor();
 }
@@ -162,7 +164,7 @@ AsyncBuffercgHelper::~AsyncBuffercgHelper()
 // Arguments    : void
 // Return Type  : void
 //
-b_AsyncBuffercgHelper::~b_AsyncBuffercgHelper()
+AsyncBuffercgHelper::~AsyncBuffercgHelper()
 {
   matlabCodegenDestructor();
 }

@@ -1,16 +1,19 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: sortIdx.cpp
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 // Include Files
 #include "sortIdx.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Declarations
 namespace coder {
@@ -49,6 +52,9 @@ static void merge(::coder::array<int, 2U> &idx, ::coder::array<double, 2U> &x,
     int p;
     int q;
     n_tmp = np + nq;
+    if (n_tmp > 2147483646) {
+      check_forloop_overflow_error();
+    }
     for (int j{0}; j < n_tmp; j++) {
       iout = offset + j;
       iwork[j] = idx[iout];
@@ -76,6 +82,9 @@ static void merge(::coder::array<int, 2U> &idx, ::coder::array<double, 2U> &x,
           q++;
         } else {
           q = iout - p;
+          if ((p + 1 <= np) && (np > 2147483646)) {
+            check_forloop_overflow_error();
+          }
           for (int j{p + 1}; j <= np; j++) {
             iout = q + j;
             idx[iout] = iwork[j - 1];
@@ -108,6 +117,9 @@ static void merge(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
     int p;
     int q;
     n_tmp = np + nq;
+    if (n_tmp > 2147483646) {
+      check_forloop_overflow_error();
+    }
     for (int j{0}; j < n_tmp; j++) {
       iout = offset + j;
       iwork[j] = idx[iout];
@@ -135,6 +147,9 @@ static void merge(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
           q++;
         } else {
           q = iout - p;
+          if ((p + 1 <= np) && (np > 2147483646)) {
+            check_forloop_overflow_error();
+          }
           for (int j{p + 1}; j <= np; j++) {
             iout = q + j;
             idx[iout] = iwork[j - 1];

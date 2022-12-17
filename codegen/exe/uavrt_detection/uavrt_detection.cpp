@@ -1,10 +1,11 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: uavrt_detection.cpp
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 // Include Files
@@ -14,6 +15,7 @@
 #include "DetectorConfig.h"
 #include "all.h"
 #include "diff.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "feof.h"
 #include "fgetl.h"
 #include "fileManager.h"
@@ -21,6 +23,7 @@
 #include "fseek.h"
 #include "ftell.h"
 #include "ifWhileCond.h"
+#include "lower.h"
 #include "makepulsestruc.h"
 #include "pulsestats.h"
 #include "ref.h"
@@ -36,19 +39,42 @@
 #include "uavrt_detection_data.h"
 #include "uavrt_detection_initialize.h"
 #include "uavrt_detection_internal_types.h"
+#include "uavrt_detection_rtwutil.h"
+#include "uavrt_detection_types.h"
 #include "validate_print_arguments.h"
+#include "validator_check_size.h"
 #include "waveform.h"
 #include "waveformcopy.h"
 #include "wfmstft.h"
 #include "wgn.h"
 #include "coder_array.h"
+#include "omp.h"
 #include "udp.h"
-#include <algorithm>
 #include <cmath>
-#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <sstream>
+#include <stdexcept>
 #include <stdio.h>
+#include <string.h>
+#include <string>
+
+// Variable Definitions
+static rtRunTimeErrorInfo b_emlrtRTEI{
+    10,              // lineNo
+    "mustBePositive" // fName
+};
 
 // Function Declarations
+static void b_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+static void c_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+static void i_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+static void rtErrorWithMessageID(const char *r, const char *aFcnName,
+                                 int aLineNum);
+
 static void
 updatebufferreadvariables(const coder::b_captured_var *Config,
                           const coder::c_captured_var *stftOverlapFraction,
@@ -60,6 +86,92 @@ static void updateconfig(coder::b_captured_var *Config,
                          const coder::captured_var *configPath);
 
 // Function Definitions
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void b_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Value must be nonnegative.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void c_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Value must be positive.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void i_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Value must be integer.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *r
+//                const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void rtErrorWithMessageID(const char *r, const char *aFcnName,
+                                 int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  ((outStream << "Value must be less than ") << r) << ".";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
 //
 // This function updates the buffer reading variables as needed by
 // the priori information about the pulse statistics. The segment
@@ -82,6 +194,14 @@ updatebufferreadvariables(const coder::b_captured_var *Config,
 {
   b_waveform X0;
   pulsestats lobj_2;
+  wfmstft lobj_1;
+  coder::array<creal_T, 2U> r;
+  coder::array<creal_T, 2U> r1;
+  coder::array<creal32_T, 2U> b_val;
+  coder::array<creal32_T, 2U> val;
+  coder::array<double, 1U> b_tmp_data;
+  coder::array<double, 1U> c_tmp_data;
+  double tmp_data[400];
   double J;
   double M;
   double N;
@@ -106,6 +226,12 @@ updatebufferreadvariables(const coder::b_captured_var *Config,
   // OUTPUTS:
   //    obj             The waveform object
   //             %%
+  val.set(nullptr, 1, 0);
+  coder::internal::validator_check_size(val, b_val);
+  r.set(nullptr, 0, 0);
+  coder::internal::validator_check_size(r, r1);
+  b_tmp_data.set(&tmp_data[0], 0);
+  coder::internal::validator_check_size(b_tmp_data, c_tmp_data);
   // Flatten input to row
   // Data vector
   // Elements in the data
@@ -120,26 +246,7 @@ updatebufferreadvariables(const coder::b_captured_var *Config,
   // elsewhere.
   // Overlap Fraction for STFT
   // Unknown number of pulses.
-  // WFMSTFT Constructs and returns an instance of this class
-  //
-  // An waveform object must be passed to this construction method
-  // so that the constructor has access to the data vector, desired
-  // overlap fraction, and priori pulse data, which is used to
-  // develop the window sizes.
-  // INPUTS:
-  //    waveform_obj   A single waveform object with prior
-  //                   dependent properties set.
-  // OUTPUTS:
-  //    obj             A wfmstft object
-  //             %%
-  //
-  // The following are variable sized properties. To tell coder
-  // that they may vary setup as a local variable size variable
-  // first, then set.
-  // Instructions on
-  // https://www.mathworks.com/help/simulink/ug/how-working-with-matlab-classes-is-different-for-code-generation.html
-  // maxFs*maxpulsewidth
-  // Now actually assign them
+  lobj_1.init();
   // Unknown values but set types
   // Copy over ps_
   // COPY Creates an exact copy of the pulse stats object as a separate object
@@ -559,6 +666,8 @@ updatebufferreadvariables(const coder::b_captured_var *Config,
   } else {
     u2 = 0U;
   }
+  printf("Updating buffer read vars|| N: %u, M: %u, J: %u,\n", u, u1, u2);
+  fflush(stdout);
   a__1 = std::round(sampsForKPulses->contents);
   if (a__1 < 4.294967296E+9) {
     if (a__1 >= 0.0) {
@@ -583,6 +692,10 @@ updatebufferreadvariables(const coder::b_captured_var *Config,
   } else {
     u1 = 0U;
   }
+  printf(
+      "Updating buffer read vars|| sampForKPulses: %u,  overlapSamples: %u,\n",
+      u, u1);
+  fflush(stdout);
 }
 
 //
@@ -598,18 +711,124 @@ updatebufferreadvariables(const coder::b_captured_var *Config,
 static void updateconfig(coder::b_captured_var *Config,
                          const coder::captured_var *configPath)
 {
-  static const char b_cv1[20]{'c', 'h', 'a', 'n', 'n', 'e', 'l', 'C', 'e', 'n',
-                              't', 'e', 'r', 'F', 'r', 'e', 'q', 'M', 'H', 'z'};
-  static const char cv7[10]{'t', 'a', 'g', 'F', 'r', 'e', 'q', 'M', 'H', 'z'};
-  static const char cv5[9]{'p', 'o', 'r', 't', 'C', 'n', 't', 'r', 'l'};
-  static const char cv3[8]{'p', 'o', 'r', 't', 'D', 'a', 't', 'a'};
-  static const char cv4[7]{'i', 'p', 'C', 'n', 't', 'r', 'l'};
-  static const char b_cv2[6]{'i', 'p', 'D', 'a', 't', 'a'};
-  static const char cv10[4]{'t', 'i', 'p', 'u'};
-  static const char cv9[3]{'t', 'i', 'p'};
-  static const char b_cv[2]{'I', 'D'};
-  static const char cv6[2]{'F', 's'};
-  static const char cv8[2]{'t', 'p'};
+  static rtBoundsCheckInfo eb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      136,                          // lineNo
+      28,                           // colNo
+      "rawLine",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo fb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      167,                          // lineNo
+      31,                           // colNo
+      "sepByte",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo gb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      171,                          // lineNo
+      28,                           // colNo
+      "lineStr",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo hb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      174,                          // lineNo
+      55,                           // colNo
+      "tabLocs",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo ib_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      175,                          // lineNo
+      63,                           // colNo
+      "colonLocation",              // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo jb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      220,                          // lineNo
+      69,                           // colNo
+      "sepByte",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo kb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      176,                          // lineNo
+      47,                           // colNo
+      "lineStr",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo lb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      176,                          // lineNo
+      74,                           // colNo
+      "lineStr",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo mb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      175,                          // lineNo
+      47,                           // colNo
+      "lineStr",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo nb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      175,                          // lineNo
+      49,                           // colNo
+      "lineStr",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo ob_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
+      222,                          // lineNo
+      69,                           // colNo
+      "sepByte",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
+      0 // checkKind
+  };
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      18,                    // lineNo
+      "binaryRelopValidator" // fName
+  };
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      10,                 // lineNo
+      "mustBeNonnegative" // fName
+  };
   coder::b_rtString _in;
   coder::array<creal_T, 2U> r;
   coder::array<double, 2U> sepByte;
@@ -617,11 +836,10 @@ static void updateconfig(coder::b_captured_var *Config,
   coder::array<int, 2U> match_out;
   coder::array<int, 2U> matches;
   coder::array<unsigned int, 2U> tabLocs;
-  coder::array<char, 2U> configType;
-  coder::array<char, 2U> configValStr;
+  coder::array<char, 2U> c_lineStr;
   coder::array<char, 2U> lineStr;
   coder::array<boolean_T, 2U> b_lineStr;
-  int colonLocation_data;
+  int ii_data;
   signed char fileid;
   Config->contents.init();
   // fillFromFile Replaces the properties of the instance passed to
@@ -652,6 +870,7 @@ static void updateconfig(coder::b_captured_var *Config,
     varargin_1[34] = '\x00';
     printf("Failed to open config file: %s\n", &varargin_1[0]);
     fflush(stdout);
+    rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
   } else {
     double configNum;
     double d;
@@ -666,6 +885,9 @@ static void updateconfig(coder::b_captured_var *Config,
     while (!done) {
       // currByte = ftell(fid);
       coder::fgetl(static_cast<double>(fileid), lineStr);
+      if (lineStr.size(1) < 1) {
+        rtDynamicBoundsError(1, 1, lineStr.size(1), &eb_emlrtBCI);
+      }
       if (lineStr[0] == '#') {
         // && lineNum~=1
         if (configNum == 0.0) {
@@ -691,381 +913,604 @@ static void updateconfig(coder::b_captured_var *Config,
     sepByte[i] = d;
     // Modified for Coder compatibility
     // Jump to the line for the entry requested
+    if ((static_cast<int>(configNum) < 1) ||
+        (static_cast<int>(configNum) > sepByte.size(1))) {
+      rtDynamicBoundsError(static_cast<int>(configNum), 1, sepByte.size(1),
+                           &fb_emlrtBCI);
+    }
     coder::b_fseek(static_cast<double>(fileid),
                    sepByte[static_cast<int>(configNum) - 1]);
     done = false;
-    while (!done) {
-      coder::fgetl(static_cast<double>(fileid), lineStr);
-      if (lineStr[0] != '#') {
-        int exitg1;
-        int loop_ub;
-        int match_idx;
-        int text_len;
-        boolean_T b_bool;
-        b_lineStr.set_size(1, lineStr.size(1));
-        loop_ub = lineStr.size(1);
-        for (i = 0; i < loop_ub; i++) {
-          b_lineStr[i] = (lineStr[i] == ':');
+    int exitg1;
+    do {
+      exitg1 = 0;
+      if (!done) {
+        coder::fgetl(static_cast<double>(fileid), lineStr);
+        if (lineStr.size(1) < 1) {
+          rtDynamicBoundsError(1, 1, lineStr.size(1), &gb_emlrtBCI);
         }
-        int colonLocation_size[2];
-        coder::eml_find(b_lineStr, (int *)&colonLocation_data,
-                        colonLocation_size);
-        // note regexp is not supported for code generation
-        if (lineStr.size(1) == 0) {
-          tabLocs.set_size(1, 0);
-        } else {
+        if (lineStr[0] != '#') {
+          int ii_size[2];
+          int match_idx;
+          int text_len;
+          b_lineStr.set_size(1, lineStr.size(1));
           text_len = lineStr.size(1);
-          matches.set_size(1, lineStr.size(1));
-          match_idx = 0;
-          for (loop_ub = 0; loop_ub < text_len; loop_ub++) {
-            if (lineStr[loop_ub] == '\x09') {
-              matches[match_idx] = loop_ub + 1;
-              match_idx++;
-            }
+          for (i = 0; i < text_len; i++) {
+            b_lineStr[i] = (lineStr[i] == ':');
           }
-          match_out.set_size(1, match_idx);
-          for (loop_ub = 0; loop_ub < match_idx; loop_ub++) {
-            match_out[loop_ub] = matches[loop_ub];
-          }
-          tabLocs.set_size(1, match_out.size(1));
-          loop_ub = match_out.size(1);
-          for (i = 0; i < loop_ub; i++) {
-            tabLocs[i] = static_cast<unsigned int>(match_out[i]);
-          }
-        }
-        // Thanks to
-        // https://www.mathworks.com/matlabcentral/answers/529668-how-do-i-detect-a-tab-character-in-a-line-of-text-read-by-fgetl
-        // note regexp is not supported for code generation
-        if (static_cast<double>(colonLocation_data) - 1.0 < 1.0) {
-          loop_ub = 0;
-        } else {
-          loop_ub = colonLocation_data - 1;
-        }
-        configType.set_size(1, loop_ub);
-        for (i = 0; i < loop_ub; i++) {
-          configType[i] = lineStr[i];
-        }
-        if (tabLocs[0] + 1U > static_cast<unsigned int>(lineStr.size(1))) {
-          i = 0;
-          text_len = 0;
-        } else {
-          i = static_cast<int>(tabLocs[0]);
-          text_len = lineStr.size(1);
-        }
-        match_idx = text_len - i;
-        configValStr.set_size(1, match_idx);
-        for (text_len = 0; text_len < match_idx; text_len++) {
-          configValStr[text_len] = lineStr[i + text_len];
-        }
-        b_bool = false;
-        if (loop_ub == 2) {
-          text_len = 0;
-          do {
-            exitg1 = 0;
-            if (text_len < 2) {
-              if (lineStr[text_len] != b_cv[text_len]) {
-                exitg1 = 1;
-              } else {
-                text_len++;
-              }
-            } else {
-              b_bool = true;
-              exitg1 = 1;
-            }
-          } while (exitg1 == 0);
-        }
-        if (!b_bool) {
-          b_bool = false;
-          if (loop_ub == 20) {
-            text_len = 0;
-            do {
-              exitg1 = 0;
-              if (text_len < 20) {
-                if (lineStr[text_len] != b_cv1[text_len]) {
-                  exitg1 = 1;
-                } else {
-                  text_len++;
-                }
-              } else {
-                b_bool = true;
-                exitg1 = 1;
-              }
-            } while (exitg1 == 0);
-          }
-          if (b_bool) {
-            creal_T dc;
-            dc = coder::str2double(configValStr);
-            Config->contents.channelCenterFreqMHz = dc.re;
+          coder::eml_find(b_lineStr, (int *)&ii_data, ii_size);
+          // note regexp is not supported for code generation
+          if (lineStr.size(1) == 0) {
+            tabLocs.set_size(1, 0);
           } else {
-            b_bool = false;
-            if (loop_ub == 6) {
-              text_len = 0;
-              do {
-                exitg1 = 0;
-                if (text_len < 6) {
-                  if (lineStr[text_len] != b_cv2[text_len]) {
-                    exitg1 = 1;
-                  } else {
-                    text_len++;
-                  }
-                } else {
-                  b_bool = true;
-                  exitg1 = 1;
-                }
-              } while (exitg1 == 0);
+            text_len = lineStr.size(1);
+            matches.set_size(1, lineStr.size(1));
+            match_idx = 0;
+            if (lineStr.size(1) > 2147483646) {
+              coder::check_forloop_overflow_error();
             }
-            if (!b_bool) {
-              b_bool = false;
-              if (loop_ub == 8) {
-                text_len = 0;
-                do {
-                  exitg1 = 0;
-                  if (text_len < 8) {
-                    if (lineStr[text_len] != cv3[text_len]) {
-                      exitg1 = 1;
-                    } else {
-                      text_len++;
-                    }
-                  } else {
-                    b_bool = true;
-                    exitg1 = 1;
-                  }
-                } while (exitg1 == 0);
+            for (i = 0; i < text_len; i++) {
+              if (lineStr[i] == '	') {
+                matches[match_idx] = i + 1;
+                match_idx++;
               }
-              if (b_bool) {
-                creal_T dc;
-                unsigned short in;
-                dc = coder::str2double(configValStr);
-                d = std::round(dc.re);
-                if (d < 65536.0) {
-                  if (d >= 0.0) {
-                    in = static_cast<unsigned short>(d);
+            }
+            match_out.set_size(1, match_idx);
+            if (match_idx > 2147483646) {
+              coder::check_forloop_overflow_error();
+            }
+            for (i = 0; i < match_idx; i++) {
+              match_out[i] = matches[i];
+            }
+            tabLocs.set_size(1, match_out.size(1));
+            text_len = match_out.size(1);
+            for (i = 0; i < text_len; i++) {
+              tabLocs[i] = static_cast<unsigned int>(match_out[i]);
+            }
+          }
+          // Thanks to
+          // https://www.mathworks.com/matlabcentral/answers/529668-how-do-i-detect-a-tab-character-in-a-line-of-text-read-by-fgetl
+          if (tabLocs.size(1) < 1) {
+            rtDynamicBoundsError(1, 1, tabLocs.size(1), &hb_emlrtBCI);
+          }
+          // note regexp is not supported for code generation
+          if (ii_size[1] < 1) {
+            rtDynamicBoundsError(1, 1, ii_size[1], &ib_emlrtBCI);
+          }
+          if (static_cast<double>(ii_data) - 1.0 < 1.0) {
+            text_len = 0;
+          } else {
+            if (lineStr.size(1) < 1) {
+              rtDynamicBoundsError(1, 1, lineStr.size(1), &mb_emlrtBCI);
+            }
+            if ((ii_data - 1 < 1) || (ii_data - 1 > lineStr.size(1))) {
+              rtDynamicBoundsError(ii_data - 1, 1, lineStr.size(1),
+                                   &nb_emlrtBCI);
+            }
+            text_len = ii_data - 1;
+          }
+          if (tabLocs[0] + 1U > static_cast<unsigned int>(lineStr.size(1))) {
+            i = 0;
+            match_idx = 0;
+          } else {
+            i = static_cast<int>(tabLocs[0] + 1U);
+            if ((i < 1) || (i > lineStr.size(1))) {
+              rtDynamicBoundsError(i, 1, lineStr.size(1), &kb_emlrtBCI);
+            }
+            i--;
+            if (lineStr.size(1) < 1) {
+              rtDynamicBoundsError(lineStr.size(1), 1, lineStr.size(1),
+                                   &lb_emlrtBCI);
+            }
+            match_idx = lineStr.size(1);
+          }
+          c_lineStr.set_size(1, text_len);
+          for (ii_data = 0; ii_data < text_len; ii_data++) {
+            c_lineStr[ii_data] = lineStr[ii_data];
+          }
+          if (!coder::internal::b_strcmp(c_lineStr)) {
+            c_lineStr.set_size(1, text_len);
+            for (ii_data = 0; ii_data < text_len; ii_data++) {
+              c_lineStr[ii_data] = lineStr[ii_data];
+            }
+            if (coder::internal::c_strcmp(c_lineStr)) {
+              creal_T dc;
+              text_len = match_idx - i;
+              c_lineStr.set_size(1, text_len);
+              for (match_idx = 0; match_idx < text_len; match_idx++) {
+                c_lineStr[match_idx] = lineStr[i + match_idx];
+              }
+              dc = coder::str2double(c_lineStr);
+              if (!(dc.re >= 0.0)) {
+                b_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+              }
+              Config->contents.channelCenterFreqMHz = dc.re;
+            } else {
+              c_lineStr.set_size(1, text_len);
+              for (ii_data = 0; ii_data < text_len; ii_data++) {
+                c_lineStr[ii_data] = lineStr[ii_data];
+              }
+              if (!coder::internal::d_strcmp(c_lineStr)) {
+                c_lineStr.set_size(1, text_len);
+                for (ii_data = 0; ii_data < text_len; ii_data++) {
+                  c_lineStr[ii_data] = lineStr[ii_data];
+                }
+                if (coder::internal::e_strcmp(c_lineStr)) {
+                  unsigned short in;
+                  text_len = match_idx - i;
+                  c_lineStr.set_size(1, text_len);
+                  for (match_idx = 0; match_idx < text_len; match_idx++) {
+                    c_lineStr[match_idx] = lineStr[i + match_idx];
+                  }
+                  creal_T dc;
+                  dc = coder::str2double(c_lineStr);
+                  d = std::round(dc.re);
+                  if (d < 65536.0) {
+                    if (d >= 0.0) {
+                      in = static_cast<unsigned short>(d);
+                    } else {
+                      in = 0U;
+                    }
+                  } else if (d >= 65536.0) {
+                    in = MAX_uint16_T;
                   } else {
                     in = 0U;
                   }
-                } else if (d >= 65536.0) {
-                  in = MAX_uint16_T;
-                } else {
-                  in = 0U;
-                }
-                Config->contents.portData = in;
-              } else {
-                b_bool = false;
-                if (loop_ub == 7) {
-                  text_len = 0;
-                  do {
-                    exitg1 = 0;
-                    if (text_len < 7) {
-                      if (lineStr[text_len] != cv4[text_len]) {
-                        exitg1 = 1;
-                      } else {
-                        text_len++;
-                      }
-                    } else {
-                      b_bool = true;
-                      exitg1 = 1;
-                    }
-                  } while (exitg1 == 0);
-                }
-                if (!b_bool) {
-                  b_bool = false;
-                  if (loop_ub == 9) {
-                    text_len = 0;
-                    do {
-                      exitg1 = 0;
-                      if (text_len < 9) {
-                        if (lineStr[text_len] != cv5[text_len]) {
-                          exitg1 = 1;
-                        } else {
-                          text_len++;
-                        }
-                      } else {
-                        b_bool = true;
-                        exitg1 = 1;
-                      }
-                    } while (exitg1 == 0);
+                  Config->contents.portData = in;
+                  if (in <= 0) {
+                    c_rtErrorWithMessageID(b_emlrtRTEI.fName,
+                                           b_emlrtRTEI.lineNo);
                   }
-                  if (b_bool) {
-                    coder::str2double(configValStr);
-                  } else {
-                    b_bool = false;
-                    if (loop_ub == 2) {
-                      text_len = 0;
-                      do {
-                        exitg1 = 0;
-                        if (text_len < 2) {
-                          if (lineStr[text_len] != cv6[text_len]) {
-                            exitg1 = 1;
-                          } else {
-                            text_len++;
-                          }
-                        } else {
-                          b_bool = true;
-                          exitg1 = 1;
-                        }
-                      } while (exitg1 == 0);
+                } else {
+                  c_lineStr.set_size(1, text_len);
+                  for (ii_data = 0; ii_data < text_len; ii_data++) {
+                    c_lineStr[ii_data] = lineStr[ii_data];
+                  }
+                  if (!coder::internal::f_strcmp(c_lineStr)) {
+                    c_lineStr.set_size(1, text_len);
+                    for (ii_data = 0; ii_data < text_len; ii_data++) {
+                      c_lineStr[ii_data] = lineStr[ii_data];
                     }
-                    if (b_bool) {
-                      creal_T dc;
-                      dc = coder::str2double(configValStr);
-                      Config->contents.Fs = dc.re;
-                    } else {
-                      b_bool = false;
-                      if (loop_ub == 10) {
-                        text_len = 0;
-                        do {
-                          exitg1 = 0;
-                          if (text_len < 10) {
-                            if (lineStr[text_len] != cv7[text_len]) {
-                              exitg1 = 1;
-                            } else {
-                              text_len++;
-                            }
-                          } else {
-                            b_bool = true;
-                            exitg1 = 1;
-                          }
-                        } while (exitg1 == 0);
+                    if (coder::internal::g_strcmp(c_lineStr)) {
+                      unsigned short in;
+                      text_len = match_idx - i;
+                      c_lineStr.set_size(1, text_len);
+                      for (match_idx = 0; match_idx < text_len; match_idx++) {
+                        c_lineStr[match_idx] = lineStr[i + match_idx];
                       }
-                      if (b_bool) {
-                        creal_T dc;
-                        dc = coder::str2double(configValStr);
-                        Config->contents.tagFreqMHz = dc.re;
-                      } else {
-                        b_bool = false;
-                        if (loop_ub == 2) {
-                          text_len = 0;
-                          do {
-                            exitg1 = 0;
-                            if (text_len < 2) {
-                              if (lineStr[text_len] != cv8[text_len]) {
-                                exitg1 = 1;
-                              } else {
-                                text_len++;
-                              }
-                            } else {
-                              b_bool = true;
-                              exitg1 = 1;
-                            }
-                          } while (exitg1 == 0);
-                        }
-                        if (b_bool) {
-                          creal_T dc;
-                          dc = coder::str2double(configValStr);
-                          Config->contents.tp = dc.re;
+                      creal_T dc;
+                      dc = coder::str2double(c_lineStr);
+                      d = std::round(dc.re);
+                      if (d < 65536.0) {
+                        if (d >= 0.0) {
+                          in = static_cast<unsigned short>(d);
                         } else {
-                          b_bool = false;
-                          if (loop_ub == 3) {
-                            text_len = 0;
-                            do {
-                              exitg1 = 0;
-                              if (text_len < 3) {
-                                if (lineStr[text_len] != cv9[text_len]) {
-                                  exitg1 = 1;
-                                } else {
-                                  text_len++;
-                                }
-                              } else {
-                                b_bool = true;
-                                exitg1 = 1;
-                              }
-                            } while (exitg1 == 0);
+                          in = 0U;
+                        }
+                      } else if (d >= 65536.0) {
+                        in = MAX_uint16_T;
+                      } else {
+                        in = 0U;
+                      }
+                      if (in <= 0) {
+                        c_rtErrorWithMessageID(b_emlrtRTEI.fName,
+                                               b_emlrtRTEI.lineNo);
+                      }
+                    } else {
+                      c_lineStr.set_size(1, text_len);
+                      for (ii_data = 0; ii_data < text_len; ii_data++) {
+                        c_lineStr[ii_data] = lineStr[ii_data];
+                      }
+                      if (coder::internal::h_strcmp(c_lineStr)) {
+                        creal_T dc;
+                        text_len = match_idx - i;
+                        c_lineStr.set_size(1, text_len);
+                        for (match_idx = 0; match_idx < text_len; match_idx++) {
+                          c_lineStr[match_idx] = lineStr[i + match_idx];
+                        }
+                        dc = coder::str2double(c_lineStr);
+                        if (!(dc.re > 0.0)) {
+                          c_rtErrorWithMessageID(b_emlrtRTEI.fName,
+                                                 b_emlrtRTEI.lineNo);
+                        }
+                        Config->contents.Fs = dc.re;
+                      } else {
+                        c_lineStr.set_size(1, text_len);
+                        for (ii_data = 0; ii_data < text_len; ii_data++) {
+                          c_lineStr[ii_data] = lineStr[ii_data];
+                        }
+                        if (coder::internal::i_strcmp(c_lineStr)) {
+                          text_len = match_idx - i;
+                          c_lineStr.set_size(1, text_len);
+                          for (match_idx = 0; match_idx < text_len;
+                               match_idx++) {
+                            c_lineStr[match_idx] = lineStr[i + match_idx];
                           }
-                          if (b_bool) {
+                          creal_T dc;
+                          dc = coder::str2double(c_lineStr);
+                          Config->contents.tagFreqMHz = dc.re;
+                        } else {
+                          c_lineStr.set_size(1, text_len);
+                          for (ii_data = 0; ii_data < text_len; ii_data++) {
+                            c_lineStr[ii_data] = lineStr[ii_data];
+                          }
+                          if (coder::internal::j_strcmp(c_lineStr)) {
                             creal_T dc;
-                            dc = coder::str2double(configValStr);
-                            Config->contents.tip = dc.re;
-                          } else {
-                            b_bool = false;
-                            if (loop_ub == 4) {
-                              text_len = 0;
-                              do {
-                                exitg1 = 0;
-                                if (text_len < 4) {
-                                  if (lineStr[text_len] != cv10[text_len]) {
-                                    exitg1 = 1;
-                                  } else {
-                                    text_len++;
-                                  }
-                                } else {
-                                  b_bool = true;
-                                  exitg1 = 1;
-                                }
-                              } while (exitg1 == 0);
+                            text_len = match_idx - i;
+                            c_lineStr.set_size(1, text_len);
+                            for (match_idx = 0; match_idx < text_len;
+                                 match_idx++) {
+                              c_lineStr[match_idx] = lineStr[i + match_idx];
                             }
-                            if (b_bool) {
+                            dc = coder::str2double(c_lineStr);
+                            if (!(dc.re > 0.0)) {
+                              c_rtErrorWithMessageID(b_emlrtRTEI.fName,
+                                                     b_emlrtRTEI.lineNo);
+                            }
+                            Config->contents.tp = dc.re;
+                          } else {
+                            c_lineStr.set_size(1, text_len);
+                            for (ii_data = 0; ii_data < text_len; ii_data++) {
+                              c_lineStr[ii_data] = lineStr[ii_data];
+                            }
+                            if (coder::internal::k_strcmp(c_lineStr)) {
                               creal_T dc;
-                              dc = coder::str2double(configValStr);
-                              Config->contents.tipu = dc.re;
-                            } else if (coder::internal::b_strcmp(configType)) {
-                              creal_T dc;
-                              dc = coder::str2double(configValStr);
-                              Config->contents.tipj = dc.re;
-                            } else {
-                              b_bool = false;
-                              if ((loop_ub == 1) && (lineStr[0] == 'K')) {
-                                b_bool = true;
+                              text_len = match_idx - i;
+                              c_lineStr.set_size(1, text_len);
+                              for (match_idx = 0; match_idx < text_len;
+                                   match_idx++) {
+                                c_lineStr[match_idx] = lineStr[i + match_idx];
                               }
-                              if (b_bool) {
+                              dc = coder::str2double(c_lineStr);
+                              if (!(dc.re > 0.0)) {
+                                c_rtErrorWithMessageID(b_emlrtRTEI.fName,
+                                                       b_emlrtRTEI.lineNo);
+                              }
+                              Config->contents.tip = dc.re;
+                            } else {
+                              c_lineStr.set_size(1, text_len);
+                              for (ii_data = 0; ii_data < text_len; ii_data++) {
+                                c_lineStr[ii_data] = lineStr[ii_data];
+                              }
+                              if (coder::internal::l_strcmp(c_lineStr)) {
                                 creal_T dc;
-                                unsigned char b_in;
-                                dc = coder::str2double(configValStr);
-                                d = std::round(dc.re);
-                                if (d < 256.0) {
-                                  if (d >= 0.0) {
-                                    b_in = static_cast<unsigned char>(d);
+                                text_len = match_idx - i;
+                                c_lineStr.set_size(1, text_len);
+                                for (match_idx = 0; match_idx < text_len;
+                                     match_idx++) {
+                                  c_lineStr[match_idx] = lineStr[i + match_idx];
+                                }
+                                dc = coder::str2double(c_lineStr);
+                                if (!(dc.re >= 0.0)) {
+                                  b_rtErrorWithMessageID(rc_emlrtRTEI.fName,
+                                                         rc_emlrtRTEI.lineNo);
+                                }
+                                Config->contents.tipu = dc.re;
+                              } else {
+                                c_lineStr.set_size(1, text_len);
+                                for (ii_data = 0; ii_data < text_len;
+                                     ii_data++) {
+                                  c_lineStr[ii_data] = lineStr[ii_data];
+                                }
+                                if (coder::internal::m_strcmp(c_lineStr)) {
+                                  creal_T dc;
+                                  text_len = match_idx - i;
+                                  c_lineStr.set_size(1, text_len);
+                                  for (match_idx = 0; match_idx < text_len;
+                                       match_idx++) {
+                                    c_lineStr[match_idx] =
+                                        lineStr[i + match_idx];
+                                  }
+                                  dc = coder::str2double(c_lineStr);
+                                  if (!(dc.re >= 0.0)) {
+                                    b_rtErrorWithMessageID(rc_emlrtRTEI.fName,
+                                                           rc_emlrtRTEI.lineNo);
+                                  }
+                                  Config->contents.tipj = dc.re;
+                                } else {
+                                  boolean_T b_bool;
+                                  b_bool = false;
+                                  if ((text_len == 1) && (lineStr[0] == 'K')) {
+                                    b_bool = true;
+                                  }
+                                  if (b_bool) {
+                                    unsigned char b_in;
+                                    text_len = match_idx - i;
+                                    c_lineStr.set_size(1, text_len);
+                                    for (match_idx = 0; match_idx < text_len;
+                                         match_idx++) {
+                                      c_lineStr[match_idx] =
+                                          lineStr[i + match_idx];
+                                    }
+                                    creal_T dc;
+                                    dc = coder::str2double(c_lineStr);
+                                    d = std::round(dc.re);
+                                    if (d < 256.0) {
+                                      if (d >= 0.0) {
+                                        b_in = static_cast<unsigned char>(d);
+                                      } else {
+                                        b_in = 0U;
+                                      }
+                                    } else if (d >= 256.0) {
+                                      b_in = MAX_uint8_T;
+                                    } else {
+                                      b_in = 0U;
+                                    }
+                                    Config->contents.K = b_in;
+                                    if (b_in <= 0) {
+                                      c_rtErrorWithMessageID(
+                                          b_emlrtRTEI.fName,
+                                          b_emlrtRTEI.lineNo);
+                                    }
                                   } else {
-                                    b_in = 0U;
+                                    c_lineStr.set_size(1, text_len);
+                                    for (ii_data = 0; ii_data < text_len;
+                                         ii_data++) {
+                                      c_lineStr[ii_data] = lineStr[ii_data];
+                                    }
+                                    if (coder::internal::n_strcmp(c_lineStr)) {
+                                      text_len = match_idx - i;
+                                      _in.Value.set_size(1, text_len);
+                                      for (match_idx = 0; match_idx < text_len;
+                                           match_idx++) {
+                                        _in.Value[match_idx] =
+                                            lineStr[i + match_idx];
+                                      }
+                                      Config->contents.opMode = _in;
+                                    } else {
+                                      c_lineStr.set_size(1, text_len);
+                                      for (ii_data = 0; ii_data < text_len;
+                                           ii_data++) {
+                                        c_lineStr[ii_data] = lineStr[ii_data];
+                                      }
+                                      if (coder::internal::o_strcmp(
+                                              c_lineStr)) {
+                                        text_len = match_idx - i;
+                                        c_lineStr.set_size(1, text_len);
+                                        for (match_idx = 0;
+                                             match_idx < text_len;
+                                             match_idx++) {
+                                          c_lineStr[match_idx] =
+                                              lineStr[i + match_idx];
+                                        }
+                                        str2matrix(c_lineStr, r);
+                                        val.set_size(r.size(0), r.size(1));
+                                        text_len = r.size(0) * r.size(1);
+                                        for (i = 0; i < text_len; i++) {
+                                          val[i] = r[i].re;
+                                        }
+                                        coder::internal::validator_check_size(
+                                            val, Config->contents.excldFreqs);
+                                      } else {
+                                        c_lineStr.set_size(1, text_len);
+                                        for (ii_data = 0; ii_data < text_len;
+                                             ii_data++) {
+                                          c_lineStr[ii_data] = lineStr[ii_data];
+                                        }
+                                        if (coder::internal::p_strcmp(
+                                                c_lineStr)) {
+                                          creal_T dc;
+                                          text_len = match_idx - i;
+                                          c_lineStr.set_size(1, text_len);
+                                          for (match_idx = 0;
+                                               match_idx < text_len;
+                                               match_idx++) {
+                                            c_lineStr[match_idx] =
+                                                lineStr[i + match_idx];
+                                          }
+                                          dc = coder::str2double(c_lineStr);
+                                          if (!(dc.re > 0.0)) {
+                                            c_rtErrorWithMessageID(
+                                                b_emlrtRTEI.fName,
+                                                b_emlrtRTEI.lineNo);
+                                          }
+                                          if (!(dc.re < 1.0)) {
+                                            rtErrorWithMessageID(
+                                                "  1.000000000000000e+00",
+                                                qc_emlrtRTEI.fName,
+                                                qc_emlrtRTEI.lineNo);
+                                          }
+                                          Config->contents.falseAlarmProb =
+                                              dc.re;
+                                        } else {
+                                          c_lineStr.set_size(1, text_len);
+                                          for (ii_data = 0; ii_data < text_len;
+                                               ii_data++) {
+                                            c_lineStr[ii_data] =
+                                                lineStr[ii_data];
+                                          }
+                                          if (coder::internal::q_strcmp(
+                                                  c_lineStr)) {
+                                            text_len = match_idx - i;
+                                            _in.Value.set_size(1, text_len);
+                                            for (match_idx = 0;
+                                                 match_idx < text_len;
+                                                 match_idx++) {
+                                              _in.Value[match_idx] =
+                                                  lineStr[i + match_idx];
+                                            }
+                                            Config->contents.dataRecordPath =
+                                                _in;
+                                          } else {
+                                            c_lineStr.set_size(1, text_len);
+                                            for (ii_data = 0;
+                                                 ii_data < text_len;
+                                                 ii_data++) {
+                                              c_lineStr[ii_data] =
+                                                  lineStr[ii_data];
+                                            }
+                                            if (!coder::internal::r_strcmp(
+                                                    c_lineStr)) {
+                                              c_lineStr.set_size(1, text_len);
+                                              for (ii_data = 0;
+                                                   ii_data < text_len;
+                                                   ii_data++) {
+                                                c_lineStr[ii_data] =
+                                                    lineStr[ii_data];
+                                              }
+                                              if (coder::internal::s_strcmp(
+                                                      c_lineStr)) {
+                                                // STR2BOOL Converts a string in
+                                                // to a boolean.
+                                                //    This function converts a
+                                                //    string to a boolean
+                                                //    output. Valid input
+                                                //    strings are '1', '0',
+                                                //    'true', or 'false'. The
+                                                //    input is case insensitive.
+                                                //    If input is invalid, the
+                                                //    function returns an empty
+                                                //    false of size 0x1.
+                                                //
+                                                // INPUTS:
+                                                //    stringIn    string of '1',
+                                                //    '0', 'true', or 'false',
+                                                //    case insensitive.
+                                                //
+                                                // OUTPUTS:
+                                                //    boolOut     boolean
+                                                //
+                                                // Author: Michael W. Shafer
+                                                // Date:   2022-06-21
+                                                // --------------------------------------------------------------------------
+                                                text_len = match_idx - i;
+                                                c_lineStr.set_size(1, text_len);
+                                                for (match_idx = 0;
+                                                     match_idx < text_len;
+                                                     match_idx++) {
+                                                  c_lineStr[match_idx] =
+                                                      lineStr[i + match_idx];
+                                                }
+                                                coder::lower(c_lineStr,
+                                                             lineStr);
+                                                b_bool = false;
+                                                if ((lineStr.size(1) == 1) &&
+                                                    (lineStr[0] == '1')) {
+                                                  b_bool = true;
+                                                }
+                                                if (b_bool) {
+                                                  text_len = 1;
+                                                  b_bool = true;
+                                                } else {
+                                                  b_bool = false;
+                                                  if ((lineStr.size(1) == 1) &&
+                                                      (lineStr[0] == '0')) {
+                                                    b_bool = true;
+                                                  }
+                                                  if (b_bool) {
+                                                    text_len = 1;
+                                                    b_bool = false;
+                                                  } else if (coder::internal::
+                                                                 t_strcmp(
+                                                                     lineStr)) {
+                                                    text_len = 1;
+                                                    b_bool = true;
+                                                  } else if (coder::internal::
+                                                                 u_strcmp(
+                                                                     lineStr)) {
+                                                    text_len = 1;
+                                                    b_bool = false;
+                                                  } else {
+                                                    text_len = 0;
+                                                  }
+                                                }
+                                                coder::internal::
+                                                    b_validator_check_size(
+                                                        (const boolean_T
+                                                             *)&b_bool,
+                                                        text_len);
+                                              } else {
+                                                c_lineStr.set_size(1, text_len);
+                                                for (ii_data = 0;
+                                                     ii_data < text_len;
+                                                     ii_data++) {
+                                                  c_lineStr[ii_data] =
+                                                      lineStr[ii_data];
+                                                }
+                                                if (coder::internal::v_strcmp(
+                                                        c_lineStr)) {
+                                                  // STR2BOOL Converts a string
+                                                  // in to a boolean.
+                                                  //    This function converts a
+                                                  //    string to a boolean
+                                                  //    output. Valid input
+                                                  //    strings are '1', '0',
+                                                  //    'true', or 'false'. The
+                                                  //    input is case
+                                                  //    insensitive. If input is
+                                                  //    invalid, the function
+                                                  //    returns an empty false
+                                                  //    of size 0x1.
+                                                  //
+                                                  // INPUTS:
+                                                  //    stringIn    string of
+                                                  //    '1', '0', 'true', or
+                                                  //    'false', case
+                                                  //    insensitive.
+                                                  //
+                                                  // OUTPUTS:
+                                                  //    boolOut     boolean
+                                                  //
+                                                  // Author: Michael W. Shafer
+                                                  // Date:   2022-06-21
+                                                  // --------------------------------------------------------------------------
+                                                  text_len = match_idx - i;
+                                                  c_lineStr.set_size(1,
+                                                                     text_len);
+                                                  for (match_idx = 0;
+                                                       match_idx < text_len;
+                                                       match_idx++) {
+                                                    c_lineStr[match_idx] =
+                                                        lineStr[i + match_idx];
+                                                  }
+                                                  coder::lower(c_lineStr,
+                                                               lineStr);
+                                                  b_bool = false;
+                                                  if ((lineStr.size(1) == 1) &&
+                                                      (lineStr[0] == '1')) {
+                                                    b_bool = true;
+                                                  }
+                                                  if (b_bool) {
+                                                    text_len = 1;
+                                                    b_bool = true;
+                                                  } else {
+                                                    b_bool = false;
+                                                    if ((lineStr.size(1) ==
+                                                         1) &&
+                                                        (lineStr[0] == '0')) {
+                                                      b_bool = true;
+                                                    }
+                                                    if (b_bool) {
+                                                      text_len = 1;
+                                                      b_bool = false;
+                                                    } else if (
+                                                        coder::internal::
+                                                            t_strcmp(lineStr)) {
+                                                      text_len = 1;
+                                                      b_bool = true;
+                                                    } else if (
+                                                        coder::internal::
+                                                            u_strcmp(lineStr)) {
+                                                      text_len = 1;
+                                                      b_bool = false;
+                                                    } else {
+                                                      text_len = 0;
+                                                    }
+                                                  }
+                                                  coder::internal::
+                                                      b_validator_check_size(
+                                                          (const boolean_T
+                                                               *)&b_bool,
+                                                          text_len);
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
                                   }
-                                } else if (d >= 256.0) {
-                                  b_in = MAX_uint8_T;
-                                } else {
-                                  b_in = 0U;
                                 }
-                                Config->contents.K = b_in;
-                              } else if (coder::internal::c_strcmp(
-                                             configType)) {
-                                _in.Value.set_size(1, match_idx);
-                                for (text_len = 0; text_len < match_idx;
-                                     text_len++) {
-                                  _in.Value[text_len] = lineStr[i + text_len];
-                                }
-                                Config->contents.opMode = _in;
-                              } else if (coder::internal::d_strcmp(
-                                             configType)) {
-                                str2matrix(configValStr, r);
-                                val.set_size(r.size(0), r.size(1));
-                                loop_ub = r.size(0) * r.size(1);
-                                for (i = 0; i < loop_ub; i++) {
-                                  val[i] = r[i].re;
-                                }
-                                if ((val.size(0) == 1) && (val.size(1) == 1)) {
-                                  Config->contents.excldFreqs.set_size(1, 2);
-                                  Config->contents.excldFreqs[0] = val[0];
-                                  Config->contents.excldFreqs[1] = val[0];
-                                } else if (val.size(0) == 0) {
-                                  Config->contents.excldFreqs.set_size(0, 2);
-                                } else {
-                                  Config->contents.excldFreqs.set_size(
-                                      val.size(0), 2);
-                                  loop_ub = val.size(0) << 1;
-                                  for (i = 0; i < loop_ub; i++) {
-                                    Config->contents.excldFreqs[i] = val[i];
-                                  }
-                                }
-                              } else if (coder::internal::e_strcmp(
-                                             configType)) {
-                                creal_T dc;
-                                dc = coder::str2double(configValStr);
-                                Config->contents.falseAlarmProb = dc.re;
-                              } else if (coder::internal::f_strcmp(
-                                             configType)) {
-                                _in.Value.set_size(1, match_idx);
-                                for (text_len = 0; text_len < match_idx;
-                                     text_len++) {
-                                  _in.Value[text_len] = lineStr[i + text_len];
-                                }
-                                Config->contents.dataRecordPath = _in;
                               }
                             }
                           }
@@ -1077,20 +1522,44 @@ static void updateconfig(coder::b_captured_var *Config,
               }
             }
           }
-        }
-        // Stop when we have finished reading this entry.
-        if ((coder::b_feof(static_cast<double>(fileid)) == 1.0) ||
-            (coder::b_ftell(static_cast<double>(fileid)) ==
-             sepByte[static_cast<int>(static_cast<unsigned int>(configNum))])) {
+          // Stop when we have finished reading this entry.
+          if (coder::b_feof(static_cast<double>(fileid)) == 1.0) {
+            done = true;
+          } else {
+            if ((static_cast<int>(static_cast<unsigned int>(configNum) + 1U) <
+                 1) ||
+                (static_cast<int>(static_cast<unsigned int>(configNum) + 1U) >
+                 sepByte.size(1))) {
+              rtDynamicBoundsError(
+                  static_cast<int>(static_cast<unsigned int>(configNum) + 1U),
+                  1, sepByte.size(1), &jb_emlrtBCI);
+            }
+            if (coder::b_ftell(static_cast<double>(fileid)) ==
+                sepByte[static_cast<int>(
+                    static_cast<unsigned int>(configNum))]) {
+              done = true;
+            }
+          }
+        } else if (coder::b_feof(static_cast<double>(fileid)) == 1.0) {
           done = true;
+        } else {
+          if ((static_cast<int>(static_cast<unsigned int>(configNum) + 1U) <
+               1) ||
+              (static_cast<int>(static_cast<unsigned int>(configNum) + 1U) >
+               sepByte.size(1))) {
+            rtDynamicBoundsError(
+                static_cast<int>(static_cast<unsigned int>(configNum) + 1U), 1,
+                sepByte.size(1), &ob_emlrtBCI);
+          }
+          if (coder::b_ftell(static_cast<double>(fileid)) ==
+              sepByte[static_cast<int>(static_cast<unsigned int>(configNum))]) {
+            done = true;
+          }
         }
-      } else if ((coder::b_feof(static_cast<double>(fileid)) == 1.0) ||
-                 (coder::b_ftell(static_cast<double>(fileid)) ==
-                  sepByte[static_cast<int>(
-                      static_cast<unsigned int>(configNum))])) {
-        done = true;
+      } else {
+        exitg1 = 1;
       }
-    }
+    } while (exitg1 == 0);
     coder::cfclose(static_cast<double>(fileid));
   }
   // Do we update the tip and tipu or use the ones that were adapted from
@@ -1108,10 +1577,34 @@ static void updateconfig(coder::b_captured_var *Config,
 //
 void uavrt_detection()
 {
-  static coder::dsp::AsyncBuffer asyncTimeBuff;
-  static coder::dsp::b_AsyncBuffer asyncDataBuff;
+  static coder::dsp::AsyncBuffer asyncDataBuff;
+  static coder::dsp::b_AsyncBuffer asyncTimeBuff;
+  static rtBoundsCheckInfo eb_emlrtBCI{
+      -1,                                              // iFirst
+      -1,                                              // iLast
+      219,                                             // lineNo
+      32,                                              // colNo
+      "t",                                             // aName
+      "uavrt_detection",                               // fName
+      "H:\\repos\\uavrt_detection\\uavrt_detection.m", // pName
+      0                                                // checkKind
+  };
+  static rtBoundsCheckInfo fb_emlrtBCI{
+      -1,                                              // iFirst
+      -1,                                              // iLast
+      372,                                             // lineNo
+      53,                                              // colNo
+      "ps_pre_struc.pl",                               // aName
+      "uavrt_detection",                               // fName
+      "H:\\repos\\uavrt_detection\\uavrt_detection.m", // pName
+      0                                                // checkKind
+  };
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      10,             // lineNo
+      "mustBeInteger" // fName
+  };
+  DetectorConfig *obj;
   b_waveform X;
-  coder::array<c_struct_T, 2U> *structure;
   coder::b_captured_var Config;
   coder::c_captured_var overlapSamples;
   coder::c_captured_var sampsForKPulses;
@@ -1138,33 +1631,31 @@ void uavrt_detection()
   coder::array<double, 2U> ps_pre_struc_cpki;
   coder::array<double, 1U> r1;
   coder::array<double, 1U> t;
-  coder::array<char, 2U> c_varargin_1;
+  coder::array<char, 2U> d_varargin_1;
   coder::array<boolean_T, 2U> b_varargin_1;
+  coder::array<boolean_T, 2U> c_varargin_1;
   coder::array<boolean_T, 2U> ps_pre_struc_cmsk;
   coder::array<boolean_T, 1U> b_tmp_data;
   coder::array<boolean_T, 1U> r2;
+  c_struct_T b_expl_temp;
   c_struct_T expl_temp;
   c_struct_T r;
   creal_T dcv[1000];
-  creal32_T complexBuffer[1025];
-  creal32_T complexBuffer_data[1024];
   creal32_T exampleData[1000];
   double ps_pre_struc_tmplt[2];
-  double lastTimeStamp;
-  double missingPackets;
-  double missingTime;
-  double ps_pre_struc_fend;
-  double ps_pre_struc_fstart;
+  double integratedTimeError;
   double segmentsProcessed;
-  double t5_fend;
-  double t5_fp;
-  double t5_fstart;
-  double t5_t_0;
-  double t5_t_f;
-  double t5_yw;
+  double t9_P;
+  double t9_SNR;
+  double t9_fend;
+  double t9_fp;
+  double t9_fstart;
+  double t9_t_0;
+  double t9_t_f;
+  double t9_yw;
   double timeStamp;
   double trackedCount;
-  int q1;
+  int i;
   int udpReceiver;
   int udpSender;
   signed char fileid;
@@ -1175,14 +1666,12 @@ void uavrt_detection()
   boolean_T fLock;
   boolean_T resetBuffersFlag;
   boolean_T staleDataFlag;
-  boolean_T t5_con_dec;
-  boolean_T t5_det_dec;
+  boolean_T t9_con_dec;
+  boolean_T t9_det_dec;
   boolean_T tmp_data;
   if (!isInitialized_uavrt_detection) {
     uavrt_detection_initialize();
   }
-  asyncTimeBuff.pBuffer.matlabCodegenIsDeleted = true;
-  asyncTimeBuff.matlabCodegenIsDeleted = true;
   configPath.contents.init();
   // Must exist in the same directory as the execution of this executable
   Config.contents.init();
@@ -1192,20 +1681,20 @@ void uavrt_detection()
   configUpdatedFlag = true;
   makepulsestruc(&r.A, &r.P, &r.SNR, &r.yw, &r.t_0, &r.t_f, r.t_next, &r.fp,
                  &r.fstart, &r.fend, r.mode, &r.det_dec, &r.con_dec);
-  makepulsestruc(&missingTime, &missingPackets, &timeStamp, &t5_yw, &t5_t_0,
-                 &t5_t_f, expl_temp.t_next, &t5_fp, &t5_fstart, &t5_fend,
-                 expl_temp.mode, &t5_det_dec, &t5_con_dec);
-  expl_temp.con_dec = t5_con_dec;
-  expl_temp.det_dec = t5_det_dec;
-  expl_temp.fend = t5_fend;
-  expl_temp.fstart = t5_fstart;
-  expl_temp.fp = t5_fp;
-  expl_temp.t_f = t5_t_f;
-  expl_temp.t_0 = t5_t_0;
-  expl_temp.yw = t5_yw;
-  expl_temp.SNR = timeStamp;
-  expl_temp.P = missingPackets;
-  expl_temp.A = missingTime;
+  makepulsestruc(&integratedTimeError, &t9_P, &t9_SNR, &t9_yw, &t9_t_0, &t9_t_f,
+                 expl_temp.t_next, &t9_fp, &t9_fstart, &t9_fend, expl_temp.mode,
+                 &t9_det_dec, &t9_con_dec);
+  expl_temp.con_dec = t9_con_dec;
+  expl_temp.det_dec = t9_det_dec;
+  expl_temp.fend = t9_fend;
+  expl_temp.fstart = t9_fstart;
+  expl_temp.fp = t9_fp;
+  expl_temp.t_f = t9_t_f;
+  expl_temp.t_0 = t9_t_0;
+  expl_temp.yw = t9_yw;
+  expl_temp.SNR = t9_SNR;
+  expl_temp.P = t9_P;
+  expl_temp.A = integratedTimeError;
   pulseStatsPriori = lobj_19[1].init(Config.contents.tp, Config.contents.tip,
                                      Config.contents.tipu, Config.contents.tipj,
                                      &r, &expl_temp);
@@ -1238,7 +1727,10 @@ void uavrt_detection()
   asyncDataBuff.pBuffer.isInitialized = 0;
   asyncDataBuff.pBuffer.matlabCodegenIsDeleted = false;
   asyncDataBuff.matlabCodegenIsDeleted = false;
-  asyncTimeBuff.init();
+  asyncTimeBuff.pBuffer.NumChannels = -1;
+  asyncTimeBuff.pBuffer.isInitialized = 0;
+  asyncTimeBuff.pBuffer.matlabCodegenIsDeleted = false;
+  asyncTimeBuff.matlabCodegenIsDeleted = false;
   printf("Startup set 2 complete. \n");
   fflush(stdout);
   // Write interval in seconds. 2.5*60*4000*32/8 should work out the 2.4Mb of
@@ -1264,13 +1756,13 @@ void uavrt_detection()
   // dims 0 if fixed, 1 if variable
   printf("Startup set 4 complete. \n");
   fflush(stdout);
-  t5_t_0 = 0.0;
-  t5_t_f = 0.0;
-  t5_fp = 0.0;
-  t5_fstart = 0.0;
-  t5_fend = 0.0;
-  ps_pre_struc_fstart = 0.0;
-  ps_pre_struc_fend = 0.0;
+  t9_SNR = 0.0;
+  t9_yw = 0.0;
+  t9_t_0 = 0.0;
+  t9_t_f = 0.0;
+  t9_fp = 0.0;
+  t9_fstart = 0.0;
+  t9_fend = 0.0;
   ps_pre_struc_tmplt[0] = 1.0;
   ps_pre_struc_tmplt[1] = 1.0;
   makepulsestruc(&r.A, &r.P, &r.SNR, &r.yw, &r.t_0, &r.t_f, r.t_next, &r.fp,
@@ -1289,13 +1781,14 @@ void uavrt_detection()
   fflush(stdout);
   //  Preallocate X and Xhold so that coder knows the data types.
   coder::wgn(dcv);
-  for (q1 = 0; q1 < 1000; q1++) {
-    exampleData[q1].re = static_cast<float>(dcv[q1].re);
-    exampleData[q1].im = static_cast<float>(dcv[q1].im);
+  for (i = 0; i < 1000; i++) {
+    exampleData[i].re = static_cast<float>(dcv[i].re);
+    exampleData[i].im = static_cast<float>(dcv[i].im);
   }
+  integratedTimeError = Config.contents.falseAlarmProb;
   // UNTITLED2 Construct an instance of this class
   //    Detailed explanation goes here
-  val.pf = Config.contents.falseAlarmProb;
+  val.pf = integratedTimeError;
   val.evMuParam = 0.0;
   val.evSigmaParam = 0.0;
   val.threshVecFine.set_size(1);
@@ -1310,7 +1803,13 @@ void uavrt_detection()
   printf("Startup set 6 complete. \n");
   fflush(stdout);
   udpReceiver = udpReceiverSetup(Config.contents.portData);
-  udpSender = udpSenderSetup(30000.0);
+  if (udpReceiver <= 0) {
+    rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
+  }
+  udpSender = udpSenderSetup(4096.0);
+  if (udpSender <= 0) {
+    rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
+  }
   // Initialize loop variables
   resetBuffersFlag = true;
   segmentsProcessed = 0.0;
@@ -1318,35 +1817,20 @@ void uavrt_detection()
   fLock = false;
   staleDataFlag = true;
   // Force buffer  flush on start
-  lastTimeStamp = 0.0;
+  timeStamp = 0.0;
   cleanBuffer = true;
   trackedCount = 0.0;
   printf("Startup set 7 complete. Starting processing... \n");
   fflush(stdout);
-  int exitg1;
-  do {
-    double timeStamp_data[1024];
+  while (1) {
+    creal32_T complexBuffer[4096];
+    double timeVector[4096];
     int n;
     int qY;
-    exitg1 = 0;
     // i <= maxInd
     if (resetBuffersFlag) {
-      if (asyncDataBuff.pBuffer.isInitialized == 1) {
-        asyncDataBuff.pBuffer.ReadPointer = 1;
-        asyncDataBuff.pBuffer.WritePointer = 2;
-        asyncDataBuff.pBuffer.CumulativeOverrun = 0;
-        asyncDataBuff.pBuffer.CumulativeUnderrun = 0;
-        std::memset(&asyncDataBuff.pBuffer.Cache[0], 0,
-                    49621U * sizeof(creal32_T));
-      }
-      if (asyncTimeBuff.pBuffer.isInitialized == 1) {
-        asyncTimeBuff.pBuffer.ReadPointer = 1;
-        asyncTimeBuff.pBuffer.WritePointer = 2;
-        asyncTimeBuff.pBuffer.CumulativeOverrun = 0;
-        asyncTimeBuff.pBuffer.CumulativeUnderrun = 0;
-        std::memset(&asyncTimeBuff.pBuffer.Cache[0], 0,
-                    49621U * sizeof(double));
-      }
+      asyncDataBuff.reset();
+      asyncTimeBuff.reset();
       resetBuffersFlag = false;
       cleanBuffer = true;
     }
@@ -1358,107 +1842,16 @@ void uavrt_detection()
       staleDataFlag = false;
     }
     //             %% Get data
-    udpReceiverRead(udpReceiver, &complexBuffer[0], 1025.0);
+    udpReceiverRead(udpReceiver, &complexBuffer[0], 4096.0);
     //             %% Wait for new data if none ready, else put data in buffers
-    // singlecomplex2int Converts a complex single precision positive
-    // number with a portion of the integer digits in the real and imaginary
-    // parts to integer value. The integer is split at the 7th digit. The top
-    // digits are then held in the real part of the input, while the lower 7
-    // digits are held in the imaginary part of the input. These digits are
-    // recombined to create a double precision output of the integer.
-    //
-    // A single precision number has a maximum integer
-    // values of flintmax('single') = 16777216. To avoid overrunning the
-    // available digits, the output integer is split at digit 7.
-    //
-    // The max value for each input part would be:   16777216 + 1i * 16777216
-    // To avoid overflow, the complex part
-    // containing the lower digits only use          16777216 + 1i *  xxxxxxx
-    // the first 7 digits available
-    //
-    // Based on this standard, the maximum value that can be transmitted is
-    //    167772169999999 = 1.6777e14;
-    //
-    // INPUTS:
-    //    singleComplex   Matrix of where each elements' imaginary part contains
-    //                    the bottom 7 digits of the output integer. The inputs
-    //                    real part contain the upper digits of the output.
-    //                    The maximum value of the input real part is
-    //                    16,777,216. The maximum value of the imaginary part if
-    //                    9,999,999. An error is generated if these values are
-    //                    exceeded. Imaginary parts (lower digits) must be
-    //                    positive. Sign can be contained in the upper digits
-    //                    (real part). Real and imaginary parts must only
-    //                    contain integers.
-    // OUTPUTS:
-    //    intOut           Matrix of integer values.
-    //                    Maximum input value is 167772169999999. Inputs
-    //                    exceedign this value will result in an error.
-    //
-    // -------------------------------------------------------------------------
-    // Author:    Michael Shafer
-    // Date:      2022-08-19
-    // -------------------------------------------------------------------------
-    timeStamp = 0.001 * (complexBuffer[0].re * 1.0E+7 + complexBuffer[0].im);
-    t5_yw = 1.0 / Config.contents.Fs;
-    // Check for missing packets based on packet timestamps.
-    n = asyncTimeBuff.pBuffer.WritePointer;
-    q1 = asyncTimeBuff.pBuffer.ReadPointer;
-    if ((n >= 0) && (q1 < n - MAX_int32_T)) {
-      n = MAX_int32_T;
-    } else if ((n < 0) && (q1 > n - MIN_int32_T)) {
-      n = MIN_int32_T;
-    } else {
-      n -= q1;
+    integratedTimeError = 1.0 / Config.contents.Fs;
+    for (i = 0; i < 4096; i++) {
+      timeVector[i] = timeStamp + integratedTimeError * static_cast<double>(i);
     }
-    if (n < -2147483647) {
-      n = MIN_int32_T;
-    } else {
-      n--;
-    }
-    q1 = asyncTimeBuff.pBuffer.ReadPointer;
-    if (q1 < -2147434027) {
-      qY = MAX_int32_T;
-    } else {
-      qY = 49620 - q1;
-    }
-    q1 = asyncTimeBuff.pBuffer.WritePointer;
-    if ((qY < 0) && (q1 < MIN_int32_T - qY)) {
-      qY = MIN_int32_T;
-    } else if ((qY > 0) && (q1 > MAX_int32_T - qY)) {
-      qY = MAX_int32_T;
-    } else {
-      qY += q1;
-    }
-    if (asyncTimeBuff.pBuffer.ReadPointer >=
-        asyncTimeBuff.pBuffer.WritePointer) {
-      if (asyncTimeBuff.pBuffer.ReadPointer ==
-          asyncTimeBuff.pBuffer.WritePointer) {
-        n = 49620;
-      } else {
-        n = qY;
-      }
-    }
-    if (n != 0) {
-      missingTime = (timeStamp - lastTimeStamp) - 1024.0 / Config.contents.Fs;
-      missingPackets = missingTime * Config.contents.Fs / 1024.0;
-      if (missingPackets > 1.0) {
-        printf("Packet drop detected. Missed %f packets, or %f seconds of "
-               "data. \n",
-               missingPackets, missingTime);
-        fflush(stdout);
-      }
-      lastTimeStamp = timeStamp;
-    } else {
-      lastTimeStamp = timeStamp;
-    }
+    timeStamp += 4096.0 / Config.contents.Fs;
     // Write out data and time.
-    std::copy(&complexBuffer[1], &complexBuffer[1025], &complexBuffer_data[0]);
-    asyncDataBuff.write(complexBuffer_data);
-    for (q1 = 0; q1 < 1024; q1++) {
-      timeStamp_data[q1] = timeStamp + t5_yw * static_cast<double>(q1);
-    }
-    asyncTimeBuff.write(timeStamp_data);
+    asyncDataBuff.write(complexBuffer);
+    asyncTimeBuff.write(timeVector);
     // asyncWriteBuff.write(dataReceived);
     // if asyncWriteBuff.NumUnreadSamples == dataWriterSamples
     //     dataWriterBuffData = asyncWriteBuff.read();
@@ -1508,31 +1901,33 @@ void uavrt_detection()
     if (qY >= sampsForKPulses.contents + overlapSamples.contents) {
       unsigned int varargin_1;
       unsigned int varargin_2;
-      boolean_T guard1{false};
-      missingTime = std::round(sampsForKPulses.contents);
-      if (missingTime < 4.294967296E+9) {
-        if (missingTime >= 0.0) {
-          varargin_1 = static_cast<unsigned int>(missingTime);
+      t9_P = std::round(sampsForKPulses.contents);
+      if (t9_P < 4.294967296E+9) {
+        if (t9_P >= 0.0) {
+          varargin_1 = static_cast<unsigned int>(t9_P);
         } else {
           varargin_1 = 0U;
         }
-      } else if (missingTime >= 4.294967296E+9) {
+      } else if (t9_P >= 4.294967296E+9) {
         varargin_1 = MAX_uint32_T;
       } else {
         varargin_1 = 0U;
       }
-      missingTime = std::round(overlapSamples.contents);
-      if (missingTime < 4.294967296E+9) {
-        if (missingTime >= 0.0) {
-          varargin_2 = static_cast<unsigned int>(missingTime);
+      t9_P = std::round(overlapSamples.contents);
+      if (t9_P < 4.294967296E+9) {
+        if (t9_P >= 0.0) {
+          varargin_2 = static_cast<unsigned int>(t9_P);
         } else {
           varargin_2 = 0U;
         }
-      } else if (missingTime >= 4.294967296E+9) {
+      } else if (t9_P >= 4.294967296E+9) {
         varargin_2 = MAX_uint32_T;
       } else {
         varargin_2 = 0U;
       }
+      printf("Buffer Full|| sampsForKPulses: %u, overlapSamples: %u,\n",
+             varargin_1, varargin_2);
+      fflush(stdout);
       if ((asyncDataBuff.pBuffer.WritePointer >= 0) &&
           (asyncDataBuff.pBuffer.ReadPointer <
            asyncDataBuff.pBuffer.WritePointer - MAX_int32_T)) {
@@ -1570,6 +1965,8 @@ void uavrt_detection()
                  asyncDataBuff.pBuffer.WritePointer) {
         qY = 49620;
       }
+      printf("Running...Buffer full with %d samples. Processing. \n", qY);
+      fflush(stdout);
       coder::tic();
       if (cleanBuffer) {
         // Overlap reads back into the buffer, but there
@@ -1594,28 +1991,27 @@ void uavrt_detection()
       // by more than the interpulse uncertainty, then the
       // detection will likely fail or produces bad results. In
       // this case. Skip the processing and clear the buffer.
-      guard1 = false;
-      if (Config.contents.K > 1.0) {
-        coder::diff(t, r1);
-        n = r1.size(0);
-        for (q1 = 0; q1 < n; q1++) {
-          r1[q1] = r1[q1] - t5_yw;
-        }
-        if (coder::sum(r1) > Config.contents.tipu + Config.contents.tipj) {
-          printf("Significant time differences found in timestamp record. "
-                 "Skipping processing and clearing buffers.\n");
-          fflush(stdout);
-          resetBuffersFlag = true;
-          staleDataFlag = true;
-        } else {
-          guard1 = true;
-        }
-      } else {
-        guard1 = true;
+      coder::diff(t, r1);
+      qY = r1.size(0);
+      for (i = 0; i < qY; i++) {
+        r1[i] = r1[i] - integratedTimeError;
       }
-      if (guard1) {
+      integratedTimeError = coder::sum(r1);
+      if ((Config.contents.K > 1.0) &&
+          (integratedTimeError > Config.contents.tipu + Config.contents.tipj)) {
+        printf("Significant time differences found in timestamp record. "
+               "Skipping processing and clearing buffers.\n");
+        fflush(stdout);
+        resetBuffersFlag = true;
+        staleDataFlag = true;
+      } else {
         unsigned int validatedHoleFilling[3];
         unsigned int varargin_3;
+        if (t.size(0) < 1) {
+          rtDynamicBoundsError(1, 1, t.size(0), &eb_emlrtBCI);
+        }
+        printf("Running...Building priori and waveform. \n");
+        fflush(stdout);
         // Set the priori info
         if (configUpdatedFlag) {
           // Initialize states for operational modes
@@ -1650,39 +2046,46 @@ void uavrt_detection()
           makepulsestruc(&r.A, &r.P, &r.SNR, &r.yw, &r.t_0, &r.t_f, r.t_next,
                          &r.fp, &r.fstart, &r.fend, r.mode, &r.det_dec,
                          &r.con_dec);
-          makepulsestruc(&missingTime, &missingPackets, &timeStamp, &t5_yw,
-                         &t5_t_0, &t5_t_f, expl_temp.t_next, &t5_fp, &t5_fstart,
-                         &t5_fend, expl_temp.mode, &t5_det_dec, &t5_con_dec);
-          expl_temp.con_dec = t5_con_dec;
-          expl_temp.det_dec = t5_det_dec;
-          expl_temp.fend = t5_fend;
-          expl_temp.fstart = t5_fstart;
-          expl_temp.fp = t5_fp;
-          expl_temp.t_f = t5_t_f;
-          expl_temp.t_0 = t5_t_0;
-          expl_temp.yw = t5_yw;
-          expl_temp.SNR = timeStamp;
-          expl_temp.P = missingPackets;
-          expl_temp.A = missingTime;
+          makepulsestruc(&integratedTimeError, &t9_P, &t9_SNR, &t9_yw, &t9_t_0,
+                         &t9_t_f, expl_temp.t_next, &t9_fp, &t9_fstart,
+                         &t9_fend, expl_temp.mode, &t9_det_dec, &t9_con_dec);
+          b_expl_temp.con_dec = t9_con_dec;
+          b_expl_temp.det_dec = t9_det_dec;
+          b_expl_temp.mode.set_size(1, expl_temp.mode.size(1));
+          qY = expl_temp.mode.size(1);
+          for (i = 0; i < qY; i++) {
+            b_expl_temp.mode[i] = expl_temp.mode[i];
+          }
+          b_expl_temp.fend = t9_fend;
+          b_expl_temp.fstart = t9_fstart;
+          b_expl_temp.fp = t9_fp;
+          b_expl_temp.t_next[0] = expl_temp.t_next[0];
+          b_expl_temp.t_next[1] = expl_temp.t_next[1];
+          b_expl_temp.t_f = t9_t_f;
+          b_expl_temp.t_0 = t9_t_0;
+          b_expl_temp.yw = t9_yw;
+          b_expl_temp.SNR = t9_SNR;
+          b_expl_temp.P = t9_P;
+          b_expl_temp.A = integratedTimeError;
           pulseStatsPriori = lobj_13.init(
               Config.contents.tp, Config.contents.tip, Config.contents.tipu,
               Config.contents.tipj,
               1.0E-5 * std::abs(Config.contents.tagFreqMHz -
                                 Config.contents.channelCenterFreqMHz),
-              &r, &expl_temp);
+              &r, &b_expl_temp);
           configUpdatedFlag = false;
         } else {
           pulseStatsPriori = lobj_16.c_init(
-              t5_t_0, t5_t_f, t5_fp, t5_fstart, t5_fend, ps_pre_struc_fstart,
-              ps_pre_struc_fend, ps_pre_struc_tmplt, (char *)&mode,
-              ps_pre_struc_pl, ps_pre_struc_clst, ps_pre_struc_cmsk,
-              ps_pre_struc_cpki);
+              t9_SNR, t9_yw, t9_t_0, t9_t_f, t9_fp, t9_fstart, t9_fend,
+              ps_pre_struc_tmplt, (char *)&mode, ps_pre_struc_pl,
+              ps_pre_struc_clst, ps_pre_struc_cmsk, ps_pre_struc_cpki);
         }
         //                         %% PRIMARY PROCESSING BLOCK
         // Prep waveform for processing/detection
+        integratedTimeError = Config.contents.falseAlarmProb;
         // UNTITLED2 Construct an instance of this class
         //    Detailed explanation goes here
-        val.pf = Config.contents.falseAlarmProb;
+        val.pf = integratedTimeError;
         val.evMuParam = 0.0;
         val.evSigmaParam = 0.0;
         val.threshVecFine.set_size(1);
@@ -1690,49 +2093,61 @@ void uavrt_detection()
         b_X.init(x, Config.contents.Fs, t[0], pulseStatsPriori, &val, &lobj_15,
                  &lobj_14);
         b_X.K = Config.contents.K;
-        missingTime = std::round(b_X.N);
-        if (missingTime < 4.294967296E+9) {
-          if (missingTime >= 0.0) {
-            varargin_1 = static_cast<unsigned int>(missingTime);
+        t9_P = std::round(b_X.N);
+        if (t9_P < 4.294967296E+9) {
+          if (t9_P >= 0.0) {
+            varargin_1 = static_cast<unsigned int>(t9_P);
           } else {
             varargin_1 = 0U;
           }
-        } else if (missingTime >= 4.294967296E+9) {
+        } else if (t9_P >= 4.294967296E+9) {
           varargin_1 = MAX_uint32_T;
         } else {
           varargin_1 = 0U;
         }
-        missingTime = std::round(b_X.M);
-        if (missingTime < 4.294967296E+9) {
-          if (missingTime >= 0.0) {
-            varargin_2 = static_cast<unsigned int>(missingTime);
+        t9_P = std::round(b_X.M);
+        if (t9_P < 4.294967296E+9) {
+          if (t9_P >= 0.0) {
+            varargin_2 = static_cast<unsigned int>(t9_P);
           } else {
             varargin_2 = 0U;
           }
-        } else if (missingTime >= 4.294967296E+9) {
+        } else if (t9_P >= 4.294967296E+9) {
           varargin_2 = MAX_uint32_T;
         } else {
           varargin_2 = 0U;
         }
-        missingTime = std::round(b_X.J);
-        if (missingTime < 4.294967296E+9) {
-          if (missingTime >= 0.0) {
-            varargin_3 = static_cast<unsigned int>(missingTime);
+        t9_P = std::round(b_X.J);
+        if (t9_P < 4.294967296E+9) {
+          if (t9_P >= 0.0) {
+            varargin_3 = static_cast<unsigned int>(t9_P);
           } else {
             varargin_3 = 0U;
           }
-        } else if (missingTime >= 4.294967296E+9) {
+        } else if (t9_P >= 4.294967296E+9) {
           varargin_3 = MAX_uint32_T;
         } else {
           varargin_3 = 0U;
         }
         coder::internal::validate_print_arguments(
             varargin_1, varargin_2, varargin_3, validatedHoleFilling);
+        printf("Current interpulse params || N: %u, M: %u, J: %u,\n",
+               validatedHoleFilling[0], validatedHoleFilling[1],
+               validatedHoleFilling[2]);
+        fflush(stdout);
         b_X.setprioridependentprops(b_X.ps_pre);
         varargin_1 = static_cast<unsigned int>(b_X.x.size(1));
+        printf("Samples in waveform: %u \n", varargin_1);
+        fflush(stdout);
         coder::tic();
+        printf("Computing STFT...");
+        fflush(stdout);
         b_X.spectro(&lobj_12);
-        missingPackets = coder::toc();
+        t9_P = coder::toc();
+        printf("complete. Elapsed time: %f seconds \n", t9_P);
+        fflush(stdout);
+        printf("Building weighting matrix and generating thresholds...");
+        fflush(stdout);
         coder::tic();
         b_X.setweightingmatrix();
         if (suggestedMode == 'S') {
@@ -1778,27 +2193,48 @@ void uavrt_detection()
           val.setthreshold(&b_X, Xhold);
           b_X.thresh = val;
         }
-        missingPackets = coder::toc();
+        t9_P = coder::toc();
+        printf("complete. Elapsed time: %f seconds \n", t9_P);
+        fflush(stdout);
         varargin_1 = static_cast<unsigned int>(b_X.stft->S.size(1));
+        printf("Time windows in S: %u \n", varargin_1);
+        fflush(stdout);
+        printf("Finding pulses...");
+        fflush(stdout);
         b_X.process(mode, Config.contents.excldFreqs);
-        missingTime = coder::toc();
-        missingPackets = coder::toc();
+        integratedTimeError = coder::toc();
+        t9_P = coder::toc();
+        printf("complete. Elapsed time: %f seconds \n", t9_P);
+        fflush(stdout);
         //                         %% PREP FOR NEXT LOOP
         // Latch/Release the frequency lock and setup the
         // suggested mode
         suggestedMode = b_X.ps_pos->mode;
-        structure = &b_X.ps_pos->pl;
-        n = structure->size(1);
-        if (structure->size(1) == 0) {
-          q1 = 0;
+        ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
+        qY = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
+        for (i = 0; i <= qY; i++) {
+          ps_pre_struc_pl[i] = b_X.ps_pos->pl[i];
+        }
+        n = ps_pre_struc_pl.size(1);
+        if (ps_pre_struc_pl.size(1) == 0) {
+          i = 0;
         } else {
-          q1 = structure->size(1);
+          i = ps_pre_struc_pl.size(1);
         }
-        b_varargin_1.set_size(1, q1);
+        b_varargin_1.set_size(1, i);
+        if (ps_pre_struc_pl.size(1) > 2147483646) {
+          coder::check_forloop_overflow_error();
+        }
         for (qY = 0; qY < n; qY++) {
-          b_varargin_1[qY] = (*structure)[qY].con_dec;
+          b_varargin_1[qY] = ps_pre_struc_pl[qY].con_dec;
         }
-        coder::all(b_varargin_1, r2);
+        if (b_varargin_1.size(1) != 0) {
+          n = b_varargin_1.size(1);
+        } else {
+          n = 0;
+        }
+        c_varargin_1 = b_varargin_1.reshape(1, n);
+        coder::all(c_varargin_1, r2);
         if (coder::internal::ifWhileCond(r2)) {
           // Check if all were confirmed
           fLock = true;
@@ -1807,12 +2243,12 @@ void uavrt_detection()
         // only do so in that case if we are no longer confirming
         // pulses.
         if (coder::internal::c_strcmp(&Config.contents.opMode)) {
-          qY = r2.size(0);
           n = r2.size(0);
-          for (q1 = 0; q1 < n; q1++) {
-            tmp_data = !r2[q1];
+          qY = r2.size(0);
+          for (i = 0; i < qY; i++) {
+            tmp_data = !r2[i];
           }
-          b_tmp_data.set(&tmp_data, qY);
+          b_tmp_data.set(&tmp_data, n);
           if (coder::internal::ifWhileCond(b_tmp_data)) {
             fLock = false;
           }
@@ -1822,32 +2258,46 @@ void uavrt_detection()
         if (coder::internal::ifWhileCond(r2) &&
             ((mode == 'C') || (mode == 'T'))) {
           ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
-          n = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
-          for (q1 = 0; q1 <= n; q1++) {
-            ps_pre_struc_pl[q1] = b_X.ps_pos->pl[q1];
+          qY = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
+          for (i = 0; i <= qY; i++) {
+            ps_pre_struc_pl[i] = b_X.ps_pos->pl[i];
           }
-          b_X.ps_pos->updateposteriori(ps_pre_struc_pl);
+          b_X.ps_pos->updateposteriori(b_X.ps_pre, ps_pre_struc_pl);
           if (trackedCount > 5.0) {
             trackedCount = 0.0;
             ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
-            n = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
-            for (q1 = 0; q1 <= n; q1++) {
-              ps_pre_struc_pl[q1] = b_X.ps_pos->pl[q1];
+            qY = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
+            for (i = 0; i <= qY; i++) {
+              ps_pre_struc_pl[i] = b_X.ps_pos->pl[i];
             }
-            b_X.ps_pos->updateposteriori(b_X.ps_pre, ps_pre_struc_pl);
+            b_X.ps_pos->b_updateposteriori(b_X.ps_pre, ps_pre_struc_pl);
           }
         }
         // Check lagging processing
         if ((segmentsProcessed != 0.0) && (Config.contents.K > 1.0) &&
-            (missingTime >
+            (integratedTimeError >
              0.9 * sampsForKPulses.contents / Config.contents.Fs)) {
-          missingTime = Config.contents.K - 1.0;
-          Config.contents.K--;
-          missingTime = std::round(missingTime);
-          if (missingTime < 4.294967296E+9) {
-            varargin_1 = static_cast<unsigned int>(missingTime);
-          } else {
+          obj = &Config.contents;
+          integratedTimeError = Config.contents.K - 1.0;
+          if (!(integratedTimeError > 0.0)) {
+            c_rtErrorWithMessageID(b_emlrtRTEI.fName, b_emlrtRTEI.lineNo);
+          }
+          if (std::isinf(integratedTimeError) ||
+              (!(integratedTimeError == std::floor(integratedTimeError)))) {
+            i_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+          }
+          obj->K = integratedTimeError;
+          t9_P = std::round(Config.contents.K);
+          if (t9_P < 4.294967296E+9) {
+            if (t9_P >= 0.0) {
+              varargin_1 = static_cast<unsigned int>(t9_P);
+            } else {
+              varargin_1 = 0U;
+            }
+          } else if (t9_P >= 4.294967296E+9) {
             varargin_1 = MAX_uint32_T;
+          } else {
+            varargin_1 = 0U;
           }
           printf("WARNING!!! PROCESSING TIME TOOK LONGER THAN WAVEFORM LENGTH. "
                  "STREAMING NOT POSSIBLE. REDUCING NUMBER OF PULSES CONSIDERED "
@@ -1865,74 +2315,78 @@ void uavrt_detection()
         segmentsProcessed++;
         coder::tic();
         // Prepare priori for next segment
-        t5_t_0 = b_X.ps_pos->t_p;
-        t5_t_f = b_X.ps_pos->t_ip;
-        t5_fp = b_X.ps_pos->t_ipu;
-        t5_fstart = b_X.ps_pos->t_ipj;
-        t5_fend = b_X.ps_pos->fp;
-        ps_pre_struc_fstart = b_X.ps_pos->fstart;
-        ps_pre_struc_fend = b_X.ps_pos->fend;
+        printf("Updating priori...\n");
+        fflush(stdout);
+        t9_SNR = b_X.ps_pos->t_p;
+        t9_yw = b_X.ps_pos->t_ip;
+        t9_t_0 = b_X.ps_pos->t_ipu;
+        t9_t_f = b_X.ps_pos->t_ipj;
+        t9_fp = b_X.ps_pos->fp;
+        t9_fstart = b_X.ps_pos->fstart;
+        t9_fend = b_X.ps_pos->fend;
         ps_pre_struc_tmplt[0] = b_X.ps_pos->tmplt[0];
         ps_pre_struc_tmplt[1] = b_X.ps_pos->tmplt[1];
         mode = b_X.ps_pos->mode;
         ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
-        n = b_X.ps_pos->pl.size(1);
-        for (q1 = 0; q1 < n; q1++) {
-          ps_pre_struc_pl[q1] = b_X.ps_pos->pl[q1];
+        qY = b_X.ps_pos->pl.size(1);
+        for (i = 0; i < qY; i++) {
+          ps_pre_struc_pl[i] = b_X.ps_pos->pl[i];
         }
         ps_pre_struc_clst.set_size(b_X.ps_pos->clst.size(0),
                                    b_X.ps_pos->clst.size(1));
-        n = b_X.ps_pos->clst.size(0) * b_X.ps_pos->clst.size(1);
-        for (q1 = 0; q1 < n; q1++) {
-          ps_pre_struc_clst[q1] = b_X.ps_pos->clst[q1];
+        qY = b_X.ps_pos->clst.size(0) * b_X.ps_pos->clst.size(1);
+        for (i = 0; i < qY; i++) {
+          ps_pre_struc_clst[i] = b_X.ps_pos->clst[i];
         }
         ps_pre_struc_cmsk.set_size(b_X.ps_pos->cmsk.size(0),
                                    b_X.ps_pos->cmsk.size(1));
-        n = b_X.ps_pos->cmsk.size(0) * b_X.ps_pos->cmsk.size(1);
-        for (q1 = 0; q1 < n; q1++) {
-          ps_pre_struc_cmsk[q1] = b_X.ps_pos->cmsk[q1];
+        qY = b_X.ps_pos->cmsk.size(0) * b_X.ps_pos->cmsk.size(1);
+        for (i = 0; i < qY; i++) {
+          ps_pre_struc_cmsk[i] = b_X.ps_pos->cmsk[i];
         }
         ps_pre_struc_cpki.set_size(b_X.ps_pos->cpki.size(0),
                                    b_X.ps_pos->cpki.size(1));
-        n = b_X.ps_pos->cpki.size(0) * b_X.ps_pos->cpki.size(1);
-        for (q1 = 0; q1 < n; q1++) {
-          ps_pre_struc_cpki[q1] = b_X.ps_pos->cpki[q1];
+        qY = b_X.ps_pos->cpki.size(0) * b_X.ps_pos->cpki.size(1);
+        for (i = 0; i < qY; i++) {
+          ps_pre_struc_cpki[i] = b_X.ps_pos->cpki[i];
         }
         updatebufferreadvariables(&Config, &stftOverlapFraction,
                                   &overlapSamples, &sampsForKPulses,
                                   b_X.ps_pos);
-        missingPackets = coder::toc();
+        t9_P = coder::toc();
+        printf("complete. Elapsed time: %f seconds \n", t9_P);
+        fflush(stdout);
         // Deal with detected pulses
         // Xhold{mod(segmentsProcessed,maxSegments)} = X;%Keep a maxSegments
         // running record of waveforms for debugging in Matlab Xstruct =
         // obj2structrecursive(X); Xhold = X;
         Xhold = waveformcopy(&b_X, &lobj_9, &lobj_10[0], &lobj_11);
-        q1 = ps_pre_struc_pl.size(1);
-        for (n = 0; n < q1; n++) {
-
-    typedef struct {
-        double snr;
-        double confirmationStatus;
-        double timeSeconds;
-    } PulseInfo_T;
-
-          PulseInfo_T pulseInfo;
-          printf("%.1f:t %4.0f:freq %5.1f:snr %u:conf\n",
-                    ps_pre_struc_pl[n].t_0,
-                    ps_pre_struc_pl[n].fp, 
-                    ps_pre_struc_pl[n].SNR,
-                    static_cast<unsigned int>(ps_pre_struc_pl[n].con_dec));
+        i = ps_pre_struc_pl.size(1);
+        for (qY = 0; qY < i; qY++) {
+          double pulseInfo[3];
+          if (qY + 1 > ps_pre_struc_pl.size(1)) {
+            rtDynamicBoundsError(qY + 1, 1, ps_pre_struc_pl.size(1),
+                                 &fb_emlrtBCI);
+          }
+          printf("Pulse at %e Hz detected. SNR: %e Confirmation status: %u \n",
+                 ps_pre_struc_pl[qY].fp, ps_pre_struc_pl[qY].SNR,
+                 static_cast<unsigned int>(ps_pre_struc_pl[qY].con_dec));
           fflush(stdout);
-          pulseInfo.snr                 = ps_pre_struc_pl[n].SNR;
-          pulseInfo.confirmationStatus  = ps_pre_struc_pl[n].con_dec;
-          pulseInfo.timeSeconds         = ps_pre_struc_pl[n].t_0;
-          udpSenderSend(udpSender, (double*)&pulseInfo);
+          pulseInfo[0] = ps_pre_struc_pl[qY].SNR;
+          pulseInfo[1] = ps_pre_struc_pl[qY].con_dec;
+          pulseInfo[2] = ps_pre_struc_pl[qY].t_0;
+          udpSenderSend(udpSender, &pulseInfo[0]);
         }
-        printf("- %c:mode\n", mode);
+        d_varargin_1.set_size(1, 2);
+        d_varargin_1[0] = mode;
+        d_varargin_1[1] = '\x00';
+        printf("Current Mode: %s\n", &d_varargin_1[0]);
+        fflush(stdout);
+        printf("====================================\n");
         fflush(stdout);
       }
     }
-  } while (exitg1 == 0);
+  }
 }
 
 //

@@ -1,10 +1,11 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 // File: weightingmatrix.h
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 17-Dec-2022 12:06:22
 //
 
 #ifndef WEIGHTINGMATRIX_H
@@ -17,9 +18,9 @@
 #include <cstdlib>
 
 // Function Declarations
-void b_binary_expand_op(coder::array<creal_T, 2U> &in1,
-                        const coder::array<creal_T, 2U> &in2, int in3,
-                        const coder::array<double, 2U> &in4);
+void binary_expand_op(coder::array<creal_T, 2U> &in1,
+                      const coder::array<creal_T, 2U> &in2, int in3, int in4,
+                      const coder::array<double, 2U> &in5);
 
 #endif
 //
