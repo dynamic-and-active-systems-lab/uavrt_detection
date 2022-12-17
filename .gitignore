@@ -50,3 +50,6 @@ src
 *.asv
 *.tgz
 *.zip
+
+uavrt_detection
+*.o
