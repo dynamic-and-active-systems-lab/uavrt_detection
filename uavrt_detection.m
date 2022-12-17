@@ -3,7 +3,8 @@ function [] = uavrt_detection()
 %   Detailed explanation goes here
 
  %#codegen
-configPath = "detector/config/detectorConfig.txt"; %Must exist in the same directory as the execution of this executable
+pwd
+configPath = pwd + "/detector/config/detectorConfig.txt"; %Must exist in the same directory as the execution of this executable
 
 Config =  DetectorConfig(); %Build empty config object
 updateconfig()              %Update (fill) the configuration
