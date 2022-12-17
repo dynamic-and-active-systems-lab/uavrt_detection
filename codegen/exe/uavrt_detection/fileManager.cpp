@@ -5,7 +5,7 @@
 // File: fileManager.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 17-Dec-2022 12:06:22
+// C/C++ source code generated on  : 17-Dec-2022 13:40:17
 //
 
 // Include Files
@@ -15,6 +15,7 @@
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
 #include "omp.h"
+#include <algorithm>
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
@@ -175,11 +176,12 @@ int cfclose(double fid)
 }
 
 //
-// Arguments    : const char cfilename[34]
+// Arguments    : const char cfilename[65]
 // Return Type  : signed char
 //
-signed char cfopen(const char cfilename[34])
+signed char cfopen(const char cfilename[65])
 {
+  char ccfilename[66];
   signed char fileid;
   signed char j;
   fileid = -1;
@@ -188,14 +190,11 @@ signed char cfopen(const char cfilename[34])
     qc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
   } else {
     FILE *filestar;
-    int i;
-    char ccfilename[35];
-    for (i = 0; i < 34; i++) {
-      ccfilename[i] = cfilename[i];
-    }
-    ccfilename[34] = '\x00';
+    std::copy(&cfilename[0], &cfilename[65], &ccfilename[0]);
+    ccfilename[65] = '\x00';
     filestar = fopen(&ccfilename[0], "rb");
     if (filestar != NULL) {
+      int i;
       eml_openfiles[j - 1] = filestar;
       i = j + 2;
       if (j + 2 > 127) {

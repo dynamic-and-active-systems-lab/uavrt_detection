@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 17-Dec-2022 12:06:22
+// C/C++ source code generated on  : 17-Dec-2022 13:40:17
 //
 
 // Include Files
@@ -50,6 +50,7 @@
 #include "coder_array.h"
 #include "omp.h"
 #include "udp.h"
+#include <algorithm>
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
@@ -840,6 +841,7 @@ static void updateconfig(coder::b_captured_var *Config,
   coder::array<char, 2U> lineStr;
   coder::array<boolean_T, 2U> b_lineStr;
   int ii_data;
+  char varargin_1[66];
   signed char fileid;
   Config->contents.init();
   // fillFromFile Replaces the properties of the instance passed to
@@ -863,11 +865,9 @@ static void updateconfig(coder::b_captured_var *Config,
   //
   fileid = coder::cfopen(configPath->contents.Value);
   if (fileid == -1) {
-    char varargin_1[35];
-    for (int i{0}; i < 34; i++) {
-      varargin_1[i] = configPath->contents.Value[i];
-    }
-    varargin_1[34] = '\x00';
+    std::copy(&configPath->contents.Value[0], &configPath->contents.Value[65],
+              &varargin_1[0]);
+    varargin_1[65] = '\x00';
     printf("Failed to open config file: %s\n", &varargin_1[0]);
     fflush(stdout);
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);

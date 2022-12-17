@@ -5,7 +5,7 @@
 // File: string1.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 17-Dec-2022 12:06:22
+// C/C++ source code generated on  : 17-Dec-2022 13:40:17
 //
 
 #ifndef STRING1_H
@@ -22,7 +22,7 @@ namespace coder {
 class rtString {
 public:
   void init();
-  char Value[34];
+  char Value[65];
 };
 
 class b_rtString {
