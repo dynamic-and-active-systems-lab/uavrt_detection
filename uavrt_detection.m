@@ -121,6 +121,7 @@ timeStamp         = 0;
 cleanBuffer       = true;
 trackedCount      = 0;
 
+incomingSequenceCounts      = false;
 expectedSequenceCount       = 0;
 resetExpectedSequenceCount  = true;
 
@@ -146,25 +147,25 @@ while true %i <= maxInd
             %% Get data
             [iqData]  = udpReceiverRead(udpReceiver, udpReceiveBufferSize);
             %% Wait for new data if none ready, else put data in buffers
-            if isempty(iqData)
-                pause((packetLength-1)/2*1/Config.Fs);
-            else
-                actualSequenceCount = real(iqData(1));
-                iqData = iqData(2:end);
-                sampleCount = numel(iqData);
+            if ~isempty(iqData)
+                if incomingSequenceCounts
+                    actualSequenceCount = real(iqData(1));
+                    iqData = iqData(2:end);
 
-                if resetExpectedSequenceCount
-                    expectedSequenceCount = actualSequenceCount;
-                    resetExpectedSequenceCount = false;
+                    if resetExpectedSequenceCount
+                        expectedSequenceCount = actualSequenceCount;
+                        resetExpectedSequenceCount = false;
+                    end
+                    if actualSequenceCount ~= expectedSequenceCount
+                        expectedSequenceCount = actualSequenceCount;
+                        fprintf("OVERFLOW\n");
+                    end
+                    expectedSequenceCount = expectedSequenceCount + 1;
+                    if expectedSequenceCount == 65536
+                        expectedSequenceCount = 0;
+                    end
                 end
-                if actualSequenceCount ~= expectedSequenceCount
-                    expectedSequenceCount = actualSequenceCount;
-                    fprintf("OVERFLOW\n");
-                end
-                expectedSequenceCount = expectedSequenceCount + 1;
-                if expectedSequenceCount == 65536
-                    expectedSequenceCount = 0;
-                end
+                sampleCount = numel(iqData);
 
                 framesReceived = framesReceived + 1;
                 timeVector     = timeStamp + (1 / Config.Fs) * (0 : (sampleCount - 1)).';
