@@ -1,28 +1,25 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: psdfreqvec.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// psdfreqvec.cpp
+//
+// Code generation for function 'psdfreqvec'
 //
 
-// Include Files
+// Include files
 #include "psdfreqvec.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include <cfloat>
 #include <cmath>
+#include <string.h>
 
 // Function Declarations
 static double rt_remd_snf(double u0, double u1);
 
 // Function Definitions
-//
-// Arguments    : double u0
-//                double u1
-// Return Type  : double
-//
 static double rt_remd_snf(double u0, double u1)
 {
   double y;
@@ -44,12 +41,6 @@ static double rt_remd_snf(double u0, double u1)
   return y;
 }
 
-//
-// Arguments    : double varargin_2
-//                double varargin_4
-//                ::coder::array<double, 1U> &w
-// Return Type  : void
-//
 namespace coder {
 void psdfreqvec(double varargin_2, double varargin_4,
                 ::coder::array<double, 1U> &w)
@@ -103,8 +94,4 @@ void psdfreqvec(double varargin_2, double varargin_4,
 
 } // namespace coder
 
-//
-// File trailer for psdfreqvec.cpp
-//
-// [EOF]
-//
+// End of code generation (psdfreqvec.cpp)

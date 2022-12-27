@@ -1,16 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: buildtimecorrelatormatrix.h
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// buildtimecorrelatormatrix.h
+//
+// Code generation for function 'buildtimecorrelatormatrix'
 //
 
 #ifndef BUILDTIMECORRELATORMATRIX_H
 #define BUILDTIMECORRELATORMATRIX_H
 
-// Include Files
+// Include files
 #include "rtwtypes.h"
 #include <cstddef>
 #include <cstdlib>
@@ -26,8 +27,4 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
                                double reps, coder::sparse *Wq);
 
 #endif
-//
-// File trailer for buildtimecorrelatormatrix.h
-//
-// [EOF]
-//
+// End of code generation (buildtimecorrelatormatrix.h)

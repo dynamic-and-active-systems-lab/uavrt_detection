@@ -1,27 +1,25 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: string1.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// string1.cpp
+//
+// Code generation for function 'string1'
 //
 
-// Include Files
+// Include files
 #include "string1.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection_data.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Variable Definitions
 static const char cv1[18]{'f', 'r', 'e', 'q', 'S', 'e', 'a', 'r', 'c',
                           'h', 'H', 'a', 'r', 'd', 'L', 'o', 'c', 'k'};
 
 // Function Definitions
-//
-// Arguments    : void
-// Return Type  : boolean_T
-//
 namespace coder {
 boolean_T b_rtString::b_eq() const
 {
@@ -50,10 +48,6 @@ boolean_T b_rtString::b_eq() const
   return equal;
 }
 
-//
-// Arguments    : void
-// Return Type  : boolean_T
-//
 boolean_T b_rtString::c_eq() const
 {
   boolean_T equal;
@@ -79,10 +73,6 @@ boolean_T b_rtString::c_eq() const
   return equal;
 }
 
-//
-// Arguments    : void
-// Return Type  : boolean_T
-//
 boolean_T b_rtString::d_eq() const
 {
   static const char b_cv[13]{'f', 'r', 'e', 'q', 'A', 'l', 'l',
@@ -110,10 +100,6 @@ boolean_T b_rtString::d_eq() const
   return equal;
 }
 
-//
-// Arguments    : void
-// Return Type  : boolean_T
-//
 boolean_T b_rtString::eq() const
 {
   boolean_T equal;
@@ -139,10 +125,6 @@ boolean_T b_rtString::eq() const
   return equal;
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
 void rtString::init()
 {
   static const char b_cv[34]{'d', 'e', 't', 'e', 'c', 't', 'o', 'r', '/',
@@ -154,10 +136,6 @@ void rtString::init()
   }
 }
 
-//
-// Arguments    : void
-// Return Type  : void
-//
 void b_rtString::init()
 {
   Value.set_size(1, 18);
@@ -168,8 +146,4 @@ void b_rtString::init()
 
 } // namespace coder
 
-//
-// File trailer for string1.cpp
-//
-// [EOF]
-//
+// End of code generation (string1.cpp)

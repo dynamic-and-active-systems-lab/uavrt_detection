@@ -1,25 +1,22 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: fseek.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// fseek.cpp
+//
+// Code generation for function 'fseek'
 //
 
-// Include Files
+// Include files
 #include "fseek.h"
 #include "fileManager.h"
 #include "rt_nonfinite.h"
 #include <cmath>
 #include <stdio.h>
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : double fileID
-//                double offset
-// Return Type  : void
-//
 namespace coder {
 void b_fseek(double fileID, double offset)
 {
@@ -40,8 +37,4 @@ void b_fseek(double fileID, double offset)
 
 } // namespace coder
 
-//
-// File trailer for fseek.cpp
-//
-// [EOF]
-//
+// End of code generation (fseek.cpp)

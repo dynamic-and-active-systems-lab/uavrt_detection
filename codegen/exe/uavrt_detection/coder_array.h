@@ -580,10 +580,6 @@ class array_base {
         return data_;
     }
 
-    SZ* size() {
-        return &size_[0];
-    }
-    
     SZ const* size() const {
         return &size_[0];
     }

@@ -1,16 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: uavrt_detection_data.h
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// uavrt_detection_data.h
+//
+// Code generation for function 'uavrt_detection_data'
 //
 
 #ifndef UAVRT_DETECTION_DATA_H
 #define UAVRT_DETECTION_DATA_H
 
-// Include Files
+// Include files
 #include "rtwtypes.h"
 #include "omp.h"
 #include <cstddef>
@@ -21,14 +22,10 @@ extern unsigned int state[625];
 extern double freq;
 extern boolean_T freq_not_empty;
 extern omp_nest_lock_t uavrt_detection_nestLockGlobal;
-extern const boolean_T bv[128];
 extern const char cv[128];
+extern const boolean_T bv[128];
 extern const char cv2[18];
 extern boolean_T isInitialized_uavrt_detection;
 
 #endif
-//
-// File trailer for uavrt_detection_data.h
-//
-// [EOF]
-//
+// End of code generation (uavrt_detection_data.h)

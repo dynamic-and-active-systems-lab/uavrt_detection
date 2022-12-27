@@ -1,25 +1,21 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: minOrMax.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// minOrMax.cpp
+//
+// Code generation for function 'minOrMax'
 //
 
-// Include Files
+// Include files
 #include "minOrMax.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include <cmath>
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : const ::coder::array<double, 2U> &x
-//                ::coder::array<double, 1U> &ex
-//                ::coder::array<int, 1U> &idx
-// Return Type  : void
-//
 namespace coder {
 namespace internal {
 void maximum(const ::coder::array<double, 2U> &x,
@@ -61,12 +57,6 @@ void maximum(const ::coder::array<double, 2U> &x,
   }
 }
 
-//
-// Arguments    : const ::coder::array<double, 1U> &x
-//                double *ex
-//                int *idx
-// Return Type  : void
-//
 void maximum(const ::coder::array<double, 1U> &x, double *ex, int *idx)
 {
   int last;
@@ -120,10 +110,6 @@ void maximum(const ::coder::array<double, 1U> &x, double *ex, int *idx)
   }
 }
 
-//
-// Arguments    : const double x[2]
-// Return Type  : double
-//
 double maximum(const double x[2])
 {
   double ex;
@@ -135,10 +121,6 @@ double maximum(const double x[2])
   return ex;
 }
 
-//
-// Arguments    : const ::coder::array<double, 1U> &x
-// Return Type  : double
-//
 double maximum(const ::coder::array<double, 1U> &x)
 {
   double ex;
@@ -189,10 +171,6 @@ double maximum(const ::coder::array<double, 1U> &x)
   return ex;
 }
 
-//
-// Arguments    : const double x[2]
-// Return Type  : double
-//
 double minimum(const double x[2])
 {
   double ex;
@@ -207,8 +185,4 @@ double minimum(const double x[2])
 } // namespace internal
 } // namespace coder
 
-//
-// File trailer for minOrMax.cpp
-//
-// [EOF]
-//
+// End of code generation (minOrMax.cpp)

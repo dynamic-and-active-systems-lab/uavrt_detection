@@ -1,24 +1,22 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: tic.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// tic.cpp
+//
+// Code generation for function 'tic'
 //
 
-// Include Files
+// Include files
 #include "tic.h"
 #include "rt_nonfinite.h"
 #include "timeKeeper.h"
 #include "uavrt_detection_data.h"
 #include "coder_posix_time.h"
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : void
-// Return Type  : void
-//
 namespace coder {
 void tic()
 {
@@ -33,8 +31,4 @@ void tic()
 
 } // namespace coder
 
-//
-// File trailer for tic.cpp
-//
-// [EOF]
-//
+// End of code generation (tic.cpp)

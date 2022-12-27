@@ -1,16 +1,18 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: quickselect.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// quickselect.cpp
+//
+// Code generation for function 'quickselect'
 //
 
-// Include Files
+// Include files
 #include "quickselect.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Declarations
 namespace coder {
@@ -21,12 +23,6 @@ static int thirdOfFive(const ::coder::array<double, 1U> &v, int ia, int ib);
 } // namespace coder
 
 // Function Definitions
-//
-// Arguments    : const ::coder::array<double, 1U> &v
-//                int ia
-//                int ib
-// Return Type  : int
-//
 namespace coder {
 namespace internal {
 static int thirdOfFive(const ::coder::array<double, 1U> &v, int ia, int ib)
@@ -116,15 +112,6 @@ static int thirdOfFive(const ::coder::array<double, 1U> &v, int ia, int ib)
   return im;
 }
 
-//
-// Arguments    : ::coder::array<double, 1U> &v
-//                int n
-//                int vlen
-//                double *vn
-//                int *nfirst
-//                int *nlast
-// Return Type  : void
-//
 void quickselect(::coder::array<double, 1U> &v, int n, int vlen, double *vn,
                  int *nfirst, int *nlast)
 {
@@ -222,7 +209,7 @@ void quickselect(::coder::array<double, 1U> &v, int n, int vlen, double *vn,
             }
           }
         } else if (c >= 3) {
-          ipiv = ia + static_cast<int>(static_cast<unsigned int>(c - 1) >> 1);
+          ipiv = ia + (c - 1) / 2;
           if (v[ia] < v[ipiv]) {
             if (!(v[ipiv] < v[ib])) {
               if (v[ia] < v[ib]) {
@@ -255,8 +242,4 @@ void quickselect(::coder::array<double, 1U> &v, int n, int vlen, double *vn,
 } // namespace internal
 } // namespace coder
 
-//
-// File trailer for quickselect.cpp
-//
-// [EOF]
-//
+// End of code generation (quickselect.cpp)

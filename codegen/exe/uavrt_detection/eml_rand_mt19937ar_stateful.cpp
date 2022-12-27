@@ -1,23 +1,21 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: eml_rand_mt19937ar_stateful.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// eml_rand_mt19937ar_stateful.cpp
+//
+// Code generation for function 'eml_rand_mt19937ar_stateful'
 //
 
-// Include Files
+// Include files
 #include "eml_rand_mt19937ar_stateful.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection_data.h"
 #include <cstring>
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : void
-// Return Type  : void
-//
 void eml_rand_mt19937ar_stateful_init()
 {
   unsigned int r;
@@ -25,14 +23,10 @@ void eml_rand_mt19937ar_stateful_init()
   r = 5489U;
   state[0] = 5489U;
   for (int mti{0}; mti < 623; mti++) {
-    r = ((r ^ r >> 30U) * 1812433253U + static_cast<unsigned int>(mti)) + 1U;
+    r = ((r ^ r >> 30U) * 1812433253U + mti) + 1U;
     state[mti + 1] = r;
   }
   state[624] = 624U;
 }
 
-//
-// File trailer for eml_rand_mt19937ar_stateful.cpp
-//
-// [EOF]
-//
+// End of code generation (eml_rand_mt19937ar_stateful.cpp)

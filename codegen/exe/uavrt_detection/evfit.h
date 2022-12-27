@@ -1,16 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: evfit.h
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// evfit.h
+//
+// Code generation for function 'evfit'
 //
 
 #ifndef EVFIT_H
 #define EVFIT_H
 
-// Include Files
+// Include files
 #include "rtwtypes.h"
 #include <cstddef>
 #include <cstdlib>
@@ -22,8 +23,4 @@ void evfit(const double x[100], double parmhat[2]);
 }
 
 #endif
-//
-// File trailer for evfit.h
-//
-// [EOF]
-//
+// End of code generation (evfit.h)

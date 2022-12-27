@@ -1,25 +1,23 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: str2double.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// str2double.cpp
+//
+// Code generation for function 'str2double'
 //
 
-// Include Files
+// Include files
 #include "str2double.h"
 #include "rt_nonfinite.h"
 #include "str2double1.h"
 #include "uavrt_detection_data.h"
 #include "coder_array.h"
 #include <stdio.h>
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : const ::coder::array<char, 2U> &s
-// Return Type  : creal_T
-//
 namespace coder {
 creal_T str2double(const ::coder::array<char, 2U> &s)
 {
@@ -58,7 +56,7 @@ creal_T str2double(const ::coder::array<char, 2U> &s)
       s1[i] = '\x00';
     }
     idx = 1;
-    internal::readfloat(s1, &idx, s, &k, s.size(1), &isimag1, &isfinite1,
+    internal::readfloat(s1, &idx, s, &k, s.size(1), true, &isimag1, &isfinite1,
                         &scanned1, &a__1, &success);
     if (isfinite1) {
       ntoread = 1;
@@ -66,12 +64,13 @@ creal_T str2double(const ::coder::array<char, 2U> &s)
     if (success && (k <= s.size(1))) {
       s1[idx - 1] = ' ';
       idx++;
-      internal::readfloat(s1, &idx, s, &k, s.size(1), &a__1, &isfinite2,
+      internal::readfloat(s1, &idx, s, &k, s.size(1), true, &a__1, &isfinite2,
                           &scanned2, &foundsign, &success);
       if (isfinite2) {
         ntoread++;
       }
-      if (success && (k > s.size(1)) && (isimag1 ^ a__1) && foundsign) {
+      if (success && (k > s.size(1)) &&
+          (static_cast<boolean_T>(isimag1 ^ a__1)) && foundsign) {
         success = true;
       } else {
         success = false;
@@ -113,8 +112,4 @@ creal_T str2double(const ::coder::array<char, 2U> &s)
 
 } // namespace coder
 
-//
-// File trailer for str2double.cpp
-//
-// [EOF]
-//
+// End of code generation (str2double.cpp)

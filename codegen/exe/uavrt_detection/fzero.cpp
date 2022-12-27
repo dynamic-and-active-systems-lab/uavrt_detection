@@ -1,24 +1,22 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: fzero.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// fzero.cpp
+//
+// Code generation for function 'fzero'
 //
 
-// Include Files
+// Include files
 #include "fzero.h"
 #include "anonymous_function.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection_internal_types.h"
 #include <cmath>
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : const b_anonymous_function FunFcn
-// Return Type  : double
-//
 namespace coder {
 double fzero(const b_anonymous_function FunFcn)
 {
@@ -155,8 +153,4 @@ double fzero(const b_anonymous_function FunFcn)
 
 } // namespace coder
 
-//
-// File trailer for fzero.cpp
-//
-// [EOF]
-//
+// End of code generation (fzero.cpp)

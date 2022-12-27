@@ -1,16 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: locBsearch.h
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// locBsearch.h
+//
+// Code generation for function 'locBsearch'
 //
 
 #ifndef LOCBSEARCH_H
 #define LOCBSEARCH_H
 
-// Include Files
+// Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -27,8 +28,4 @@ void sparse_locBsearch(const ::coder::array<int, 1U> &x, double xi, int xstart,
 } // namespace coder
 
 #endif
-//
-// File trailer for locBsearch.h
-//
-// [EOF]
-//
+// End of code generation (locBsearch.h)

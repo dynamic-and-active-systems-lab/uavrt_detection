@@ -1,19 +1,19 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: stack1.h
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// stack1.h
+//
+// Code generation for function 'stack1'
 //
 
 #ifndef STACK1_H
 #define STACK1_H
 
-// Include Files
+// Include files
 #include "rtwtypes.h"
 #include "uavrt_detection_internal_types.h"
-#include "coder_bounded_array.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -22,7 +22,7 @@ namespace coder {
 namespace internal {
 class stack {
 public:
-  bounded_array<struct_T, 120U, 1U> d;
+  emxArray_struct_T_120 d;
   int n;
 };
 
@@ -30,8 +30,4 @@ public:
 } // namespace coder
 
 #endif
-//
-// File trailer for stack1.h
-//
-// [EOF]
-//
+// End of code generation (stack1.h)

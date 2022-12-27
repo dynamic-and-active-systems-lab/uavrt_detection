@@ -1,25 +1,21 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: movSumProdOrMean.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// movSumProdOrMean.cpp
+//
+// Code generation for function 'movSumProdOrMean'
 //
 
-// Include Files
+// Include files
 #include "movSumProdOrMean.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include "omp.h"
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : const ::coder::array<double, 1U> &x
-//                int nx
-//                ::coder::array<double, 1U> &y
-// Return Type  : void
-//
 namespace coder {
 void vmovfun(const ::coder::array<double, 1U> &x, int nx,
              ::coder::array<double, 1U> &y)
@@ -42,7 +38,7 @@ void vmovfun(const ::coder::array<double, 1U> &x, int nx,
   }
   loop_ub = nx - 1;
 #pragma omp parallel for num_threads(omp_get_max_threads()) private(           \
-    iLeft, vlen, b_y, firstBlockLength, lastBlockLength, nblocks, b_k, ib,     \
+    iLeft, b_k, vlen, b_y, firstBlockLength, lastBlockLength, nblocks, ib,     \
     bsum, hi)
 
   for (int k = 0; k <= loop_ub; k++) {
@@ -52,11 +48,11 @@ void vmovfun(const ::coder::array<double, 1U> &x, int nx,
       iLeft = k - 1;
     }
     if (k + 2 > x.size(0)) {
-      vlen = x.size(0);
+      b_k = x.size(0);
     } else {
-      vlen = k + 2;
+      b_k = k + 2;
     }
-    vlen -= iLeft;
+    vlen = b_k - iLeft;
     if ((x.size(0) == 0) || (vlen == 0)) {
       b_y = 0.0;
     } else {
@@ -98,8 +94,4 @@ void vmovfun(const ::coder::array<double, 1U> &x, int nx,
 
 } // namespace coder
 
-//
-// File trailer for movSumProdOrMean.cpp
-//
-// [EOF]
-//
+// End of code generation (movSumProdOrMean.cpp)

@@ -1,22 +1,20 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: ifWhileCond.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// ifWhileCond.cpp
+//
+// Code generation for function 'ifWhileCond'
 //
 
-// Include Files
+// Include files
 #include "ifWhileCond.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : const ::coder::array<boolean_T, 1U> &x
-// Return Type  : boolean_T
-//
 namespace coder {
 namespace internal {
 boolean_T ifWhileCond(const ::coder::array<boolean_T, 1U> &x)
@@ -43,8 +41,4 @@ boolean_T ifWhileCond(const ::coder::array<boolean_T, 1U> &x)
 } // namespace internal
 } // namespace coder
 
-//
-// File trailer for ifWhileCond.cpp
-//
-// [EOF]
-//
+// End of code generation (ifWhileCond.cpp)

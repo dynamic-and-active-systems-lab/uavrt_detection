@@ -1,27 +1,20 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: locBsearch.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// locBsearch.cpp
+//
+// Code generation for function 'locBsearch'
 //
 
-// Include Files
+// Include files
 #include "locBsearch.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : const ::coder::array<int, 1U> &x
-//                int xi
-//                int xstart
-//                int xend
-//                int *n
-//                boolean_T *found
-// Return Type  : void
-//
 namespace coder {
 void b_sparse_locBsearch(const ::coder::array<int, 1U> &x, int xi, int xstart,
                          int xend, int *n, boolean_T *found)
@@ -60,15 +53,6 @@ void b_sparse_locBsearch(const ::coder::array<int, 1U> &x, int xi, int xstart,
   }
 }
 
-//
-// Arguments    : const ::coder::array<int, 1U> &x
-//                double xi
-//                int xstart
-//                int xend
-//                int *n
-//                boolean_T *found
-// Return Type  : void
-//
 void sparse_locBsearch(const ::coder::array<int, 1U> &x, double xi, int xstart,
                        int xend, int *n, boolean_T *found)
 {
@@ -108,8 +92,4 @@ void sparse_locBsearch(const ::coder::array<int, 1U> &x, double xi, int xstart,
 
 } // namespace coder
 
-//
-// File trailer for locBsearch.cpp
-//
-// [EOF]
-//
+// End of code generation (locBsearch.cpp)

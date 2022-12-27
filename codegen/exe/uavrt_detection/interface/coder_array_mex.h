@@ -564,8 +564,6 @@ class array_base {
         std::copy(_sz, _sz + N, size_);
     }
 
-    array_base(array_base const&) = default;
-
     array_base& operator=(const array_base& _other) {
         data_.copy(_other.data_);
         std::copy(_other.size_, _other.size_ + N, size_);
@@ -1236,7 +1234,6 @@ class array : public array_base<T, SizeType, N> {
     array()
         : Base() {
     }
-    array& operator=(const array<T, N>&) = default;
     array(const array<T, N>& _other)
         : Base(_other) {
     }
@@ -1261,9 +1258,6 @@ class array<char_T, 2> : public array_base<char_T, SizeType, 2> {
     array(const array<char_T, 2>& _other)
         : Base(_other) {
     }
-
-    array& operator=(const array<char_T, 2>&) = default;
-
     array(const Base& _other)
         : Base(_other) {
     }
@@ -1315,7 +1309,6 @@ class array<T, 2> : public array_base<T, SizeType, 2> {
     array(const array<T, 2>& _other)
         : Base(_other) {
     }
-    array& operator=(const array<T, 2>& _other) = default;
     array(const Base& _other)
         : Base(_other) {
     }
@@ -1350,7 +1343,6 @@ class array<T, 1> : public array_base<T, SizeType, 1> {
     array(const array<T, 1>& _other)
         : Base(_other) {
     }
-    array& operator=(const array<T, 1>& _other) = default;
     array(const Base& _other)
         : Base(_other) {
     }

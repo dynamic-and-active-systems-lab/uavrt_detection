@@ -1,13 +1,14 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: any1.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// any1.cpp
+//
+// Code generation for function 'any1'
 //
 
-// Include Files
+// Include files
 #include "any1.h"
 #include "anonymous_function.h"
 #include "introsort.h"
@@ -15,13 +16,9 @@
 #include "sparse1.h"
 #include "uavrt_detection_internal_types.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : const c_sparse *x
-//                d_sparse *y
-// Return Type  : void
-//
 namespace coder {
 void any(const c_sparse *x, d_sparse *y)
 {
@@ -132,8 +129,4 @@ void any(const c_sparse *x, d_sparse *y)
 
 } // namespace coder
 
-//
-// File trailer for any1.cpp
-//
-// [EOF]
-//
+// End of code generation (any1.cpp)

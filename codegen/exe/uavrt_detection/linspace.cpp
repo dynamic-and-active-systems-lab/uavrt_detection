@@ -1,25 +1,21 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: linspace.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// linspace.cpp
+//
+// Code generation for function 'linspace'
 //
 
-// Include Files
+// Include files
 #include "linspace.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include <cmath>
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : double d2
-//                double n
-//                ::coder::array<double, 2U> &y
-// Return Type  : void
-//
 namespace coder {
 void linspace(double d2, double n, ::coder::array<double, 2U> &y)
 {
@@ -30,33 +26,34 @@ void linspace(double d2, double n, ::coder::array<double, 2U> &y)
     delta1 = std::floor(n);
     y.set_size(1, static_cast<int>(delta1));
     if (static_cast<int>(delta1) >= 1) {
+      int y_tmp;
+      y_tmp = static_cast<int>(delta1) - 1;
       y[static_cast<int>(delta1) - 1] = d2;
       if (y.size(1) >= 2) {
         y[0] = 0.0;
         if (y.size(1) >= 3) {
-          if (-d2 == 0.0) {
-            int i;
-            delta1 = d2 / (static_cast<double>(y.size(1)) - 1.0);
-            i = y.size(1) - 1;
-            for (int k{2}; k <= i; k++) {
-              y[k - 1] =
-                  static_cast<double>(((k << 1) - y.size(1)) - 1) * delta1;
+          if ((-d2 == 0.0) && (static_cast<int>(delta1) > 2)) {
+            double d2scaled;
+            d2scaled =
+                d2 / (static_cast<double>(static_cast<int>(delta1)) - 1.0);
+            for (int k{2}; k <= y_tmp; k++) {
+              y[k - 1] = static_cast<double>(
+                             ((k << 1) - static_cast<int>(delta1)) - 1) *
+                         d2scaled;
             }
-            if ((y.size(1) & 1) == 1) {
-              y[y.size(1) >> 1] = 0.0;
+            if ((static_cast<int>(delta1) & 1) == 1) {
+              y[static_cast<int>(delta1) >> 1] = 0.0;
             }
           } else if ((d2 < 0.0) && (std::abs(d2) > 8.9884656743115785E+307)) {
-            int i;
             delta1 = d2 / (static_cast<double>(y.size(1)) - 1.0);
-            i = y.size(1);
-            for (int k{0}; k <= i - 3; k++) {
+            y_tmp = y.size(1);
+            for (int k{0}; k <= y_tmp - 3; k++) {
               y[k + 1] = delta1 * (static_cast<double>(k) + 1.0);
             }
           } else {
-            int i;
             delta1 = d2 / (static_cast<double>(y.size(1)) - 1.0);
-            i = y.size(1);
-            for (int k{0}; k <= i - 3; k++) {
+            y_tmp = y.size(1);
+            for (int k{0}; k <= y_tmp - 3; k++) {
               y[k + 1] = (static_cast<double>(k) + 1.0) * delta1;
             }
           }
@@ -68,8 +65,4 @@ void linspace(double d2, double n, ::coder::array<double, 2U> &y)
 
 } // namespace coder
 
-//
-// File trailer for linspace.cpp
-//
-// [EOF]
-//
+// End of code generation (linspace.cpp)

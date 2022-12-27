@@ -1,24 +1,21 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: sparse.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// sparse.cpp
+//
+// Code generation for function 'sparse'
 //
 
-// Include Files
+// Include files
 #include "sparse.h"
 #include "rt_nonfinite.h"
 #include "sparse1.h"
 #include "coder_array.h"
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : const ::coder::array<boolean_T, 2U> &varargin_1
-//                c_sparse *y
-// Return Type  : void
-//
 namespace coder {
 void i_sparse(const ::coder::array<boolean_T, 2U> &varargin_1, c_sparse *y)
 {
@@ -64,11 +61,6 @@ void i_sparse(const ::coder::array<boolean_T, 2U> &varargin_1, c_sparse *y)
   }
 }
 
-//
-// Arguments    : const ::coder::array<double, 1U> &varargin_1
-//                g_sparse *y
-// Return Type  : void
-//
 void j_sparse(const ::coder::array<double, 1U> &varargin_1, g_sparse *y)
 {
   int mInt;
@@ -109,8 +101,4 @@ void j_sparse(const ::coder::array<double, 1U> &varargin_1, g_sparse *y)
 
 } // namespace coder
 
-//
-// File trailer for sparse.cpp
-//
-// [EOF]
-//
+// End of code generation (sparse.cpp)

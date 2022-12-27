@@ -1,16 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: abs.h
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// abs.h
+//
+// Code generation for function 'abs'
 //
 
 #ifndef ABS_H
 #define ABS_H
 
-// Include Files
+// Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -23,8 +24,4 @@ void b_abs(const ::coder::array<creal_T, 2U> &x, ::coder::array<double, 2U> &y);
 }
 
 #endif
-//
-// File trailer for abs.h
-//
-// [EOF]
-//
+// End of code generation (abs.h)

@@ -1,16 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: assembleWq.h
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// assembleWq.h
+//
+// Code generation for function 'assembleWq'
 //
 
 #ifndef ASSEMBLEWQ_H
 #define ASSEMBLEWQ_H
 
-// Include Files
+// Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -20,8 +21,4 @@
 void plus(coder::array<double, 2U> &in1, const coder::array<double, 2U> &in2);
 
 #endif
-//
-// File trailer for assembleWq.h
-//
-// [EOF]
-//
+// End of code generation (assembleWq.h)

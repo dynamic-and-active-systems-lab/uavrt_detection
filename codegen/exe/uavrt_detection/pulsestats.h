@@ -1,16 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: pulsestats.h
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// pulsestats.h
+//
+// Code generation for function 'pulsestats'
 //
 
 #ifndef PULSESTATS_H
 #define PULSESTATS_H
 
-// Include Files
+// Include files
 #include "rtwtypes.h"
 #include "uavrt_detection_internal_types.h"
 #include "coder_array.h"
@@ -57,8 +58,4 @@ public:
 };
 
 #endif
-//
-// File trailer for pulsestats.h
-//
-// [EOF]
-//
+// End of code generation (pulsestats.h)

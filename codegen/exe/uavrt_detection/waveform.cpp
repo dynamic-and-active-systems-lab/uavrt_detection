@@ -1,13 +1,14 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: waveform.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// waveform.cpp
+//
+// Code generation for function 'waveform'
 //
 
-// Include Files
+// Include files
 #include "waveform.h"
 #include "FFTImplementationCallback.h"
 #include "abs.h"
@@ -34,7 +35,6 @@
 #include "strcmp.h"
 #include "sum.h"
 #include "threshold.h"
-#include "uavrt_detection_data.h"
 #include "uavrt_detection_internal_types.h"
 #include "uavrt_detection_rtwutil.h"
 #include "unaryMinOrMax.h"
@@ -43,6 +43,7 @@
 #include "wfmstft.h"
 #include "coder_array.h"
 #include <cmath>
+#include <string.h>
 
 // Function Declarations
 static void b_and(coder::array<boolean_T, 1U> &in1, const coder::array<boolean_T,
@@ -53,8 +54,8 @@ static void b_binary_expand_op(coder::array<double, 1U> &in1, const waveform
   *in2);
 static void b_binary_expand_op(coder::array<double, 2U> &in1, double in2, const
   coder::array<double, 2U> &in3);
-static void b_binary_expand_op(waveform *in1, int in2, double in3, const coder::
-  array<double, 2U> &in4, const coder::array<double, 2U> &in5);
+static void b_binary_expand_op(coder::array<double, 1U> &in1, int in2, double
+  in3, const coder::array<double, 2U> &in4, const coder::array<double, 2U> &in5);
 static void b_binary_expand_op(coder::array<double, 2U> &in1, const coder::array<
   double, 2U> &in2, const coder::array<double, 2U> &in3, int in4, int in5);
 static void b_binary_expand_op(coder::array<double, 2U> &in1, const coder::array<
@@ -67,10 +68,12 @@ static void b_binary_expand_op(coder::array<double, 2U> &in1, double in2, double
 static void c_and(coder::array<boolean_T, 1U> &in1, const coder::array<boolean_T,
                   1U> &in2);
 static void c_binary_expand_op(coder::array<boolean_T, 2U> &in1, const coder::
-  array<double, 2U> &in2, const coder::array<double, 2U> &in3, const coder::
-  array<double, 2U> &in4, const coder::array<double, 2U> &in5, const coder::
-  array<double, 2U> &in6, const coder::array<double, 2U> &in7, const coder::
-  array<double, 2U> &in8, const coder::array<double, 2U> &in9);
+  array<double, 2U> &in2, const int in3[2], const coder::array<double, 2U> &in4,
+  const coder::array<double, 2U> &in5, const int in6[2], const coder::array<
+  double, 2U> &in7, const coder::array<double, 2U> &in8, const int in9[2], const
+  coder::array<double, 2U> &in10, const int in11[2], const coder::array<double,
+  2U> &in12, const int in13[2], const coder::array<double, 2U> &in14, const int
+  in15[2]);
 static void d_binary_expand_op(coder::array<boolean_T, 2U> &in1, unsigned int
   in2, const coder::array<boolean_T, 1U> &in3, const coder::array<double, 1U>
   &in4, double in5, const coder::array<double, 1U> &in6, const coder::array<
@@ -95,90 +98,6 @@ static void j_binary_expand_op(coder::array<boolean_T, 1U> &in1, const coder::
   array<double, 2U> &in4, const coder::array<double, 2U> &in5);
 
 // Function Definitions
-//
-// FINDPULSE Looks for pulses in the waveform based on its pulse
-// statistics object
-//
-// This method implemets the incoherent summation algorithm for
-// the waveform. The number of pulses summed (blocks considere)
-// is defined based on the length of obj.x and its priori
-// pulsestats object. When the waveform object is created, the
-// length of data (x property) included should be defined to be
-// long enough so that it is assure to contain no fewer than K
-// pulses. This method doesn't know K, but will create as many
-// blocks as it can based on the priori information.
-//
-// Note: The algorithm used for pulse peak energy detection
-// requires that the center frequency of the pulse not be at the
-// edges of the frequency bins in Wf. There needs to be rolloff
-// in signal power above and below the pulse center frequency.
-// Pulses at or just above/below the upper/lower limits of Wf may
-// exceeed the threshold for detection, but not get recorded in
-// the pl_out because the peeling algorithm can't catch them. If
-// this happens, the frequencies used in the priori to describe
-// the bounds of the pulse frequencies should be adjusted or
-// widened to ensure the pulse's spectral power has rolloff above
-// and below the center frequency and that this rolloff is within
-// the bounds of the Wf input.
-//
-//
-// INPUTS:
-//     obj            Waveform object
-//     W              spectral weighting matrix
-//     Wf             frequencies list from baseband of
-//                    corresponding to each row of W
-//     time_searchtype     'naive' or 'informed'
-//     freq_searchtype     'naive' or 'informed'
-//     excluded_freq_bands_in   nx2    matrix of bands of
-//                                  frequencies to exclude in
-//                                  the search. This is useful if
-//                                  there has already been a tag
-//                                  found and you want to exclude
-//                                  that band when looking for
-//                                  other frequencies. The lower
-//                                  frequecies of the band should
-//                                  be in the first column and
-//                                  the upper should be in the
-//                                  second. Leave empty [] if no
-//                                  exclusion zones are
-//                                  necessary. These frequencies
-//                                  are used regardless of the
-//                                  freq_searchtype setting.
-// OUPUTS:
-//  pl_out      A matrix of all potential pulses. This will
-//                have as many rows as Wf elements and as many
-//                rows as blocks that were possible given the
-//                length of the data in obj. The number of pulses
-//                to be searched for would be defined at the
-//                time of the creation of obj and used to define
-//                the length of its data.
-//
-//    indiv_msk   A logical matrix who's columns identify the
-//                peaks and sideband locations in the spectrum of
-//                each peak. The ith column of indiv_msk
-//                identifies the spectral location of the ith
-//                most powerful pulse group identified.
-//    peak_ind    A vector of the frequency indicies (of Wf)
-//                where the power of the pulses were found.
-//                These are the row indicies of pl_out where the
-//                peaks exist.
-//                These are the center frequency of the pulse
-//                where the most energy was detected. The
-//                sidebands of the ith peak listed in peak_ind is
-//                identified in the ith column of indiv_msk
-//
-//             %%
-//
-// Arguments    : const char time_searchtype_data[]
-//                const int time_searchtype_size[2]
-//                const char freq_searchtype_data[]
-//                const int freq_searchtype_size[2]
-//                const coder::array<double, 2U> &excluded_freq_bands_in
-//                coder::array<c_struct_T, 2U> &pl_out
-//                coder::array<boolean_T, 2U> &indiv_msk
-//                coder::array<double, 1U> &peak_ind
-// Return Type  : void
-//
 void waveform::findpulse(const char time_searchtype_data[], const int
   time_searchtype_size[2], const char freq_searchtype_data[], const int
   freq_searchtype_size[2], const coder::array<double, 2U>
@@ -280,6 +199,78 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   boolean_T exitg1;
   boolean_T t4_con_dec;
   boolean_T varargout_1;
+
+  // FINDPULSE Looks for pulses in the waveform based on its pulse
+  // statistics object
+  //
+  // This method implemets the incoherent summation algorithm for
+  // the waveform. The number of pulses summed (blocks considere)
+  // is defined based on the length of obj.x and its priori
+  // pulsestats object. When the waveform object is created, the
+  // length of data (x property) included should be defined to be
+  // long enough so that it is assure to contain no fewer than K
+  // pulses. This method doesn't know K, but will create as many
+  // blocks as it can based on the priori information.
+  //
+  // Note: The algorithm used for pulse peak energy detection
+  // requires that the center frequency of the pulse not be at the
+  // edges of the frequency bins in Wf. There needs to be rolloff
+  // in signal power above and below the pulse center frequency.
+  // Pulses at or just above/below the upper/lower limits of Wf may
+  // exceeed the threshold for detection, but not get recorded in
+  // the pl_out because the peeling algorithm can't catch them. If
+  // this happens, the frequencies used in the priori to describe
+  // the bounds of the pulse frequencies should be adjusted or
+  // widened to ensure the pulse's spectral power has rolloff above
+  // and below the center frequency and that this rolloff is within
+  // the bounds of the Wf input.
+  //
+  // INPUTS:
+  //     obj            Waveform object
+  //     W              spectral weighting matrix
+  //     Wf             frequencies list from baseband of
+  //                    corresponding to each row of W
+  //     time_searchtype     'naive' or 'informed'
+  //     freq_searchtype     'naive' or 'informed'
+  //     excluded_freq_bands_in   nx2    matrix of bands of
+  //                                  frequencies to exclude in
+  //                                  the search. This is useful if
+  //                                  there has already been a tag
+  //                                  found and you want to exclude
+  //                                  that band when looking for
+  //                                  other frequencies. The lower
+  //                                  frequecies of the band should
+  //                                  be in the first column and
+  //                                  the upper should be in the
+  //                                  second. Leave empty [] if no
+  //                                  exclusion zones are
+  //                                  necessary. These frequencies
+  //                                  are used regardless of the
+  //                                  freq_searchtype setting.
+  // OUPUTS:
+  // 	pl_out      A matrix of all potential pulses. This will
+  //                have as many rows as Wf elements and as many
+  //                rows as blocks that were possible given the
+  //                length of the data in obj. The number of pulses
+  //                to be searched for would be defined at the
+  //                time of the creation of obj and used to define
+  //                the length of its data.
+  //
+  //    indiv_msk   A logical matrix who's columns identify the
+  //                peaks and sideband locations in the spectrum of
+  //                each peak. The ith column of indiv_msk
+  //                identifies the spectral location of the ith
+  //                most powerful pulse group identified.
+  //    peak_ind    A vector of the frequency indicies (of Wf)
+  //                where the power of the pulses were found.
+  //                These are the row indicies of pl_out where the
+  //                peaks exist.
+  //                These are the center frequency of the pulse
+  //                where the most energy was detected. The
+  //                sidebands of the ith peak listed in peak_ind is
+  //                identified in the ith column of indiv_msk
+  //
+  //             %%
   if (excluded_freq_bands_in.size(0) == 0) {
     excluded_freq_bands.set_size(1, 2);
     excluded_freq_bands[0] = rtInf;
@@ -514,13 +505,13 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   timeSearchRange[0] = wind_start[0];
   timeSearchRange[timeSearchRange.size(0)] = wind_start[1];
-  i1 = static_cast<int>(K - 1.0);
+  i1 = static_cast<int>(K + -1.0);
   for (int k{0}; k < i1; k++) {
-    t_srch_rng[1] = timeSearchRange[timeSearchRange.size(0)] + (((static_cast<
-      double>(k) + 2.0) - 1.0) * naive_wind_end_tmp + b_J);
     timeSearchRange[k + 1] = timeSearchRange[0] + (((static_cast<double>(k) +
       2.0) - 1.0) * (b_N - b_M) - b_J);
-    timeSearchRange[(k + timeSearchRange.size(0)) + 1] = t_srch_rng[1];
+    timeSearchRange[(k + timeSearchRange.size(0)) + 1] =
+      timeSearchRange[timeSearchRange.size(0)] + (((static_cast<double>(k) + 2.0)
+      - 1.0) * naive_wind_end_tmp + b_J);
   }
 
   maxStftTimeWind = stft->S.size(1);
@@ -544,8 +535,8 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     }
   }
 
-  loop_ub = r.size(0);
-  for (i1 = 0; i1 < loop_ub; i1++) {
+  loop_ub = r.size(0) - 1;
+  for (i1 = 0; i1 <= loop_ub; i1++) {
     timeSearchRange[r[i1] - 1] = maxStftTimeWind;
   }
 
@@ -566,8 +557,8 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     }
   }
 
-  loop_ub = r1.size(0);
-  for (i1 = 0; i1 < loop_ub; i1++) {
+  loop_ub = r1.size(0) - 1;
+  for (i1 = 0; i1 <= loop_ub; i1++) {
     timeSearchRange[r1[i1] - 1] = 1.0;
   }
 
@@ -580,17 +571,16 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     t_lastknown = timeSearchRange[k];
     next_pulse_start = timeSearchRange[k + timeSearchRange.size(0)];
     if (t_lastknown > next_pulse_start) {
-      i1 = 0;
-      inds_bkwd_2_next_valley_data = 0;
+      i1 = -1;
+      wind_end_size = 0;
     } else {
-      i1 = static_cast<int>(t_lastknown) - 1;
-      inds_bkwd_2_next_valley_data = static_cast<int>(next_pulse_start);
+      i1 = static_cast<int>(t_lastknown) - 2;
+      wind_end_size = static_cast<int>(next_pulse_start);
     }
 
-    loop_ub = inds_bkwd_2_next_valley_data - i1;
-    for (inds_bkwd_2_next_valley_data = 0; inds_bkwd_2_next_valley_data <
-         loop_ub; inds_bkwd_2_next_valley_data++) {
-      timeBlinderVec[i1 + inds_bkwd_2_next_valley_data] = 1.0;
+    loop_ub = (wind_end_size - i1) - 1;
+    for (wind_end_size = 0; wind_end_size < loop_ub; wind_end_size++) {
+      timeBlinderVec[(i1 + wind_end_size) + 1] = 1.0;
     }
   }
 
@@ -771,16 +761,16 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
     if (static_cast<int>(timeSearchRange[0]) > static_cast<int>(timeSearchRange
          [1])) {
-      i = 0;
+      i = -1;
       i1 = 0;
     } else {
-      i = static_cast<int>(freq_ind_rng_data[0]) - 1;
+      i = static_cast<int>(freq_ind_rng_data[0]) - 2;
       i1 = static_cast<int>(freq_ind_rng_data[1]);
     }
 
-    loop_ub = i1 - i;
+    loop_ub = (i1 - i) - 1;
     for (i1 = 0; i1 < loop_ub; i1++) {
-      freq_mask[i + i1] = true;
+      freq_mask[(i + i1) + 1] = true;
     }
   } else {
     // Naive frequency search
@@ -793,8 +783,8 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   // If using informed search and excluded frequencies overlap with
   // priori frequencies, warn the user.
-  b_excluded_freq_bands.set_size(1, excluded_freq_bands.size(0));
   loop_ub = excluded_freq_bands.size(0);
+  b_excluded_freq_bands.set_size(1, excluded_freq_bands.size(0));
   for (i = 0; i < loop_ub; i++) {
     b_excluded_freq_bands[i] = excluded_freq_bands[i];
   }
@@ -812,8 +802,8 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     }
   }
 
-  b_excluded_freq_bands.set_size(1, excluded_freq_bands.size(0));
   loop_ub = excluded_freq_bands.size(0);
+  b_excluded_freq_bands.set_size(1, excluded_freq_bands.size(0));
   for (i = 0; i < loop_ub; i++) {
     b_excluded_freq_bands[i] = excluded_freq_bands[i + excluded_freq_bands.size
       (0)];
@@ -888,8 +878,8 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   obj.set_size(W.size(1), W.size(0));
   loop_ub = W.size(0);
   for (i = 0; i < loop_ub; i++) {
-    nx = W.size(1);
-    for (i1 = 0; i1 < nx; i1++) {
+    inds_bkwd_2_next_valley_data = W.size(1);
+    for (i1 = 0; i1 < inds_bkwd_2_next_valley_data; i1++) {
       obj[i1 + obj.size(0) * i].re = W[i + W.size(0) * i1].re;
       obj[i1 + obj.size(0) * i].im = -W[i + W.size(0) * i1].im;
     }
@@ -1359,8 +1349,8 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     }
   }
 
-  loop_ub = r6.size(0);
-  for (i = 0; i < loop_ub; i++) {
+  loop_ub = r6.size(0) - 1;
+  for (i = 0; i <= loop_ub; i++) {
     b_refmat[r6[i] - 1] = 0.0;
   }
 
@@ -1433,8 +1423,8 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     }
   }
 
-  loop_ub = r7.size(0);
-  for (i = 0; i < loop_ub; i++) {
+  loop_ub = r7.size(0) - 1;
+  for (i = 0; i <= loop_ub; i++) {
     b_refmat[r7[i] - 1] = rtNaN;
   }
 
@@ -1467,14 +1457,14 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     i1 = scores.size(0);
   }
 
-  nx = i1 - i;
-  if (loop_ub == nx + 1) {
-    peak.set_size(nx + 1);
-    for (i1 = 0; i1 < nx; i1++) {
+  inds_bkwd_2_next_valley_data = i1 - i;
+  if (loop_ub == inds_bkwd_2_next_valley_data + 1) {
+    peak.set_size(inds_bkwd_2_next_valley_data + 1);
+    for (i1 = 0; i1 < inds_bkwd_2_next_valley_data; i1++) {
       peak[i1] = scores[i + i1];
     }
 
-    peak[nx] = 0.0;
+    peak[inds_bkwd_2_next_valley_data] = 0.0;
     greater_than_next.set_size(loop_ub);
     for (i = 0; i < loop_ub; i++) {
       greater_than_next[i] = (scores[i] > peak[i]);
@@ -1490,15 +1480,15 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   }
 
   if (scores.size(0) - 1 < 1) {
-    nx = 1;
+    inds_bkwd_2_next_valley_data = 1;
   } else {
-    nx = scores.size(0);
+    inds_bkwd_2_next_valley_data = scores.size(0);
   }
 
-  if (loop_ub == nx) {
-    peak.set_size(nx);
+  if (loop_ub == inds_bkwd_2_next_valley_data) {
+    peak.set_size(inds_bkwd_2_next_valley_data);
     peak[0] = 0.0;
-    for (i = 0; i <= nx - 2; i++) {
+    for (i = 0; i <= inds_bkwd_2_next_valley_data - 2; i++) {
       peak[i + 1] = scores[i];
     }
 
@@ -1507,7 +1497,8 @@ void waveform::findpulse(const char time_searchtype_data[], const int
       greater_than_prev[i] = (scores[i] > peak[i]);
     }
   } else {
-    h_binary_expand_op(greater_than_prev, scores, loop_ub - 1, nx - 2);
+    h_binary_expand_op(greater_than_prev, scores, loop_ub - 1,
+                       inds_bkwd_2_next_valley_data - 2);
   }
 
   // slope_pos = [false;~greater_than_next&greater_than_prev;false];
@@ -1551,17 +1542,17 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   }
 
   if (scores.size(0) - 1 < 1) {
-    nx = 0;
+    inds_bkwd_2_next_valley_data = 0;
   } else {
-    nx = scores.size(0) - 1;
+    inds_bkwd_2_next_valley_data = scores.size(0) - 1;
   }
 
   if (scores.size(0) < 2) {
-    inds_bkwd_2_next_valley_data = 0;
-    maxStftTimeWind = 0;
+    wind_end_size = 0;
+    nx = 0;
   } else {
-    inds_bkwd_2_next_valley_data = 1;
-    maxStftTimeWind = scores.size(0);
+    wind_end_size = 1;
+    nx = scores.size(0);
   }
 
   // [score_left_bndry&slope_neg,score_right_bndry&slope_pos,scores]
@@ -1571,9 +1562,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   // (frequencies lower were excluded) and the slope is negative,
   // this would be considered a peak. Visa-versa for right
   // boundaries.
-  wind_end_size = i1 - i;
-  r8.set_size(wind_end_size);
-  for (i1 = 0; i1 < wind_end_size; i1++) {
+  maxStftTimeWind = i1 - i;
+  r8.set_size(maxStftTimeWind);
+  for (i1 = 0; i1 < maxStftTimeWind; i1++) {
     r8[i1] = std::isnan(scores[i + i1]);
   }
 
@@ -1582,15 +1573,15 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     r9[i] = std::isnan(scores[i]);
   }
 
-  r10.set_size(nx);
-  for (i = 0; i < nx; i++) {
+  r10.set_size(inds_bkwd_2_next_valley_data);
+  for (i = 0; i < inds_bkwd_2_next_valley_data; i++) {
     r10[i] = std::isnan(scores[i]);
   }
 
-  loop_ub = maxStftTimeWind - inds_bkwd_2_next_valley_data;
+  loop_ub = nx - wind_end_size;
   r11.set_size(loop_ub);
   for (i = 0; i < loop_ub; i++) {
-    r11[i] = std::isnan(scores[inds_bkwd_2_next_valley_data + i]);
+    r11[i] = std::isnan(scores[wind_end_size + i]);
   }
 
   if (r8.size(0) == 1) {
@@ -1652,26 +1643,26 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   }
 
   if (r8.size(0) == 1) {
-    nx = r9.size(0);
-  } else {
-    nx = r8.size(0);
-  }
-
-  if (r8.size(0) == 1) {
     loop_ub = r9.size(0);
   } else {
     loop_ub = r8.size(0);
   }
 
+  if (r8.size(0) == 1) {
+    nx = r9.size(0);
+  } else {
+    nx = r8.size(0);
+  }
+
   if (wind_end_size == 1) {
-    if (nx + 1 == 1) {
+    if (loop_ub + 1 == 1) {
       if (greater_than_next.size(0) == 1) {
         wind_end_size = y.size(0);
       } else {
         wind_end_size = greater_than_next.size(0);
       }
     } else {
-      wind_end_size = loop_ub + 1;
+      wind_end_size = nx + 1;
     }
   } else if (greater_than_next.size(0) == 1) {
     wind_end_size = greater_than_prev.size(0);
@@ -1680,32 +1671,32 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   }
 
   if (r10.size(0) == 1) {
-    nx = r11.size(0);
-  } else {
-    nx = r10.size(0);
-  }
-
-  if (r10.size(0) == 1) {
     loop_ub = r11.size(0);
   } else {
     loop_ub = r10.size(0);
   }
 
-  if (nx + 1 == 1) {
+  if (r10.size(0) == 1) {
+    nx = r11.size(0);
+  } else {
+    nx = r10.size(0);
+  }
+
+  if (loop_ub + 1 == 1) {
     if (sideband_msk.size(0) == 1) {
-      nx = greater_than_prev.size(0);
+      loop_ub = greater_than_prev.size(0);
     } else {
-      nx = sideband_msk.size(0);
+      loop_ub = sideband_msk.size(0);
     }
   } else {
-    nx = loop_ub + 1;
+    loop_ub = nx + 1;
   }
 
   if ((greater_than_next.size(0) == greater_than_prev.size(0)) && (r8.size(0) ==
        r9.size(0)) && (greater_than_next.size(0) == y.size(0)) && (i + 1 == i1) &&
       (maxStftTimeWind == inds_bkwd_2_next_valley_data) && (r10.size(0) ==
        r11.size(0)) && (sideband_msk.size(0) == greater_than_prev.size(0)) &&
-      (i2 + 1 == i3) && (wind_end_size == nx)) {
+      (i2 + 1 == i3) && (wind_end_size == loop_ub)) {
     slope_peak.set_size(r8.size(0) + 1);
     slope_peak[0] = true;
     loop_ub = r8.size(0);
@@ -1937,11 +1928,12 @@ void waveform::findpulse(const char time_searchtype_data[], const int
           i10 = 0;
           i11 = 0;
         } else {
-          i10 = static_cast<int>(d + 1.0) - 1;
+          i10 = static_cast<int>(peak_ind[static_cast<int>(p) - 1] + 1.0) - 1;
           i11 = scores.size(0);
         }
 
-        if (d + 1.0 > thresh.threshVecFine.size(0)) {
+        if (peak_ind[static_cast<int>(p) - 1] + 1.0 > thresh.threshVecFine.size
+            (0)) {
           i12 = 0;
           i13 = 0;
         } else {
@@ -1961,7 +1953,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
         }
 
         d_loop_ub = div_s32(i1 - i14, i15);
-        if (d + 1.0 > slope_val.size(0)) {
+        if (peak_ind[static_cast<int>(p) - 1] + 1.0 > slope_val.size(0)) {
           i16 = 0;
           i1 = 0;
         } else {
@@ -2007,8 +1999,8 @@ void waveform::findpulse(const char time_searchtype_data[], const int
           // Don't compute forward check when k=n_blks
           tp_temp = S_cols[(static_cast<int>(peak_ind[static_cast<int>(p) - 1])
                             + S_cols.size(0) * k) - 1];
-          b_x.set_size(S_cols.size(0));
           loop_ub = S_cols.size(0);
+          b_x.set_size(S_cols.size(0));
           for (i1 = 0; i1 < loop_ub; i1++) {
             b_x[i1] = tp_temp - S_cols[i1 + S_cols.size(0) * (k + 1)];
           }
@@ -2018,12 +2010,12 @@ void waveform::findpulse(const char time_searchtype_data[], const int
           for (maxStftTimeWind = 0; maxStftTimeWind < nx; maxStftTimeWind++) {
             indsOfBinsValid[maxStftTimeWind] = std::abs(b_x[maxStftTimeWind]);
           }
-        } else if (static_cast<unsigned int>(k) + 1U >= 2U) {
+        } else if (k + 1U >= 2U) {
           // Don't compute backward check when k=1
           tp_temp = S_cols[(static_cast<int>(peak_ind[static_cast<int>(p) - 1])
                             + S_cols.size(0) * k) - 1];
-          b_x.set_size(S_cols.size(0));
           loop_ub = S_cols.size(0);
+          b_x.set_size(S_cols.size(0));
           for (i1 = 0; i1 < loop_ub; i1++) {
             b_x[i1] = tp_temp - S_cols[i1 + S_cols.size(0) * (k - 1)];
           }
@@ -2156,17 +2148,16 @@ void waveform::findpulse(const char time_searchtype_data[], const int
             }
           } else if ((maxStftTimeWind != 0) && (nx == 0)) {
             if (d > n_freqs) {
-              i1 = 0;
-              inds_bkwd_2_next_valley_data = 0;
+              i1 = -1;
+              wind_end_size = 0;
             } else {
-              i1 = static_cast<int>(peak_ind[static_cast<int>(p) - 1]) - 1;
-              inds_bkwd_2_next_valley_data = n_freqs;
+              i1 = static_cast<int>(peak_ind[static_cast<int>(p) - 1]) - 2;
+              wind_end_size = n_freqs;
             }
 
-            loop_ub = inds_bkwd_2_next_valley_data - i1;
-            for (inds_bkwd_2_next_valley_data = 0; inds_bkwd_2_next_valley_data <
-                 loop_ub; inds_bkwd_2_next_valley_data++) {
-              sideband_msk[i1 + inds_bkwd_2_next_valley_data] = true;
+            loop_ub = (wind_end_size - i1) - 1;
+            for (wind_end_size = 0; wind_end_size < loop_ub; wind_end_size++) {
+              sideband_msk[(i1 + wind_end_size) + 1] = true;
             }
           } else if ((maxStftTimeWind != 0) && (nx != 0)) {
             if (inds_frwd_2_next_valley_data < -static_cast<double>
@@ -2306,17 +2297,16 @@ void waveform::findpulse(const char time_searchtype_data[], const int
           t_srch_rng[1] = d + next_pulse_start;
           next_pulse_start = coder::internal::minimum(t_srch_rng);
           if (tip_temp > next_pulse_start) {
-            i1 = 0;
-            inds_bkwd_2_next_valley_data = 0;
+            i1 = -1;
+            wind_end_size = 0;
           } else {
-            i1 = static_cast<int>(tip_temp) - 1;
-            inds_bkwd_2_next_valley_data = static_cast<int>(next_pulse_start);
+            i1 = static_cast<int>(tip_temp) - 2;
+            wind_end_size = static_cast<int>(next_pulse_start);
           }
 
-          loop_ub = inds_bkwd_2_next_valley_data - i1;
-          for (inds_bkwd_2_next_valley_data = 0; inds_bkwd_2_next_valley_data <
-               loop_ub; inds_bkwd_2_next_valley_data++) {
-            sideband_msk[i1 + inds_bkwd_2_next_valley_data] = true;
+          loop_ub = (wind_end_size - i1) - 1;
+          for (wind_end_size = 0; wind_end_size < loop_ub; wind_end_size++) {
+            sideband_msk[(i1 + wind_end_size) + 1] = true;
           }
         }
 
@@ -2340,7 +2330,6 @@ void waveform::findpulse(const char time_searchtype_data[], const int
           peak[maxStftTimeWind] = std::abs(b_x[maxStftTimeWind]);
         }
 
-        loop_ub = msk.size(0);
         if (peak.size(0) == 1) {
           i1 = timeBlinderVec.size(0);
         } else {
@@ -2421,6 +2410,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
              indsOfBinsValid.size(0)) && (sideband_msk.size(0) ==
              maxStftTimeWind) && (inds_bkwd_2_next_valley_data == S_cols.size(0))
             && (msk.size(0) == i2)) {
+          nx = msk.size(0) - 1;
           next_pulse_start = S_cols[S_cols_tmp + S_cols.size(0) * k] + b_N;
           tp_temp = next_pulse_start + b_M;
           a = next_pulse_start - b_M;
@@ -2428,7 +2418,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
           wind_start_data = next_pulse_start - b_M;
           tip_temp = next_pulse_start + b_M;
           sideband_msk.set_size(msk.size(0));
-          for (i1 = 0; i1 < loop_ub; i1++) {
+          for (i1 = 0; i1 <= nx; i1++) {
             t_lastknown = S_cols[i1 + S_cols.size(0) * k];
             sideband_msk[i1] = (msk[i1 + msk.size(0) * (static_cast<int>(p) - 1)]
                                 || msk[i1 + msk.size(0) * static_cast<int>(p)] ||
@@ -2513,14 +2503,16 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     loop_ub = static_cast<int>(p) - 1;
   }
 
-  wind_end_size = indiv_msk.size(0);
+  wind_end_size = indiv_msk.size(0) - 1;
+  inds_bkwd_2_next_valley_data = indiv_msk.size(0);
   for (i = 0; i < loop_ub; i++) {
-    for (i1 = 0; i1 < wind_end_size; i1++) {
-      indiv_msk[i1 + wind_end_size * i] = indiv_msk[i1 + indiv_msk.size(0) * i];
+    for (i1 = 0; i1 < inds_bkwd_2_next_valley_data; i1++) {
+      indiv_msk[i1 + (wind_end_size + 1) * i] = indiv_msk[i1 + indiv_msk.size(0)
+        * i];
     }
   }
 
-  indiv_msk.set_size(indiv_msk.size(0), loop_ub);
+  indiv_msk.set_size(wind_end_size + 1, loop_ub);
   if (static_cast<int>(p - 1U) > 0) {
     // Only update from NaN if there were some found.
     peak_ind.set_size(static_cast<int>(p - 1U));
@@ -2592,11 +2584,11 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     }
   }
 
-  r13.set_size(r12.size(0), S_cols.size(1));
   loop_ub = S_cols.size(1);
+  r13.set_size(r12.size(0), S_cols.size(1));
   for (i = 0; i < loop_ub; i++) {
-    nx = r12.size(0);
-    for (i1 = 0; i1 < nx; i1++) {
+    inds_bkwd_2_next_valley_data = r12.size(0);
+    for (i1 = 0; i1 < inds_bkwd_2_next_valley_data; i1++) {
       r13[i1 + r13.size(0) * i] = stft->t[static_cast<int>(S_cols[(r12[i1] +
         S_cols.size(0) * i) - 1]) - 1];
     }
@@ -2622,8 +2614,8 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   next_pulse_start = stft->t[0];
   loop_ub = r13.size(1);
   for (i = 0; i < loop_ub; i++) {
-    nx = r13.size(0);
-    for (i1 = 0; i1 < nx; i1++) {
+    inds_bkwd_2_next_valley_data = r13.size(0);
+    for (i1 = 0; i1 < inds_bkwd_2_next_valley_data; i1++) {
       refmat[(r14[i1] + refmat.size(0) * i) - 1] = (r13[i1 + r13.size(0) * i] -
         next_pulse_start) + t_0;
     }
@@ -2665,8 +2657,8 @@ void waveform::findpulse(const char time_searchtype_data[], const int
       pl_out[wind_end_size + pl_out.size(0) * k].con_dec = false;
 
       // Confirmation status
+      y.set_size(thresh.threshVecFine.size(0));
       loop_ub = thresh.threshVecFine.size(0);
-      y.set_size(loop_ub);
       for (i1 = 0; i1 < loop_ub; i1++) {
         y[i1] = (scores[wind_end_size] >= thresh.threshVecFine[i1]);
       }
@@ -2679,12 +2671,6 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   }
 }
 
-//
-// Arguments    : coder::array<boolean_T, 1U> &in1
-//                const coder::array<boolean_T, 1U> &in2
-//                const coder::array<boolean_T, 1U> &in3
-// Return Type  : void
-//
 static void b_and(coder::array<boolean_T, 1U> &in1, const coder::array<boolean_T,
                   1U> &in2, const coder::array<boolean_T, 1U> &in3)
 {
@@ -2712,14 +2698,6 @@ static void b_and(coder::array<boolean_T, 1U> &in1, const coder::array<boolean_T
   }
 }
 
-//
-// Arguments    : coder::array<double, 2U> &in1
-//                double in2
-//                double in3
-//                const coder::array<double, 2U> &in4
-//                double in5
-// Return Type  : void
-//
 static void b_binary_expand_op(coder::array<double, 2U> &in1, double in2, double
   in3, const coder::array<double, 2U> &in4, double in5)
 {
@@ -2754,12 +2732,6 @@ static void b_binary_expand_op(coder::array<double, 2U> &in1, double in2, double
   }
 }
 
-//
-// Arguments    : coder::array<double, 2U> &in1
-//                double in2
-//                const coder::array<double, 2U> &in3
-// Return Type  : void
-//
 static void b_binary_expand_op(coder::array<double, 2U> &in1, double in2, const
   coder::array<double, 2U> &in3)
 {
@@ -2800,11 +2772,10 @@ static void b_binary_expand_op(coder::array<double, 2U> &in1, double in2, const
   }
 
   for (i = 0; i < loop_ub; i++) {
-    i1 = in1.size(0);
-    if (i1 == 1) {
+    if (in1.size(0) == 1) {
       b_loop_ub = in3.size(0);
     } else {
-      b_loop_ub = i1;
+      b_loop_ub = in1.size(0);
     }
 
     for (i1 = 0; i1 < b_loop_ub; i1++) {
@@ -2826,12 +2797,6 @@ static void b_binary_expand_op(coder::array<double, 2U> &in1, double in2, const
   }
 }
 
-//
-// Arguments    : coder::array<double, 2U> &in1
-//                const waveform *in2
-//                const coder::array<double, 2U> &in3
-// Return Type  : void
-//
 static void b_binary_expand_op(coder::array<double, 2U> &in1, const waveform
   *in2, const coder::array<double, 2U> &in3)
 {
@@ -2872,11 +2837,10 @@ static void b_binary_expand_op(coder::array<double, 2U> &in1, const waveform
 
   for (i = 0; i < loop_ub; i++) {
     int b_loop_ub;
-    i1 = in3.size(0);
-    if (i1 == 1) {
+    if (in3.size(0) == 1) {
       b_loop_ub = in2->stft->S.size(0);
     } else {
-      b_loop_ub = i1;
+      b_loop_ub = in3.size(0);
     }
 
     for (i1 = 0; i1 < b_loop_ub; i1++) {
@@ -2894,14 +2858,6 @@ static void b_binary_expand_op(coder::array<double, 2U> &in1, const waveform
   coder::b_abs(b_in2, in1);
 }
 
-//
-// Arguments    : coder::array<double, 2U> &in1
-//                const coder::array<double, 2U> &in2
-//                const coder::array<double, 2U> &in3
-//                int in4
-//                int in5
-// Return Type  : void
-//
 static void b_binary_expand_op(coder::array<double, 2U> &in1, const coder::array<
   double, 2U> &in2, const coder::array<double, 2U> &in3, int in4, int in5)
 {
@@ -2960,14 +2916,14 @@ static void b_binary_expand_op(coder::array<double, 2U> &in1, const coder::array
 
   for (i = 0; i < loop_ub; i++) {
     int b_loop_ub;
-    i1 = in3.size(0);
-    b_loop_ub = in1.size(0);
-    if (i1 == 1) {
-      if (b_loop_ub == 1) {
+    if (in3.size(0) == 1) {
+      if (in1.size(0) == 1) {
         b_loop_ub = in2.size(0);
+      } else {
+        b_loop_ub = in1.size(0);
       }
     } else {
-      b_loop_ub = i1;
+      b_loop_ub = in3.size(0);
     }
 
     for (i1 = 0; i1 < b_loop_ub; i1++) {
@@ -2987,14 +2943,6 @@ static void b_binary_expand_op(coder::array<double, 2U> &in1, const coder::array
   coder::imresize(b_in2, b_in4, in1);
 }
 
-//
-// Arguments    : coder::array<double, 2U> &in1
-//                const coder::array<double, 2U> &in2
-//                const coder::array<double, 2U> &in3
-//                const coder::array<double, 2U> &in4
-//                const coder::array<double, 2U> &in5
-// Return Type  : void
-//
 static void b_binary_expand_op(coder::array<double, 2U> &in1, const coder::array<
   double, 2U> &in2, const coder::array<double, 2U> &in3, const coder::array<
   double, 2U> &in4, const coder::array<double, 2U> &in5)
@@ -3090,26 +3038,22 @@ static void b_binary_expand_op(coder::array<double, 2U> &in1, const coder::array
   }
 
   for (i = 0; i < loop_ub; i++) {
-    int i2;
-    int i3;
-    i1 = in5.size(0);
-    b_loop_ub = in4.size(0);
-    i2 = in3.size(0);
-    i3 = in2.size(0);
-    if (i1 == 1) {
-      if (b_loop_ub == 1) {
-        if (i2 == 1) {
-          if (i3 == 1) {
+    if (in5.size(0) == 1) {
+      if (in4.size(0) == 1) {
+        if (in3.size(0) == 1) {
+          if (in2.size(0) == 1) {
             b_loop_ub = in1.size(0);
           } else {
-            b_loop_ub = i3;
+            b_loop_ub = in2.size(0);
           }
         } else {
-          b_loop_ub = i2;
+          b_loop_ub = in3.size(0);
         }
+      } else {
+        b_loop_ub = in4.size(0);
       }
     } else {
-      b_loop_ub = i1;
+      b_loop_ub = in5.size(0);
     }
 
     for (i1 = 0; i1 < b_loop_ub; i1++) {
@@ -3136,14 +3080,6 @@ static void b_binary_expand_op(coder::array<double, 2U> &in1, const coder::array
   }
 }
 
-//
-// Arguments    : coder::array<double, 2U> &in1
-//                double in2
-//                double in3
-//                double in4
-//                const coder::array<double, 2U> &in5
-// Return Type  : void
-//
 static void b_binary_expand_op(coder::array<double, 2U> &in1, double in2, double
   in3, double in4, const coder::array<double, 2U> &in5)
 {
@@ -3178,16 +3114,8 @@ static void b_binary_expand_op(coder::array<double, 2U> &in1, double in2, double
   }
 }
 
-//
-// Arguments    : waveform *in1
-//                int in2
-//                double in3
-//                const coder::array<double, 2U> &in4
-//                const coder::array<double, 2U> &in5
-// Return Type  : void
-//
-static void b_binary_expand_op(waveform *in1, int in2, double in3, const coder::
-  array<double, 2U> &in4, const coder::array<double, 2U> &in5)
+static void b_binary_expand_op(coder::array<double, 1U> &in1, int in2, double
+  in3, const coder::array<double, 2U> &in4, const coder::array<double, 2U> &in5)
 {
   coder::array<double, 1U> r;
   int i;
@@ -3210,7 +3138,7 @@ static void b_binary_expand_op(waveform *in1, int in2, double in3, const coder::
     i = in5.size(1);
   }
 
-  in1->Wf.set_size(i);
+  in1.set_size(i);
   stride_0_0 = (r.size(0) != 1);
   stride_1_0 = (in5.size(1) != 1);
   if (in5.size(1) == 1) {
@@ -3220,15 +3148,10 @@ static void b_binary_expand_op(waveform *in1, int in2, double in3, const coder::
   }
 
   for (i = 0; i < loop_ub; i++) {
-    in1->Wf[i] = r[i * stride_0_0] + in5[i * stride_1_0];
+    in1[i] = r[i * stride_0_0] + in5[i * stride_1_0];
   }
 }
 
-//
-// Arguments    : coder::array<double, 1U> &in1
-//                const waveform *in2
-// Return Type  : void
-//
 static void b_binary_expand_op(coder::array<double, 1U> &in1, const waveform
   *in2)
 {
@@ -3282,11 +3205,6 @@ static void b_binary_expand_op(coder::array<double, 1U> &in1, const waveform
   }
 }
 
-//
-// Arguments    : coder::array<boolean_T, 1U> &in1
-//                const coder::array<boolean_T, 1U> &in2
-// Return Type  : void
-//
 static void c_and(coder::array<boolean_T, 1U> &in1, const coder::array<boolean_T,
                   1U> &in2)
 {
@@ -3321,27 +3239,22 @@ static void c_and(coder::array<boolean_T, 1U> &in1, const coder::array<boolean_T
   }
 }
 
-//
-// Arguments    : coder::array<boolean_T, 2U> &in1
-//                const coder::array<double, 2U> &in2
-//                const coder::array<double, 2U> &in3
-//                const coder::array<double, 2U> &in4
-//                const coder::array<double, 2U> &in5
-//                const coder::array<double, 2U> &in6
-//                const coder::array<double, 2U> &in7
-//                const coder::array<double, 2U> &in8
-//                const coder::array<double, 2U> &in9
-// Return Type  : void
-//
 static void c_binary_expand_op(coder::array<boolean_T, 2U> &in1, const coder::
-  array<double, 2U> &in2, const coder::array<double, 2U> &in3, const coder::
-  array<double, 2U> &in4, const coder::array<double, 2U> &in5, const coder::
-  array<double, 2U> &in6, const coder::array<double, 2U> &in7, const coder::
-  array<double, 2U> &in8, const coder::array<double, 2U> &in9)
+  array<double, 2U> &in2, const int in3[2], const coder::array<double, 2U> &in4,
+  const coder::array<double, 2U> &in5, const int in6[2], const coder::array<
+  double, 2U> &in7, const coder::array<double, 2U> &in8, const int in9[2], const
+  coder::array<double, 2U> &in10, const int in11[2], const coder::array<double,
+  2U> &in12, const int in13[2], const coder::array<double, 2U> &in14, const int
+  in15[2])
 {
+  int b_unnamed_idx_1;
+  int c_unnamed_idx_1;
+  int d_unnamed_idx_1;
+  int e_unnamed_idx_1;
+  int f_unnamed_idx_1;
+  int g_unnamed_idx_1;
+  int h_unnamed_idx_1;
   int i;
-  int loop_ub;
-  int stride_0_1;
   int stride_1_1;
   int stride_2_1;
   int stride_3_1;
@@ -3349,168 +3262,165 @@ static void c_binary_expand_op(coder::array<boolean_T, 2U> &in1, const coder::
   int stride_5_1;
   int stride_6_1;
   int stride_7_1;
-  if (in9.size(1) == 1) {
-    i = in8.size(1);
+  int unnamed_idx_1;
+  unnamed_idx_1 = in3[1];
+  b_unnamed_idx_1 = in6[1];
+  c_unnamed_idx_1 = in9[1];
+  d_unnamed_idx_1 = in11[1];
+  e_unnamed_idx_1 = in13[1];
+  f_unnamed_idx_1 = in15[1];
+  if (f_unnamed_idx_1 == 1) {
+    g_unnamed_idx_1 = e_unnamed_idx_1;
   } else {
-    i = in9.size(1);
+    g_unnamed_idx_1 = f_unnamed_idx_1;
   }
 
-  if (i == 1) {
-    if (in7.size(1) == 1) {
-      i = in6.size(1);
+  if (g_unnamed_idx_1 == 1) {
+    if (d_unnamed_idx_1 == 1) {
+      g_unnamed_idx_1 = c_unnamed_idx_1;
     } else {
-      i = in7.size(1);
+      g_unnamed_idx_1 = d_unnamed_idx_1;
     }
-  } else if (in9.size(1) == 1) {
-    i = in8.size(1);
+  } else if (f_unnamed_idx_1 == 1) {
+    g_unnamed_idx_1 = e_unnamed_idx_1;
   } else {
-    i = in9.size(1);
+    g_unnamed_idx_1 = f_unnamed_idx_1;
   }
 
-  if (in5.size(1) == 1) {
-    stride_0_1 = in4.size(1);
+  if (in7.size(1) == 1) {
+    i = b_unnamed_idx_1;
   } else {
-    stride_0_1 = in5.size(1);
+    i = in7.size(1);
   }
 
-  if (in9.size(1) == 1) {
-    stride_1_1 = in8.size(1);
+  if (f_unnamed_idx_1 == 1) {
+    h_unnamed_idx_1 = e_unnamed_idx_1;
   } else {
-    stride_1_1 = in9.size(1);
+    h_unnamed_idx_1 = f_unnamed_idx_1;
   }
 
-  if (i == 1) {
-    if (stride_0_1 == 1) {
-      if (in3.size(1) == 1) {
-        i = in2.size(1);
+  if (g_unnamed_idx_1 == 1) {
+    if (i == 1) {
+      if (in4.size(1) == 1) {
+        g_unnamed_idx_1 = unnamed_idx_1;
       } else {
-        i = in3.size(1);
+        g_unnamed_idx_1 = in4.size(1);
       }
-    } else if (in5.size(1) == 1) {
-      i = in4.size(1);
+    } else if (in7.size(1) == 1) {
+      g_unnamed_idx_1 = b_unnamed_idx_1;
     } else {
-      i = in5.size(1);
+      g_unnamed_idx_1 = in7.size(1);
     }
-  } else if (stride_1_1 == 1) {
+  } else if (h_unnamed_idx_1 == 1) {
+    if (d_unnamed_idx_1 == 1) {
+      g_unnamed_idx_1 = c_unnamed_idx_1;
+    } else {
+      g_unnamed_idx_1 = d_unnamed_idx_1;
+    }
+  } else if (f_unnamed_idx_1 == 1) {
+    g_unnamed_idx_1 = e_unnamed_idx_1;
+  } else {
+    g_unnamed_idx_1 = f_unnamed_idx_1;
+  }
+
+  in1.set_size(1, g_unnamed_idx_1);
+  h_unnamed_idx_1 = (unnamed_idx_1 != 1);
+  stride_1_1 = (in4.size(1) != 1);
+  stride_2_1 = (b_unnamed_idx_1 != 1);
+  stride_3_1 = (in7.size(1) != 1);
+  stride_4_1 = (c_unnamed_idx_1 != 1);
+  stride_5_1 = (d_unnamed_idx_1 != 1);
+  stride_6_1 = (e_unnamed_idx_1 != 1);
+  stride_7_1 = (f_unnamed_idx_1 != 1);
+  if (f_unnamed_idx_1 == 1) {
+    g_unnamed_idx_1 = e_unnamed_idx_1;
+  } else {
+    g_unnamed_idx_1 = f_unnamed_idx_1;
+  }
+
+  if (g_unnamed_idx_1 == 1) {
+    if (d_unnamed_idx_1 == 1) {
+      g_unnamed_idx_1 = c_unnamed_idx_1;
+    } else {
+      g_unnamed_idx_1 = d_unnamed_idx_1;
+    }
+  } else if (f_unnamed_idx_1 == 1) {
+    g_unnamed_idx_1 = e_unnamed_idx_1;
+  } else {
+    g_unnamed_idx_1 = f_unnamed_idx_1;
+  }
+
+  if (g_unnamed_idx_1 == 1) {
     if (in7.size(1) == 1) {
-      i = in6.size(1);
+      i = b_unnamed_idx_1;
     } else {
       i = in7.size(1);
-    }
-  } else if (in9.size(1) == 1) {
-    i = in8.size(1);
-  } else {
-    i = in9.size(1);
-  }
-
-  in1.set_size(1, i);
-  stride_0_1 = (in2.size(1) != 1);
-  stride_1_1 = (in3.size(1) != 1);
-  stride_2_1 = (in4.size(1) != 1);
-  stride_3_1 = (in5.size(1) != 1);
-  stride_4_1 = (in6.size(1) != 1);
-  stride_5_1 = (in7.size(1) != 1);
-  stride_6_1 = (in8.size(1) != 1);
-  stride_7_1 = (in9.size(1) != 1);
-  if (in9.size(1) == 1) {
-    i = in8.size(1);
-  } else {
-    i = in9.size(1);
-  }
-
-  if (i == 1) {
-    if (in7.size(1) == 1) {
-      i = in6.size(1);
-    } else {
-      i = in7.size(1);
-    }
-  } else if (in9.size(1) == 1) {
-    i = in8.size(1);
-  } else {
-    i = in9.size(1);
-  }
-
-  if (i == 1) {
-    if (in5.size(1) == 1) {
-      i = in4.size(1);
-    } else {
-      i = in5.size(1);
     }
 
     if (i == 1) {
-      if (in3.size(1) == 1) {
-        loop_ub = in2.size(1);
-      } else {
-        loop_ub = in3.size(1);
+      if (in4.size(1) != 1) {
+        unnamed_idx_1 = in4.size(1);
       }
-    } else if (in5.size(1) == 1) {
-      loop_ub = in4.size(1);
+    } else if (in7.size(1) == 1) {
+      unnamed_idx_1 = b_unnamed_idx_1;
     } else {
-      loop_ub = in5.size(1);
+      unnamed_idx_1 = in7.size(1);
     }
   } else {
-    if (in9.size(1) == 1) {
-      i = in8.size(1);
+    if (f_unnamed_idx_1 == 1) {
+      unnamed_idx_1 = e_unnamed_idx_1;
     } else {
-      i = in9.size(1);
+      unnamed_idx_1 = f_unnamed_idx_1;
     }
 
-    if (i == 1) {
-      if (in7.size(1) == 1) {
-        loop_ub = in6.size(1);
+    if (unnamed_idx_1 == 1) {
+      if (d_unnamed_idx_1 == 1) {
+        unnamed_idx_1 = c_unnamed_idx_1;
       } else {
-        loop_ub = in7.size(1);
+        unnamed_idx_1 = d_unnamed_idx_1;
       }
-    } else if (in9.size(1) == 1) {
-      loop_ub = in8.size(1);
+    } else if (f_unnamed_idx_1 == 1) {
+      unnamed_idx_1 = e_unnamed_idx_1;
     } else {
-      loop_ub = in9.size(1);
+      unnamed_idx_1 = f_unnamed_idx_1;
     }
   }
 
-  for (i = 0; i < loop_ub; i++) {
-    in1[i] = ((in2[i * stride_0_1] <= in3[i * stride_1_1]) && (in4[i *
-               stride_2_1] >= in5[i * stride_3_1]) && ((in6[i * stride_4_1] >=
-                in7[i * stride_5_1] - 100.0) && (in8[i * stride_6_1] <= in9[i *
-                stride_7_1] + 100.0)));
+  for (b_unnamed_idx_1 = 0; b_unnamed_idx_1 < unnamed_idx_1; b_unnamed_idx_1++)
+  {
+    in1[b_unnamed_idx_1] = ((in2[b_unnamed_idx_1 * h_unnamed_idx_1] <=
+      in4[b_unnamed_idx_1 * stride_1_1]) && (in5[b_unnamed_idx_1 * stride_2_1] >=
+      in7[b_unnamed_idx_1 * stride_3_1]) && ((in8[b_unnamed_idx_1 * stride_4_1] >=
+      in10[b_unnamed_idx_1 * stride_5_1] - 100.0) && (in12[b_unnamed_idx_1 *
+      stride_6_1] <= in14[b_unnamed_idx_1 * stride_7_1] + 100.0)));
   }
 }
 
-//
-// Arguments    : coder::array<boolean_T, 2U> &in1
-//                unsigned int in2
-//                const coder::array<boolean_T, 1U> &in3
-//                const coder::array<double, 1U> &in4
-//                double in5
-//                const coder::array<double, 1U> &in6
-//                const coder::array<double, 1U> &in7
-//                const coder::array<double, 2U> &in8
-//                int in9
-//                const coder::array<double, 1U> &in10
-//                double in11
-//                double in12
-// Return Type  : void
-//
 static void d_binary_expand_op(coder::array<boolean_T, 2U> &in1, unsigned int
   in2, const coder::array<boolean_T, 1U> &in3, const coder::array<double, 1U>
   &in4, double in5, const coder::array<double, 1U> &in6, const coder::array<
   double, 1U> &in7, const coder::array<double, 2U> &in8, int in9, const coder::
   array<double, 1U> &in10, double in11, double in12)
 {
-  coder::array<boolean_T, 1U> b_in1;
+  coder::array<boolean_T, 1U> c_in1;
   double b_in8;
   double c_in8;
   double d_in8;
   double in8_tmp;
   double in8_tmp_tmp;
+  int b_in1;
+  int b_in1_tmp;
+  int c_in1_tmp;
   int i;
-  int loop_ub;
-  int stride_0_0;
+  int i1;
+  int in1_tmp;
   int stride_1_0;
   int stride_2_0;
   int stride_3_0;
   int stride_4_0;
   int stride_5_0;
+  int stride_6_0;
+  b_in1 = in1.size(0) - 1;
   in8_tmp_tmp = in8[(static_cast<int>(in10[static_cast<int>(in2) - 1]) +
                      in8.size(0) * in9) - 1];
   in8_tmp = in8_tmp_tmp + in11;
@@ -3519,144 +3429,176 @@ static void d_binary_expand_op(coder::array<boolean_T, 2U> &in1, unsigned int
   in8_tmp = in8_tmp_tmp - in11;
   d_in8 = in8_tmp - in12;
   in8_tmp_tmp = in8_tmp + in12;
-  if (in7.size(0) == 1) {
-    if (in6.size(0) == 1) {
-      i = in4.size(0);
-    } else {
-      i = in6.size(0);
-    }
+  i = in8.size(0);
+  in1_tmp = in8.size(0);
+  if (in1_tmp == 1) {
+    b_in1_tmp = i;
   } else {
-    i = in7.size(0);
-  }
-
-  if (in8.size(0) == 1) {
-    if (i == 1) {
-      i = in3.size(0);
-    } else if (in7.size(0) == 1) {
-      if (in6.size(0) == 1) {
-        i = in4.size(0);
-      } else {
-        i = in6.size(0);
-      }
-    } else {
-      i = in7.size(0);
-    }
-  } else {
-    i = in8.size(0);
+    b_in1_tmp = in1_tmp;
   }
 
   if (in7.size(0) == 1) {
     if (in6.size(0) == 1) {
-      stride_0_0 = in4.size(0);
+      i1 = in4.size(0);
     } else {
-      stride_0_0 = in6.size(0);
+      i1 = in6.size(0);
     }
   } else {
-    stride_0_0 = in7.size(0);
+    i1 = in7.size(0);
   }
 
-  if (i == 1) {
-    i = in1.size(0);
-  } else if (in8.size(0) == 1) {
-    if (stride_0_0 == 1) {
-      i = in3.size(0);
+  if (b_in1_tmp == 1) {
+    if (i1 == 1) {
+      b_in1_tmp = in3.size(0);
     } else if (in7.size(0) == 1) {
       if (in6.size(0) == 1) {
-        i = in4.size(0);
+        b_in1_tmp = in4.size(0);
       } else {
-        i = in6.size(0);
+        b_in1_tmp = in6.size(0);
       }
     } else {
-      i = in7.size(0);
+      b_in1_tmp = in7.size(0);
     }
+  } else if (in1_tmp == 1) {
+    b_in1_tmp = i;
   } else {
-    i = in8.size(0);
+    b_in1_tmp = in1_tmp;
   }
 
-  b_in1.set_size(i);
-  stride_0_0 = (in1.size(0) != 1);
+  if (in1_tmp == 1) {
+    c_in1_tmp = i;
+  } else {
+    c_in1_tmp = in1_tmp;
+  }
+
+  if (in7.size(0) == 1) {
+    if (in6.size(0) == 1) {
+      i1 = in4.size(0);
+    } else {
+      i1 = in6.size(0);
+    }
+  } else {
+    i1 = in7.size(0);
+  }
+
+  if (b_in1_tmp == 1) {
+    b_in1_tmp = b_in1 + 1;
+  } else if (c_in1_tmp == 1) {
+    if (i1 == 1) {
+      b_in1_tmp = in3.size(0);
+    } else if (in7.size(0) == 1) {
+      if (in6.size(0) == 1) {
+        b_in1_tmp = in4.size(0);
+      } else {
+        b_in1_tmp = in6.size(0);
+      }
+    } else {
+      b_in1_tmp = in7.size(0);
+    }
+  } else if (in1_tmp == 1) {
+    b_in1_tmp = i;
+  } else {
+    b_in1_tmp = in1_tmp;
+  }
+
+  c_in1.set_size(b_in1_tmp);
+  c_in1_tmp = (b_in1 + 1 != 1);
   stride_1_0 = (in3.size(0) != 1);
   stride_2_0 = (in4.size(0) != 1);
   stride_3_0 = (in6.size(0) != 1);
   stride_4_0 = (in7.size(0) != 1);
-  stride_5_0 = (in8.size(0) != 1);
+  stride_5_0 = (i != 1);
+  stride_6_0 = (in1_tmp != 1);
+  if (in1_tmp == 1) {
+    b_in1_tmp = i;
+  } else {
+    b_in1_tmp = in1_tmp;
+  }
+
   if (in7.size(0) == 1) {
     if (in6.size(0) == 1) {
-      i = in4.size(0);
+      i1 = in4.size(0);
     } else {
-      i = in6.size(0);
+      i1 = in6.size(0);
     }
   } else {
-    i = in7.size(0);
+    i1 = in7.size(0);
   }
 
-  if (in8.size(0) == 1) {
-    if (i == 1) {
-      i = in3.size(0);
+  if (b_in1_tmp == 1) {
+    if (i1 == 1) {
+      b_in1_tmp = in3.size(0);
     } else if (in7.size(0) == 1) {
       if (in6.size(0) == 1) {
-        i = in4.size(0);
+        b_in1_tmp = in4.size(0);
       } else {
-        i = in6.size(0);
+        b_in1_tmp = in6.size(0);
       }
     } else {
-      i = in7.size(0);
+      b_in1_tmp = in7.size(0);
     }
+  } else if (in1_tmp == 1) {
+    b_in1_tmp = i;
   } else {
-    i = in8.size(0);
+    b_in1_tmp = in1_tmp;
   }
 
-  if (i == 1) {
-    loop_ub = in1.size(0);
-  } else if (in8.size(0) == 1) {
-    if (in7.size(0) == 1) {
-      if (in6.size(0) == 1) {
-        i = in4.size(0);
-      } else {
-        i = in6.size(0);
-      }
+  if (b_in1_tmp == 1) {
+    b_in1++;
+  } else {
+    if (in1_tmp == 1) {
+      b_in1_tmp = i;
     } else {
-      i = in7.size(0);
+      b_in1_tmp = in1_tmp;
     }
 
-    if (i == 1) {
-      loop_ub = in3.size(0);
-    } else if (in7.size(0) == 1) {
-      if (in6.size(0) == 1) {
-        loop_ub = in4.size(0);
+    if (b_in1_tmp == 1) {
+      if (in7.size(0) == 1) {
+        if (in6.size(0) == 1) {
+          i = in4.size(0);
+        } else {
+          i = in6.size(0);
+        }
       } else {
-        loop_ub = in6.size(0);
+        i = in7.size(0);
       }
+
+      if (i == 1) {
+        b_in1 = in3.size(0);
+      } else if (in7.size(0) == 1) {
+        if (in6.size(0) == 1) {
+          b_in1 = in4.size(0);
+        } else {
+          b_in1 = in6.size(0);
+        }
+      } else {
+        b_in1 = in7.size(0);
+      }
+    } else if (in1_tmp == 1) {
+      b_in1 = i;
     } else {
-      loop_ub = in7.size(0);
+      b_in1 = in1_tmp;
     }
-  } else {
-    loop_ub = in8.size(0);
   }
 
-  for (i = 0; i < loop_ub; i++) {
+  for (i = 0; i < b_in1; i++) {
+    double d_in1_tmp;
+    in1_tmp = i * c_in1_tmp;
     in8_tmp = in8[i * stride_5_0 + in8.size(0) * in9];
-    b_in1[i] = (in1[i * stride_0_0 + in1.size(0) * (static_cast<int>(in2) - 1)] ||
-                in1[i * stride_0_0 + in1.size(0) * static_cast<int>(in2)] ||
-                (in3[i * stride_1_0] || ((in4[i * stride_2_0] <= in5) || (in6[i *
-      stride_3_0] <= in5) || (in7[i * stride_4_0] <= in5)) || (((in8_tmp < b_in8)
-      && (in8_tmp > c_in8)) || ((in8_tmp > d_in8) && (in8_tmp < in8_tmp_tmp)))));
+    d_in1_tmp = in8[i * stride_6_0 + in8.size(0) * in9];
+    c_in1[i] = (in1[in1_tmp + in1.size(0) * (static_cast<int>(in2) - 1)] ||
+                in1[in1_tmp + in1.size(0) * static_cast<int>(in2)] || (in3[i *
+      stride_1_0] || ((in4[i * stride_2_0] <= in5) || (in6[i * stride_3_0] <=
+      in5) || (in7[i * stride_4_0] <= in5)) || (((in8_tmp < b_in8) && (in8_tmp >
+      c_in8)) || ((d_in1_tmp > d_in8) && (d_in1_tmp < in8_tmp_tmp)))));
   }
 
-  loop_ub = b_in1.size(0);
-  for (i = 0; i < loop_ub; i++) {
-    in1[i + in1.size(0) * static_cast<int>(in2)] = b_in1[i];
+  b_in1 = c_in1.size(0);
+  for (i = 0; i < b_in1; i++) {
+    in1[i + in1.size(0) * static_cast<int>(in2)] = c_in1[i];
   }
 }
 
-//
-// Arguments    : coder::array<double, 1U> &in1
-//                const coder::array<double, 1U> &in2
-//                const coder::array<boolean_T, 2U> &in3
-//                unsigned int in4
-//                const coder::array<boolean_T, 1U> &in5
-// Return Type  : void
-//
 static void e_binary_expand_op(coder::array<double, 1U> &in1, const coder::array<
   double, 1U> &in2, const coder::array<boolean_T, 2U> &in3, unsigned int in4,
   const coder::array<boolean_T, 1U> &in5)
@@ -3666,25 +3608,26 @@ static void e_binary_expand_op(coder::array<double, 1U> &in1, const coder::array
   int stride_0_0;
   int stride_1_0;
   int stride_2_0;
+  i = in3.size(0);
   if (in5.size(0) == 1) {
-    if (in3.size(0) == 1) {
-      i = in2.size(0);
+    if (i == 1) {
+      stride_0_0 = in2.size(0);
     } else {
-      i = in3.size(0);
+      stride_0_0 = i;
     }
   } else {
-    i = in5.size(0);
+    stride_0_0 = in5.size(0);
   }
 
-  in1.set_size(i);
+  in1.set_size(stride_0_0);
   stride_0_0 = (in2.size(0) != 1);
-  stride_1_0 = (in3.size(0) != 1);
+  stride_1_0 = (i != 1);
   stride_2_0 = (in5.size(0) != 1);
   if (in5.size(0) == 1) {
-    if (in3.size(0) == 1) {
+    if (i == 1) {
       loop_ub = in2.size(0);
     } else {
-      loop_ub = in3.size(0);
+      loop_ub = i;
     }
   } else {
     loop_ub = in5.size(0);
@@ -3697,12 +3640,6 @@ static void e_binary_expand_op(coder::array<double, 1U> &in1, const coder::array
   }
 }
 
-//
-// Arguments    : coder::array<double, 1U> &in1
-//                const coder::array<double, 1U> &in2
-//                const coder::array<boolean_T, 1U> &in3
-// Return Type  : void
-//
 static void f_binary_expand_op(coder::array<double, 1U> &in1, const coder::array<
   double, 1U> &in2, const coder::array<boolean_T, 1U> &in3)
 {
@@ -3730,18 +3667,6 @@ static void f_binary_expand_op(coder::array<double, 1U> &in1, const coder::array
   }
 }
 
-//
-// Arguments    : coder::array<boolean_T, 1U> &in1
-//                const coder::array<boolean_T, 1U> &in2
-//                const coder::array<boolean_T, 1U> &in3
-//                const coder::array<boolean_T, 1U> &in4
-//                const coder::array<boolean_T, 1U> &in5
-//                const coder::array<boolean_T, 1U> &in6
-//                const coder::array<boolean_T, 1U> &in7
-//                const coder::array<boolean_T, 1U> &in8
-//                const coder::array<boolean_T, 1U> &in9
-// Return Type  : void
-//
 static void g_binary_expand_op(coder::array<boolean_T, 1U> &in1, const coder::
   array<boolean_T, 1U> &in2, const coder::array<boolean_T, 1U> &in3, const coder::
   array<boolean_T, 1U> &in4, const coder::array<boolean_T, 1U> &in5, const coder::
@@ -3962,13 +3887,6 @@ static void g_binary_expand_op(coder::array<boolean_T, 1U> &in1, const coder::
   }
 }
 
-//
-// Arguments    : coder::array<boolean_T, 1U> &in1
-//                const coder::array<double, 1U> &in2
-//                int in3
-//                int in4
-// Return Type  : void
-//
 static void h_binary_expand_op(coder::array<boolean_T, 1U> &in1, const coder::
   array<double, 1U> &in2, int in3, int in4)
 {
@@ -4003,14 +3921,6 @@ static void h_binary_expand_op(coder::array<boolean_T, 1U> &in1, const coder::
   }
 }
 
-//
-// Arguments    : coder::array<boolean_T, 1U> &in1
-//                const coder::array<double, 1U> &in2
-//                int in3
-//                int in4
-//                int in5
-// Return Type  : void
-//
 static void i_binary_expand_op(coder::array<boolean_T, 1U> &in1, const coder::
   array<double, 1U> &in2, int in3, int in4, int in5)
 {
@@ -4046,14 +3956,6 @@ static void i_binary_expand_op(coder::array<boolean_T, 1U> &in1, const coder::
   }
 }
 
-//
-// Arguments    : coder::array<boolean_T, 1U> &in1
-//                const coder::array<double, 2U> &in2
-//                const coder::array<double, 2U> &in3
-//                const coder::array<double, 2U> &in4
-//                const coder::array<double, 2U> &in5
-// Return Type  : void
-//
 static void j_binary_expand_op(coder::array<boolean_T, 1U> &in1, const coder::
   array<double, 2U> &in2, const coder::array<double, 2U> &in3, const coder::
   array<double, 2U> &in4, const coder::array<double, 2U> &in5)
@@ -4143,25 +4045,22 @@ static void j_binary_expand_op(coder::array<boolean_T, 1U> &in1, const coder::
 
   for (i = 0; i < loop_ub; i++) {
     int b_loop_ub;
-    int i2;
-    int i3;
-    i1 = in5.size(0);
-    b_loop_ub = in4.size(0);
-    i2 = in3.size(0);
-    if (i1 == 1) {
-      i3 = b_loop_ub;
+    if (in5.size(0) == 1) {
+      i1 = in4.size(0);
     } else {
-      i3 = i1;
+      i1 = in5.size(0);
     }
 
-    if (i3 == 1) {
-      if (i2 == 1) {
+    if (i1 == 1) {
+      if (in3.size(0) == 1) {
         b_loop_ub = in2.size(0);
       } else {
-        b_loop_ub = i2;
+        b_loop_ub = in3.size(0);
       }
-    } else if (i1 != 1) {
-      b_loop_ub = i1;
+    } else if (in5.size(0) == 1) {
+      b_loop_ub = in4.size(0);
+    } else {
+      b_loop_ub = in5.size(0);
     }
 
     for (i1 = 0; i1 < b_loop_ub; i1++) {
@@ -4180,35 +4079,61 @@ static void j_binary_expand_op(coder::array<boolean_T, 1U> &in1, const coder::
   coder::all(b_in2, in1);
 }
 
-//
-// WAVEFORM Constructs an instance of this class
-// INPUTS:
-//    x       1xn     Vector of samples
-//    Fs      1x1     Sample frequency (Hz)
-//    t_0     1x1     Time stamp of first element (s)
-//  ps_pre  1x1     Pulse stats object from previous data (priori)
-//    OLF     1x1     Overlap fraction as decimal (0.5 = 50%
-//                    overlap)
-// OUTPUTS:
-//    obj             The waveform object
-//             %%
-//
-// Arguments    : const creal32_T b_x[1000]
-//                double b_Fs
-//                pulsestats *b_ps_pre
-//                const threshold *b_thresh
-// Return Type  : waveform *
-//
 waveform *waveform::init(const creal32_T b_x[1000], double b_Fs, pulsestats
   *b_ps_pre, const threshold *b_thresh)
 {
   pulsestats *obj_out;
   waveform *b_obj;
   waveform *obj;
+  wfmstft *d_val;
+  coder::array<c_struct_T, 2U> c_ps_pre;
+  coder::array<c_struct_T, 2U> d_ps_pre;
+  coder::array<creal_T, 2U> b_val;
+  coder::array<creal_T, 2U> r1;
+  coder::array<creal32_T, 2U> r;
+  coder::array<creal32_T, 2U> val;
+  coder::array<double, 2U> f_ps_pre;
+  coder::array<double, 1U> b_tmp_data;
+  coder::array<double, 1U> c_val;
+  coder::array<boolean_T, 2U> e_ps_pre;
+  double tmp_data[400];
+  int loop_ub;
   obj = this;
-  obj->x.set_size(1, 0);
-  obj->W.set_size(0, 0);
-  obj->Wf.set_size(0);
+
+  // WAVEFORM Constructs an instance of this class
+  // INPUTS:
+  //    x       1xn     Vector of samples
+  //    Fs      1x1     Sample frequency (Hz)
+  //    t_0     1x1     Time stamp of first element (s)
+  // 	ps_pre  1x1     Pulse stats object from previous data (priori)
+  //    OLF     1x1     Overlap fraction as decimal (0.5 = 50%
+  //                    overlap)
+  // OUTPUTS:
+  //    obj             The waveform object
+  //             %%
+  r.set(nullptr, 1, 0);
+  coder::internal::validator_check_size(r, val);
+  obj->x.set_size(1, val.size(1));
+  loop_ub = val.size(1);
+  for (int i{0}; i < loop_ub; i++) {
+    obj->x[i] = val[i];
+  }
+
+  r1.set(nullptr, 0, 0);
+  coder::internal::validator_check_size(r1, b_val);
+  obj->W.set_size(b_val.size(0), b_val.size(1));
+  loop_ub = b_val.size(0) * b_val.size(1);
+  for (int i{0}; i < loop_ub; i++) {
+    obj->W[i] = b_val[i];
+  }
+
+  b_tmp_data.set(&tmp_data[0], 0);
+  coder::internal::validator_check_size(b_tmp_data, c_val);
+  obj->Wf.set_size(c_val.size(0));
+  loop_ub = c_val.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    obj->Wf[i] = c_val[i];
+  }
 
   // Flatten input to row
   obj->x.set_size(1, 1000);
@@ -4245,34 +4170,8 @@ waveform *waveform::init(const creal32_T b_x[1000], double b_Fs, pulsestats
 
   // Unknown number of pulses.
   b_obj = obj;
-
-  // WFMSTFT Constructs and returns an instance of this class
-  //
-  // An waveform object must be passed to this construction method
-  // so that the constructor has access to the data vector, desired
-  // overlap fraction, and priori pulse data, which is used to
-  // develop the window sizes.
-  // INPUTS:
-  //    waveform_obj   A single waveform object with prior
-  //                   dependent properties set.
-  // OUTPUTS:
-  //    obj             A wfmstft object
-  //             %%
-  //
-  // The following are variable sized properties. To tell coder
-  // that they may vary setup as a local variable size variable
-  // first, then set.
-  // Instructions on https://www.mathworks.com/help/simulink/ug/how-working-with-matlab-classes-is-different-for-code-generation.html
-  // maxFs*maxpulsewidth
-  // Now actually assign them
-  obj->_pobj1.S.set_size(0, 0);
-  obj->_pobj1.t.set_size(0);
-  obj->_pobj1.f.set_size(0);
-  obj->_pobj1.psd.set_size(0);
-  obj->_pobj1.wind.set_size(0);
-  obj->_pobj1.dt = 0.0;
-  obj->_pobj1.T = 0.0;
-  b_obj->stft = &obj->_pobj1;
+  d_val = obj->_pobj1.init();
+  b_obj->stft = d_val;
 
   // Unknown values but set types
   obj->W.set_size(0, 0);
@@ -4280,10 +4179,36 @@ waveform *waveform::init(const creal32_T b_x[1000], double b_Fs, pulsestats
 
   // Copy over ps_
   // COPY Creates an exact copy of the pulse stats object as a separate object
+  c_ps_pre.set_size(1, b_ps_pre->pl.size(1));
+  loop_ub = b_ps_pre->pl.size(0) * b_ps_pre->pl.size(1) - 1;
+  for (int i{0}; i <= loop_ub; i++) {
+    c_ps_pre[i] = b_ps_pre->pl[i];
+  }
+
+  d_ps_pre.set_size(b_ps_pre->clst.size(0), b_ps_pre->clst.size(1));
+  loop_ub = b_ps_pre->clst.size(0) * b_ps_pre->clst.size(1) - 1;
+  for (int i{0}; i <= loop_ub; i++) {
+    d_ps_pre[i] = b_ps_pre->clst[i];
+  }
+
+  e_ps_pre.set_size(b_ps_pre->cmsk.size(0), b_ps_pre->cmsk.size(1));
+  loop_ub = b_ps_pre->cmsk.size(0) * b_ps_pre->cmsk.size(1) - 1;
+  for (int i{0}; i <= loop_ub; i++) {
+    e_ps_pre[i] = b_ps_pre->cmsk[i];
+  }
+
+  f_ps_pre.set_size(b_ps_pre->cpki.size(0), b_ps_pre->cpki.size(1));
+  loop_ub = b_ps_pre->cpki.size(0) * b_ps_pre->cpki.size(1) - 1;
+  for (int i{0}; i <= loop_ub; i++) {
+    f_ps_pre[i] = b_ps_pre->cpki[i];
+  }
+
+  double g_ps_pre[2];
+  g_ps_pre[0] = b_ps_pre->tmplt[0];
+  g_ps_pre[1] = b_ps_pre->tmplt[1];
   obj_out = obj->_pobj0.b_init(b_ps_pre->t_p, b_ps_pre->t_ip, b_ps_pre->t_ipu,
-    b_ps_pre->t_ipj, b_ps_pre->fp, b_ps_pre->fstart, b_ps_pre->fend,
-    b_ps_pre->tmplt, b_ps_pre->mode, b_ps_pre->pl, b_ps_pre->clst,
-    b_ps_pre->cmsk, b_ps_pre->cpki);
+    b_ps_pre->t_ipj, b_ps_pre->fp, b_ps_pre->fstart, b_ps_pre->fend, g_ps_pre,
+    b_ps_pre->mode, c_ps_pre, d_ps_pre, e_ps_pre, f_ps_pre);
 
   // ,...
   // obj.thresh);
@@ -4297,68 +4222,72 @@ waveform *waveform::init(const creal32_T b_x[1000], double b_Fs, pulsestats
   return obj;
 }
 
-//
-// WAVEFORM Constructs an instance of this class
-// INPUTS:
-//    x       1xn     Vector of samples
-//    Fs      1x1     Sample frequency (Hz)
-//    t_0     1x1     Time stamp of first element (s)
-//  ps_pre  1x1     Pulse stats object from previous data (priori)
-//    OLF     1x1     Overlap fraction as decimal (0.5 = 50%
-//                    overlap)
-// OUTPUTS:
-//    obj             The waveform object
-//             %%
-//
-// Arguments    : const coder::array<creal32_T, 1U> &b_x
-//                double b_Fs
-//                double b_t_0
-//                pulsestats *b_ps_pre
-//                const threshold *b_thresh
-//                pulsestats *iobj_0
-//                wfmstft *iobj_1
-// Return Type  : waveform *
-//
 waveform *waveform::init(const coder::array<creal32_T, 1U> &b_x, double b_Fs,
   double b_t_0, pulsestats *b_ps_pre, const threshold *b_thresh, pulsestats
   *iobj_0, wfmstft *iobj_1)
 {
   pulsestats *obj_out;
   waveform *obj;
-  coder::array<creal32_T, 2U> in;
-  int inVectorLength;
+  wfmstft *d_val;
+  coder::array<c_struct_T, 2U> c_ps_pre;
+  coder::array<c_struct_T, 2U> d_ps_pre;
+  coder::array<creal_T, 2U> b_val;
+  coder::array<creal_T, 2U> r1;
+  coder::array<creal32_T, 2U> r;
+  coder::array<creal32_T, 2U> val;
+  coder::array<double, 2U> f_ps_pre;
+  coder::array<double, 1U> b_tmp_data;
+  coder::array<double, 1U> c_val;
+  coder::array<boolean_T, 2U> e_ps_pre;
+  double tmp_data[400];
+  int loop_ub;
   obj = this;
-  obj->x.set_size(1, 0);
-  obj->W.set_size(0, 0);
-  obj->Wf.set_size(0);
+
+  // WAVEFORM Constructs an instance of this class
+  // INPUTS:
+  //    x       1xn     Vector of samples
+  //    Fs      1x1     Sample frequency (Hz)
+  //    t_0     1x1     Time stamp of first element (s)
+  // 	ps_pre  1x1     Pulse stats object from previous data (priori)
+  //    OLF     1x1     Overlap fraction as decimal (0.5 = 50%
+  //                    overlap)
+  // OUTPUTS:
+  //    obj             The waveform object
+  //             %%
+  r.set(nullptr, 1, 0);
+  coder::internal::validator_check_size(r, val);
+  obj->x.set_size(1, val.size(1));
+  loop_ub = val.size(1);
+  for (int i{0}; i < loop_ub; i++) {
+    obj->x[i] = val[i];
+  }
+
+  r1.set(nullptr, 0, 0);
+  coder::internal::validator_check_size(r1, b_val);
+  obj->W.set_size(b_val.size(0), b_val.size(1));
+  loop_ub = b_val.size(0) * b_val.size(1);
+  for (int i{0}; i < loop_ub; i++) {
+    obj->W[i] = b_val[i];
+  }
+
+  b_tmp_data.set(&tmp_data[0], 0);
+  coder::internal::validator_check_size(b_tmp_data, c_val);
+  obj->Wf.set_size(c_val.size(0));
+  loop_ub = c_val.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    obj->Wf[i] = c_val[i];
+  }
+
+  coder::array<creal32_T, 2U> c_x;
 
   // Flatten input to row
-  inVectorLength = 1;
-  if (b_x.size(0) != 1) {
-    inVectorLength = b_x.size(0);
-  }
-
-  if (b_x.size(0) == 1) {
-    in.set_size(1, inVectorLength);
-    for (int i{0}; i < inVectorLength; i++) {
-      in[i] = b_x[0];
-    }
-  } else if (b_x.size(0) == 0) {
-    in.set_size(1, inVectorLength);
-    for (int i{0}; i < inVectorLength; i++) {
-      in[i] = b_x[i];
-    }
-  } else {
-    in.set_size(1, inVectorLength);
-    for (int i{0}; i < inVectorLength; i++) {
-      in[i] = b_x[i];
-    }
-  }
-
-  obj->x.set_size(1, in.size(1));
-  inVectorLength = in.size(1);
-  for (int i{0}; i < inVectorLength; i++) {
-    obj->x[i] = in[i];
+  loop_ub = b_x.size(0);
+  c_x = b_x.reshape(1, loop_ub);
+  coder::internal::validator_check_size(c_x, val);
+  obj->x.set_size(1, val.size(1));
+  loop_ub = val.size(1);
+  for (int i{0}; i < loop_ub; i++) {
+    obj->x[i] = val[i];
   }
 
   // Data vector
@@ -4389,33 +4318,8 @@ waveform *waveform::init(const coder::array<creal32_T, 1U> &b_x, double b_Fs,
   obj->K = rtNaN;
 
   // Unknown number of pulses.
-  // WFMSTFT Constructs and returns an instance of this class
-  //
-  // An waveform object must be passed to this construction method
-  // so that the constructor has access to the data vector, desired
-  // overlap fraction, and priori pulse data, which is used to
-  // develop the window sizes.
-  // INPUTS:
-  //    waveform_obj   A single waveform object with prior
-  //                   dependent properties set.
-  // OUTPUTS:
-  //    obj             A wfmstft object
-  //             %%
-  //
-  // The following are variable sized properties. To tell coder
-  // that they may vary setup as a local variable size variable
-  // first, then set.
-  // Instructions on https://www.mathworks.com/help/simulink/ug/how-working-with-matlab-classes-is-different-for-code-generation.html
-  // maxFs*maxpulsewidth
-  // Now actually assign them
-  iobj_1->S.set_size(0, 0);
-  iobj_1->t.set_size(0);
-  iobj_1->f.set_size(0);
-  iobj_1->psd.set_size(0);
-  iobj_1->wind.set_size(0);
-  iobj_1->dt = 0.0;
-  iobj_1->T = 0.0;
-  obj->stft = iobj_1;
+  d_val = iobj_1->init();
+  obj->stft = d_val;
 
   // Unknown values but set types
   obj->W.set_size(0, 0);
@@ -4423,10 +4327,36 @@ waveform *waveform::init(const coder::array<creal32_T, 1U> &b_x, double b_Fs,
 
   // Copy over ps_
   // COPY Creates an exact copy of the pulse stats object as a separate object
+  c_ps_pre.set_size(1, b_ps_pre->pl.size(1));
+  loop_ub = b_ps_pre->pl.size(0) * b_ps_pre->pl.size(1) - 1;
+  for (int i{0}; i <= loop_ub; i++) {
+    c_ps_pre[i] = b_ps_pre->pl[i];
+  }
+
+  d_ps_pre.set_size(b_ps_pre->clst.size(0), b_ps_pre->clst.size(1));
+  loop_ub = b_ps_pre->clst.size(0) * b_ps_pre->clst.size(1) - 1;
+  for (int i{0}; i <= loop_ub; i++) {
+    d_ps_pre[i] = b_ps_pre->clst[i];
+  }
+
+  e_ps_pre.set_size(b_ps_pre->cmsk.size(0), b_ps_pre->cmsk.size(1));
+  loop_ub = b_ps_pre->cmsk.size(0) * b_ps_pre->cmsk.size(1) - 1;
+  for (int i{0}; i <= loop_ub; i++) {
+    e_ps_pre[i] = b_ps_pre->cmsk[i];
+  }
+
+  f_ps_pre.set_size(b_ps_pre->cpki.size(0), b_ps_pre->cpki.size(1));
+  loop_ub = b_ps_pre->cpki.size(0) * b_ps_pre->cpki.size(1) - 1;
+  for (int i{0}; i <= loop_ub; i++) {
+    f_ps_pre[i] = b_ps_pre->cpki[i];
+  }
+
+  double g_ps_pre[2];
+  g_ps_pre[0] = b_ps_pre->tmplt[0];
+  g_ps_pre[1] = b_ps_pre->tmplt[1];
   obj_out = iobj_0->b_init(b_ps_pre->t_p, b_ps_pre->t_ip, b_ps_pre->t_ipu,
-    b_ps_pre->t_ipj, b_ps_pre->fp, b_ps_pre->fstart, b_ps_pre->fend,
-    b_ps_pre->tmplt, b_ps_pre->mode, b_ps_pre->pl, b_ps_pre->clst,
-    b_ps_pre->cmsk, b_ps_pre->cpki);
+    b_ps_pre->t_ipj, b_ps_pre->fp, b_ps_pre->fstart, b_ps_pre->fend, g_ps_pre,
+    b_ps_pre->mode, c_ps_pre, d_ps_pre, e_ps_pre, f_ps_pre);
 
   // ,...
   // obj.thresh);
@@ -4440,42 +4370,55 @@ waveform *waveform::init(const coder::array<creal32_T, 1U> &b_x, double b_Fs,
   return obj;
 }
 
-//
-// WAVEFORM Constructs an instance of this class
-// INPUTS:
-//    x       1xn     Vector of samples
-//    Fs      1x1     Sample frequency (Hz)
-//    t_0     1x1     Time stamp of first element (s)
-//  ps_pre  1x1     Pulse stats object from previous data (priori)
-//    OLF     1x1     Overlap fraction as decimal (0.5 = 50%
-//                    overlap)
-// OUTPUTS:
-//    obj             The waveform object
-//             %%
-//
-// Arguments    : const creal32_T b_x[1000]
-//                double b_Fs
-//                pulsestats *b_ps_pre
-//                pulsestats *iobj_0
-//                wfmstft *iobj_1
-// Return Type  : b_waveform *
-//
 b_waveform *b_waveform::init(const creal32_T b_x[1000], double b_Fs, pulsestats *
   b_ps_pre, pulsestats *iobj_0, wfmstft *iobj_1)
 {
   b_waveform *obj;
   pulsestats *obj_out;
+  wfmstft *val;
+  coder::array<c_struct_T, 2U> c_ps_pre;
+  coder::array<c_struct_T, 2U> d_ps_pre;
+  coder::array<creal_T, 2U> r1;
+  coder::array<creal_T, 2U> r2;
+  coder::array<creal32_T, 2U> _in;
+  coder::array<creal32_T, 2U> r;
+  coder::array<double, 2U> f_ps_pre;
+  coder::array<double, 1U> b_tmp_data;
+  coder::array<double, 1U> c_tmp_data;
+  coder::array<boolean_T, 2U> e_ps_pre;
+  double tmp_data[400];
+  int loop_ub;
   obj = this;
-  obj->x.set_size(1, 0);
+
+  // WAVEFORM Constructs an instance of this class
+  // INPUTS:
+  //    x       1xn     Vector of samples
+  //    Fs      1x1     Sample frequency (Hz)
+  //    t_0     1x1     Time stamp of first element (s)
+  // 	ps_pre  1x1     Pulse stats object from previous data (priori)
+  //    OLF     1x1     Overlap fraction as decimal (0.5 = 50%
+  //                    overlap)
+  // OUTPUTS:
+  //    obj             The waveform object
+  //             %%
+  r.set(nullptr, 1, 0);
+  coder::internal::validator_check_size(r, _in);
+  obj->x.set_size(1, _in.size(1));
+  loop_ub = _in.size(1);
+  for (int i{0}; i < loop_ub; i++) {
+    obj->x[i] = _in[i];
+  }
+
+  r1.set(nullptr, 0, 0);
+  coder::internal::validator_check_size(r1, r2);
+  b_tmp_data.set(&tmp_data[0], 0);
+  coder::internal::validator_check_size(b_tmp_data, c_tmp_data);
 
   // Flatten input to row
   obj->x.set_size(1, 1000);
   for (int i{0}; i < 1000; i++) {
     obj->x[i] = b_x[i];
   }
-
-  double b_n_ol;
-  double n_p;
 
   // Data vector
   // Elements in the data
@@ -4498,41 +4441,44 @@ b_waveform *b_waveform::init(const creal32_T b_x[1000], double b_Fs, pulsestats 
   obj->K = rtNaN;
 
   // Unknown number of pulses.
-  // WFMSTFT Constructs and returns an instance of this class
-  //
-  // An waveform object must be passed to this construction method
-  // so that the constructor has access to the data vector, desired
-  // overlap fraction, and priori pulse data, which is used to
-  // develop the window sizes.
-  // INPUTS:
-  //    waveform_obj   A single waveform object with prior
-  //                   dependent properties set.
-  // OUTPUTS:
-  //    obj             A wfmstft object
-  //             %%
-  //
-  // The following are variable sized properties. To tell coder
-  // that they may vary setup as a local variable size variable
-  // first, then set.
-  // Instructions on https://www.mathworks.com/help/simulink/ug/how-working-with-matlab-classes-is-different-for-code-generation.html
-  // maxFs*maxpulsewidth
-  // Now actually assign them
-  iobj_1->S.set_size(0, 0);
-  iobj_1->t.set_size(0);
-  iobj_1->f.set_size(0);
-  iobj_1->psd.set_size(0);
-  iobj_1->wind.set_size(0);
-  iobj_1->dt = 0.0;
-  iobj_1->T = 0.0;
-  obj->stft = iobj_1;
+  val = iobj_1->init();
+  obj->stft = val;
 
   // Unknown values but set types
   // Copy over ps_
   // COPY Creates an exact copy of the pulse stats object as a separate object
+  c_ps_pre.set_size(1, b_ps_pre->pl.size(1));
+  loop_ub = b_ps_pre->pl.size(0) * b_ps_pre->pl.size(1) - 1;
+  for (int i{0}; i <= loop_ub; i++) {
+    c_ps_pre[i] = b_ps_pre->pl[i];
+  }
+
+  d_ps_pre.set_size(b_ps_pre->clst.size(0), b_ps_pre->clst.size(1));
+  loop_ub = b_ps_pre->clst.size(0) * b_ps_pre->clst.size(1) - 1;
+  for (int i{0}; i <= loop_ub; i++) {
+    d_ps_pre[i] = b_ps_pre->clst[i];
+  }
+
+  e_ps_pre.set_size(b_ps_pre->cmsk.size(0), b_ps_pre->cmsk.size(1));
+  loop_ub = b_ps_pre->cmsk.size(0) * b_ps_pre->cmsk.size(1) - 1;
+  for (int i{0}; i <= loop_ub; i++) {
+    e_ps_pre[i] = b_ps_pre->cmsk[i];
+  }
+
+  f_ps_pre.set_size(b_ps_pre->cpki.size(0), b_ps_pre->cpki.size(1));
+  loop_ub = b_ps_pre->cpki.size(0) * b_ps_pre->cpki.size(1) - 1;
+  for (int i{0}; i <= loop_ub; i++) {
+    f_ps_pre[i] = b_ps_pre->cpki[i];
+  }
+
+  double g_ps_pre[2];
+  double b_n_ol;
+  double n_p;
+  g_ps_pre[0] = b_ps_pre->tmplt[0];
+  g_ps_pre[1] = b_ps_pre->tmplt[1];
   obj_out = iobj_0->b_init(b_ps_pre->t_p, b_ps_pre->t_ip, b_ps_pre->t_ipu,
-    b_ps_pre->t_ipj, b_ps_pre->fp, b_ps_pre->fstart, b_ps_pre->fend,
-    b_ps_pre->tmplt, b_ps_pre->mode, b_ps_pre->pl, b_ps_pre->clst,
-    b_ps_pre->cmsk, b_ps_pre->cpki);
+    b_ps_pre->t_ipj, b_ps_pre->fp, b_ps_pre->fstart, b_ps_pre->fend, g_ps_pre,
+    b_ps_pre->mode, c_ps_pre, d_ps_pre, e_ps_pre, f_ps_pre);
 
   // ,...
   // obj.thresh);
@@ -4552,12 +4498,6 @@ b_waveform *b_waveform::init(const creal32_T b_x[1000], double b_Fs, pulsestats 
   //    None (This method modifies the waveform object properties)
   //
   //             %%
-  // GETPRIORIDEPENDENTVARS returns the properties in the
-  // waveform that are dependent on prior pulse data estimates. It
-  // depends on the waveform properties list Fs etc, as well as
-  // pulse stats like t_ip, etc.
-  // INPUTS:  ps_obj  1x1 pulse stats object
-  // OUTPUTS:  pulse stats object
   // WHAT WAS DONE BY THIS METHOD IS NOW DONE BY A METHOD OF THE
   // PULSESTATS CLASS.
   //          function [] = update_posteriori(obj,pulselist)
@@ -4632,6 +4572,12 @@ b_waveform *b_waveform::init(const creal32_T b_x[1000], double b_Fs, pulsestats 
   //
   //              obj.ps_pos.psdHist = obj.stft.psd
   //          end
+  // GETPRIORIDEPENDENTVARS returns the properties in the
+  // waveform that are dependent on prior pulse data estimates. It
+  // depends on the waveform properties list Fs etc, as well as
+  // pulse stats like t_ip, etc.
+  // INPUTS:  ps_obj  1x1 pulse stats object
+  // OUTPUTS:  pulse stats object
   n_p = b_ps_pre->t_p * obj->Fs;
   n_p = std::ceil(n_p);
 
@@ -4671,27 +4617,6 @@ b_waveform *b_waveform::init(const creal32_T b_x[1000], double b_Fs, pulsestats 
   return obj;
 }
 
-//
-// PROCESS is a method that runs the pulse detection algorithm on
-// a waveform object.
-//
-// This method is is intended to be run on a waveform
-// segment that is short enought to contain at most K+1 pulses,
-// but at least K pulses, where K is the number of pulses to be
-// summed. Input paramets allow for the selection of search mode,
-// the focus mode, and the selection mode. The search mode
-// ('mode') is eithr 'discovery', 'confirmation', or 'tracking'
-// and selection of each of these affects how priori information
-// is used to reduce the frequency or time scope of the pulse
-// search. This also affects how the resulting ps_pos property of
-// the waveform is set. The false alarm probabilty is used along
-// with the decision table in order to determine the thresholds
-// used for the decision making on pulse detection.
-//
-// Arguments    : char mode
-//                const coder::array<double, 2U> &excluded_freq_bands
-// Return Type  : void
-//
 void waveform::process(char mode, const coder::array<double, 2U>
   &excluded_freq_bands)
 {
@@ -4708,19 +4633,22 @@ void waveform::process(char mode, const coder::array<double, 2U>
   coder::array<c_struct_T, 2U> *structure;
   pulsestats *obj;
   coder::array<c_struct_T, 2U> b_candidatelist;
+  coder::array<c_struct_T, 2U> b_val;
   coder::array<c_struct_T, 2U> c_candidatelist;
   coder::array<c_struct_T, 2U> candidatelist;
   coder::array<c_struct_T, 1U> b_obj;
+  coder::array<double, 2U> _in;
   coder::array<double, 2U> b;
+  coder::array<double, 2U> b_varargin_1;
+  coder::array<double, 2U> c_varargin_1;
+  coder::array<double, 2U> d_varargin_1;
+  coder::array<double, 2U> e_varargin_1;
   coder::array<double, 2U> pulseendtimes_withuncert;
   coder::array<double, 2U> pulsestarttimes_withuncert;
-  coder::array<double, 2U> r;
-  coder::array<double, 2U> r1;
-  coder::array<double, 2U> r2;
-  coder::array<double, 2U> r3;
-  coder::array<double, 2U> r4;
+  coder::array<double, 2U> varargin_1;
   coder::array<double, 1U> pk_ind;
   coder::array<boolean_T, 2U> b_conflog;
+  coder::array<boolean_T, 2U> b_msk;
   coder::array<boolean_T, 2U> msk;
   coder::array<boolean_T, 1U> conflog;
   c_struct_T val;
@@ -4729,17 +4657,38 @@ void waveform::process(char mode, const coder::array<double, 2U>
   double tipj;
   double tipu;
   double tref;
+  int c_input_sizes[2];
+  int d_input_sizes[2];
+  int e_input_sizes[2];
+  int f_input_sizes[2];
   int freq_search_type_size[2];
+  int g_input_sizes[2];
+  int h_input_sizes[2];
   int runmode_size[2];
   int time_search_type_size[2];
-  int i;
-  int outsize_idx_0;
+  int input_sizes;
+  int n;
   char freq_search_type_data[8];
   char time_search_type_data[8];
   char runmode_data[7];
   boolean_T have_priori_freq_band;
   boolean_T have_priori_time;
 
+  // PROCESS is a method that runs the pulse detection algorithm on
+  // a waveform object.
+  //
+  // This method is is intended to be run on a waveform
+  // segment that is short enought to contain at most K+1 pulses,
+  // but at least K pulses, where K is the number of pulses to be
+  // summed. Input paramets allow for the selection of search mode,
+  // the focus mode, and the selection mode. The search mode
+  // ('mode') is eithr 'discovery', 'confirmation', or 'tracking'
+  // and selection of each of these affects how priori information
+  // is used to reduce the frequency or time scope of the pulse
+  // search. This also affects how the resulting ps_pos property of
+  // the waveform is set. The false alarm probabilty is used along
+  // with the decision table in order to determine the thresholds
+  // used for the decision making on pulse detection.
   // Mode description:
   // Processing can be done in either discovery 'D', confirmation
   // 'C', or tracking 'T' modes. The selection of these modes
@@ -4886,35 +4835,35 @@ void waveform::process(char mode, const coder::array<double, 2U>
   }
 
   if (mode == 'D') {
-    outsize_idx_0 = 0;
+    n = 0;
   } else if (mode == 'I') {
-    outsize_idx_0 = 1;
+    n = 1;
   } else if (mode == 'C') {
-    outsize_idx_0 = 2;
+    n = 2;
   } else if (mode == 'T') {
-    outsize_idx_0 = 3;
+    n = 3;
   } else {
-    outsize_idx_0 = -1;
+    n = -1;
   }
 
-  switch (outsize_idx_0) {
+  switch (n) {
    case 0:
     {
       freq_search_type_size[0] = 1;
       freq_search_type_size[1] = 5;
       time_search_type_size[0] = 1;
       time_search_type_size[1] = 5;
-      for (i = 0; i < 5; i++) {
+      for (input_sizes = 0; input_sizes < 5; input_sizes++) {
         char c;
-        c = b_cv1[i];
-        freq_search_type_data[i] = c;
-        time_search_type_data[i] = c;
+        c = b_cv1[input_sizes];
+        freq_search_type_data[input_sizes] = c;
+        time_search_type_data[input_sizes] = c;
       }
 
       runmode_size[0] = 1;
       runmode_size[1] = 6;
-      for (i = 0; i < 6; i++) {
-        runmode_data[i] = b_cv2[i];
+      for (input_sizes = 0; input_sizes < 6; input_sizes++) {
+        runmode_data[input_sizes] = b_cv2[input_sizes];
       }
     }
     break;
@@ -4922,20 +4871,20 @@ void waveform::process(char mode, const coder::array<double, 2U>
    case 1:
     freq_search_type_size[0] = 1;
     freq_search_type_size[1] = 8;
-    for (i = 0; i < 8; i++) {
-      freq_search_type_data[i] = b_cv[i];
+    for (input_sizes = 0; input_sizes < 8; input_sizes++) {
+      freq_search_type_data[input_sizes] = b_cv[input_sizes];
     }
 
     time_search_type_size[0] = 1;
     time_search_type_size[1] = 5;
-    for (i = 0; i < 5; i++) {
-      time_search_type_data[i] = b_cv1[i];
+    for (input_sizes = 0; input_sizes < 5; input_sizes++) {
+      time_search_type_data[input_sizes] = b_cv1[input_sizes];
     }
 
     runmode_size[0] = 1;
     runmode_size[1] = 6;
-    for (i = 0; i < 6; i++) {
-      runmode_data[i] = b_cv2[i];
+    for (input_sizes = 0; input_sizes < 6; input_sizes++) {
+      runmode_data[input_sizes] = b_cv2[input_sizes];
     }
     break;
 
@@ -4945,17 +4894,17 @@ void waveform::process(char mode, const coder::array<double, 2U>
       freq_search_type_size[1] = 5;
       time_search_type_size[0] = 1;
       time_search_type_size[1] = 5;
-      for (i = 0; i < 5; i++) {
+      for (input_sizes = 0; input_sizes < 5; input_sizes++) {
         char c;
-        c = b_cv1[i];
-        freq_search_type_data[i] = c;
-        time_search_type_data[i] = c;
+        c = b_cv1[input_sizes];
+        freq_search_type_data[input_sizes] = c;
+        time_search_type_data[input_sizes] = c;
       }
 
       runmode_size[0] = 1;
       runmode_size[1] = 7;
-      for (i = 0; i < 7; i++) {
-        runmode_data[i] = cv3[i];
+      for (input_sizes = 0; input_sizes < 7; input_sizes++) {
+        runmode_data[input_sizes] = cv3[input_sizes];
       }
     }
     break;
@@ -4966,17 +4915,17 @@ void waveform::process(char mode, const coder::array<double, 2U>
       freq_search_type_size[1] = 8;
       time_search_type_size[0] = 1;
       time_search_type_size[1] = 8;
-      for (i = 0; i < 8; i++) {
+      for (input_sizes = 0; input_sizes < 8; input_sizes++) {
         char c;
-        c = b_cv[i];
-        freq_search_type_data[i] = c;
-        time_search_type_data[i] = c;
+        c = b_cv[input_sizes];
+        freq_search_type_data[input_sizes] = c;
+        time_search_type_data[input_sizes] = c;
       }
 
       runmode_size[0] = 1;
       runmode_size[1] = 5;
-      for (i = 0; i < 5; i++) {
-        runmode_data[i] = cv4[i];
+      for (input_sizes = 0; input_sizes < 5; input_sizes++) {
+        runmode_data[input_sizes] = cv4[input_sizes];
       }
     }
     break;
@@ -4987,250 +4936,249 @@ void waveform::process(char mode, const coder::array<double, 2U>
       freq_search_type_size[1] = 5;
       time_search_type_size[0] = 1;
       time_search_type_size[1] = 5;
-      for (i = 0; i < 5; i++) {
+      for (input_sizes = 0; input_sizes < 5; input_sizes++) {
         char c;
-        c = b_cv1[i];
-        freq_search_type_data[i] = c;
-        time_search_type_data[i] = c;
+        c = b_cv1[input_sizes];
+        freq_search_type_data[input_sizes] = c;
+        time_search_type_data[input_sizes] = c;
       }
 
       runmode_size[0] = 1;
       runmode_size[1] = 6;
-      for (i = 0; i < 6; i++) {
-        runmode_data[i] = b_cv2[i];
+      for (input_sizes = 0; input_sizes < 6; input_sizes++) {
+        runmode_data[input_sizes] = b_cv2[input_sizes];
       }
     }
     break;
   }
 
   if (coder::internal::b_strcmp(runmode_data, runmode_size)) {
-    outsize_idx_0 = 0;
+    n = 0;
   } else if (coder::internal::c_strcmp(runmode_data, runmode_size)) {
-    outsize_idx_0 = 1;
+    n = 1;
   } else if (coder::internal::d_strcmp(runmode_data, runmode_size)) {
-    outsize_idx_0 = 2;
+    n = 2;
   } else {
-    outsize_idx_0 = -1;
+    n = -1;
   }
 
-  switch (outsize_idx_0) {
+  switch (n) {
    case 0:
-    {
-      int outsize_idx_1;
-
-      //             %% SEARCH RUN MODE
-      // Find all the potential pulses in the dataset
-      findpulse(time_search_type_data, time_search_type_size,
-                freq_search_type_data, freq_search_type_size,
-                excluded_freq_bands, candidatelist, msk, pk_ind);
-      conflog.set_size(pk_ind.size(0));
-      outsize_idx_0 = pk_ind.size(0);
-      for (i = 0; i < outsize_idx_0; i++) {
-        conflog[i] = std::isnan(pk_ind[i]);
-      }
-
-      outsize_idx_0 = conflog.size(0);
-      for (i = 0; i < outsize_idx_0; i++) {
-        conflog[i] = !conflog[i];
-      }
-
-      if (coder::internal::ifWhileCond(conflog)) {
-        // Set the pulselist property in the ps_pos based on the
-        // downselection of pulses
-        obj = ps_pos;
-        b_candidatelist.set_size(1, candidatelist.size(1));
-        outsize_idx_0 = candidatelist.size(1);
-        for (i = 0; i < outsize_idx_0; i++) {
-          b_candidatelist[i] = candidatelist[(static_cast<int>(pk_ind[0]) +
-            candidatelist.size(0) * i) - 1];
-        }
-
-        coder::internal::validator_check_size(b_candidatelist, obj->pl);
-      } else {
-        // If nothing above threshold was found, fill with empty
-        // pulse object
-        obj = ps_pos;
-        makepulsestruc(&val.A, &val.P, &val.SNR, &val.yw, &val.t_0, &val.t_f,
-                       val.t_next, &val.fp, &val.fstart, &val.fend, val.mode,
-                       &val.det_dec, &val.con_dec);
-        obj->pl.set_size(1, 1);
-        obj->pl[0] = val;
-      }
-
-      // Record all candidates for posterity
-      obj = ps_pos;
-      coder::internal::validator_check_size(candidatelist);
-      obj->clst.set_size(candidatelist.size(0), candidatelist.size(1));
-      outsize_idx_0 = candidatelist.size(0) * candidatelist.size(1);
-      for (i = 0; i < outsize_idx_0; i++) {
-        obj->clst[i] = candidatelist[i];
-      }
-
-      obj = ps_pos;
-      if ((msk.size(0) == 1) && (msk.size(1) == 1)) {
-        outsize_idx_0 = msk.size(0);
-        outsize_idx_1 = msk.size(1);
-        have_priori_freq_band = msk[0];
-        msk.set_size(outsize_idx_0, outsize_idx_1);
-        for (i = 0; i < outsize_idx_1; i++) {
-          for (int i1{0}; i1 < outsize_idx_0; i1++) {
-            msk[i1 + msk.size(0) * i] = have_priori_freq_band;
-          }
-        }
-      }
-
-      obj->cmsk.set_size(msk.size(0), msk.size(1));
-      outsize_idx_0 = msk.size(0) * msk.size(1);
-      for (i = 0; i < outsize_idx_0; i++) {
-        obj->cmsk[i] = msk[i];
-      }
-
-      obj = ps_pos;
-      if (pk_ind.size(0) == 1) {
-        outsize_idx_0 = pk_ind.size(0);
-        b_x = pk_ind[0];
-        pk_ind.set_size(outsize_idx_0);
-        for (i = 0; i < outsize_idx_0; i++) {
-          pk_ind[i] = b_x;
-        }
-      }
-
-      obj->cpki.set_size(pk_ind.size(0), 1);
-      outsize_idx_0 = pk_ind.size(0);
-      for (i = 0; i < outsize_idx_0; i++) {
-        obj->cpki[i] = pk_ind[i];
-      }
-
-      //  Detection?
-      if (coder::internal::ifWhileCond(conflog)) {
-        // Dection was made
-        // True ->
-        // Update confirmation property for each pulse. False
-        // recorded for confirmation property since we are
-        // currently in discovery mode and can't confirm anything
-        // yet.
-        i = ps_pos->pl.size(1) - 1;
-        for (outsize_idx_1 = 0; outsize_idx_1 <= i; outsize_idx_1++) {
-          b_candidatelist.set_size(1, ps_pos->pl.size(1));
-          outsize_idx_0 = ps_pos->pl.size(1);
-          for (int i1{0}; i1 < outsize_idx_0; i1++) {
-            b_candidatelist[i1] = ps_pos->pl[i1];
-          }
-
-          b_candidatelist[outsize_idx_1].con_dec = false;
-          obj = ps_pos;
-          c_candidatelist.set_size(1, b_candidatelist.size(1));
-          outsize_idx_0 = b_candidatelist.size(0) * b_candidatelist.size(1) - 1;
-          for (int i1{0}; i1 <= outsize_idx_0; i1++) {
-            c_candidatelist[i1] = b_candidatelist[i1];
-          }
-
-          coder::internal::validator_check_size(c_candidatelist, b_candidatelist);
-          obj->pl.set_size(1, b_candidatelist.size(1));
-          outsize_idx_0 = b_candidatelist.size(1);
-          for (int i1{0}; i1 < outsize_idx_0; i1++) {
-            obj->pl[i1] = b_candidatelist[i1];
-          }
-        }
-
-        //                      %Only update posteriori if we are focusing. If in open
-        //                      %mode, we don't evolve the understanding of pulse
-        //                      %timing in the priori.
-        //                      if strcmp(focus_mode,'focus')
-        //                      %Calculate & set post. stats (reduced uncertainty)
-        //                      %obj.update_posteriori(obj.ps_pos.pl)
-        //                      obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl)
-        //                      end
-        //    Update Mode Recommendation -> Confirmation
-        obj = ps_pos;
-        obj->mode = 'C';
-      } else {
-        // Dection was not made
-        // False ->
-        // Just update the mode recommendation to 'S' (search)
-        // so we keep an open search
-        obj = ps_pos;
-        obj->mode = 'S';
-
-        // 'D';
-        // obj.ps_pos.updateposteriori(obj.ps_pre,[]);%No pulses to update the posteriori
-      }
-
-      // Set the mode in the pulse and candidate listing for
-      // records. This records the mode that was used in the
-      // detection of the record pulses. This is useful for
-      // debugging.
-      i = ps_pos->pl.size(1) - 1;
-      for (outsize_idx_1 = 0; outsize_idx_1 <= i; outsize_idx_1++) {
-        b_candidatelist.set_size(1, ps_pos->pl.size(1));
-        outsize_idx_0 = ps_pos->pl.size(1);
-        for (int i1{0}; i1 < outsize_idx_0; i1++) {
-          b_candidatelist[i1] = ps_pos->pl[i1];
-        }
-
-        b_candidatelist[b_candidatelist.size(0) * outsize_idx_1].mode.set_size(1,
-          1);
-        b_candidatelist[outsize_idx_1].mode[0] = mode;
-        obj = ps_pos;
-        c_candidatelist.set_size(1, b_candidatelist.size(1));
-        outsize_idx_0 = b_candidatelist.size(0) * b_candidatelist.size(1) - 1;
-        for (int i1{0}; i1 <= outsize_idx_0; i1++) {
-          c_candidatelist[i1] = b_candidatelist[i1];
-        }
-
-        coder::internal::validator_check_size(c_candidatelist, b_candidatelist);
-        obj->pl.set_size(1, b_candidatelist.size(1));
-        outsize_idx_0 = b_candidatelist.size(1);
-        for (int i1{0}; i1 < outsize_idx_0; i1++) {
-          obj->pl[i1] = b_candidatelist[i1];
-        }
-
-        // 'D';
-      }
-
-      i = ps_pos->clst.size(0) * ps_pos->clst.size(1) - 1;
-      for (outsize_idx_1 = 0; outsize_idx_1 <= i; outsize_idx_1++) {
-        candidatelist.set_size(ps_pos->clst.size(0), ps_pos->clst.size(1));
-        outsize_idx_0 = ps_pos->clst.size(0) * ps_pos->clst.size(1);
-        for (int i1{0}; i1 < outsize_idx_0; i1++) {
-          candidatelist[i1] = ps_pos->clst[i1];
-        }
-
-        candidatelist[outsize_idx_1].mode.set_size(1, 1);
-        candidatelist[outsize_idx_1].mode[0] = mode;
-        obj = ps_pos;
-        coder::internal::validator_check_size(candidatelist);
-        obj->clst.set_size(candidatelist.size(0), candidatelist.size(1));
-        outsize_idx_0 = candidatelist.size(0) * candidatelist.size(1);
-        for (int i1{0}; i1 < outsize_idx_0; i1++) {
-          obj->clst[i1] = candidatelist[i1];
-        }
-
-        //  'D';
-      }
-
-      //             %% CONFIRMATION MODE
+    //             %% SEARCH RUN MODE
+    // Find all the potential pulses in the dataset
+    findpulse(time_search_type_data, time_search_type_size,
+              freq_search_type_data, freq_search_type_size, excluded_freq_bands,
+              candidatelist, msk, pk_ind);
+    conflog.set_size(pk_ind.size(0));
+    n = pk_ind.size(0);
+    for (input_sizes = 0; input_sizes < n; input_sizes++) {
+      conflog[input_sizes] = std::isnan(pk_ind[input_sizes]);
     }
+
+    n = conflog.size(0);
+    for (input_sizes = 0; input_sizes < n; input_sizes++) {
+      conflog[input_sizes] = !conflog[input_sizes];
+    }
+
+    if (coder::internal::ifWhileCond(conflog)) {
+      // Set the pulselist property in the ps_pos based on the
+      // downselection of pulses
+      obj = ps_pos;
+      n = candidatelist.size(1);
+      b_candidatelist.set_size(1, candidatelist.size(1));
+      for (input_sizes = 0; input_sizes < n; input_sizes++) {
+        b_candidatelist[input_sizes] = candidatelist[(static_cast<int>(pk_ind[0])
+          + candidatelist.size(0) * input_sizes) - 1];
+      }
+
+      coder::internal::validator_check_size(b_candidatelist, b_val);
+      obj->pl.set_size(1, b_val.size(1));
+      n = b_val.size(1);
+      for (input_sizes = 0; input_sizes < n; input_sizes++) {
+        obj->pl[input_sizes] = b_val[input_sizes];
+      }
+    } else {
+      // If nothing above threshold was found, fill with empty
+      // pulse object
+      obj = ps_pos;
+      makepulsestruc(&val.A, &val.P, &val.SNR, &val.yw, &val.t_0, &val.t_f,
+                     val.t_next, &val.fp, &val.fstart, &val.fend, val.mode,
+                     &val.det_dec, &val.con_dec);
+      obj->pl.set_size(1, 1);
+      obj->pl[0] = val;
+    }
+
+    // Record all candidates for posterity
+    obj = ps_pos;
+    c_candidatelist.set_size(candidatelist.size(0), candidatelist.size(1));
+    n = candidatelist.size(0) * candidatelist.size(1) - 1;
+    for (input_sizes = 0; input_sizes <= n; input_sizes++) {
+      c_candidatelist[input_sizes] = candidatelist[input_sizes];
+    }
+
+    coder::internal::c_validator_check_size(c_candidatelist, candidatelist);
+    obj->clst.set_size(candidatelist.size(0), candidatelist.size(1));
+    n = candidatelist.size(0) * candidatelist.size(1);
+    for (input_sizes = 0; input_sizes < n; input_sizes++) {
+      obj->clst[input_sizes] = candidatelist[input_sizes];
+    }
+
+    obj = ps_pos;
+    b_msk.set_size(msk.size(0), msk.size(1));
+    n = msk.size(0) * msk.size(1) - 1;
+    for (input_sizes = 0; input_sizes <= n; input_sizes++) {
+      b_msk[input_sizes] = msk[input_sizes];
+    }
+
+    coder::internal::d_validator_check_size(b_msk, msk);
+    obj->cmsk.set_size(msk.size(0), msk.size(1));
+    n = msk.size(0) * msk.size(1);
+    for (input_sizes = 0; input_sizes < n; input_sizes++) {
+      obj->cmsk[input_sizes] = msk[input_sizes];
+    }
+
+    obj = ps_pos;
+    coder::internal::validator_check_size(pk_ind, _in);
+    obj->cpki.set_size(_in.size(0), _in.size(1));
+    n = _in.size(0) * _in.size(1);
+    for (input_sizes = 0; input_sizes < n; input_sizes++) {
+      obj->cpki[input_sizes] = _in[input_sizes];
+    }
+
+    //  Detection?
+    if (coder::internal::ifWhileCond(conflog)) {
+      // Dection was made
+      // True ->
+      // Update confirmation property for each pulse. False
+      // recorded for confirmation property since we are
+      // currently in discovery mode and can't confirm anything
+      // yet.
+      input_sizes = ps_pos->pl.size(1) - 1;
+      for (int ip{0}; ip <= input_sizes; ip++) {
+        b_val.set_size(1, ps_pos->pl.size(1));
+        n = ps_pos->pl.size(1);
+        for (int b_input_sizes{0}; b_input_sizes < n; b_input_sizes++) {
+          b_val[b_input_sizes] = ps_pos->pl[b_input_sizes];
+        }
+
+        b_val[ip].con_dec = false;
+        obj = ps_pos;
+        b_candidatelist.set_size(1, b_val.size(1));
+        n = b_val.size(0) * b_val.size(1) - 1;
+        for (int b_input_sizes{0}; b_input_sizes <= n; b_input_sizes++) {
+          b_candidatelist[b_input_sizes] = b_val[b_input_sizes];
+        }
+
+        coder::internal::validator_check_size(b_candidatelist, b_val);
+        obj->pl.set_size(1, b_val.size(1));
+        n = b_val.size(1);
+        for (int b_input_sizes{0}; b_input_sizes < n; b_input_sizes++) {
+          obj->pl[b_input_sizes] = b_val[b_input_sizes];
+        }
+      }
+
+      //                      %Only update posteriori if we are focusing. If in open
+      //                      %mode, we don't evolve the understanding of pulse
+      //                      %timing in the priori.
+      //                      if strcmp(focus_mode,'focus')
+      //                      %Calculate & set post. stats (reduced uncertainty)
+      //                      %obj.update_posteriori(obj.ps_pos.pl)
+      //                      obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl)
+      //                      end
+      //    Update Mode Recommendation -> Confirmation
+      obj = ps_pos;
+      obj->mode = 'C';
+    } else {
+      // Dection was not made
+      // False ->
+      // Just update the mode recommendation to 'S' (search)
+      // so we keep an open search
+      obj = ps_pos;
+      obj->mode = 'S';
+
+      // 'D';
+      // obj.ps_pos.updateposteriori(obj.ps_pre,[]);%No pulses to update the posteriori
+    }
+
+    // Set the mode in the pulse and candidate listing for
+    // records. This records the mode that was used in the
+    // detection of the record pulses. This is useful for
+    // debugging.
+    input_sizes = ps_pos->pl.size(1) - 1;
+    for (int ip{0}; ip <= input_sizes; ip++) {
+      b_val.set_size(1, ps_pos->pl.size(1));
+      n = ps_pos->pl.size(1);
+      for (int b_input_sizes{0}; b_input_sizes < n; b_input_sizes++) {
+        b_val[b_input_sizes] = ps_pos->pl[b_input_sizes];
+      }
+
+      b_val[b_val.size(0) * ip].mode.set_size(1, 1);
+      b_val[ip].mode[0] = mode;
+      obj = ps_pos;
+      b_candidatelist.set_size(1, b_val.size(1));
+      n = b_val.size(0) * b_val.size(1) - 1;
+      for (int b_input_sizes{0}; b_input_sizes <= n; b_input_sizes++) {
+        b_candidatelist[b_input_sizes] = b_val[b_input_sizes];
+      }
+
+      coder::internal::validator_check_size(b_candidatelist, b_val);
+      obj->pl.set_size(1, b_val.size(1));
+      n = b_val.size(1);
+      for (int b_input_sizes{0}; b_input_sizes < n; b_input_sizes++) {
+        obj->pl[b_input_sizes] = b_val[b_input_sizes];
+      }
+
+      // 'D';
+    }
+
+    input_sizes = ps_pos->clst.size(0) * ps_pos->clst.size(1) - 1;
+    for (int ip{0}; ip <= input_sizes; ip++) {
+      candidatelist.set_size(ps_pos->clst.size(0), ps_pos->clst.size(1));
+      n = ps_pos->clst.size(0) * ps_pos->clst.size(1);
+      for (int b_input_sizes{0}; b_input_sizes < n; b_input_sizes++) {
+        candidatelist[b_input_sizes] = ps_pos->clst[b_input_sizes];
+      }
+
+      candidatelist[ip].mode.set_size(1, 1);
+      candidatelist[ip].mode[0] = mode;
+      obj = ps_pos;
+      c_candidatelist.set_size(candidatelist.size(0), candidatelist.size(1));
+      n = candidatelist.size(0) * candidatelist.size(1) - 1;
+      for (int b_input_sizes{0}; b_input_sizes <= n; b_input_sizes++) {
+        c_candidatelist[b_input_sizes] = candidatelist[b_input_sizes];
+      }
+
+      coder::internal::c_validator_check_size(c_candidatelist, candidatelist);
+      obj->clst.set_size(candidatelist.size(0), candidatelist.size(1));
+      n = candidatelist.size(0) * candidatelist.size(1);
+      for (int b_input_sizes{0}; b_input_sizes < n; b_input_sizes++) {
+        obj->clst[b_input_sizes] = candidatelist[b_input_sizes];
+      }
+
+      //  'D';
+    }
+
+    //             %% CONFIRMATION MODE
     break;
 
    case 1:
     {
-      int i1;
-      int outsize_idx_1;
+      int b_input_sizes;
+      int ip;
 
       // Find all the potential pulses in the dataset
       findpulse(time_search_type_data, time_search_type_size,
                 freq_search_type_data, freq_search_type_size,
                 excluded_freq_bands, candidatelist, msk, pk_ind);
       conflog.set_size(pk_ind.size(0));
-      outsize_idx_0 = pk_ind.size(0);
-      for (i = 0; i < outsize_idx_0; i++) {
-        conflog[i] = std::isnan(pk_ind[i]);
+      n = pk_ind.size(0);
+      for (input_sizes = 0; input_sizes < n; input_sizes++) {
+        conflog[input_sizes] = std::isnan(pk_ind[input_sizes]);
       }
 
-      outsize_idx_0 = conflog.size(0);
-      for (i = 0; i < outsize_idx_0; i++) {
-        conflog[i] = !conflog[i];
+      n = conflog.size(0);
+      for (input_sizes = 0; input_sizes < n; input_sizes++) {
+        conflog[input_sizes] = !conflog[input_sizes];
       }
 
       if (coder::internal::ifWhileCond(conflog)) {
@@ -5239,14 +5187,19 @@ void waveform::process(char mode, const coder::array<double, 2U>
         // because if we are in confirmation mode, we only allow
         // for the selection mode to be 'most'
         obj = ps_pos;
+        n = candidatelist.size(1);
         b_candidatelist.set_size(1, candidatelist.size(1));
-        outsize_idx_0 = candidatelist.size(1);
-        for (i = 0; i < outsize_idx_0; i++) {
-          b_candidatelist[i] = candidatelist[(static_cast<int>(pk_ind[0]) +
-            candidatelist.size(0) * i) - 1];
+        for (input_sizes = 0; input_sizes < n; input_sizes++) {
+          b_candidatelist[input_sizes] = candidatelist[(static_cast<int>(pk_ind
+            [0]) + candidatelist.size(0) * input_sizes) - 1];
         }
 
-        coder::internal::validator_check_size(b_candidatelist, obj->pl);
+        coder::internal::validator_check_size(b_candidatelist, b_val);
+        obj->pl.set_size(1, b_val.size(1));
+        n = b_val.size(1);
+        for (input_sizes = 0; input_sizes < n; input_sizes++) {
+          obj->pl[input_sizes] = b_val[input_sizes];
+        }
       } else {
         // If nothing above threshold was found, fill with empty
         // pulse object
@@ -5260,46 +5213,39 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
       // Record all candidates for posterity
       obj = ps_pos;
-      coder::internal::validator_check_size(candidatelist);
+      c_candidatelist.set_size(candidatelist.size(0), candidatelist.size(1));
+      n = candidatelist.size(0) * candidatelist.size(1) - 1;
+      for (input_sizes = 0; input_sizes <= n; input_sizes++) {
+        c_candidatelist[input_sizes] = candidatelist[input_sizes];
+      }
+
+      coder::internal::c_validator_check_size(c_candidatelist, candidatelist);
       obj->clst.set_size(candidatelist.size(0), candidatelist.size(1));
-      outsize_idx_0 = candidatelist.size(0) * candidatelist.size(1);
-      for (i = 0; i < outsize_idx_0; i++) {
-        obj->clst[i] = candidatelist[i];
+      n = candidatelist.size(0) * candidatelist.size(1);
+      for (input_sizes = 0; input_sizes < n; input_sizes++) {
+        obj->clst[input_sizes] = candidatelist[input_sizes];
       }
 
       obj = ps_pos;
-      if ((msk.size(0) == 1) && (msk.size(1) == 1)) {
-        outsize_idx_0 = msk.size(0);
-        outsize_idx_1 = msk.size(1);
-        have_priori_freq_band = msk[0];
-        msk.set_size(outsize_idx_0, outsize_idx_1);
-        for (i = 0; i < outsize_idx_1; i++) {
-          for (i1 = 0; i1 < outsize_idx_0; i1++) {
-            msk[i1 + msk.size(0) * i] = have_priori_freq_band;
-          }
-        }
+      b_msk.set_size(msk.size(0), msk.size(1));
+      n = msk.size(0) * msk.size(1) - 1;
+      for (input_sizes = 0; input_sizes <= n; input_sizes++) {
+        b_msk[input_sizes] = msk[input_sizes];
       }
 
+      coder::internal::d_validator_check_size(b_msk, msk);
       obj->cmsk.set_size(msk.size(0), msk.size(1));
-      outsize_idx_0 = msk.size(0) * msk.size(1);
-      for (i = 0; i < outsize_idx_0; i++) {
-        obj->cmsk[i] = msk[i];
+      n = msk.size(0) * msk.size(1);
+      for (input_sizes = 0; input_sizes < n; input_sizes++) {
+        obj->cmsk[input_sizes] = msk[input_sizes];
       }
 
       obj = ps_pos;
-      if (pk_ind.size(0) == 1) {
-        outsize_idx_0 = pk_ind.size(0);
-        b_x = pk_ind[0];
-        pk_ind.set_size(outsize_idx_0);
-        for (i = 0; i < outsize_idx_0; i++) {
-          pk_ind[i] = b_x;
-        }
-      }
-
-      obj->cpki.set_size(pk_ind.size(0), 1);
-      outsize_idx_0 = pk_ind.size(0);
-      for (i = 0; i < outsize_idx_0; i++) {
-        obj->cpki[i] = pk_ind[i];
+      coder::internal::validator_check_size(pk_ind, _in);
+      obj->cpki.set_size(_in.size(0), _in.size(1));
+      n = _in.size(0) * _in.size(1);
+      for (input_sizes = 0; input_sizes < n; input_sizes++) {
+        obj->cpki[input_sizes] = _in[input_sizes];
       }
 
       b_conflog.set_size(1, 1);
@@ -5308,8 +5254,8 @@ void waveform::process(char mode, const coder::array<double, 2U>
       // Set to all false. Needed
       //  Detection?
       if (coder::internal::ifWhileCond(conflog)) {
-        int i2;
-        int i3;
+        int i_input_sizes;
+        int j_input_sizes;
         boolean_T exitg1;
 
         // ~isempty(pulselist)%obj.decide(pulselist,PF,decision_table) %Decision on IDed pulses
@@ -5328,28 +5274,28 @@ void waveform::process(char mode, const coder::array<double, 2U>
             pulseendtimes_withuncert.set_size(1, 0);
           } else {
             pulseendtimes_withuncert.set_size(1, static_cast<int>(b_x) + 1);
-            outsize_idx_0 = static_cast<int>(b_x);
-            for (i = 0; i <= outsize_idx_0; i++) {
-              pulseendtimes_withuncert[i] = i;
+            n = static_cast<int>(b_x);
+            for (input_sizes = 0; input_sizes <= n; input_sizes++) {
+              pulseendtimes_withuncert[input_sizes] = input_sizes;
             }
           }
 
           b_x = tip - tipu;
           pulsestarttimes_withuncert.set_size(1, static_cast<int>(K));
-          outsize_idx_0 = static_cast<int>(K);
-          for (i = 0; i < outsize_idx_0; i++) {
-            pulsestarttimes_withuncert[i] = 1.0;
+          n = static_cast<int>(K);
+          for (input_sizes = 0; input_sizes < n; input_sizes++) {
+            pulsestarttimes_withuncert[input_sizes] = 1.0;
           }
 
           if (pulseendtimes_withuncert.size(1) ==
               pulsestarttimes_withuncert.size(1)) {
-            outsize_idx_0 = pulseendtimes_withuncert.size(1) - 1;
+            n = pulseendtimes_withuncert.size(1) - 1;
             pulsestarttimes_withuncert.set_size(1, pulseendtimes_withuncert.size
               (1));
-            for (i = 0; i <= outsize_idx_0; i++) {
-              pulsestarttimes_withuncert[i] = (tref + b_x *
-                pulseendtimes_withuncert[i]) - tipj *
-                pulsestarttimes_withuncert[i];
+            for (input_sizes = 0; input_sizes <= n; input_sizes++) {
+              pulsestarttimes_withuncert[input_sizes] = (tref + b_x *
+                pulseendtimes_withuncert[input_sizes]) - tipj *
+                pulsestarttimes_withuncert[input_sizes];
             }
           } else {
             b_binary_expand_op(pulsestarttimes_withuncert, tref, b_x,
@@ -5358,17 +5304,17 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
           b_x = tip + tipu;
           b.set_size(1, static_cast<int>(K));
-          outsize_idx_0 = static_cast<int>(K);
-          for (i = 0; i < outsize_idx_0; i++) {
-            b[i] = 1.0;
+          n = static_cast<int>(K);
+          for (input_sizes = 0; input_sizes < n; input_sizes++) {
+            b[input_sizes] = 1.0;
           }
 
           if (pulseendtimes_withuncert.size(1) == b.size(1)) {
-            outsize_idx_0 = pulseendtimes_withuncert.size(1) - 1;
+            n = pulseendtimes_withuncert.size(1) - 1;
             pulseendtimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
-            for (i = 0; i <= outsize_idx_0; i++) {
-              pulseendtimes_withuncert[i] = (tref + b_x *
-                pulseendtimes_withuncert[i]) + tipj;
+            for (input_sizes = 0; input_sizes <= n; input_sizes++) {
+              pulseendtimes_withuncert[input_sizes] = (tref + b_x *
+                pulseendtimes_withuncert[input_sizes]) + tipj;
             }
           } else {
             b_binary_expand_op(pulseendtimes_withuncert, tref, b_x, tipj, b);
@@ -5383,28 +5329,29 @@ void waveform::process(char mode, const coder::array<double, 2U>
             pulseendtimes_withuncert.set_size(1, 0);
           } else {
             pulseendtimes_withuncert.set_size(1, static_cast<int>(b_x - 1.0) + 1);
-            outsize_idx_0 = static_cast<int>(b_x - 1.0);
-            for (i = 0; i <= outsize_idx_0; i++) {
-              pulseendtimes_withuncert[i] = static_cast<double>(i) + 1.0;
+            n = static_cast<int>(b_x - 1.0);
+            for (input_sizes = 0; input_sizes <= n; input_sizes++) {
+              pulseendtimes_withuncert[input_sizes] = static_cast<double>
+                (input_sizes) + 1.0;
             }
           }
 
           b_x = tip - tipu;
           pulsestarttimes_withuncert.set_size(1, static_cast<int>(K));
-          outsize_idx_0 = static_cast<int>(K);
-          for (i = 0; i < outsize_idx_0; i++) {
-            pulsestarttimes_withuncert[i] = 1.0;
+          n = static_cast<int>(K);
+          for (input_sizes = 0; input_sizes < n; input_sizes++) {
+            pulsestarttimes_withuncert[input_sizes] = 1.0;
           }
 
           if (pulseendtimes_withuncert.size(1) ==
               pulsestarttimes_withuncert.size(1)) {
-            outsize_idx_0 = pulseendtimes_withuncert.size(1) - 1;
+            n = pulseendtimes_withuncert.size(1) - 1;
             pulsestarttimes_withuncert.set_size(1, pulseendtimes_withuncert.size
               (1));
-            for (i = 0; i <= outsize_idx_0; i++) {
-              pulsestarttimes_withuncert[i] = (tref + b_x *
-                pulseendtimes_withuncert[i]) - tipj *
-                pulsestarttimes_withuncert[i];
+            for (input_sizes = 0; input_sizes <= n; input_sizes++) {
+              pulsestarttimes_withuncert[input_sizes] = (tref + b_x *
+                pulseendtimes_withuncert[input_sizes]) - tipj *
+                pulsestarttimes_withuncert[input_sizes];
             }
           } else {
             b_binary_expand_op(pulsestarttimes_withuncert, tref, b_x,
@@ -5413,17 +5360,17 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
           b_x = tip + tipu;
           b.set_size(1, static_cast<int>(K));
-          outsize_idx_0 = static_cast<int>(K);
-          for (i = 0; i < outsize_idx_0; i++) {
-            b[i] = 1.0;
+          n = static_cast<int>(K);
+          for (input_sizes = 0; input_sizes < n; input_sizes++) {
+            b[input_sizes] = 1.0;
           }
 
           if (pulseendtimes_withuncert.size(1) == b.size(1)) {
-            outsize_idx_0 = pulseendtimes_withuncert.size(1) - 1;
+            n = pulseendtimes_withuncert.size(1) - 1;
             pulseendtimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
-            for (i = 0; i <= outsize_idx_0; i++) {
-              pulseendtimes_withuncert[i] = (tref + b_x *
-                pulseendtimes_withuncert[i]) + tipj;
+            for (input_sizes = 0; input_sizes <= n; input_sizes++) {
+              pulseendtimes_withuncert[input_sizes] = (tref + b_x *
+                pulseendtimes_withuncert[input_sizes]) + tipj;
             }
           } else {
             b_binary_expand_op(pulseendtimes_withuncert, tref, b_x, tipj, b);
@@ -5434,183 +5381,220 @@ void waveform::process(char mode, const coder::array<double, 2U>
         // pulsestarttimes_withuncert = pulsestarttimes_nom-tipu-tipj;
         // pulseendtimes_withuncert   = pulsestarttimes_nom+tipu+tipj;
         // Check if pulses started after expected minimum start times
-        outsize_idx_0 = ps_pos->pl.size(1);
-        b_obj = ps_pos->pl.reshape(outsize_idx_0);
-        outsize_idx_0 = b_obj.size(0);
+        n = ps_pos->pl.size(1);
+        b_obj = ps_pos->pl.reshape(n);
+        n = b_obj.size(0);
         if (b_obj.size(0) == 0) {
-          i = 0;
+          input_sizes = 0;
         } else {
-          i = b_obj.size(0);
+          input_sizes = b_obj.size(0);
         }
 
-        b.set_size(1, i);
-        for (outsize_idx_1 = 0; outsize_idx_1 < outsize_idx_0; outsize_idx_1++)
-        {
-          b[outsize_idx_1] = b_obj[outsize_idx_1].t_0;
+        b.set_size(1, input_sizes);
+        for (ip = 0; ip < n; ip++) {
+          b[ip] = b_obj[ip].t_0;
+        }
+
+        if (b.size(1) != 0) {
+          c_input_sizes[1] = b.size(1);
+        } else {
+          c_input_sizes[1] = 0;
         }
 
         // Check if pulses started before expected maximum start times
-        outsize_idx_0 = ps_pos->pl.size(1);
-        b_obj = ps_pos->pl.reshape(outsize_idx_0);
-        outsize_idx_0 = b_obj.size(0);
+        n = ps_pos->pl.size(1);
+        b_obj = ps_pos->pl.reshape(n);
+        n = b_obj.size(0);
         if (b_obj.size(0) == 0) {
-          i = 0;
+          input_sizes = 0;
         } else {
-          i = b_obj.size(0);
+          input_sizes = b_obj.size(0);
         }
 
-        r.set_size(1, i);
-        for (outsize_idx_1 = 0; outsize_idx_1 < outsize_idx_0; outsize_idx_1++)
-        {
-          r[outsize_idx_1] = b_obj[outsize_idx_1].t_0;
+        varargin_1.set_size(1, input_sizes);
+        for (ip = 0; ip < n; ip++) {
+          varargin_1[ip] = b_obj[ip].t_0;
+        }
+
+        if (varargin_1.size(1) != 0) {
+          d_input_sizes[1] = varargin_1.size(1);
+        } else {
+          d_input_sizes[1] = 0;
         }
 
         // Frequency check. Within +/- 100 Hz of previously
         // detected pulses?
         structure = &ps_pos->pl;
-        outsize_idx_0 = structure->size(1);
+        n = structure->size(1);
         if (structure->size(1) == 0) {
-          i = 0;
+          input_sizes = 0;
         } else {
-          i = structure->size(1);
+          input_sizes = structure->size(1);
         }
 
-        r1.set_size(1, i);
-        for (outsize_idx_1 = 0; outsize_idx_1 < outsize_idx_0; outsize_idx_1++)
-        {
-          r1[outsize_idx_1] = (*structure)[outsize_idx_1].fp;
+        b_varargin_1.set_size(1, input_sizes);
+        for (ip = 0; ip < n; ip++) {
+          b_varargin_1[ip] = (*structure)[ip].fp;
+        }
+
+        if (b_varargin_1.size(1) != 0) {
+          e_input_sizes[1] = b_varargin_1.size(1);
+        } else {
+          e_input_sizes[1] = 0;
         }
 
         structure = &ps_pre->pl;
-        outsize_idx_0 = structure->size(1);
+        n = structure->size(1);
         if (structure->size(1) == 0) {
-          i = 0;
+          input_sizes = 0;
         } else {
-          i = structure->size(1);
+          input_sizes = structure->size(1);
         }
 
-        r2.set_size(1, i);
-        for (outsize_idx_1 = 0; outsize_idx_1 < outsize_idx_0; outsize_idx_1++)
-        {
-          r2[outsize_idx_1] = (*structure)[outsize_idx_1].fp;
+        c_varargin_1.set_size(1, input_sizes);
+        for (ip = 0; ip < n; ip++) {
+          c_varargin_1[ip] = (*structure)[ip].fp;
+        }
+
+        if (c_varargin_1.size(1) != 0) {
+          f_input_sizes[1] = c_varargin_1.size(1);
+        } else {
+          f_input_sizes[1] = 0;
         }
 
         structure = &ps_pos->pl;
-        outsize_idx_0 = structure->size(1);
+        n = structure->size(1);
         if (structure->size(1) == 0) {
-          i = 0;
+          input_sizes = 0;
         } else {
-          i = structure->size(1);
+          input_sizes = structure->size(1);
         }
 
-        r3.set_size(1, i);
-        for (outsize_idx_1 = 0; outsize_idx_1 < outsize_idx_0; outsize_idx_1++)
-        {
-          r3[outsize_idx_1] = (*structure)[outsize_idx_1].fp;
+        d_varargin_1.set_size(1, input_sizes);
+        for (ip = 0; ip < n; ip++) {
+          d_varargin_1[ip] = (*structure)[ip].fp;
+        }
+
+        if (d_varargin_1.size(1) != 0) {
+          g_input_sizes[1] = d_varargin_1.size(1);
+        } else {
+          g_input_sizes[1] = 0;
         }
 
         structure = &ps_pre->pl;
-        outsize_idx_0 = structure->size(1);
+        n = structure->size(1);
         if (structure->size(1) == 0) {
-          i = 0;
+          input_sizes = 0;
         } else {
-          i = structure->size(1);
+          input_sizes = structure->size(1);
         }
 
-        r4.set_size(1, i);
-        for (outsize_idx_1 = 0; outsize_idx_1 < outsize_idx_0; outsize_idx_1++)
-        {
-          r4[outsize_idx_1] = (*structure)[outsize_idx_1].fp;
+        e_varargin_1.set_size(1, input_sizes);
+        for (ip = 0; ip < n; ip++) {
+          e_varargin_1[ip] = (*structure)[ip].fp;
         }
 
-        if (r.size(1) == 1) {
-          i = pulseendtimes_withuncert.size(1);
+        if (e_varargin_1.size(1) != 0) {
+          h_input_sizes[1] = e_varargin_1.size(1);
         } else {
-          i = r.size(1);
+          h_input_sizes[1] = 0;
         }
 
-        if (b.size(1) == 1) {
-          i1 = pulsestarttimes_withuncert.size(1);
+        if (d_input_sizes[1] == 1) {
+          n = pulseendtimes_withuncert.size(1);
         } else {
-          i1 = b.size(1);
+          n = d_input_sizes[1];
         }
 
-        if (r1.size(1) == 1) {
-          outsize_idx_0 = r2.size(1);
+        if (c_input_sizes[1] == 1) {
+          input_sizes = pulsestarttimes_withuncert.size(1);
         } else {
-          outsize_idx_0 = r1.size(1);
+          input_sizes = c_input_sizes[1];
         }
 
-        if (r3.size(1) == 1) {
-          outsize_idx_1 = r4.size(1);
+        if (e_input_sizes[1] == 1) {
+          ip = f_input_sizes[1];
         } else {
-          outsize_idx_1 = r3.size(1);
+          ip = e_input_sizes[1];
         }
 
-        if (r.size(1) == 1) {
-          i2 = pulseendtimes_withuncert.size(1);
+        if (g_input_sizes[1] == 1) {
+          b_input_sizes = h_input_sizes[1];
         } else {
-          i2 = r.size(1);
+          b_input_sizes = g_input_sizes[1];
         }
 
-        if (i2 == 1) {
-          if (b.size(1) == 1) {
-            i2 = pulsestarttimes_withuncert.size(1);
+        if (d_input_sizes[1] == 1) {
+          i_input_sizes = pulseendtimes_withuncert.size(1);
+        } else {
+          i_input_sizes = d_input_sizes[1];
+        }
+
+        if (i_input_sizes == 1) {
+          if (c_input_sizes[1] == 1) {
+            i_input_sizes = pulsestarttimes_withuncert.size(1);
           } else {
-            i2 = b.size(1);
+            i_input_sizes = c_input_sizes[1];
           }
-        } else if (r.size(1) == 1) {
-          i2 = pulseendtimes_withuncert.size(1);
+        } else if (d_input_sizes[1] == 1) {
+          i_input_sizes = pulseendtimes_withuncert.size(1);
         } else {
-          i2 = r.size(1);
+          i_input_sizes = d_input_sizes[1];
         }
 
-        if (r1.size(1) == 1) {
-          i3 = r2.size(1);
+        if (e_input_sizes[1] == 1) {
+          j_input_sizes = f_input_sizes[1];
         } else {
-          i3 = r1.size(1);
+          j_input_sizes = e_input_sizes[1];
         }
 
-        if (i3 == 1) {
-          if (r3.size(1) == 1) {
-            i3 = r4.size(1);
+        if (j_input_sizes == 1) {
+          if (g_input_sizes[1] == 1) {
+            j_input_sizes = h_input_sizes[1];
           } else {
-            i3 = r3.size(1);
+            j_input_sizes = g_input_sizes[1];
           }
-        } else if (r1.size(1) == 1) {
-          i3 = r2.size(1);
+        } else if (e_input_sizes[1] == 1) {
+          j_input_sizes = f_input_sizes[1];
         } else {
-          i3 = r1.size(1);
+          j_input_sizes = e_input_sizes[1];
         }
 
-        if ((r.size(1) == pulseendtimes_withuncert.size(1)) && (b.size(1) ==
-             pulsestarttimes_withuncert.size(1)) && (i == i1) && (r1.size(1) ==
-             r2.size(1)) && (r3.size(1) == r4.size(1)) && (outsize_idx_0 ==
-             outsize_idx_1) && (i2 == i3)) {
-          b_conflog.set_size(1, r.size(1));
-          outsize_idx_0 = r.size(1);
-          for (i = 0; i < outsize_idx_0; i++) {
-            b_conflog[i] = ((r[i] <= pulseendtimes_withuncert[i]) && (b[i] >=
-              pulsestarttimes_withuncert[i]) && ((r1[i] >= r2[i] - 100.0) &&
-              (r3[i] <= r4[i] + 100.0)));
+        if ((d_input_sizes[1] == pulseendtimes_withuncert.size(1)) &&
+            (c_input_sizes[1] == pulsestarttimes_withuncert.size(1)) && (n ==
+             input_sizes) && (e_input_sizes[1] == f_input_sizes[1]) &&
+            (g_input_sizes[1] == h_input_sizes[1]) && (ip == b_input_sizes) &&
+            (i_input_sizes == j_input_sizes)) {
+          b_conflog.set_size(1, d_input_sizes[1]);
+          n = d_input_sizes[1];
+          for (input_sizes = 0; input_sizes < n; input_sizes++) {
+            b_conflog[input_sizes] = ((varargin_1[input_sizes] <=
+              pulseendtimes_withuncert[input_sizes]) && (b[input_sizes] >=
+              pulsestarttimes_withuncert[input_sizes]) &&
+              ((b_varargin_1[input_sizes] >= c_varargin_1[input_sizes] - 100.0) &&
+               (d_varargin_1[input_sizes] <= e_varargin_1[input_sizes] + 100.0)));
           }
         } else {
-          c_binary_expand_op(b_conflog, r, pulseendtimes_withuncert, b,
-                             pulsestarttimes_withuncert, r1, r2, r3, r4);
+          c_binary_expand_op(b_conflog, varargin_1, d_input_sizes,
+                             pulseendtimes_withuncert, b, c_input_sizes,
+                             pulsestarttimes_withuncert, b_varargin_1,
+                             e_input_sizes, c_varargin_1, f_input_sizes,
+                             d_varargin_1, g_input_sizes, e_varargin_1,
+                             h_input_sizes);
         }
 
         // [minstartlog', maxstartlog', freqInBand', conflog']
-        outsize_idx_0 = b_conflog.size(1);
-        conflog = b_conflog.reshape(outsize_idx_0);
+        n = b_conflog.size(1);
+        conflog = b_conflog.reshape(n);
         have_priori_freq_band = false;
-        outsize_idx_0 = 1;
+        n = 1;
         exitg1 = false;
-        while ((!exitg1) && (outsize_idx_0 <= conflog.size(0))) {
-          if (conflog[outsize_idx_0 - 1]) {
+        while ((!exitg1) && (n <= conflog.size(0))) {
+          if (conflog[n - 1]) {
             have_priori_freq_band = true;
             exitg1 = true;
           } else {
-            outsize_idx_0++;
+            n++;
           }
         }
 
@@ -5632,28 +5616,28 @@ void waveform::process(char mode, const coder::array<double, 2U>
       if (have_priori_freq_band) {
         // True ->
         // Update confirmation property for each pulse
-        i = ps_pos->pl.size(1) - 1;
-        for (outsize_idx_1 = 0; outsize_idx_1 <= i; outsize_idx_1++) {
+        input_sizes = ps_pos->pl.size(1) - 1;
+        for (ip = 0; ip <= input_sizes; ip++) {
           // obj.ps_pos.pl(ip).con_dec = true;
-          b_candidatelist.set_size(1, ps_pos->pl.size(1));
-          outsize_idx_0 = ps_pos->pl.size(1);
-          for (i1 = 0; i1 < outsize_idx_0; i1++) {
-            b_candidatelist[i1] = ps_pos->pl[i1];
+          b_val.set_size(1, ps_pos->pl.size(1));
+          n = ps_pos->pl.size(1);
+          for (b_input_sizes = 0; b_input_sizes < n; b_input_sizes++) {
+            b_val[b_input_sizes] = ps_pos->pl[b_input_sizes];
           }
 
-          b_candidatelist[outsize_idx_1].con_dec = b_conflog[outsize_idx_1];
+          b_val[ip].con_dec = b_conflog[ip];
           obj = ps_pos;
-          c_candidatelist.set_size(1, b_candidatelist.size(1));
-          outsize_idx_0 = b_candidatelist.size(0) * b_candidatelist.size(1) - 1;
-          for (i1 = 0; i1 <= outsize_idx_0; i1++) {
-            c_candidatelist[i1] = b_candidatelist[i1];
+          b_candidatelist.set_size(1, b_val.size(1));
+          n = b_val.size(0) * b_val.size(1) - 1;
+          for (b_input_sizes = 0; b_input_sizes <= n; b_input_sizes++) {
+            b_candidatelist[b_input_sizes] = b_val[b_input_sizes];
           }
 
-          coder::internal::validator_check_size(c_candidatelist, b_candidatelist);
-          obj->pl.set_size(1, b_candidatelist.size(1));
-          outsize_idx_0 = b_candidatelist.size(1);
-          for (i1 = 0; i1 < outsize_idx_0; i1++) {
-            obj->pl[i1] = b_candidatelist[i1];
+          coder::internal::validator_check_size(b_candidatelist, b_val);
+          obj->pl.set_size(1, b_val.size(1));
+          n = b_val.size(1);
+          for (b_input_sizes = 0; b_input_sizes < n; b_input_sizes++) {
+            obj->pl[b_input_sizes] = b_val[b_input_sizes];
           }
         }
 
@@ -5681,50 +5665,55 @@ void waveform::process(char mode, const coder::array<double, 2U>
       // records. This records the mode that was used in the
       // detection of the record pulses. This is useful for
       // debugging.
-      i = ps_pos->pl.size(1) - 1;
-      for (outsize_idx_1 = 0; outsize_idx_1 <= i; outsize_idx_1++) {
-        b_candidatelist.set_size(1, ps_pos->pl.size(1));
-        outsize_idx_0 = ps_pos->pl.size(1);
-        for (i1 = 0; i1 < outsize_idx_0; i1++) {
-          b_candidatelist[i1] = ps_pos->pl[i1];
+      input_sizes = ps_pos->pl.size(1) - 1;
+      for (ip = 0; ip <= input_sizes; ip++) {
+        b_val.set_size(1, ps_pos->pl.size(1));
+        n = ps_pos->pl.size(1);
+        for (b_input_sizes = 0; b_input_sizes < n; b_input_sizes++) {
+          b_val[b_input_sizes] = ps_pos->pl[b_input_sizes];
         }
 
-        b_candidatelist[b_candidatelist.size(0) * outsize_idx_1].mode.set_size(1,
-          1);
-        b_candidatelist[outsize_idx_1].mode[0] = mode;
+        b_val[b_val.size(0) * ip].mode.set_size(1, 1);
+        b_val[ip].mode[0] = mode;
         obj = ps_pos;
-        c_candidatelist.set_size(1, b_candidatelist.size(1));
-        outsize_idx_0 = b_candidatelist.size(0) * b_candidatelist.size(1) - 1;
-        for (i1 = 0; i1 <= outsize_idx_0; i1++) {
-          c_candidatelist[i1] = b_candidatelist[i1];
+        b_candidatelist.set_size(1, b_val.size(1));
+        n = b_val.size(0) * b_val.size(1) - 1;
+        for (b_input_sizes = 0; b_input_sizes <= n; b_input_sizes++) {
+          b_candidatelist[b_input_sizes] = b_val[b_input_sizes];
         }
 
-        coder::internal::validator_check_size(c_candidatelist, b_candidatelist);
-        obj->pl.set_size(1, b_candidatelist.size(1));
-        outsize_idx_0 = b_candidatelist.size(1);
-        for (i1 = 0; i1 < outsize_idx_0; i1++) {
-          obj->pl[i1] = b_candidatelist[i1];
+        coder::internal::validator_check_size(b_candidatelist, b_val);
+        obj->pl.set_size(1, b_val.size(1));
+        n = b_val.size(1);
+        for (b_input_sizes = 0; b_input_sizes < n; b_input_sizes++) {
+          obj->pl[b_input_sizes] = b_val[b_input_sizes];
         }
 
         // 'C';
       }
 
-      i = ps_pos->clst.size(0) * ps_pos->clst.size(1) - 1;
-      for (outsize_idx_1 = 0; outsize_idx_1 <= i; outsize_idx_1++) {
+      input_sizes = ps_pos->clst.size(0) * ps_pos->clst.size(1) - 1;
+      for (ip = 0; ip <= input_sizes; ip++) {
         candidatelist.set_size(ps_pos->clst.size(0), ps_pos->clst.size(1));
-        outsize_idx_0 = ps_pos->clst.size(0) * ps_pos->clst.size(1);
-        for (i1 = 0; i1 < outsize_idx_0; i1++) {
-          candidatelist[i1] = ps_pos->clst[i1];
+        n = ps_pos->clst.size(0) * ps_pos->clst.size(1);
+        for (b_input_sizes = 0; b_input_sizes < n; b_input_sizes++) {
+          candidatelist[b_input_sizes] = ps_pos->clst[b_input_sizes];
         }
 
-        candidatelist[outsize_idx_1].mode.set_size(1, 1);
-        candidatelist[outsize_idx_1].mode[0] = mode;
+        candidatelist[ip].mode.set_size(1, 1);
+        candidatelist[ip].mode[0] = mode;
         obj = ps_pos;
-        coder::internal::validator_check_size(candidatelist);
+        c_candidatelist.set_size(candidatelist.size(0), candidatelist.size(1));
+        n = candidatelist.size(0) * candidatelist.size(1) - 1;
+        for (b_input_sizes = 0; b_input_sizes <= n; b_input_sizes++) {
+          c_candidatelist[b_input_sizes] = candidatelist[b_input_sizes];
+        }
+
+        coder::internal::c_validator_check_size(c_candidatelist, candidatelist);
         obj->clst.set_size(candidatelist.size(0), candidatelist.size(1));
-        outsize_idx_0 = candidatelist.size(0) * candidatelist.size(1);
-        for (i1 = 0; i1 < outsize_idx_0; i1++) {
-          obj->clst[i1] = candidatelist[i1];
+        n = candidatelist.size(0) * candidatelist.size(1);
+        for (b_input_sizes = 0; b_input_sizes < n; b_input_sizes++) {
+          obj->clst[b_input_sizes] = candidatelist[b_input_sizes];
         }
 
         // 'C';
@@ -5733,202 +5722,201 @@ void waveform::process(char mode, const coder::array<double, 2U>
     break;
 
    case 2:
-    {
-      int outsize_idx_1;
+    //                 %% TRACKING MODE
+    // Find all the potential pulses in the dataset
+    findpulse(time_search_type_data, time_search_type_size,
+              freq_search_type_data, freq_search_type_size, excluded_freq_bands,
+              candidatelist, msk, pk_ind);
+    conflog.set_size(pk_ind.size(0));
+    n = pk_ind.size(0);
+    for (input_sizes = 0; input_sizes < n; input_sizes++) {
+      conflog[input_sizes] = std::isnan(pk_ind[input_sizes]);
+    }
 
-      //                 %% TRACKING MODE
-      // Find all the potential pulses in the dataset
-      findpulse(time_search_type_data, time_search_type_size,
-                freq_search_type_data, freq_search_type_size,
-                excluded_freq_bands, candidatelist, msk, pk_ind);
-      conflog.set_size(pk_ind.size(0));
-      outsize_idx_0 = pk_ind.size(0);
-      for (i = 0; i < outsize_idx_0; i++) {
-        conflog[i] = std::isnan(pk_ind[i]);
+    n = conflog.size(0);
+    for (input_sizes = 0; input_sizes < n; input_sizes++) {
+      conflog[input_sizes] = !conflog[input_sizes];
+    }
+
+    if (coder::internal::ifWhileCond(conflog)) {
+      // Record the detection pulses
+      // We only use the highest power pulse group for now
+      // because if we are in confirmation mode, we only allow
+      // for the selection mode to be 'most'
+      obj = ps_pos;
+      n = candidatelist.size(1);
+      b_candidatelist.set_size(1, candidatelist.size(1));
+      for (input_sizes = 0; input_sizes < n; input_sizes++) {
+        b_candidatelist[input_sizes] = candidatelist[(static_cast<int>(pk_ind[0])
+          + candidatelist.size(0) * input_sizes) - 1];
       }
 
-      outsize_idx_0 = conflog.size(0);
-      for (i = 0; i < outsize_idx_0; i++) {
-        conflog[i] = !conflog[i];
+      coder::internal::validator_check_size(b_candidatelist, b_val);
+      obj->pl.set_size(1, b_val.size(1));
+      n = b_val.size(1);
+      for (input_sizes = 0; input_sizes < n; input_sizes++) {
+        obj->pl[input_sizes] = b_val[input_sizes];
       }
+    } else {
+      // Nothing met the threshold for detection
+      obj = ps_pos;
+      makepulsestruc(&val.A, &val.P, &val.SNR, &val.yw, &val.t_0, &val.t_f,
+                     val.t_next, &val.fp, &val.fstart, &val.fend, val.mode,
+                     &val.det_dec, &val.con_dec);
+      obj->pl.set_size(1, 1);
+      obj->pl[0] = val;
+    }
 
-      if (coder::internal::ifWhileCond(conflog)) {
-        // Record the detection pulses
-        // We only use the highest power pulse group for now
-        // because if we are in confirmation mode, we only allow
-        // for the selection mode to be 'most'
-        obj = ps_pos;
-        b_candidatelist.set_size(1, candidatelist.size(1));
-        outsize_idx_0 = candidatelist.size(1);
-        for (i = 0; i < outsize_idx_0; i++) {
-          b_candidatelist[i] = candidatelist[(static_cast<int>(pk_ind[0]) +
-            candidatelist.size(0) * i) - 1];
+    obj = ps_pos;
+    c_candidatelist.set_size(candidatelist.size(0), candidatelist.size(1));
+    n = candidatelist.size(0) * candidatelist.size(1) - 1;
+    for (input_sizes = 0; input_sizes <= n; input_sizes++) {
+      c_candidatelist[input_sizes] = candidatelist[input_sizes];
+    }
+
+    coder::internal::c_validator_check_size(c_candidatelist, candidatelist);
+    obj->clst.set_size(candidatelist.size(0), candidatelist.size(1));
+    n = candidatelist.size(0) * candidatelist.size(1);
+    for (input_sizes = 0; input_sizes < n; input_sizes++) {
+      obj->clst[input_sizes] = candidatelist[input_sizes];
+    }
+
+    obj = ps_pos;
+    b_msk.set_size(msk.size(0), msk.size(1));
+    n = msk.size(0) * msk.size(1) - 1;
+    for (input_sizes = 0; input_sizes <= n; input_sizes++) {
+      b_msk[input_sizes] = msk[input_sizes];
+    }
+
+    coder::internal::d_validator_check_size(b_msk, msk);
+    obj->cmsk.set_size(msk.size(0), msk.size(1));
+    n = msk.size(0) * msk.size(1);
+    for (input_sizes = 0; input_sizes < n; input_sizes++) {
+      obj->cmsk[input_sizes] = msk[input_sizes];
+    }
+
+    obj = ps_pos;
+    coder::internal::validator_check_size(pk_ind, _in);
+    obj->cpki.set_size(_in.size(0), _in.size(1));
+    n = _in.size(0) * _in.size(1);
+    for (input_sizes = 0; input_sizes < n; input_sizes++) {
+      obj->cpki[input_sizes] = _in[input_sizes];
+    }
+
+    //  Detection?
+    if (coder::internal::ifWhileCond(conflog)) {
+      // ~isempty(pulselist)%obj.decide(pulselist,PF,decision_table) %Decision on IDed pulses
+      // True ->
+      // Update confirmation property for each pulse
+      // If we are in tracking mode, we have narrowed the time and
+      // frequeny bounds, so if there is a detection then we are
+      // confirming the previous projections.
+      input_sizes = ps_pos->pl.size(1) - 1;
+      for (int ip{0}; ip <= input_sizes; ip++) {
+        b_val.set_size(1, ps_pos->pl.size(1));
+        n = ps_pos->pl.size(1);
+        for (int b_input_sizes{0}; b_input_sizes < n; b_input_sizes++) {
+          b_val[b_input_sizes] = ps_pos->pl[b_input_sizes];
         }
 
-        coder::internal::validator_check_size(b_candidatelist, obj->pl);
-      } else {
-        // Nothing met the threshold for detection
+        b_val[ip].con_dec = true;
         obj = ps_pos;
-        makepulsestruc(&val.A, &val.P, &val.SNR, &val.yw, &val.t_0, &val.t_f,
-                       val.t_next, &val.fp, &val.fstart, &val.fend, val.mode,
-                       &val.det_dec, &val.con_dec);
-        obj->pl.set_size(1, 1);
-        obj->pl[0] = val;
+        b_candidatelist.set_size(1, b_val.size(1));
+        n = b_val.size(0) * b_val.size(1) - 1;
+        for (int b_input_sizes{0}; b_input_sizes <= n; b_input_sizes++) {
+          b_candidatelist[b_input_sizes] = b_val[b_input_sizes];
+        }
+
+        coder::internal::validator_check_size(b_candidatelist, b_val);
+        obj->pl.set_size(1, b_val.size(1));
+        n = b_val.size(1);
+        for (int b_input_sizes{0}; b_input_sizes < n; b_input_sizes++) {
+          obj->pl[b_input_sizes] = b_val[b_input_sizes];
+        }
       }
 
+      //                      %Open focus mode will never get to tracking, so we
+      //                      %don't need the 'if' statement here checking the focuse
+      //                      %most like in the discovery case above
+      //                      %   Calculate & set post. Stats (reduced uncertainty)
+      //                      %obj.update_posteriori(obj.ps_pos.pl)
+      //                      obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl)
+      //    Mode -> Tracking
+      // Update mode suggestion for next segment processing
       obj = ps_pos;
-      coder::internal::validator_check_size(candidatelist);
+      obj->mode = mode;
+
+      // 'T';
+    } else {
+      // False ->
+      // Update confirmation property for each pulse. Don't need to
+      // do this since there are no pulses to record a confirmation
+      // decision on.
+      // Update mode suggestion for next segment processing
+      //    Mode -> Discovery
+      obj = ps_pos;
+      obj->mode = 'S';
+
+      // 'D';
+      // obj.ps_pos.updateposteriori(obj.ps_pre,[]);%No pulses to update the posteriori
+    }
+
+    // Set the mode in the pulse and candidate listing for
+    // records. This records the mode that was used in the
+    // detection of the record pulses. This is useful for
+    // debugging.
+    input_sizes = ps_pos->pl.size(1) - 1;
+    for (int ip{0}; ip <= input_sizes; ip++) {
+      b_val.set_size(1, ps_pos->pl.size(1));
+      n = ps_pos->pl.size(1);
+      for (int b_input_sizes{0}; b_input_sizes < n; b_input_sizes++) {
+        b_val[b_input_sizes] = ps_pos->pl[b_input_sizes];
+      }
+
+      b_val[b_val.size(0) * ip].mode.set_size(1, 1);
+      b_val[ip].mode[0] = mode;
+      obj = ps_pos;
+      b_candidatelist.set_size(1, b_val.size(1));
+      n = b_val.size(0) * b_val.size(1) - 1;
+      for (int b_input_sizes{0}; b_input_sizes <= n; b_input_sizes++) {
+        b_candidatelist[b_input_sizes] = b_val[b_input_sizes];
+      }
+
+      coder::internal::validator_check_size(b_candidatelist, b_val);
+      obj->pl.set_size(1, b_val.size(1));
+      n = b_val.size(1);
+      for (int b_input_sizes{0}; b_input_sizes < n; b_input_sizes++) {
+        obj->pl[b_input_sizes] = b_val[b_input_sizes];
+      }
+
+      //  'T';
+    }
+
+    input_sizes = ps_pos->clst.size(0) * ps_pos->clst.size(1) - 1;
+    for (int ip{0}; ip <= input_sizes; ip++) {
+      candidatelist.set_size(ps_pos->clst.size(0), ps_pos->clst.size(1));
+      n = ps_pos->clst.size(0) * ps_pos->clst.size(1);
+      for (int b_input_sizes{0}; b_input_sizes < n; b_input_sizes++) {
+        candidatelist[b_input_sizes] = ps_pos->clst[b_input_sizes];
+      }
+
+      candidatelist[ip].mode.set_size(1, 1);
+      candidatelist[ip].mode[0] = mode;
+      obj = ps_pos;
+      c_candidatelist.set_size(candidatelist.size(0), candidatelist.size(1));
+      n = candidatelist.size(0) * candidatelist.size(1) - 1;
+      for (int b_input_sizes{0}; b_input_sizes <= n; b_input_sizes++) {
+        c_candidatelist[b_input_sizes] = candidatelist[b_input_sizes];
+      }
+
+      coder::internal::c_validator_check_size(c_candidatelist, candidatelist);
       obj->clst.set_size(candidatelist.size(0), candidatelist.size(1));
-      outsize_idx_0 = candidatelist.size(0) * candidatelist.size(1);
-      for (i = 0; i < outsize_idx_0; i++) {
-        obj->clst[i] = candidatelist[i];
+      n = candidatelist.size(0) * candidatelist.size(1);
+      for (int b_input_sizes{0}; b_input_sizes < n; b_input_sizes++) {
+        obj->clst[b_input_sizes] = candidatelist[b_input_sizes];
       }
 
-      obj = ps_pos;
-      if ((msk.size(0) == 1) && (msk.size(1) == 1)) {
-        outsize_idx_0 = msk.size(0);
-        outsize_idx_1 = msk.size(1);
-        have_priori_freq_band = msk[0];
-        msk.set_size(outsize_idx_0, outsize_idx_1);
-        for (i = 0; i < outsize_idx_1; i++) {
-          for (int i1{0}; i1 < outsize_idx_0; i1++) {
-            msk[i1 + msk.size(0) * i] = have_priori_freq_band;
-          }
-        }
-      }
-
-      obj->cmsk.set_size(msk.size(0), msk.size(1));
-      outsize_idx_0 = msk.size(0) * msk.size(1);
-      for (i = 0; i < outsize_idx_0; i++) {
-        obj->cmsk[i] = msk[i];
-      }
-
-      obj = ps_pos;
-      if (pk_ind.size(0) == 1) {
-        outsize_idx_0 = pk_ind.size(0);
-        b_x = pk_ind[0];
-        pk_ind.set_size(outsize_idx_0);
-        for (i = 0; i < outsize_idx_0; i++) {
-          pk_ind[i] = b_x;
-        }
-      }
-
-      obj->cpki.set_size(pk_ind.size(0), 1);
-      outsize_idx_0 = pk_ind.size(0);
-      for (i = 0; i < outsize_idx_0; i++) {
-        obj->cpki[i] = pk_ind[i];
-      }
-
-      //  Detection?
-      if (coder::internal::ifWhileCond(conflog)) {
-        // ~isempty(pulselist)%obj.decide(pulselist,PF,decision_table) %Decision on IDed pulses
-        // True ->
-        // Update confirmation property for each pulse
-        // If we are in tracking mode, we have narrowed the time and
-        // frequeny bounds, so if there is a detection then we are
-        // confirming the previous projections.
-        i = ps_pos->pl.size(1) - 1;
-        for (outsize_idx_1 = 0; outsize_idx_1 <= i; outsize_idx_1++) {
-          b_candidatelist.set_size(1, ps_pos->pl.size(1));
-          outsize_idx_0 = ps_pos->pl.size(1);
-          for (int i1{0}; i1 < outsize_idx_0; i1++) {
-            b_candidatelist[i1] = ps_pos->pl[i1];
-          }
-
-          b_candidatelist[outsize_idx_1].con_dec = true;
-          obj = ps_pos;
-          c_candidatelist.set_size(1, b_candidatelist.size(1));
-          outsize_idx_0 = b_candidatelist.size(0) * b_candidatelist.size(1) - 1;
-          for (int i1{0}; i1 <= outsize_idx_0; i1++) {
-            c_candidatelist[i1] = b_candidatelist[i1];
-          }
-
-          coder::internal::validator_check_size(c_candidatelist, b_candidatelist);
-          obj->pl.set_size(1, b_candidatelist.size(1));
-          outsize_idx_0 = b_candidatelist.size(1);
-          for (int i1{0}; i1 < outsize_idx_0; i1++) {
-            obj->pl[i1] = b_candidatelist[i1];
-          }
-        }
-
-        //                      %Open focus mode will never get to tracking, so we
-        //                      %don't need the 'if' statement here checking the focuse
-        //                      %most like in the discovery case above
-        //                      %   Calculate & set post. Stats (reduced uncertainty)
-        //                      %obj.update_posteriori(obj.ps_pos.pl)
-        //                      obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl)
-        //    Mode -> Tracking
-        // Update mode suggestion for next segment processing
-        obj = ps_pos;
-        obj->mode = mode;
-
-        // 'T';
-      } else {
-        // False ->
-        // Update confirmation property for each pulse. Don't need to
-        // do this since there are no pulses to record a confirmation
-        // decision on.
-        // Update mode suggestion for next segment processing
-        //    Mode -> Discovery
-        obj = ps_pos;
-        obj->mode = 'S';
-
-        // 'D';
-        // obj.ps_pos.updateposteriori(obj.ps_pre,[]);%No pulses to update the posteriori
-      }
-
-      // Set the mode in the pulse and candidate listing for
-      // records. This records the mode that was used in the
-      // detection of the record pulses. This is useful for
-      // debugging.
-      i = ps_pos->pl.size(1) - 1;
-      for (outsize_idx_1 = 0; outsize_idx_1 <= i; outsize_idx_1++) {
-        b_candidatelist.set_size(1, ps_pos->pl.size(1));
-        outsize_idx_0 = ps_pos->pl.size(1);
-        for (int i1{0}; i1 < outsize_idx_0; i1++) {
-          b_candidatelist[i1] = ps_pos->pl[i1];
-        }
-
-        b_candidatelist[b_candidatelist.size(0) * outsize_idx_1].mode.set_size(1,
-          1);
-        b_candidatelist[outsize_idx_1].mode[0] = mode;
-        obj = ps_pos;
-        c_candidatelist.set_size(1, b_candidatelist.size(1));
-        outsize_idx_0 = b_candidatelist.size(0) * b_candidatelist.size(1) - 1;
-        for (int i1{0}; i1 <= outsize_idx_0; i1++) {
-          c_candidatelist[i1] = b_candidatelist[i1];
-        }
-
-        coder::internal::validator_check_size(c_candidatelist, b_candidatelist);
-        obj->pl.set_size(1, b_candidatelist.size(1));
-        outsize_idx_0 = b_candidatelist.size(1);
-        for (int i1{0}; i1 < outsize_idx_0; i1++) {
-          obj->pl[i1] = b_candidatelist[i1];
-        }
-
-        //  'T';
-      }
-
-      i = ps_pos->clst.size(0) * ps_pos->clst.size(1) - 1;
-      for (outsize_idx_1 = 0; outsize_idx_1 <= i; outsize_idx_1++) {
-        candidatelist.set_size(ps_pos->clst.size(0), ps_pos->clst.size(1));
-        outsize_idx_0 = ps_pos->clst.size(0) * ps_pos->clst.size(1);
-        for (int i1{0}; i1 < outsize_idx_0; i1++) {
-          candidatelist[i1] = ps_pos->clst[i1];
-        }
-
-        candidatelist[outsize_idx_1].mode.set_size(1, 1);
-        candidatelist[outsize_idx_1].mode[0] = mode;
-        obj = ps_pos;
-        coder::internal::validator_check_size(candidatelist);
-        obj->clst.set_size(candidatelist.size(0), candidatelist.size(1));
-        outsize_idx_0 = candidatelist.size(0) * candidatelist.size(1);
-        for (int i1{0}; i1 < outsize_idx_0; i1++) {
-          obj->clst[i1] = candidatelist[i1];
-        }
-
-        //  'T';
-      }
+      //  'T';
     }
     break;
 
@@ -5938,22 +5926,6 @@ void waveform::process(char mode, const coder::array<double, 2U>
   }
 }
 
-//
-// SETPRIORIDEPENDENTVARS updates the properties in the
-// waveform that are dependent on properties in a pulsestats
-// object.
-//
-// INPUTS:
-//    obj     waveform object
-//    ps_obj  a pulse stats object
-// OUTPUTS:
-//    None (This method modifies the waveform object properties)
-//
-//             %%
-//
-// Arguments    : const pulsestats *ps_obj
-// Return Type  : void
-//
 void waveform::setprioridependentprops(const pulsestats *ps_obj)
 {
   double b_M;
@@ -5966,12 +5938,17 @@ void waveform::setprioridependentprops(const pulsestats *ps_obj)
   double n_ipu;
   double val;
 
-  // GETPRIORIDEPENDENTVARS returns the properties in the
-  // waveform that are dependent on prior pulse data estimates. It
-  // depends on the waveform properties list Fs etc, as well as
-  // pulse stats like t_ip, etc.
-  // INPUTS:  ps_obj  1x1 pulse stats object
-  // OUTPUTS:  pulse stats object
+  // SETPRIORIDEPENDENTVARS updates the properties in the
+  // waveform that are dependent on properties in a pulsestats
+  // object.
+  //
+  // INPUTS:
+  //    obj     waveform object
+  //    ps_obj  a pulse stats object
+  // OUTPUTS:
+  //    None (This method modifies the waveform object properties)
+  //
+  //             %%
   // WHAT WAS DONE BY THIS METHOD IS NOW DONE BY A METHOD OF THE
   // PULSESTATS CLASS.
   //          function [] = update_posteriori(obj,pulselist)
@@ -6046,6 +6023,12 @@ void waveform::setprioridependentprops(const pulsestats *ps_obj)
   //
   //              obj.ps_pos.psdHist = obj.stft.psd
   //          end
+  // GETPRIORIDEPENDENTVARS returns the properties in the
+  // waveform that are dependent on prior pulse data estimates. It
+  // depends on the waveform properties list Fs etc, as well as
+  // pulse stats like t_ip, etc.
+  // INPUTS:  ps_obj  1x1 pulse stats object
+  // OUTPUTS:  pulse stats object
   b_n_p = ps_obj->t_p * Fs;
   b_n_p = std::ceil(b_n_p);
 
@@ -6119,27 +6102,10 @@ void waveform::setprioridependentprops(const pulsestats *ps_obj)
   //              end
 }
 
-//
-// SETWEIGHTINGMATRIX method sets the W and Wf properties of
-// the waveform. These are the weighting matrix and the
-// frequencys (Wf) at which they are computed.
-// INPUTS:
-//    none
-// OUTPUTS:
-//    none other than setting obj.Wf and obj.W
-// ----------------------------------------------------------
-//
-// Here we build the spectral scaling vector. We make it the same
-// size as the FFT length in the STFT operation, so it has the
-// same frequency resolution.
-// How many frequency bins are there?
-//
-// Arguments    : void
-// Return Type  : void
-//
 void waveform::setweightingmatrix()
 {
   coder::array<creal_T, 2U> Xs;
+  coder::array<creal_T, 2U> b_r;
   coder::array<creal_T, 2U> buffer;
   coder::array<creal_T, 2U> c_x;
   coder::array<creal_T, 2U> currDFT;
@@ -6152,7 +6118,8 @@ void waveform::setweightingmatrix()
   coder::array<double, 2U> sintabinv;
   coder::array<double, 2U> w_time_domain;
   coder::array<double, 2U> x_of_n;
-  coder::array<double, 1U> b_r;
+  coder::array<double, 1U> b_Wf;
+  coder::array<double, 1U> r1;
   coder::array<int, 1U> iidx;
   coder::array<boolean_T, 2U> b_output_samps;
   double tmplt_samps[2];
@@ -6171,6 +6138,20 @@ void waveform::setweightingmatrix()
   int nw;
   int nx;
   boolean_T useRadix2;
+
+  // SETWEIGHTINGMATRIX method sets the W and Wf properties of
+  // the waveform. These are the weighting matrix and the
+  // frequencys (Wf) at which they are computed.
+  // INPUTS:
+  //    none
+  // OUTPUTS:
+  //    none other than setting obj.Wf and obj.W
+  // ----------------------------------------------------------
+  //
+  // Here we build the spectral scaling vector. We make it the same
+  // size as the FFT length in the STFT operation, so it has the
+  // same frequency resolution.
+  // How many frequency bins are there?
   nx = stft->f.size(0);
 
   // Build a pulse time domain template with the same number
@@ -6443,7 +6424,7 @@ void waveform::setweightingmatrix()
         c_x[i].im = x_of_n[i] * s[i + s.size(0) * b_i].im;
       }
     } else {
-      b_binary_expand_op(c_x, s, b_i, x_of_n);
+      b_binary_expand_op(c_x, s, b_i, s.size(0), x_of_n);
     }
 
     if (c_x.size(0) == 0) {
@@ -6555,18 +6536,20 @@ void waveform::setweightingmatrix()
     //  end
     // Passed a matrix or a column vector
     if (currDFT.size(0) == 0) {
-      i = 0;
+      xtmp_im = 0.0;
     } else {
-      i = static_cast<int>(std::fmod(static_cast<double>(currDFT.size(0)), 2.0));
+      xtmp_im = std::fmod(static_cast<double>(currDFT.size(0)), 2.0);
     }
 
-    if (i != 0.0) {
+    if (xtmp_im != 0.0) {
       coder::fftshift(currDFT);
     } else {
       coder::fftshift(currDFT);
       if ((currDFT.size(0) != 0) && (currDFT.size(0) != 1)) {
-        b_loop_ub = currDFT.size(0) / 2;
-        buffer.set_size(1, b_loop_ub);
+        b_loop_ub = static_cast<int>(std::floor(static_cast<double>(currDFT.size
+          (0)) / 2.0));
+        buffer.set_size(1, static_cast<int>(std::floor(static_cast<double>
+          (currDFT.size(0)) / 2.0)));
         for (i = 0; i < b_loop_ub; i++) {
           buffer[i].re = 0.0;
           buffer[i].im = 0.0;
@@ -6578,7 +6561,7 @@ void waveform::setweightingmatrix()
           currDFT[k] = currDFT[k + 1];
         }
 
-        currDFT[currDFT.size(0) - 1] = buffer[0];
+        currDFT[i + 1] = buffer[0];
       }
     }
 
@@ -6602,11 +6585,11 @@ void waveform::setweightingmatrix()
   }
 
   if (Xs.size(0) < 2) {
-    i = 0;
-    i1 = 0;
+    i = -1;
+    i1 = -1;
   } else {
-    i = 1;
-    i1 = Xs.size(0);
+    i = 0;
+    i1 = Xs.size(0) - 1;
   }
 
   loop_ub_tmp = i1 - i;
@@ -6623,7 +6606,7 @@ void waveform::setweightingmatrix()
 
     b_x.set_size(loop_ub_tmp);
     for (i3 = 0; i3 < loop_ub_tmp; i3++) {
-      b_x[i3] = Xs[(i + i3) + Xs.size(0) * b_i];
+      b_x[i3] = Xs[((i + i3) + Xs.size(0) * b_i) + 1];
     }
 
     for (loop_ub = 0; loop_ub < md2; loop_ub++) {
@@ -6642,17 +6625,17 @@ void waveform::setweightingmatrix()
       r[i3 + 1] = b_x[i3];
     }
 
-    W.set_size(Xs.size(0), r.size(0));
+    b_r.set_size(Xs.size(0), r.size(0));
     nx = 0;
     i3 = r.size(0) - 1;
     for (b_loop_ub = 0; b_loop_ub <= i3; b_loop_ub++) {
       k = b_loop_ub;
       for (loop_ub = 0; loop_ub <= i1; loop_ub++) {
         if (loop_ub < b_loop_ub) {
-          W[nx + loop_ub] = r[k];
+          b_r[nx + loop_ub] = r[k];
           k--;
         } else {
-          W[nx + loop_ub] = Xs[k + Xs.size(0) * b_i];
+          b_r[nx + loop_ub] = Xs[k + Xs.size(0) * b_i];
           k++;
         }
       }
@@ -6660,12 +6643,12 @@ void waveform::setweightingmatrix()
       nx = (nx + i1) + 1;
     }
 
-    loop_ub = W.size(1);
+    loop_ub = b_r.size(1);
     for (i3 = 0; i3 < loop_ub; i3++) {
-      b_loop_ub = W.size(0);
+      b_loop_ub = b_r.size(0);
       for (nx = 0; nx < b_loop_ub; nx++) {
         stackedToeplitzMatrices[(i2 + nx) + stackedToeplitzMatrices.size(0) * i3]
-          = W[nx + W.size(0) * i3];
+          = b_r[nx + b_r.size(0) * i3];
       }
     }
   }
@@ -6743,6 +6726,8 @@ void waveform::setweightingmatrix()
 
   // Simulink (coder?) didn't like the new round inputs
   // freqs = round(freqs,3);
+  #if 0
+  // Remove rounding
   output_samps.set_size(1, output_samps.size(1));
   loop_ub = output_samps.size(1) - 1;
   for (i = 0; i <= loop_ub; i++) {
@@ -6760,10 +6745,15 @@ void waveform::setweightingmatrix()
   for (i = 0; i <= loop_ub; i++) {
     output_samps[i] = output_samps[i] / 1000.0;
   }
+  #endif
 
   // Shift everything so we use a negative frequencies
   // A little non-matlab notation to get this to run in simulink.
+#if 0  
   xtmp_im = std::floor(b_Fs / 2.0);
+#else
+  xtmp_im = b_Fs;
+#endif
   b_output_samps.set_size(1, output_samps.size(1));
   loop_ub = output_samps.size(1);
   for (i = 0; i < loop_ub; i++) {
@@ -6784,85 +6774,68 @@ void waveform::setweightingmatrix()
   // to be similar to the centered frequency list used elsewhere in the
   // codebase for the STFT output.
   if (nx + w_time_domain.size(1) == output_samps.size(1)) {
-    b_r.set_size(nx + w_time_domain.size(1));
+    r1.set_size(nx + w_time_domain.size(1));
     for (i = 0; i < nx; i++) {
-      b_r[i] = 0.0;
+      r1[i] = 0.0;
     }
 
     loop_ub = w_time_domain.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b_r[i + nx] = xtmp_re;
+      r1[i + nx] = xtmp_re;
     }
 
-    Wf.set_size(b_r.size(0));
-    loop_ub = b_r.size(0);
+    b_Wf.set_size(r1.size(0));
+    loop_ub = r1.size(0);
     for (i = 0; i < loop_ub; i++) {
-      Wf[i] = b_r[i] + output_samps[i];
+      b_Wf[i] = r1[i] + output_samps[i];
     }
   } else {
-    b_binary_expand_op(this, nx, xtmp_re, w_time_domain, output_samps);
+    b_binary_expand_op(b_Wf, nx, xtmp_re, w_time_domain, output_samps);
   }
 
-  coder::internal::sort(Wf, iidx);
+  coder::internal::sort(b_Wf, iidx);
   nx = x_of_n.size(0);
-  W.set_size(x_of_n.size(0), iidx.size(0));
-  loop_ub = iidx.size(0);
-  for (i = 0; i < loop_ub; i++) {
-    b_loop_ub = x_of_n.size(0);
-    for (i1 = 0; i1 < b_loop_ub; i1++) {
-      W[i1 + W.size(0) * i] = stackedToeplitzMatrices[i1 + nx * (iidx[i] - 1)];
+  loop_ub = x_of_n.size(0);
+  b_r.set_size(x_of_n.size(0), iidx.size(0));
+  b_loop_ub = iidx.size(0);
+  for (i = 0; i < b_loop_ub; i++) {
+    for (i1 = 0; i1 < loop_ub; i1++) {
+      b_r[i1 + b_r.size(0) * i] = stackedToeplitzMatrices[i1 + nx * (iidx[i] - 1)];
     }
   }
 
-  if ((x_of_n.size(0) == 1) && (iidx.size(0) == 1)) {
-    xtmp_re = W[0].re;
-    xtmp_im = W[0].im;
-    W.set_size(1, 1);
-    W[0].re = xtmp_re;
-    W[0].im = xtmp_im;
-  }
-
-  nx = 1;
-  if (Wf.size(0) != 1) {
-    nx = Wf.size(0);
-  }
-
-  if (Wf.size(0) == 1) {
-    xtmp_re = Wf[0];
-    Wf.set_size(nx);
-    for (i = 0; i < nx; i++) {
-      Wf[i] = xtmp_re;
-    }
-  } else {
-    Wf.set_size(nx);
-  }
+  coder::internal::validator_check_size(b_r, W);
+  coder::internal::validator_check_size(b_Wf, Wf);
 }
 
-//
-// SPECTRO Executes an STFT of x and sets up the wfmstst object
-// for the waveform
-//
-// INPUTS:
-//    obj     The waveform object
-// OUTPUTS:
-//    none
-//
-//             %%
-//
-// Arguments    : wfmstft *iobj_0
-// Return Type  : void
-//
 void waveform::spectro(wfmstft *iobj_0)
 {
-  coder::array<creal_T, 2U> in;
+  coder::array<creal_T, 2U> b_S;
+  coder::array<creal_T, 2U> r;
+  coder::array<creal_T, 2U> val;
   coder::array<creal32_T, 2U> S;
-  coder::array<double, 1U> out;
+  coder::array<double, 1U> _in;
+  coder::array<double, 1U> b__in;
+  coder::array<double, 1U> b_tmp_data;
+  coder::array<double, 1U> d_tmp_data;
+  coder::array<double, 1U> e_tmp_data;
+  coder::array<double, 1U> f_tmp_data;
   coder::array<float, 1U> local_time;
-  coder::array<float, 1U> r;
+  coder::array<float, 1U> r1;
+  double tmp_data[2000];
+  double c_tmp_data[200];
   double n_est;
-  int inVectorLength;
-  int n;
+  int loop_ub;
 
+  // SPECTRO Executes an STFT of x and sets up the wfmstst object
+  // for the waveform
+  //
+  // INPUTS:
+  //    obj     The waveform object
+  // OUTPUTS:
+  //    none
+  //
+  //             %%
   // WFMSTFT Constructs and returns an instance of this class
   //
   // An waveform object must be passed to this construction method
@@ -6882,11 +6855,46 @@ void waveform::spectro(wfmstft *iobj_0)
   // Instructions on https://www.mathworks.com/help/simulink/ug/how-working-with-matlab-classes-is-different-for-code-generation.html
   // maxFs*maxpulsewidth
   // Now actually assign them
-  iobj_0->S.set_size(0, 0);
-  iobj_0->t.set_size(0);
-  iobj_0->f.set_size(0);
-  iobj_0->psd.set_size(0);
-  iobj_0->wind.set_size(0);
+  r.set(nullptr, 0, 0);
+  coder::internal::validator_check_size(r, val);
+  iobj_0->S.set_size(val.size(0), val.size(1));
+  loop_ub = val.size(0) * val.size(1);
+  for (int i{0}; i < loop_ub; i++) {
+    iobj_0->S[i] = val[i];
+  }
+
+  b_tmp_data.set(&tmp_data[0], 0);
+  coder::internal::validator_check_size(b_tmp_data, _in);
+  iobj_0->t.set_size(_in.size(0));
+  loop_ub = _in.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    iobj_0->t[i] = _in[i];
+  }
+
+  d_tmp_data.set(&c_tmp_data[0], 0);
+  coder::internal::validator_check_size(d_tmp_data, _in);
+  iobj_0->f.set_size(_in.size(0));
+  loop_ub = _in.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    iobj_0->f[i] = _in[i];
+  }
+
+  e_tmp_data.set(&c_tmp_data[0], 0);
+  coder::internal::validator_check_size(e_tmp_data, _in);
+  iobj_0->psd.set_size(_in.size(0));
+  loop_ub = _in.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    iobj_0->psd[i] = _in[i];
+  }
+
+  f_tmp_data.set(&c_tmp_data[0], 0);
+  coder::internal::validator_check_size(f_tmp_data, _in);
+  iobj_0->wind.set_size(_in.size(0));
+  loop_ub = _in.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    iobj_0->wind[i] = _in[i];
+  }
+
   iobj_0->dt = 0.0;
   iobj_0->T = 0.0;
 
@@ -6894,115 +6902,69 @@ void waveform::spectro(wfmstft *iobj_0)
   // wind = tukeywin(waveform_obj.n_w,0.3);
   n_est = n_w;
   if (n_est == std::floor(n_est)) {
-    n = static_cast<int>(n_est);
+    loop_ub = static_cast<int>(n_est);
   } else {
-    n = static_cast<int>(std::round(n_est));
+    loop_ub = static_cast<int>(std::round(n_est));
   }
 
-  inVectorLength = 1;
-  if (n != 1) {
-    inVectorLength = n;
+  b__in.set_size(loop_ub);
+  for (int i{0}; i < loop_ub; i++) {
+    b__in[i] = 1.0;
   }
 
-  if (n == 1) {
-    out.set_size(inVectorLength);
-    for (int i{0}; i < inVectorLength; i++) {
-      out[i] = 1.0;
-    }
-  } else if (n == 0) {
-    out.set_size(inVectorLength);
-    for (int i{0}; i < inVectorLength; i++) {
-      out[i] = 1.0;
-    }
-  } else {
-    out.set_size(inVectorLength);
-    for (int i{0}; i < inVectorLength; i++) {
-      out[i] = 1.0;
-    }
+  coder::internal::validator_check_size(b__in, _in);
+  iobj_0->wind.set_size(_in.size(0));
+  loop_ub = _in.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    iobj_0->wind[i] = _in[i];
   }
 
-  iobj_0->wind.set_size(out.size(0));
-  n = out.size(0);
-  for (int i{0}; i < n; i++) {
-    iobj_0->wind[i] = 1.0;
+  ::coder::stft(x, Fs, iobj_0->wind, n_ol, n_w, S, r1, local_time);
+  b__in.set_size(r1.size(0));
+  loop_ub = r1.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    b__in[i] = r1[i];
   }
 
-  ::coder::stft(x, Fs, iobj_0->wind, n_ol, n_w, S, r, local_time);
-  out.set_size(r.size(0));
-  n = r.size(0);
-  for (int i{0}; i < n; i++) {
-    out[i] = r[i];
+  coder::internal::validator_check_size(b__in, _in);
+  iobj_0->f.set_size(_in.size(0));
+  loop_ub = _in.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    iobj_0->f[i] = _in[i];
   }
 
-  inVectorLength = 1;
-  if (out.size(0) != 1) {
-    inVectorLength = out.size(0);
+  b_S.set_size(S.size(0), S.size(1));
+  loop_ub = S.size(0) * S.size(1);
+  for (int i{0}; i < loop_ub; i++) {
+    b_S[i].re = S[i].re;
+    b_S[i].im = S[i].im;
   }
 
-  if (out.size(0) == 1) {
-    n_est = out[0];
-    out.set_size(inVectorLength);
-    for (int i{0}; i < inVectorLength; i++) {
-      out[i] = n_est;
-    }
-  } else {
-    out.set_size(inVectorLength);
-  }
-
-  iobj_0->f.set_size(out.size(0));
-  n = out.size(0);
-  for (int i{0}; i < n; i++) {
-    iobj_0->f[i] = out[i];
-  }
-
-  in.set_size(S.size(0), S.size(1));
-  n = S.size(0) * S.size(1);
-  for (int i{0}; i < n; i++) {
-    in[i].re = S[i].re;
-    in[i].im = S[i].im;
-  }
-
-  if ((in.size(0) == 1) && (in.size(1) == 1)) {
-    double in_im;
-    n_est = in[0].re;
-    in_im = in[0].im;
-    in.set_size(1, 1);
-    in[0].re = n_est;
-    in[0].im = in_im;
-  }
-
-  iobj_0->S.set_size(in.size(0), in.size(1));
-  n = in.size(0) * in.size(1);
-  for (int i{0}; i < n; i++) {
-    iobj_0->S[i] = in[i];
+  coder::internal::validator_check_size(b_S, val);
+  iobj_0->S.set_size(val.size(0), val.size(1));
+  loop_ub = val.size(0) * val.size(1);
+  for (int i{0}; i < loop_ub; i++) {
+    iobj_0->S[i] = val[i];
   }
 
   //  Incoming x data in waveform is single precision, but sparse matrix multipliation later is only supported for double precision.
-  out.set_size(local_time.size(0));
-  n = local_time.size(0);
-  for (int i{0}; i < n; i++) {
-    out[i] = local_time[i] + t_0;
+  _in.set_size(local_time.size(0));
+  loop_ub = local_time.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    _in[i] = local_time[i] + t_0;
   }
 
-  inVectorLength = 1;
-  if (out.size(0) != 1) {
-    inVectorLength = out.size(0);
+  b__in.set_size(_in.size(0));
+  loop_ub = _in.size(0) - 1;
+  for (int i{0}; i <= loop_ub; i++) {
+    b__in[i] = _in[i];
   }
 
-  if (out.size(0) == 1) {
-    n_est = out[0];
-    out.set_size(inVectorLength);
-    for (int i{0}; i < inVectorLength; i++) {
-      out[i] = n_est;
-    }
-  } else {
-    out.set_size(inVectorLength);
-  }
-
-  iobj_0->t.set_size(out.size(0));
-  n = out.size(0);
-  for (int i{0}; i < n; i++) {
-    iobj_0->t[i] = out[i];
+  coder::internal::validator_check_size(b__in, _in);
+  iobj_0->t.set_size(_in.size(0));
+  loop_ub = _in.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    iobj_0->t[i] = _in[i];
   }
 
   // Convert to global time of waveform. Double cast is needed because if x data in stft is single precision then the output t will be single as well.
@@ -7020,31 +6982,34 @@ void waveform::spectro(wfmstft *iobj_0)
   stft = iobj_0;
 }
 
-//
-// SPECTRO Executes an STFT of x and sets up the wfmstst object
-// for the waveform
-//
-// INPUTS:
-//    obj     The waveform object
-// OUTPUTS:
-//    none
-//
-//             %%
-//
-// Arguments    : wfmstft *iobj_0
-// Return Type  : void
-//
 void b_waveform::spectro(wfmstft *iobj_0)
 {
-  coder::array<creal_T, 2U> in;
+  coder::array<creal_T, 2U> b_S;
+  coder::array<creal_T, 2U> r;
+  coder::array<creal_T, 2U> val;
   coder::array<creal32_T, 2U> S;
-  coder::array<double, 1U> out;
+  coder::array<double, 1U> _in;
+  coder::array<double, 1U> b__in;
+  coder::array<double, 1U> b_tmp_data;
+  coder::array<double, 1U> d_tmp_data;
+  coder::array<double, 1U> e_tmp_data;
+  coder::array<double, 1U> f_tmp_data;
   coder::array<float, 1U> local_time;
-  coder::array<float, 1U> r;
+  coder::array<float, 1U> r1;
+  double tmp_data[2000];
+  double c_tmp_data[200];
   double n_est;
-  int inVectorLength;
-  int n;
+  int loop_ub;
 
+  // SPECTRO Executes an STFT of x and sets up the wfmstst object
+  // for the waveform
+  //
+  // INPUTS:
+  //    obj     The waveform object
+  // OUTPUTS:
+  //    none
+  //
+  //             %%
   // WFMSTFT Constructs and returns an instance of this class
   //
   // An waveform object must be passed to this construction method
@@ -7064,11 +7029,46 @@ void b_waveform::spectro(wfmstft *iobj_0)
   // Instructions on https://www.mathworks.com/help/simulink/ug/how-working-with-matlab-classes-is-different-for-code-generation.html
   // maxFs*maxpulsewidth
   // Now actually assign them
-  iobj_0->S.set_size(0, 0);
-  iobj_0->t.set_size(0);
-  iobj_0->f.set_size(0);
-  iobj_0->psd.set_size(0);
-  iobj_0->wind.set_size(0);
+  r.set(nullptr, 0, 0);
+  coder::internal::validator_check_size(r, val);
+  iobj_0->S.set_size(val.size(0), val.size(1));
+  loop_ub = val.size(0) * val.size(1);
+  for (int i{0}; i < loop_ub; i++) {
+    iobj_0->S[i] = val[i];
+  }
+
+  b_tmp_data.set(&tmp_data[0], 0);
+  coder::internal::validator_check_size(b_tmp_data, _in);
+  iobj_0->t.set_size(_in.size(0));
+  loop_ub = _in.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    iobj_0->t[i] = _in[i];
+  }
+
+  d_tmp_data.set(&c_tmp_data[0], 0);
+  coder::internal::validator_check_size(d_tmp_data, _in);
+  iobj_0->f.set_size(_in.size(0));
+  loop_ub = _in.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    iobj_0->f[i] = _in[i];
+  }
+
+  e_tmp_data.set(&c_tmp_data[0], 0);
+  coder::internal::validator_check_size(e_tmp_data, _in);
+  iobj_0->psd.set_size(_in.size(0));
+  loop_ub = _in.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    iobj_0->psd[i] = _in[i];
+  }
+
+  f_tmp_data.set(&c_tmp_data[0], 0);
+  coder::internal::validator_check_size(f_tmp_data, _in);
+  iobj_0->wind.set_size(_in.size(0));
+  loop_ub = _in.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    iobj_0->wind[i] = _in[i];
+  }
+
   iobj_0->dt = 0.0;
   iobj_0->T = 0.0;
 
@@ -7076,115 +7076,69 @@ void b_waveform::spectro(wfmstft *iobj_0)
   // wind = tukeywin(waveform_obj.n_w,0.3);
   n_est = n_w;
   if (n_est == std::floor(n_est)) {
-    n = static_cast<int>(n_est);
+    loop_ub = static_cast<int>(n_est);
   } else {
-    n = static_cast<int>(std::round(n_est));
+    loop_ub = static_cast<int>(std::round(n_est));
   }
 
-  inVectorLength = 1;
-  if (n != 1) {
-    inVectorLength = n;
+  b__in.set_size(loop_ub);
+  for (int i{0}; i < loop_ub; i++) {
+    b__in[i] = 1.0;
   }
 
-  if (n == 1) {
-    out.set_size(inVectorLength);
-    for (int i{0}; i < inVectorLength; i++) {
-      out[i] = 1.0;
-    }
-  } else if (n == 0) {
-    out.set_size(inVectorLength);
-    for (int i{0}; i < inVectorLength; i++) {
-      out[i] = 1.0;
-    }
-  } else {
-    out.set_size(inVectorLength);
-    for (int i{0}; i < inVectorLength; i++) {
-      out[i] = 1.0;
-    }
+  coder::internal::validator_check_size(b__in, _in);
+  iobj_0->wind.set_size(_in.size(0));
+  loop_ub = _in.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    iobj_0->wind[i] = _in[i];
   }
 
-  iobj_0->wind.set_size(out.size(0));
-  n = out.size(0);
-  for (int i{0}; i < n; i++) {
-    iobj_0->wind[i] = 1.0;
+  ::coder::stft(x, Fs, iobj_0->wind, n_ol, n_w, S, r1, local_time);
+  b__in.set_size(r1.size(0));
+  loop_ub = r1.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    b__in[i] = r1[i];
   }
 
-  ::coder::stft(x, Fs, iobj_0->wind, n_ol, n_w, S, r, local_time);
-  out.set_size(r.size(0));
-  n = r.size(0);
-  for (int i{0}; i < n; i++) {
-    out[i] = r[i];
+  coder::internal::validator_check_size(b__in, _in);
+  iobj_0->f.set_size(_in.size(0));
+  loop_ub = _in.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    iobj_0->f[i] = _in[i];
   }
 
-  inVectorLength = 1;
-  if (out.size(0) != 1) {
-    inVectorLength = out.size(0);
+  b_S.set_size(S.size(0), S.size(1));
+  loop_ub = S.size(0) * S.size(1);
+  for (int i{0}; i < loop_ub; i++) {
+    b_S[i].re = S[i].re;
+    b_S[i].im = S[i].im;
   }
 
-  if (out.size(0) == 1) {
-    n_est = out[0];
-    out.set_size(inVectorLength);
-    for (int i{0}; i < inVectorLength; i++) {
-      out[i] = n_est;
-    }
-  } else {
-    out.set_size(inVectorLength);
-  }
-
-  iobj_0->f.set_size(out.size(0));
-  n = out.size(0);
-  for (int i{0}; i < n; i++) {
-    iobj_0->f[i] = out[i];
-  }
-
-  in.set_size(S.size(0), S.size(1));
-  n = S.size(0) * S.size(1);
-  for (int i{0}; i < n; i++) {
-    in[i].re = S[i].re;
-    in[i].im = S[i].im;
-  }
-
-  if ((in.size(0) == 1) && (in.size(1) == 1)) {
-    double in_im;
-    n_est = in[0].re;
-    in_im = in[0].im;
-    in.set_size(1, 1);
-    in[0].re = n_est;
-    in[0].im = in_im;
-  }
-
-  iobj_0->S.set_size(in.size(0), in.size(1));
-  n = in.size(0) * in.size(1);
-  for (int i{0}; i < n; i++) {
-    iobj_0->S[i] = in[i];
+  coder::internal::validator_check_size(b_S, val);
+  iobj_0->S.set_size(val.size(0), val.size(1));
+  loop_ub = val.size(0) * val.size(1);
+  for (int i{0}; i < loop_ub; i++) {
+    iobj_0->S[i] = val[i];
   }
 
   //  Incoming x data in waveform is single precision, but sparse matrix multipliation later is only supported for double precision.
-  out.set_size(local_time.size(0));
-  n = local_time.size(0);
-  for (int i{0}; i < n; i++) {
-    out[i] = local_time[i] + t_0;
+  _in.set_size(local_time.size(0));
+  loop_ub = local_time.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    _in[i] = local_time[i] + t_0;
   }
 
-  inVectorLength = 1;
-  if (out.size(0) != 1) {
-    inVectorLength = out.size(0);
+  b__in.set_size(_in.size(0));
+  loop_ub = _in.size(0) - 1;
+  for (int i{0}; i <= loop_ub; i++) {
+    b__in[i] = _in[i];
   }
 
-  if (out.size(0) == 1) {
-    n_est = out[0];
-    out.set_size(inVectorLength);
-    for (int i{0}; i < inVectorLength; i++) {
-      out[i] = n_est;
-    }
-  } else {
-    out.set_size(inVectorLength);
-  }
-
-  iobj_0->t.set_size(out.size(0));
-  n = out.size(0);
-  for (int i{0}; i < n; i++) {
-    iobj_0->t[i] = out[i];
+  coder::internal::validator_check_size(b__in, _in);
+  iobj_0->t.set_size(_in.size(0));
+  loop_ub = _in.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    iobj_0->t[i] = _in[i];
   }
 
   // Convert to global time of waveform. Double cast is needed because if x data in stft is single precision then the output t will be single as well.
@@ -7202,8 +7156,4 @@ void b_waveform::spectro(wfmstft *iobj_0)
   stft = iobj_0;
 }
 
-//
-// File trailer for waveform.cpp
-//
-// [EOF]
-//
+// End of code generation (waveform.cpp)

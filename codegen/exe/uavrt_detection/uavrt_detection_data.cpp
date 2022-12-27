@@ -1,15 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: uavrt_detection_data.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// uavrt_detection_data.cpp
+//
+// Code generation for function 'uavrt_detection_data'
 //
 
-// Include Files
+// Include files
 #include "uavrt_detection_data.h"
 #include "rt_nonfinite.h"
+#include <string.h>
 
 // Variable Definitions
 unsigned int state[625];
@@ -19,20 +21,6 @@ double freq;
 boolean_T freq_not_empty;
 
 omp_nest_lock_t uavrt_detection_nestLockGlobal;
-
-const boolean_T bv[128]{
-    false, false, false, false, false, false, false, false, false, true,  true,
-    true,  true,  true,  false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, true,  true,  true,  true,  true,
-    false, false, false, false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false};
 
 const char cv[128]{
     '\x00', '\x01', '\x02', '\x03', '\x04', '\x05', '\x06', '\x07', '\x08',
@@ -51,13 +39,23 @@ const char cv[128]{
     'u',    'v',    'w',    'x',    'y',    'z',    '{',    '|',    '}',
     '~',    '\x7f'};
 
+const boolean_T bv[128]{
+    false, false, false, false, false, false, false, false, false, true,  true,
+    true,  true,  true,  false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, true,  true,  true,  true,  true,
+    false, false, false, false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false};
+
 const char cv2[18]{'f', 'r', 'e', 'q', 'S', 'e', 'a', 'r', 'c',
                    'h', 'S', 'o', 'f', 't', 'L', 'o', 'c', 'k'};
 
 boolean_T isInitialized_uavrt_detection{false};
 
-//
-// File trailer for uavrt_detection_data.cpp
-//
-// [EOF]
-//
+// End of code generation (uavrt_detection_data.cpp)

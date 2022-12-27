@@ -1,16 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: fseek.h
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// fseek.h
+//
+// Code generation for function 'fseek'
 //
 
 #ifndef FSEEK_H
 #define FSEEK_H
 
-// Include Files
+// Include files
 #include "rtwtypes.h"
 #include <cstddef>
 #include <cstdlib>
@@ -22,8 +23,4 @@ void b_fseek(double fileID, double offset);
 }
 
 #endif
-//
-// File trailer for fseek.h
-//
-// [EOF]
-//
+// End of code generation (fseek.h)

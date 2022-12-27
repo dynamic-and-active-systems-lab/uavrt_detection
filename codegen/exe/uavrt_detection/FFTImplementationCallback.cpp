@@ -1,28 +1,22 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: FFTImplementationCallback.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// FFTImplementationCallback.cpp
+//
+// Code generation for function 'FFTImplementationCallback'
 //
 
-// Include Files
+// Include files
 #include "FFTImplementationCallback.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include "omp.h"
 #include <cmath>
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : const ::coder::array<creal32_T, 1U> &x
-//                int unsigned_nRows
-//                const ::coder::array<float, 2U> &costab
-//                const ::coder::array<float, 2U> &sintab
-//                ::coder::array<creal32_T, 1U> &y
-// Return Type  : void
-//
 namespace coder {
 namespace internal {
 void FFTImplementationCallback::r2br_r2dit_trig_impl(
@@ -126,14 +120,6 @@ void FFTImplementationCallback::r2br_r2dit_trig_impl(
   }
 }
 
-//
-// Arguments    : const ::coder::array<creal_T, 1U> &x
-//                int unsigned_nRows
-//                const ::coder::array<double, 2U> &costab
-//                const ::coder::array<double, 2U> &sintab
-//                ::coder::array<creal_T, 1U> &y
-// Return Type  : void
-//
 void FFTImplementationCallback::r2br_r2dit_trig_impl(
     const ::coder::array<creal_T, 1U> &x, int unsigned_nRows,
     const ::coder::array<double, 2U> &costab,
@@ -235,16 +221,6 @@ void FFTImplementationCallback::r2br_r2dit_trig_impl(
   }
 }
 
-//
-// Arguments    : const ::coder::array<creal32_T, 2U> &x
-//                int n2blue
-//                int nfft
-//                const ::coder::array<float, 2U> &costab
-//                const ::coder::array<float, 2U> &sintab
-//                const ::coder::array<float, 2U> &sintabinv
-//                ::coder::array<creal32_T, 2U> &y
-// Return Type  : void
-//
 void FFTImplementationCallback::dobluesteinfft(
     const ::coder::array<creal32_T, 2U> &x, int n2blue, int nfft,
     const ::coder::array<float, 2U> &costab,
@@ -469,16 +445,6 @@ void FFTImplementationCallback::dobluesteinfft(
   }
 }
 
-//
-// Arguments    : const ::coder::array<creal_T, 2U> &x
-//                int n2blue
-//                int nfft
-//                const ::coder::array<double, 2U> &costab
-//                const ::coder::array<double, 2U> &sintab
-//                const ::coder::array<double, 2U> &sintabinv
-//                ::coder::array<creal_T, 2U> &y
-// Return Type  : void
-//
 void FFTImplementationCallback::dobluesteinfft(
     const ::coder::array<creal_T, 2U> &x, int n2blue, int nfft,
     const ::coder::array<double, 2U> &costab,
@@ -602,16 +568,6 @@ void FFTImplementationCallback::dobluesteinfft(
   }
 }
 
-//
-// Arguments    : const ::coder::array<creal_T, 3U> &x
-//                int n2blue
-//                int nfft
-//                const ::coder::array<double, 2U> &costab
-//                const ::coder::array<double, 2U> &sintab
-//                const ::coder::array<double, 2U> &sintabinv
-//                ::coder::array<creal_T, 3U> &y
-// Return Type  : void
-//
 void FFTImplementationCallback::dobluesteinfft(
     const ::coder::array<creal_T, 3U> &x, int n2blue, int nfft,
     const ::coder::array<double, 2U> &costab,
@@ -751,14 +707,6 @@ void FFTImplementationCallback::dobluesteinfft(
   }
 }
 
-//
-// Arguments    : int nRows
-//                boolean_T useRadix2
-//                ::coder::array<double, 2U> &costab
-//                ::coder::array<double, 2U> &sintab
-//                ::coder::array<double, 2U> &sintabinv
-// Return Type  : void
-//
 void FFTImplementationCallback::generate_twiddle_tables(
     int nRows, boolean_T useRadix2, ::coder::array<double, 2U> &costab,
     ::coder::array<double, 2U> &sintab, ::coder::array<double, 2U> &sintabinv)
@@ -826,13 +774,6 @@ void FFTImplementationCallback::generate_twiddle_tables(
   }
 }
 
-//
-// Arguments    : int nfft
-//                boolean_T useRadix2
-//                int *n2blue
-//                int *nRows
-// Return Type  : void
-//
 void FFTImplementationCallback::get_algo_sizes(int nfft, boolean_T useRadix2,
                                                int *n2blue, int *nRows)
 {
@@ -873,14 +814,6 @@ void FFTImplementationCallback::get_algo_sizes(int nfft, boolean_T useRadix2,
   }
 }
 
-//
-// Arguments    : const ::coder::array<creal32_T, 2U> &x
-//                int n1_unsigned
-//                const ::coder::array<float, 2U> &costab
-//                const ::coder::array<float, 2U> &sintab
-//                ::coder::array<creal32_T, 2U> &y
-// Return Type  : void
-//
 void FFTImplementationCallback::r2br_r2dit_trig(
     const ::coder::array<creal32_T, 2U> &x, int n1_unsigned,
     const ::coder::array<float, 2U> &costab,
@@ -1009,14 +942,6 @@ void FFTImplementationCallback::r2br_r2dit_trig(
   }
 }
 
-//
-// Arguments    : const ::coder::array<creal_T, 2U> &x
-//                int n1_unsigned
-//                const ::coder::array<double, 2U> &costab
-//                const ::coder::array<double, 2U> &sintab
-//                ::coder::array<creal_T, 2U> &y
-// Return Type  : void
-//
 void FFTImplementationCallback::r2br_r2dit_trig(
     const ::coder::array<creal_T, 2U> &x, int n1_unsigned,
     const ::coder::array<double, 2U> &costab,
@@ -1131,14 +1056,6 @@ void FFTImplementationCallback::r2br_r2dit_trig(
   }
 }
 
-//
-// Arguments    : const ::coder::array<creal_T, 3U> &x
-//                int n1_unsigned
-//                const ::coder::array<double, 2U> &costab
-//                const ::coder::array<double, 2U> &sintab
-//                ::coder::array<creal_T, 3U> &y
-// Return Type  : void
-//
 void FFTImplementationCallback::r2br_r2dit_trig(
     const ::coder::array<creal_T, 3U> &x, int n1_unsigned,
     const ::coder::array<double, 2U> &costab,
@@ -1271,8 +1188,4 @@ void FFTImplementationCallback::r2br_r2dit_trig(
 } // namespace internal
 } // namespace coder
 
-//
-// File trailer for FFTImplementationCallback.cpp
-//
-// [EOF]
-//
+// End of code generation (FFTImplementationCallback.cpp)

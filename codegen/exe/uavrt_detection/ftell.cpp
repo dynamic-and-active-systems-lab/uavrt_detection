@@ -1,23 +1,21 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: ftell.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// ftell.cpp
+//
+// Code generation for function 'ftell'
 //
 
-// Include Files
+// Include files
 #include "ftell.h"
 #include "fileManager.h"
 #include "rt_nonfinite.h"
 #include <stdio.h>
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : double fileID
-// Return Type  : double
-//
 namespace coder {
 double b_ftell(double fileID)
 {
@@ -39,8 +37,4 @@ double b_ftell(double fileID)
 
 } // namespace coder
 
-//
-// File trailer for ftell.cpp
-//
-// [EOF]
-//
+// End of code generation (ftell.cpp)

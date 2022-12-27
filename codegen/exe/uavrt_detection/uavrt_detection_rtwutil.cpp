@@ -1,23 +1,20 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: uavrt_detection_rtwutil.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// uavrt_detection_rtwutil.cpp
+//
+// Code generation for function 'uavrt_detection_rtwutil'
 //
 
-// Include Files
+// Include files
 #include "uavrt_detection_rtwutil.h"
 #include "rt_nonfinite.h"
 #include <cmath>
+#include <string.h>
 
 // Function Definitions
-//
-// Arguments    : int numerator
-//                int denominator
-// Return Type  : int
-//
 int div_s32(int numerator, int denominator)
 {
   int quotient;
@@ -28,59 +25,46 @@ int div_s32(int numerator, int denominator)
       quotient = MIN_int32_T;
     }
   } else {
-    unsigned int tempAbsQuotient;
-    unsigned int u;
+    unsigned int b_denominator;
+    unsigned int b_numerator;
     if (numerator < 0) {
-      tempAbsQuotient = ~static_cast<unsigned int>(numerator) + 1U;
+      b_numerator = ~static_cast<unsigned int>(numerator) + 1U;
     } else {
-      tempAbsQuotient = static_cast<unsigned int>(numerator);
+      b_numerator = static_cast<unsigned int>(numerator);
     }
     if (denominator < 0) {
-      u = ~static_cast<unsigned int>(denominator) + 1U;
+      b_denominator = ~static_cast<unsigned int>(denominator) + 1U;
     } else {
-      u = static_cast<unsigned int>(denominator);
+      b_denominator = static_cast<unsigned int>(denominator);
     }
-    tempAbsQuotient /= u;
+    b_numerator /= b_denominator;
     if ((numerator < 0) != (denominator < 0)) {
-      quotient = -static_cast<int>(tempAbsQuotient);
+      quotient = -static_cast<int>(b_numerator);
     } else {
-      quotient = static_cast<int>(tempAbsQuotient);
+      quotient = static_cast<int>(b_numerator);
     }
   }
   return quotient;
 }
 
-//
-// Arguments    : double u0
-//                double u1
-// Return Type  : double
-//
 double rt_hypotd_snf(double u0, double u1)
 {
   double a;
-  double b;
   double y;
   a = std::abs(u0);
-  b = std::abs(u1);
-  if (a < b) {
-    a /= b;
-    y = b * std::sqrt(a * a + 1.0);
-  } else if (a > b) {
-    b /= a;
-    y = a * std::sqrt(b * b + 1.0);
-  } else if (std::isnan(b)) {
-    y = rtNaN;
-  } else {
+  y = std::abs(u1);
+  if (a < y) {
+    a /= y;
+    y *= std::sqrt(a * a + 1.0);
+  } else if (a > y) {
+    y /= a;
+    y = a * std::sqrt(y * y + 1.0);
+  } else if (!std::isnan(y)) {
     y = a * 1.4142135623730951;
   }
   return y;
 }
 
-//
-// Arguments    : double u0
-//                double u1
-// Return Type  : double
-//
 double rt_powd_snf(double u0, double u1)
 {
   double y;
@@ -126,8 +110,4 @@ double rt_powd_snf(double u0, double u1)
   return y;
 }
 
-//
-// File trailer for uavrt_detection_rtwutil.cpp
-//
-// [EOF]
-//
+// End of code generation (uavrt_detection_rtwutil.cpp)

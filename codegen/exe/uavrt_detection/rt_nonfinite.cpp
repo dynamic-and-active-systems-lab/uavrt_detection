@@ -1,16 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: rt_nonfinite.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// rt_nonfinite.cpp
+//
+// Code generation for function 'uavrt_detection'
 //
 
 // Abstract:
 //      MATLAB for code generation function to initialize non-finites,
 //      (Inf, NaN and -Inf).
-// Include Files
+// Include files
 #include "rt_nonfinite.h"
 #include <cmath>
 #include <limits>
@@ -22,8 +23,4 @@ real32_T rtNaNF{std::numeric_limits<real32_T>::quiet_NaN()};
 real32_T rtInfF{std::numeric_limits<real32_T>::infinity()};
 real32_T rtMinusInfF{-std::numeric_limits<real32_T>::infinity()};
 
-//
-// File trailer for rt_nonfinite.cpp
-//
-// [EOF]
-//
+// End of code generation (rt_nonfinite.cpp)

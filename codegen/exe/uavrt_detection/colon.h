@@ -1,16 +1,17 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: colon.h
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// colon.h
+//
+// Code generation for function 'colon'
 //
 
 #ifndef COLON_H
 #define COLON_H
 
-// Include Files
+// Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -25,8 +26,4 @@ void eml_integer_colon_dispatcher(int a, ::coder::array<int, 2U> &y);
 } // namespace coder
 
 #endif
-//
-// File trailer for colon.h
-//
-// [EOF]
-//
+// End of code generation (colon.h)

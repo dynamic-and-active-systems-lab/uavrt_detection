@@ -1,13 +1,14 @@
 //
-// Trial License - for use to evaluate programs for possible purchase as
-// an end-user only.
-// File: imresize.cpp
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
 //
-// MATLAB Coder version            : 5.5
-// C/C++ source code generated on  : 22-Oct-2022 15:24:58
+// imresize.cpp
+//
+// Code generation for function 'imresize'
 //
 
-// Include Files
+// Include files
 #include "imresize.h"
 #include "rt_nonfinite.h"
 #include "sum.h"
@@ -15,6 +16,7 @@
 #include "coder_array.h"
 #include "omp.h"
 #include <cmath>
+#include <string.h>
 
 // Function Declarations
 namespace coder {
@@ -38,14 +40,6 @@ static void resizeAlongDim2D(const ::coder::array<double, 2U> &in,
 } // namespace coder
 
 // Function Definitions
-//
-// Arguments    : const ::coder::array<double, 2U> &in
-//                const ::coder::array<double, 2U> &weights
-//                const ::coder::array<int, 2U> &indices
-//                double out_length
-//                ::coder::array<double, 2U> &out
-// Return Type  : void
-//
 namespace coder {
 static void b_resizeAlongDim2D(const ::coder::array<double, 2U> &in,
                                const ::coder::array<double, 2U> &weights,
@@ -83,15 +77,6 @@ static void b_resizeAlongDim2D(const ::coder::array<double, 2U> &in,
   }
 }
 
-//
-// Arguments    : int in_length
-//                double out_length
-//                double scale
-//                double kernel_width
-//                ::coder::array<double, 2U> &weights
-//                ::coder::array<int, 2U> &indices
-// Return Type  : void
-//
 static void contributions(int in_length, double out_length, double scale,
                           double kernel_width,
                           ::coder::array<double, 2U> &weights,
@@ -354,9 +339,9 @@ static void contributions(int in_length, double out_length, double scale,
       nx++;
     }
   }
-  nx = weights.size(0);
+  nx = weights.size(0) - 1;
   absx.set_size(r.size(1), weights.size(0));
-  for (i = 0; i < nx; i++) {
+  for (i = 0; i <= nx; i++) {
     yk = r.size(1);
     for (b_i = 0; b_i < yk; b_i++) {
       absx[b_i + absx.size(0) * i] =
@@ -383,9 +368,9 @@ static void contributions(int in_length, double out_length, double scale,
       nx++;
     }
   }
-  nx = indices.size(0);
+  nx = indices.size(0) - 1;
   b_indices.set_size(r1.size(1), indices.size(0));
-  for (i = 0; i < nx; i++) {
+  for (i = 0; i <= nx; i++) {
     yk = r1.size(1);
     for (b_i = 0; b_i < yk; b_i++) {
       b_indices[b_i + b_indices.size(0) * i] =
@@ -399,14 +384,6 @@ static void contributions(int in_length, double out_length, double scale,
   }
 }
 
-//
-// Arguments    : const ::coder::array<double, 2U> &in
-//                const ::coder::array<double, 2U> &weights
-//                const ::coder::array<int, 2U> &indices
-//                double out_length
-//                ::coder::array<double, 2U> &out
-// Return Type  : void
-//
 static void resizeAlongDim2D(const ::coder::array<double, 2U> &in,
                              const ::coder::array<double, 2U> &weights,
                              const ::coder::array<int, 2U> &indices,
@@ -443,12 +420,6 @@ static void resizeAlongDim2D(const ::coder::array<double, 2U> &in,
   }
 }
 
-//
-// Arguments    : const ::coder::array<double, 2U> &Ain
-//                const double varargin_1[2]
-//                ::coder::array<double, 2U> &Bout
-// Return Type  : void
-//
 void imresize(const ::coder::array<double, 2U> &Ain, const double varargin_1[2],
               ::coder::array<double, 2U> &Bout)
 {
@@ -509,8 +480,4 @@ void imresize(const ::coder::array<double, 2U> &Ain, const double varargin_1[2],
 
 } // namespace coder
 
-//
-// File trailer for imresize.cpp
-//
-// [EOF]
-//
+// End of code generation (imresize.cpp)
