@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Dec-2022 15:25:33
+// C/C++ source code generated on  : 30-Dec-2022 11:43:16
 //
 
 // Include Files
@@ -1637,22 +1637,20 @@ void uavrt_detection()
   coder::array<boolean_T, 2U> ps_pre_struc_cmsk;
   coder::array<boolean_T, 1U> b_tmp_data;
   coder::array<boolean_T, 1U> r2;
-  c_struct_T b_expl_temp;
-  c_struct_T expl_temp;
+  c_struct_T ps_pre_struc_pl_tmp;
   c_struct_T r;
   creal_T dcv[1000];
   creal32_T exampleData[1000];
   double ps_pre_struc_tmplt[2];
   double integratedTimeError;
+  double ps_pre_struc_fend;
+  double ps_pre_struc_fp;
+  double ps_pre_struc_fstart;
+  double ps_pre_struc_t_ip;
+  double ps_pre_struc_t_ipj;
+  double ps_pre_struc_t_ipu;
+  double ps_pre_struc_t_p;
   double segmentsProcessed;
-  double t9_P;
-  double t9_SNR;
-  double t9_fend;
-  double t9_fp;
-  double t9_fstart;
-  double t9_t_0;
-  double t9_t_f;
-  double t9_yw;
   double timeStamp;
   double trackedCount;
   int i;
@@ -1666,8 +1664,6 @@ void uavrt_detection()
   boolean_T fLock;
   boolean_T resetBuffersFlag;
   boolean_T staleDataFlag;
-  boolean_T t9_con_dec;
-  boolean_T t9_det_dec;
   boolean_T tmp_data;
   if (!isInitialized_uavrt_detection) {
     uavrt_detection_initialize();
@@ -1679,25 +1675,11 @@ void uavrt_detection()
   updateconfig(&Config, &configPath);
   // Update (fill) the configuration
   configUpdatedFlag = true;
-  makepulsestruc(&r.A, &r.P, &r.SNR, &r.yw, &r.t_0, &r.t_f, r.t_next, &r.fp,
-                 &r.fstart, &r.fend, r.mode, &r.det_dec, &r.con_dec);
-  makepulsestruc(&integratedTimeError, &t9_P, &t9_SNR, &t9_yw, &t9_t_0, &t9_t_f,
-                 expl_temp.t_next, &t9_fp, &t9_fstart, &t9_fend, expl_temp.mode,
-                 &t9_det_dec, &t9_con_dec);
-  expl_temp.con_dec = t9_con_dec;
-  expl_temp.det_dec = t9_det_dec;
-  expl_temp.fend = t9_fend;
-  expl_temp.fstart = t9_fstart;
-  expl_temp.fp = t9_fp;
-  expl_temp.t_f = t9_t_f;
-  expl_temp.t_0 = t9_t_0;
-  expl_temp.yw = t9_yw;
-  expl_temp.SNR = t9_SNR;
-  expl_temp.P = t9_P;
-  expl_temp.A = integratedTimeError;
+  makepulsestruc(&ps_pre_struc_pl_tmp);
+  makepulsestruc(&r);
   pulseStatsPriori = lobj_19[1].init(Config.contents.tp, Config.contents.tip,
                                      Config.contents.tipu, Config.contents.tipj,
-                                     &r, &expl_temp);
+                                     &ps_pre_struc_pl_tmp, &r);
   //  % tp, tip, tipu
   //  % tipj, fp, fstart, fend, tmplt, mode
   //   % pl ,clst
@@ -1756,23 +1738,20 @@ void uavrt_detection()
   // dims 0 if fixed, 1 if variable
   printf("Startup set 4 complete. \n");
   fflush(stdout);
-  t9_SNR = 0.0;
-  t9_yw = 0.0;
-  t9_t_0 = 0.0;
-  t9_t_f = 0.0;
-  t9_fp = 0.0;
-  t9_fstart = 0.0;
-  t9_fend = 0.0;
+  ps_pre_struc_t_p = 0.0;
+  ps_pre_struc_t_ip = 0.0;
+  ps_pre_struc_t_ipu = 0.0;
+  ps_pre_struc_t_ipj = 0.0;
+  ps_pre_struc_fp = 0.0;
+  ps_pre_struc_fstart = 0.0;
+  ps_pre_struc_fend = 0.0;
   ps_pre_struc_tmplt[0] = 1.0;
   ps_pre_struc_tmplt[1] = 1.0;
-  makepulsestruc(&r.A, &r.P, &r.SNR, &r.yw, &r.t_0, &r.t_f, r.t_next, &r.fp,
-                 &r.fstart, &r.fend, r.mode, &r.det_dec, &r.con_dec);
   ps_pre_struc_pl.set_size(1, 1);
-  ps_pre_struc_pl[0] = r;
-  makepulsestruc(&r.A, &r.P, &r.SNR, &r.yw, &r.t_0, &r.t_f, r.t_next, &r.fp,
-                 &r.fstart, &r.fend, r.mode, &r.det_dec, &r.con_dec);
+  makepulsestruc(&ps_pre_struc_pl_tmp);
+  ps_pre_struc_pl[0] = ps_pre_struc_pl_tmp;
   ps_pre_struc_clst.set_size(1, 1);
-  ps_pre_struc_clst[0] = r;
+  ps_pre_struc_clst[0] = ps_pre_struc_pl_tmp;
   ps_pre_struc_cmsk.set_size(1, 1);
   ps_pre_struc_cmsk[0] = false;
   ps_pre_struc_cpki.set_size(1, 1);
@@ -1806,7 +1785,7 @@ void uavrt_detection()
   if (udpReceiver <= 0) {
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
   }
-  udpSender = udpSenderSetup(4096.0);
+  udpSender = udpSenderSetup(30000.0);
   if (udpSender <= 0) {
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
   }
@@ -1899,28 +1878,29 @@ void uavrt_detection()
       qY = 49620;
     }
     if (qY >= sampsForKPulses.contents + overlapSamples.contents) {
+      double validatedHoleFilling_idx_0;
       unsigned int varargin_1;
       unsigned int varargin_2;
-      t9_P = std::round(sampsForKPulses.contents);
-      if (t9_P < 4.294967296E+9) {
-        if (t9_P >= 0.0) {
-          varargin_1 = static_cast<unsigned int>(t9_P);
+      validatedHoleFilling_idx_0 = std::round(sampsForKPulses.contents);
+      if (validatedHoleFilling_idx_0 < 4.294967296E+9) {
+        if (validatedHoleFilling_idx_0 >= 0.0) {
+          varargin_1 = static_cast<unsigned int>(validatedHoleFilling_idx_0);
         } else {
           varargin_1 = 0U;
         }
-      } else if (t9_P >= 4.294967296E+9) {
+      } else if (validatedHoleFilling_idx_0 >= 4.294967296E+9) {
         varargin_1 = MAX_uint32_T;
       } else {
         varargin_1 = 0U;
       }
-      t9_P = std::round(overlapSamples.contents);
-      if (t9_P < 4.294967296E+9) {
-        if (t9_P >= 0.0) {
-          varargin_2 = static_cast<unsigned int>(t9_P);
+      validatedHoleFilling_idx_0 = std::round(overlapSamples.contents);
+      if (validatedHoleFilling_idx_0 < 4.294967296E+9) {
+        if (validatedHoleFilling_idx_0 >= 0.0) {
+          varargin_2 = static_cast<unsigned int>(validatedHoleFilling_idx_0);
         } else {
           varargin_2 = 0U;
         }
-      } else if (t9_P >= 4.294967296E+9) {
+      } else if (validatedHoleFilling_idx_0 >= 4.294967296E+9) {
         varargin_2 = MAX_uint32_T;
       } else {
         varargin_2 = 0U;
@@ -2043,42 +2023,22 @@ void uavrt_detection()
             fLock = false;
             break;
           }
-          makepulsestruc(&r.A, &r.P, &r.SNR, &r.yw, &r.t_0, &r.t_f, r.t_next,
-                         &r.fp, &r.fstart, &r.fend, r.mode, &r.det_dec,
-                         &r.con_dec);
-          makepulsestruc(&integratedTimeError, &t9_P, &t9_SNR, &t9_yw, &t9_t_0,
-                         &t9_t_f, expl_temp.t_next, &t9_fp, &t9_fstart,
-                         &t9_fend, expl_temp.mode, &t9_det_dec, &t9_con_dec);
-          b_expl_temp.con_dec = t9_con_dec;
-          b_expl_temp.det_dec = t9_det_dec;
-          b_expl_temp.mode.set_size(1, expl_temp.mode.size(1));
-          qY = expl_temp.mode.size(1);
-          for (i = 0; i < qY; i++) {
-            b_expl_temp.mode[i] = expl_temp.mode[i];
-          }
-          b_expl_temp.fend = t9_fend;
-          b_expl_temp.fstart = t9_fstart;
-          b_expl_temp.fp = t9_fp;
-          b_expl_temp.t_next[0] = expl_temp.t_next[0];
-          b_expl_temp.t_next[1] = expl_temp.t_next[1];
-          b_expl_temp.t_f = t9_t_f;
-          b_expl_temp.t_0 = t9_t_0;
-          b_expl_temp.yw = t9_yw;
-          b_expl_temp.SNR = t9_SNR;
-          b_expl_temp.P = t9_P;
-          b_expl_temp.A = integratedTimeError;
+          makepulsestruc(&ps_pre_struc_pl_tmp);
+          makepulsestruc(&r);
           pulseStatsPriori = lobj_13.init(
               Config.contents.tp, Config.contents.tip, Config.contents.tipu,
               Config.contents.tipj,
               1.0E-5 * std::abs(Config.contents.tagFreqMHz -
                                 Config.contents.channelCenterFreqMHz),
-              &r, &b_expl_temp);
+              &ps_pre_struc_pl_tmp, &r);
           configUpdatedFlag = false;
         } else {
           pulseStatsPriori = lobj_16.c_init(
-              t9_SNR, t9_yw, t9_t_0, t9_t_f, t9_fp, t9_fstart, t9_fend,
-              ps_pre_struc_tmplt, (char *)&mode, ps_pre_struc_pl,
-              ps_pre_struc_clst, ps_pre_struc_cmsk, ps_pre_struc_cpki);
+              ps_pre_struc_t_p, ps_pre_struc_t_ip, ps_pre_struc_t_ipu,
+              ps_pre_struc_t_ipj, ps_pre_struc_fp, ps_pre_struc_fstart,
+              ps_pre_struc_fend, ps_pre_struc_tmplt, (char *)&mode,
+              ps_pre_struc_pl, ps_pre_struc_clst, ps_pre_struc_cmsk,
+              ps_pre_struc_cpki);
         }
         //                         %% PRIMARY PROCESSING BLOCK
         // Prep waveform for processing/detection
@@ -2093,38 +2053,38 @@ void uavrt_detection()
         b_X.init(x, Config.contents.Fs, t[0], pulseStatsPriori, &val, &lobj_15,
                  &lobj_14);
         b_X.K = Config.contents.K;
-        t9_P = std::round(b_X.N);
-        if (t9_P < 4.294967296E+9) {
-          if (t9_P >= 0.0) {
-            varargin_1 = static_cast<unsigned int>(t9_P);
+        validatedHoleFilling_idx_0 = std::round(b_X.N);
+        if (validatedHoleFilling_idx_0 < 4.294967296E+9) {
+          if (validatedHoleFilling_idx_0 >= 0.0) {
+            varargin_1 = static_cast<unsigned int>(validatedHoleFilling_idx_0);
           } else {
             varargin_1 = 0U;
           }
-        } else if (t9_P >= 4.294967296E+9) {
+        } else if (validatedHoleFilling_idx_0 >= 4.294967296E+9) {
           varargin_1 = MAX_uint32_T;
         } else {
           varargin_1 = 0U;
         }
-        t9_P = std::round(b_X.M);
-        if (t9_P < 4.294967296E+9) {
-          if (t9_P >= 0.0) {
-            varargin_2 = static_cast<unsigned int>(t9_P);
+        validatedHoleFilling_idx_0 = std::round(b_X.M);
+        if (validatedHoleFilling_idx_0 < 4.294967296E+9) {
+          if (validatedHoleFilling_idx_0 >= 0.0) {
+            varargin_2 = static_cast<unsigned int>(validatedHoleFilling_idx_0);
           } else {
             varargin_2 = 0U;
           }
-        } else if (t9_P >= 4.294967296E+9) {
+        } else if (validatedHoleFilling_idx_0 >= 4.294967296E+9) {
           varargin_2 = MAX_uint32_T;
         } else {
           varargin_2 = 0U;
         }
-        t9_P = std::round(b_X.J);
-        if (t9_P < 4.294967296E+9) {
-          if (t9_P >= 0.0) {
-            varargin_3 = static_cast<unsigned int>(t9_P);
+        validatedHoleFilling_idx_0 = std::round(b_X.J);
+        if (validatedHoleFilling_idx_0 < 4.294967296E+9) {
+          if (validatedHoleFilling_idx_0 >= 0.0) {
+            varargin_3 = static_cast<unsigned int>(validatedHoleFilling_idx_0);
           } else {
             varargin_3 = 0U;
           }
-        } else if (t9_P >= 4.294967296E+9) {
+        } else if (validatedHoleFilling_idx_0 >= 4.294967296E+9) {
           varargin_3 = MAX_uint32_T;
         } else {
           varargin_3 = 0U;
@@ -2143,8 +2103,9 @@ void uavrt_detection()
         printf("Computing STFT...");
         fflush(stdout);
         b_X.spectro(&lobj_12);
-        t9_P = coder::toc();
-        printf("complete. Elapsed time: %f seconds \n", t9_P);
+        validatedHoleFilling_idx_0 = coder::toc();
+        printf("complete. Elapsed time: %f seconds \n",
+               validatedHoleFilling_idx_0);
         fflush(stdout);
         printf("Building weighting matrix and generating thresholds...");
         fflush(stdout);
@@ -2193,8 +2154,9 @@ void uavrt_detection()
           val.setthreshold(&b_X, Xhold);
           b_X.thresh = val;
         }
-        t9_P = coder::toc();
-        printf("complete. Elapsed time: %f seconds \n", t9_P);
+        validatedHoleFilling_idx_0 = coder::toc();
+        printf("complete. Elapsed time: %f seconds \n",
+               validatedHoleFilling_idx_0);
         fflush(stdout);
         varargin_1 = static_cast<unsigned int>(b_X.stft->S.size(1));
         printf("Time windows in S: %u \n", varargin_1);
@@ -2203,8 +2165,9 @@ void uavrt_detection()
         fflush(stdout);
         b_X.process(mode, Config.contents.excldFreqs);
         integratedTimeError = coder::toc();
-        t9_P = coder::toc();
-        printf("complete. Elapsed time: %f seconds \n", t9_P);
+        validatedHoleFilling_idx_0 = coder::toc();
+        printf("complete. Elapsed time: %f seconds \n",
+               validatedHoleFilling_idx_0);
         fflush(stdout);
         //                         %% PREP FOR NEXT LOOP
         // Latch/Release the frequency lock and setup the
@@ -2287,14 +2250,15 @@ void uavrt_detection()
             i_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
           }
           obj->K = integratedTimeError;
-          t9_P = std::round(Config.contents.K);
-          if (t9_P < 4.294967296E+9) {
-            if (t9_P >= 0.0) {
-              varargin_1 = static_cast<unsigned int>(t9_P);
+          validatedHoleFilling_idx_0 = std::round(Config.contents.K);
+          if (validatedHoleFilling_idx_0 < 4.294967296E+9) {
+            if (validatedHoleFilling_idx_0 >= 0.0) {
+              varargin_1 =
+                  static_cast<unsigned int>(validatedHoleFilling_idx_0);
             } else {
               varargin_1 = 0U;
             }
-          } else if (t9_P >= 4.294967296E+9) {
+          } else if (validatedHoleFilling_idx_0 >= 4.294967296E+9) {
             varargin_1 = MAX_uint32_T;
           } else {
             varargin_1 = 0U;
@@ -2317,13 +2281,13 @@ void uavrt_detection()
         // Prepare priori for next segment
         printf("Updating priori...\n");
         fflush(stdout);
-        t9_SNR = b_X.ps_pos->t_p;
-        t9_yw = b_X.ps_pos->t_ip;
-        t9_t_0 = b_X.ps_pos->t_ipu;
-        t9_t_f = b_X.ps_pos->t_ipj;
-        t9_fp = b_X.ps_pos->fp;
-        t9_fstart = b_X.ps_pos->fstart;
-        t9_fend = b_X.ps_pos->fend;
+        ps_pre_struc_t_p = b_X.ps_pos->t_p;
+        ps_pre_struc_t_ip = b_X.ps_pos->t_ip;
+        ps_pre_struc_t_ipu = b_X.ps_pos->t_ipu;
+        ps_pre_struc_t_ipj = b_X.ps_pos->t_ipj;
+        ps_pre_struc_fp = b_X.ps_pos->fp;
+        ps_pre_struc_fstart = b_X.ps_pos->fstart;
+        ps_pre_struc_fend = b_X.ps_pos->fend;
         ps_pre_struc_tmplt[0] = b_X.ps_pos->tmplt[0];
         ps_pre_struc_tmplt[1] = b_X.ps_pos->tmplt[1];
         mode = b_X.ps_pos->mode;
@@ -2353,8 +2317,9 @@ void uavrt_detection()
         updatebufferreadvariables(&Config, &stftOverlapFraction,
                                   &overlapSamples, &sampsForKPulses,
                                   b_X.ps_pos);
-        t9_P = coder::toc();
-        printf("complete. Elapsed time: %f seconds \n", t9_P);
+        validatedHoleFilling_idx_0 = coder::toc();
+        printf("complete. Elapsed time: %f seconds \n",
+               validatedHoleFilling_idx_0);
         fflush(stdout);
         // Deal with detected pulses
         // Xhold{mod(segmentsProcessed,maxSegments)} = X;%Keep a maxSegments
