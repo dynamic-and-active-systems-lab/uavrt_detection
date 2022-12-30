@@ -5,7 +5,7 @@
 // File: waveform.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 30-Dec-2022 12:50:56
 //
 
 // Include Files
@@ -2166,7 +2166,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   coder::array<double, 2U> S_cols;
   coder::array<double, 2U> b_excluded_freq_bands;
   coder::array<double, 2U> excluded_freq_bands;
-  coder::array<double, 2U> r14;
+  coder::array<double, 2U> r13;
   coder::array<double, 2U> r6;
   coder::array<double, 2U> refmat;
   coder::array<double, 2U> result;
@@ -2182,13 +2182,13 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   coder::array<double, 1U> peak;
   coder::array<double, 1U> scores;
   coder::array<double, 1U> timeBlinderVec;
-  coder::array<int, 2U> r16;
+  coder::array<int, 2U> r15;
   coder::array<int, 1U> r;
   coder::array<int, 1U> r1;
+  coder::array<int, 1U> r10;
   coder::array<int, 1U> r11;
   coder::array<int, 1U> r12;
-  coder::array<int, 1U> r13;
-  coder::array<int, 1U> r15;
+  coder::array<int, 1U> r14;
   coder::array<int, 1U> r4;
   coder::array<int, 1U> r5;
   coder::array<int, 1U> r7;
@@ -2205,12 +2205,13 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   coder::array<boolean_T, 1U> slope_neg;
   coder::array<boolean_T, 1U> slope_pos;
   coder::array<boolean_T, 1U> slope_val;
-  c_struct_T r10;
+  c_struct_T expl_temp;
   double freq_ind_rng_data[2];
   double t_srch_rng[2];
   double b_J;
   double b_M;
   double b_N;
+  double diff_thresh;
   double n_blks;
   double naive_wind_end;
   double stft_dt;
@@ -2253,6 +2254,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   int nx;
   unsigned int p;
   int wind_start_size;
+  boolean_T t8_con_dec;
   boolean_T y;
   if (excluded_freq_bands_in.size(0) == 0) {
     excluded_freq_bands.set_size(1, 2);
@@ -2272,8 +2274,8 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   b_J = J;
 
   // Define naive search window for pulse 1
-  n_blks = b_N + b_M;
-  naive_wind_end = n_blks + b_J;
+  diff_thresh = b_N + b_M;
+  naive_wind_end = diff_thresh + b_J;
 
   // The caller of this method should have already set the
   // threshold in the posteriori pulse stats. We just rename it
@@ -2420,15 +2422,15 @@ void waveform::findpulse(const char time_searchtype_data[], const int
       // Project forward one pulse in time with
       // +/-2M uncertainty in search range.
       tip_temp = ps_pre->t_ip;
-      tp_temp = ps_pre->t_ipu;
+      n_blks = ps_pre->t_ipu;
       t_lastknown += tip_temp;
 
       // +tp_temp/2;
       // These are the times of the START OF THE PULSE...not
       // the center. This is why we have stft_dt/2 terms in
       // subsequent equations.
-      t_srch_rng[0] = -tp_temp + t_lastknown;
-      t_srch_rng[1] = tp_temp + t_lastknown;
+      t_srch_rng[0] = -n_blks + t_lastknown;
+      t_srch_rng[1] = n_blks + t_lastknown;
       i = stft->t.size(0);
       if (i < 1) {
         rtDynamicBoundsError(1, 1, i, &ug_emlrtBCI);
@@ -2523,22 +2525,22 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     rtNonNegativeError(K, &t_emlrtDCI);
   }
 
-  timetol = K;
-  if (timetol != static_cast<int>(std::floor(timetol))) {
-    rtIntegerError(timetol, &u_emlrtDCI);
+  stft_dt = K;
+  if (stft_dt != static_cast<int>(std::floor(stft_dt))) {
+    rtIntegerError(stft_dt, &u_emlrtDCI);
   }
 
-  timeSearchRange.set_size(static_cast<int>(timetol), 2);
+  timeSearchRange.set_size(static_cast<int>(stft_dt), 2);
   if (!(K >= 0.0)) {
     rtNonNegativeError(K, &v_emlrtDCI);
   }
 
-  timetol = K;
-  if (timetol != static_cast<int>(std::floor(timetol))) {
-    rtIntegerError(timetol, &w_emlrtDCI);
+  stft_dt = K;
+  if (stft_dt != static_cast<int>(std::floor(stft_dt))) {
+    rtIntegerError(stft_dt, &w_emlrtDCI);
   }
 
-  loop_ub = static_cast<int>(timetol) << 1;
+  loop_ub = static_cast<int>(stft_dt) << 1;
   for (i = 0; i < loop_ub; i++) {
     timeSearchRange[i] = 0.0;
   }
@@ -2581,7 +2583,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
       double>(wind_start_size) + 2.0) - 1.0) * (b_N - b_M) - b_J);
     timeSearchRange[(wind_start_size + timeSearchRange.size(0)) + 1] =
       timeSearchRange[timeSearchRange.size(0)] + (((static_cast<double>
-      (wind_start_size) + 2.0) - 1.0) * n_blks + b_J);
+      (wind_start_size) + 2.0) - 1.0) * diff_thresh + b_J);
   }
 
   maxStftTimeWind = stft->S.size(1);
@@ -2659,7 +2661,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                            timeSearchRange.size(0), &jb_emlrtBCI);
     }
 
-    timetol = timeSearchRange[wind_start_size];
+    stft_dt = timeSearchRange[wind_start_size];
     if ((static_cast<int>(wind_start_size + 1U) < 1) || (static_cast<int>
          (wind_start_size + 1U) > timeSearchRange.size(0))) {
       rtDynamicBoundsError(static_cast<int>(wind_start_size + 1U), 1,
@@ -2667,21 +2669,21 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     }
 
     tip_temp = timeSearchRange[wind_start_size + timeSearchRange.size(0)];
-    if (timetol > tip_temp) {
+    if (stft_dt > tip_temp) {
       i1 = -1;
       i2 = 0;
     } else {
-      if (timetol != static_cast<int>(std::floor(timetol))) {
-        rtIntegerError(timetol, &x_emlrtDCI);
+      if (stft_dt != static_cast<int>(std::floor(stft_dt))) {
+        rtIntegerError(stft_dt, &x_emlrtDCI);
       }
 
-      if ((static_cast<int>(timetol) < 1) || (static_cast<int>(timetol) >
+      if ((static_cast<int>(stft_dt) < 1) || (static_cast<int>(stft_dt) >
            timeBlinderVec.size(0))) {
-        rtDynamicBoundsError(static_cast<int>(timetol), 1, timeBlinderVec.size(0),
+        rtDynamicBoundsError(static_cast<int>(stft_dt), 1, timeBlinderVec.size(0),
                              &lb_emlrtBCI);
       }
 
-      i1 = static_cast<int>(timetol) - 2;
+      i1 = static_cast<int>(stft_dt) - 2;
       if (tip_temp != static_cast<int>(std::floor(tip_temp))) {
         rtIntegerError(tip_temp, &y_emlrtDCI);
       }
@@ -3052,7 +3054,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   // Determine the number of blocks to cut the data into. Should
   // always be the number of pulses currently looking for.
-  n_blks = (static_cast<double>(stft->S.size(1)) - 1.0) / n_blks;
+  n_blks = (static_cast<double>(stft->S.size(1)) - 1.0) / diff_thresh;
   n_blks = std::floor(n_blks);
   if (n_blks == 0.0) {
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
@@ -4058,7 +4060,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   // pulse to be the same as one found at a different frequency?
   // We'll say that if they are within two pulse time width of
   // each other they are the same pulse.
-  stft_dt = 2.0 * n_p / n_ws;
+  diff_thresh = 2.0 * n_p / n_ws;
   p = 1U;
 
   // Initilize a peak counter variable
@@ -4250,23 +4252,23 @@ void waveform::findpulse(const char time_searchtype_data[], const int
         f_loop_ub = S_cols.size(0);
         i7 = S_cols.size(0);
         g_loop_ub = S_cols.size(0);
-        timetol = peak_ind[static_cast<int>(p) - 1];
-        if (timetol - 1.0 < 1.0) {
+        stft_dt = peak_ind[static_cast<int>(p) - 1];
+        if (stft_dt - 1.0 < 1.0) {
           i8 = 0;
           i9 = 1;
           i10 = -1;
         } else {
-          if (timetol - 1.0 != static_cast<int>(timetol - 1.0)) {
-            rtIntegerError(timetol - 1.0, &ub_emlrtDCI);
+          if (stft_dt - 1.0 != static_cast<int>(stft_dt - 1.0)) {
+            rtIntegerError(stft_dt - 1.0, &ub_emlrtDCI);
           }
 
-          if ((static_cast<int>(timetol - 1.0) < 1) || (static_cast<int>(timetol
+          if ((static_cast<int>(stft_dt - 1.0) < 1) || (static_cast<int>(stft_dt
                 - 1.0) > slope_val.size(0))) {
-            rtDynamicBoundsError(static_cast<int>(timetol - 1.0), 1,
+            rtDynamicBoundsError(static_cast<int>(stft_dt - 1.0), 1,
                                  slope_val.size(0), &fg_emlrtBCI);
           }
 
-          i8 = static_cast<int>(timetol - 1.0) - 1;
+          i8 = static_cast<int>(stft_dt - 1.0) - 1;
           i9 = -1;
           if (slope_val.size(0) < 1) {
             rtDynamicBoundsError(1, 1, slope_val.size(0), &gg_emlrtBCI);
@@ -4276,22 +4278,22 @@ void waveform::findpulse(const char time_searchtype_data[], const int
         }
 
         h_loop_ub = div_s32(i10 - i8, i9);
-        if (timetol + 1.0 > slope_val.size(0)) {
+        if (stft_dt + 1.0 > slope_val.size(0)) {
           i11 = 0;
           i12 = 0;
         } else {
-          timetol = peak_ind[static_cast<int>(p) - 1] + 1.0;
-          if (timetol != static_cast<int>(timetol)) {
-            rtIntegerError(timetol, &tb_emlrtDCI);
+          stft_dt = peak_ind[static_cast<int>(p) - 1] + 1.0;
+          if (stft_dt != static_cast<int>(stft_dt)) {
+            rtIntegerError(stft_dt, &tb_emlrtDCI);
           }
 
-          if ((static_cast<int>(timetol) < 1) || (static_cast<int>(timetol) >
+          if ((static_cast<int>(stft_dt) < 1) || (static_cast<int>(stft_dt) >
                slope_val.size(0))) {
-            rtDynamicBoundsError(static_cast<int>(timetol), 1, slope_val.size(0),
+            rtDynamicBoundsError(static_cast<int>(stft_dt), 1, slope_val.size(0),
                                  &dg_emlrtBCI);
           }
 
-          i11 = static_cast<int>(timetol) - 1;
+          i11 = static_cast<int>(stft_dt) - 1;
           if (slope_val.size(0) < 1) {
             rtDynamicBoundsError(slope_val.size(0), 1, slope_val.size(0),
                                  &eg_emlrtBCI);
@@ -4322,14 +4324,14 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                                &bc_emlrtBCI);
         }
 
-        timetol = peak_ind[static_cast<int>(p) - 1];
-        if (timetol != static_cast<int>(timetol)) {
-          rtIntegerError(timetol, &cb_emlrtDCI);
+        stft_dt = peak_ind[static_cast<int>(p) - 1];
+        if (stft_dt != static_cast<int>(stft_dt)) {
+          rtIntegerError(stft_dt, &cb_emlrtDCI);
         }
 
-        if ((static_cast<int>(timetol) < 1) || (static_cast<int>(timetol) >
+        if ((static_cast<int>(stft_dt) < 1) || (static_cast<int>(stft_dt) >
              S_cols.size(0))) {
-          rtDynamicBoundsError(static_cast<int>(timetol), 1, S_cols.size(0),
+          rtDynamicBoundsError(static_cast<int>(stft_dt), 1, S_cols.size(0),
                                &cc_emlrtBCI);
         }
 
@@ -4339,7 +4341,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                                &dc_emlrtBCI);
         }
 
-        t_lastknown = S_cols[(static_cast<int>(timetol) + S_cols.size(0) * k) -
+        t_lastknown = S_cols[(static_cast<int>(stft_dt) + S_cols.size(0) * k) -
           1];
         if ((static_cast<int>(k + 1U) < 1) || (static_cast<int>(k + 1U) >
              S_cols.size(1))) {
@@ -4390,13 +4392,13 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                                  &fc_emlrtBCI);
           }
 
-          if (timetol != static_cast<int>(timetol)) {
-            rtIntegerError(timetol, &db_emlrtDCI);
+          if (stft_dt != static_cast<int>(stft_dt)) {
+            rtIntegerError(stft_dt, &db_emlrtDCI);
           }
 
-          if ((static_cast<int>(timetol) < 1) || (static_cast<int>(timetol) >
+          if ((static_cast<int>(stft_dt) < 1) || (static_cast<int>(stft_dt) >
                S_cols.size(0))) {
-            rtDynamicBoundsError(static_cast<int>(timetol), 1, S_cols.size(0),
+            rtDynamicBoundsError(static_cast<int>(stft_dt), 1, S_cols.size(0),
                                  &gc_emlrtBCI);
           }
 
@@ -4406,7 +4408,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                                  &hc_emlrtBCI);
           }
 
-          t_lastknown = S_cols[(static_cast<int>(timetol) + S_cols.size(0) * k)
+          t_lastknown = S_cols[(static_cast<int>(stft_dt) + S_cols.size(0) * k)
             - 1];
           if ((static_cast<int>(k + 2U) < 1) || (static_cast<int>(k + 2U) >
                S_cols.size(1))) {
@@ -4438,13 +4440,13 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                                  &je_emlrtBCI);
           }
 
-          if (timetol != static_cast<int>(timetol)) {
-            rtIntegerError(timetol, &rb_emlrtDCI);
+          if (stft_dt != static_cast<int>(stft_dt)) {
+            rtIntegerError(stft_dt, &rb_emlrtDCI);
           }
 
-          if ((static_cast<int>(timetol) < 1) || (static_cast<int>(timetol) >
+          if ((static_cast<int>(stft_dt) < 1) || (static_cast<int>(stft_dt) >
                S_cols.size(0))) {
-            rtDynamicBoundsError(static_cast<int>(timetol), 1, S_cols.size(0),
+            rtDynamicBoundsError(static_cast<int>(stft_dt), 1, S_cols.size(0),
                                  &ke_emlrtBCI);
           }
 
@@ -4454,7 +4456,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                                  &le_emlrtBCI);
           }
 
-          t_lastknown = S_cols[(static_cast<int>(timetol) + S_cols.size(0) * k)
+          t_lastknown = S_cols[(static_cast<int>(stft_dt) + S_cols.size(0) * k)
             - 1];
           if ((k < 1) || (k > S_cols.size(1))) {
             rtDynamicBoundsError(k, 1, S_cols.size(1), &me_emlrtBCI);
@@ -4496,13 +4498,13 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                                &kc_emlrtBCI);
         }
 
-        if (timetol != static_cast<int>(timetol)) {
-          rtIntegerError(timetol, &eb_emlrtDCI);
+        if (stft_dt != static_cast<int>(stft_dt)) {
+          rtIntegerError(stft_dt, &eb_emlrtDCI);
         }
 
-        if ((static_cast<int>(timetol) < 1) || (static_cast<int>(timetol) >
+        if ((static_cast<int>(stft_dt) < 1) || (static_cast<int>(stft_dt) >
              S_cols.size(0))) {
-          rtDynamicBoundsError(static_cast<int>(timetol), 1, S_cols.size(0),
+          rtDynamicBoundsError(static_cast<int>(stft_dt), 1, S_cols.size(0),
                                &lc_emlrtBCI);
         }
 
@@ -4512,7 +4514,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                                &mc_emlrtBCI);
         }
 
-        t_lastknown = (S_cols[(static_cast<int>(timetol) + S_cols.size(0) * k) -
+        t_lastknown = (S_cols[(static_cast<int>(stft_dt) + S_cols.size(0) * k) -
                        1] + b_N) + b_M;
         slope_pos.set_size(i4);
         for (i2 = 0; i2 < d_loop_ub; i2++) {
@@ -4531,13 +4533,13 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                                &oc_emlrtBCI);
         }
 
-        if (timetol != static_cast<int>(timetol)) {
-          rtIntegerError(timetol, &fb_emlrtDCI);
+        if (stft_dt != static_cast<int>(stft_dt)) {
+          rtIntegerError(stft_dt, &fb_emlrtDCI);
         }
 
-        if ((static_cast<int>(timetol) < 1) || (static_cast<int>(timetol) >
+        if ((static_cast<int>(stft_dt) < 1) || (static_cast<int>(stft_dt) >
              S_cols.size(0))) {
-          rtDynamicBoundsError(static_cast<int>(timetol), 1, S_cols.size(0),
+          rtDynamicBoundsError(static_cast<int>(stft_dt), 1, S_cols.size(0),
                                &pc_emlrtBCI);
         }
 
@@ -4547,7 +4549,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                                &qc_emlrtBCI);
         }
 
-        t_lastknown = (S_cols[(static_cast<int>(timetol) + S_cols.size(0) * k) -
+        t_lastknown = (S_cols[(static_cast<int>(stft_dt) + S_cols.size(0) * k) -
                        1] + b_N) - b_M;
         b_freq_mask.set_size(i5);
         for (i2 = 0; i2 < e_loop_ub; i2++) {
@@ -4575,13 +4577,13 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                                &sc_emlrtBCI);
         }
 
-        if (timetol != static_cast<int>(timetol)) {
-          rtIntegerError(timetol, &gb_emlrtDCI);
+        if (stft_dt != static_cast<int>(stft_dt)) {
+          rtIntegerError(stft_dt, &gb_emlrtDCI);
         }
 
-        if ((static_cast<int>(timetol) < 1) || (static_cast<int>(timetol) >
+        if ((static_cast<int>(stft_dt) < 1) || (static_cast<int>(stft_dt) >
              S_cols.size(0))) {
-          rtDynamicBoundsError(static_cast<int>(timetol), 1, S_cols.size(0),
+          rtDynamicBoundsError(static_cast<int>(stft_dt), 1, S_cols.size(0),
                                &tc_emlrtBCI);
         }
 
@@ -4591,7 +4593,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                                &uc_emlrtBCI);
         }
 
-        t_lastknown = (S_cols[(static_cast<int>(timetol) + S_cols.size(0) * k) -
+        t_lastknown = (S_cols[(static_cast<int>(stft_dt) + S_cols.size(0) * k) -
                        1] - b_N) - b_M;
         score_right_bndry.set_size(i6);
         for (i2 = 0; i2 < f_loop_ub; i2++) {
@@ -4610,13 +4612,13 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                                &wc_emlrtBCI);
         }
 
-        if (timetol != static_cast<int>(timetol)) {
-          rtIntegerError(timetol, &hb_emlrtDCI);
+        if (stft_dt != static_cast<int>(stft_dt)) {
+          rtIntegerError(stft_dt, &hb_emlrtDCI);
         }
 
-        if ((static_cast<int>(timetol) < 1) || (static_cast<int>(timetol) >
+        if ((static_cast<int>(stft_dt) < 1) || (static_cast<int>(stft_dt) >
              S_cols.size(0))) {
-          rtDynamicBoundsError(static_cast<int>(timetol), 1, S_cols.size(0),
+          rtDynamicBoundsError(static_cast<int>(stft_dt), 1, S_cols.size(0),
                                &xc_emlrtBCI);
         }
 
@@ -4626,7 +4628,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                                &yc_emlrtBCI);
         }
 
-        t_lastknown = (S_cols[(static_cast<int>(timetol) + S_cols.size(0) * k) -
+        t_lastknown = (S_cols[(static_cast<int>(stft_dt) + S_cols.size(0) * k) -
                        1] - b_N) + b_M;
         b_freq_mask.set_size(i7);
         for (i2 = 0; i2 < g_loop_ub; i2++) {
@@ -4920,14 +4922,14 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                                    &jd_emlrtBCI);
             }
 
-            if (timetol < 1.0) {
+            if (stft_dt < 1.0) {
               loop_ub = 0;
             } else {
               if (n_freqs < 1) {
                 rtDynamicBoundsError(1, 1, n_freqs, &kd_emlrtBCI);
               }
 
-              if (timetol != static_cast<int>(peak_ind[static_cast<int>(p) - 1]))
+              if (stft_dt != static_cast<int>(peak_ind[static_cast<int>(p) - 1]))
               {
                 rtIntegerError(peak_ind[static_cast<int>(p) - 1], &ib_emlrtDCI);
               }
@@ -4952,11 +4954,11 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                                    &md_emlrtBCI);
             }
 
-            if (timetol > n_freqs) {
+            if (stft_dt > n_freqs) {
               i2 = -1;
               i13 = 0;
             } else {
-              if (timetol != static_cast<int>(peak_ind[static_cast<int>(p) - 1]))
+              if (stft_dt != static_cast<int>(peak_ind[static_cast<int>(p) - 1]))
               {
                 rtIntegerError(peak_ind[static_cast<int>(p) - 1], &jb_emlrtDCI);
               }
@@ -4993,7 +4995,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
               }
             }
 
-            r16.set_size(1, b_excluded_freq_bands.size(1));
+            r15.set_size(1, b_excluded_freq_bands.size(1));
             if ((static_cast<int>(p) < 1) || (static_cast<int>(p) >
                  peak_ind.size(0))) {
               rtDynamicBoundsError(static_cast<int>(p), 1, peak_ind.size(0),
@@ -5002,7 +5004,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
             loop_ub = b_excluded_freq_bands.size(1);
             for (i2 = 0; i2 < loop_ub; i2++) {
-              tip_temp = timetol + b_excluded_freq_bands[i2];
+              tip_temp = stft_dt + b_excluded_freq_bands[i2];
               if (tip_temp != static_cast<int>(tip_temp)) {
                 rtIntegerError(tip_temp, &kb_emlrtDCI);
               }
@@ -5013,12 +5015,12 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                                      &qd_emlrtBCI);
               }
 
-              r16[i2] = static_cast<int>(tip_temp);
+              r15[i2] = static_cast<int>(tip_temp);
             }
 
-            loop_ub = r16.size(1);
+            loop_ub = r15.size(1);
             for (i2 = 0; i2 < loop_ub; i2++) {
-              excld_msk_vec[r16[i2] - 1] = true;
+              excld_msk_vec[r15[i2] - 1] = true;
             }
           }
 
@@ -5181,7 +5183,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
           t_srch_rng[0] = 1.0;
           t_lastknown = bandwidth_of_peak[static_cast<int>(p) - 1];
-          t_srch_rng[1] = timetol - t_lastknown;
+          t_srch_rng[1] = stft_dt - t_lastknown;
           tp_temp = coder::internal::maximum(t_srch_rng);
           if ((static_cast<int>(p) < 1) || (static_cast<int>(p) > peak_ind.size
                (0))) {
@@ -5196,7 +5198,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
           }
 
           t_srch_rng[0] = n_freqs;
-          t_srch_rng[1] = timetol + t_lastknown;
+          t_srch_rng[1] = stft_dt + t_lastknown;
           t_lastknown = coder::internal::minimum(t_srch_rng);
           if (tp_temp > t_lastknown) {
             i2 = -1;
@@ -5253,13 +5255,13 @@ void waveform::findpulse(const char time_searchtype_data[], const int
         b_freq_mask.set_size(timeBlinderVec.size(0));
         loop_ub = timeBlinderVec.size(0);
         for (i2 = 0; i2 < loop_ub; i2++) {
-          b_freq_mask[i2] = (timeBlinderVec[i2] <= stft_dt);
+          b_freq_mask[i2] = (timeBlinderVec[i2] <= diff_thresh);
         }
 
         r9.set_size(indsOfBinsValid.size(0));
         loop_ub = indsOfBinsValid.size(0);
         for (i2 = 0; i2 < loop_ub; i2++) {
-          r9[i2] = (indsOfBinsValid[i2] <= stft_dt);
+          r9[i2] = (indsOfBinsValid[i2] <= diff_thresh);
         }
 
         if ((b_freq_mask.size(0) != r9.size(0)) && ((b_freq_mask.size(0) != 1) &&
@@ -5280,7 +5282,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
         r9.set_size(n_diff_check_for.size(0));
         loop_ub = n_diff_check_for.size(0);
         for (i2 = 0; i2 < loop_ub; i2++) {
-          r9[i2] = (n_diff_check_for[i2] <= stft_dt);
+          r9[i2] = (n_diff_check_for[i2] <= diff_thresh);
         }
 
         if ((b_freq_mask.size(0) != r9.size(0)) && ((b_freq_mask.size(0) != 1) &&
@@ -5567,9 +5569,22 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   // cur_pl(n_freqs,n_pls,1) = pulse;        %This will cause all array elements to fill with the empty constructor
   // cur_pl = pulse;
   // cur_pl(n_freqs,n_pls) = pulse;
-  makepulsestruc(&r10);
-  coder::repmat(&r10, static_cast<double>(yw_max_all_freq.size(0)), static_cast<
-                double>(yw_max_all_freq.size(1)), pl_out);
+  makepulsestruc(&tip_temp, &tp_temp, &t_lastknown, &n_blks, &diff_thresh,
+                 &stft_dt, expl_temp.t_next, &timetol, &wind_start_data,
+                 &naive_wind_end, expl_temp.mode, &y, &t8_con_dec);
+  expl_temp.con_dec = t8_con_dec;
+  expl_temp.det_dec = y;
+  expl_temp.fend = naive_wind_end;
+  expl_temp.fstart = wind_start_data;
+  expl_temp.fp = timetol;
+  expl_temp.t_f = stft_dt;
+  expl_temp.t_0 = diff_thresh;
+  expl_temp.yw = n_blks;
+  expl_temp.SNR = t_lastknown;
+  expl_temp.P = tp_temp;
+  expl_temp.A = tip_temp;
+  coder::repmat(&expl_temp, static_cast<double>(yw_max_all_freq.size(0)),
+                static_cast<double>(yw_max_all_freq.size(1)), pl_out);
 
   // Create a frequency array that accounts for the masking that
   // was done to reduce the frequency space.
@@ -5582,21 +5597,21 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     }
   }
 
-  r11.set_size(nx);
+  r10.set_size(nx);
   nx = 0;
   for (wind_start_size = 0; wind_start_size <= inds_bkwd_2_next_valley_data;
        wind_start_size++) {
     if (freq_mask[wind_start_size]) {
-      r11[nx] = wind_start_size + 1;
+      r10[nx] = wind_start_size + 1;
       nx++;
     }
   }
 
   nx = Wf.size(0);
-  loop_ub = r11.size(0);
+  loop_ub = r10.size(0);
   for (i = 0; i < loop_ub; i++) {
-    if (r11[i] > nx) {
-      rtDynamicBoundsError(r11[i], 1, nx, &ve_emlrtBCI);
+    if (r10[i] > nx) {
+      rtDynamicBoundsError(r10[i], 1, nx, &ve_emlrtBCI);
     }
   }
 
@@ -5629,17 +5644,17 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     }
   }
 
-  r12.set_size(nx);
+  r11.set_size(nx);
   nx = 0;
   for (wind_start_size = 0; wind_start_size <= inds_bkwd_2_next_valley_data;
        wind_start_size++) {
     if (freq_mask[wind_start_size]) {
-      r12[nx] = wind_start_size + 1;
+      r11[nx] = wind_start_size + 1;
       nx++;
     }
   }
 
-  trueCount[0] = r12.size(0);
+  trueCount[0] = r11.size(0);
   trueCount[1] = S_cols.size(1);
   coder::internal::b_indexShapeCheck(stft->t.size(0), trueCount);
   inds_bkwd_2_next_valley_data = freq_mask.size(0);
@@ -5659,32 +5674,32 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     }
   }
 
-  r13.set_size(nx);
+  r12.set_size(nx);
   nx = 0;
   for (wind_start_size = 0; wind_start_size <= inds_bkwd_2_next_valley_data;
        wind_start_size++) {
     if (freq_mask[wind_start_size]) {
-      r13[nx] = wind_start_size + 1;
+      r12[nx] = wind_start_size + 1;
       nx++;
     }
   }
 
   nx = stft->t.size(0);
   loop_ub = S_cols.size(1);
-  r14.set_size(r13.size(0), S_cols.size(1));
+  r13.set_size(r12.size(0), S_cols.size(1));
   for (i = 0; i < loop_ub; i++) {
-    maxStftTimeWind = r13.size(0);
+    maxStftTimeWind = r12.size(0);
     for (i1 = 0; i1 < maxStftTimeWind; i1++) {
-      timetol = S_cols[(r13[i1] + S_cols.size(0) * i) - 1];
-      if (timetol != static_cast<int>(std::floor(timetol))) {
-        rtIntegerError(timetol, &sb_emlrtDCI);
+      stft_dt = S_cols[(r12[i1] + S_cols.size(0) * i) - 1];
+      if (stft_dt != static_cast<int>(std::floor(stft_dt))) {
+        rtIntegerError(stft_dt, &sb_emlrtDCI);
       }
 
-      if ((static_cast<int>(timetol) < 1) || (static_cast<int>(timetol) > nx)) {
-        rtDynamicBoundsError(static_cast<int>(timetol), 1, nx, &ye_emlrtBCI);
+      if ((static_cast<int>(stft_dt) < 1) || (static_cast<int>(stft_dt) > nx)) {
+        rtDynamicBoundsError(static_cast<int>(stft_dt), 1, nx, &ye_emlrtBCI);
       }
 
-      r14[i1 + r14.size(0) * i] = stft->t[static_cast<int>(timetol) - 1];
+      r13[i1 + r13.size(0) * i] = stft->t[static_cast<int>(stft_dt) - 1];
     }
   }
 
@@ -5699,7 +5714,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   trueCount[0] = nx;
   trueCount[1] = yw_max_all_freq.size(1);
-  rtSubAssignSizeCheck(&trueCount[0], 2, r14.size(), 2, &dc_emlrtECI);
+  rtSubAssignSizeCheck(&trueCount[0], 2, r13.size(), 2, &dc_emlrtECI);
   i = stft->t.size(0);
   if (i < 1) {
     rtDynamicBoundsError(1, 1, i, &af_emlrtBCI);
@@ -5714,22 +5729,22 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     }
   }
 
-  r15.set_size(nx);
+  r14.set_size(nx);
   nx = 0;
   for (wind_start_size = 0; wind_start_size <= inds_bkwd_2_next_valley_data;
        wind_start_size++) {
     if (freq_mask[wind_start_size]) {
-      r15[nx] = wind_start_size + 1;
+      r14[nx] = wind_start_size + 1;
       nx++;
     }
   }
 
   t_lastknown = stft->t[0];
-  loop_ub = r14.size(1);
+  loop_ub = r13.size(1);
   for (i = 0; i < loop_ub; i++) {
-    maxStftTimeWind = r14.size(0);
+    maxStftTimeWind = r13.size(0);
     for (i1 = 0; i1 < maxStftTimeWind; i1++) {
-      refmat[(r15[i1] + refmat.size(0) * i) - 1] = (r14[i1 + r14.size(0) * i] -
+      refmat[(r14[i1] + refmat.size(0) * i) - 1] = (r13[i1 + r13.size(0) * i] -
         t_lastknown) + t_0;
     }
   }
@@ -5875,15 +5890,15 @@ void waveform::findpulse(const char time_searchtype_data[], const int
                              &uf_emlrtBCI);
       }
 
-      makepulsestruc(searchmat[nx + searchmat.size(0) * wind_start_size],
-                     yw_max_all_freq[nx + yw_max_all_freq.size(0) *
-                     wind_start_size], signalPlusNoisePSD[nx +
-                     signalPlusNoisePSD.size(0) * wind_start_size], refmat[nx +
-                     refmat.size(0) * wind_start_size], refmat[nx + refmat.size
-                     (0) * wind_start_size] + ps_pre->t_p, t_srch_rng, Wf[nx],
-                     excluded_freq_bands[nx], excluded_freq_bands[nx +
-                     excluded_freq_bands.size(0)], &pl_out[nx + pl_out.size(0) *
-                     wind_start_size]);
+      b_makepulsestruc(searchmat[nx + searchmat.size(0) * wind_start_size],
+                       yw_max_all_freq[nx + yw_max_all_freq.size(0) *
+                       wind_start_size], signalPlusNoisePSD[nx +
+                       signalPlusNoisePSD.size(0) * wind_start_size], refmat[nx
+                       + refmat.size(0) * wind_start_size], refmat[nx +
+                       refmat.size(0) * wind_start_size] + ps_pre->t_p,
+                       t_srch_rng, Wf[nx], excluded_freq_bands[nx],
+                       excluded_freq_bands[nx + excluded_freq_bands.size(0)],
+                       &pl_out[nx + pl_out.size(0) * wind_start_size]);
 
       // %NaN,...
       if (nx + 1 > pl_out.size(0)) {
@@ -8033,9 +8048,9 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   pulsestats *obj;
   coder::array<c_struct_T, 2U> b_candidatelist;
+  coder::array<c_struct_T, 2U> b_val;
   coder::array<c_struct_T, 2U> c_candidatelist;
   coder::array<c_struct_T, 2U> candidatelist;
-  coder::array<c_struct_T, 2U> val;
   coder::array<c_struct_T, 1U> b_obj;
   coder::array<double, 2U> _in;
   coder::array<double, 2U> b;
@@ -8050,6 +8065,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
   coder::array<boolean_T, 2U> msk;
   coder::array<boolean_T, 2U> r1;
   coder::array<boolean_T, 1U> r;
+  c_struct_T val;
   double b_x;
   double tip;
   double tipj;
@@ -8441,18 +8457,21 @@ void waveform::process(char mode, const coder::array<double, 2U>
           c_candidatelist[i] = candidatelist[(n + candidatelist.size(0) * i) - 1];
         }
 
-        coder::internal::validator_check_size(c_candidatelist, val);
-        obj->pl.set_size(1, val.size(1));
-        b_n = val.size(1);
+        coder::internal::validator_check_size(c_candidatelist, b_val);
+        obj->pl.set_size(1, b_val.size(1));
+        b_n = b_val.size(1);
         for (n = 0; n < b_n; n++) {
-          obj->pl[n] = val[n];
+          obj->pl[n] = b_val[n];
         }
       } else {
         // If nothing above threshold was found, fill with empty
         // pulse object
         obj = ps_pos;
+        makepulsestruc(&val.A, &val.P, &val.SNR, &val.yw, &val.t_0, &val.t_f,
+                       val.t_next, &val.fp, &val.fstart, &val.fend, val.mode,
+                       &val.det_dec, &val.con_dec);
         obj->pl.set_size(1, 1);
-        makepulsestruc(&obj->pl[0]);
+        obj->pl[0] = val;
       }
 
       // Record all candidates for posterity
@@ -8513,29 +8532,29 @@ void waveform::process(char mode, const coder::array<double, 2U>
         // yet.
         n = ps_pos->pl.size(1) - 1;
         for (int b_i{0}; b_i <= n; b_i++) {
-          val.set_size(1, ps_pos->pl.size(1));
+          b_val.set_size(1, ps_pos->pl.size(1));
           b_n = ps_pos->pl.size(1);
           for (i = 0; i < b_n; i++) {
-            val[i] = ps_pos->pl[i];
+            b_val[i] = ps_pos->pl[i];
           }
 
-          if (b_i + 1 > val.size(1)) {
-            rtDynamicBoundsError(b_i + 1, 1, val.size(1), &wb_emlrtBCI);
+          if (b_i + 1 > b_val.size(1)) {
+            rtDynamicBoundsError(b_i + 1, 1, b_val.size(1), &wb_emlrtBCI);
           }
 
-          val[b_i].con_dec = false;
+          b_val[b_i].con_dec = false;
           obj = ps_pos;
-          c_candidatelist.set_size(1, val.size(1));
-          b_n = val.size(0) * val.size(1) - 1;
+          c_candidatelist.set_size(1, b_val.size(1));
+          b_n = b_val.size(0) * b_val.size(1) - 1;
           for (i = 0; i <= b_n; i++) {
-            c_candidatelist[i] = val[i];
+            c_candidatelist[i] = b_val[i];
           }
 
-          coder::internal::validator_check_size(c_candidatelist, val);
-          obj->pl.set_size(1, val.size(1));
-          b_n = val.size(1);
+          coder::internal::validator_check_size(c_candidatelist, b_val);
+          obj->pl.set_size(1, b_val.size(1));
+          b_n = b_val.size(1);
           for (i = 0; i < b_n; i++) {
-            obj->pl[i] = val[i];
+            obj->pl[i] = b_val[i];
           }
         }
 
@@ -8568,41 +8587,41 @@ void waveform::process(char mode, const coder::array<double, 2U>
       // debugging.
       n = ps_pos->pl.size(1) - 1;
       for (int b_i{0}; b_i <= n; b_i++) {
-        val.set_size(1, ps_pos->pl.size(1));
+        b_val.set_size(1, ps_pos->pl.size(1));
         b_n = ps_pos->pl.size(1);
         for (i = 0; i < b_n; i++) {
-          val[i] = ps_pos->pl[i];
+          b_val[i] = ps_pos->pl[i];
         }
 
-        if (b_i + 1 > val.size(1)) {
-          rtDynamicBoundsError(b_i + 1, 1, val.size(1), &xb_emlrtBCI);
+        if (b_i + 1 > b_val.size(1)) {
+          rtDynamicBoundsError(b_i + 1, 1, b_val.size(1), &xb_emlrtBCI);
         }
 
-        val[val.size(0) * b_i].mode.set_size(1, val[val.size(0) * b_i].mode.size
-          (1));
-        if (b_i + 1 > val.size(1)) {
-          rtDynamicBoundsError(b_i + 1, 1, val.size(1), &xb_emlrtBCI);
+        b_val[b_val.size(0) * b_i].mode.set_size(1, b_val[b_val.size(0) * b_i].
+          mode.size(1));
+        if (b_i + 1 > b_val.size(1)) {
+          rtDynamicBoundsError(b_i + 1, 1, b_val.size(1), &xb_emlrtBCI);
         }
 
-        val[val.size(0) * b_i].mode.set_size(val[val.size(0) * b_i].mode.size(0),
-          1);
-        if (b_i + 1 > val.size(1)) {
-          rtDynamicBoundsError(b_i + 1, 1, val.size(1), &xb_emlrtBCI);
+        b_val[b_val.size(0) * b_i].mode.set_size(b_val[b_val.size(0) * b_i].
+          mode.size(0), 1);
+        if (b_i + 1 > b_val.size(1)) {
+          rtDynamicBoundsError(b_i + 1, 1, b_val.size(1), &xb_emlrtBCI);
         }
 
-        val[b_i].mode[0] = mode;
+        b_val[b_i].mode[0] = mode;
         obj = ps_pos;
-        c_candidatelist.set_size(1, val.size(1));
-        b_n = val.size(0) * val.size(1) - 1;
+        c_candidatelist.set_size(1, b_val.size(1));
+        b_n = b_val.size(0) * b_val.size(1) - 1;
         for (i = 0; i <= b_n; i++) {
-          c_candidatelist[i] = val[i];
+          c_candidatelist[i] = b_val[i];
         }
 
-        coder::internal::validator_check_size(c_candidatelist, val);
-        obj->pl.set_size(1, val.size(1));
-        b_n = val.size(1);
+        coder::internal::validator_check_size(c_candidatelist, b_val);
+        obj->pl.set_size(1, b_val.size(1));
+        b_n = b_val.size(1);
         for (i = 0; i < b_n; i++) {
-          obj->pl[i] = val[i];
+          obj->pl[i] = b_val[i];
         }
 
         // 'D';
@@ -8752,18 +8771,21 @@ void waveform::process(char mode, const coder::array<double, 2U>
             candidatelist.size(0) * n) - 1];
         }
 
-        coder::internal::validator_check_size(c_candidatelist, val);
-        obj->pl.set_size(1, val.size(1));
-        b_n = val.size(1);
+        coder::internal::validator_check_size(c_candidatelist, b_val);
+        obj->pl.set_size(1, b_val.size(1));
+        b_n = b_val.size(1);
         for (n = 0; n < b_n; n++) {
-          obj->pl[n] = val[n];
+          obj->pl[n] = b_val[n];
         }
       } else {
         // If nothing above threshold was found, fill with empty
         // pulse object
         obj = ps_pos;
+        makepulsestruc(&val.A, &val.P, &val.SNR, &val.yw, &val.t_0, &val.t_f,
+                       val.t_next, &val.fp, &val.fstart, &val.fend, val.mode,
+                       &val.det_dec, &val.con_dec);
         obj->pl.set_size(1, 1);
-        makepulsestruc(&obj->pl[0]);
+        obj->pl[0] = val;
       }
 
       // Record all candidates for posterity
@@ -9407,33 +9429,33 @@ void waveform::process(char mode, const coder::array<double, 2U>
         n = ps_pos->pl.size(1) - 1;
         for (int b_i{0}; b_i <= n; b_i++) {
           // obj.ps_pos.pl(ip).con_dec = true;
-          val.set_size(1, ps_pos->pl.size(1));
+          b_val.set_size(1, ps_pos->pl.size(1));
           b_n = ps_pos->pl.size(1);
           for (i = 0; i < b_n; i++) {
-            val[i] = ps_pos->pl[i];
+            b_val[i] = ps_pos->pl[i];
           }
 
           if (b_i + 1 > maxstartlog.size(1)) {
             rtDynamicBoundsError(b_i + 1, 1, maxstartlog.size(1), &pb_emlrtBCI);
           }
 
-          if (b_i + 1 > val.size(1)) {
-            rtDynamicBoundsError(b_i + 1, 1, val.size(1), &qb_emlrtBCI);
+          if (b_i + 1 > b_val.size(1)) {
+            rtDynamicBoundsError(b_i + 1, 1, b_val.size(1), &qb_emlrtBCI);
           }
 
-          val[b_i].con_dec = maxstartlog[b_i];
+          b_val[b_i].con_dec = maxstartlog[b_i];
           obj = ps_pos;
-          c_candidatelist.set_size(1, val.size(1));
-          b_n = val.size(0) * val.size(1) - 1;
+          c_candidatelist.set_size(1, b_val.size(1));
+          b_n = b_val.size(0) * b_val.size(1) - 1;
           for (i = 0; i <= b_n; i++) {
-            c_candidatelist[i] = val[i];
+            c_candidatelist[i] = b_val[i];
           }
 
-          coder::internal::validator_check_size(c_candidatelist, val);
-          obj->pl.set_size(1, val.size(1));
-          b_n = val.size(1);
+          coder::internal::validator_check_size(c_candidatelist, b_val);
+          obj->pl.set_size(1, b_val.size(1));
+          b_n = b_val.size(1);
           for (i = 0; i < b_n; i++) {
-            obj->pl[i] = val[i];
+            obj->pl[i] = b_val[i];
           }
         }
 
@@ -9463,41 +9485,41 @@ void waveform::process(char mode, const coder::array<double, 2U>
       // debugging.
       n = ps_pos->pl.size(1) - 1;
       for (int b_i{0}; b_i <= n; b_i++) {
-        val.set_size(1, ps_pos->pl.size(1));
+        b_val.set_size(1, ps_pos->pl.size(1));
         b_n = ps_pos->pl.size(1);
         for (i = 0; i < b_n; i++) {
-          val[i] = ps_pos->pl[i];
+          b_val[i] = ps_pos->pl[i];
         }
 
-        if (b_i + 1 > val.size(1)) {
-          rtDynamicBoundsError(b_i + 1, 1, val.size(1), &rb_emlrtBCI);
+        if (b_i + 1 > b_val.size(1)) {
+          rtDynamicBoundsError(b_i + 1, 1, b_val.size(1), &rb_emlrtBCI);
         }
 
-        val[val.size(0) * b_i].mode.set_size(1, val[val.size(0) * b_i].mode.size
-          (1));
-        if (b_i + 1 > val.size(1)) {
-          rtDynamicBoundsError(b_i + 1, 1, val.size(1), &rb_emlrtBCI);
+        b_val[b_val.size(0) * b_i].mode.set_size(1, b_val[b_val.size(0) * b_i].
+          mode.size(1));
+        if (b_i + 1 > b_val.size(1)) {
+          rtDynamicBoundsError(b_i + 1, 1, b_val.size(1), &rb_emlrtBCI);
         }
 
-        val[val.size(0) * b_i].mode.set_size(val[val.size(0) * b_i].mode.size(0),
-          1);
-        if (b_i + 1 > val.size(1)) {
-          rtDynamicBoundsError(b_i + 1, 1, val.size(1), &rb_emlrtBCI);
+        b_val[b_val.size(0) * b_i].mode.set_size(b_val[b_val.size(0) * b_i].
+          mode.size(0), 1);
+        if (b_i + 1 > b_val.size(1)) {
+          rtDynamicBoundsError(b_i + 1, 1, b_val.size(1), &rb_emlrtBCI);
         }
 
-        val[b_i].mode[0] = mode;
+        b_val[b_i].mode[0] = mode;
         obj = ps_pos;
-        c_candidatelist.set_size(1, val.size(1));
-        b_n = val.size(0) * val.size(1) - 1;
+        c_candidatelist.set_size(1, b_val.size(1));
+        b_n = b_val.size(0) * b_val.size(1) - 1;
         for (i = 0; i <= b_n; i++) {
-          c_candidatelist[i] = val[i];
+          c_candidatelist[i] = b_val[i];
         }
 
-        coder::internal::validator_check_size(c_candidatelist, val);
-        obj->pl.set_size(1, val.size(1));
-        b_n = val.size(1);
+        coder::internal::validator_check_size(c_candidatelist, b_val);
+        obj->pl.set_size(1, b_val.size(1));
+        b_n = b_val.size(1);
         for (i = 0; i < b_n; i++) {
-          obj->pl[i] = val[i];
+          obj->pl[i] = b_val[i];
         }
 
         // 'C';
@@ -9646,17 +9668,20 @@ void waveform::process(char mode, const coder::array<double, 2U>
             candidatelist.size(0) * n) - 1];
         }
 
-        coder::internal::validator_check_size(c_candidatelist, val);
-        obj->pl.set_size(1, val.size(1));
-        b_n = val.size(1);
+        coder::internal::validator_check_size(c_candidatelist, b_val);
+        obj->pl.set_size(1, b_val.size(1));
+        b_n = b_val.size(1);
         for (n = 0; n < b_n; n++) {
-          obj->pl[n] = val[n];
+          obj->pl[n] = b_val[n];
         }
       } else {
         // Nothing met the threshold for detection
         obj = ps_pos;
+        makepulsestruc(&val.A, &val.P, &val.SNR, &val.yw, &val.t_0, &val.t_f,
+                       val.t_next, &val.fp, &val.fstart, &val.fend, val.mode,
+                       &val.det_dec, &val.con_dec);
         obj->pl.set_size(1, 1);
-        makepulsestruc(&obj->pl[0]);
+        obj->pl[0] = val;
       }
 
       obj = ps_pos;
@@ -9716,29 +9741,29 @@ void waveform::process(char mode, const coder::array<double, 2U>
         // confirming the previous projections.
         n = ps_pos->pl.size(1) - 1;
         for (int b_i{0}; b_i <= n; b_i++) {
-          val.set_size(1, ps_pos->pl.size(1));
+          b_val.set_size(1, ps_pos->pl.size(1));
           b_n = ps_pos->pl.size(1);
           for (i = 0; i < b_n; i++) {
-            val[i] = ps_pos->pl[i];
+            b_val[i] = ps_pos->pl[i];
           }
 
-          if (b_i + 1 > val.size(1)) {
-            rtDynamicBoundsError(b_i + 1, 1, val.size(1), &ib_emlrtBCI);
+          if (b_i + 1 > b_val.size(1)) {
+            rtDynamicBoundsError(b_i + 1, 1, b_val.size(1), &ib_emlrtBCI);
           }
 
-          val[b_i].con_dec = true;
+          b_val[b_i].con_dec = true;
           obj = ps_pos;
-          c_candidatelist.set_size(1, val.size(1));
-          b_n = val.size(0) * val.size(1) - 1;
+          c_candidatelist.set_size(1, b_val.size(1));
+          b_n = b_val.size(0) * b_val.size(1) - 1;
           for (i = 0; i <= b_n; i++) {
-            c_candidatelist[i] = val[i];
+            c_candidatelist[i] = b_val[i];
           }
 
-          coder::internal::validator_check_size(c_candidatelist, val);
-          obj->pl.set_size(1, val.size(1));
-          b_n = val.size(1);
+          coder::internal::validator_check_size(c_candidatelist, b_val);
+          obj->pl.set_size(1, b_val.size(1));
+          b_n = b_val.size(1);
           for (i = 0; i < b_n; i++) {
-            obj->pl[i] = val[i];
+            obj->pl[i] = b_val[i];
           }
         }
 
@@ -9774,41 +9799,41 @@ void waveform::process(char mode, const coder::array<double, 2U>
       // debugging.
       n = ps_pos->pl.size(1) - 1;
       for (int b_i{0}; b_i <= n; b_i++) {
-        val.set_size(1, ps_pos->pl.size(1));
+        b_val.set_size(1, ps_pos->pl.size(1));
         b_n = ps_pos->pl.size(1);
         for (i = 0; i < b_n; i++) {
-          val[i] = ps_pos->pl[i];
+          b_val[i] = ps_pos->pl[i];
         }
 
-        if (b_i + 1 > val.size(1)) {
-          rtDynamicBoundsError(b_i + 1, 1, val.size(1), &jb_emlrtBCI);
+        if (b_i + 1 > b_val.size(1)) {
+          rtDynamicBoundsError(b_i + 1, 1, b_val.size(1), &jb_emlrtBCI);
         }
 
-        val[val.size(0) * b_i].mode.set_size(1, val[val.size(0) * b_i].mode.size
-          (1));
-        if (b_i + 1 > val.size(1)) {
-          rtDynamicBoundsError(b_i + 1, 1, val.size(1), &jb_emlrtBCI);
+        b_val[b_val.size(0) * b_i].mode.set_size(1, b_val[b_val.size(0) * b_i].
+          mode.size(1));
+        if (b_i + 1 > b_val.size(1)) {
+          rtDynamicBoundsError(b_i + 1, 1, b_val.size(1), &jb_emlrtBCI);
         }
 
-        val[val.size(0) * b_i].mode.set_size(val[val.size(0) * b_i].mode.size(0),
-          1);
-        if (b_i + 1 > val.size(1)) {
-          rtDynamicBoundsError(b_i + 1, 1, val.size(1), &jb_emlrtBCI);
+        b_val[b_val.size(0) * b_i].mode.set_size(b_val[b_val.size(0) * b_i].
+          mode.size(0), 1);
+        if (b_i + 1 > b_val.size(1)) {
+          rtDynamicBoundsError(b_i + 1, 1, b_val.size(1), &jb_emlrtBCI);
         }
 
-        val[b_i].mode[0] = mode;
+        b_val[b_i].mode[0] = mode;
         obj = ps_pos;
-        c_candidatelist.set_size(1, val.size(1));
-        b_n = val.size(0) * val.size(1) - 1;
+        c_candidatelist.set_size(1, b_val.size(1));
+        b_n = b_val.size(0) * b_val.size(1) - 1;
         for (i = 0; i <= b_n; i++) {
-          c_candidatelist[i] = val[i];
+          c_candidatelist[i] = b_val[i];
         }
 
-        coder::internal::validator_check_size(c_candidatelist, val);
-        obj->pl.set_size(1, val.size(1));
-        b_n = val.size(1);
+        coder::internal::validator_check_size(c_candidatelist, b_val);
+        obj->pl.set_size(1, b_val.size(1));
+        b_n = b_val.size(1);
         for (i = 0; i < b_n; i++) {
-          obj->pl[i] = val[i];
+          obj->pl[i] = b_val[i];
         }
 
         //  'T';
@@ -10084,8 +10109,8 @@ void waveform::setweightingmatrix()
   static rtBoundsCheckInfo eb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     159,                               // lineNo
-    38,                                // colNo
-    "stackedToeplitzMatrices",         // aName
+    71,                                // colNo
+    "Xs",                              // aName
     "weightingmatrix",                 // fName
     "H:\\repos\\uavrt_detection\\weightingmatrix.m",// pName
     0                                  // checkKind
@@ -10094,8 +10119,8 @@ void waveform::setweightingmatrix()
   static rtBoundsCheckInfo fb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     159,                               // lineNo
-    71,                                // colNo
-    "Xs",                              // aName
+    38,                                // colNo
+    "stackedToeplitzMatrices",         // aName
     "weightingmatrix",                 // fName
     "H:\\repos\\uavrt_detection\\weightingmatrix.m",// pName
     0                                  // checkKind
@@ -10103,9 +10128,9 @@ void waveform::setweightingmatrix()
 
   static rtBoundsCheckInfo gb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    159,                               // lineNo
-    29,                                // colNo
-    "stackedToeplitzMatrices",         // aName
+    190,                               // lineNo
+    33,                                // colNo
+    "freqs",                           // aName
     "weightingmatrix",                 // fName
     "H:\\repos\\uavrt_detection\\weightingmatrix.m",// pName
     0                                  // checkKind
@@ -10113,9 +10138,9 @@ void waveform::setweightingmatrix()
 
   static rtBoundsCheckInfo hb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    190,                               // lineNo
-    33,                                // colNo
-    "freqs",                           // aName
+    159,                               // lineNo
+    29,                                // colNo
+    "stackedToeplitzMatrices",         // aName
     "weightingmatrix",                 // fName
     "H:\\repos\\uavrt_detection\\weightingmatrix.m",// pName
     0                                  // checkKind
@@ -10653,21 +10678,21 @@ void waveform::setweightingmatrix()
       if ((static_cast<int>(rowStart) < 1) || (static_cast<int>(rowStart) >
            stackedToeplitzMatrices.size(0))) {
         rtDynamicBoundsError(static_cast<int>(rowStart), 1,
-                             stackedToeplitzMatrices.size(0), &gb_emlrtBCI);
+                             stackedToeplitzMatrices.size(0), &hb_emlrtBCI);
       }
 
       i2 = static_cast<int>(rowStart) - 1;
       if ((static_cast<int>(rowEnd) < 1) || (static_cast<int>(rowEnd) >
            stackedToeplitzMatrices.size(0))) {
         rtDynamicBoundsError(static_cast<int>(rowEnd), 1,
-                             stackedToeplitzMatrices.size(0), &eb_emlrtBCI);
+                             stackedToeplitzMatrices.size(0), &fb_emlrtBCI);
       }
 
       i3 = static_cast<int>(rowEnd);
     }
 
     if (Xs.size(0) < 1) {
-      rtDynamicBoundsError(1, 1, Xs.size(0), &fb_emlrtBCI);
+      rtDynamicBoundsError(1, 1, Xs.size(0), &eb_emlrtBCI);
     }
 
     b_x.set_size(loop_ub_tmp);
@@ -10858,7 +10883,7 @@ void waveform::setweightingmatrix()
 
   if (output_samps.size(1) < 1) {
     rtDynamicBoundsError(output_samps.size(1), 1, output_samps.size(1),
-                         &hb_emlrtBCI);
+                         &gb_emlrtBCI);
   }
 
   xtmp_re = -output_samps[output_samps.size(1) - 1] - (b_Fs -

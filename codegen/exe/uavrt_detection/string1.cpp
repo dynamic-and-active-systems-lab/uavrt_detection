@@ -5,7 +5,7 @@
 // File: string1.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 30-Dec-2022 12:50:56
 //
 
 // Include Files
@@ -13,6 +13,7 @@
 #include "rt_nonfinite.h"
 #include "uavrt_detection_data.h"
 #include "coder_array.h"
+#include <algorithm>
 #include <string.h>
 
 // Variable Definitions
@@ -147,13 +148,13 @@ boolean_T b_rtString::eq() const
 //
 void rtString::init()
 {
-  static const char b_cv[34]{'d', 'e', 't', 'e', 'c', 't', 'o', 'r', '/',
-                             'c', 'o', 'n', 'f', 'i', 'g', '/', 'd', 'e',
-                             't', 'e', 'c', 't', 'o', 'r', 'C', 'o', 'n',
-                             'f', 'i', 'g', '.', 't', 'x', 't'};
-  for (int i{0}; i < 34; i++) {
-    Value[i] = b_cv[i];
-  }
+  static const char b_cv[65]{
+      '/', 'h', 'o', 'm', 'e', '/', 'p', 'i', '/', 'r', 'e', 'p', 'o',
+      's', '/', 'u', 'a', 'v', 'r', 't', '_', 'd', 'e', 't', 'e', 'c',
+      't', 'i', 'o', 'n', '/', 'd', 'e', 't', 'e', 'c', 't', 'o', 'r',
+      '/', 'c', 'o', 'n', 'f', 'i', 'g', '/', 'd', 'e', 't', 'e', 'c',
+      't', 'o', 'r', 'C', 'o', 'n', 'f', 'i', 'g', '.', 't', 'x', 't'};
+  std::copy(&b_cv[0], &b_cv[65], &Value[0]);
 }
 
 //

@@ -5,7 +5,7 @@
 // File: str2double1.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 30-Dec-2022 12:50:56
 //
 
 #ifndef STR2DOUBLE1_H

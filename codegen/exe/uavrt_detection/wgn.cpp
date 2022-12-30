@@ -5,7 +5,7 @@
 // File: wgn.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 30-Dec-2022 12:50:56
 //
 
 // Include Files
@@ -52,7 +52,7 @@ void wgn(creal_T y[1000])
     p = (p && (static_cast<unsigned char>(b[k]) <= 127));
   }
   if (!p) {
-    pc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
+    oc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
   }
   r.set_size(1, b.size(1));
   ns = b.size(1);

@@ -5,7 +5,7 @@
 // File: fileManager.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 30-Dec-2022 12:50:56
 //
 
 #ifndef FILEMANAGER_H
@@ -22,7 +22,7 @@
 namespace coder {
 int cfclose(double fid);
 
-signed char cfopen(const char cfilename[34]);
+signed char cfopen(const char cfilename[65]);
 
 signed char cfopen(const ::coder::array<char, 2U> &cfilename);
 

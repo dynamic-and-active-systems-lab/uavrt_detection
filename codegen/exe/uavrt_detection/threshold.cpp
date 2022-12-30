@@ -5,7 +5,7 @@
 // File: threshold.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 30-Dec-2022 12:50:56
 //
 
 // Include Files
@@ -41,7 +41,7 @@
 #include <string>
 
 // Function Declarations
-static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void jc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void o_binary_expand_op(coder::array<boolean_T, 1U> &in1,
                                const waveform *in2, const waveform *in3);
@@ -309,7 +309,7 @@ void threshold::setthreshprops(double thresh, const waveform *Wfm)
 //                int aLineNum
 // Return Type  : void
 //
-static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void jc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -583,7 +583,7 @@ void threshold::makenewthreshold(const waveform *Wfm)
     }
   }
   if (overflow) {
-    kc_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+    jc_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
   }
   b_b.set((char *)&c_b[0], 1, 6);
   ns = b_b.size(1);
@@ -595,7 +595,7 @@ void threshold::makenewthreshold(const waveform *Wfm)
     overflow = (overflow && (static_cast<unsigned char>(b_b[k]) <= 127));
   }
   if (!overflow) {
-    pc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
+    oc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
   }
   r.set_size(1, b_b.size(1));
   ns = b_b.size(1);
@@ -693,7 +693,7 @@ void threshold::makenewthreshold(const waveform *Wfm)
     }
   }
   if (!overflow) {
-    ic_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+    hc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
   }
   b_x.set_size(Ssynth.size(0), Ssynth.size(1), Ssynth.size(2));
   b_overflow = Ssynth.size(0) * Ssynth.size(1) * Ssynth.size(2);
