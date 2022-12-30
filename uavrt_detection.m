@@ -106,7 +106,7 @@ samplesPerFrame = 2048;
 udpReceiveBufferSize = samplesPerFrame * 2;
 udpReceiver = udpReceiverSetup(Config.ipData, Config.portData, udpReceiveBufferSize, samplesPerFrame);
 
-udpSender = udpSenderSetup('127.0.0.1', udpReceiveBufferSize, samplesPerFrame);
+udpSender = udpSenderSetup('127.0.0.1', 30000, udpReceiveBufferSize);
 
 %Initialize loop variables
 resetBuffersFlag  = true;
