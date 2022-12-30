@@ -3,7 +3,7 @@ function [] = uavrt_detection()
 %   Detailed explanation goes here
 
  %#codegen
-configPath = "detector/config/detectorConfig.txt"; %Must exist in the same directory as the execution of this executable
+configPath = "/home/pi/repos/uavrt_detection/detector/config/detectorConfig.txt"; %Must exist in the same directory as the execution of this executable
 
 Config =  DetectorConfig(); %Build empty config object
 updateconfig()              %Update (fill) the configuration
