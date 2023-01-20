@@ -216,9 +216,12 @@ while true %i <= maxInd
                 pause((packetLength-1)/2*1/Config.Fs);
             else
                 framesReceived = framesReceived + 1;
-                timeStamp      = 10^-3*singlecomplex2int(dataReceived(1));
-                iqData         = dataReceived(2:end);
-                timeVector     = timeStamp+1/Config.Fs*(0:(numel(iqData)-1)).';
+                %timeStamp      = 10^-3*singlecomplex2int(dataReceived(1)); % OLD TIME STAMP METHOD
+                %iqData         = dataReceived(2:end);% OLD TIME STAMP METHOD
+                %timeVector     = timeStamp+1/Config.Fs*(0:(numel(iqData)-1)).';% OLD TIME STAMP METHOD
+                iqData         = dataReceived(1:end);
+                timeStamp      = round(posixtime(datetime('now')),3);
+                timeVector     = timeStamp+1/Config.Fs*(-(numel(iqData)-1):0).';
                 %Check for missing packets based on packet timestamps.
                 if asyncTimeBuff.NumUnreadSamples ~= 0
                     packetTimeDiffActual = timeStamp - lastTimeStamp;
@@ -235,7 +238,8 @@ while true %i <= maxInd
                 %Write out data and time.
                 asyncDataBuff.write(iqData);
                 asyncTimeBuff.write(timeVector);
-                asyncWriteBuff.write(dataReceived);
+                %asyncWriteBuff.write(dataReceived);% OLD TIME STAMP METHOD
+                asyncWriteBuff.write([dataReceived; int2singlecomplex(timeStamp*10^3)]);
                 if asyncWriteBuff.NumUnreadSamples == dataWriterSamples
                     dataWriterBuffData = asyncWriteBuff.read();
                     %dataWriterBuffDataComplexInterleave = [real(dataWriterBuffData), imag(dataWriterBuffData)].';
@@ -273,10 +277,10 @@ while true %i <= maxInd
                     %this case. Skip the processing and clear the buffer.
                     maxTimeUncertainty  = Config.tipu + Config.tipj;
                     integratedTimeError = sum(diff(t) - 1/Config.Fs);
-                    if Config.K>1 & integratedTimeError > maxTimeUncertainty
+                    if false%Config.K>1 & integratedTimeError > maxTimeUncertainty
                         fprintf('Significant time differences found in timestamp record. Skipping processing and clearing buffers.\n')
-                        resetBuffersFlag = true;
-                        staleDataFlag    = true;
+                    %    resetBuffersFlag = true;
+                    %    staleDataFlag    = true;
                     else
                         t0 = t(1);
                         fprintf('Running...Building priori and waveform. \n')
