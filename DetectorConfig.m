@@ -33,6 +33,8 @@ classdef DetectorConfig
     %                       data
     %   processedOuputPath  Path to location to save processed
     %                       results.
+    %   ros2enable          Turn on or off ROS2 suppport (True or False)
+    %   startInRunState     Start detector in run state (True or False)
     %
     %METHODS:
     %DetectorConfig     Constructor of this class

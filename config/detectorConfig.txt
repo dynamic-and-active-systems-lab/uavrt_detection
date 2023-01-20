@@ -6,11 +6,11 @@ ipData:	0.0.0.0
 portData:	20000
 ipCntrl:	127.0.0.1
 portCntrl:	30000
-Fs:	4000.000
+Fs:	3750
 tagFreqMHz:	148.525
 tp:	0.020000
-tip:	1.38
-tipu:	0.200
+tip:	2.0
+tipu:	0.06
 tipj:	0.01000
 K:	3
 opMode:	freqSearchHardLock
@@ -19,3 +19,4 @@ falseAlarmProb:	0.00080
 dataRecordPath:	/Users/mshafer/Desktop/uavrt_output/data_record.bin
 processedOuputPath:	/Users/mshafer/Desktop/uavrt_output
 ros2enable:	true
+startInRunState:	true

@@ -17,6 +17,7 @@ falseAlarmProb = 0.001;
 dataRecordPath = '/Users/mshafer/Desktop/PLAYGROUND';
 processedOuputPath = '/Users/mshafer/Desktop/PLAYGROUND';
 ros2enable = 'true';
+startInRunState = 'true';
 
 
 configPath = '/Users/mshafer/Desktop/PLAYGROUND/DETECTOR/CONFIGURATION';
@@ -33,7 +34,7 @@ fullConfigPath = [configPath,folderSep,configFileName];
 % configStr  = detectorsetting2configstr(ip, port, centerFreq, Fs, tp, tip, tipu, K, focusMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath, processedOuputPath);
 % detectorconfigwrite(fullConfigPath, configStr, 'a')
 
-InitialDetector = DetectorConfig(IDstr, freqMHz, ipData, portData, ipCntrl, portCntrl, centerFreq, Fs, tp, tip, tipu, K, focusMode, excldFreqs, falseAlarmProb, dataRecordPath, processedOuputPath, ros2enable);
+InitialDetector = DetectorConfig(IDstr, freqMHz, ipData, portData, ipCntrl, portCntrl, centerFreq, Fs, tp, tip, tipu, K, focusMode, excldFreqs, falseAlarmProb, dataRecordPath, processedOuputPath, ros2enable, startInRunState);
 InitialDetector.writeToFile(fullConfigPath,'a') 
 
 %SecondDetector = DetectorConfig();
