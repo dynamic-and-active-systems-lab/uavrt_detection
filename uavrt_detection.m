@@ -499,36 +499,9 @@ while true %i <= maxInd
                                 pulseOut.detection_status   = X.ps_pos.pl(j).det_dec;
                                 pulseOut.confirmed_status   = X.ps_pos.pl(j).con_dec;
                                 
-                                
-                                %% Build PulsePose Mavlink Tunnel Message Payload
-                                %Typecast maintains little-endian, in line
-                                %with the mavlink serialization standard: https://mavlink.io/en/guide/serialization.html
-                                target_system                = dec2hex(typecast(uint8(255),'uint8'), 2);                %uint8
-                                target_component             = dec2hex(typecast(uint8(0),'uint8'), 2);                  %uint8
-                                payload_type                 = dec2hex(typecast(uint16(0),'uint8'), 2);                 %uint16
-                                payload_length               = dec2hex(typecast(uint8(0),'uint8'), 2);                  %uint8
-                                payload_id                   = dec2hex(typecast(uint32(pulseOut.tag_id),'uint8'), 2);   %uint32
-                                payload_freq                 = dec2hex(typecast(double(pulseOut.frequency),'uint8'), 2);                    %uint32
-                                payload_start_time_sec       = dec2hex(typecast(int32(pulseOut.start_time.sec),'uint8'), 2);                %int32
-                                payload_start_time_nanosec   = dec2hex(typecast(uint32(pulseOut.start_time.nanosec),'uint8'), 2);           %uint32
-                                payload_predict_next_sec     = dec2hex(typecast(int32(pulseOut.predict_next_start.sec),'uint8'), 2);        %int32
-                                payload_predict_next_nanosec = dec2hex(typecast(uint32(pulseOut.predict_next_start.nanosec),'uint8'), 2);   %uint32
-                                payload_snr                  = dec2hex(typecast(double(pulseOut.snr),'uint8'), 2);          %double
-                                payload_stft_score           = dec2hex(typecast(double(pulseOut.stft_score),'uint8'), 2);   %double
-                                payload_group_ind            = dec2hex(typecast(uint16(pulseOut.group_ind),'uint8'), 2);    %uint16
-                                payload_detection_status     = dec2hex(typecast(uint8(pulseOut.detection_status),'uint8'), 2);    %uint8
-                                payload_confirmed_status     = dec2hex(typecast(uint8(pulseOut.confirmed_status),'uint8'), 2);    %uint8
-
-                                payload = [payload_id; payload_freq; payload_start_time_sec; ...
-                                           payload_start_time_nanosec; payload_predict_next_sec;...
-                                           payload_predict_next_nanosec; payload_snr; ...
-                                           payload_stft_score; payload_group_ind; payload_detection_status; ...
-                                           payload_confirmed_status];
-                                mavlinkTunnelMsgHex = [target_system; target_component; ...
-                                                       payload_type; payload_length;...
-                                                       payload];
-                                mavlinkTunnelMsgUint8 = uint8( hex2dec( mavlinkTunnelMsgHex ) );
-                                udpPulseOut(mavlinkTunnelMsgUint8);
+                                %% Publish pulses to UDP
+                                tunnelPulse = formatPulseForTunnel(255, 0, 0, pulseOut);
+                                udpPulseOut(tunnelPulse);
                                 
 
                                 %% Package and send ROS2 pulse message
@@ -666,35 +639,86 @@ while true %i <= maxInd
             if mod(idleTic,8) ==0
                 fprintf('In test mode. Publishing one test pulse per second.\n')
                 idleTic = 1;
+                
+                pulseOut.tag_id                     = uint32(Config.ID);
+                pulseOut.detector_dir               = currDir;%ID is a string
+                pulseOut.frequency                  = Config.tagFreqMHz;
+                t_0     = posixtime(datetime('now'));
+                t_f     = 0;
+                t_nxt_0 = 1;
+                t_nxt_f = 2;
+                pulseOut.start_time.sec             = int32(floor(t_0));
+                pulseOut.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
+                pulseOut.end_time.sec               = int32(floor(t_f));
+                pulseOut.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
+                pulseOut.predict_next_start.sec     = int32(floor(t_nxt_0));
+                pulseOut.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
+                pulseOut.predict_next_end.sec       = int32(floor(t_nxt_f));
+                pulseOut.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
+                pulseOut.snr                        = 1;
+                pulseOut.stft_score                 = 1;
+                pulseOut.group_ind                  = uint16(1);
+                pulseOut.group_snr          = 1;
+                pulseOut.detection_status   = false;
+                pulseOut.confirmed_status   = true;
+
+                %% Publish pulses to UDP
+                tunnelPulse = formatPulseForTunnel(255, 0, 0, pulseOut);
+                udpPulseOut(tunnelPulse);
 
                 if ros2Enable & (coder.target('MATLAB') | coder.target("EXE"))
                     fprintf("Transmitting ROS2 pulse messages");
                     pulseCount = 0;
                     for j = 1:1
                         %Set pulseMsg parameters for sending
-                        pulseMsg.tag_id        = uint32(Config.ID);
-                        pulseMsg.detector_dir  = currDir; %ID is a string
-                        pulseMsg.frequency          = Config.tagFreqMHz;
-                        t_0     = posixtime(datetime('now'));
-                        t_f     = 0;
-                        t_nxt_0 = 1;
-                        t_nxt_f = 2;
-                        pulseMsg.start_time.sec             = int32(floor(t_0));
-                        pulseMsg.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
-                        pulseMsg.end_time.sec               = int32(floor(t_f));
-                        pulseMsg.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
-                        pulseMsg.predict_next_start.sec     = int32(floor(t_nxt_0));
-                        pulseMsg.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
-                        pulseMsg.predict_next_end.sec       = int32(floor(t_nxt_f));
-                        pulseMsg.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
-                        pulseMsg.snr                = 1;
-                        pulseMsg.dft_real           = real(1);
-                        pulseMsg.dft_imag           = imag(1);
-                        pulseMsg.group_ind          = uint16(Config.K);
-                        pulseMsg.group_snr          = 1;
-                        pulseMsg.detection_status   = false;
-                        pulseMsg.confirmed_status   = true;
-                        send(pulsePub,pulseMsg)
+%                         pulseMsg.tag_id        = uint32(Config.ID);
+%                         pulseMsg.detector_dir  = currDir; %ID is a string
+%                         pulseMsg.frequency          = Config.tagFreqMHz;
+%                         t_0     = posixtime(datetime('now'));
+%                         t_f     = 0;
+%                         t_nxt_0 = 1;
+%                         t_nxt_f = 2;
+%                         pulseMsg.start_time.sec             = int32(floor(t_0));
+%                         pulseMsg.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
+%                         pulseMsg.end_time.sec               = int32(floor(t_f));
+%                         pulseMsg.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
+%                         pulseMsg.predict_next_start.sec     = int32(floor(t_nxt_0));
+%                         pulseMsg.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
+%                         pulseMsg.predict_next_end.sec       = int32(floor(t_nxt_f));
+%                         pulseMsg.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
+%                         pulseMsg.snr                = 1;
+%                         pulseMsg.dft_real           = real(1);
+%                         pulseMsg.dft_imag           = imag(1);
+%                         pulseMsg.group_ind          = uint16(Config.K);
+%                         pulseMsg.group_snr          = 1;
+%                         pulseMsg.detection_status   = false;
+%                         pulseMsg.confirmed_status   = true;
+%                         send(pulsePub,pulseMsg)
+
+
+                        %% Package and send ROS2 pulse message
+                        if ros2Enable
+                            pulseMsg.tag_id                     = pulseOut.tag_id;
+                            pulseMsg.detector_dir               = pulseOut.detector_dir;
+                            pulseMsg.frequency                  = pulseOut.frequency;
+                            pulseMsg.start_time.sec             = pulseOut.start_time.sec;
+                            pulseMsg.start_time.nanosec         = pulseOut.start_time.nanosec;
+                            pulseMsg.end_time.sec               = pulseOut.end_time.sec;
+                            pulseMsg.end_time.nanosec           = pulseOut.end_time.nanosec;
+                            pulseMsg.predict_next_start.sec     = pulseOut.predict_next_start.sec;
+                            pulseMsg.predict_next_start.nanosec = pulseOut.predict_next_start.nanosec;
+                            pulseMsg.predict_next_end.sec       = pulseOut.predict_next_end.sec;
+                            pulseMsg.predict_next_end.nanosec   = pulseOut.predict_next_end.nanosec;
+                            pulseMsg.snr                        = pulseOut.snr;
+                            pulseMsg.stft_score                 = pulseOut.stft_score;
+                            pulseMsg.group_ind                  = pulseOut.group_ind;
+                            pulseMsg.group_snr                  = pulseOut.group_snr;
+                            pulseMsg.detection_status           = pulseOut.detection_status;
+                            pulseMsg.confirmed_status           = pulseOut.confirmed_status;
+
+                            send(pulsePub,pulseMsg)
+                        end
+
                         pulseCount = pulseCount+1;
                         fprintf(".");
                     end
@@ -757,6 +781,38 @@ while true %i <= maxInd
 
 
 end
+
+    function [mavlinkTunnelMsgUint8] = formatPulseForTunnel(target_system_in, target_component_in, payload_type_in, pulseStructIn)
+         %% Build PulsePose Mavlink Tunnel Message Payload
+         %Typecast maintains little-endian, in line
+         %with the mavlink serialization standard: https://mavlink.io/en/guide/serialization.html
+         target_system        = dec2hex(typecast(uint8(target_system_in),'uint8'), 2);                %uint8
+         target_component     = dec2hex(typecast(uint8(target_component_in),'uint8'), 2);                  %uint8
+         payload_type         = dec2hex(typecast(uint16(payload_type_in),'uint8'), 2);                 %uint16
+         %payload_length      = dec2hex(typecast(uint8(0),'uint8'), 2);                  %uint8
+         id                   = dec2hex(typecast(uint32(pulseStructIn.tag_id),'uint8'), 2);   %uint32
+         freq                 = dec2hex(typecast(double(pulseStructIn.frequency),'uint8'), 2);                    %uint32
+         start_time_sec       = dec2hex(typecast(int32(pulseStructIn.start_time.sec),'uint8'), 2);                %int32
+         start_time_nanosec   = dec2hex(typecast(uint32(pulseStructIn.start_time.nanosec),'uint8'), 2);           %uint32
+         predict_next_sec     = dec2hex(typecast(int32(pulseStructIn.predict_next_start.sec),'uint8'), 2);        %int32
+         predict_next_nanosec = dec2hex(typecast(uint32(pulseStructIn.predict_next_start.nanosec),'uint8'), 2);   %uint32
+         snr                  = dec2hex(typecast(double(pulseStructIn.snr),'uint8'), 2);          %double
+         stft_score           = dec2hex(typecast(double(pulseStructIn.stft_score),'uint8'), 2);   %double
+         group_ind            = dec2hex(typecast(uint16(pulseStructIn.group_ind),'uint8'), 2);    %uint16
+         detection_status     = dec2hex(typecast(uint8(pulseStructIn.detection_status),'uint8'), 2);    %uint8
+         confirmed_status     = dec2hex(typecast(uint8(pulseStructIn.confirmed_status),'uint8'), 2);    %uint8
+
+         payload_hex = [id; freq; start_time_sec; start_time_nanosec; ...
+                    predict_next_sec; predict_next_nanosec; snr; ...
+                    stft_score; group_ind; detection_status; ...
+                    confirmed_status];
+         payload_length = dec2hex(typecast(uint8(size(payload_hex,1)),'uint8'),2);
+         mavlinkTunnelMsgHex = [target_system; target_component; ...
+                                payload_type; payload_length;...
+                                payload_hex];
+         mavlinkTunnelMsgUint8 = uint8( hex2dec( mavlinkTunnelMsgHex ) );
+    end
+
 
     function [interleaveDataOut] = interleaveComplexVector(complexDataIn)
         %This function takes a vector of complex values, and interleaves
@@ -859,4 +915,34 @@ end
 
 
 end
+
+
+                                %% Build PulsePose Mavlink Tunnel Message Payload
+                                %Typecast maintains little-endian, in line
+                                %with the mavlink serialization standard: https://mavlink.io/en/guide/serialization.html
+%                                 target_system                = dec2hex(typecast(uint8(255),'uint8'), 2);                %uint8
+%                                 target_component             = dec2hex(typecast(uint8(0),'uint8'), 2);                  %uint8
+%                                 payload_type                 = dec2hex(typecast(uint16(0),'uint8'), 2);                 %uint16
+%                                 payload_length               = dec2hex(typecast(uint8(0),'uint8'), 2);                  %uint8
+%                                 payload_id                   = dec2hex(typecast(uint32(pulseOut.tag_id),'uint8'), 2);   %uint32
+%                                 payload_freq                 = dec2hex(typecast(double(pulseOut.frequency),'uint8'), 2);                    %uint32
+%                                 payload_start_time_sec       = dec2hex(typecast(int32(pulseOut.start_time.sec),'uint8'), 2);                %int32
+%                                 payload_start_time_nanosec   = dec2hex(typecast(uint32(pulseOut.start_time.nanosec),'uint8'), 2);           %uint32
+%                                 payload_predict_next_sec     = dec2hex(typecast(int32(pulseOut.predict_next_start.sec),'uint8'), 2);        %int32
+%                                 payload_predict_next_nanosec = dec2hex(typecast(uint32(pulseOut.predict_next_start.nanosec),'uint8'), 2);   %uint32
+%                                 payload_snr                  = dec2hex(typecast(double(pulseOut.snr),'uint8'), 2);          %double
+%                                 payload_stft_score           = dec2hex(typecast(double(pulseOut.stft_score),'uint8'), 2);   %double
+%                                 payload_group_ind            = dec2hex(typecast(uint16(pulseOut.group_ind),'uint8'), 2);    %uint16
+%                                 payload_detection_status     = dec2hex(typecast(uint8(pulseOut.detection_status),'uint8'), 2);    %uint8
+%                                 payload_confirmed_status     = dec2hex(typecast(uint8(pulseOut.confirmed_status),'uint8'), 2);    %uint8
+% 
+%                                 payload = [payload_id; payload_freq; payload_start_time_sec; ...
+%                                            payload_start_time_nanosec; payload_predict_next_sec;...
+%                                            payload_predict_next_nanosec; payload_snr; ...
+%                                            payload_stft_score; payload_group_ind; payload_detection_status; ...
+%                                            payload_confirmed_status];
+%                                 mavlinkTunnelMsgHex = [target_system; target_component; ...
+%                                                        payload_type; payload_length;...
+%                                                        payload];
+%                                 mavlinkTunnelMsgUint8 = uint8( hex2dec( mavlinkTunnelMsgHex ) );
 
