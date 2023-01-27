@@ -1,9 +1,9 @@
-function [outputStr] = detectorsetting2configstr(IDstr, channelCenterFreqMHZ, ipData, portData, ipCntrl, portCntrl, Fs, tagFreqMHz, tp, tip, tipu,tipj, K, opMode, excldFreqs, falseAlarmProb, dataRecordPath, processedOuputPath, ros2enable, startInRunState)
+function [outputStr] = detectorsetting2configstr(ID, channelCenterFreqMHZ, ipData, portData, ipCntrl, portCntrl, Fs, tagFreqMHz, tp, tip, tipu,tipj, K, opMode, excldFreqs, falseAlarmProb, dataRecordPath, processedOuputPath, ros2enable, startInRunState)
 %DETECTORCONFIGS2STR Ingests detector parameter specs and returns a string
 %   in the proper the configuration file format, 
 %
 %INPUTS:
-%   IDstr           String of identifier for the detector
+%   ID           String of identifier for the detector
 %   Remaining arguments are the same as DetectorConfig class
 %   
 %
@@ -28,6 +28,6 @@ for i = 1:2:numel(excldFreqsVec)-1
 end
  excldFreqStrPrint = [excldFreqStrPrint(1:end-2), ']'];
 
-outputStr = sprintf('##################################################\ntimeStamp:\t%0.3f\nID:\t%s\channelCenterFreqMHZ:%f\nipData:\t%s\nportData:\t%d\nipCntrl:\t%s\nportCntrl:\t%d\nFs:\t%0.3f\ntagFreqMHz:\t%0.6f\ntp:\t%0.6f\ntip:\t%0.6f\ntipu:\t%0.6f\ntipj:\t%0.6f\nK:\t%d\nopMode:\t%s\nexcldFreqs:\t%s\nfalseAlarmProb:\t%0.4f\ndataRecordPath:\t%s\nprocessedOuputPath:\t%s\nros2enable:\t%s\nstartInRunState:\t%s\n',IDstr,channelCenterFreqMHZ, currTime,ipData, portData, ipCntrl, portCntrl, Fs, tagFreqMHz, tp, tip, tipu, tipj, K, opMode, excldFreqStrPrint, falseAlarmProb, dataRecordPath, processedOuputPath, string(ros2enable), string(startInRunState));
+outputStr = sprintf('##################################################\ntimeStamp:\t%0.3f\nID:\t%d\channelCenterFreqMHZ:%f\nipData:\t%s\nportData:\t%d\nipCntrl:\t%s\nportCntrl:\t%d\nFs:\t%0.3f\ntagFreqMHz:\t%0.6f\ntp:\t%0.6f\ntip:\t%0.6f\ntipu:\t%0.6f\ntipj:\t%0.6f\nK:\t%d\nopMode:\t%s\nexcldFreqs:\t%s\nfalseAlarmProb:\t%0.4f\ndataRecordPath:\t%s\nprocessedOuputPath:\t%s\nros2enable:\t%s\nstartInRunState:\t%s\n',uint32(ID),channelCenterFreqMHZ, currTime,ipData, portData, ipCntrl, portCntrl, Fs, tagFreqMHz, tp, tip, tipu, tipj, K, opMode, excldFreqStrPrint, falseAlarmProb, dataRecordPath, processedOuputPath, string(ros2enable), string(startInRunState));
 end
 

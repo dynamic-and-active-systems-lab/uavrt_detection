@@ -3,7 +3,8 @@ classdef DetectorConfig
     %to process a channel of radio data. 
     %
     %PROPERTIES
-    %   ID              A string identifier for the detector
+    %   ID              A numeric identifier for the detector (max value of
+    %                   2^32 =   4294967296)
     %   channelCenterFreqMHZ    Center frequency of incoming data stream in MHz
     %   ipData          String ip from which to receive data. Enter
     %                   '0.0.0.0' to receive from any IP.
@@ -47,7 +48,7 @@ classdef DetectorConfig
     %----------------------------------------------------------------------
     
     properties
-        ID          (1, 1) string {mustBeTextScalar}                          = "01"; 
+        ID          (1, 1) double {mustBeReal, mustBePositive, mustBeInteger} = 1 
         channelCenterFreqMHz     (1, 1) double {mustBeNonnegative, mustBeReal}             = 150.000;
         ipData      (1, 1) string {mustBeTextScalar}                          = "0.0.0.0"
         portData    (1, 1) double {mustBeReal, mustBePositive, mustBeInteger} = 1
@@ -176,7 +177,7 @@ classdef DetectorConfig
                     configValStr    = lineStr(firstConfigCharLocation(1):end);
                     
                     if strcmp(configType,'ID')
-                        obj.ID      = configValStr;
+                        obj.ID      = uint32(real(str2double(configValStr)));
                     elseif strcmp(configType,'channelCenterFreqMHz')
                         obj.channelCenterFreqMHz  = real(str2double(configValStr));
                     elseif strcmp(configType,'ipData')
