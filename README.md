@@ -5,9 +5,10 @@
 ### Pre-reqs
 1. Matlab installed with Matlab Coder on machine that isn't the ROS2 target machine.
 2. [ROS2 Galactic installed](https://docs.ros.org/en/galactic/Installation.html) on the Linux target machine.
-3. [colcon installed](https://docs.ros.org/en/galactic/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html)on the Linux target machine
-4. [airspyhf_rx](https://github.com/airspy/airspyhf) installed on the Linux target machine.
-5. [airspyhf_channelizer](https://github.com/dynamic-and-active-systems-lab/airspyhf_channelize) installed and compiled as an executable. Add the path to the airspyhf_channelizer local repo to your Matlab path so that it can find a dependent function needed for uavrt_detection.
+3. [colcon installed](https://docs.ros.org/en/galactic/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html) on the Linux target machine
+4. [airspy_rx](https://github.com/airspy/airspyone_host#how-to-build-the-host-software-on-linux) installed on the Linux target machine.
+5. [airspy_channelizer](https://github.com/dynamic-and-active-systems-lab/airspy_channelize) installed and compiled as an executable. Add the path to the airspyhf_channelizer local repo to your Matlab path so that it can find a dependent function needed for uavrt_detection.
+5. [airspy_decimate](https://github.com/dynamic-and-active-systems-lab/airspy_decimate) installed and compiled as an executable.
 6. OpenSSH installed on the ROS2 target machine. The commands for installing ssh on a Debian based system are:
 ```
 sudo apt update
