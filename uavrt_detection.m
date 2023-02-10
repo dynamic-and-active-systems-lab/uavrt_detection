@@ -3,6 +3,8 @@ function [] = uavrt_detection()
 %   Detailed explanation goes here
 
  %#codegen
+ coder.cinclude('time.h') %Needed for usleep function in generated code
+
 configPath = "config/detectorConfig.txt"; %Must exist in the same directory as the execution of this executable
 
 Config =  DetectorConfig(); %Build empty config object
@@ -44,7 +46,7 @@ end
 fprintf('Curr Directory is: %s\n',currDir)
 
 % ROS2 Setup
-ros2Enable = true; %Hard coded switch so that can be ROS2 can be turned off for testing/debugging
+ros2Enable = true;%Config.ros2enable; %Hard coded switch so that can be ROS2 can be turned off for testing/debugging
 if ros2Enable
     fprintf("Preparing ROS2 Node and Messages...")
     node = ros2node("detector",0);
@@ -150,23 +152,23 @@ ps_pre_struc.cmsk   = localCmsk;
 ps_pre_struc.cpki   = localCpki;
 
 
-pulseOut.tag_id                     = uint32(0);%ID is a string
-pulseOut.detector_dir               = currDir;%ID is a string
-pulseOut.frequency                  = 0;
-pulseOut.start_time.sec             =  int32(0);
-pulseOut.start_time.nanosec         = uint32(0);
-pulseOut.end_time.sec               =  int32(0);
-pulseOut.end_time.nanosec           = uint32(0);
-pulseOut.predict_next_start.sec     =  int32(0);
-pulseOut.predict_next_start.nanosec = uint32(0);
-pulseOut.predict_next_end.sec       =  int32(0);
-pulseOut.predict_next_end.nanosec   = uint32(0);
-pulseOut.snr                        = 0;
-pulseOut.stft_score                 = 0;
-pulseOut.group_ind                  = uint16(0);
-pulseOut.group_snr                  = double(0);
-pulseOut.detection_status           = false;
-pulseOut.confirmed_status           = false;
+% pulseOut.tag_id                     = uint32(0);%ID is a string
+% pulseOut.detector_dir               = currDir;%ID is a string
+% pulseOut.frequency                  = 0;
+% pulseOut.start_time.sec             =  int32(0);
+% pulseOut.start_time.nanosec         = uint32(0);
+% pulseOut.end_time.sec               =  int32(0);
+% pulseOut.end_time.nanosec           = uint32(0);
+% pulseOut.predict_next_start.sec     =  int32(0);
+% pulseOut.predict_next_start.nanosec = uint32(0);
+% pulseOut.predict_next_end.sec       =  int32(0);
+% pulseOut.predict_next_end.nanosec   = uint32(0);
+% pulseOut.snr                        = 0;
+% pulseOut.stft_score                 = 0;
+% pulseOut.group_ind                  = uint16(0);
+% pulseOut.group_snr                  = double(0);
+% pulseOut.detection_status           = false;
+% pulseOut.confirmed_status           = false;
 
 
 udpPulseOut = dsp.UDPSender('RemoteIPPort',50000);
@@ -198,6 +200,11 @@ i                 = 1;
 lastTimeStamp     = 0;
 cleanBuffer       = true;
 trackedCount      = 0;
+startTime         = round(posixtime(datetime('now'))*1000000)/1000000;
+sampleTimeInitial = 0;
+%sysClockElapsedTime = 0;
+tocAtLastCommandCheck = 0;
+
 if Config.startInRunState
     state = 'run';
 else
@@ -232,40 +239,71 @@ while true %i <= maxInd
                     runs = runs+1;
                 end
                 staleDataFlag = false;
+
+                fprintf('********RESETTING TIMES*********\n');
+                startTime = round(posixtime(datetime('now'))*1000000)/1000000;
+                tic
             end
 
             %% Wait for new data if none ready, else put data in buffers
             if isempty(dataReceived)
-                pause((packetLength-1)/2*1/Config.Fs);
-            else
-                framesReceived = framesReceived + 1;
-                %timeStamp      = 10^-3*singlecomplex2int(dataReceived(1)); % OLD TIME STAMP METHOD
-                %iqData         = dataReceived(2:end);% OLD TIME STAMP METHOD
-                %timeVector     = timeStamp+1/Config.Fs*(0:(numel(iqData)-1)).';% OLD TIME STAMP METHOD
-                iqData         = dataReceived(1:end);
-                timeStamp      = round(posixtime(datetime('now'))*1000)/1000; %Coder only accepts one input for round.m
-                timeVector     = timeStamp+1/Config.Fs*(-(numel(iqData)-1):0).';
-                %Check for missing packets based on packet timestamps.
-                if asyncTimeBuff.NumUnreadSamples ~= 0
-                    packetTimeDiffActual = timeStamp - lastTimeStamp;
-                    packetTimeDiffExpect = (packetLength-1)/Config.Fs;
-                    missingTime          = packetTimeDiffActual - packetTimeDiffExpect;
-                    missingPackets       = missingTime*Config.Fs/(packetLength-1);
-                    if  missingPackets > 1
-                        fprintf('Packet drop detected. Missed %f packets, or %f seconds of data. \n', missingPackets, missingTime)
-                    end
-                    lastTimeStamp = timeStamp;
+                pauseTimeSec = 0.0001;
+                %pauseTimeSec = (packetLength-1)/2*1/Config.Fs;
+                if isdeployed
+                    coder.ceval('usleep',uint32(pauseTimeSec * 1e6));
                 else
-                    lastTimeStamp = timeStamp;
+                    pause(pauseTimeSec);  
                 end
+            else
+                
+                framesReceived = framesReceived + 1;
+                
+                %if framesReceived == 1
+                %    timeAtFirstPacketReceived = round(posixtime(datetime('now'))*1000000)/1000000; %Coder only accepts one input for round.m;
+                %    tocAtFirstPacketReceived  = toc;
+                    %timeVector = 1/Config.Fs*(-(numel(dataReceived)-1):0).' + timeAtFirstPacketReceived;
+                    %sampleTimeInitial = timeVector(1);
+
+                %else
+                    %timeVector = timeVector(end) + 1/Config.Fs*(1 : numel(dataReceived)).';
+                %end
+                %sampleElapsedTime = t(end) - sampleTimeInitial;
+                %sampleElapsedTime = timeVector(end) - timeAtFirstPacketReceived;
+                %tocElapsedTime    = toc    - tocAtFirstPacketReceived;
+                %timeAtPacketReceive = round(posixtime(datetime('now'))*1000000)/1000000;
+                %sysClockElapsedTime   = timeAtPacketReceive - timeAtFirstPacketReceived;
+                %fprintf('sampleElapseTime - tocElapsed = %0.6f  **************** \n', sampleElapsedTime - tocElapsedTime)
+                %fprintf('sampleElapseTime - systemClockElapsed = %0.6f  **************** \n', sampleElapsedTime - sysClockElapsedTime)
+
+                timeStamp      = 10^-3*singlecomplex2int(dataReceived(1)); % OLD TIME STAMP METHOD
+                iqData         = dataReceived(2:end);% OLD TIME STAMP METHOD
+                %timeStamp      = round(posixtime(datetime('now'))*1000000)/1000000; %Coder only accepts one input for round.m
+                timeVector     = timeStamp+1/Config.Fs*(0:(numel(iqData)-1)).';% OLD TIME STAMP METHOD
+
+                %iqData         = dataReceived(1:end);
+                %timeVector     = timeStamp+1/Config.Fs*(-(numel(iqData)-1):0).';
+                
+                %Check for missing packets based on packet timestamps.
+                % if asyncTimeBuff.NumUnreadSamples ~= 0
+                %     packetTimeDiffActual = timeStamp - lastTimeStamp;
+                %     packetTimeDiffExpect = (packetLength-1)/Config.Fs;
+                %     missingTime          = packetTimeDiffActual - packetTimeDiffExpect;
+                %     missingPackets       = missingTime*Config.Fs/(packetLength-1);
+                %     if  missingPackets > 1
+                %         fprintf('Packet drop detected. Missed %f packets, or %f seconds of data. \n', missingPackets, missingTime)
+                %     end
+                %     lastTimeStamp = timeStamp;
+                % else
+                %     lastTimeStamp = timeStamp;
+                % end
+
                 %Write out data and time.
                 asyncDataBuff.write(iqData);
                 asyncTimeBuff.write(timeVector);
-                %asyncWriteBuff.write(dataReceived);% OLD TIME STAMP METHOD
-                asyncWriteBuff.write([dataReceived; int2singlecomplex(timeStamp*10^3)]);
+                asyncWriteBuff.write(dataReceived);% OLD TIME STAMP METHOD
+                %asyncWriteBuff.write([dataReceived; int2singlecomplex(timeAtPacketReceive*10^3)]);
                 if asyncWriteBuff.NumUnreadSamples == dataWriterSamples
                     dataWriterBuffData = asyncWriteBuff.read();
-                    %dataWriterBuffDataComplexInterleave = [real(dataWriterBuffData), imag(dataWriterBuffData)].';
                     [~] = fwrite(dataWriterFileID,interleaveComplexVector(dataWriterBuffData),'single');
                 end
 
@@ -276,7 +314,10 @@ while true %i <= maxInd
                     fprintf('Buffer Full|| sampsForKPulses: %u, overlapSamples: %u,\n',uint32(sampsForKPulses),uint32(overlapSamples))
                     fprintf('Running...Buffer full with %d samples. Processing. \n', asyncDataBuff.NumUnreadSamples)
                     
-                    tic
+%tic
+previousToc = toc;
+processingStartToc = previousToc;
+% lastSampInBuffTimeStamp      = timeStamp; 
                     if cleanBuffer
                         %Overlap reads back into the buffer, but there 
                         %isn't anything back there on the first segment. 
@@ -292,6 +333,14 @@ while true %i <= maxInd
                         x = asyncDataBuff.read(sampsForKPulses, overlapSamples);
                         t = asyncTimeBuff.read(sampsForKPulses, overlapSamples);
                     end
+% lastSampReadFromBuffTimeStamp = lastSampInBuffTimeStamp - double(1/Config.Fs*(asyncDataBuff.NumUnreadSamples));
+% t     = lastSampReadFromBuffTimeStamp+1/Config.Fs*(-(sampsForKPulses-1):0).';
+%plotstyle = ':-';
+%plot(t,abs(x),plotstyle(1+mod(framesReceived,2)));hold on
+
+% fprintf('TIME STAMP AT PROCESSING: %.6f \n NEXT PROCESSING TIME STAMP SHOULD BE: %.6f \n ',lastSampReadFromBuffTimeStamp, lastSampReadFromBuffTimeStamp + 1/Config.Fs*(sampsForKPulses - overlapSamples ));
+
+%plot(t,abs(x)); hold on
                     %Check the timestamps in the buffer for gaps larger
                     %than the max interpulse uncertainty. If there are
                     %enough dropped packets such that the time is shifted
@@ -300,10 +349,10 @@ while true %i <= maxInd
                     %this case. Skip the processing and clear the buffer.
                     maxTimeUncertainty  = Config.tipu + Config.tipj;
                     integratedTimeError = sum(diff(t) - 1/Config.Fs);
-                    if false%Config.K>1 & integratedTimeError > maxTimeUncertainty
+                    if Config.K>1 & integratedTimeError > maxTimeUncertainty
                         fprintf('Significant time differences found in timestamp record. Skipping processing and clearing buffers.\n')
-                    %    resetBuffersFlag = true;
-                    %    staleDataFlag    = true;
+                        resetBuffersFlag = true;
+                        staleDataFlag    = true;
                     else
                         t0 = t(1);
                         fprintf('Running...Building priori and waveform. \n')
@@ -345,12 +394,14 @@ while true %i <= maxInd
                         fprintf('Current interpulse params || N: %u, M: %u, J: %u,\n',uint32(X.N),uint32(X.M),uint32(X.J))
                         X.setprioridependentprops(X.ps_pre)
                         fprintf('Samples in waveform: %u \n',uint32(numel(X.x)))
-                        tic
+%tic
+previousToc = toc;
                         fprintf('Computing STFT...')
                         X.spectro();
-                        fprintf('complete. Elapsed time: %f seconds \n', toc)
+                        fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
                         fprintf('Building weighting matrix and generating thresholds...')
-                        tic
+%tic
+previousToc = toc;
                         X.setweightingmatrix(zetas);
 
                         switch suggestedMode
@@ -385,12 +436,13 @@ while true %i <= maxInd
                             X.thresh = X.thresh.setthreshold(X,Xhold);
                         end
 
-                        fprintf('complete. Elapsed time: %f seconds \n', toc)
+                        fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
                         fprintf('Time windows in S: %u \n',uint32(size(X.stft.S,2)))
                         fprintf('Finding pulses...')
                         X.process(mode, 'most', Config.excldFreqs)
-                        processingTime = toc;
-                        fprintf('complete. Elapsed time: %f seconds \n', toc)
+                        processingTime = toc - processingStartToc;
+                        fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+                        fprintf('TOTAL PULSE PROCESSING TIME: %f seconds \n', processingTime)
 
                         %% PREP FOR NEXT LOOP
 
@@ -429,7 +481,8 @@ while true %i <= maxInd
                         end
                         segmentsProcessed = segmentsProcessed+1;
 
-                        tic
+%tic
+previousToc = toc;
                         %Prepare priori for next segment
                         fprintf('Updating priori...\n')
                         ps_pre_struc.t_p   = X.ps_pos.t_p;
@@ -447,7 +500,7 @@ while true %i <= maxInd
                         ps_pre_struc.cpki  = X.ps_pos.cpki;
 
                         updatebufferreadvariables(X.ps_pos);
-                        fprintf('complete. Elapsed time: %f seconds \n', toc)
+                        fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
 
                         %Deal with detected pulses
                         %Xhold{mod(segmentsProcessed,maxSegments)} = X;%Keep a maxSegments running record of waveforms for debugging in Matlab
@@ -466,26 +519,39 @@ while true %i <= maxInd
                         if ~isnan(X.ps_pos.cpki)
                             fprintf("Transmitting ROS2 pulse messages");
                             for j = 1:numel(X.ps_pos.pl)
-                                %% Build out pulseOut structure parameters for sending
-                                pulseOut.tag_id                     = uint32(Config.ID);
-                                pulseOut.detector_dir               = currDir;%ID is a string
-                                pulseOut.frequency                  = Config.channelCenterFreqMHz + (X.ps_pos.pl(j).fp)*1e-6;
-                                    t_0     = X.ps_pos.pl(j).t_0;
-                                    t_f     = X.ps_pos.pl(j).t_f;
-                                    t_nxt_0 = X.ps_pos.pl(j).t_next(1);
-                                    t_nxt_f = X.ps_pos.pl(j).t_next(2);
-                                pulseOut.start_time.sec             = int32(floor(t_0));
-                                pulseOut.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
-                                pulseOut.end_time.sec               = int32(floor(t_f));
-                                pulseOut.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
-                                pulseOut.predict_next_start.sec     = int32(floor(t_nxt_0));
-                                pulseOut.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
-                                pulseOut.predict_next_end.sec       = int32(floor(t_nxt_f));
-                                pulseOut.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
-                                pulseOut.snr                        = X.ps_pos.pl(j).SNR;
-                                pulseOut.stft_score                 = real(X.ps_pos.pl(j).yw);
-                                %pulseOut.dft_imag                   = imag(X.ps_pos.pl(j).yw);
-                                pulseOut.group_ind                  = uint16(j);
+                                
+                                % %% Build out pulseOut structure parameters for sending
+                                % pulseOut.tag_id                     = uint32(Config.ID);
+                                % pulseOut.detector_dir               = currDir;%ID is a string
+                                % pulseOut.frequency                  = Config.channelCenterFreqMHz + (X.ps_pos.pl(j).fp)*1e-6;
+                                %     t_0     = X.ps_pos.pl(j).t_0;
+                                %     t_f     = X.ps_pos.pl(j).t_f;
+                                %     t_nxt_0 = X.ps_pos.pl(j).t_next(1);
+                                %     t_nxt_f = X.ps_pos.pl(j).t_next(2);
+                                % pulseOut.start_time.sec             = int32(floor(t_0));
+                                % pulseOut.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
+                                % pulseOut.end_time.sec               = int32(floor(t_f));
+                                % pulseOut.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
+                                % pulseOut.predict_next_start.sec     = int32(floor(t_nxt_0));
+                                % pulseOut.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
+                                % pulseOut.predict_next_end.sec       = int32(floor(t_nxt_f));
+                                % pulseOut.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
+                                % pulseOut.snr                        = X.ps_pos.pl(j).SNR;
+                                % pulseOut.stft_score                 = real(X.ps_pos.pl(j).yw);
+                                % pulseOut.group_ind                  = uint16(j);
+                                % groupSNRList                        = 10.^([X.ps_pos.pl(:).SNR]/10);%Average SNR in dB
+                                % groupSNRMeanLinear                  = mean(groupSNRList,'all');
+                                % if groupSNRMeanLinear<0
+                                %     groupSNRMeanDB                  = -Inf;
+                                % else
+                                %     groupSNRMeanDB                  = 10*log10(groupSNRMeanLinear);
+                                % end
+                                % %10log10 can produce complex results and group_snr required a real value. Otherwise coder will
+                                % %generate type errors
+                                % pulseOut.group_snr          = double(groupSNRMeanDB);%10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average SNR in dB
+                                % pulseOut.detection_status   = X.ps_pos.pl(j).det_dec;
+                                % pulseOut.confirmed_status   = X.ps_pos.pl(j).con_dec;
+
                                 groupSNRList                        = 10.^([X.ps_pos.pl(:).SNR]/10);%Average SNR in dB
                                 groupSNRMeanLinear                  = mean(groupSNRList,'all');
                                 if groupSNRMeanLinear<0
@@ -495,34 +561,34 @@ while true %i <= maxInd
                                 end
                                 %10log10 can produce complex results and group_snr required a real value. Otherwise coder will
                                 %generate type errors
-                                pulseOut.group_snr          = double(groupSNRMeanDB);%10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average SNR in dB
-                                pulseOut.detection_status   = X.ps_pos.pl(j).det_dec;
-                                pulseOut.confirmed_status   = X.ps_pos.pl(j).con_dec;
+                                groupSNR         = double(groupSNRMeanDB);%10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average SNR in dB
                                 
-                                %% Publish pulses to UDP
-                                tunnelPulse = formatPulseForTunnel(255, 0, 0, pulseOut);
-                                udpPulseOut(tunnelPulse);
+
+                                % Publish pulses to UDP
+                                currPulseOut = pulseOut( X.ps_pos.pl(j), Config.ID, currDir, Config.channelCenterFreqMHz, j, groupSNR, []);
+                                mavlinkTunnelMsg = currPulseOut.formatForTunnelMsg(255, 0, 0);    %tunnelPulse = formatPulseForTunnel(255, 0, 0, pulseOut);
+                                udpPulseOut(mavlinkTunnelMsg);
                                 
 
                                 %% Package and send ROS2 pulse message
                                 if ros2Enable
-                                    pulseMsg.tag_id                     = pulseOut.tag_id;
-                                    pulseMsg.detector_dir               = pulseOut.detector_dir;
-                                    pulseMsg.frequency                  = pulseOut.frequency;
-                                    pulseMsg.start_time.sec             = pulseOut.start_time.sec;
-                                    pulseMsg.start_time.nanosec         = pulseOut.start_time.nanosec;
-                                    pulseMsg.end_time.sec               = pulseOut.end_time.sec;
-                                    pulseMsg.end_time.nanosec           = pulseOut.end_time.nanosec;
-                                    pulseMsg.predict_next_start.sec     = pulseOut.predict_next_start.sec;
-                                    pulseMsg.predict_next_start.nanosec = pulseOut.predict_next_start.nanosec;
-                                    pulseMsg.predict_next_end.sec       = pulseOut.predict_next_end.sec;
-                                    pulseMsg.predict_next_end.nanosec   = pulseOut.predict_next_end.nanosec;
-                                    pulseMsg.snr                        = pulseOut.snr;
-                                    pulseMsg.stft_score                 = pulseOut.stft_score;
-                                    pulseMsg.group_ind                  = pulseOut.group_ind;
-                                    pulseMsg.group_snr                  = pulseOut.group_snr;
-                                    pulseMsg.detection_status           = pulseOut.detection_status;
-                                    pulseMsg.confirmed_status           = pulseOut.confirmed_status;
+                                    pulseMsg.detector_dir               = char( currPulseOut.detector_dir );
+                                    pulseMsg.tag_id                     = currPulseOut.tag_id;
+                                    pulseMsg.frequency                  = currPulseOut.frequency;
+                                    pulseMsg.start_time.sec             = currPulseOut.start_time_sec;
+                                    pulseMsg.start_time.nanosec         = currPulseOut.start_time_nanosec;
+                                    pulseMsg.end_time.sec               = currPulseOut.end_time_sec;
+                                    pulseMsg.end_time.nanosec           = currPulseOut.end_time_nanosec;
+                                    pulseMsg.predict_next_start.sec     = currPulseOut.predict_next_start_sec;
+                                    pulseMsg.predict_next_start.nanosec = currPulseOut.predict_next_start_nanosec;
+                                    pulseMsg.predict_next_end.sec       = currPulseOut.predict_next_end_sec;
+                                    pulseMsg.predict_next_end.nanosec   = currPulseOut.predict_next_end_nanosec;
+                                    pulseMsg.snr                        = currPulseOut.snr;
+                                    pulseMsg.stft_score                 = currPulseOut.stft_score;
+                                    pulseMsg.group_ind                  = currPulseOut.group_ind;
+                                    pulseMsg.group_snr                  = currPulseOut.group_snr;
+                                    pulseMsg.detection_status           = currPulseOut.detection_status;
+                                    pulseMsg.confirmed_status           = currPulseOut.confirmed_status;
 
                                     send(pulsePub,pulseMsg)
                                 end
@@ -582,13 +648,34 @@ while true %i <= maxInd
                         fprintf('Current Mode: %s\n', ps_pre_struc.mode)
                         fprintf('====================================\n')
                     end
+                    
+                    elapsedTimeClock = round(posixtime(datetime('now'))*1000000)/1000000 - startTime;
+                    elapsedTimeToc   = toc;
+                    fprintf('tocElapsed - clockElapsed = %0.6f  **************** \n', elapsedTimeToc - elapsedTimeClock)
+                    totalLoopTime = toc - processingStartToc;                    
+                    fprintf('TOTAL SEGMENT PROCESSING TIME: %f seconds \n', totalLoopTime)
+                    % packetTimeSec = (packetLength-1)*1/Config.Fs;
+                    % segmentTimeSec  = 1/Config.Fs * sampsForKPulses;
+                    % sleepTime = segmentTimeSec  - packetTimeSec -  totalLoopTime;
+                    % if sleepTime < 0
+                    %     fprintf('WARNING: CALCULATED SLEEP TIME IS NEGATIVE MEANING THAT I AM NOT KEEPING UP WITH THE INCOMING DATA RATE \n');
+                    % else
+                    %     % if isdeployed
+                    %     %     coder.ceval('usleep',uint32(sleepTime * 1e6));
+                    %     % else
+                    %     %     pause(sleepTime);
+                    %     % end
+                    % end
                 end
             end
 
-            cmdReceived = controlreceiver('127.0.0.1', Config.portCntrl,false);
-            previousState = state;
-            state = checkcommand(cmdReceived,state);
 
+            if toc >= 1 + tocAtLastCommandCheck %no faster than every 1 s check for new commands
+                tocAtLastCommandCheck = toc;
+                cmdReceived = controlreceiver('127.0.0.1', Config.portCntrl,false);
+                previousState = state;
+                state = checkcommand(cmdReceived,state);
+            end
 
         case 'idle'
             if mod(idleTic,8) ==0
@@ -640,31 +727,32 @@ while true %i <= maxInd
                 fprintf('In test mode. Publishing one test pulse per second.\n')
                 idleTic = 1;
                 
-                pulseOut.tag_id                     = uint32(Config.ID);
-                pulseOut.detector_dir               = currDir;%ID is a string
-                pulseOut.frequency                  = Config.tagFreqMHz;
-                t_0     = posixtime(datetime('now'));
-                t_f     = 0;
-                t_nxt_0 = 1;
-                t_nxt_f = 2;
-                pulseOut.start_time.sec             = int32(floor(t_0));
-                pulseOut.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
-                pulseOut.end_time.sec               = int32(floor(t_f));
-                pulseOut.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
-                pulseOut.predict_next_start.sec     = int32(floor(t_nxt_0));
-                pulseOut.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
-                pulseOut.predict_next_end.sec       = int32(floor(t_nxt_f));
-                pulseOut.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
-                pulseOut.snr                        = 1;
-                pulseOut.stft_score                 = 1;
-                pulseOut.group_ind                  = uint16(1);
-                pulseOut.group_snr          = 1;
-                pulseOut.detection_status   = false;
-                pulseOut.confirmed_status   = true;
+                % pulseOut.tag_id                     = uint32(Config.ID);
+                % pulseOut.detector_dir               = currDir;%ID is a string
+                % pulseOut.frequency                  = Config.tagFreqMHz;
+                % t_0     = posixtime(datetime('now'));
+                % t_f     = 0;
+                % t_nxt_0 = 1;
+                % t_nxt_f = 2;
+                % pulseOut.start_time.sec             = int32(floor(t_0));
+                % pulseOut.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
+                % pulseOut.end_time.sec               = int32(floor(t_f));
+                % pulseOut.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
+                % pulseOut.predict_next_start.sec     = int32(floor(t_nxt_0));
+                % pulseOut.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
+                % pulseOut.predict_next_end.sec       = int32(floor(t_nxt_f));
+                % pulseOut.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
+                % pulseOut.snr                        = 1;
+                % pulseOut.stft_score                 = 1;
+                % pulseOut.group_ind                  = uint16(1);
+                % pulseOut.group_snr          = 1;
+                % pulseOut.detection_status   = false;
+                % pulseOut.confirmed_status   = true;
 
                 %% Publish pulses to UDP
-                tunnelPulse = formatPulseForTunnel(255, 0, 0, pulseOut);
-                udpPulseOut(tunnelPulse);
+                currPulseOut = pulseOut( );
+                mavlinkTunnelMsg = currPulseOut.formatForTunnelMsg(255, 0, 0);  %tunnelPulse = formatPulseForTunnel(255, 0, 0, pulseOut);
+                udpPulseOut(mavlinkTunnelMsg);
 
                 if ros2Enable & (coder.target('MATLAB') | coder.target("EXE"))
                     fprintf("Transmitting ROS2 pulse messages");
@@ -698,23 +786,23 @@ while true %i <= maxInd
 
                         %% Package and send ROS2 pulse message
                         if ros2Enable
-                            pulseMsg.tag_id                     = pulseOut.tag_id;
-                            pulseMsg.detector_dir               = pulseOut.detector_dir;
-                            pulseMsg.frequency                  = pulseOut.frequency;
-                            pulseMsg.start_time.sec             = pulseOut.start_time.sec;
-                            pulseMsg.start_time.nanosec         = pulseOut.start_time.nanosec;
-                            pulseMsg.end_time.sec               = pulseOut.end_time.sec;
-                            pulseMsg.end_time.nanosec           = pulseOut.end_time.nanosec;
-                            pulseMsg.predict_next_start.sec     = pulseOut.predict_next_start.sec;
-                            pulseMsg.predict_next_start.nanosec = pulseOut.predict_next_start.nanosec;
-                            pulseMsg.predict_next_end.sec       = pulseOut.predict_next_end.sec;
-                            pulseMsg.predict_next_end.nanosec   = pulseOut.predict_next_end.nanosec;
-                            pulseMsg.snr                        = pulseOut.snr;
-                            pulseMsg.stft_score                 = pulseOut.stft_score;
-                            pulseMsg.group_ind                  = pulseOut.group_ind;
-                            pulseMsg.group_snr                  = pulseOut.group_snr;
-                            pulseMsg.detection_status           = pulseOut.detection_status;
-                            pulseMsg.confirmed_status           = pulseOut.confirmed_status;
+                            pulseMsg.detector_dir               = char( currPulseOut.detector_dir );
+                            pulseMsg.tag_id                     = currPulseOut.tag_id;
+                            pulseMsg.frequency                  = currPulseOut.frequency;
+                            pulseMsg.start_time.sec             = currPulseOut.start_time_sec;
+                            pulseMsg.start_time.nanosec         = currPulseOut.start_time_nanosec;
+                            pulseMsg.end_time.sec               = currPulseOut.end_time_sec;
+                            pulseMsg.end_time.nanosec           = currPulseOut.end_time_nanosec;
+                            pulseMsg.predict_next_start.sec     = currPulseOut.predict_next_start_sec;
+                            pulseMsg.predict_next_start.nanosec = currPulseOut.predict_next_start_nanosec;
+                            pulseMsg.predict_next_end.sec       = currPulseOut.predict_next_end_sec;
+                            pulseMsg.predict_next_end.nanosec   = currPulseOut.predict_next_end_nanosec;
+                            pulseMsg.snr                        = currPulseOut.snr;
+                            pulseMsg.stft_score                 = currPulseOut.stft_score;
+                            pulseMsg.group_ind                  = currPulseOut.group_ind;
+                            pulseMsg.group_snr                  = currPulseOut.group_snr;
+                            pulseMsg.detection_status           = currPulseOut.detection_status;
+                            pulseMsg.confirmed_status           = currPulseOut.confirmed_status;
 
                             send(pulsePub,pulseMsg)
                         end
