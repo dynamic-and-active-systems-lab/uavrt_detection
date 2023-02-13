@@ -51,8 +51,8 @@ if ros2Enable
     fprintf("Preparing ROS2 Node and Messages...")
     node = ros2node("detector",0);
     pulsePub = ros2publisher(node,"/pulse","uavrt_interfaces/Pulse");
-    %pulseMsg = ros2message(pulsePub);
-    pulseMsg = ros2message("uavrt_interfaces/Pulse");
+    pulseMsg = ros2message(pulsePub);
+    %pulseMsg = ros2message("uavrt_interfaces/Pulse");
     fprintf("complete.\n")
 end
 
@@ -99,8 +99,8 @@ dataWriterSamples             = dataWriterPacketsPerInterval*packetLength;
 asyncWriteBuff                = dsp.AsyncBuffer(600650); %600650 is the result of the nominal settings of ceil(150/(1024/4000)*1025.
 asyncWriteBuff.write(single(1+1i));%Write to give Code the type. Read to remove data.
 asyncWriteBuff.read();
-%dataWriterFileID    = fopen(Config.dataRecordPath,'w');
-dataWriterFileID    = fopen('output/data.bin','w');
+dataWriterFileID    = fopen(Config.dataRecordPath,'w');
+%dataWriterFileID    = fopen('output/data.bin','w');
 if dataWriterFileID == -1
     fprintf("UAV-RT: Error opening/creating data record file with error:\n")
 end
@@ -204,6 +204,12 @@ startTime         = round(posixtime(datetime('now'))*1000000)/1000000;
 sampleTimeInitial = 0;
 %sysClockElapsedTime = 0;
 tocAtLastCommandCheck = 0;
+nReceived         = 0; 
+currSampleCount   = 0;
+nextSampleCount   = 0;
+rawIdealSampleCount = 0;
+idealSampleCount = 0;
+sampleOffest      = 0;
 
 if Config.startInRunState
     state = 'run';
@@ -242,6 +248,10 @@ while true %i <= maxInd
 
                 fprintf('********RESETTING TIMES*********\n');
                 startTime = round(posixtime(datetime('now'))*1000000)/1000000;
+                framesReceived = 0;
+                currSampleCount = 0;
+                nextSampleCount = 0;
+                
                 tic
             end
 
@@ -258,31 +268,40 @@ while true %i <= maxInd
                 
                 framesReceived = framesReceived + 1;
                 
-                %if framesReceived == 1
-                %    timeAtFirstPacketReceived = round(posixtime(datetime('now'))*1000000)/1000000; %Coder only accepts one input for round.m;
-                %    tocAtFirstPacketReceived  = toc;
-                    %timeVector = 1/Config.Fs*(-(numel(dataReceived)-1):0).' + timeAtFirstPacketReceived;
-                    %sampleTimeInitial = timeVector(1);
-
-                %else
-                    %timeVector = timeVector(end) + 1/Config.Fs*(1 : numel(dataReceived)).';
-                %end
-                %sampleElapsedTime = t(end) - sampleTimeInitial;
-                %sampleElapsedTime = timeVector(end) - timeAtFirstPacketReceived;
-                %tocElapsedTime    = toc    - tocAtFirstPacketReceived;
-                %timeAtPacketReceive = round(posixtime(datetime('now'))*1000000)/1000000;
-                %sysClockElapsedTime   = timeAtPacketReceive - timeAtFirstPacketReceived;
-                %fprintf('sampleElapseTime - tocElapsed = %0.6f  **************** \n', sampleElapsedTime - tocElapsedTime)
-                %fprintf('sampleElapseTime - systemClockElapsed = %0.6f  **************** \n', sampleElapsedTime - sysClockElapsedTime)
-
-                timeStamp      = 10^-3*singlecomplex2int(dataReceived(1)); % OLD TIME STAMP METHOD
-                iqData         = dataReceived(2:end);% OLD TIME STAMP METHOD
-                %timeStamp      = round(posixtime(datetime('now'))*1000000)/1000000; %Coder only accepts one input for round.m
-                timeVector     = timeStamp+1/Config.Fs*(0:(numel(iqData)-1)).';% OLD TIME STAMP METHOD
-
-                %iqData         = dataReceived(1:end);
-                %timeVector     = timeStamp+1/Config.Fs*(-(numel(iqData)-1):0).';
+%                 timeStamp      = 10^-3*singlecomplex2int(dataReceived(1)); % OLD TIME STAMP METHOD
+%                 iqData         = dataReceived(2:end);% OLD TIME STAMP METHOD
+%                 timeVector     = timeStamp+1/Config.Fs*(0:(numel(iqData)-1)).';% OLD TIME STAMP METHOD
                 
+                iqData           = dataReceived(1:end-1);
+                %samplesReceived = samplesReceived + numel(iqData);
+                nReceived        = numel(iqData);
+                currSampleCount  = nextSampleCount + nReceived;
+                
+                rawIdealSampleCount = uint64(singlecomplex2int(dataReceived(end)));
+
+                if framesReceived == 1
+                    sampleOffset = rawIdealSampleCount - nReceived;
+                    lastTimeStamp = startTime - (nReceived + 1) * 1/Config.Fs; %To estimate the timestamp of the sample before the first one in this first frame.
+                end
+
+                idealSampleCount = rawIdealSampleCount - sampleOffset;
+
+                missingSamples  = idealSampleCount - currSampleCount;
+                
+                if missingSamples > 0 
+                    zerosMissing = single(zeros(missingSamples, 1)) + 1i*single(zeros(missingSamples, 1));
+                    iqDataToWrite = [zerosMissing, iqData];
+                    nextSampleCount = nextSampleCount + nReveived + missingSamples;
+                    fprintf('Missing samples detected. Filling with zeros for %u samples.',missingSamples);
+                elseif missingSamples < 0
+                    error('UAV-RT: Number of samples transmitted to the detector is less than that expected by the detector. Upstream processes (channelizer) may be transmitting more than 1024 IQ data samples per packet. This is not supported by this detetor.')
+                else
+                    iqDataToWrite = iqData;
+                    nextSampleCount = nextSampleCount + nReceived; 
+                end
+                timeVector = lastTimeStamp + (1 : numel(iqDataToWrite)).' * 1/Config.Fs;
+                lastTimeStamp = timeVector(end);
+
                 %Check for missing packets based on packet timestamps.
                 % if asyncTimeBuff.NumUnreadSamples ~= 0
                 %     packetTimeDiffActual = timeStamp - lastTimeStamp;
@@ -298,7 +317,7 @@ while true %i <= maxInd
                 % end
 
                 %Write out data and time.
-                asyncDataBuff.write(iqData);
+                asyncDataBuff.write(iqDataToWrite);
                 asyncTimeBuff.write(timeVector);
                 asyncWriteBuff.write(dataReceived);% OLD TIME STAMP METHOD
                 %asyncWriteBuff.write([dataReceived; int2singlecomplex(timeAtPacketReceive*10^3)]);
@@ -340,7 +359,7 @@ processingStartToc = previousToc;
 
 % fprintf('TIME STAMP AT PROCESSING: %.6f \n NEXT PROCESSING TIME STAMP SHOULD BE: %.6f \n ',lastSampReadFromBuffTimeStamp, lastSampReadFromBuffTimeStamp + 1/Config.Fs*(sampsForKPulses - overlapSamples ));
 
-%plot(t,abs(x)); hold on
+plot(t,abs(x)); hold on
                     %Check the timestamps in the buffer for gaps larger
                     %than the max interpulse uncertainty. If there are
                     %enough dropped packets such that the time is shifted
@@ -671,6 +690,8 @@ previousToc = toc;
 
 
             if toc >= 1 + tocAtLastCommandCheck %no faster than every 1 s check for new commands
+                disp('*******************************************')
+                disp('*******************************************')
                 tocAtLastCommandCheck = toc;
                 cmdReceived = controlreceiver('127.0.0.1', Config.portCntrl,false);
                 previousState = state;
