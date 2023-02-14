@@ -267,55 +267,64 @@ while true %i <= maxInd
                 end
             else
                 
+                %timeStamp      = 10^-3*singlecomplex2int(dataReceived(1)); % OLD TIME STAMP METHOD
+                %iqData         = dataReceived(2:end);% OLD TIME STAMP METHOD
+                %timeVector     = timeStamp+1/Config.Fs*(0:(numel(iqData)-1)).';% OLD TIME STAMP METHOD
+
+                % Parse the incoming data and sample count. 
+                % and fill in any missing data with zeros. 
                 framesReceived = framesReceived + 1;
                 
-%                 timeStamp      = 10^-3*singlecomplex2int(dataReceived(1)); % OLD TIME STAMP METHOD
-%                 iqData         = dataReceived(2:end);% OLD TIME STAMP METHOD
-%                 timeVector     = timeStamp+1/Config.Fs*(0:(numel(iqData)-1)).';% OLD TIME STAMP METHOD
-                
                 iqData           = dataReceived(1:end-1);
-                %samplesReceived = samplesReceived + numel(iqData);
-                nReceived        = uint64(numel(iqData));
-                currSampleCount  = nextSampleCount + nReceived;
                 
-                rawIdealSampleCount = uint64(singlecomplex2int(dataReceived(end)));
+                nReceived        = uint64(numel(iqData));
 
+                currSampleCount  = nextSampleCount + nReceived;
+                %This is the number of samples transmitted by the 
+                %upstream process (ideal if none are dropped)
+                rawIdealSampleCount = uint64(singlecomplex2int(dataReceived(end)));
+                %If this is the first packet, calculate the offset 
+                %sample count since the upstream processess may have 
+                %started a while ago and its sample count may not be zero
                 if framesReceived == 1
                     sampleOffset = rawIdealSampleCount - nReceived;
-                    lastTimeStamp = startTime - (double(nReceived) + 1) * 1/Config.Fs; %To estimate the timestamp of the sample before the first one in this first frame.
+                    %To estimate the timestamp of the sample before the 
+                    %first one in this first frame we go back in time 
+                    %from the start time. 
+                    lastTimeStamp = startTime - (double(nReceived) + 1) * 1/Config.Fs; 
                 end
-
+                
                 idealSampleCount = rawIdealSampleCount - sampleOffset;
 
                 missingSamples  = idealSampleCount - currSampleCount;
                 
                 if missingSamples > 0 
-                    zerosMissing = single(zeros(missingSamples, 1)) + 1i*single(zeros(missingSamples, 1));
-                    iqDataToWrite = [zerosMissing(:); iqData];
-                    nextSampleCount = nextSampleCount + nReceived + missingSamples;
-                    fprintf('Missing samples detected. Filling with zeros for %u samples.',missingSamples);
-                elseif missingSamples < 0
-                    error('UAV-RT: Number of samples transmitted to the detector is less than that expected by the detector. Upstream processes (channelizer) may be transmitting more than 1024 IQ data samples per packet. This is not supported by this detetor.')
-                else
-                    iqDataToWrite = iqData;
-                    nextSampleCount = nextSampleCount + nReceived; 
-                end
-                timeVector = lastTimeStamp + (1 : numel(iqDataToWrite)).' * 1/Config.Fs;
-                lastTimeStamp = timeVector(end);
 
-                %Check for missing packets based on packet timestamps.
-                % if asyncTimeBuff.NumUnreadSamples ~= 0
-                %     packetTimeDiffActual = timeStamp - lastTimeStamp;
-                %     packetTimeDiffExpect = (packetLength-1)/Config.Fs;
-                %     missingTime          = packetTimeDiffActual - packetTimeDiffExpect;
-                %     missingPackets       = missingTime*Config.Fs/(packetLength-1);
-                %     if  missingPackets > 1
-                %         fprintf('Packet drop detected. Missed %f packets, or %f seconds of data. \n', missingPackets, missingTime)
-                %     end
-                %     lastTimeStamp = timeStamp;
-                % else
-                %     lastTimeStamp = timeStamp;
-                % end
+                    zerosFill = single(zeros(missingSamples, 1)) + ...
+                                    1i*single(zeros(missingSamples, 1));
+
+                    iqDataToWrite = [zerosFill(:); iqData];
+
+                    nextSampleCount = nextSampleCount + nReceived + missingSamples;
+
+                    fprintf('Missing samples detected. Filling with zeros for %u samples.',missingSamples);
+
+                elseif missingSamples < 0
+
+                    error('UAV-RT: Number of samples transmitted to the detector is less than that expected by the detector. Upstream processes (channelizer) may be transmitting more than 1024 IQ data samples per packet. This is not supported by this detetor.')
+
+                else
+
+                    iqDataToWrite = iqData;
+
+                    nextSampleCount = nextSampleCount + nReceived; 
+
+                end
+
+                timeVector = lastTimeStamp + ...
+                             (1 : numel(iqDataToWrite)).' * 1/Config.Fs;
+
+                lastTimeStamp = timeVector(end);
 
                 %Write out data and time.
                 asyncDataBuff.write(iqDataToWrite);
@@ -334,10 +343,9 @@ while true %i <= maxInd
                     fprintf('Buffer Full|| sampsForKPulses: %u, overlapSamples: %u,\n',uint32(sampsForKPulses),uint32(overlapSamples))
                     fprintf('Running...Buffer full with %d samples. Processing. \n', asyncDataBuff.NumUnreadSamples)
                     
-%tic
 previousToc = toc;
 processingStartToc = previousToc;
-% lastSampInBuffTimeStamp      = timeStamp; 
+
                     if cleanBuffer
                         %Overlap reads back into the buffer, but there 
                         %isn't anything back there on the first segment. 
@@ -353,14 +361,8 @@ processingStartToc = previousToc;
                         x = asyncDataBuff.read(sampsForKPulses, overlapSamples);
                         t = asyncTimeBuff.read(sampsForKPulses, overlapSamples);
                     end
-% lastSampReadFromBuffTimeStamp = lastSampInBuffTimeStamp - double(1/Config.Fs*(asyncDataBuff.NumUnreadSamples));
-% t     = lastSampReadFromBuffTimeStamp+1/Config.Fs*(-(sampsForKPulses-1):0).';
-%plotstyle = ':-';
-%plot(t,abs(x),plotstyle(1+mod(framesReceived,2)));hold on
 
-% fprintf('TIME STAMP AT PROCESSING: %.6f \n NEXT PROCESSING TIME STAMP SHOULD BE: %.6f \n ',lastSampReadFromBuffTimeStamp, lastSampReadFromBuffTimeStamp + 1/Config.Fs*(sampsForKPulses - overlapSamples ));
-
-plot(t,abs(x)); hold on
+%plot(t,abs(x)); hold on
                     %Check the timestamps in the buffer for gaps larger
                     %than the max interpulse uncertainty. If there are
                     %enough dropped packets such that the time is shifted
@@ -414,13 +416,11 @@ plot(t,abs(x)); hold on
                         fprintf('Current interpulse params || N: %u, M: %u, J: %u,\n',uint32(X.N),uint32(X.M),uint32(X.J))
                         X.setprioridependentprops(X.ps_pre)
                         fprintf('Samples in waveform: %u \n',uint32(numel(X.x)))
-%tic
 previousToc = toc;
                         fprintf('Computing STFT...')
                         X.spectro();
                         fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
                         fprintf('Building weighting matrix and generating thresholds...')
-%tic
 previousToc = toc;
                         X.setweightingmatrix(zetas);
 
