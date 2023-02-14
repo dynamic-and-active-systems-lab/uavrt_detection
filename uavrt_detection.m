@@ -204,12 +204,13 @@ startTime         = round(posixtime(datetime('now'))*1000000)/1000000;
 sampleTimeInitial = 0;
 %sysClockElapsedTime = 0;
 tocAtLastCommandCheck = 0;
-nReceived         = 0; 
-currSampleCount   = 0;
-nextSampleCount   = 0;
-rawIdealSampleCount = 0;
-idealSampleCount = 0;
-sampleOffest      = 0;
+nReceived         = uint64(0);
+currSampleCount   = uint64(0);
+nextSampleCount   = uint64(0);
+rawIdealSampleCount = uint64(0);
+idealSampleCount  = uint64(0);
+sampleOffset      = uint64(0);
+
 
 if Config.startInRunState
     state = 'run';
@@ -249,8 +250,8 @@ while true %i <= maxInd
                 fprintf('********RESETTING TIMES*********\n');
                 startTime = round(posixtime(datetime('now'))*1000000)/1000000;
                 framesReceived = 0;
-                currSampleCount = 0;
-                nextSampleCount = 0;
+                currSampleCount = uint64(0);
+                nextSampleCount = uint64(0);
                 
                 tic
             end
@@ -274,14 +275,14 @@ while true %i <= maxInd
                 
                 iqData           = dataReceived(1:end-1);
                 %samplesReceived = samplesReceived + numel(iqData);
-                nReceived        = numel(iqData);
+                nReceived        = uint64(numel(iqData));
                 currSampleCount  = nextSampleCount + nReceived;
                 
                 rawIdealSampleCount = uint64(singlecomplex2int(dataReceived(end)));
 
                 if framesReceived == 1
                     sampleOffset = rawIdealSampleCount - nReceived;
-                    lastTimeStamp = startTime - (nReceived + 1) * 1/Config.Fs; %To estimate the timestamp of the sample before the first one in this first frame.
+                    lastTimeStamp = startTime - (double(nReceived) + 1) * 1/Config.Fs; %To estimate the timestamp of the sample before the first one in this first frame.
                 end
 
                 idealSampleCount = rawIdealSampleCount - sampleOffset;
@@ -290,8 +291,8 @@ while true %i <= maxInd
                 
                 if missingSamples > 0 
                     zerosMissing = single(zeros(missingSamples, 1)) + 1i*single(zeros(missingSamples, 1));
-                    iqDataToWrite = [zerosMissing, iqData];
-                    nextSampleCount = nextSampleCount + nReveived + missingSamples;
+                    iqDataToWrite = [zerosMissing(:); iqData];
+                    nextSampleCount = nextSampleCount + nReceived + missingSamples;
                     fprintf('Missing samples detected. Filling with zeros for %u samples.',missingSamples);
                 elseif missingSamples < 0
                     error('UAV-RT: Number of samples transmitted to the detector is less than that expected by the detector. Upstream processes (channelizer) may be transmitting more than 1024 IQ data samples per packet. This is not supported by this detetor.')
