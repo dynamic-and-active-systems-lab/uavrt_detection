@@ -53,9 +53,9 @@ classdef threshold
         end
         
         function [obj] = updatepf(obj, Wfm, pfNew)
-            fprintf('%f\n',obj.evMuParam)
-            fprintf('%f\n',obj.evMuParam)
-            fprintf('%f\n',obj.pf)
+            %fprintf('%f\n',obj.evMuParam)
+            %fprintf('%f\n',obj.evMuParam)
+            %fprintf('%f\n',obj.pf)
 
             obj.pf = pfNew;
             thresh = evthresh(obj.evMuParam,obj.evSigmaParam, pfNew); %Build a single threshold value at 1 W bin power

@@ -46,7 +46,7 @@ end
 fprintf('Curr Directory is: %s\n',currDir)
 
 % ROS2 Setup
-ros2Enable = true;%Config.ros2enable; %Hard coded switch so that can be ROS2 can be turned off for testing/debugging
+ros2Enable = false;%Config.ros2enable; %Hard coded switch so that can be ROS2 can be turned off for testing/debugging
 if ros2Enable
     fprintf("Preparing ROS2 Node and Messages...")
     node = ros2node("detector",0);
@@ -420,9 +420,10 @@ previousToc = toc;
                         fprintf('Computing STFT...')
                         X.spectro();
                         fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
-                        fprintf('Building weighting matrix and generating thresholds...')
+                        fprintf('Building weighting matrix ...')
 previousToc = toc;
                         X.setweightingmatrix(zetas);
+                        fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
 
                         switch suggestedMode
                             case 'S'
@@ -449,14 +450,15 @@ previousToc = toc;
                         if strcmp(Config.opMode, 'freqAllNeverLock')
                             mode = 'D';
                         end
-
+previousToc = toc;
+                        fprintf('Building thresholds  ...')
                         if segmentsProcessed==0
                             X.thresh = X.thresh.makenewthreshold(X);
                         else
                             X.thresh = X.thresh.setthreshold(X,Xhold);
                         end
-
                         fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+                        
                         fprintf('Time windows in S: %u \n',uint32(size(X.stft.S,2)))
                         fprintf('Finding pulses...')
                         X.process(mode, 'most', Config.excldFreqs)
@@ -493,7 +495,7 @@ previousToc = toc;
                         %Check lagging processing
                         if segmentsProcessed ~= 0 && Config.K > 1 && processingTime > 0.9 * sampsForKPulses/Config.Fs
                             %Config.K = Config.K - 1;
-                            fprintf('WARNING!!! PROCESSING TIME TOOK LONGER THAN WAVEFORM LENGTH. STREAMING NOT POSSIBLE. TRY REDUCING NUMBER OF PULSES CONSIDERED BY 1 TO K = %u \n',uint32(Config.K));
+                            fprintf('WARNING!!! PROCESSING TIME TOOK LONGER THAN WAVEFORM LENGTH. STREAMING NOT POSSIBLE. TRY REDUCING NUMBER OF PULSES CONSIDERED BY 1 TO K = %u \n',uint32(Config.K - 1));
                             fprintf('Resetting all internal data buffers and udp buffers to clear potential stale data. \n');
                             resetBuffersFlag = true;
                             staleDataFlag = true;
