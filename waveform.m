@@ -526,6 +526,8 @@ classdef waveform < handle
             %               identified in the ith column of indiv_msk
             %
             %%
+previousToc = toc;
+fprintf(' \n \t Setting up parameter for finding pulses  ...')
 
             if (size(excluded_freq_bands_in,2)~=2) && (~isempty(excluded_freq_bands_in))
                 error('Excluded frequency band listing must be a nx2 matrix or empty.')
@@ -750,8 +752,18 @@ classdef waveform < handle
                       [' Insufficient samples to be sure even one '...
                        'pulse is in segment'])
             end
+
+fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+previousToc = toc;
+fprintf('\t Building Time Correlation Matrix  ...')
             Wq = buildtimecorrelatormatrix(N, M, J, obj.K);
+fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+previousToc = toc;
+fprintf('\t Conducting incoherent summation step  ...')
             [yw_max_all_freq,S_cols] = incohsumtoeplitz(freq_mask,obj.W',obj.stft.S,timeBlinderVec, Wq);%obj.TimeCorr.Wq(obj.K));
+fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+previousToc = toc;
+
 
 %Only pass a freq_msk subset of the Sw matrix to the incohsum
 %function. Run the algorithm            
@@ -781,7 +793,8 @@ classdef waveform < handle
             %gamma   = abs(y_vec_w);
             %%PAPER EQUATION 29
             %z       = sum(gamma.^2);
-            
+
+fprintf('\t Running Peeling Algorithm  ...')
             
             %% PEELING ALGORITHM
             % The following algorithm is used to help tease out the central
@@ -1262,6 +1275,10 @@ classdef waveform < handle
             end
             
             pl_out   = cur_pl;
+
+fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+previousToc = toc;
+
         end    
         %WHAT WAS DONE BY THIS METHOD IS NOW DONE BY A METHOD OF THE
         %PULSESTATS CLASS. 

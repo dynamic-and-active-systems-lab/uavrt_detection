@@ -35,14 +35,41 @@ classdef threshold
             %   use the updatepf method to set the others
             %else
             %   use the makenewthreshold method to build out
+            whatChanged = '';
+            if (WfmCurr.N ~= WfmPrev.N)
+                whatChanged = [whatChanged,'N '];
+            end
+            if (WfmCurr.M ~= WfmPrev.M)
+                whatChanged = [whatChanged,'M '];
+            end
+            if (WfmCurr.J ~= WfmPrev.J)
+                whatChanged = [whatChanged,'J '];
+            end
+            if (WfmCurr.K ~= WfmPrev.K)
+                whatChanged = [whatChanged,'K '];
+            end
+
             needsUpdate = false;
             needsUpdate = needsUpdate | (WfmCurr.N ~= WfmPrev.N);
             needsUpdate = needsUpdate | (WfmCurr.M ~= WfmPrev.M);
             needsUpdate = needsUpdate | (WfmCurr.J ~= WfmPrev.J);
             needsUpdate = needsUpdate | (WfmCurr.K ~= WfmPrev.K);
-            needsUpdate = needsUpdate | any(WfmCurr.W ~= WfmPrev.W,'all');
-            needsUpdate = needsUpdate | any(WfmCurr.Wf ~= WfmPrev.Wf,'all');
+            %W and Wf both affect the thresholds as well, but they only depend on 
+            %--zetas (never changes)
+            %--fftlength of the stft (never changes)
+            %--time domain pulse template (never changes)
+            %--waveform sample rate (never changes)
+            %--ps_pre.t_p (never changes)
+            %Thus we don't need to check if W or Wf changes. Note that the
+            %code below was causing issue with generated code. In code
+            %generation these any(WfmCurr.W ~= WfmPrev.W , 'all') was
+            %coming back true even though when looking at the matrices,
+            %they looked identical. (Numerical precision error?)
+            %needsUpdate = needsUpdate | any(WfmCurr.W ~= WfmPrev.W,'all');
+            %needsUpdate = needsUpdate | any(WfmCurr.Wf ~= WfmPrev.Wf,'all');
+
             if needsUpdate
+                fprintf('Thresholds need updating because %s. \n', whatChanged);
                 obj = obj.makenewthreshold(WfmCurr);
             else
                 obj.evMuParam    = WfmPrev.thresh.evMuParam;
@@ -95,8 +122,14 @@ classdef threshold
             nTimeWinds = stftSz(2);
             nFreqBins  = stftSz(1);
 
+previousToc = toc;
+fprintf('\n \t Building time correlation matrix ...')
             %Build the Wq time correlation matrix
             Wq = buildtimecorrelatormatrix(Wfm.N, Wfm.M, Wfm.J, Wfm.K);
+fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+
+previousToc = toc;
+fprintf('\t Building synthetic data and taking STFTs ...')
             if nTimeWinds ~= size(Wq,1)
                 error('UAV-RT: Time correlator/selection matrix must have the same number of rows as the number of columns (time windows) in the waveforms STFT matrix.')
             end
@@ -112,11 +145,19 @@ classdef threshold
             [Ssynth,~,~] = stft(xsynth,Wfm.Fs,'Window',Wfm.stft.wind,'OverlapLength',Wfm.n_ol,'FFTLength',Wfm.n_w);
             Ssynth(:,nTimeWinds+1:end,:) = [];              %Trim excess so we have the correct number of windows.
 
+fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+previousToc = toc;
+fprintf('\t Running pulse summing process for all datasets ...')
+
             %Preform the incoherent summation using a matrix multiply.
             %Could use pagetimes.m for this, but it isn't supported for code generation
             for i = 1:trials
                 scores(i) = max(abs(Wfm.W'*Ssynth(:,:,i)).^2 * Wq, [], 'all'); %'all' call finds max across all temporal correlation sets and frequency bins just like we do in the dectection code.
             end
+fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+previousToc = toc;
+
+fprintf('\t Extracing extreme value fit parameters ...')
 
             %Build the distribution for all scores.
             %Old kernel density estimation method
@@ -132,8 +173,9 @@ classdef threshold
             sigma           = paramEstsMaxima(2);
 
             threshMedPow    = evthresh(mu,sigma,PF);
-            
 
+fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+previousToc = toc;      
 
             %figure;plot(xi,F)
 

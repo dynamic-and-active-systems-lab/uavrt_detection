@@ -57,6 +57,5 @@ WqColInds   = repmat(1:ppmBigRows,1,ppmCols);
 WqElements  = ones(size(WqRowInds));
 Wq          = sparse(WqRowInds(:),WqColInds(:),WqElements(:));
 
-
 end
 

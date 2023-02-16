@@ -46,7 +46,8 @@ end
 fprintf('Curr Directory is: %s\n',currDir)
 
 % ROS2 Setup
-ros2Enable = false;%Config.ros2enable; %Hard coded switch so that can be ROS2 can be turned off for testing/debugging
+ros2Enable = true;%Config.ros2enable; %Hard coded switch so that can be ROS2 can be turned off for testing/debugging
+
 if ros2Enable
     fprintf("Preparing ROS2 Node and Messages...")
     node = ros2node("detector",0);
@@ -333,7 +334,9 @@ while true %i <= maxInd
                 %asyncWriteBuff.write([dataReceived; int2singlecomplex(timeAtPacketReceive*10^3)]);
                 if asyncWriteBuff.NumUnreadSamples == dataWriterSamples
                     dataWriterBuffData = asyncWriteBuff.read();
+                    if dataWriterFileID ~= -1
                     [~] = fwrite(dataWriterFileID,interleaveComplexVector(dataWriterBuffData),'single');
+                    end
                 end
 
                 %end
@@ -451,19 +454,22 @@ previousToc = toc;
                             mode = 'D';
                         end
 previousToc = toc;
-                        fprintf('Building thresholds  ...')
+                        
                         if segmentsProcessed==0
+                            fprintf('Building thresholds  ...')
                             X.thresh = X.thresh.makenewthreshold(X);
                         else
+                            fprintf('Setting thresholds from previous waveform  ...')
                             X.thresh = X.thresh.setthreshold(X,Xhold);
                         end
                         fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
                         
                         fprintf('Time windows in S: %u \n',uint32(size(X.stft.S,2)))
+previousToc = toc;
                         fprintf('Finding pulses...')
                         X.process(mode, 'most', Config.excldFreqs)
-                        processingTime = toc - processingStartToc;
                         fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+                        processingTime = toc - processingStartToc;
                         fprintf('TOTAL PULSE PROCESSING TIME: %f seconds \n', processingTime)
 
                         %% PREP FOR NEXT LOOP
@@ -708,7 +714,9 @@ previousToc = toc;
             end
             idleTic = idleTic+1;
             dataWriterBuffData = asyncWriteBuff.read();
-            count = fwrite(dataWriterFileID, interleaveComplexVector(dataWriterBuffData), 'single');
+            if dataWriterFileID ~= -1
+                count = fwrite(dataWriterFileID, interleaveComplexVector(dataWriterBuffData), 'single');
+            end
 
             asyncDataBuff.reset();
             asyncTimeBuff.reset();
@@ -724,7 +732,9 @@ previousToc = toc;
         case 'updateconfig'
             %Write all remaining data in buffer before clearing
             dataWriterBuffData = asyncWriteBuff.read();
-            count = fwrite(dataWriterFileID, interleaveComplexVector(dataWriterBuffData), 'single');
+            if dataWriterFileID ~= -1
+                count = fwrite(dataWriterFileID, interleaveComplexVector(dataWriterBuffData), 'single');
+            end
             updateconfig();
             configUpdatedFlag = true;
 
@@ -859,8 +869,9 @@ previousToc = toc;
             controlreceiver('127.0.0.1', Config.portCntrl,true);
             channelreceiver('127.0.0.1', Config.portData,true,true);
             dataWriterBuffData = asyncWriteBuff.read();
-            count = fwrite(dataWriterFileID, interleaveComplexVector(dataWriterBuffData), 'single');
-
+            if dataWriterFileID ~= -1
+                count = fwrite(dataWriterFileID, interleaveComplexVector(dataWriterBuffData), 'single');
+            end
             asyncDataBuff.reset();
             asyncTimeBuff.reset();
             asyncWriteBuff.reset();
