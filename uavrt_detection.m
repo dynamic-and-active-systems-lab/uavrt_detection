@@ -1,9 +1,8 @@
-function [] = uavrt_detection()
+function [] = uavrt_detection(configPath)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
  %#codegen
-configPath = "detector/config/detectorConfig.txt"; %Must exist in the same directory as the execution of this executable
 
 Config =  DetectorConfig(); %Build empty config object
 updateconfig()              %Update (fill) the configuration
