@@ -5,7 +5,7 @@
 // File: sqrt.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -26,7 +26,7 @@
 namespace coder {
 void b_sqrt(::coder::array<double, 2U> &x)
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo pc_emlrtRTEI{
       13,    // lineNo
       "sqrt" // fName
   };
@@ -40,7 +40,7 @@ void b_sqrt(::coder::array<double, 2U> &x)
     }
   }
   if (p) {
-    l_rtErrorWithMessageID("sqrt", qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+    l_rtErrorWithMessageID("sqrt", pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
   }
   nx = x.size(0) * x.size(1);
   if (nx > 2147483646) {

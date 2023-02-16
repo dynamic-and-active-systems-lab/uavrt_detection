@@ -5,7 +5,7 @@
 // File: string1.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -25,7 +25,7 @@ static const char cv3[18]{'f', 'r', 'e', 'q', 'S', 'e', 'a', 'r', 'c',
 // Return Type  : boolean_T
 //
 namespace coder {
-boolean_T b_rtString::b_eq() const
+boolean_T rtString::b_eq() const
 {
   static const char b_cv[17]{'f', 'r', 'e', 'q', 'K', 'n', 'o', 'w', 'n',
                              'H', 'a', 'r', 'd', 'L', 'o', 'c', 'k'};
@@ -56,7 +56,7 @@ boolean_T b_rtString::b_eq() const
 // Arguments    : void
 // Return Type  : boolean_T
 //
-boolean_T b_rtString::c_eq() const
+boolean_T rtString::c_eq() const
 {
   boolean_T equal;
   equal = false;
@@ -85,7 +85,7 @@ boolean_T b_rtString::c_eq() const
 // Arguments    : void
 // Return Type  : boolean_T
 //
-boolean_T b_rtString::d_eq() const
+boolean_T rtString::d_eq() const
 {
   static const char b_cv[13]{'f', 'r', 'e', 'q', 'A', 'l', 'l',
                              'N', 'o', 'L', 'o', 'c', 'k'};
@@ -116,7 +116,7 @@ boolean_T b_rtString::d_eq() const
 // Arguments    : void
 // Return Type  : boolean_T
 //
-boolean_T b_rtString::eq() const
+boolean_T rtString::eq() const
 {
   boolean_T equal;
   equal = false;
@@ -146,21 +146,6 @@ boolean_T b_rtString::eq() const
 // Return Type  : void
 //
 void rtString::init()
-{
-  static const char b_cv[34]{'d', 'e', 't', 'e', 'c', 't', 'o', 'r', '/',
-                             'c', 'o', 'n', 'f', 'i', 'g', '/', 'd', 'e',
-                             't', 'e', 'c', 't', 'o', 'r', 'C', 'o', 'n',
-                             'f', 'i', 'g', '.', 't', 'x', 't'};
-  for (int i{0}; i < 34; i++) {
-    Value[i] = b_cv[i];
-  }
-}
-
-//
-// Arguments    : void
-// Return Type  : void
-//
-void b_rtString::init()
 {
   Value.set_size(1, 18);
   for (int i{0}; i < 18; i++) {

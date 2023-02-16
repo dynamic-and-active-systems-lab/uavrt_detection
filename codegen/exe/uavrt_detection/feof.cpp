@@ -5,7 +5,7 @@
 // File: feof.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -32,7 +32,7 @@ double b_feof(double fileID)
   b_NULL = NULL;
   filestar = fileManager(fileID);
   if (filestar == b_NULL) {
-    d_rtErrorWithMessageID(d_emlrtRTEI.fName, d_emlrtRTEI.lineNo);
+    e_rtErrorWithMessageID(d_emlrtRTEI.fName, d_emlrtRTEI.lineNo);
   } else {
     int b_st;
     b_st = feof(filestar);

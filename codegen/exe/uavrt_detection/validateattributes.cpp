@@ -5,7 +5,7 @@
 // File: validateattributes.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -65,7 +65,7 @@ static void rtErrorWithMessageID(const char *r, const char *r1, const char *r2,
 namespace coder {
 void b_validateattributes(double a, double attributesMixed_f9)
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo pc_emlrtRTEI{
       22,          // lineNo
       "validatege" // fName
   };
@@ -77,8 +77,8 @@ void b_validateattributes(double a, double attributesMixed_f9)
                            ab_emlrtRTEI.lineNo);
   }
   if (!(a >= attributesMixed_f9)) {
-    rtErrorWithMessageID("FFTLength", ">=", "NaN", qc_emlrtRTEI.fName,
-                         qc_emlrtRTEI.lineNo);
+    rtErrorWithMessageID("FFTLength", ">=", "NaN", pc_emlrtRTEI.fName,
+                         pc_emlrtRTEI.lineNo);
   }
 }
 
@@ -130,7 +130,7 @@ void validateattributes(const ::coder::array<double, 1U> &a)
 //
 void validateattributes(double a)
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo pc_emlrtRTEI{
       22,          // lineNo
       "validategt" // fName
   };
@@ -143,8 +143,8 @@ void validateattributes(double a)
                            ab_emlrtRTEI.lineNo);
   }
   if (!(a > 1.0)) {
-    rtErrorWithMessageID("WindowLength", ">", "1", qc_emlrtRTEI.fName,
-                         qc_emlrtRTEI.lineNo);
+    rtErrorWithMessageID("WindowLength", ">", "1", pc_emlrtRTEI.fName,
+                         pc_emlrtRTEI.lineNo);
   }
 }
 
@@ -155,7 +155,7 @@ void validateattributes(double a)
 //
 void validateattributes(double a, double attributesMixed_f11)
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo pc_emlrtRTEI{
       22,          // lineNo
       "validatelt" // fName
   };
@@ -168,8 +168,8 @@ void validateattributes(double a, double attributesMixed_f11)
                            ab_emlrtRTEI.lineNo);
   }
   if (!(a < attributesMixed_f11)) {
-    rtErrorWithMessageID("OverlapLength", "<", "NaN", qc_emlrtRTEI.fName,
-                         qc_emlrtRTEI.lineNo);
+    rtErrorWithMessageID("OverlapLength", "<", "NaN", pc_emlrtRTEI.fName,
+                         pc_emlrtRTEI.lineNo);
   }
 }
 

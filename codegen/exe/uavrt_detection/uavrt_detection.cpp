@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -70,7 +70,9 @@ static void b_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void c_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-static void i_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void d_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+static void j_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void rtErrorWithMessageID(const char *r, const char *aFcnName,
                                  int aLineNum);
@@ -95,7 +97,7 @@ static void b_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
-  outStream << "Value must be nonnegative.";
+  outStream << "fopen(\'all\') is not supported for code generation.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -116,6 +118,27 @@ static void c_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
+  outStream << "Value must be nonnegative.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void d_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
   outStream << "Value must be positive.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
@@ -133,7 +156,7 @@ static void c_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void i_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void j_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -821,15 +844,19 @@ static void updateconfig(coder::b_captured_var *Config,
       "H:\\repos\\uavrt_detection\\detector\\config\\DetectorConfig.m", // pName
       0 // checkKind
   };
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo pc_emlrtRTEI{
       18,                    // lineNo
       "binaryRelopValidator" // fName
+  };
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      37,     // lineNo
+      "fopen" // fName
   };
   static rtRunTimeErrorInfo rc_emlrtRTEI{
       10,                 // lineNo
       "mustBeNonnegative" // fName
   };
-  coder::b_rtString _in;
+  coder::rtString _in;
   coder::array<creal_T, 2U> r;
   coder::array<double, 2U> sepByte;
   coder::array<double, 2U> val;
@@ -839,8 +866,8 @@ static void updateconfig(coder::b_captured_var *Config,
   coder::array<char, 2U> c_lineStr;
   coder::array<char, 2U> lineStr;
   coder::array<boolean_T, 2U> b_lineStr;
+  int fid;
   int ii_data;
-  signed char fileid;
   Config->contents.init();
   // fillFromFile Replaces the properties of the instance passed to
   // it with the values specified in the configuration file passed
@@ -861,14 +888,22 @@ static void updateconfig(coder::b_captured_var *Config,
   // OUTPUTS:
   //    none (method modifies the properties of the instance)
   //
-  fileid = coder::cfopen(configPath->contents.Value);
-  if (fileid == -1) {
-    char varargin_1[35];
-    for (int i{0}; i < 34; i++) {
-      varargin_1[i] = configPath->contents.Value[i];
+  if (coder::internal::b_strcmp(configPath->contents)) {
+    b_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+  } else {
+    signed char fileid;
+    fileid = coder::cfopen(configPath->contents, "rb");
+    fid = fileid;
+  }
+  if (fid == -1) {
+    int text_len;
+    text_len = configPath->contents.size(1);
+    lineStr.set_size(1, text_len + 1);
+    for (int i{0}; i < text_len; i++) {
+      lineStr[i] = configPath->contents[i];
     }
-    varargin_1[34] = '\x00';
-    printf("Failed to open config file: %s\n", &varargin_1[0]);
+    lineStr[text_len] = '\x00';
+    printf("Failed to open config file: %s\n", &lineStr[0]);
     fflush(stdout);
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
   } else {
@@ -884,7 +919,7 @@ static void updateconfig(coder::b_captured_var *Config,
     // First figure out where the separator lines are
     while (!done) {
       // currByte = ftell(fid);
-      coder::fgetl(static_cast<double>(fileid), lineStr);
+      coder::fgetl(static_cast<double>(fid), lineStr);
       if (lineStr.size(1) < 1) {
         rtDynamicBoundsError(1, 1, lineStr.size(1), &eb_emlrtBCI);
       }
@@ -892,11 +927,11 @@ static void updateconfig(coder::b_captured_var *Config,
         // && lineNum~=1
         if (configNum == 0.0) {
           sepByte.set_size(1, 1);
-          d = coder::b_ftell(static_cast<double>(fileid));
+          d = coder::b_ftell(static_cast<double>(fid));
           sepByte[0] = d;
         } else {
           // sepByte(configNum) = ftell(fid);
-          d = coder::b_ftell(static_cast<double>(fileid));
+          d = coder::b_ftell(static_cast<double>(fid));
           i = sepByte.size(1);
           sepByte.set_size(1, sepByte.size(1) + 1);
           sepByte[i] = d;
@@ -904,10 +939,10 @@ static void updateconfig(coder::b_captured_var *Config,
         }
         configNum++;
       }
-      done = (coder::b_feof(static_cast<double>(fileid)) == 1.0);
+      done = (coder::b_feof(static_cast<double>(fid)) == 1.0);
     }
     // sepByte(configNum) = ftell(fid);
-    d = coder::b_ftell(static_cast<double>(fileid));
+    d = coder::b_ftell(static_cast<double>(fid));
     i = sepByte.size(1);
     sepByte.set_size(1, sepByte.size(1) + 1);
     sepByte[i] = d;
@@ -918,14 +953,14 @@ static void updateconfig(coder::b_captured_var *Config,
       rtDynamicBoundsError(static_cast<int>(configNum), 1, sepByte.size(1),
                            &fb_emlrtBCI);
     }
-    coder::b_fseek(static_cast<double>(fileid),
+    coder::b_fseek(static_cast<double>(fid),
                    sepByte[static_cast<int>(configNum) - 1]);
     done = false;
     int exitg1;
     do {
       exitg1 = 0;
       if (!done) {
-        coder::fgetl(static_cast<double>(fileid), lineStr);
+        coder::fgetl(static_cast<double>(fid), lineStr);
         if (lineStr.size(1) < 1) {
           rtDynamicBoundsError(1, 1, lineStr.size(1), &gb_emlrtBCI);
         }
@@ -1008,12 +1043,12 @@ static void updateconfig(coder::b_captured_var *Config,
           for (ii_data = 0; ii_data < text_len; ii_data++) {
             c_lineStr[ii_data] = lineStr[ii_data];
           }
-          if (!coder::internal::b_strcmp(c_lineStr)) {
+          if (!coder::internal::c_strcmp(c_lineStr)) {
             c_lineStr.set_size(1, text_len);
             for (ii_data = 0; ii_data < text_len; ii_data++) {
               c_lineStr[ii_data] = lineStr[ii_data];
             }
-            if (coder::internal::c_strcmp(c_lineStr)) {
+            if (coder::internal::d_strcmp(c_lineStr)) {
               creal_T dc;
               text_len = match_idx - i;
               c_lineStr.set_size(1, text_len);
@@ -1022,7 +1057,7 @@ static void updateconfig(coder::b_captured_var *Config,
               }
               dc = coder::str2double(c_lineStr);
               if (!(dc.re >= 0.0)) {
-                b_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+                c_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
               }
               Config->contents.channelCenterFreqMHz = dc.re;
             } else {
@@ -1030,12 +1065,12 @@ static void updateconfig(coder::b_captured_var *Config,
               for (ii_data = 0; ii_data < text_len; ii_data++) {
                 c_lineStr[ii_data] = lineStr[ii_data];
               }
-              if (!coder::internal::d_strcmp(c_lineStr)) {
+              if (!coder::internal::e_strcmp(c_lineStr)) {
                 c_lineStr.set_size(1, text_len);
                 for (ii_data = 0; ii_data < text_len; ii_data++) {
                   c_lineStr[ii_data] = lineStr[ii_data];
                 }
-                if (coder::internal::e_strcmp(c_lineStr)) {
+                if (coder::internal::f_strcmp(c_lineStr)) {
                   unsigned short in;
                   text_len = match_idx - i;
                   c_lineStr.set_size(1, text_len);
@@ -1058,7 +1093,7 @@ static void updateconfig(coder::b_captured_var *Config,
                   }
                   Config->contents.portData = in;
                   if (in <= 0) {
-                    c_rtErrorWithMessageID(b_emlrtRTEI.fName,
+                    d_rtErrorWithMessageID(b_emlrtRTEI.fName,
                                            b_emlrtRTEI.lineNo);
                   }
                 } else {
@@ -1066,12 +1101,12 @@ static void updateconfig(coder::b_captured_var *Config,
                   for (ii_data = 0; ii_data < text_len; ii_data++) {
                     c_lineStr[ii_data] = lineStr[ii_data];
                   }
-                  if (!coder::internal::f_strcmp(c_lineStr)) {
+                  if (!coder::internal::g_strcmp(c_lineStr)) {
                     c_lineStr.set_size(1, text_len);
                     for (ii_data = 0; ii_data < text_len; ii_data++) {
                       c_lineStr[ii_data] = lineStr[ii_data];
                     }
-                    if (coder::internal::g_strcmp(c_lineStr)) {
+                    if (coder::internal::h_strcmp(c_lineStr)) {
                       unsigned short in;
                       text_len = match_idx - i;
                       c_lineStr.set_size(1, text_len);
@@ -1093,7 +1128,7 @@ static void updateconfig(coder::b_captured_var *Config,
                         in = 0U;
                       }
                       if (in <= 0) {
-                        c_rtErrorWithMessageID(b_emlrtRTEI.fName,
+                        d_rtErrorWithMessageID(b_emlrtRTEI.fName,
                                                b_emlrtRTEI.lineNo);
                       }
                     } else {
@@ -1101,7 +1136,7 @@ static void updateconfig(coder::b_captured_var *Config,
                       for (ii_data = 0; ii_data < text_len; ii_data++) {
                         c_lineStr[ii_data] = lineStr[ii_data];
                       }
-                      if (coder::internal::h_strcmp(c_lineStr)) {
+                      if (coder::internal::i_strcmp(c_lineStr)) {
                         creal_T dc;
                         text_len = match_idx - i;
                         c_lineStr.set_size(1, text_len);
@@ -1110,7 +1145,7 @@ static void updateconfig(coder::b_captured_var *Config,
                         }
                         dc = coder::str2double(c_lineStr);
                         if (!(dc.re > 0.0)) {
-                          c_rtErrorWithMessageID(b_emlrtRTEI.fName,
+                          d_rtErrorWithMessageID(b_emlrtRTEI.fName,
                                                  b_emlrtRTEI.lineNo);
                         }
                         Config->contents.Fs = dc.re;
@@ -1119,7 +1154,7 @@ static void updateconfig(coder::b_captured_var *Config,
                         for (ii_data = 0; ii_data < text_len; ii_data++) {
                           c_lineStr[ii_data] = lineStr[ii_data];
                         }
-                        if (coder::internal::i_strcmp(c_lineStr)) {
+                        if (coder::internal::j_strcmp(c_lineStr)) {
                           text_len = match_idx - i;
                           c_lineStr.set_size(1, text_len);
                           for (match_idx = 0; match_idx < text_len;
@@ -1134,7 +1169,7 @@ static void updateconfig(coder::b_captured_var *Config,
                           for (ii_data = 0; ii_data < text_len; ii_data++) {
                             c_lineStr[ii_data] = lineStr[ii_data];
                           }
-                          if (coder::internal::j_strcmp(c_lineStr)) {
+                          if (coder::internal::k_strcmp(c_lineStr)) {
                             creal_T dc;
                             text_len = match_idx - i;
                             c_lineStr.set_size(1, text_len);
@@ -1144,7 +1179,7 @@ static void updateconfig(coder::b_captured_var *Config,
                             }
                             dc = coder::str2double(c_lineStr);
                             if (!(dc.re > 0.0)) {
-                              c_rtErrorWithMessageID(b_emlrtRTEI.fName,
+                              d_rtErrorWithMessageID(b_emlrtRTEI.fName,
                                                      b_emlrtRTEI.lineNo);
                             }
                             Config->contents.tp = dc.re;
@@ -1153,7 +1188,7 @@ static void updateconfig(coder::b_captured_var *Config,
                             for (ii_data = 0; ii_data < text_len; ii_data++) {
                               c_lineStr[ii_data] = lineStr[ii_data];
                             }
-                            if (coder::internal::k_strcmp(c_lineStr)) {
+                            if (coder::internal::l_strcmp(c_lineStr)) {
                               creal_T dc;
                               text_len = match_idx - i;
                               c_lineStr.set_size(1, text_len);
@@ -1163,7 +1198,7 @@ static void updateconfig(coder::b_captured_var *Config,
                               }
                               dc = coder::str2double(c_lineStr);
                               if (!(dc.re > 0.0)) {
-                                c_rtErrorWithMessageID(b_emlrtRTEI.fName,
+                                d_rtErrorWithMessageID(b_emlrtRTEI.fName,
                                                        b_emlrtRTEI.lineNo);
                               }
                               Config->contents.tip = dc.re;
@@ -1172,7 +1207,7 @@ static void updateconfig(coder::b_captured_var *Config,
                               for (ii_data = 0; ii_data < text_len; ii_data++) {
                                 c_lineStr[ii_data] = lineStr[ii_data];
                               }
-                              if (coder::internal::l_strcmp(c_lineStr)) {
+                              if (coder::internal::m_strcmp(c_lineStr)) {
                                 creal_T dc;
                                 text_len = match_idx - i;
                                 c_lineStr.set_size(1, text_len);
@@ -1182,7 +1217,7 @@ static void updateconfig(coder::b_captured_var *Config,
                                 }
                                 dc = coder::str2double(c_lineStr);
                                 if (!(dc.re >= 0.0)) {
-                                  b_rtErrorWithMessageID(rc_emlrtRTEI.fName,
+                                  c_rtErrorWithMessageID(rc_emlrtRTEI.fName,
                                                          rc_emlrtRTEI.lineNo);
                                 }
                                 Config->contents.tipu = dc.re;
@@ -1192,7 +1227,7 @@ static void updateconfig(coder::b_captured_var *Config,
                                      ii_data++) {
                                   c_lineStr[ii_data] = lineStr[ii_data];
                                 }
-                                if (coder::internal::m_strcmp(c_lineStr)) {
+                                if (coder::internal::n_strcmp(c_lineStr)) {
                                   creal_T dc;
                                   text_len = match_idx - i;
                                   c_lineStr.set_size(1, text_len);
@@ -1203,7 +1238,7 @@ static void updateconfig(coder::b_captured_var *Config,
                                   }
                                   dc = coder::str2double(c_lineStr);
                                   if (!(dc.re >= 0.0)) {
-                                    b_rtErrorWithMessageID(rc_emlrtRTEI.fName,
+                                    c_rtErrorWithMessageID(rc_emlrtRTEI.fName,
                                                            rc_emlrtRTEI.lineNo);
                                   }
                                   Config->contents.tipj = dc.re;
@@ -1238,7 +1273,7 @@ static void updateconfig(coder::b_captured_var *Config,
                                     }
                                     Config->contents.K = b_in;
                                     if (b_in <= 0) {
-                                      c_rtErrorWithMessageID(
+                                      d_rtErrorWithMessageID(
                                           b_emlrtRTEI.fName,
                                           b_emlrtRTEI.lineNo);
                                     }
@@ -1248,7 +1283,7 @@ static void updateconfig(coder::b_captured_var *Config,
                                          ii_data++) {
                                       c_lineStr[ii_data] = lineStr[ii_data];
                                     }
-                                    if (coder::internal::n_strcmp(c_lineStr)) {
+                                    if (coder::internal::o_strcmp(c_lineStr)) {
                                       text_len = match_idx - i;
                                       _in.Value.set_size(1, text_len);
                                       for (match_idx = 0; match_idx < text_len;
@@ -1263,7 +1298,7 @@ static void updateconfig(coder::b_captured_var *Config,
                                            ii_data++) {
                                         c_lineStr[ii_data] = lineStr[ii_data];
                                       }
-                                      if (coder::internal::o_strcmp(
+                                      if (coder::internal::p_strcmp(
                                               c_lineStr)) {
                                         text_len = match_idx - i;
                                         c_lineStr.set_size(1, text_len);
@@ -1287,7 +1322,7 @@ static void updateconfig(coder::b_captured_var *Config,
                                              ii_data++) {
                                           c_lineStr[ii_data] = lineStr[ii_data];
                                         }
-                                        if (coder::internal::p_strcmp(
+                                        if (coder::internal::q_strcmp(
                                                 c_lineStr)) {
                                           creal_T dc;
                                           text_len = match_idx - i;
@@ -1300,15 +1335,15 @@ static void updateconfig(coder::b_captured_var *Config,
                                           }
                                           dc = coder::str2double(c_lineStr);
                                           if (!(dc.re > 0.0)) {
-                                            c_rtErrorWithMessageID(
+                                            d_rtErrorWithMessageID(
                                                 b_emlrtRTEI.fName,
                                                 b_emlrtRTEI.lineNo);
                                           }
                                           if (!(dc.re < 1.0)) {
                                             rtErrorWithMessageID(
                                                 "  1.000000000000000e+00",
-                                                qc_emlrtRTEI.fName,
-                                                qc_emlrtRTEI.lineNo);
+                                                pc_emlrtRTEI.fName,
+                                                pc_emlrtRTEI.lineNo);
                                           }
                                           Config->contents.falseAlarmProb =
                                               dc.re;
@@ -1319,7 +1354,7 @@ static void updateconfig(coder::b_captured_var *Config,
                                             c_lineStr[ii_data] =
                                                 lineStr[ii_data];
                                           }
-                                          if (coder::internal::q_strcmp(
+                                          if (coder::internal::r_strcmp(
                                                   c_lineStr)) {
                                             text_len = match_idx - i;
                                             _in.Value.set_size(1, text_len);
@@ -1339,7 +1374,7 @@ static void updateconfig(coder::b_captured_var *Config,
                                               c_lineStr[ii_data] =
                                                   lineStr[ii_data];
                                             }
-                                            if (!coder::internal::r_strcmp(
+                                            if (!coder::internal::s_strcmp(
                                                     c_lineStr)) {
                                               c_lineStr.set_size(1, text_len);
                                               for (ii_data = 0;
@@ -1348,7 +1383,7 @@ static void updateconfig(coder::b_captured_var *Config,
                                                 c_lineStr[ii_data] =
                                                     lineStr[ii_data];
                                               }
-                                              if (coder::internal::s_strcmp(
+                                              if (coder::internal::t_strcmp(
                                                       c_lineStr)) {
                                                 // STR2BOOL Converts a string in
                                                 // to a boolean.
@@ -1401,12 +1436,12 @@ static void updateconfig(coder::b_captured_var *Config,
                                                     text_len = 1;
                                                     b_bool = false;
                                                   } else if (coder::internal::
-                                                                 t_strcmp(
+                                                                 u_strcmp(
                                                                      lineStr)) {
                                                     text_len = 1;
                                                     b_bool = true;
                                                   } else if (coder::internal::
-                                                                 u_strcmp(
+                                                                 v_strcmp(
                                                                      lineStr)) {
                                                     text_len = 1;
                                                     b_bool = false;
@@ -1427,7 +1462,7 @@ static void updateconfig(coder::b_captured_var *Config,
                                                   c_lineStr[ii_data] =
                                                       lineStr[ii_data];
                                                 }
-                                                if (coder::internal::v_strcmp(
+                                                if (coder::internal::w_strcmp(
                                                         c_lineStr)) {
                                                   // STR2BOOL Converts a string
                                                   // in to a boolean.
@@ -1485,12 +1520,12 @@ static void updateconfig(coder::b_captured_var *Config,
                                                       b_bool = false;
                                                     } else if (
                                                         coder::internal::
-                                                            t_strcmp(lineStr)) {
+                                                            u_strcmp(lineStr)) {
                                                       text_len = 1;
                                                       b_bool = true;
                                                     } else if (
                                                         coder::internal::
-                                                            u_strcmp(lineStr)) {
+                                                            v_strcmp(lineStr)) {
                                                       text_len = 1;
                                                       b_bool = false;
                                                     } else {
@@ -1523,7 +1558,7 @@ static void updateconfig(coder::b_captured_var *Config,
             }
           }
           // Stop when we have finished reading this entry.
-          if (coder::b_feof(static_cast<double>(fileid)) == 1.0) {
+          if (coder::b_feof(static_cast<double>(fid)) == 1.0) {
             done = true;
           } else {
             if ((static_cast<int>(static_cast<unsigned int>(configNum) + 1U) <
@@ -1534,13 +1569,13 @@ static void updateconfig(coder::b_captured_var *Config,
                   static_cast<int>(static_cast<unsigned int>(configNum) + 1U),
                   1, sepByte.size(1), &jb_emlrtBCI);
             }
-            if (coder::b_ftell(static_cast<double>(fileid)) ==
+            if (coder::b_ftell(static_cast<double>(fid)) ==
                 sepByte[static_cast<int>(
                     static_cast<unsigned int>(configNum))]) {
               done = true;
             }
           }
-        } else if (coder::b_feof(static_cast<double>(fileid)) == 1.0) {
+        } else if (coder::b_feof(static_cast<double>(fid)) == 1.0) {
           done = true;
         } else {
           if ((static_cast<int>(static_cast<unsigned int>(configNum) + 1U) <
@@ -1551,7 +1586,7 @@ static void updateconfig(coder::b_captured_var *Config,
                 static_cast<int>(static_cast<unsigned int>(configNum) + 1U), 1,
                 sepByte.size(1), &ob_emlrtBCI);
           }
-          if (coder::b_ftell(static_cast<double>(fileid)) ==
+          if (coder::b_ftell(static_cast<double>(fid)) ==
               sepByte[static_cast<int>(static_cast<unsigned int>(configNum))]) {
             done = true;
           }
@@ -1560,7 +1595,7 @@ static void updateconfig(coder::b_captured_var *Config,
         exitg1 = 1;
       }
     } while (exitg1 == 0);
-    coder::cfclose(static_cast<double>(fileid));
+    coder::cfclose(static_cast<double>(fid));
   }
   // Do we update the tip and tipu or use the ones that were adapted from
   // the previous detections? Probably just use the file. The supervisor
@@ -1572,17 +1607,17 @@ static void updateconfig(coder::b_captured_var *Config,
 // UNTITLED Summary of this function goes here
 //    Detailed explanation goes here
 //
-// Arguments    : void
+// Arguments    : const coder::array<char, 2U> &configPath
 // Return Type  : void
 //
-void uavrt_detection()
+void uavrt_detection(const coder::array<char, 2U> &configPath)
 {
   static coder::dsp::AsyncBuffer asyncDataBuff;
   static coder::dsp::b_AsyncBuffer asyncTimeBuff;
   static rtBoundsCheckInfo eb_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      199,                                             // lineNo
+      198,                                             // lineNo
       32,                                              // colNo
       "t",                                             // aName
       "uavrt_detection",                               // fName
@@ -1592,14 +1627,14 @@ void uavrt_detection()
   static rtBoundsCheckInfo fb_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      352,                                             // lineNo
+      351,                                             // lineNo
       53,                                              // colNo
       "ps_pre_struc.pl",                               // aName
       "uavrt_detection",                               // fName
       "H:\\repos\\uavrt_detection\\uavrt_detection.m", // pName
       0                                                // checkKind
   };
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo pc_emlrtRTEI{
       10,             // lineNo
       "mustBeInteger" // fName
   };
@@ -1609,7 +1644,7 @@ void uavrt_detection()
   coder::c_captured_var overlapSamples;
   coder::c_captured_var sampsForKPulses;
   coder::c_captured_var stftOverlapFraction;
-  coder::captured_var configPath;
+  coder::captured_var b_configPath;
   pulsestats lobj_10[4];
   pulsestats lobj_19[2];
   pulsestats lobj_13;
@@ -1637,23 +1672,26 @@ void uavrt_detection()
   coder::array<boolean_T, 2U> ps_pre_struc_cmsk;
   coder::array<boolean_T, 1U> b_tmp_data;
   coder::array<boolean_T, 1U> r2;
-  c_struct_T ps_pre_struc_pl_tmp;
+  c_struct_T b_expl_temp;
+  c_struct_T expl_temp;
   c_struct_T r;
   creal_T dcv[1000];
   creal32_T exampleData[1000];
   double ps_pre_struc_tmplt[2];
   double integratedTimeError;
-  double ps_pre_struc_fend;
-  double ps_pre_struc_fp;
-  double ps_pre_struc_fstart;
-  double ps_pre_struc_t_ip;
-  double ps_pre_struc_t_ipj;
-  double ps_pre_struc_t_ipu;
-  double ps_pre_struc_t_p;
   double segmentsProcessed;
+  double t9_P;
+  double t9_SNR;
+  double t9_fend;
+  double t9_fp;
+  double t9_fstart;
+  double t9_t_0;
+  double t9_t_f;
+  double t9_yw;
   double timeStamp;
   double trackedCount;
   int i;
+  int loop_ub;
   int udpReceiver;
   int udpSender;
   signed char fileid;
@@ -1664,22 +1702,41 @@ void uavrt_detection()
   boolean_T fLock;
   boolean_T resetBuffersFlag;
   boolean_T staleDataFlag;
+  boolean_T t9_con_dec;
+  boolean_T t9_det_dec;
   boolean_T tmp_data;
   if (!isInitialized_uavrt_detection) {
     uavrt_detection_initialize();
   }
-  configPath.contents.init();
-  // Must exist in the same directory as the execution of this executable
+  b_configPath.contents.set_size(1, configPath.size(1));
+  loop_ub = configPath.size(1);
+  for (i = 0; i < loop_ub; i++) {
+    b_configPath.contents[i] = configPath[i];
+  }
   Config.contents.init();
   // Build empty config object
-  updateconfig(&Config, &configPath);
+  updateconfig(&Config, &b_configPath);
   // Update (fill) the configuration
   configUpdatedFlag = true;
-  makepulsestruc(&ps_pre_struc_pl_tmp);
-  makepulsestruc(&r);
+  makepulsestruc(&r.A, &r.P, &r.SNR, &r.yw, &r.t_0, &r.t_f, r.t_next, &r.fp,
+                 &r.fstart, &r.fend, r.mode, &r.det_dec, &r.con_dec);
+  makepulsestruc(&integratedTimeError, &t9_P, &t9_SNR, &t9_yw, &t9_t_0, &t9_t_f,
+                 expl_temp.t_next, &t9_fp, &t9_fstart, &t9_fend, expl_temp.mode,
+                 &t9_det_dec, &t9_con_dec);
+  expl_temp.con_dec = t9_con_dec;
+  expl_temp.det_dec = t9_det_dec;
+  expl_temp.fend = t9_fend;
+  expl_temp.fstart = t9_fstart;
+  expl_temp.fp = t9_fp;
+  expl_temp.t_f = t9_t_f;
+  expl_temp.t_0 = t9_t_0;
+  expl_temp.yw = t9_yw;
+  expl_temp.SNR = t9_SNR;
+  expl_temp.P = t9_P;
+  expl_temp.A = integratedTimeError;
   pulseStatsPriori = lobj_19[1].init(Config.contents.tp, Config.contents.tip,
                                      Config.contents.tipu, Config.contents.tipj,
-                                     &ps_pre_struc_pl_tmp, &r);
+                                     &r, &expl_temp);
   //  % tp, tip, tipu
   //  % tipj, fp, fstart, fend, tmplt, mode
   //   % pl ,clst
@@ -1720,7 +1777,7 @@ void uavrt_detection()
   // %600650 is the result of the nominal settings of ceil(150/(1024/4000)*1025.
   // asyncWriteBuff.write(single(1+1i));%Write to give Code the type. Read to
   // remove data. asyncWriteBuff.read();
-  fileid = coder::cfopen(Config.contents.dataRecordPath.Value);
+  fileid = coder::cfopen(Config.contents.dataRecordPath.Value, "wb");
   if (fileid == -1) {
     printf("UAV-RT: Error opening/creating data record file with error:\n");
     fflush(stdout);
@@ -1738,20 +1795,23 @@ void uavrt_detection()
   // dims 0 if fixed, 1 if variable
   printf("Startup set 4 complete. \n");
   fflush(stdout);
-  ps_pre_struc_t_p = 0.0;
-  ps_pre_struc_t_ip = 0.0;
-  ps_pre_struc_t_ipu = 0.0;
-  ps_pre_struc_t_ipj = 0.0;
-  ps_pre_struc_fp = 0.0;
-  ps_pre_struc_fstart = 0.0;
-  ps_pre_struc_fend = 0.0;
+  t9_SNR = 0.0;
+  t9_yw = 0.0;
+  t9_t_0 = 0.0;
+  t9_t_f = 0.0;
+  t9_fp = 0.0;
+  t9_fstart = 0.0;
+  t9_fend = 0.0;
   ps_pre_struc_tmplt[0] = 1.0;
   ps_pre_struc_tmplt[1] = 1.0;
+  makepulsestruc(&r.A, &r.P, &r.SNR, &r.yw, &r.t_0, &r.t_f, r.t_next, &r.fp,
+                 &r.fstart, &r.fend, r.mode, &r.det_dec, &r.con_dec);
   ps_pre_struc_pl.set_size(1, 1);
-  makepulsestruc(&ps_pre_struc_pl_tmp);
-  ps_pre_struc_pl[0] = ps_pre_struc_pl_tmp;
+  ps_pre_struc_pl[0] = r;
+  makepulsestruc(&r.A, &r.P, &r.SNR, &r.yw, &r.t_0, &r.t_f, r.t_next, &r.fp,
+                 &r.fstart, &r.fend, r.mode, &r.det_dec, &r.con_dec);
   ps_pre_struc_clst.set_size(1, 1);
-  ps_pre_struc_clst[0] = ps_pre_struc_pl_tmp;
+  ps_pre_struc_clst[0] = r;
   ps_pre_struc_cmsk.set_size(1, 1);
   ps_pre_struc_cmsk[0] = false;
   ps_pre_struc_cpki.set_size(1, 1);
@@ -1805,7 +1865,6 @@ void uavrt_detection()
     creal32_T complexBuffer[4096];
     double timeVector[4096];
     int n;
-    int qY;
     // i <= maxInd
     if (resetBuffersFlag) {
       asyncDataBuff.reset();
@@ -1858,49 +1917,49 @@ void uavrt_detection()
       n--;
     }
     if (asyncDataBuff.pBuffer.ReadPointer < -2147434027) {
-      qY = MAX_int32_T;
+      loop_ub = MAX_int32_T;
     } else {
-      qY = 49620 - asyncDataBuff.pBuffer.ReadPointer;
+      loop_ub = 49620 - asyncDataBuff.pBuffer.ReadPointer;
     }
-    if ((qY < 0) && (asyncDataBuff.pBuffer.WritePointer < MIN_int32_T - qY)) {
-      qY = MIN_int32_T;
-    } else if ((qY > 0) &&
-               (asyncDataBuff.pBuffer.WritePointer > MAX_int32_T - qY)) {
-      qY = MAX_int32_T;
+    if ((loop_ub < 0) &&
+        (asyncDataBuff.pBuffer.WritePointer < MIN_int32_T - loop_ub)) {
+      loop_ub = MIN_int32_T;
+    } else if ((loop_ub > 0) &&
+               (asyncDataBuff.pBuffer.WritePointer > MAX_int32_T - loop_ub)) {
+      loop_ub = MAX_int32_T;
     } else {
-      qY += asyncDataBuff.pBuffer.WritePointer;
+      loop_ub += asyncDataBuff.pBuffer.WritePointer;
     }
     if (asyncDataBuff.pBuffer.ReadPointer <
         asyncDataBuff.pBuffer.WritePointer) {
-      qY = n;
+      loop_ub = n;
     } else if (asyncDataBuff.pBuffer.ReadPointer ==
                asyncDataBuff.pBuffer.WritePointer) {
-      qY = 49620;
+      loop_ub = 49620;
     }
-    if (qY >= sampsForKPulses.contents + overlapSamples.contents) {
-      double validatedHoleFilling_idx_0;
+    if (loop_ub >= sampsForKPulses.contents + overlapSamples.contents) {
       unsigned int varargin_1;
       unsigned int varargin_2;
-      validatedHoleFilling_idx_0 = std::round(sampsForKPulses.contents);
-      if (validatedHoleFilling_idx_0 < 4.294967296E+9) {
-        if (validatedHoleFilling_idx_0 >= 0.0) {
-          varargin_1 = static_cast<unsigned int>(validatedHoleFilling_idx_0);
+      t9_P = std::round(sampsForKPulses.contents);
+      if (t9_P < 4.294967296E+9) {
+        if (t9_P >= 0.0) {
+          varargin_1 = static_cast<unsigned int>(t9_P);
         } else {
           varargin_1 = 0U;
         }
-      } else if (validatedHoleFilling_idx_0 >= 4.294967296E+9) {
+      } else if (t9_P >= 4.294967296E+9) {
         varargin_1 = MAX_uint32_T;
       } else {
         varargin_1 = 0U;
       }
-      validatedHoleFilling_idx_0 = std::round(overlapSamples.contents);
-      if (validatedHoleFilling_idx_0 < 4.294967296E+9) {
-        if (validatedHoleFilling_idx_0 >= 0.0) {
-          varargin_2 = static_cast<unsigned int>(validatedHoleFilling_idx_0);
+      t9_P = std::round(overlapSamples.contents);
+      if (t9_P < 4.294967296E+9) {
+        if (t9_P >= 0.0) {
+          varargin_2 = static_cast<unsigned int>(t9_P);
         } else {
           varargin_2 = 0U;
         }
-      } else if (validatedHoleFilling_idx_0 >= 4.294967296E+9) {
+      } else if (t9_P >= 4.294967296E+9) {
         varargin_2 = MAX_uint32_T;
       } else {
         varargin_2 = 0U;
@@ -1926,26 +1985,27 @@ void uavrt_detection()
         n--;
       }
       if (asyncDataBuff.pBuffer.ReadPointer < -2147434027) {
-        qY = MAX_int32_T;
+        loop_ub = MAX_int32_T;
       } else {
-        qY = 49620 - asyncDataBuff.pBuffer.ReadPointer;
+        loop_ub = 49620 - asyncDataBuff.pBuffer.ReadPointer;
       }
-      if ((qY < 0) && (asyncDataBuff.pBuffer.WritePointer < MIN_int32_T - qY)) {
-        qY = MIN_int32_T;
-      } else if ((qY > 0) &&
-                 (asyncDataBuff.pBuffer.WritePointer > MAX_int32_T - qY)) {
-        qY = MAX_int32_T;
+      if ((loop_ub < 0) &&
+          (asyncDataBuff.pBuffer.WritePointer < MIN_int32_T - loop_ub)) {
+        loop_ub = MIN_int32_T;
+      } else if ((loop_ub > 0) &&
+                 (asyncDataBuff.pBuffer.WritePointer > MAX_int32_T - loop_ub)) {
+        loop_ub = MAX_int32_T;
       } else {
-        qY += asyncDataBuff.pBuffer.WritePointer;
+        loop_ub += asyncDataBuff.pBuffer.WritePointer;
       }
       if (asyncDataBuff.pBuffer.ReadPointer <
           asyncDataBuff.pBuffer.WritePointer) {
-        qY = n;
+        loop_ub = n;
       } else if (asyncDataBuff.pBuffer.ReadPointer ==
                  asyncDataBuff.pBuffer.WritePointer) {
-        qY = 49620;
+        loop_ub = 49620;
       }
-      printf("Running...Buffer full with %d samples. Processing. \n", qY);
+      printf("Running...Buffer full with %d samples. Processing. \n", loop_ub);
       fflush(stdout);
       coder::tic();
       if (cleanBuffer) {
@@ -1972,8 +2032,8 @@ void uavrt_detection()
       // detection will likely fail or produces bad results. In
       // this case. Skip the processing and clear the buffer.
       coder::diff(t, r1);
-      qY = r1.size(0);
-      for (i = 0; i < qY; i++) {
+      loop_ub = r1.size(0);
+      for (i = 0; i < loop_ub; i++) {
         r1[i] = r1[i] - integratedTimeError;
       }
       integratedTimeError = coder::sum(r1);
@@ -2023,22 +2083,42 @@ void uavrt_detection()
             fLock = false;
             break;
           }
-          makepulsestruc(&ps_pre_struc_pl_tmp);
-          makepulsestruc(&r);
+          makepulsestruc(&r.A, &r.P, &r.SNR, &r.yw, &r.t_0, &r.t_f, r.t_next,
+                         &r.fp, &r.fstart, &r.fend, r.mode, &r.det_dec,
+                         &r.con_dec);
+          makepulsestruc(&integratedTimeError, &t9_P, &t9_SNR, &t9_yw, &t9_t_0,
+                         &t9_t_f, expl_temp.t_next, &t9_fp, &t9_fstart,
+                         &t9_fend, expl_temp.mode, &t9_det_dec, &t9_con_dec);
+          b_expl_temp.con_dec = t9_con_dec;
+          b_expl_temp.det_dec = t9_det_dec;
+          b_expl_temp.mode.set_size(1, expl_temp.mode.size(1));
+          loop_ub = expl_temp.mode.size(1);
+          for (i = 0; i < loop_ub; i++) {
+            b_expl_temp.mode[i] = expl_temp.mode[i];
+          }
+          b_expl_temp.fend = t9_fend;
+          b_expl_temp.fstart = t9_fstart;
+          b_expl_temp.fp = t9_fp;
+          b_expl_temp.t_next[0] = expl_temp.t_next[0];
+          b_expl_temp.t_next[1] = expl_temp.t_next[1];
+          b_expl_temp.t_f = t9_t_f;
+          b_expl_temp.t_0 = t9_t_0;
+          b_expl_temp.yw = t9_yw;
+          b_expl_temp.SNR = t9_SNR;
+          b_expl_temp.P = t9_P;
+          b_expl_temp.A = integratedTimeError;
           pulseStatsPriori = lobj_13.init(
               Config.contents.tp, Config.contents.tip, Config.contents.tipu,
               Config.contents.tipj,
               1.0E-5 * std::abs(Config.contents.tagFreqMHz -
                                 Config.contents.channelCenterFreqMHz),
-              &ps_pre_struc_pl_tmp, &r);
+              &r, &b_expl_temp);
           configUpdatedFlag = false;
         } else {
           pulseStatsPriori = lobj_16.c_init(
-              ps_pre_struc_t_p, ps_pre_struc_t_ip, ps_pre_struc_t_ipu,
-              ps_pre_struc_t_ipj, ps_pre_struc_fp, ps_pre_struc_fstart,
-              ps_pre_struc_fend, ps_pre_struc_tmplt, (char *)&mode,
-              ps_pre_struc_pl, ps_pre_struc_clst, ps_pre_struc_cmsk,
-              ps_pre_struc_cpki);
+              t9_SNR, t9_yw, t9_t_0, t9_t_f, t9_fp, t9_fstart, t9_fend,
+              ps_pre_struc_tmplt, (char *)&mode, ps_pre_struc_pl,
+              ps_pre_struc_clst, ps_pre_struc_cmsk, ps_pre_struc_cpki);
         }
         //                         %% PRIMARY PROCESSING BLOCK
         // Prep waveform for processing/detection
@@ -2053,38 +2133,38 @@ void uavrt_detection()
         b_X.init(x, Config.contents.Fs, t[0], pulseStatsPriori, &val, &lobj_15,
                  &lobj_14);
         b_X.K = Config.contents.K;
-        validatedHoleFilling_idx_0 = std::round(b_X.N);
-        if (validatedHoleFilling_idx_0 < 4.294967296E+9) {
-          if (validatedHoleFilling_idx_0 >= 0.0) {
-            varargin_1 = static_cast<unsigned int>(validatedHoleFilling_idx_0);
+        t9_P = std::round(b_X.N);
+        if (t9_P < 4.294967296E+9) {
+          if (t9_P >= 0.0) {
+            varargin_1 = static_cast<unsigned int>(t9_P);
           } else {
             varargin_1 = 0U;
           }
-        } else if (validatedHoleFilling_idx_0 >= 4.294967296E+9) {
+        } else if (t9_P >= 4.294967296E+9) {
           varargin_1 = MAX_uint32_T;
         } else {
           varargin_1 = 0U;
         }
-        validatedHoleFilling_idx_0 = std::round(b_X.M);
-        if (validatedHoleFilling_idx_0 < 4.294967296E+9) {
-          if (validatedHoleFilling_idx_0 >= 0.0) {
-            varargin_2 = static_cast<unsigned int>(validatedHoleFilling_idx_0);
+        t9_P = std::round(b_X.M);
+        if (t9_P < 4.294967296E+9) {
+          if (t9_P >= 0.0) {
+            varargin_2 = static_cast<unsigned int>(t9_P);
           } else {
             varargin_2 = 0U;
           }
-        } else if (validatedHoleFilling_idx_0 >= 4.294967296E+9) {
+        } else if (t9_P >= 4.294967296E+9) {
           varargin_2 = MAX_uint32_T;
         } else {
           varargin_2 = 0U;
         }
-        validatedHoleFilling_idx_0 = std::round(b_X.J);
-        if (validatedHoleFilling_idx_0 < 4.294967296E+9) {
-          if (validatedHoleFilling_idx_0 >= 0.0) {
-            varargin_3 = static_cast<unsigned int>(validatedHoleFilling_idx_0);
+        t9_P = std::round(b_X.J);
+        if (t9_P < 4.294967296E+9) {
+          if (t9_P >= 0.0) {
+            varargin_3 = static_cast<unsigned int>(t9_P);
           } else {
             varargin_3 = 0U;
           }
-        } else if (validatedHoleFilling_idx_0 >= 4.294967296E+9) {
+        } else if (t9_P >= 4.294967296E+9) {
           varargin_3 = MAX_uint32_T;
         } else {
           varargin_3 = 0U;
@@ -2103,9 +2183,8 @@ void uavrt_detection()
         printf("Computing STFT...");
         fflush(stdout);
         b_X.spectro(&lobj_12);
-        validatedHoleFilling_idx_0 = coder::toc();
-        printf("complete. Elapsed time: %f seconds \n",
-               validatedHoleFilling_idx_0);
+        t9_P = coder::toc();
+        printf("complete. Elapsed time: %f seconds \n", t9_P);
         fflush(stdout);
         printf("Building weighting matrix and generating thresholds...");
         fflush(stdout);
@@ -2154,9 +2233,8 @@ void uavrt_detection()
           val.setthreshold(&b_X, Xhold);
           b_X.thresh = val;
         }
-        validatedHoleFilling_idx_0 = coder::toc();
-        printf("complete. Elapsed time: %f seconds \n",
-               validatedHoleFilling_idx_0);
+        t9_P = coder::toc();
+        printf("complete. Elapsed time: %f seconds \n", t9_P);
         fflush(stdout);
         varargin_1 = static_cast<unsigned int>(b_X.stft->S.size(1));
         printf("Time windows in S: %u \n", varargin_1);
@@ -2165,17 +2243,16 @@ void uavrt_detection()
         fflush(stdout);
         b_X.process(mode, Config.contents.excldFreqs);
         integratedTimeError = coder::toc();
-        validatedHoleFilling_idx_0 = coder::toc();
-        printf("complete. Elapsed time: %f seconds \n",
-               validatedHoleFilling_idx_0);
+        t9_P = coder::toc();
+        printf("complete. Elapsed time: %f seconds \n", t9_P);
         fflush(stdout);
         //                         %% PREP FOR NEXT LOOP
         // Latch/Release the frequency lock and setup the
         // suggested mode
         suggestedMode = b_X.ps_pos->mode;
         ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
-        qY = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
-        for (i = 0; i <= qY; i++) {
+        loop_ub = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
+        for (i = 0; i <= loop_ub; i++) {
           ps_pre_struc_pl[i] = b_X.ps_pos->pl[i];
         }
         n = ps_pre_struc_pl.size(1);
@@ -2188,8 +2265,8 @@ void uavrt_detection()
         if (ps_pre_struc_pl.size(1) > 2147483646) {
           coder::check_forloop_overflow_error();
         }
-        for (qY = 0; qY < n; qY++) {
-          b_varargin_1[qY] = ps_pre_struc_pl[qY].con_dec;
+        for (loop_ub = 0; loop_ub < n; loop_ub++) {
+          b_varargin_1[loop_ub] = ps_pre_struc_pl[loop_ub].con_dec;
         }
         if (b_varargin_1.size(1) != 0) {
           n = b_varargin_1.size(1);
@@ -2207,8 +2284,8 @@ void uavrt_detection()
         // pulses.
         if (coder::internal::c_strcmp(&Config.contents.opMode)) {
           n = r2.size(0);
-          qY = r2.size(0);
-          for (i = 0; i < qY; i++) {
+          loop_ub = r2.size(0);
+          for (i = 0; i < loop_ub; i++) {
             tmp_data = !r2[i];
           }
           b_tmp_data.set(&tmp_data, n);
@@ -2221,16 +2298,16 @@ void uavrt_detection()
         if (coder::internal::ifWhileCond(r2) &&
             ((mode == 'C') || (mode == 'T'))) {
           ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
-          qY = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
-          for (i = 0; i <= qY; i++) {
+          loop_ub = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
+          for (i = 0; i <= loop_ub; i++) {
             ps_pre_struc_pl[i] = b_X.ps_pos->pl[i];
           }
           b_X.ps_pos->updateposteriori(b_X.ps_pre, ps_pre_struc_pl);
           if (trackedCount > 5.0) {
             trackedCount = 0.0;
             ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
-            qY = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
-            for (i = 0; i <= qY; i++) {
+            loop_ub = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
+            for (i = 0; i <= loop_ub; i++) {
               ps_pre_struc_pl[i] = b_X.ps_pos->pl[i];
             }
             b_X.ps_pos->b_updateposteriori(b_X.ps_pre, ps_pre_struc_pl);
@@ -2243,22 +2320,21 @@ void uavrt_detection()
           obj = &Config.contents;
           integratedTimeError = Config.contents.K - 1.0;
           if (!(integratedTimeError > 0.0)) {
-            c_rtErrorWithMessageID(b_emlrtRTEI.fName, b_emlrtRTEI.lineNo);
+            d_rtErrorWithMessageID(b_emlrtRTEI.fName, b_emlrtRTEI.lineNo);
           }
           if (std::isinf(integratedTimeError) ||
               (!(integratedTimeError == std::floor(integratedTimeError)))) {
-            i_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+            j_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
           }
           obj->K = integratedTimeError;
-          validatedHoleFilling_idx_0 = std::round(Config.contents.K);
-          if (validatedHoleFilling_idx_0 < 4.294967296E+9) {
-            if (validatedHoleFilling_idx_0 >= 0.0) {
-              varargin_1 =
-                  static_cast<unsigned int>(validatedHoleFilling_idx_0);
+          t9_P = std::round(Config.contents.K);
+          if (t9_P < 4.294967296E+9) {
+            if (t9_P >= 0.0) {
+              varargin_1 = static_cast<unsigned int>(t9_P);
             } else {
               varargin_1 = 0U;
             }
-          } else if (validatedHoleFilling_idx_0 >= 4.294967296E+9) {
+          } else if (t9_P >= 4.294967296E+9) {
             varargin_1 = MAX_uint32_T;
           } else {
             varargin_1 = 0U;
@@ -2281,45 +2357,44 @@ void uavrt_detection()
         // Prepare priori for next segment
         printf("Updating priori...\n");
         fflush(stdout);
-        ps_pre_struc_t_p = b_X.ps_pos->t_p;
-        ps_pre_struc_t_ip = b_X.ps_pos->t_ip;
-        ps_pre_struc_t_ipu = b_X.ps_pos->t_ipu;
-        ps_pre_struc_t_ipj = b_X.ps_pos->t_ipj;
-        ps_pre_struc_fp = b_X.ps_pos->fp;
-        ps_pre_struc_fstart = b_X.ps_pos->fstart;
-        ps_pre_struc_fend = b_X.ps_pos->fend;
+        t9_SNR = b_X.ps_pos->t_p;
+        t9_yw = b_X.ps_pos->t_ip;
+        t9_t_0 = b_X.ps_pos->t_ipu;
+        t9_t_f = b_X.ps_pos->t_ipj;
+        t9_fp = b_X.ps_pos->fp;
+        t9_fstart = b_X.ps_pos->fstart;
+        t9_fend = b_X.ps_pos->fend;
         ps_pre_struc_tmplt[0] = b_X.ps_pos->tmplt[0];
         ps_pre_struc_tmplt[1] = b_X.ps_pos->tmplt[1];
         mode = b_X.ps_pos->mode;
         ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
-        qY = b_X.ps_pos->pl.size(1);
-        for (i = 0; i < qY; i++) {
+        loop_ub = b_X.ps_pos->pl.size(1);
+        for (i = 0; i < loop_ub; i++) {
           ps_pre_struc_pl[i] = b_X.ps_pos->pl[i];
         }
         ps_pre_struc_clst.set_size(b_X.ps_pos->clst.size(0),
                                    b_X.ps_pos->clst.size(1));
-        qY = b_X.ps_pos->clst.size(0) * b_X.ps_pos->clst.size(1);
-        for (i = 0; i < qY; i++) {
+        loop_ub = b_X.ps_pos->clst.size(0) * b_X.ps_pos->clst.size(1);
+        for (i = 0; i < loop_ub; i++) {
           ps_pre_struc_clst[i] = b_X.ps_pos->clst[i];
         }
         ps_pre_struc_cmsk.set_size(b_X.ps_pos->cmsk.size(0),
                                    b_X.ps_pos->cmsk.size(1));
-        qY = b_X.ps_pos->cmsk.size(0) * b_X.ps_pos->cmsk.size(1);
-        for (i = 0; i < qY; i++) {
+        loop_ub = b_X.ps_pos->cmsk.size(0) * b_X.ps_pos->cmsk.size(1);
+        for (i = 0; i < loop_ub; i++) {
           ps_pre_struc_cmsk[i] = b_X.ps_pos->cmsk[i];
         }
         ps_pre_struc_cpki.set_size(b_X.ps_pos->cpki.size(0),
                                    b_X.ps_pos->cpki.size(1));
-        qY = b_X.ps_pos->cpki.size(0) * b_X.ps_pos->cpki.size(1);
-        for (i = 0; i < qY; i++) {
+        loop_ub = b_X.ps_pos->cpki.size(0) * b_X.ps_pos->cpki.size(1);
+        for (i = 0; i < loop_ub; i++) {
           ps_pre_struc_cpki[i] = b_X.ps_pos->cpki[i];
         }
         updatebufferreadvariables(&Config, &stftOverlapFraction,
                                   &overlapSamples, &sampsForKPulses,
                                   b_X.ps_pos);
-        validatedHoleFilling_idx_0 = coder::toc();
-        printf("complete. Elapsed time: %f seconds \n",
-               validatedHoleFilling_idx_0);
+        t9_P = coder::toc();
+        printf("complete. Elapsed time: %f seconds \n", t9_P);
         fflush(stdout);
         // Deal with detected pulses
         // Xhold{mod(segmentsProcessed,maxSegments)} = X;%Keep a maxSegments
@@ -2327,19 +2402,19 @@ void uavrt_detection()
         // obj2structrecursive(X); Xhold = X;
         Xhold = waveformcopy(&b_X, &lobj_9, &lobj_10[0], &lobj_11);
         i = ps_pre_struc_pl.size(1);
-        for (qY = 0; qY < i; qY++) {
+        for (n = 0; n < i; n++) {
           double pulseInfo[3];
-          if (qY + 1 > ps_pre_struc_pl.size(1)) {
-            rtDynamicBoundsError(qY + 1, 1, ps_pre_struc_pl.size(1),
+          if (n + 1 > ps_pre_struc_pl.size(1)) {
+            rtDynamicBoundsError(n + 1, 1, ps_pre_struc_pl.size(1),
                                  &fb_emlrtBCI);
           }
           printf("Pulse at %e Hz detected. SNR: %e Confirmation status: %u \n",
-                 ps_pre_struc_pl[qY].fp, ps_pre_struc_pl[qY].SNR,
-                 static_cast<unsigned int>(ps_pre_struc_pl[qY].con_dec));
+                 ps_pre_struc_pl[n].fp, ps_pre_struc_pl[n].SNR,
+                 static_cast<unsigned int>(ps_pre_struc_pl[n].con_dec));
           fflush(stdout);
-          pulseInfo[0] = ps_pre_struc_pl[qY].SNR;
-          pulseInfo[1] = ps_pre_struc_pl[qY].con_dec;
-          pulseInfo[2] = ps_pre_struc_pl[qY].t_0;
+          pulseInfo[0] = ps_pre_struc_pl[n].SNR;
+          pulseInfo[1] = ps_pre_struc_pl[n].con_dec;
+          pulseInfo[2] = ps_pre_struc_pl[n].t_0;
           udpSenderSend(udpSender, &pulseInfo[0]);
         }
         d_varargin_1.set_size(1, 2);

@@ -5,7 +5,7 @@
 // File: nullAssignment.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -26,14 +26,14 @@ namespace coder {
 namespace internal {
 void nullAssignment(::coder::array<char, 2U> &x, int idx)
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo pc_emlrtRTEI{
       85,               // lineNo
       "validate_inputs" // fName
   };
   int nxin;
   int nxout;
   if (idx > x.size(1)) {
-    ic_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+    jc_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
   }
   nxin = x.size(1);
   nxout = x.size(1) - 1;

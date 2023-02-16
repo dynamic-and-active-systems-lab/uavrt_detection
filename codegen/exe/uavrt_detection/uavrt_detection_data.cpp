@@ -5,7 +5,7 @@
 // File: uavrt_detection_data.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -303,7 +303,7 @@ rtRunTimeErrorInfo hc_emlrtRTEI{
     "eml_sub2ind" // fName
 };
 
-rtRunTimeErrorInfo oc_emlrtRTEI{
+rtRunTimeErrorInfo nc_emlrtRTEI{
     132,          // lineNo
     "eml_idivide" // fName
 };

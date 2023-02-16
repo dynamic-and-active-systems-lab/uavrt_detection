@@ -5,7 +5,7 @@
 // File: FFTImplementationCallback.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -912,7 +912,7 @@ void FFTImplementationCallback::generate_twiddle_tables(
 void FFTImplementationCallback::get_algo_sizes(int nfft, boolean_T useRadix2,
                                                int *n2blue, int *nRows)
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo pc_emlrtRTEI{
       417,                                       // lineNo
       "FFTImplementationCallback/get_algo_sizes" // fName
   };
@@ -954,7 +954,7 @@ void FFTImplementationCallback::get_algo_sizes(int nfft, boolean_T useRadix2,
       n = 1;
     }
     if (*n2blue > n) {
-      h_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+      i_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
     }
     *nRows = *n2blue;
   }

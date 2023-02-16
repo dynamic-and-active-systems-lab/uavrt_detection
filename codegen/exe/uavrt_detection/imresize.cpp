@@ -5,7 +5,7 @@
 // File: imresize.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -47,7 +47,7 @@ static void resizeAlongDim2D(const ::coder::array<double, 2U> &in,
                              ::coder::array<double, 2U> &out);
 
 } // namespace coder
-static void fc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void gc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -81,10 +81,10 @@ static void b_resizeAlongDim2D(const ::coder::array<double, 2U> &in,
 
   for (int inRInd = 0; inRInd <= ub_loop; inRInd++) {
     if (inRInd + 1 > in.size(0)) {
-      yb_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+      ac_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
     }
     if (in.size(1) < 1) {
-      yb_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+      ac_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
     }
     i = static_cast<int>(out_length);
     for (outCInd = 0; outCInd < i; outCInd++) {
@@ -213,7 +213,7 @@ static void contributions(int in_length, double out_length, double scale,
   } else if (u.size(0) == absx.size(0)) {
     csz_idx_0 = u.size(0);
   } else {
-    r_rtErrorWithMessageID(db_emlrtRTEI.fName, db_emlrtRTEI.lineNo);
+    s_rtErrorWithMessageID(db_emlrtRTEI.fName, db_emlrtRTEI.lineNo);
   }
   b_x.set_size(csz_idx_0, absx.size(1));
   if (csz_idx_0 != 0) {
@@ -298,7 +298,7 @@ static void contributions(int in_length, double out_length, double scale,
   }
   nx = weights.size(1);
   if (!iscompatible) {
-    r_rtErrorWithMessageID(db_emlrtRTEI.fName, db_emlrtRTEI.lineNo);
+    s_rtErrorWithMessageID(db_emlrtRTEI.fName, db_emlrtRTEI.lineNo);
   }
   weights.set_size(csz_idx_0, nx);
   if (csz_idx_0 != 0) {
@@ -488,7 +488,7 @@ static void resizeAlongDim2D(const ::coder::array<double, 2U> &in,
 // Return Type  : void
 //
 } // namespace coder
-static void fc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void gc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -514,7 +514,7 @@ namespace coder {
 void imresize(const ::coder::array<double, 2U> &Ain, const double varargin_1[2],
               ::coder::array<double, 2U> &Bout)
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo pc_emlrtRTEI{
       319,       // lineNo
       "imresize" // fName
   };
@@ -547,7 +547,7 @@ void imresize(const ::coder::array<double, 2U> &Ain, const double varargin_1[2],
     }
   }
   if (y) {
-    fc_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+    gc_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
   }
   if (std::isnan(varargin_1[0])) {
     outputSize_idx_0 =

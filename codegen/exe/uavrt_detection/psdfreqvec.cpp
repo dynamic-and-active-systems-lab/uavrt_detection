@@ -5,7 +5,7 @@
 // File: psdfreqvec.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -148,7 +148,7 @@ void psdfreqvec(double varargin_2, double varargin_4,
   half_res = freq_res / 2.0;
   x = rt_remd_snf(varargin_2, 2.0);
   if (std::isnan(x)) {
-    t_rtErrorWithMessageID(gb_emlrtRTEI.fName, gb_emlrtRTEI.lineNo);
+    u_rtErrorWithMessageID(gb_emlrtRTEI.fName, gb_emlrtRTEI.lineNo);
   }
   isNPTSodd = (x != 0.0);
   if (isNPTSodd) {
@@ -157,7 +157,7 @@ void psdfreqvec(double varargin_2, double varargin_4,
     x = varargin_2 / 2.0 + 1.0;
   }
   if (std::isnan(rt_remd_snf(x, 2.0))) {
-    t_rtErrorWithMessageID(gb_emlrtRTEI.fName, gb_emlrtRTEI.lineNo);
+    u_rtErrorWithMessageID(gb_emlrtRTEI.fName, gb_emlrtRTEI.lineNo);
   }
   if (isNPTSodd) {
     if (x != static_cast<int>(std::floor(x))) {

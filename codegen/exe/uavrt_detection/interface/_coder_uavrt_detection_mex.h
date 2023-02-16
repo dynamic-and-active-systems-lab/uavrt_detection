@@ -5,7 +5,7 @@
 // File: _coder_uavrt_detection_mex.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 #ifndef _CODER_UAVRT_DETECTION_MEX_H
@@ -22,7 +22,8 @@ MEXFUNCTION_LINKAGE void mexFunction(int32_T nlhs, mxArray *plhs[],
 
 emlrtCTX mexFunctionCreateRootTLS();
 
-void uavrt_detection_mexFunction(int32_T nlhs, int32_T nrhs);
+void uavrt_detection_mexFunction(int32_T nlhs, int32_T nrhs,
+                                 const mxArray *prhs[1]);
 
 #endif
 //

@@ -5,7 +5,7 @@
 // File: main.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 /*************************************************************************/
@@ -39,6 +39,7 @@
 #include "uavrt_detection.h"
 #include "uavrt_detection_terminate.h"
 #include "uavrt_detection_types.h"
+#include "coder_array.h"
 #include "omp.h"
 #include <cstdio>
 #include <cstdlib>
@@ -48,17 +49,51 @@
 #include <string>
 
 // Function Declarations
-static void hc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static coder::array<char, 2U> argInit_1xUnbounded_char_T();
+
+static char argInit_char_T();
+
+static void ic_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void main_uavrt_detection();
 
 // Function Definitions
 //
+// Arguments    : void
+// Return Type  : coder::array<char, 2U>
+//
+static coder::array<char, 2U> argInit_1xUnbounded_char_T()
+{
+  coder::array<char, 2U> result;
+  // Set the size of the array.
+  // Change this size to the value that the application requires.
+  result.set_size(1, 2);
+  // Loop over the array to initialize each element.
+  for (int idx0{0}; idx0 < 1; idx0++) {
+    for (int idx1{0}; idx1 < result.size(1); idx1++) {
+      // Set the value of the array element.
+      // Change this value to the value that the application requires.
+      result[idx1] = argInit_char_T();
+    }
+  }
+  return result;
+}
+
+//
+// Arguments    : void
+// Return Type  : char
+//
+static char argInit_char_T()
+{
+  return '?';
+}
+
+//
 // Arguments    : const char *aFcnName
 //                int aLineNum
 // Return Type  : void
 //
-static void hc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void ic_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -80,8 +115,12 @@ static void hc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //
 static void main_uavrt_detection()
 {
+  coder::array<char, 2U> configPath;
+  // Initialize function 'uavrt_detection' input arguments.
+  // Initialize function input argument 'configPath'.
+  configPath = argInit_1xUnbounded_char_T();
   // Call the entry-point 'uavrt_detection'.
-  uavrt_detection();
+  uavrt_detection(configPath);
 }
 
 //
@@ -91,12 +130,12 @@ static void main_uavrt_detection()
 //
 int main(int argc, char **)
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo pc_emlrtRTEI{
       1,                // lineNo
       "uavrt_detection" // fName
   };
   if (argc > 1) {
-    hc_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+    ic_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
   }
   // The initialize function is being called automatically from your entry-point
   // function. So, a call to initialize is not included here. Invoke the

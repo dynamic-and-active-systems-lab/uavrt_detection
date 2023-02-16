@@ -5,7 +5,7 @@
 // File: uavrt_detection_data.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 #ifndef UAVRT_DETECTION_DATA_H
@@ -63,7 +63,7 @@ extern rtRunTimeErrorInfo cc_emlrtRTEI;
 extern rtDoubleCheckInfo r_emlrtDCI;
 extern rtRunTimeErrorInfo ec_emlrtRTEI;
 extern rtRunTimeErrorInfo hc_emlrtRTEI;
-extern rtRunTimeErrorInfo oc_emlrtRTEI;
+extern rtRunTimeErrorInfo nc_emlrtRTEI;
 extern const boolean_T bv[128];
 extern const char cv[128];
 extern const char cv1[22];

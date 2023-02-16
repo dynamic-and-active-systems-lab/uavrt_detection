@@ -5,7 +5,7 @@
 // File: minOrMax.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -35,7 +35,7 @@ void maximum(const ::coder::array<double, 2U> &x,
   int m;
   int n;
   if (x.size(1) < 1) {
-    gb_rtErrorWithMessageID(wb_emlrtRTEI.fName, wb_emlrtRTEI.lineNo);
+    hb_rtErrorWithMessageID(wb_emlrtRTEI.fName, wb_emlrtRTEI.lineNo);
   }
   m = x.size(0);
   n = x.size(1);
@@ -86,7 +86,7 @@ void maximum(const ::coder::array<double, 1U> &x, double *ex, int *idx)
 {
   int last;
   if (x.size(0) < 1) {
-    gb_rtErrorWithMessageID(wb_emlrtRTEI.fName, wb_emlrtRTEI.lineNo);
+    hb_rtErrorWithMessageID(wb_emlrtRTEI.fName, wb_emlrtRTEI.lineNo);
   }
   last = x.size(0);
   if (x.size(0) <= 2) {
@@ -167,7 +167,7 @@ double maximum(const ::coder::array<double, 1U> &x)
   double ex;
   int last;
   if (x.size(0) < 1) {
-    gb_rtErrorWithMessageID(wb_emlrtRTEI.fName, wb_emlrtRTEI.lineNo);
+    hb_rtErrorWithMessageID(wb_emlrtRTEI.fName, wb_emlrtRTEI.lineNo);
   }
   last = x.size(0);
   if (x.size(0) <= 2) {

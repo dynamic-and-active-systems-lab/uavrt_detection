@@ -5,7 +5,7 @@
 // File: linspace.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -59,13 +59,13 @@ static void k_rtErrorWithMessageID(const char *r, const char *aFcnName,
 namespace coder {
 void linspace(double d2, double n, ::coder::array<double, 2U> &y)
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo pc_emlrtRTEI{
       33,        // lineNo
       "linspace" // fName
   };
   if (!(n >= 0.0)) {
     if (std::isnan(n)) {
-      k_rtErrorWithMessageID("N", qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+      k_rtErrorWithMessageID("N", pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
     }
     y.set_size(1, 0);
   } else {

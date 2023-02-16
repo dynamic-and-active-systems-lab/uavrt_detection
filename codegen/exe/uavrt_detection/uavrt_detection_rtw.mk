@@ -2,7 +2,7 @@
 ## Makefile generated for component 'uavrt_detection'. 
 ## 
 ## Makefile     : uavrt_detection_rtw.mk
-## Generated on : Tue Dec 27 15:28:43 2022
+## Generated on : Thu Feb 16 15:28:36 2023
 ## Final product: $(START_DIR)\uavrt_detection.exe
 ## Product type : executable
 ## 
@@ -39,8 +39,8 @@ NODEBUG                   = 1
 ## TOOLCHAIN SPECIFICATIONS
 ###########################################################################
 
-# Toolchain Name:          Microsoft Visual C++ 2019 v16.0 | nmake (64-bit Windows)
-# Supported Version(s):    16.0
+# Toolchain Name:          Microsoft Visual C++ 2022 v17.0 | nmake (64-bit Windows)
+# Supported Version(s):    17.0
 # ToolchainInfo Version:   2022a
 # Specification Revision:  1.0
 # 

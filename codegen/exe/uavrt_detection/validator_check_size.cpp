@@ -5,7 +5,7 @@
 // File: validator_check_size.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -38,7 +38,7 @@ static rtRunTimeErrorInfo k_emlrtRTEI{
 };
 
 // Function Declarations
-static void j_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void k_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void rtErrorWithMessageID(const std::string r, const char *r1,
                                  const char *r2, const char *aFcnName,
@@ -54,7 +54,7 @@ static void rtErrorWithMessageID(const std::string r, const std::string r1,
 //                int aLineNum
 // Return Type  : void
 //
-static void j_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void k_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -212,7 +212,7 @@ void c_validator_check_size(const ::coder::array<c_struct_T, 2U> &in,
       b_sizes_idx_0 *= static_cast<double>(sizes_idx_1);
     }
     if (!(b_sizes_idx_0 <= 2.147483647E+9)) {
-      m_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+      n_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
     }
     out.set_size(sizes_idx_0, sizes_idx_1);
     maxdimlen = sizes_idx_0 * sizes_idx_1;
@@ -226,7 +226,7 @@ void c_validator_check_size(const ::coder::array<c_struct_T, 2U> &in,
       isscalar_in = true;
     }
     if (!isscalar_in) {
-      j_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+      k_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
     }
     out.set_size(sizes_idx_0, sizes_idx_1);
     maxdimlen = sizes_idx_0 * sizes_idx_1;
@@ -245,14 +245,14 @@ void c_validator_check_size(const ::coder::array<c_struct_T, 2U> &in,
       maxdimlen = nx;
     }
     if (sizes_idx_0 > maxdimlen) {
-      k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+      l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
     if (sizes_idx_1 > maxdimlen) {
-      k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+      l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
     maxdimlen = sizes_idx_0 * sizes_idx_1;
     if (maxdimlen != nx) {
-      l_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
+      m_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
     }
     out.set_size(sizes_idx_0, sizes_idx_1);
     for (sizes_idx_0 = 0; sizes_idx_0 < maxdimlen; sizes_idx_0++) {
@@ -322,7 +322,7 @@ void c_validator_check_size(const ::coder::array<double, 2U> &in,
       isscalar_in = true;
     }
     if (!isscalar_in) {
-      j_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+      k_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
     }
     out.set_size(sizes_idx_0, sizes_idx_1);
     maxdimlen = sizes_idx_0 * sizes_idx_1;
@@ -340,14 +340,14 @@ void c_validator_check_size(const ::coder::array<double, 2U> &in,
       maxdimlen = nx;
     }
     if (sizes_idx_0 > maxdimlen) {
-      k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+      l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
     if (sizes_idx_1 > maxdimlen) {
-      k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+      l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
     loop_ub = sizes_idx_0 * sizes_idx_1;
     if (loop_ub != nx) {
-      l_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
+      m_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
     }
     out.set_size(sizes_idx_0, sizes_idx_1);
     for (nx = 0; nx < loop_ub; nx++) {
@@ -411,7 +411,7 @@ void d_validator_check_size(const ::coder::array<boolean_T, 2U> &in,
       b_sizes_idx_0 *= static_cast<double>(sizes_idx_1);
     }
     if (!(b_sizes_idx_0 <= 2.147483647E+9)) {
-      m_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+      n_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
     }
     out.set_size(sizes_idx_0, sizes_idx_1);
     maxdimlen = sizes_idx_0 * sizes_idx_1;
@@ -425,7 +425,7 @@ void d_validator_check_size(const ::coder::array<boolean_T, 2U> &in,
       isscalar_in = true;
     }
     if (!isscalar_in) {
-      j_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+      k_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
     }
     out.set_size(sizes_idx_0, sizes_idx_1);
     maxdimlen = sizes_idx_0 * sizes_idx_1;
@@ -444,14 +444,14 @@ void d_validator_check_size(const ::coder::array<boolean_T, 2U> &in,
       maxdimlen = nx;
     }
     if (sizes_idx_0 > maxdimlen) {
-      k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+      l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
     if (sizes_idx_1 > maxdimlen) {
-      k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+      l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
     maxdimlen = sizes_idx_0 * sizes_idx_1;
     if (maxdimlen != nx) {
-      l_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
+      m_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
     }
     out.set_size(sizes_idx_0, sizes_idx_1);
     for (sizes_idx_0 = 0; sizes_idx_0 < maxdimlen; sizes_idx_0++) {
@@ -512,7 +512,7 @@ void validator_check_size(const ::coder::array<double, 2U> &in,
       b_sizes_idx_0 = static_cast<unsigned int>(sizes_idx_0);
     }
     if ((b_sizes_idx_0 << 1) > 2147483647U) {
-      m_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+      n_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
     }
     out.set_size(sizes_idx_0, 2);
     maxdimlen = sizes_idx_0 << 1;
@@ -521,7 +521,7 @@ void validator_check_size(const ::coder::array<double, 2U> &in,
     }
   } else if (b) {
     if (sizes_idx_0 != 0) {
-      j_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+      k_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
     }
     out.set_size(0, 2);
   } else {
@@ -536,14 +536,14 @@ void validator_check_size(const ::coder::array<double, 2U> &in,
       maxdimlen = nx;
     }
     if (sizes_idx_0 > maxdimlen) {
-      k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+      l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
     if (maxdimlen < 2) {
-      k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+      l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
     maxdimlen = sizes_idx_0 << 1;
     if (maxdimlen != nx) {
-      l_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
+      m_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
     }
     out.set_size(sizes_idx_0, 2);
     for (sizes_idx_0 = 0; sizes_idx_0 < maxdimlen; sizes_idx_0++) {
@@ -588,7 +588,7 @@ void validator_check_size(const ::coder::array<creal32_T, 2U> &in,
     }
   } else if (b1) {
     if (sizes_idx_1 != 0) {
-      j_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+      k_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
     }
     out.set_size(1, 0);
   } else {
@@ -603,10 +603,10 @@ void validator_check_size(const ::coder::array<creal32_T, 2U> &in,
       u1 = u0;
     }
     if (sizes_idx_1 > u1) {
-      k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+      l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
     if (sizes_idx_1 != in.size(1)) {
-      l_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
+      m_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
     }
     out.set_size(1, sizes_idx_1);
     for (u1 = 0; u1 < sizes_idx_1; u1++) {
@@ -670,7 +670,7 @@ void validator_check_size(const ::coder::array<creal_T, 2U> &in,
       b_sizes_idx_0 *= static_cast<double>(sizes_idx_1);
     }
     if (!(b_sizes_idx_0 <= 2.147483647E+9)) {
-      m_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+      n_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
     }
     out.set_size(sizes_idx_0, sizes_idx_1);
     maxdimlen = sizes_idx_0 * sizes_idx_1;
@@ -684,7 +684,7 @@ void validator_check_size(const ::coder::array<creal_T, 2U> &in,
       isscalar_in = true;
     }
     if (!isscalar_in) {
-      j_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+      k_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
     }
     out.set_size(sizes_idx_0, sizes_idx_1);
     maxdimlen = sizes_idx_0 * sizes_idx_1;
@@ -703,14 +703,14 @@ void validator_check_size(const ::coder::array<creal_T, 2U> &in,
       maxdimlen = nx;
     }
     if (sizes_idx_0 > maxdimlen) {
-      k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+      l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
     if (sizes_idx_1 > maxdimlen) {
-      k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+      l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
     maxdimlen = sizes_idx_0 * sizes_idx_1;
     if (maxdimlen != nx) {
-      l_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
+      m_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
     }
     out.set_size(sizes_idx_0, sizes_idx_1);
     for (sizes_idx_0 = 0; sizes_idx_0 < maxdimlen; sizes_idx_0++) {
@@ -755,7 +755,7 @@ void validator_check_size(const ::coder::array<double, 1U> &in,
     }
   } else if (isempty_in) {
     if (sizes_idx_0 != 0) {
-      j_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+      k_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
     }
     out.set_size(0, 1);
   } else {
@@ -770,10 +770,10 @@ void validator_check_size(const ::coder::array<double, 1U> &in,
       n = u0;
     }
     if (sizes_idx_0 > n) {
-      k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+      l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
     if (sizes_idx_0 != in.size(0)) {
-      l_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
+      m_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
     }
     out.set_size(sizes_idx_0, 1);
     for (n = 0; n < sizes_idx_0; n++) {
@@ -818,7 +818,7 @@ void validator_check_size(const ::coder::array<double, 1U> &in,
     }
   } else if (isempty_in) {
     if (sizes_idx_0 != 0) {
-      j_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+      k_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
     }
     out.set_size(0);
   } else {
@@ -833,10 +833,10 @@ void validator_check_size(const ::coder::array<double, 1U> &in,
       n = u0;
     }
     if (sizes_idx_0 > n) {
-      k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+      l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
     if (sizes_idx_0 != in.size(0)) {
-      l_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
+      m_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
     }
     out.set_size(sizes_idx_0);
     for (n = 0; n < sizes_idx_0; n++) {
@@ -881,7 +881,7 @@ void validator_check_size(const ::coder::array<c_struct_T, 2U> &in,
     }
   } else if (b1) {
     if (sizes_idx_1 != 0) {
-      j_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+      k_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
     }
     out.set_size(1, 0);
   } else {
@@ -896,10 +896,10 @@ void validator_check_size(const ::coder::array<c_struct_T, 2U> &in,
       u1 = u0;
     }
     if (sizes_idx_1 > u1) {
-      k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+      l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
     if (sizes_idx_1 != in.size(1)) {
-      l_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
+      m_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
     }
     out.set_size(1, sizes_idx_1);
     for (u1 = 0; u1 < sizes_idx_1; u1++) {

@@ -5,7 +5,7 @@
 // File: waveformcopy.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -67,8 +67,8 @@ waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
   coder::array<boolean_T, 2U> c_tmp_data;
   coder::array<boolean_T, 2U> e_tmp_data;
   coder::array<boolean_T, 2U> f_val;
-  c_struct_T r3;
-  emxArray_struct_T_1x1 r2;
+  c_struct_T r2;
+  emxArray_struct_T_1x1 r3;
   double tmp_data[400];
   double c_wfmIn[2];
   double k_val;
@@ -134,21 +134,26 @@ waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
   //             %%
   // Tell coder these are variable size.
   // Now actually assign them
-  r2.size[0] = 1;
-  r2.size[1] = 1;
-  makepulsestruc(&r3);
-  r2.data[0] = r3;
-  r4.set(&r2.data[0], r2.size[0], r2.size[1]);
+  makepulsestruc(&r2.A, &r2.P, &r2.SNR, &r2.yw, &r2.t_0, &r2.t_f, r2.t_next,
+                 &r2.fp, &r2.fstart, &r2.fend, r2.mode, &r2.det_dec,
+                 &r2.con_dec);
+  r3.size[0] = 1;
+  r3.size[1] = 1;
+  r3.data[0] = r2;
+  r4.set(&r3.data[0], r3.size[0], r3.size[1]);
   coder::internal::validator_check_size(r4, _in);
   (&iobj_1[0])[0].pl.set_size(1, _in.size(1));
   loop_ub = _in.size(1);
   for (int i{0}; i < loop_ub; i++) {
     (&iobj_1[0])[0].pl[i] = _in[i];
   }
-  r2.size[0] = 1;
-  r2.size[1] = 1;
-  r2.data[0] = r3;
-  r5.set(&r2.data[0], r2.size[0], r2.size[1]);
+  makepulsestruc(&r2.A, &r2.P, &r2.SNR, &r2.yw, &r2.t_0, &r2.t_f, r2.t_next,
+                 &r2.fp, &r2.fstart, &r2.fend, r2.mode, &r2.det_dec,
+                 &r2.con_dec);
+  r3.size[0] = 1;
+  r3.size[1] = 1;
+  r3.data[0] = r2;
+  r5.set(&r3.data[0], r3.size[0], r3.size[1]);
   coder::internal::c_validator_check_size(r5, e_val);
   (&iobj_1[0])[0].clst.set_size(e_val.size(0), e_val.size(1));
   loop_ub = e_val.size(0) * e_val.size(1);
@@ -194,20 +199,26 @@ waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
   //             %%
   // Tell coder these are variable size.
   // Now actually assign them
-  r2.size[0] = 1;
-  r2.size[1] = 1;
-  r2.data[0] = r3;
-  r6.set(&r2.data[0], r2.size[0], r2.size[1]);
+  makepulsestruc(&r2.A, &r2.P, &r2.SNR, &r2.yw, &r2.t_0, &r2.t_f, r2.t_next,
+                 &r2.fp, &r2.fstart, &r2.fend, r2.mode, &r2.det_dec,
+                 &r2.con_dec);
+  r3.size[0] = 1;
+  r3.size[1] = 1;
+  r3.data[0] = r2;
+  r6.set(&r3.data[0], r3.size[0], r3.size[1]);
   coder::internal::validator_check_size(r6, _in);
   (&iobj_1[0])[1].pl.set_size(1, _in.size(1));
   loop_ub = _in.size(1);
   for (int i{0}; i < loop_ub; i++) {
     (&iobj_1[0])[1].pl[i] = _in[i];
   }
-  r2.size[0] = 1;
-  r2.size[1] = 1;
-  r2.data[0] = r3;
-  r7.set(&r2.data[0], r2.size[0], r2.size[1]);
+  makepulsestruc(&r2.A, &r2.P, &r2.SNR, &r2.yw, &r2.t_0, &r2.t_f, r2.t_next,
+                 &r2.fp, &r2.fstart, &r2.fend, r2.mode, &r2.det_dec,
+                 &r2.con_dec);
+  r3.size[0] = 1;
+  r3.size[1] = 1;
+  r3.data[0] = r2;
+  r7.set(&r3.data[0], r3.size[0], r3.size[1]);
   coder::internal::c_validator_check_size(r7, e_val);
   (&iobj_1[0])[1].clst.set_size(e_val.size(0), e_val.size(1));
   loop_ub = e_val.size(0) * e_val.size(1);

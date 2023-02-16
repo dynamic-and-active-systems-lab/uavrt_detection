@@ -5,7 +5,7 @@
 // File: assertValidSizeArg.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -38,7 +38,7 @@ void assertValidSizeArg(double varargin_2)
     b_varargin_2 = varargin_2;
   }
   if (!(b_varargin_2 <= 2.147483647E+9)) {
-    m_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+    n_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
   }
 }
 

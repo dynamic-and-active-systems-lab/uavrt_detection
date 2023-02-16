@@ -5,7 +5,7 @@
 // File: ind2sub.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -36,7 +36,7 @@ void ind2sub_indexClass(const double siz[2], double ndx, int *varargout_1,
   int vk;
   if (static_cast<int>(ndx) >
       static_cast<int>(siz[0]) * static_cast<int>(siz[1])) {
-    yb_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
+    ac_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
   }
   vk = div_s32(static_cast<int>(ndx) - 1, static_cast<int>(siz[0]));
   *varargout_2 = vk + 1;
@@ -55,7 +55,7 @@ void ind2sub_indexClass(const double siz[2], int ndx, int *varargout_1,
 {
   int vk;
   if (ndx > static_cast<int>(siz[0]) * static_cast<int>(siz[1])) {
-    yb_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
+    ac_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
   }
   vk = div_s32(ndx - 1, static_cast<int>(siz[0]));
   *varargout_2 = vk + 1;

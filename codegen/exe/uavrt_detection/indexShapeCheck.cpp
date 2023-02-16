@@ -5,7 +5,7 @@
 // File: indexShapeCheck.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -27,15 +27,15 @@ static rtRunTimeErrorInfo hb_emlrtRTEI{
 };
 
 // Function Declarations
-static void cc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
-
 static void dc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void ec_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-static void gc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void fc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-static void u_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void hc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+static void v_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -43,7 +43,7 @@ static void u_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void cc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void dc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -67,7 +67,7 @@ static void cc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void dc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void ec_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -91,7 +91,7 @@ static void dc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void ec_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void fc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -115,7 +115,7 @@ static void ec_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void gc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void hc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -139,7 +139,7 @@ static void gc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void u_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void v_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -182,7 +182,7 @@ void b_indexShapeCheck(const int matrixSize[2], const int indexSize[2])
       nonSingletonDimFound = true;
     }
     if (nonSingletonDimFound) {
-      dc_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
+      ec_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
     }
   } else {
     nonSingletonDimFound = (indexSize[0] != 1);
@@ -199,7 +199,7 @@ void b_indexShapeCheck(const int matrixSize[2], const int indexSize[2])
         nonSingletonDimFound = true;
       }
       if (nonSingletonDimFound) {
-        ec_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
+        fc_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
       }
     }
   }
@@ -224,7 +224,7 @@ void b_indexShapeCheck(int matrixSize, const int indexSize[2])
     }
     if (nonSingletonDimFound &&
         (((matrixSize == 1) != (indexSize[0] == 1)) || (indexSize[1] != 1))) {
-      gc_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
+      hc_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
     }
   }
 }
@@ -261,7 +261,7 @@ void indexShapeCheck(const int matrixSize[2], const int indexSize[2])
         nonSingletonDimFound = true;
       }
       if (nonSingletonDimFound) {
-        cc_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
+        dc_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
       }
     }
   }
@@ -299,7 +299,7 @@ void indexShapeCheck(const double matrixSize[2], const double indexSize[2])
         nonSingletonDimFound = true;
       }
       if (nonSingletonDimFound) {
-        cc_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
+        dc_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
       }
     }
   }
@@ -313,7 +313,7 @@ void indexShapeCheck(const double matrixSize[2], const double indexSize[2])
 void indexShapeCheck(int matrixSize, const int indexSize[2])
 {
   if ((matrixSize == 1) && (indexSize[1] != 1)) {
-    u_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
+    v_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
   }
 }
 

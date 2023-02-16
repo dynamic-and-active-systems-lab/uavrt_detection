@@ -5,7 +5,7 @@
 // File: int2str.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -103,11 +103,11 @@ void int2str(double xin, char s_data[], int s_size[2])
       b_rtErrorWithMessageID(resCount, q_emlrtRTEI.fName, q_emlrtRTEI.lineNo);
     }
     if (resCount > 310) {
-      h_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
+      i_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
     }
     if (resCount >
         static_cast<int>(std::floor(std::log10(std::abs(x))) + 1.0)) {
-      h_rtErrorWithMessageID(o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
+      i_rtErrorWithMessageID(o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
     }
     s_size[0] = 1;
     s_size[1] = resCount;
@@ -133,7 +133,7 @@ void int2str(int xin, char s_data[], int s_size[2])
     b_rtErrorWithMessageID(resCount, q_emlrtRTEI.fName, q_emlrtRTEI.lineNo);
   }
   if (resCount > 11) {
-    h_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
   }
   if (xin == 0) {
     b_xin = 1.0;
@@ -141,7 +141,7 @@ void int2str(int xin, char s_data[], int s_size[2])
     b_xin = std::floor(std::log10(std::abs(static_cast<double>(xin)))) + 1.0;
   }
   if (resCount > static_cast<int>(b_xin)) {
-    h_rtErrorWithMessageID(o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
   }
   s_size[0] = 1;
   s_size[1] = resCount;

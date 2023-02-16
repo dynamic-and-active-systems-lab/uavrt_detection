@@ -5,7 +5,7 @@
 // File: repmat.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -61,7 +61,7 @@ void repmat(const c_struct_T *a, double varargin_1, double varargin_2,
     b_varargin_1 *= varargin_2;
   }
   if (!(b_varargin_1 <= 2.147483647E+9)) {
-    m_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+    n_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
   }
   b.set_size(static_cast<int>(varargin_1), static_cast<int>(varargin_2));
   loop_ub = static_cast<int>(varargin_1) * static_cast<int>(varargin_2);
@@ -93,7 +93,7 @@ void repmat(const ::coder::array<double, 2U> &a, double varargin_1,
     b_varargin_1 = varargin_1;
   }
   if (!(b_varargin_1 <= 2.147483647E+9)) {
-    m_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+    n_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
   }
   i = static_cast<int>(varargin_1);
   b.set_size(i, a.size(1));
@@ -136,7 +136,7 @@ void repmat(const ::coder::array<double, 1U> &a, double varargin_2,
     b_varargin_2 = varargin_2;
   }
   if (!(b_varargin_2 <= 2.147483647E+9)) {
-    m_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+    n_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
   }
   if (!(varargin_2 >= 0.0)) {
     rtNonNegativeError(varargin_2, &n_emlrtDCI);

@@ -1,2 +1,2 @@
 set "VSCMD_START_DIR=%CD%"
-CALL "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Auxiliary\Build\VCVARSALL.BAT " amd64
+CALL "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\VCVARSALL.BAT " amd64

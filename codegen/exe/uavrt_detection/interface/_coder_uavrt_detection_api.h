@@ -5,13 +5,14 @@
 // File: _coder_uavrt_detection_api.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 #ifndef _CODER_UAVRT_DETECTION_API_H
 #define _CODER_UAVRT_DETECTION_API_H
 
 // Include Files
+#include "coder_array_mex.h"
 #include "emlrt.h"
 #include "tmwtypes.h"
 #include <algorithm>
@@ -22,9 +23,9 @@ extern emlrtCTX emlrtRootTLSGlobal;
 extern emlrtContext emlrtContextGlobal;
 
 // Function Declarations
-void uavrt_detection();
+void uavrt_detection(coder::array<char_T, 2U> *configPath);
 
-void uavrt_detection_api();
+void uavrt_detection_api(const mxArray *prhs);
 
 void uavrt_detection_atexit();
 

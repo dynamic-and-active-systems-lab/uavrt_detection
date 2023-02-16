@@ -5,7 +5,7 @@
 // File: interp1.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -35,8 +35,6 @@ static rtRunTimeErrorInfo ub_emlrtRTEI{
 };
 
 // Function Declarations
-static void cb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
-
 namespace coder {
 static void interp1Linear(const double y[2],
                           const ::coder::array<double, 2U> &xi,
@@ -51,32 +49,13 @@ static void interp1Linear(const ::coder::array<double, 1U> &y, int nyrows,
 } // namespace coder
 static void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-static void rb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void eb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void sb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-// Function Definitions
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-static void cb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  outStream << "NaN is not an appropriate value for X.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
+static void tb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
+// Function Definitions
 //
 // Arguments    : const double y[2]
 //                const ::coder::array<double, 2U> &xi
@@ -204,6 +183,27 @@ static void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
+  outStream << "NaN is not an appropriate value for X.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void eb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
   outStream << "The data abscissae must be distinct and strictly monotonic.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
@@ -221,7 +221,7 @@ static void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void rb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void sb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -242,7 +242,7 @@ static void rb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void sb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void tb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -291,7 +291,7 @@ void interp1(const double varargin_1[2], const double varargin_2[2],
       exitg1 = 0;
       if (loop_ub < 2) {
         if (std::isnan(varargin_1[loop_ub])) {
-          cb_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
+          db_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
         } else {
           loop_ub++;
         }
@@ -303,7 +303,7 @@ void interp1(const double varargin_1[2], const double varargin_2[2],
           y[1] = varargin_2[0];
         }
         if (x[1] <= x[0]) {
-          db_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+          eb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
         }
         interp1Linear(y, varargin_3, Vq, x);
         exitg1 = 1;
@@ -324,11 +324,11 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
              const ::coder::array<double, 1U> &varargin_3,
              ::coder::array<double, 1U> &Vq)
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo pc_emlrtRTEI{
       153,           // lineNo
       "interp1_work" // fName
   };
-  static rtRunTimeErrorInfo rc_emlrtRTEI{
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
       137,           // lineNo
       "interp1_work" // fName
   };
@@ -349,10 +349,10 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
   }
   nx = varargin_1.size(0);
   if (varargin_1.size(0) != varargin_2.size(0)) {
-    rb_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+    sb_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
   }
   if (varargin_1.size(0) <= 1) {
-    sb_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+    tb_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
   }
   Vq.set_size(varargin_3.size(0));
   n = varargin_3.size(0);
@@ -370,7 +370,7 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
       exitg1 = 0;
       if (k <= nx - 1) {
         if (std::isnan(varargin_1[k])) {
-          cb_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
+          db_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
         } else {
           k++;
         }
@@ -398,7 +398,7 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
         }
         for (k = 2; k <= nx; k++) {
           if (x[k - 1] <= x[k - 2]) {
-            db_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+            eb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
           }
         }
         interp1Linear(y, varargin_2.size(0), varargin_3, Vq, x);

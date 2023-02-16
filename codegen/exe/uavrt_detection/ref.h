@@ -5,7 +5,7 @@
 // File: ref.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 #ifndef REF_H
@@ -14,7 +14,7 @@
 // Include Files
 #include "DetectorConfig.h"
 #include "rtwtypes.h"
-#include "string1.h"
+#include "coder_array.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -22,7 +22,7 @@
 namespace coder {
 class captured_var {
 public:
-  rtString contents;
+  array<char, 2U> contents;
 };
 
 class b_captured_var {

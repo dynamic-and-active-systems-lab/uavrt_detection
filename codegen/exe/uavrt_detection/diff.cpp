@@ -5,7 +5,7 @@
 // File: diff.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -47,7 +47,7 @@ void diff(const ::coder::array<double, 1U> &x, ::coder::array<double, 1U> &y)
     } else {
       double work_data;
       if (x.size(0) == 1) {
-        s_rtErrorWithMessageID(rb_emlrtRTEI.fName, rb_emlrtRTEI.lineNo);
+        t_rtErrorWithMessageID(rb_emlrtRTEI.fName, rb_emlrtRTEI.lineNo);
       }
       y.set_size(x.size(0) - 1);
       work_data = x[0];
@@ -83,7 +83,7 @@ void diff(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U> &y)
     } else {
       double work_data;
       if (x.size(0) == 1) {
-        s_rtErrorWithMessageID(rb_emlrtRTEI.fName, rb_emlrtRTEI.lineNo);
+        t_rtErrorWithMessageID(rb_emlrtRTEI.fName, rb_emlrtRTEI.lineNo);
       }
       y.set_size(x.size(0) - 1, 1);
       work_data = x[0];

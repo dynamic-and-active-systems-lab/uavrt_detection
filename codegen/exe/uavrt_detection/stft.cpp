@@ -5,7 +5,7 @@
 // File: stft.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -335,9 +335,9 @@ static void computeSTFT(const ::coder::array<creal_T, 2U> &x,
 static void h_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum);
 
-static void o_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
-
 static void p_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+static void q_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void rtErrorWithMessageID(const long long i, const char *aFcnName,
                                  int aLineNum);
@@ -463,7 +463,7 @@ static void computeSTFT(const ::coder::array<creal32_T, 1U> &x,
   } else if (opts_Window.size(0) == xin.size(0)) {
     csz_idx_0 = opts_Window.size(0);
   } else {
-    r_rtErrorWithMessageID(db_emlrtRTEI.fName, db_emlrtRTEI.lineNo);
+    s_rtErrorWithMessageID(db_emlrtRTEI.fName, db_emlrtRTEI.lineNo);
   }
   c.set_size(csz_idx_0, xin.size(1));
   if ((csz_idx_0 != 0) && (xin.size(1) != 0)) {
@@ -908,7 +908,7 @@ static void computeSTFT(const ::coder::array<creal_T, 2U> &x,
   } else if (opts_Window.size(0) == xin.size(0)) {
     csz_idx_0 = opts_Window.size(0);
   } else {
-    r_rtErrorWithMessageID(db_emlrtRTEI.fName, db_emlrtRTEI.lineNo);
+    s_rtErrorWithMessageID(db_emlrtRTEI.fName, db_emlrtRTEI.lineNo);
   }
   b_c.set_size(csz_idx_0, xin.size(1), xin.size(2));
   if ((csz_idx_0 != 0) && (xin.size(1) != 0)) {
@@ -1077,7 +1077,7 @@ static void computeSTFT(const ::coder::array<creal_T, 2U> &x,
     }
   }
   if (xin.size(0) == 1) {
-    s_rtErrorWithMessageID(fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
+    t_rtErrorWithMessageID(fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
   }
   if ((xin.size(0) == 0) || (xin.size(1) == 0) || (opts_FFTLength == 0.0)) {
     S.set_size(loop_ub, xin.size(1), xin.size(2));
@@ -1270,7 +1270,7 @@ static void h_rtErrorWithMessageID(const char *r, const char *aFcnName,
 //                int aLineNum
 // Return Type  : void
 //
-static void o_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void p_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -1291,7 +1291,7 @@ static void o_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void p_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void q_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -1353,7 +1353,7 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
           ::coder::array<float, 1U> &varargout_2,
           ::coder::array<float, 1U> &varargout_3)
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo pc_emlrtRTEI{
       368,                // lineNo
       "verifyDataAndTime" // fName
   };
@@ -1403,7 +1403,7 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
     e_rtErrorWithMessageID("X", x_emlrtRTEI.fName, x_emlrtRTEI.lineNo);
   }
   if (x.size(1) < 2) {
-    o_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+    p_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
   }
   ret = memcmp(&freqRange[0], &b[0], 8);
   isOnesided = (ret == 0);
@@ -1421,7 +1421,7 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
                          t_emlrtRTEI.fName, t_emlrtRTEI.lineNo);
   }
   if (isOnesided) {
-    p_rtErrorWithMessageID(u_emlrtRTEI.fName, u_emlrtRTEI.lineNo);
+    q_rtErrorWithMessageID(u_emlrtRTEI.fName, u_emlrtRTEI.lineNo);
   }
   varargout_2_Window.set_size(varargin_3.size(0));
   ret = varargin_3.size(0);
@@ -1541,7 +1541,7 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
                          t_emlrtRTEI.fName, t_emlrtRTEI.lineNo);
   }
   if (isOnesided) {
-    p_rtErrorWithMessageID(u_emlrtRTEI.fName, u_emlrtRTEI.lineNo);
+    q_rtErrorWithMessageID(u_emlrtRTEI.fName, u_emlrtRTEI.lineNo);
   }
   if (std::isinf(varargin_1) || std::isnan(varargin_1)) {
     c_rtErrorWithMessageID("sample rate", v_emlrtRTEI.fName,

@@ -5,7 +5,7 @@
 // File: AsyncBuffer.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -211,13 +211,13 @@ static rtDoubleCheckInfo
 // Function Declarations
 static void ab_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
+static void bb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
 static void i_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum);
 
 static void j_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum);
-
-static void w_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void x_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
@@ -256,6 +256,28 @@ void AsyncBuffer::matlabCodegenDestructor()
 } // namespace dsp
 } // namespace coder
 static void ab_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream
+      << "Buffer not initialized. You must call write before read or peek.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void bb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -326,7 +348,7 @@ static void j_rtErrorWithMessageID(const char *r, const char *aFcnName,
 //                int aLineNum
 // Return Type  : void
 //
-static void w_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void x_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -348,34 +370,12 @@ static void w_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void x_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void y_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
   outStream << "Invalid number of rows requested. Specify the number of rows "
                "to read as less than or equal to the buffer capacity.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-static void y_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  outStream
-      << "Buffer not initialized. You must call write before read or peek.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -458,10 +458,10 @@ void AsyncBuffer::read(double numRows, ::coder::array<creal32_T, 1U> &out)
                            y_emlrtRTEI.lineNo);
   }
   if (numRows > 49620.0) {
-    x_rtErrorWithMessageID(nb_emlrtRTEI.fName, nb_emlrtRTEI.lineNo);
+    y_rtErrorWithMessageID(nb_emlrtRTEI.fName, nb_emlrtRTEI.lineNo);
   }
   if (!pBuffer.AsyncBuffercgHelper_isInitialized) {
-    y_rtErrorWithMessageID(ob_emlrtRTEI.fName, ob_emlrtRTEI.lineNo);
+    ab_rtErrorWithMessageID(ob_emlrtRTEI.fName, ob_emlrtRTEI.lineNo);
   }
   i = static_cast<int>(numRows);
   obj = &pBuffer;
@@ -561,7 +561,7 @@ void AsyncBuffer::read(double numRows, ::coder::array<creal32_T, 1U> &out)
     }
   }
   if (b_out.size(0) != i) {
-    h_rtErrorWithMessageID(pb_emlrtRTEI.fName, pb_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(pb_emlrtRTEI.fName, pb_emlrtRTEI.lineNo);
   }
   out.set_size(b_out.size(0));
   n = b_out.size(0);
@@ -623,10 +623,10 @@ void b_AsyncBuffer::read(double numRows, ::coder::array<double, 1U> &out)
                            y_emlrtRTEI.lineNo);
   }
   if (numRows > 49620.0) {
-    x_rtErrorWithMessageID(nb_emlrtRTEI.fName, nb_emlrtRTEI.lineNo);
+    y_rtErrorWithMessageID(nb_emlrtRTEI.fName, nb_emlrtRTEI.lineNo);
   }
   if (!pBuffer.AsyncBuffercgHelper_isInitialized) {
-    y_rtErrorWithMessageID(ob_emlrtRTEI.fName, ob_emlrtRTEI.lineNo);
+    ab_rtErrorWithMessageID(ob_emlrtRTEI.fName, ob_emlrtRTEI.lineNo);
   }
   i = static_cast<int>(numRows);
   obj = &pBuffer;
@@ -720,7 +720,7 @@ void b_AsyncBuffer::read(double numRows, ::coder::array<double, 1U> &out)
     }
   }
   if (b_out.size(0) != i) {
-    h_rtErrorWithMessageID(pb_emlrtRTEI.fName, pb_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(pb_emlrtRTEI.fName, pb_emlrtRTEI.lineNo);
   }
   out.set_size(b_out.size(0));
   n = b_out.size(0);
@@ -798,7 +798,7 @@ void AsyncBuffer::read(double numRows, double overlap,
                            y_emlrtRTEI.lineNo);
   }
   if (numRows > 49620.0) {
-    x_rtErrorWithMessageID(nb_emlrtRTEI.fName, nb_emlrtRTEI.lineNo);
+    y_rtErrorWithMessageID(nb_emlrtRTEI.fName, nb_emlrtRTEI.lineNo);
   }
   if (overlap < 0.0) {
     g_rtErrorWithMessageID("overlap", ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
@@ -810,11 +810,11 @@ void AsyncBuffer::read(double numRows, double overlap,
     f_rtErrorWithMessageID("overlap", y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
   }
   if (overlap > numRows) {
-    ab_rtErrorWithMessageID(qb_emlrtRTEI.fName, qb_emlrtRTEI.lineNo);
+    bb_rtErrorWithMessageID(qb_emlrtRTEI.fName, qb_emlrtRTEI.lineNo);
   }
   overlapCast = static_cast<int>(overlap);
   if (!pBuffer.AsyncBuffercgHelper_isInitialized) {
-    y_rtErrorWithMessageID(ob_emlrtRTEI.fName, ob_emlrtRTEI.lineNo);
+    ab_rtErrorWithMessageID(ob_emlrtRTEI.fName, ob_emlrtRTEI.lineNo);
   }
   wPtr_tmp = pBuffer.WritePointer;
   underrun = 0;
@@ -997,7 +997,7 @@ void AsyncBuffer::read(double numRows, double overlap,
     }
   }
   if (b_out.size(0) != numRowsCast) {
-    h_rtErrorWithMessageID(pb_emlrtRTEI.fName, pb_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(pb_emlrtRTEI.fName, pb_emlrtRTEI.lineNo);
   }
   out.set_size(b_out.size(0));
   q0 = b_out.size(0);
@@ -1069,7 +1069,7 @@ void b_AsyncBuffer::read(double numRows, double overlap,
                            y_emlrtRTEI.lineNo);
   }
   if (numRows > 49620.0) {
-    x_rtErrorWithMessageID(nb_emlrtRTEI.fName, nb_emlrtRTEI.lineNo);
+    y_rtErrorWithMessageID(nb_emlrtRTEI.fName, nb_emlrtRTEI.lineNo);
   }
   if (overlap < 0.0) {
     g_rtErrorWithMessageID("overlap", ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
@@ -1081,11 +1081,11 @@ void b_AsyncBuffer::read(double numRows, double overlap,
     f_rtErrorWithMessageID("overlap", y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
   }
   if (overlap > numRows) {
-    ab_rtErrorWithMessageID(qb_emlrtRTEI.fName, qb_emlrtRTEI.lineNo);
+    bb_rtErrorWithMessageID(qb_emlrtRTEI.fName, qb_emlrtRTEI.lineNo);
   }
   overlapCast = static_cast<int>(overlap);
   if (!pBuffer.AsyncBuffercgHelper_isInitialized) {
-    y_rtErrorWithMessageID(ob_emlrtRTEI.fName, ob_emlrtRTEI.lineNo);
+    ab_rtErrorWithMessageID(ob_emlrtRTEI.fName, ob_emlrtRTEI.lineNo);
   }
   wPtr_tmp = pBuffer.WritePointer;
   underrun = 0;
@@ -1260,7 +1260,7 @@ void b_AsyncBuffer::read(double numRows, double overlap,
     }
   }
   if (b_out.size(0) != numRowsCast) {
-    h_rtErrorWithMessageID(pb_emlrtRTEI.fName, pb_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(pb_emlrtRTEI.fName, pb_emlrtRTEI.lineNo);
   }
   out.set_size(b_out.size(0));
   loop_ub = b_out.size(0);
@@ -1307,12 +1307,12 @@ void AsyncBuffer::reset()
 //
 void b_AsyncBuffer::reset()
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo pc_emlrtRTEI{
       1,                 // lineNo
       "SystemCore/reset" // fName
   };
   if (pBuffer.isInitialized == 2) {
-    i_rtErrorWithMessageID("reset", qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID("reset", pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
   }
   if (pBuffer.isInitialized == 1) {
     pBuffer.ReadPointer = 1;
@@ -1349,7 +1349,7 @@ void AsyncBuffer::write(const creal32_T in[4096])
     }
     pBuffer.isInitialized = 1;
     if ((pBuffer.NumChannels != -1) && (pBuffer.NumChannels != 1)) {
-      w_rtErrorWithMessageID(lb_emlrtRTEI.fName, lb_emlrtRTEI.lineNo);
+      x_rtErrorWithMessageID(lb_emlrtRTEI.fName, lb_emlrtRTEI.lineNo);
     }
     pBuffer.NumChannels = 1;
     pBuffer.AsyncBuffercgHelper_isInitialized = true;
@@ -1467,7 +1467,7 @@ void AsyncBuffer::write(const creal32_T in[4096])
 //
 void b_AsyncBuffer::write(const double in[4096])
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo pc_emlrtRTEI{
       1,                 // lineNo
       "SystemCore/setup" // fName
   };
@@ -1487,11 +1487,11 @@ void b_AsyncBuffer::write(const double in[4096])
   if (pBuffer.isInitialized != 1) {
     pBuffer.isSetupComplete = false;
     if (pBuffer.isInitialized != 0) {
-      j_rtErrorWithMessageID("setup", qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+      j_rtErrorWithMessageID("setup", pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
     }
     pBuffer.isInitialized = 1;
     if ((pBuffer.NumChannels != -1) && (pBuffer.NumChannels != 1)) {
-      w_rtErrorWithMessageID(lb_emlrtRTEI.fName, lb_emlrtRTEI.lineNo);
+      x_rtErrorWithMessageID(lb_emlrtRTEI.fName, lb_emlrtRTEI.lineNo);
     }
     pBuffer.NumChannels = 1;
     pBuffer.AsyncBuffercgHelper_isInitialized = true;

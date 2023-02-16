@@ -5,7 +5,7 @@
 // File: unique.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 30-Dec-2022 11:43:16
+// C/C++ source code generated on  : 16-Feb-2023 15:25:26
 //
 
 // Include Files
@@ -28,7 +28,7 @@ namespace coder {
 void unique_rows(const ::coder::array<double, 2U> &a,
                  ::coder::array<double, 2U> &b)
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo pc_emlrtRTEI{
       327,          // lineNo
       "unique_rows" // fName
   };
@@ -195,7 +195,7 @@ void unique_rows(const ::coder::array<double, 2U> &a,
       }
     }
     if (q > a.size(0)) {
-      h_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+      i_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
     }
     if (q < 1) {
       i2 = 0;
