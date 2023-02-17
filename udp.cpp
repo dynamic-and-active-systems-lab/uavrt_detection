@@ -98,7 +98,7 @@ void udpReceiverClear(int fdSocket)
 
 int udpSenderSend(int fdSocket, double* pulseInfo)
 {
-    return send(fdSocket, pulseInfo, sizeof(double) * 3, 0);
+    return send(fdSocket, pulseInfo, sizeof(double) * 4, 0);
 }
 
 void udpReceiverSenderRelease(int fdSocket)
