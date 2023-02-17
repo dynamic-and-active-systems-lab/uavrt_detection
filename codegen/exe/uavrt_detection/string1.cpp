@@ -5,7 +5,7 @@
 // File: string1.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 17-Feb-2023 11:20:59
+// C/C++ source code generated on  : 17-Feb-2023 12:17:58
 //
 
 // Include Files
@@ -50,6 +50,18 @@ boolean_T rtString::b_eq() const
     } while (exitg1 == 0);
   }
   return equal;
+}
+
+//
+// Arguments    : void
+// Return Type  : void
+//
+void rtString::b_init()
+{
+  Value.set_size(1, 18);
+  for (int i{0}; i < 18; i++) {
+    Value[i] = cv3[i];
+  }
 }
 
 //
@@ -147,10 +159,9 @@ boolean_T rtString::eq() const
 //
 void rtString::init()
 {
-  Value.set_size(1, 18);
-  for (int i{0}; i < 18; i++) {
-    Value[i] = cv3[i];
-  }
+  Value.set_size(1, 2);
+  Value[0] = '0';
+  Value[1] = '1';
 }
 
 } // namespace coder

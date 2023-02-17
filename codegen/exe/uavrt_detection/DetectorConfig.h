@@ -5,7 +5,7 @@
 // File: DetectorConfig.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 17-Feb-2023 11:20:59
+// C/C++ source code generated on  : 17-Feb-2023 12:17:58
 //
 
 #ifndef DETECTORCONFIG_H
@@ -22,6 +22,7 @@
 class DetectorConfig {
 public:
   void init();
+  coder::rtString ID;
   double channelCenterFreqMHz;
   double portData;
   double Fs;

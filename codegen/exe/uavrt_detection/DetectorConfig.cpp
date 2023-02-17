@@ -5,7 +5,7 @@
 // File: DetectorConfig.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 17-Feb-2023 11:20:59
+// C/C++ source code generated on  : 17-Feb-2023 12:17:58
 //
 
 // Include Files
@@ -22,6 +22,7 @@
 //
 void DetectorConfig::init()
 {
+  ID.init();
   channelCenterFreqMHz = 150.0;
   portData = 1.0;
   Fs = 192000.0;
@@ -31,7 +32,7 @@ void DetectorConfig::init()
   tipu = 0.0;
   tipj = 0.0;
   K = 1.0;
-  opMode.init();
+  opMode.b_init();
   excldFreqs.set_size(1, 2);
   excldFreqs[0] = rtInf;
   excldFreqs[1] = rtMinusInf;

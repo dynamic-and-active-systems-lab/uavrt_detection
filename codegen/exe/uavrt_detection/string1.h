@@ -5,7 +5,7 @@
 // File: string1.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 17-Feb-2023 11:20:59
+// C/C++ source code generated on  : 17-Feb-2023 12:17:58
 //
 
 #ifndef STRING1_H
@@ -26,6 +26,7 @@ public:
   boolean_T c_eq() const;
   boolean_T d_eq() const;
   void init();
+  void b_init();
   array<char, 2U> Value;
 };
 

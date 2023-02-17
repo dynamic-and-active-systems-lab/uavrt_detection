@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 17-Feb-2023 11:20:59
+// C/C++ source code generated on  : 17-Feb-2023 12:17:58
 //
 
 // Include Files
@@ -1043,7 +1043,14 @@ static void updateconfig(coder::b_captured_var *Config,
           for (ii_data = 0; ii_data < text_len; ii_data++) {
             c_lineStr[ii_data] = lineStr[ii_data];
           }
-          if (!coder::internal::c_strcmp(c_lineStr)) {
+          if (coder::internal::c_strcmp(c_lineStr)) {
+            text_len = match_idx - i;
+            _in.Value.set_size(1, text_len);
+            for (match_idx = 0; match_idx < text_len; match_idx++) {
+              _in.Value[match_idx] = lineStr[i + match_idx];
+            }
+            Config->contents.ID = _in;
+          } else {
             c_lineStr.set_size(1, text_len);
             for (ii_data = 0; ii_data < text_len; ii_data++) {
               c_lineStr[ii_data] = lineStr[ii_data];
@@ -2403,18 +2410,25 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
         Xhold = waveformcopy(&b_X, &lobj_9, &lobj_10[0], &lobj_11);
         i = ps_pre_struc_pl.size(1);
         for (n = 0; n < i; n++) {
-          double pulseInfo[3];
+          creal_T pulseInfo[4];
+          creal_T yc;
           if (n + 1 > ps_pre_struc_pl.size(1)) {
             rtDynamicBoundsError(n + 1, 1, ps_pre_struc_pl.size(1),
                                  &fb_emlrtBCI);
           }
-          printf("Pulse at %e Hz detected. SNR: %e Confirmation status: %u \n",
-                 ps_pre_struc_pl[n].fp, ps_pre_struc_pl[n].SNR,
+          yc = coder::str2double(Config.contents.ID.Value);
+          printf("Pulse at %e Hz detected. ID: %f SNR: %e Confirmation status: "
+                 "%u \n",
+                 yc.re, ps_pre_struc_pl[n].fp, ps_pre_struc_pl[n].SNR,
                  static_cast<unsigned int>(ps_pre_struc_pl[n].con_dec));
           fflush(stdout);
-          pulseInfo[0] = ps_pre_struc_pl[n].SNR;
-          pulseInfo[1] = ps_pre_struc_pl[n].con_dec;
-          pulseInfo[2] = ps_pre_struc_pl[n].t_0;
+          pulseInfo[0] = yc;
+          pulseInfo[1].re = ps_pre_struc_pl[n].SNR;
+          pulseInfo[1].im = 0.0;
+          pulseInfo[2].re = ps_pre_struc_pl[n].con_dec;
+          pulseInfo[2].im = 0.0;
+          pulseInfo[3].re = ps_pre_struc_pl[n].t_0;
+          pulseInfo[3].im = 0.0;
           udpSenderSend(udpSender, &pulseInfo[0]);
         }
         d_varargin_1.set_size(1, 2);

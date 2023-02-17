@@ -350,7 +350,7 @@ while true %i <= maxInd
                         for j = 1:numel(ps_pre_struc.pl)
                             pulse = ps_pre_struc.pl(j);
                             tagId = str2double(Config.ID);
-                            fprintf('Pulse at %e Hz detected. ID: %d SNR: %e Confirmation status: %u \n', tagId, pulse.fp, pulse.SNR, uint32(pulse.con_dec));
+                            fprintf('Pulse at %e Hz detected. ID: %f SNR: %e Confirmation status: %u \n', tagId, pulse.fp, pulse.SNR, uint32(pulse.con_dec));
                             udpSenderSend(udpSender, [ tagId pulse.SNR pulse.con_dec pulse.t_0]);
                         end
 
