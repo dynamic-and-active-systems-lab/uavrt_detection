@@ -15,7 +15,7 @@ tipj:	0.020000
 K:	3
 opMode:	freqSearchHardLock
 excldFreqs:	[Inf, -Inf]
-falseAlarmProb:	0.00080
+falseAlarmProb:	0.05
 dataRecordPath:	/home/parallels/Downloads/data_record.bin
 processedOuputPath:	/home/parallels/Downloads
 ros2enable:	false
