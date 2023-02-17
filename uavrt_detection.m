@@ -211,7 +211,8 @@ nextSampleCount   = uint64(0);
 rawIdealSampleCount = uint64(0);
 idealSampleCount  = uint64(0);
 sampleOffset      = uint64(0);
-
+previousPulseTime = 0;
+repeatedDetectionFlag = false;
 
 if Config.startInRunState
     state = 'run';
@@ -249,7 +250,7 @@ while true %i <= maxInd
                 staleDataFlag = false;
 
                 fprintf('********RESETTING TIMES*********\n');
-                startTime = round(posixtime(datetime('now'))*1000000)/1000000;
+                %startTime = round(posixtime(datetime('now'))*1000000)/1000000;
                 framesReceived = 0;
                 currSampleCount = uint64(0);
                 nextSampleCount = uint64(0);
@@ -288,12 +289,14 @@ while true %i <= maxInd
                 %sample count since the upstream processess may have 
                 %started a while ago and its sample count may not be zero
                 if framesReceived == 1
+                    startTime = round(posixtime(datetime('now'))*1000000)/1000000;
                     sampleOffset = rawIdealSampleCount - nReceived;
                     %To estimate the timestamp of the sample before the 
                     %first one in this first frame we go back in time 
                     %from the start time. 
                     lastTimeStamp = startTime - (double(nReceived) + 1) * 1/Config.Fs; 
                 end
+
                 
                 idealSampleCount = rawIdealSampleCount - sampleOffset;
 
@@ -322,9 +325,11 @@ while true %i <= maxInd
 
                 end
 
+fprintf('nReceived: %u \t currSampleCount: %u \t idealSampleCount: %u \t rawIdealSampleCount: %u \t missingSamples: %u numel(iqData): %u numel(iqDataToWrite): %u nextSampleCount: %u \t\n',nReceived, currSampleCount, idealSampleCount, rawIdealSampleCount, missingSamples, uint64(numel(iqData)), uint64(numel(iqDataToWrite)), nextSampleCount)
+
                 timeVector = lastTimeStamp + ...
                              (1 : numel(iqDataToWrite)).' * 1/Config.Fs;
-
+fprintf('Sample elapsed seconds: %f \t Posix elapsed seconds:  \n', timeVector(end), round(posixtime(datetime('now'))*1000000)/1000000 - startTime)
                 lastTimeStamp = timeVector(end);
 
                 %Write out data and time.
@@ -341,6 +346,18 @@ while true %i <= maxInd
 
                 %end
 
+if asyncDataBuff.NumUnreadSamples >= 3*(sampsForKPulses + overlapSamples)
+   fprintf('Buffer anomaly detected. Printing buffer from back to front:\n')
+    data = asyncDataBuff.read(asyncDataBuff.NumUnreadSamples);
+   % for i = numel(data):-1:1
+   %      fprintf('%f + i%f, ', real(data(i)), imag(data(i)));
+   %      if mod(i,20) == 0
+   %          fprintf('\n')
+   %      end
+   % end
+   state = 'kill';
+   break
+end
                 %% Process data if there is enough in the buffers
                 if asyncDataBuff.NumUnreadSamples >= sampsForKPulses + overlapSamples
                     fprintf('Buffer Full|| sampsForKPulses: %u, overlapSamples: %u,\n',uint32(sampsForKPulses),uint32(overlapSamples))
@@ -532,21 +549,42 @@ previousToc = toc;
 
                         %Deal with detected pulses
                         %Xhold{mod(segmentsProcessed,maxSegments)} = X;%Keep a maxSegments running record of waveforms for debugging in Matlab
-                        %Xstruct = obj2structrecursive(X);
+                        %Xstruct = obj2structrecursive();
                         %Xhold = X;
                         Xhold = waveformcopy(X);
-
-                        for j = 1:numel(ps_pre_struc.pl)
-                            fprintf('Pulse at %e Hz detected. SNR: %e Confirmation status: %u \n', ...
-                                ps_pre_struc.pl(j).fp, ...
+                        
+                        nPulseList           = numel(X.ps_pos.pl);
+                        pulsesToSkip         = false(1, nPulseList);
+                        %Report pulses and check for repeat detections
+                        if ~isnan(X.ps_pos.cpki)
+                            for j = 1 : nPulseList
+                                currPulseTime = X.ps_pos.pl(j).t_0;
+                                
+                                fprintf(['Pulse at %f Hz detected. SNR: %f \n ' ...
+                                         '\t Confirmation status: %u \n', ...
+                                         '\t Interpulse time    : %f \n'], ...
+                                Config.channelCenterFreqMHz + ps_pre_struc.pl(j).fp * 10^-6, ...
                                 ps_pre_struc.pl(j).SNR, ...
-                                uint32(ps_pre_struc.pl(j).con_dec))
+                                uint32(ps_pre_struc.pl(j).con_dec),...
+                                currPulseTime - previousPulseTime);
+                                if currPulseTime - previousPulseTime < 1/10 * X.ps_pre.t_ip %Overlap occasionally will redetect the same pulse
+                                    fprintf('(\t ^---This likely a repeat of a previously detected pulse. Will not be transmitted. \n');
+                                    pulsesToSkip(j) = true;
+                                else
+                                    previousPulseTime = currPulseTime;
+                                end
+                                
+                            end
+                        else
+                            fprintf('No pulses detected \n')
                         end
+                        
 
                         pulseCount = 0;
+
                         if ~isnan(X.ps_pos.cpki)
                             fprintf("Transmitting ROS2 pulse messages");
-                            for j = 1:numel(X.ps_pos.pl)
+                            for j = 1:nPulseList
                                 
                                 % %% Build out pulseOut structure parameters for sending
                                 % pulseOut.tag_id                     = uint32(Config.ID);
@@ -594,35 +632,38 @@ previousToc = toc;
 
                                 % Publish pulses to UDP
                                 currPulseOut = pulseOut( X.ps_pos.pl(j), Config.ID, currDir, Config.channelCenterFreqMHz, j, groupSNR, []);
-                                mavlinkTunnelMsg = currPulseOut.formatForTunnelMsg(255, 0, 0);    %tunnelPulse = formatPulseForTunnel(255, 0, 0, pulseOut);
-                                udpPulseOut(mavlinkTunnelMsg);
-                                
+                                if ~pulsesToSkip(j)
+                                    mavlinkTunnelMsg = currPulseOut.formatForTunnelMsg(255, 0, 0);    %tunnelPulse = formatPulseForTunnel(255, 0, 0, pulseOut);
+                                    udpPulseOut(mavlinkTunnelMsg);
 
-                                %% Package and send ROS2 pulse message
-                                if ros2Enable
-                                    pulseMsg.detector_dir               = char( currPulseOut.detector_dir );
-                                    pulseMsg.tag_id                     = currPulseOut.tag_id;
-                                    pulseMsg.frequency                  = currPulseOut.frequency;
-                                    pulseMsg.start_time.sec             = currPulseOut.start_time_sec;
-                                    pulseMsg.start_time.nanosec         = currPulseOut.start_time_nanosec;
-                                    pulseMsg.end_time.sec               = currPulseOut.end_time_sec;
-                                    pulseMsg.end_time.nanosec           = currPulseOut.end_time_nanosec;
-                                    pulseMsg.predict_next_start.sec     = currPulseOut.predict_next_start_sec;
-                                    pulseMsg.predict_next_start.nanosec = currPulseOut.predict_next_start_nanosec;
-                                    pulseMsg.predict_next_end.sec       = currPulseOut.predict_next_end_sec;
-                                    pulseMsg.predict_next_end.nanosec   = currPulseOut.predict_next_end_nanosec;
-                                    pulseMsg.snr                        = currPulseOut.snr;
-                                    pulseMsg.stft_score                 = currPulseOut.stft_score;
-                                    pulseMsg.group_ind                  = currPulseOut.group_ind;
-                                    pulseMsg.group_snr                  = currPulseOut.group_snr;
-                                    pulseMsg.detection_status           = currPulseOut.detection_status;
-                                    pulseMsg.confirmed_status           = currPulseOut.confirmed_status;
 
-                                    send(pulsePub,pulseMsg)
+
+                                    %% Package and send ROS2 pulse message
+                                    if ros2Enable
+                                        pulseMsg.detector_dir               = char( currPulseOut.detector_dir );
+                                        pulseMsg.tag_id                     = currPulseOut.tag_id;
+                                        pulseMsg.frequency                  = currPulseOut.frequency;
+                                        pulseMsg.start_time.sec             = currPulseOut.start_time_sec;
+                                        pulseMsg.start_time.nanosec         = currPulseOut.start_time_nanosec;
+                                        pulseMsg.end_time.sec               = currPulseOut.end_time_sec;
+                                        pulseMsg.end_time.nanosec           = currPulseOut.end_time_nanosec;
+                                        pulseMsg.predict_next_start.sec     = currPulseOut.predict_next_start_sec;
+                                        pulseMsg.predict_next_start.nanosec = currPulseOut.predict_next_start_nanosec;
+                                        pulseMsg.predict_next_end.sec       = currPulseOut.predict_next_end_sec;
+                                        pulseMsg.predict_next_end.nanosec   = currPulseOut.predict_next_end_nanosec;
+                                        pulseMsg.snr                        = currPulseOut.snr;
+                                        pulseMsg.stft_score                 = currPulseOut.stft_score;
+                                        pulseMsg.group_ind                  = currPulseOut.group_ind;
+                                        pulseMsg.group_snr                  = currPulseOut.group_snr;
+                                        pulseMsg.detection_status           = currPulseOut.detection_status;
+                                        pulseMsg.confirmed_status           = currPulseOut.confirmed_status;
+
+                                        send(pulsePub,pulseMsg)
+                                    end
+
+                                    pulseCount = pulseCount+1;
+
                                 end
-
-                                pulseCount = pulseCount+1;
-
 
                                 % %s pulseMsg.detector_dir
                                 % %s pulseMsg.tag_id
@@ -699,8 +740,6 @@ previousToc = toc;
 
 
             if toc >= 1 + tocAtLastCommandCheck %no faster than every 1 s check for new commands
-                disp('*******************************************')
-                disp('*******************************************')
                 tocAtLastCommandCheck = toc;
                 cmdReceived = controlreceiver('127.0.0.1', Config.portCntrl,false);
                 previousState = state;

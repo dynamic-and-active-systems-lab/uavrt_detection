@@ -89,7 +89,7 @@ classdef threshold
             obj    = obj.setthreshprops(thresh, Wfm);                   %Set thresholds for each bin based on their bin powers
         end
 
-        function [obj] = makenewthreshold(obj, Wfm)
+        function [obj] = makenewthreshold(obj, Wfm) %#codegen
             %BUILDTHRESHOLD generates a threshold vector for the waveform argument
             %based on the false alarm probability input.
             %
@@ -150,7 +150,9 @@ previousToc = toc;
 fprintf('\t Running pulse summing process for all datasets ...')
 
             %Preform the incoherent summation using a matrix multiply.
-            %Could use pagetimes.m for this, but it isn't supported for code generation
+            %Could use pagetimes.m for this, but it isn't supported for
+            %code generation with sparse matrices as of R2023a
+            
             for i = 1:trials
                 scores(i) = max(abs(Wfm.W'*Ssynth(:,:,i)).^2 * Wq, [], 'all'); %'all' call finds max across all temporal correlation sets and frequency bins just like we do in the dectection code.
             end
