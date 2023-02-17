@@ -5,7 +5,7 @@
 // File: circshift.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 16-Feb-2023 15:25:26
+// C/C++ source code generated on  : 17-Feb-2023 11:20:59
 //
 
 // Include Files
@@ -38,7 +38,7 @@ void b_circshift(::coder::array<double, 2U> &a)
     ns = 0;
     shiftright = false;
     if (a.size(0) < 1) {
-      nc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+      mc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
     }
     if ((a.size(0) >> 1) < 1) {
       ns = a.size(0) - 2;
@@ -109,7 +109,7 @@ void c_circshift(::coder::array<double, 2U> &a)
     shiftright = true;
     if (a.size(0) < 2) {
       if (a.size(0) == 0) {
-        nc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+        mc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
       }
       ns = 1 - (a.size(0) << 1);
     }
@@ -180,7 +180,7 @@ void circshift(::coder::array<creal_T, 2U> &a)
     ns = 0;
     shiftright = false;
     if (a.size(0) < 1) {
-      nc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+      mc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
     }
     if ((a.size(0) >> 1) < 1) {
       ns = a.size(0) - 2;
@@ -254,7 +254,7 @@ void circshift(::coder::array<double, 2U> &a)
     ns = 0;
     shiftright = true;
     if (a.size(0) < 1) {
-      nc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+      mc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
     }
     if ((a.size(0) >> 1) < 1) {
       ns = a.size(0) - 2;
@@ -325,7 +325,7 @@ void d_circshift(::coder::array<double, 2U> &a)
     shiftright = false;
     if (a.size(0) < 2) {
       if (a.size(0) == 0) {
-        nc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+        mc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
       }
       ns = 1 - (a.size(0) << 1);
     }
@@ -397,7 +397,7 @@ void e_circshift(::coder::array<double, 2U> &a)
     ns = 0;
     shiftright = true;
     if (a.size(1) < 1) {
-      nc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+      mc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
     }
     if ((a.size(1) >> 1) < 1) {
       ns = a.size(1) - 2;
@@ -462,7 +462,7 @@ void f_circshift(::coder::array<double, 2U> &a)
     ns = 0;
     shiftright = false;
     if (a.size(1) < 1) {
-      nc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+      mc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
     }
     if ((a.size(1) >> 1) < 1) {
       ns = a.size(1) - 2;
@@ -527,7 +527,7 @@ void g_circshift(::coder::array<boolean_T, 2U> &a)
     ns = 0;
     shiftright = false;
     if (a.size(1) < 1) {
-      nc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+      mc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
     }
     if ((a.size(1) >> 1) < 1) {
       ns = a.size(1) - 2;

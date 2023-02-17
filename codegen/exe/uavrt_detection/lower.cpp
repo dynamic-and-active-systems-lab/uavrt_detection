@@ -5,7 +5,7 @@
 // File: lower.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 16-Feb-2023 15:25:26
+// C/C++ source code generated on  : 17-Feb-2023 11:20:59
 //
 
 // Include Files
@@ -38,7 +38,7 @@ void lower(const ::coder::array<char, 2U> &x, ::coder::array<char, 2U> &y)
     p = (p && (static_cast<unsigned char>(x[k]) <= 127));
   }
   if (!p) {
-    rc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
+    qc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
   }
   y.set_size(1, x.size(1));
   ns = x.size(1);

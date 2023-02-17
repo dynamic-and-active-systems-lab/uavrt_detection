@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 16-Feb-2023 15:25:26
+// C/C++ source code generated on  : 17-Feb-2023 11:20:59
 //
 
 // Include Files
@@ -1845,7 +1845,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   if (udpReceiver <= 0) {
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
   }
-  udpSender = udpSenderSetup(30000.0);
+  udpSender = udpSenderSetup(Config.contents.portData + 10000.0);
   if (udpSender <= 0) {
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
   }

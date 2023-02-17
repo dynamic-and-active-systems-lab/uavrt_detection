@@ -5,7 +5,7 @@
 // File: uavrt_detection_rtwutil.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 16-Feb-2023 15:25:26
+// C/C++ source code generated on  : 17-Feb-2023 11:20:59
 //
 
 #ifndef UAVRT_DETECTION_RTWUTIL_H
@@ -60,7 +60,7 @@ extern void i_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void ib_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-extern void jc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+extern void ic_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void l_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
@@ -71,9 +71,11 @@ extern void m_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void mb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
+extern void mc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
 extern void n_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-extern void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+extern void qc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void rc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
@@ -115,8 +117,6 @@ extern double rt_hypotd_snf(double u0, double u1);
 extern double rt_powd_snf(double u0, double u1);
 
 extern void s_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
-
-extern void sc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void t_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 

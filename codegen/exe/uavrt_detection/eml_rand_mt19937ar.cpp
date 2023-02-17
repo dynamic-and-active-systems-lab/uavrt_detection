@@ -5,7 +5,7 @@
 // File: eml_rand_mt19937ar.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 16-Feb-2023 15:25:26
+// C/C++ source code generated on  : 17-Feb-2023 11:20:59
 //
 
 // Include Files
@@ -28,7 +28,7 @@ static void genrand_uint32_vector(unsigned int mt[625], unsigned int u[2]);
 static double genrandu(unsigned int mt[625]);
 
 } // namespace coder
-static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void jc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -161,7 +161,7 @@ static double genrandu(unsigned int mt[625])
         }
       }
       if (!isvalid) {
-        kc_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
+        jc_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
       }
     } else {
       exitg1 = 1;
@@ -176,7 +176,7 @@ static double genrandu(unsigned int mt[625])
 // Return Type  : void
 //
 } // namespace coder
-static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void jc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;

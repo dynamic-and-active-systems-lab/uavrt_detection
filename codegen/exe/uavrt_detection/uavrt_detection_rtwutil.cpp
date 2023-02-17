@@ -5,7 +5,7 @@
 // File: uavrt_detection_rtwutil.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 16-Feb-2023 15:25:26
+// C/C++ source code generated on  : 17-Feb-2023 11:20:59
 //
 
 // Include Files
@@ -352,7 +352,7 @@ void ib_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-void jc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+void ic_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -467,6 +467,27 @@ void mb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
+void mc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Divide by zero.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
 void n_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
@@ -488,11 +509,13 @@ void n_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+void qc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
-  outStream << "Divide by zero.";
+  ((outStream << "This input can only contain characters in the range 0 to ")
+   << 127)
+      << ".";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -513,8 +536,11 @@ void rc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
-  ((outStream << "This input can only contain characters in the range 0 to ")
-   << 127)
+  ((outStream << "For code generation, sparse matrix sizes must be less than "
+                 "intmax(\'int32\') and the maximum value of \'int\' specified "
+                 "in the targe"
+                 "t hardware: ")
+   << MAX_int32_T)
       << ".";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
@@ -957,32 +983,6 @@ void s_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
   std::stringstream outStream;
   outStream << "Non-singleton dimensions of the two input arrays must match "
                "each other.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-void sc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  ((outStream << "For code generation, sparse matrix sizes must be less than "
-                 "intmax(\'int32\') and the maximum value of \'int\' specified "
-                 "in the targe"
-                 "t hardware: ")
-   << MAX_int32_T)
-      << ".";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {

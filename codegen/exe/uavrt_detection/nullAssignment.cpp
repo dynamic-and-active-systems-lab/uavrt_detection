@@ -5,7 +5,7 @@
 // File: nullAssignment.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 16-Feb-2023 15:25:26
+// C/C++ source code generated on  : 17-Feb-2023 11:20:59
 //
 
 // Include Files
@@ -33,7 +33,7 @@ void nullAssignment(::coder::array<char, 2U> &x, int idx)
   int nxin;
   int nxout;
   if (idx > x.size(1)) {
-    jc_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
+    ic_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
   }
   nxin = x.size(1);
   nxout = x.size(1) - 1;

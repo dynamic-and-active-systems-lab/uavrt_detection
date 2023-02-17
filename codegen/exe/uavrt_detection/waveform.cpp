@@ -5,7 +5,7 @@
 // File: waveform.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 16-Feb-2023 15:25:26
+// C/C++ source code generated on  : 17-Feb-2023 11:20:59
 //
 
 // Include Files
@@ -2254,7 +2254,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   int nx;
   unsigned int p;
   int wind_start_size;
-  boolean_T t6_con_dec;
+  boolean_T t8_con_dec;
   boolean_T y;
   if (excluded_freq_bands_in.size(0) == 0) {
     excluded_freq_bands.set_size(1, 2);
@@ -5571,8 +5571,8 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   // cur_pl(n_freqs,n_pls) = pulse;
   makepulsestruc(&tip_temp, &tp_temp, &t_lastknown, &n_blks, &diff_thresh,
                  &stft_dt, expl_temp.t_next, &timetol, &wind_start_data,
-                 &naive_wind_end, expl_temp.mode, &y, &t6_con_dec);
-  expl_temp.con_dec = t6_con_dec;
+                 &naive_wind_end, expl_temp.mode, &y, &t8_con_dec);
+  expl_temp.con_dec = t8_con_dec;
   expl_temp.det_dec = y;
   expl_temp.fend = naive_wind_end;
   expl_temp.fstart = wind_start_data;
@@ -10109,8 +10109,8 @@ void waveform::setweightingmatrix()
   static rtBoundsCheckInfo eb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     159,                               // lineNo
-    38,                                // colNo
-    "stackedToeplitzMatrices",         // aName
+    71,                                // colNo
+    "Xs",                              // aName
     "weightingmatrix",                 // fName
     "H:\\repos\\uavrt_detection\\weightingmatrix.m",// pName
     0                                  // checkKind
@@ -10119,8 +10119,8 @@ void waveform::setweightingmatrix()
   static rtBoundsCheckInfo fb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     159,                               // lineNo
-    71,                                // colNo
-    "Xs",                              // aName
+    38,                                // colNo
+    "stackedToeplitzMatrices",         // aName
     "weightingmatrix",                 // fName
     "H:\\repos\\uavrt_detection\\weightingmatrix.m",// pName
     0                                  // checkKind
@@ -10128,9 +10128,9 @@ void waveform::setweightingmatrix()
 
   static rtBoundsCheckInfo gb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    159,                               // lineNo
-    29,                                // colNo
-    "stackedToeplitzMatrices",         // aName
+    190,                               // lineNo
+    33,                                // colNo
+    "freqs",                           // aName
     "weightingmatrix",                 // fName
     "H:\\repos\\uavrt_detection\\weightingmatrix.m",// pName
     0                                  // checkKind
@@ -10138,9 +10138,9 @@ void waveform::setweightingmatrix()
 
   static rtBoundsCheckInfo hb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    190,                               // lineNo
-    33,                                // colNo
-    "freqs",                           // aName
+    159,                               // lineNo
+    29,                                // colNo
+    "stackedToeplitzMatrices",         // aName
     "weightingmatrix",                 // fName
     "H:\\repos\\uavrt_detection\\weightingmatrix.m",// pName
     0                                  // checkKind
@@ -10678,21 +10678,21 @@ void waveform::setweightingmatrix()
       if ((static_cast<int>(rowStart) < 1) || (static_cast<int>(rowStart) >
            stackedToeplitzMatrices.size(0))) {
         rtDynamicBoundsError(static_cast<int>(rowStart), 1,
-                             stackedToeplitzMatrices.size(0), &gb_emlrtBCI);
+                             stackedToeplitzMatrices.size(0), &hb_emlrtBCI);
       }
 
       i2 = static_cast<int>(rowStart) - 1;
       if ((static_cast<int>(rowEnd) < 1) || (static_cast<int>(rowEnd) >
            stackedToeplitzMatrices.size(0))) {
         rtDynamicBoundsError(static_cast<int>(rowEnd), 1,
-                             stackedToeplitzMatrices.size(0), &eb_emlrtBCI);
+                             stackedToeplitzMatrices.size(0), &fb_emlrtBCI);
       }
 
       i3 = static_cast<int>(rowEnd);
     }
 
     if (Xs.size(0) < 1) {
-      rtDynamicBoundsError(1, 1, Xs.size(0), &fb_emlrtBCI);
+      rtDynamicBoundsError(1, 1, Xs.size(0), &eb_emlrtBCI);
     }
 
     b_x.set_size(loop_ub_tmp);
@@ -10883,7 +10883,7 @@ void waveform::setweightingmatrix()
 
   if (output_samps.size(1) < 1) {
     rtDynamicBoundsError(output_samps.size(1), 1, output_samps.size(1),
-                         &hb_emlrtBCI);
+                         &gb_emlrtBCI);
   }
 
   xtmp_re = -output_samps[output_samps.size(1) - 1] - (b_Fs -

@@ -5,7 +5,7 @@
 // File: fileManager.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 16-Feb-2023 15:25:26
+// C/C++ source code generated on  : 17-Feb-2023 11:20:59
 //
 
 // Include Files
@@ -44,7 +44,7 @@ static signed char filedata();
 }
 static void h_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-static void qc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void pc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -99,7 +99,7 @@ static void h_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void qc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void pc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -187,7 +187,7 @@ signed char cfopen(const ::coder::array<char, 2U> &cfilename,
   fileid = -1;
   j = filedata();
   if (j < 1) {
-    qc_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
+    pc_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
   } else {
     FILE *filestar;
     int i;
