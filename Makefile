@@ -22,7 +22,7 @@ ROOT_DIR                  	= .
 CODEGEN_DIR                 = $(ROOT_DIR)/codegen/exe/uavrt_detection
 EXAMPLES_DIR                = $(CODEGEN_DIR)/examples
 REPOS_DIR					= ..
-MATLAB_ROOT               	= $(REPOS_DIR)/matlab-extern
+CODER_UTILS               	= $(ROOT_DIR)/matlab-coder-utils
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0
 MODEL_HAS_DYNAMICALLY_LOADED_SFCNS = 
@@ -150,7 +150,7 @@ BUILD_TYPE = "Executable"
 ## INCLUDE PATHS
 ###########################################################################
 
-INCLUDES_BUILDINFO = -I$(ROOT_DIR) -I$(CODEGEN_DIR) -I$(EXAMPLES_DIR) -I$(MATLAB_ROOT)/extern/include
+INCLUDES_BUILDINFO = -I$(ROOT_DIR) -I$(CODEGEN_DIR) -I$(EXAMPLES_DIR) -I$(CODER_UTILS)/coder-headers -I$(CODER_UTILS)/c-udp
 
 INCLUDES = $(INCLUDES_BUILDINFO)
 
@@ -167,7 +167,7 @@ DEFINES = $(DEFINES_CUSTOM) $(DEFINES_STANDARD)
 ## SOURCE FILES
 ###########################################################################
 
-SRCS = $(wildcard $(CODEGEN_DIR)/*.cpp) $(wildcard $(CODEGEN_DIR)/*.c) $(wildcard $(ROOT_DIR)/*.cpp) $(wildcard $(EXAMPLES_DIR)/*.cpp)
+SRCS = $(wildcard $(CODEGEN_DIR)/*.cpp) $(wildcard $(CODEGEN_DIR)/*.c) $(wildcard $(ROOT_DIR)/*.cpp) $(wildcard $(CODER_UTILS)/c-udp/*.cpp) $(wildcard $(EXAMPLES_DIR)/*.cpp)
 
 ALL_SRCS = $(SRCS)
 
