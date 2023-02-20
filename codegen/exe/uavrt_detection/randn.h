@@ -5,7 +5,7 @@
 // File: randn.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 #ifndef RANDN_H
@@ -13,6 +13,7 @@
 
 // Include Files
 #include "rtwtypes.h"
+#include "coder_array.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -20,7 +21,7 @@
 namespace coder {
 void randn(double r[1000]);
 
-void randn(double varargin_1, int r_size[2]);
+void randn(double varargin_1, ::coder::array<double, 2U> &r);
 
 } // namespace coder
 

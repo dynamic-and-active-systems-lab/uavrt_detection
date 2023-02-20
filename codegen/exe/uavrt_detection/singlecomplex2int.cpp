@@ -5,7 +5,7 @@
 // File: singlecomplex2int.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 // Include Files
@@ -14,6 +14,7 @@
 #include "uavrt_detection_data.h"
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
+#include <cmath>
 #include <string.h>
 
 // Function Definitions
@@ -62,12 +63,12 @@ double singlecomplex2int(const creal32_T singleComplex)
   // Author:    Michael Shafer
   // Date:      2022-08-19
   // -------------------------------------------------------------------------
-  if ((!(singleComplex.re == singleComplex.re)) ||
-      (!(singleComplex.im == singleComplex.im))) {
-    b_rtErrorWithMessageID(b_emlrtRTEI.fName, b_emlrtRTEI.lineNo);
+  if ((!(singleComplex.re == std::floor(singleComplex.re))) ||
+      (!(singleComplex.im == std::floor(singleComplex.im)))) {
+    rtErrorWithMessageID(b_emlrtRTEI.fName, b_emlrtRTEI.lineNo);
   }
   if ((singleComplex.im > 9.999999E+6F) || (singleComplex.im < 0.0F)) {
-    b_rtErrorWithMessageID(b_emlrtRTEI.fName, b_emlrtRTEI.lineNo);
+    rtErrorWithMessageID(b_emlrtRTEI.fName, b_emlrtRTEI.lineNo);
   }
   return singleComplex.re * 1.0E+7 + singleComplex.im;
 }

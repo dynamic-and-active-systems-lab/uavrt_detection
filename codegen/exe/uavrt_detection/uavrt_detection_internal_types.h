@@ -5,7 +5,7 @@
 // File: uavrt_detection_internal_types.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 #ifndef UAVRT_DETECTION_INTERNAL_TYPES_H
@@ -49,28 +49,26 @@ struct c_struct_T {
   boolean_T con_dec;
 };
 
-struct emxArray_real_T_1 {
-  double data[1];
-  int size[1];
-};
-
 struct emxArray_struct_T_1x1 {
   c_struct_T data[1];
   int size[2];
 };
 
-struct emxArray_int32_T_1 {
-  int data[1];
-  int size[1];
-};
-
 struct d_struct_T {
-  emxArray_int32_T_1 a;
-  emxArray_int32_T_1 b;
+  coder::array<int, 1U> a;
+  coder::array<int, 1U> b;
 };
 
-struct emxArray_struct_T_1 {
-  struct_T data[1];
+struct e_struct_T {
+  coder::array<int, 1U> x;
+};
+
+struct f_struct_T {
+  double sb;
+};
+
+struct emxArray_struct_T_120 {
+  struct_T data[120];
 };
 
 #endif

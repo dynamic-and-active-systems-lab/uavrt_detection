@@ -5,7 +5,7 @@
 // File: eml_rand_mt19937ar.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 #ifndef EML_RAND_MT19937AR_H
@@ -18,11 +18,9 @@
 
 // Function Declarations
 namespace coder {
-void genrand_uint32_vector(unsigned int mt[625], unsigned int u[2]);
+double eml_rand_mt19937ar(unsigned int b_state[625]);
 
-double genrandu(unsigned int mt[625]);
-
-} // namespace coder
+}
 
 #endif
 //

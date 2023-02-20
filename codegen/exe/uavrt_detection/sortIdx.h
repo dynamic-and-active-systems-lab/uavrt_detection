@@ -5,7 +5,7 @@
 // File: sortIdx.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 #ifndef SORTIDX_H
@@ -25,7 +25,12 @@ void merge_block(::coder::array<int, 2U> &idx, ::coder::array<double, 2U> &x,
                  ::coder::array<int, 1U> &iwork,
                  ::coder::array<double, 1U> &xwork);
 
-}
+void merge_block(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
+                 int offset, int n, int preSortLevel,
+                 ::coder::array<int, 1U> &iwork,
+                 ::coder::array<double, 1U> &xwork);
+
+} // namespace internal
 } // namespace coder
 
 #endif

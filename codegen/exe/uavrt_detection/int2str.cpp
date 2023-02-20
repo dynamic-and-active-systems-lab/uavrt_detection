@@ -5,7 +5,7 @@
 // File: int2str.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 // Include Files
@@ -26,7 +26,7 @@
 
 // Variable Definitions
 static rtRunTimeErrorInfo p_emlrtRTEI{
-    41,           // lineNo
+    43,           // lineNo
     "callSprintf" // fName
 };
 
@@ -36,7 +36,7 @@ static rtRunTimeErrorInfo q_emlrtRTEI{
 };
 
 static rtRunTimeErrorInfo r_emlrtRTEI{
-    43,           // lineNo
+    41,           // lineNo
     "callSprintf" // fName
 };
 
@@ -100,14 +100,14 @@ void int2str(double xin, char s_data[], int s_size[2])
     int resCount;
     resCount = sprintf(&st[0], "%.0f", x);
     if (resCount < 0) {
-      b_rtErrorWithMessageID(resCount, p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
+      b_rtErrorWithMessageID(resCount, r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
     }
     if (resCount > 310) {
-      j_rtErrorWithMessageID(q_emlrtRTEI.fName, q_emlrtRTEI.lineNo);
+      i_rtErrorWithMessageID(q_emlrtRTEI.fName, q_emlrtRTEI.lineNo);
     }
     if (resCount >
         static_cast<int>(std::floor(std::log10(std::abs(x))) + 1.0)) {
-      j_rtErrorWithMessageID(r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
+      i_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
     }
     s_size[0] = 1;
     s_size[1] = resCount;
@@ -130,10 +130,10 @@ void int2str(int xin, char s_data[], int s_size[2])
   char st[12];
   resCount = sprintf(&st[0], "%d", xin);
   if (resCount < 0) {
-    b_rtErrorWithMessageID(resCount, p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(resCount, r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
   }
   if (resCount > 11) {
-    j_rtErrorWithMessageID(q_emlrtRTEI.fName, q_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(q_emlrtRTEI.fName, q_emlrtRTEI.lineNo);
   }
   if (xin == 0) {
     b_xin = 1.0;
@@ -141,7 +141,7 @@ void int2str(int xin, char s_data[], int s_size[2])
     b_xin = std::floor(std::log10(std::abs(static_cast<double>(xin)))) + 1.0;
   }
   if (resCount > static_cast<int>(b_xin)) {
-    j_rtErrorWithMessageID(r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
   }
   s_size[0] = 1;
   s_size[1] = resCount;

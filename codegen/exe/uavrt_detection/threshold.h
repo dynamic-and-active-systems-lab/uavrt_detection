@@ -5,7 +5,7 @@
 // File: threshold.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 #ifndef THRESHOLD_H
@@ -24,7 +24,13 @@ class waveform;
 class threshold {
 public:
   void init();
-  void makenewthreshold(const waveform *Wfm) const;
+  void makenewthreshold(const waveform *Wfm);
+  void setthreshold(const waveform *WfmCurr, const waveform *WfmPrev);
+
+protected:
+  void setthreshprops(double thresh, const waveform *Wfm);
+
+public:
   double pf;
   double evMuParam;
   double evSigmaParam;

@@ -5,7 +5,7 @@
 // File: fzero.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 // Include Files
@@ -24,7 +24,7 @@
 #include <string>
 
 // Function Declarations
-static void fb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void sb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -32,7 +32,7 @@ static void fb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void fb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void sb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -55,7 +55,7 @@ static void fb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 namespace coder {
 double fzero(const b_anonymous_function FunFcn)
 {
-  static rtRunTimeErrorInfo kb_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       83,     // lineNo
       "fzero" // fName
   };
@@ -72,7 +72,7 @@ double fzero(const b_anonymous_function FunFcn)
     double fb;
     int exitg2;
     if (std::isinf(fx) || std::isnan(fx)) {
-      fb_rtErrorWithMessageID(kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
+      sb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
     }
     dx = 0.02;
     a = 0.0;
@@ -140,7 +140,7 @@ double fzero(const b_anonymous_function FunFcn)
           fc = fx;
         }
         m = 0.5 * (c - b);
-        toler = 4.4408920985006262E-16 * std::abs(b);
+        toler = 4.4408920985006262E-16 * std::fmax(std::abs(b), 1.0);
         if ((std::abs(m) <= toler) || (fb == 0.0)) {
           exitg1 = true;
         } else {

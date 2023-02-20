@@ -5,7 +5,7 @@
 // File: AsyncBuffercgHelper.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 #ifndef ASYNCBUFFERCGHELPER_H
@@ -24,7 +24,16 @@ namespace dsp {
 namespace internal {
 class AsyncBuffercgHelper {
 public:
-  void read(int numRows, creal32_T out_data[], int *out_size, int *underrun);
+  void read(int numRows, ::coder::array<creal32_T, 1U> &out, int *underrun);
+  static void ReadSamplesFromBuffer(const AsyncBuffercgHelper *obj,
+                                    int numRowsCast,
+                                    ::coder::array<creal32_T, 1U> &out,
+                                    int *underrun, int *c);
+  static void ReadSamplesFromBuffer(const AsyncBuffercgHelper *obj,
+                                    int numRowsCast, int overlapCast,
+                                    ::coder::array<creal32_T, 1U> &out,
+                                    int *underrun, int *overlapUnderrun,
+                                    int *c);
   void matlabCodegenDestructor();
   void release();
   void releaseWrapper();
@@ -53,6 +62,16 @@ public:
 
 class b_AsyncBuffercgHelper {
 public:
+  void read(int numRows, ::coder::array<double, 1U> &out, int *underrun);
+  static void ReadSamplesFromBuffer(const b_AsyncBuffercgHelper *obj,
+                                    int numRowsCast,
+                                    ::coder::array<double, 1U> &out,
+                                    int *underrun, int *c);
+  static void ReadSamplesFromBuffer(const b_AsyncBuffercgHelper *obj,
+                                    int numRowsCast, int overlapCast,
+                                    ::coder::array<double, 1U> &out,
+                                    int *underrun, int *overlapUnderrun,
+                                    int *c);
   void matlabCodegenDestructor();
   void release();
   void releaseWrapper();
@@ -86,6 +105,7 @@ public:
                                     int numRowsCast,
                                     ::coder::array<creal32_T, 1U> &out,
                                     int *underrun, int *c);
+  int stepImpl(const ::coder::array<creal32_T, 1U> &in);
   void matlabCodegenDestructor();
   void release();
   void releaseWrapper();

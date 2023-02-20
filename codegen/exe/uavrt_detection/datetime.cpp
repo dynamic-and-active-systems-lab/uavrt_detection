@@ -5,7 +5,7 @@
 // File: datetime.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 // Include Files
@@ -56,7 +56,7 @@ static void ab_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 namespace coder {
 void datetime::init()
 {
-  static rtRunTimeErrorInfo kb_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       1,                  // lineNo
       "createFromDateVec" // fName
   };
@@ -82,10 +82,10 @@ void datetime::init()
         (!(std::ceil(c_tm_mon) == c_tm_mon)) || (!(std::ceil(shi) == shi)) ||
         (!(std::ceil(c_tm_hour) == c_tm_hour)) ||
         (!(std::ceil(c_tm_min) == c_tm_min))) {
-      ab_rtErrorWithMessageID(kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
+      ab_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
     }
     if (std::ceil(b_second) != b_second) {
-      ab_rtErrorWithMessageID(kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
+      ab_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
     }
     if ((c_tm_mon < 1.0) || (c_tm_mon > 12.0)) {
       wholeSecsFromMillis = std::floor((c_tm_mon - 1.0) / 12.0);
@@ -120,9 +120,9 @@ void datetime::init()
     }
     ahi.re = shi;
     ahi.im = check;
-    data = matlab::internal::coder::doubledouble::plus(
-        matlab::internal::coder::doubledouble::plus(
-            matlab::internal::coder::doubledouble::plus(
+    data = matlab::internal::coder::doubledouble::c_plus(
+        matlab::internal::coder::doubledouble::c_plus(
+            matlab::internal::coder::doubledouble::c_plus(
                 ahi, (60.0 * c_tm_hour + c_tm_min) * 60000.0),
             b_second * 1000.0),
         fracSecs);

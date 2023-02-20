@@ -5,7 +5,7 @@
 // File: stft.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 #ifndef STFT_H
@@ -25,8 +25,11 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
           ::coder::array<float, 1U> &varargout_2,
           ::coder::array<float, 1U> &varargout_3);
 
-void stft(const int x_size[2], const double varargin_3_data[],
-          int varargin_3_size, double varargin_5, double varargin_7);
+void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
+          const ::coder::array<double, 1U> &varargin_3, double varargin_5,
+          double varargin_7, ::coder::array<creal_T, 3U> &varargout_1,
+          ::coder::array<double, 1U> &varargout_2,
+          ::coder::array<double, 1U> &varargout_3);
 
 } // namespace coder
 

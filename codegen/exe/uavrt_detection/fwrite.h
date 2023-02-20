@@ -5,7 +5,7 @@
 // File: fwrite.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 #ifndef FWRITE_H
@@ -13,12 +13,13 @@
 
 // Include Files
 #include "rtwtypes.h"
+#include "coder_array.h"
 #include <cstddef>
 #include <cstdlib>
 
 // Function Declarations
 namespace coder {
-double b_fwrite(double fileID, const float x_data[], int x_size);
+double b_fwrite(double fileID, const ::coder::array<float, 1U> &x);
 
 }
 

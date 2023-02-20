@@ -5,11 +5,12 @@
 // File: colon.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 // Include Files
 #include "colon.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
@@ -21,19 +22,15 @@
 //
 // Arguments    : double a
 //                double b
-//                double y_data[]
-//                int y_size[2]
+//                ::coder::array<double, 2U> &y
 // Return Type  : void
 //
 namespace coder {
-void eml_float_colon(double a, double b, double y_data[], int y_size[2])
+void eml_float_colon(double a, double b, ::coder::array<double, 2U> &y)
 {
-  static rtDoubleCheckInfo b_emlrtDCI{
-      320,               // lineNo
-      28,                // colNo
-      "eml_float_colon", // fName
-      "C:\\Program Files\\MATLAB\\toolbox\\eml\\lib\\matlab\\ops\\colon.m", // pName
-      4 // checkKind
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
+      419,              // lineNo
+      "assert_pmaxsize" // fName
   };
   double apnd;
   double cdiff;
@@ -42,7 +39,8 @@ void eml_float_colon(double a, double b, double y_data[], int y_size[2])
   ndbl = std::floor((b - a) + 0.5);
   apnd = a + ndbl;
   cdiff = apnd - b;
-  if (std::abs(cdiff) < 4.4408920985006262E-16 * std::abs(a)) {
+  if (std::abs(cdiff) <
+      4.4408920985006262E-16 * std::fmax(std::abs(a), std::abs(b))) {
     ndbl++;
     apnd = b;
   } else if (cdiff > 0.0) {
@@ -55,22 +53,25 @@ void eml_float_colon(double a, double b, double y_data[], int y_size[2])
   } else {
     n = 0;
   }
-  y_size[0] = 1;
-  if (n < 0) {
-    rtNonNegativeError(static_cast<double>(n), &b_emlrtDCI);
+  if (ndbl > 2.147483647E+9) {
+    m_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
-  y_size[1] = n;
+  y.set_size(1, n);
   if (n > 0) {
-    y_data[0] = a;
+    y[0] = a;
     if (n > 1) {
       int nm1d2;
-      y_data[n - 1] = apnd;
+      y[n - 1] = apnd;
       nm1d2 = (n - 1) / 2;
+      for (int k{0}; k <= nm1d2 - 2; k++) {
+        y[k + 1] = a + (static_cast<double>(k) + 1.0);
+        y[(n - k) - 2] = apnd - (static_cast<double>(k) + 1.0);
+      }
       if (nm1d2 << 1 == n - 1) {
-        y_data[nm1d2] = (a + apnd) / 2.0;
+        y[nm1d2] = (a + apnd) / 2.0;
       } else {
-        y_data[nm1d2] = a + static_cast<double>(nm1d2);
-        y_data[nm1d2 + 1] = apnd - static_cast<double>(nm1d2);
+        y[nm1d2] = a + static_cast<double>(nm1d2);
+        y[nm1d2 + 1] = apnd - static_cast<double>(nm1d2);
       }
     }
   }
@@ -84,7 +85,7 @@ void eml_float_colon(double a, double b, double y_data[], int y_size[2])
 //
 void eml_integer_colon_dispatcher(int a, int b, ::coder::array<int, 2U> &y)
 {
-  static rtRunTimeErrorInfo kb_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       291,                           // lineNo
       "integer_colon_length_nonnegd" // fName
   };
@@ -94,7 +95,7 @@ void eml_integer_colon_dispatcher(int a, int b, ::coder::array<int, 2U> &y)
   } else {
     bma = b - a;
     if (bma < 0) {
-      j_rtErrorWithMessageID(kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
+      i_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
     }
     bma++;
   }
@@ -103,6 +104,9 @@ void eml_integer_colon_dispatcher(int a, int b, ::coder::array<int, 2U> &y)
     int yk;
     y[0] = a;
     yk = a;
+    if (bma > 2147483646) {
+      check_forloop_overflow_error();
+    }
     for (int k{2}; k <= bma; k++) {
       yk++;
       y[k - 1] = yk;

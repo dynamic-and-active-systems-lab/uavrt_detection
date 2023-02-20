@@ -5,7 +5,7 @@
 // File: assembleWq.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 // Include Files
@@ -17,62 +17,64 @@
 // Function Definitions
 //
 // Arguments    : coder::array<double, 2U> &in1
-//                const double in2_data[]
-//                const int in2_size[2]
+//                const coder::array<double, 2U> &in2
 // Return Type  : void
 //
-void binary_expand_op(coder::array<double, 2U> &in1, const double in2_data[],
-                      const int in2_size[2])
+void plus(coder::array<double, 2U> &in1, const coder::array<double, 2U> &in2)
 {
-  double in1_data;
+  coder::array<double, 2U> b_in1;
   int aux_0_1;
   int aux_1_1;
-  int in1_size_idx_0;
-  int in1_size_idx_1;
+  int b_loop_ub;
+  int i;
+  int i1;
   int loop_ub;
   int stride_0_0;
   int stride_0_1;
   int stride_1_0;
   int stride_1_1;
-  if (in2_size[0] == 1) {
-    in1_size_idx_0 = in1.size(0);
+  if (in2.size(0) == 1) {
+    i = in1.size(0);
   } else {
-    in1_size_idx_0 = in2_size[0];
+    i = in2.size(0);
   }
-  if (in2_size[1] == 1) {
-    in1_size_idx_1 = in1.size(1);
+  if (in2.size(1) == 1) {
+    i1 = in1.size(1);
   } else {
-    in1_size_idx_1 = in2_size[1];
+    i1 = in2.size(1);
   }
+  b_in1.set_size(i, i1);
   stride_0_0 = (in1.size(0) != 1);
   stride_0_1 = (in1.size(1) != 1);
-  stride_1_0 = (in2_size[0] != 1);
-  stride_1_1 = (in2_size[1] != 1);
+  stride_1_0 = (in2.size(0) != 1);
+  stride_1_1 = (in2.size(1) != 1);
   aux_0_1 = 0;
   aux_1_1 = 0;
-  if (in2_size[1] == 1) {
+  if (in2.size(1) == 1) {
     loop_ub = in1.size(1);
   } else {
-    loop_ub = in2_size[1];
+    loop_ub = in2.size(1);
   }
-  for (int i{0}; i < loop_ub; i++) {
-    int b_loop_ub;
-    if (in2_size[0] == 1) {
+  for (i = 0; i < loop_ub; i++) {
+    if (in2.size(0) == 1) {
       b_loop_ub = in1.size(0);
     } else {
-      b_loop_ub = in2_size[0];
+      b_loop_ub = in2.size(0);
     }
-    for (int i1{0}; i1 < b_loop_ub; i1++) {
-      in1_data = in1[i1 * stride_0_0 + in1.size(0) * aux_0_1] +
-                 in2_data[i1 * stride_1_0 + in2_size[0] * aux_1_1];
+    for (i1 = 0; i1 < b_loop_ub; i1++) {
+      b_in1[i1 + b_in1.size(0) * i] =
+          in1[i1 * stride_0_0 + in1.size(0) * aux_0_1] +
+          in2[i1 * stride_1_0 + in2.size(0) * aux_1_1];
     }
     aux_1_1 += stride_1_1;
     aux_0_1 += stride_0_1;
   }
-  in1.set_size(in1_size_idx_0, in1_size_idx_1);
-  for (int i{0}; i < in1_size_idx_1; i++) {
-    for (int i1{0}; i1 < in1_size_idx_0; i1++) {
-      in1[0] = in1_data;
+  in1.set_size(b_in1.size(0), b_in1.size(1));
+  loop_ub = b_in1.size(1);
+  for (i = 0; i < loop_ub; i++) {
+    b_loop_ub = b_in1.size(0);
+    for (i1 = 0; i1 < b_loop_ub; i1++) {
+      in1[i1 + in1.size(0) * i] = b_in1[i1 + b_in1.size(0) * i];
     }
   }
 }

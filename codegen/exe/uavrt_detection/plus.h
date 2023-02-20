@@ -5,7 +5,7 @@
 // File: plus.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 #ifndef PLUS_H
@@ -22,7 +22,7 @@ namespace matlab {
 namespace internal {
 namespace coder {
 namespace doubledouble {
-creal_T plus(const creal_T a, double b);
+creal_T c_plus(const creal_T a, double b);
 
 }
 } // namespace coder

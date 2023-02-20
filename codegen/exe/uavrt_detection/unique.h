@@ -5,7 +5,7 @@
 // File: unique.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 #ifndef UNIQUE_H
@@ -13,12 +13,14 @@
 
 // Include Files
 #include "rtwtypes.h"
+#include "coder_array.h"
 #include <cstddef>
 #include <cstdlib>
 
 // Function Declarations
 namespace coder {
-void unique_rows(int a_size[2]);
+void unique_rows(const ::coder::array<double, 2U> &a,
+                 ::coder::array<double, 2U> &b);
 
 }
 

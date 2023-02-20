@@ -5,7 +5,7 @@
 // File: timeKeeper.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 // Include Files
@@ -29,7 +29,7 @@ static coderTimespec savedTime;
 static boolean_T savedTime_not_empty;
 
 // Function Declarations
-static void bb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -37,7 +37,7 @@ static void bb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void bb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -72,14 +72,14 @@ void timeKeeper(double newTime_tv_sec, double newTime_tv_nsec)
       freq_not_empty = true;
       status = coderInitTimeFunctions(&freq);
       if (status != 0) {
-        rtErrorWithMessageID(std::string(&cv[0], 22), status,
-                             hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
+        rtErrorWithMessageID(std::string(&cv1[0], 22), status,
+                             qb_emlrtRTEI.fName, qb_emlrtRTEI.lineNo);
       }
     }
     status = coderTimeClockGettimeMonotonic(&b_timespec, freq);
     if (status != 0) {
-      rtErrorWithMessageID(std::string(&cv1[0], 30), status, hb_emlrtRTEI.fName,
-                           hb_emlrtRTEI.lineNo);
+      rtErrorWithMessageID(std::string(&cv2[0], 30), status, qb_emlrtRTEI.fName,
+                           qb_emlrtRTEI.lineNo);
     }
     savedTime = b_timespec;
     savedTime_not_empty = true;
@@ -95,12 +95,12 @@ void timeKeeper(double newTime_tv_sec, double newTime_tv_nsec)
 //
 void timeKeeper(double *outTime_tv_sec, double *outTime_tv_nsec)
 {
-  static rtRunTimeErrorInfo kb_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       11,          // lineNo
       "timeKeeper" // fName
   };
   if (!savedTime_not_empty) {
-    bb_rtErrorWithMessageID(kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
+    db_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   *outTime_tv_sec = savedTime.tv_sec;
   *outTime_tv_nsec = savedTime.tv_nsec;

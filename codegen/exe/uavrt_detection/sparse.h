@@ -5,7 +5,7 @@
 // File: sparse.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 #ifndef SPARSE_H
@@ -13,6 +13,7 @@
 
 // Include Files
 #include "rtwtypes.h"
+#include "coder_array.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -20,14 +21,23 @@
 namespace coder {
 class sparse;
 
-}
+class d_sparse;
+
+class g_sparse;
+
+} // namespace coder
 
 // Function Declarations
 namespace coder {
-void b_sparse(int varargin_1_size, int varargin_2_size, int varargin_3_size,
-              sparse *y);
+void i_sparse(const ::coder::array<double, 1U> &varargin_1, g_sparse *y);
 
-}
+void i_sparse(const ::coder::array<double, 1U> &varargin_1,
+              const ::coder::array<double, 1U> &varargin_2,
+              const ::coder::array<double, 1U> &varargin_3, sparse *y);
+
+void j_sparse(const ::coder::array<boolean_T, 2U> &varargin_1, d_sparse *y);
+
+} // namespace coder
 
 #endif
 //

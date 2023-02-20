@@ -5,7 +5,7 @@
 // File: waveform.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 #ifndef WAVEFORM_H
@@ -20,15 +20,27 @@
 #include <cstddef>
 #include <cstdlib>
 
+// Type Declarations
+struct c_struct_T;
+
 // Type Definitions
 class waveform {
 public:
   void setprioridependentprops(const pulsestats *ps_obj);
   void setweightingmatrix();
+  void process(char mode, const coder::array<double, 2U> &excluded_freq_bands);
+  void findpulse(const char time_searchtype_data[],
+                 const int time_searchtype_size[2],
+                 const char freq_searchtype_data[],
+                 const int freq_searchtype_size[2],
+                 const coder::array<double, 2U> &excluded_freq_bands_in,
+                 coder::array<c_struct_T, 2U> &pl_out,
+                 coder::array<boolean_T, 2U> &indiv_msk,
+                 coder::array<double, 1U> &peak_ind) const;
   void spectro(wfmstft *iobj_0);
   waveform *init(const creal32_T b_x[1000], double b_Fs, pulsestats *b_ps_pre,
                  const threshold *b_thresh);
-  waveform *init(const creal32_T x_data[], int x_size, double b_Fs,
+  waveform *init(const coder::array<creal32_T, 1U> &b_x, double b_Fs,
                  double b_t_0, pulsestats *b_ps_pre, const threshold *b_thresh,
                  pulsestats *iobj_0, wfmstft *iobj_1);
   pulsestats *ps_pre;

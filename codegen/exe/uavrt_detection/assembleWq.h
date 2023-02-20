@@ -5,7 +5,7 @@
 // File: assembleWq.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 #ifndef ASSEMBLEWQ_H
@@ -18,8 +18,7 @@
 #include <cstdlib>
 
 // Function Declarations
-void binary_expand_op(coder::array<double, 2U> &in1, const double in2_data[],
-                      const int in2_size[2]);
+void plus(coder::array<double, 2U> &in1, const coder::array<double, 2U> &in2);
 
 #endif
 //

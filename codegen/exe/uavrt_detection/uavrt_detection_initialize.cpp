@@ -5,15 +5,13 @@
 // File: uavrt_detection_initialize.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 // Include Files
 #include "uavrt_detection_initialize.h"
 #include "CoderTimeAPI.h"
-#include "eml_rand.h"
 #include "eml_rand_mt19937ar_stateful.h"
-#include "eml_randn.h"
 #include "fileManager.h"
 #include "rt_nonfinite.h"
 #include "timeKeeper.h"
@@ -32,8 +30,6 @@ void uavrt_detection_initialize()
   savedTime_not_empty_init();
   freq_not_empty_init();
   filedata_init();
-  eml_randn_init();
-  eml_rand_init();
   eml_rand_mt19937ar_stateful_init();
   isInitialized_uavrt_detection = true;
 }

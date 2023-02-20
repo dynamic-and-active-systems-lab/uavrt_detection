@@ -5,7 +5,7 @@
 // File: str2double1.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 // Include Files
@@ -122,7 +122,7 @@ void readfloat(::coder::array<char, 2U> &s1, int *idx,
       (*k)++;
     } else {
       if (static_cast<unsigned char>(c_idx_0) > 127) {
-        lb_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+        qc_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
       }
       if (!bv[static_cast<unsigned char>(s[*k - 1]) & 127]) {
         exitg1 = true;
@@ -205,7 +205,7 @@ void readfloat(::coder::array<char, 2U> &s1, int *idx,
         while ((!exitg1) && (*k <= n)) {
           c_idx_0 = s[*k - 1];
           if (static_cast<unsigned char>(c_idx_0) > 127) {
-            lb_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+            qc_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
           }
           if (bv[static_cast<unsigned char>(c_idx_0) & 127] ||
               (c_idx_0 == '\x00') || (c_idx_0 == ',')) {
@@ -309,7 +309,7 @@ void readfloat(::coder::array<char, 2U> &s1, int *idx,
       exitg1 = false;
       while ((!exitg1) && (*k <= n)) {
         if (static_cast<unsigned char>(s[*k - 1]) > 127) {
-          lb_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+          qc_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
         }
         if (bv[static_cast<unsigned char>(s[*k - 1]) & 127]) {
           (*k)++;
@@ -327,7 +327,7 @@ void readfloat(::coder::array<char, 2U> &s1, int *idx,
         exitg1 = false;
         while ((!exitg1) && (*k <= n)) {
           if (static_cast<unsigned char>(s[*k - 1]) > 127) {
-            lb_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+            qc_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
           }
           if (bv[static_cast<unsigned char>(s[*k - 1]) & 127] ||
               (s[*k - 1] == '\x00') || (s[*k - 1] == ',')) {
@@ -350,7 +350,7 @@ void readfloat(::coder::array<char, 2U> &s1, int *idx,
       exitg3 = 0;
       if (*k <= n) {
         if (static_cast<unsigned char>(s[*k - 1]) > 127) {
-          lb_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+          qc_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
         }
         if (bv[static_cast<unsigned char>(s[*k - 1]) & 127]) {
           (*k)++;

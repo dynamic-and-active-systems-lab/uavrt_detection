@@ -5,7 +5,7 @@
 // File: sum.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 #ifndef SUM_H
@@ -13,14 +13,33 @@
 
 // Include Files
 #include "rtwtypes.h"
+#include "coder_array.h"
 #include <cstddef>
 #include <cstdlib>
 
+// Type Declarations
+namespace coder {
+class sparse;
+
+class b_sparse;
+
+class g_sparse;
+
+class c_sparse;
+
+} // namespace coder
+
 // Function Declarations
 namespace coder {
-double sum(const double x_data[], int x_size);
+double sum(const ::coder::array<double, 1U> &x);
 
-}
+void sum(const sparse *x, b_sparse *y);
+
+void sum(const g_sparse *x, c_sparse *y);
+
+void sum(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y);
+
+} // namespace coder
 
 #endif
 //

@@ -5,7 +5,7 @@
 // File: fwrite.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 // Include Files
@@ -14,6 +14,7 @@
 #include "rt_nonfinite.h"
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
+#include "coder_array.h"
 #include <cstddef>
 #include <stdio.h>
 #include <string.h>
@@ -21,18 +22,17 @@
 // Function Definitions
 //
 // Arguments    : double fileID
-//                const float x_data[]
-//                int x_size
+//                const ::coder::array<float, 1U> &x
 // Return Type  : double
 //
 namespace coder {
-double b_fwrite(double fileID, const float x_data[], int x_size)
+double b_fwrite(double fileID, const ::coder::array<float, 1U> &x)
 {
-  static rtRunTimeErrorInfo kb_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       158,          // lineNo
       "getFileStar" // fName
   };
-  static rtRunTimeErrorInfo lb_emlrtRTEI{
+  static rtRunTimeErrorInfo uc_emlrtRTEI{
       33,      // lineNo
       "fwrite" // fName
   };
@@ -40,20 +40,21 @@ double b_fwrite(double fileID, const float x_data[], int x_size)
   double count;
   boolean_T autoflush;
   if (!(fileID != 0.0)) {
-    h_rtErrorWithMessageID(lb_emlrtRTEI.fName, lb_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   }
   getfilestar(fileID, &filestar, &autoflush);
   if (filestar == NULL) {
-    d_rtErrorWithMessageID(kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   if (!(fileID != 0.0)) {
     filestar = NULL;
   }
-  if ((filestar == NULL) || (x_size == 0)) {
+  if ((filestar == NULL) || (x.size(0) == 0)) {
     count = 0.0;
   } else {
     size_t bytesOutSizet;
-    bytesOutSizet = fwrite(&x_data[0], sizeof(float), (size_t)1, filestar);
+    bytesOutSizet = fwrite(&(((::coder::array<float, 1U> *)&x)->data())[0],
+                           sizeof(float), (size_t)x.size(0), filestar);
     count = (double)bytesOutSizet;
     if (((double)bytesOutSizet > 0.0) && autoflush) {
       int status;

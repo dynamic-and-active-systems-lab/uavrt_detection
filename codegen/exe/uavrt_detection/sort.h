@@ -5,7 +5,7 @@
 // File: sort.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+// C/C++ source code generated on  : 20-Feb-2023 15:31:40
 //
 
 #ifndef SORT_H
@@ -22,7 +22,7 @@ namespace coder {
 namespace internal {
 void sort(::coder::array<double, 2U> &x);
 
-int sort(const int *x_size);
+void sort(::coder::array<double, 1U> &x, ::coder::array<int, 1U> &idx);
 
 } // namespace internal
 } // namespace coder
