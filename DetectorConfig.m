@@ -9,9 +9,6 @@ classdef DetectorConfig
     %   ipData          String ip from which to receive data. Enter
     %                   '0.0.0.0' to receive from any IP.
     %   portData        Port from which to receive data
-    %   ipCntrl         String ip from which to receive control inputs. 
-    %                   Enter '0.0.0.0' to receive from any IP.
-    %   portCntrl       Port from which to receive control inputs
     %   Fs              Sample rate of incoming data
     %   tagFreqMHz      Expected frequency of tag
     %   tp              Duration of pulse in seconds
@@ -50,8 +47,6 @@ classdef DetectorConfig
         channelCenterFreqMHz     (1, 1) double {mustBeNonnegative, mustBeReal}             = 150.000;
         ipData      (1, 1) string {mustBeTextScalar}                          = "0.0.0.0"
         portData    (1, 1) double {mustBeReal, mustBePositive, mustBeInteger} = 1
-        ipCntrl     (1, 1) string {mustBeTextScalar}                          = "0.0.0.0"
-        portCntrl   (1, 1) double {mustBeReal, mustBePositive, mustBeInteger} = 1     
         Fs          (1, 1) double {mustBeReal, mustBePositive}                = 192000
         tagFreqMHz  (1, 1) double {mustBeReal}                                = 150.000;
         tp 	        (1, 1) double {mustBeReal, mustBePositive}                = 0.02
@@ -67,14 +62,12 @@ classdef DetectorConfig
     end
     
     methods
-        function obj = DetectorConfig(ID, channelCenterFreqMHZ, ipData, portData, ipCntrl, portCntrl, Fs, tagFreqMHz, tp, tip, tipu, K, opMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath, processedOuputPath)
+        function obj = DetectorConfig(ID, channelCenterFreqMHZ, ipData, portData, Fs, tagFreqMHz, tp, tip, tipu, K, opMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath, processedOuputPath)
             if nargin>0
                 obj.ID          = ID;
                 obj.channelCenterFreqMHz     = channelCenterFreqMHZ;
                 obj.ipData      = ipData;
                 obj.portData    = portData;
-                obj.ipCntrl     = ipCntrl;
-                obj.portCntrl   = portCntrl;               
                 obj.Fs          = Fs;
                 obj.tagFreqMHz  = tagFreqMHz;
                 obj.tp          = tp;
@@ -178,10 +171,6 @@ classdef DetectorConfig
                         obj.ipData  = configValStr;
                     elseif strcmp(configType,'portData')
                         obj.portData    = uint16(real(str2double(configValStr)));
-                    elseif strcmp(configType,'ipCntrl')
-                        obj.ipCntrl = configValStr;
-                    elseif strcmp(configType,'portCntrl')
-                        obj.portCntrl   = uint16(real(str2double(configValStr)));    
                     elseif strcmp(configType,'Fs')
                         obj.Fs      = real(str2double(configValStr));
                     elseif strcmp(configType,'tagFreqMHz')
@@ -233,7 +222,6 @@ classdef DetectorConfig
             %   none
             configStr  = detectorsetting2configstr(obj.ID, obj.channelCenterFreqMHz, ...
                                                    obj.ipData, obj.portData, ...
-                                                   obj.ipCntrl, obj.portCntrl, ...
                                                    obj.Fs, obj.tagFreqMHz, ...
                                                    obj.tp, obj.tip, ...
                                                    obj.tipu,obj.tipj,...
@@ -254,8 +242,6 @@ classdef DetectorConfig
             objOut.channelCenterFreqMHz     = obj.channelCenterFreqMHz;
             objOut.ipData      = obj.ipData;
             objOut.portData    = obj.portData;
-            objOut.ipCntrl     = obj.ipCntrl;
-            objOut.portCntrl   = obj.portCntrl;
             objOut.Fs          = obj.Fs;
             objOut.tagFreqMHz  = obj.tagFreqMHz;
             objOut.tp          = obj.tp;

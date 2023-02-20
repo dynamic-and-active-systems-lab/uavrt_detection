@@ -10,8 +10,6 @@ channelCenterFreqMHz:	148.525000
 timeStamp:	1644944304.890
 ipData:	0.0.0.0
 portData:	20000
-ipCntrl:	127.0.0.1
-portCntrl:	30000
 Fs:	6000.000
 tagFreqMHz:	148.525
 tp:	0.020000
@@ -30,8 +28,6 @@ channelCenterFreqMHz:	148.525000
 timeStamp:	1644944313.085
 ipData:	0.0.0.0
 portData:	20000
-ipCntrl:	127.0.0.1
-portCntrl:	30000
 Fs:	6000.000
 tagFreqMHz:	148.525
 tp:	0.020000

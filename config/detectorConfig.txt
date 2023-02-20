@@ -4,8 +4,6 @@ channelCenterFreqMHz:	148.525000
 timeStamp:	1646403180.469
 ipData:	0.0.0.0
 portData:	20000
-ipCntrl:	127.0.0.1
-portCntrl:	30000
 Fs:	3750
 tagFreqMHz:	148.525
 tp:	0.020000
