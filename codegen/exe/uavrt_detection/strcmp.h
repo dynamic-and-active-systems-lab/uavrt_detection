@@ -1,0 +1,59 @@
+//
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
+// File: strcmp.h
+//
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 20-Feb-2023 14:31:55
+//
+
+#ifndef STRCMP_H
+#define STRCMP_H
+
+// Include Files
+#include "rtwtypes.h"
+#include "coder_array.h"
+#include <cstddef>
+#include <cstdlib>
+
+// Function Declarations
+namespace coder {
+namespace internal {
+boolean_T b_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T c_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T d_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T e_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T f_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T g_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T h_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T i_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T j_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T k_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T l_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T m_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T n_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T o_strcmp(const ::coder::array<char, 2U> &a);
+
+} // namespace internal
+} // namespace coder
+
+#endif
+//
+// File trailer for strcmp.h
+//
+// [EOF]
+//

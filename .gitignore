@@ -36,8 +36,6 @@ Temporary Items
 
 
 # Matlab Coder Generated Files
-codegen
-*.prj
 msgdef
 build_ros2_model.sh
 ReportInfo.mat
@@ -45,7 +43,6 @@ analyze_pulse_train_data.m
 
 # Other files
 Build
-codegen
 install
 log
 src

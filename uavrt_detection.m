@@ -330,7 +330,7 @@ if asyncDataBuff.NumUnreadSamples >= 3*(sampsForKPulses + overlapSamples)
    %          fprintf('\n')
    %      end
    % end
-   error();
+   error('Buffer anomaly detected.');
 end
                 %% Process data if there is enough in the buffers
                 if asyncDataBuff.NumUnreadSamples >= sampsForKPulses + overlapSamples
@@ -606,13 +606,13 @@ previousToc = toc;
                                 % Publish pulses to UDP
                                 pulseInfoStruct                             = createPulseInfoStruct();
                                 detectorPulse                               = X.ps_pos.pl(j);
-                                pulseInfoStruct.tag_id                      = Config.ID;
-                                pulseInfoStruct.frequency_hz                = (Config.channelCenterFreqMHz + detectorPulse.fp) * 1e6;
+                                pulseInfoStruct.tag_id                      = uint32(Config.ID);
+                                pulseInfoStruct.frequency_hz                = uint32((Config.channelCenterFreqMHz + detectorPulse.fp) * 1e6);
                                 pulseInfoStruct.start_time_seconds          = detectorPulse.t_0;
                                 pulseInfoStruct.predict_next_start_seconds  = detectorPulse.t_next(1);
                                 pulseInfoStruct.snr                         = detectorPulse.SNR;
                                 pulseInfoStruct.stft_score                  = real(detectorPulse.yw);
-                                pulseInfoStruct.group_ind                   = j;
+                                pulseInfoStruct.group_ind                   = uint16(j);
                                 pulseInfoStruct.group_snr                   = groupSNR;
                                 pulseInfoStruct.detection_status            = uint8(detectorPulse.det_dec);
                                 pulseInfoStruct.confirmed_status            = uint8(detectorPulse.con_dec);
