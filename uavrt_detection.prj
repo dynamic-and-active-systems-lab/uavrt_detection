@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.coder" plugin-version="R2021a">
-  <configuration build-checksum="115968343" file="H:\repos\uavrt_detection\uavrt_detection.prj" location="H:\repos\uavrt_detection" name="uavrt_detection" target="target.unifiedcoder" target-name="MATLAB Coder">
+  <configuration build-checksum="1940913845" file="H:\repos\uavrt_detection\uavrt_detection.prj" location="H:\repos\uavrt_detection" name="uavrt_detection" target="target.unifiedcoder" target-name="MATLAB Coder">
     <profile key="profile.mex">
       <param.BuiltInstrumentedMex />
       <param.RanInstrumentedMex>false</param.RanInstrumentedMex>
@@ -276,7 +276,7 @@
       <param.CustomToolchainOptions />
       <var.ToolchainSettingsVisible>true</var.ToolchainSettingsVisible>
       <param.target.Data>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;ctdata&gt;&lt;configuredHardware/&gt;&lt;/ctdata&gt;</param.target.Data>
-      <param.target.ActiveType>option.target.TargetType.MatlabHost</param.target.ActiveType>
+      <param.target.ActiveType>option.target.TargetType.Custom</param.target.ActiveType>
       <param.target.ActiveTarget />
       <param.HardwareVendor.Production>Generic</param.HardwareVendor.Production>
       <param.HardwareType.Production>MATLAB Host Computer</param.HardwareType.Production>
@@ -478,7 +478,6 @@
         <param.BuildConfiguration />
         <param.CustomToolchainOptions />
         <var.ToolchainSettingsVisible />
-        <param.target.ActiveType />
         <param.target.ActiveTarget />
         <param.HardwareVendor.Production />
         <param.HardwareType.Production />
@@ -588,7 +587,7 @@
     <param.hdlParamStorage />
     <var.gc.lastOutputRoot>codegen\exe\uavrt_detection</var.gc.lastOutputRoot>
     <var.gc.lastOutputType>EXECUTABLE</var.gc.lastOutputType>
-    <var.gc.preBuildChecksum>115968343</var.gc.preBuildChecksum>
+    <var.gc.preBuildChecksum>1940913845</var.gc.preBuildChecksum>
     <var.cfi.lastOutputRoot />
     <var.cfi.preBuildChecksum />
     <var.outdatedOnRestore>false</var.outdatedOnRestore>
