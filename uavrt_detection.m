@@ -64,7 +64,7 @@ overlapSamples	= 0;
 sampsForKPulses = 0;
 updatebufferreadvariables(pulseStatsPriori);
 
-coder.varsize("dataReceived",[1025 1]);
+%coder.varsize("dataReceived",[1025 1]);
 
 packetLength = 1025; %1024 plus a time stamp.
 fprintf('Startup set 1 complete. \n')
