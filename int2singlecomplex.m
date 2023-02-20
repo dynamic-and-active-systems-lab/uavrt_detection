@@ -36,10 +36,10 @@ if intIn > 167772169999999
     error('UAV-RT: Input must be an integer less than 167,772,169,999,999.')
 end
 
-intIn = round(intIn);
+intIn = uint64(intIn);
 
 digitSplit       = 7;
-topDigits        = floor(intIn*10^-digitSplit);
+topDigits        = floor(double(intIn)*10^-digitSplit);
 botDigits        = intIn - topDigits*10^digitSplit;
 topDigitsSingle  = single(topDigits);
 botDigitsSingle  = single(botDigits);

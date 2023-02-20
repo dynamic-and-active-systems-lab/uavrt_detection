@@ -4,6 +4,7 @@ function [] = uavrt_detection()
 
  %#codegen
  coder.cinclude('time.h') %Needed for usleep function in generated code
+% coder.cinclude('stdlib.h')%needed for system call to kill the channelizer
 
 configPath = "config/detectorConfig.txt"; %Must exist in the same directory as the execution of this executable
 
@@ -284,7 +285,10 @@ while true %i <= maxInd
                 currSampleCount  = nextSampleCount + nReceived;
                 %This is the number of samples transmitted by the 
                 %upstream process (ideal if none are dropped)
+fprintf('%f + i%f \n',real(dataReceived(end)), imag(dataReceived(end)))
                 rawIdealSampleCount = uint64(singlecomplex2int(dataReceived(end)));
+fprintf('%f\n',singlecomplex2int(dataReceived(end)))
+fprintf('%u\n',rawIdealSampleCount)
                 %If this is the first packet, calculate the offset 
                 %sample count since the upstream processess may have 
                 %started a while ago and its sample count may not be zero
@@ -329,7 +333,6 @@ fprintf('nReceived: %u \t currSampleCount: %u \t idealSampleCount: %u \t rawIdea
 
                 timeVector = lastTimeStamp + ...
                              (1 : numel(iqDataToWrite)).' * 1/Config.Fs;
-fprintf('Sample elapsed seconds: %f \t Posix elapsed seconds:  \n', timeVector(end), round(posixtime(datetime('now'))*1000000)/1000000 - startTime)
                 lastTimeStamp = timeVector(end);
 
                 %Write out data and time.
@@ -346,18 +349,6 @@ fprintf('Sample elapsed seconds: %f \t Posix elapsed seconds:  \n', timeVector(e
 
                 %end
 
-if asyncDataBuff.NumUnreadSamples >= 3*(sampsForKPulses + overlapSamples)
-   fprintf('Buffer anomaly detected. Printing buffer from back to front:\n')
-    data = asyncDataBuff.read(asyncDataBuff.NumUnreadSamples);
-   % for i = numel(data):-1:1
-   %      fprintf('%f + i%f, ', real(data(i)), imag(data(i)));
-   %      if mod(i,20) == 0
-   %          fprintf('\n')
-   %      end
-   % end
-   state = 'kill';
-   break
-end
                 %% Process data if there is enough in the buffers
                 if asyncDataBuff.NumUnreadSamples >= sampsForKPulses + overlapSamples
                     fprintf('Buffer Full|| sampsForKPulses: %u, overlapSamples: %u,\n',uint32(sampsForKPulses),uint32(overlapSamples))
@@ -381,6 +372,8 @@ processingStartToc = previousToc;
                         x = asyncDataBuff.read(sampsForKPulses, overlapSamples);
                         t = asyncTimeBuff.read(sampsForKPulses, overlapSamples);
                     end
+
+fprintf('Sample elapsed seconds: %f \t Posix elapsed seconds: %f \n', timeVector(end) - startTime, round(posixtime(datetime('now'))*1000000)/1000000 - startTime)
 
 %plot(t,abs(x)); hold on
                     %Check the timestamps in the buffer for gaps larger
