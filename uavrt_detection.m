@@ -1,11 +1,13 @@
-function [] = uavrt_detection()
+function [] = uavrt_detection(configPath)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
  %#codegen
  coder.cinclude('time.h') %Needed for usleep function in generated code
 
-configPath = "config/detectorConfig.txt"; %Must exist in the same directory as the execution of this executable
+if nargin == 0
+    configPath = "config/detectorConfig.txt"; %Must exist in the same directory as the execution of this executable
+end
 
 Config =  DetectorConfig(); %Build empty config object
 updateconfig()              %Update (fill) the configuration
