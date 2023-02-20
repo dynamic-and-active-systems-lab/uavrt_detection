@@ -601,34 +601,34 @@ previousToc = toc;
                                 %generate type errors
                                 groupSNR         = double(groupSNRMeanDB);%10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average SNR in dB
                                 
-
                                 % Publish pulses to UDP
-                                currPulseOut = pulseOut( X.ps_pos.pl(j), Config.ID, currDir, Config.channelCenterFreqMHz, j, groupSNR, []);
+                                pulseInfoStruct                             = createPulseInfoStruct();
+                                detectorPulse                               = X.ps_pos.pl(j);
+                                pulseInfoStruct.tag_id                      = Config.ID;
+                                pulseInfoStruct.frequency_hz                = (Config.channelCenterFreqMHz + detectorPulse.fp) * 1e6;
+                                pulseInfoStruct.start_time_seconds          = detectorPulse.t_0;
+                                pulseInfoStruct.predict_next_start_seconds  = detectorPulse.t_next(1);
+                                pulseInfoStruct.snr                         = detectorPulse.SNR;
+                                pulseInfoStruct.stft_score                  = real(detectorPulse.yw);
+                                pulseInfoStruct.group_ind                   = j;
+                                pulseInfoStruct.group_snr                   = groupSNR;
+                                pulseInfoStruct.detection_status            = uint8(detectorPulse.det_dec);
+                                pulseInfoStruct.confirmed_status            = uint8(detectorPulse.con_dec);
+                                pulseInfoStruct.position_x                  = NaN;
+                                pulseInfoStruct.position_y                  = NaN;
+                                pulseInfoStruct.position_z                  = NaN;
+                                pulseInfoStruct.orientation_x               = NaN;
+                                pulseInfoStruct.orientation_y               = NaN;
+                                pulseInfoStruct.orientation_z               = NaN;
+                                pulseInfoStruct.orientation_w               = NaN;
+                                pulseInfoStruct = validatePulseInfoStruct(pulseInfoStruct);
+
                                 if ~pulsesToSkip(j)
                                     % UDP Send
-                                    pulseInfoStruct = createPulseInfoStruct();
-                                    pulseInfoStruct.tag_id                      = currPulseOut.tag_id;
-                                    pulseInfoStruct.frequency_hz                = currPulseOut.frequency;
-                                    pulseInfoStruct.start_time_seconds          = X.ps_pos.pl(j).t_0;
-                                    pulseInfoStruct.predict_next_start_seconds  = X.ps_pos.pl(j).t_next(1);
-                                    pulseInfoStruct.snr                         = currPulseOut.snr;
-                                    pulseInfoStruct.stft_score                  = currPulseOut.stft_score;
-                                    pulseInfoStruct.group_ind                   = currPulseOut.group_ind;
-                                    pulseInfoStruct.group_snr                   = currPulseOut.group_snr;
-                                    pulseInfoStruct.detection_status            = currPulseOut.detection_status;
-                                    pulseInfoStruct.confirmed_status            = currPulseOut.confirmed_status;
-                                    pulseInfoStruct.position_x                  = 0;
-                                    pulseInfoStruct.position_y                  = 0;
-                                    pulseInfoStruct.position_z                  = 0;
-                                    pulseInfoStruct.orientation_x               = 0;
-                                    pulseInfoStruct.orientation_y               = 0;
-                                    pulseInfoStruct.orientation_z               = 0;
-                                    pulseInfoStruct.orientation_w               = 0;
-                                    pulseInfoStruct = validatePulseInfoStruct(pulseInfoStruct);
                                     udpPulseSenderSend(udpPulseSender, pulseInfoStruct);
 
                                     % ROS send
-                                    ros2PulseSend(pulsePub, pulseMsg, currPulseOut);
+                                    ros2PulseSend(pulsePub, pulseMsg, pulseInfoStruct);
 
                                     pulseCount = pulseCount+1;
                                 end
