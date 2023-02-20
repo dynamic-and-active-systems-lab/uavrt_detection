@@ -1,0 +1,23 @@
+function ros2PulseSend(pulsePub, pulseMsg, curPulseOut)
+
+pulseMsg.detector_dir               = char( currPulseOut.detector_dir );
+pulseMsg.tag_id                     = currPulseOut.tag_id;
+pulseMsg.frequency                  = currPulseOut.frequency;
+pulseMsg.start_time.sec             = currPulseOut.start_time_sec;
+pulseMsg.start_time.nanosec         = currPulseOut.start_time_nanosec;
+pulseMsg.end_time.sec               = currPulseOut.end_time_sec;
+pulseMsg.end_time.nanosec           = currPulseOut.end_time_nanosec;
+pulseMsg.predict_next_start.sec     = currPulseOut.predict_next_start_sec;
+pulseMsg.predict_next_start.nanosec = currPulseOut.predict_next_start_nanosec;
+pulseMsg.predict_next_end.sec       = currPulseOut.predict_next_end_sec;
+pulseMsg.predict_next_end.nanosec   = currPulseOut.predict_next_end_nanosec;
+pulseMsg.snr                        = currPulseOut.snr;
+pulseMsg.stft_score                 = currPulseOut.stft_score;
+pulseMsg.group_ind                  = currPulseOut.group_ind;
+pulseMsg.group_snr                  = currPulseOut.group_snr;
+pulseMsg.detection_status           = currPulseOut.detection_status;
+pulseMsg.confirmed_status           = currPulseOut.confirmed_status;
+
+send(pulsePub,pulseMsg)
+
+end

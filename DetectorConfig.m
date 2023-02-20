@@ -34,8 +34,6 @@ classdef DetectorConfig
     %                       data
     %   processedOuputPath  Path to location to save processed
     %                       results.
-    %   ros2enable          Turn on or off ROS2 suppport (True or False)
-    %   startInRunState     Start detector in run state (True or False)
     %
     %METHODS:
     %DetectorConfig     Constructor of this class
@@ -66,14 +64,12 @@ classdef DetectorConfig
         falseAlarmProb(1,1) double {mustBePositive, mustBeLessThan(falseAlarmProb,1)} = 0.01
         dataRecordPath(1,1) string                                            = ''
         processedOuputPath(1,1) string                                        = ''
-        ros2enable  (1,1) logical                                             = false
-        startInRunState (1,1) logical                                         = false
     end
     
     methods
-        function obj = DetectorConfig(IDstr, channelCenterFreqMHZ, ipData, portData, ipCntrl, portCntrl, Fs, tagFreqMHz, tp, tip, tipu, K, opMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath, processedOuputPath, ros2enable, startInRunState)
+        function obj = DetectorConfig(ID, channelCenterFreqMHZ, ipData, portData, ipCntrl, portCntrl, Fs, tagFreqMHz, tp, tip, tipu, K, opMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath, processedOuputPath)
             if nargin>0
-                obj.ID          = IDstr;
+                obj.ID          = ID;
                 obj.channelCenterFreqMHz     = channelCenterFreqMHZ;
                 obj.ipData      = ipData;
                 obj.portData    = portData;
@@ -91,8 +87,6 @@ classdef DetectorConfig
                 obj.falseAlarmProb      = falseAlarmProb;
                 obj.dataRecordPath      = dataRecordPath;
                 obj.processedOuputPath  = processedOuputPath;
-                obj.ros2enable          = ros2enable;
-                obj.startInRunState     = startInRunState;
             end
         end
         
@@ -212,10 +206,6 @@ classdef DetectorConfig
                         obj.dataRecordPath = configValStr;
                     elseif strcmp(configType,'processedOuputPath')
                         obj.processedOuputPath =  configValStr;
-                    elseif strcmp(configType,'ros2enable')
-                        obj.ros2enable =  str2bool(configValStr);
-                    elseif strcmp(configType,'startInRunState')
-                        obj.startInRunState =  str2bool(configValStr);
                     end
                     %Stop when we have finished reading this entry.
                     done = (feof(fid) == 1) || (ftell(fid)==sepByte(entry+1)) ;
@@ -251,9 +241,7 @@ classdef DetectorConfig
                                                    obj.excldFreqs,...
                                                    obj.falseAlarmProb,...
                                                    obj.dataRecordPath, ...
-                                                   obj.processedOuputPath,...
-                                                   obj.ros2enable,...
-                                                   obj.startInRunState);
+                                                   obj.processedOuputPath)
                                                    
             detectorconfigwrite(fullConfigPath, configStr, writeType)
         end
@@ -280,8 +268,6 @@ classdef DetectorConfig
             objOut.falseAlarmProb      = obj.falseAlarmProb;
             objOut.dataRecordPath      = obj.dataRecordPath;
             objOut.processedOuputPath  = obj.processedOuputPath;
-            objOut.ros2enable          = obj.ros2enable;
-            objOut.startInRunState     = obj.startInRunState;
         end
     end
 end
