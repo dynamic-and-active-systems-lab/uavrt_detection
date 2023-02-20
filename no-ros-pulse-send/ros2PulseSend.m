@@ -1,3 +1,3 @@
-function ros2PulseSend(pulsePub, pulseMsg, curPulseOut)
+function ros2PulseSend(pulsePub, pulseMsg, pulseInfoStruct, detectorPulse)
 
 end

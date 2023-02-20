@@ -628,7 +628,7 @@ previousToc = toc;
                                     udpPulseSenderSend(udpPulseSender, pulseInfoStruct);
 
                                     % ROS send
-                                    ros2PulseSend(pulsePub, pulseMsg, pulseInfoStruct);
+                                    ros2PulseSend(pulsePub, pulseMsg, pulseInfoStruct, detectorPulse);
 
                                     pulseCount = pulseCount+1;
                                 end
