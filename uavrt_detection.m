@@ -165,6 +165,7 @@ ps_pre_struc.cpki   = localCpki;
 
 udpPulseSender = udpPulseSenderSetup("127.0.0.1", 50000);
 [udpReceiver, udpReceiverBufferSize] = udpSamplesReceiverSetup('127.0.0.1', Config.portData, 2048);
+%[udpReceiver, udpReceiverBufferSize] = udpSamplesReceiverSetup('10.0.0.8', Config.portData, 2048);
 
 fprintf('Startup set 6 complete. \n')
 
@@ -260,23 +261,25 @@ while true %i <= maxInd
                 currSampleCount  = nextSampleCount + nReceived;
                 %This is the number of samples transmitted by the 
                 %upstream process (ideal if none are dropped)
-                rawIdealSampleCount = uint64(singlecomplex2int(dataReceived(end)));
+%                rawIdealSampleCount = uint64(singlecomplex2int(dataReceived(end)));
                 %If this is the first packet, calculate the offset 
                 %sample count since the upstream processess may have 
                 %started a while ago and its sample count may not be zero
                 if framesReceived == 1
                     startTime = round(posixtime(datetime('now'))*1000000)/1000000;
-                    sampleOffset = rawIdealSampleCount - nReceived;
+%                    sampleOffset = rawIdealSampleCount - nReceived;
                     %To estimate the timestamp of the sample before the 
                     %first one in this first frame we go back in time 
                     %from the start time. 
-                    lastTimeStamp = startTime - (double(nReceived) + 1) * 1/Config.Fs; 
+%                    lastTimeStamp = startTime - (double(nReceived) + 1) * 1/Config.Fs; 
+                    lastTimeStamp = startTime - (double(nReceived)) * 1/Config.Fs; 
                 end
 
                 
-                idealSampleCount = rawIdealSampleCount - sampleOffset;
+%                idealSampleCount = rawIdealSampleCount - sampleOffset;
 
-                missingSamples  = idealSampleCount - currSampleCount;
+%                missingSamples  = idealSampleCount - currSampleCount;
+                missingSamples  = 0;
                 
                 if missingSamples > 0 
 

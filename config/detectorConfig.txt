@@ -1,12 +1,12 @@
 ##################################################
 ID:	1
-channelCenterFreqMHz:	148.525000
+channelCenterFreqMHz:	146
 timeStamp:	1646403180.469
 ipData:	0.0.0.0
 portData:	20000
 Fs:	3750
-tagFreqMHz:	148.525
-tp:	0.020000
+tagFreqMHz:	146
+tp:	0.016
 tip:	2.0
 tipu:	0.06
 tipj:	0.01000
