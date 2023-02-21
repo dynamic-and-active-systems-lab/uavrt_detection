@@ -214,6 +214,7 @@ idealSampleCount  = uint64(0);
 sampleOffset      = uint64(0);
 previousPulseTime = 0;
 repeatedDetectionFlag = false;
+missingSamples    = 0;
 
 if Config.startInRunState
     state = 'run';
@@ -223,6 +224,8 @@ end
 
 fprintf('Startup set 8 complete. Starting processing... \n')
 
+predictNextTimeStamp = 0;
+
 while true %i <= maxInd
 
     switch state
@@ -231,7 +234,8 @@ while true %i <= maxInd
             if resetBuffersFlag
                 asyncDataBuff.reset();
                 asyncTimeBuff.reset();
-                resetBuffersFlag =false;
+                asyncWriteBuff.reset();
+                resetBuffersFlag = false;
                 cleanBuffer = true;
             end
 
@@ -271,69 +275,94 @@ while true %i <= maxInd
             else
                 
                 %timeStamp      = 10^-3*singlecomplex2int(dataReceived(1)); % OLD TIME STAMP METHOD
-                %iqData         = dataReceived(2:end);% OLD TIME STAMP METHOD
+                timeStamp      = real(double(dataReceived(1))) + 10^-9*imag(double(dataReceived(1))); % OLD TIME STAMP METHOD
+                iqData         = dataReceived(2:end);% OLD TIME STAMP METHOD
                 %timeVector     = timeStamp+1/Config.Fs*(0:(numel(iqData)-1)).';% OLD TIME STAMP METHOD
-
-                % Parse the incoming data and sample count. 
-                % and fill in any missing data with zeros. 
-                framesReceived = framesReceived + 1;
                 
-                iqData           = dataReceived(1:end-1);
-                
-                nReceived        = uint64(numel(iqData));
-
-                currSampleCount  = nextSampleCount + nReceived;
-                %This is the number of samples transmitted by the 
-                %upstream process (ideal if none are dropped)
-fprintf('%f + i%f \n',real(dataReceived(end)), imag(dataReceived(end)))
-                rawIdealSampleCount = uint64(singlecomplex2int(dataReceived(end)));
-fprintf('%f\n',singlecomplex2int(dataReceived(end)))
-fprintf('%u\n',rawIdealSampleCount)
-                %If this is the first packet, calculate the offset 
-                %sample count since the upstream processess may have 
-                %started a while ago and its sample count may not be zero
-                if framesReceived == 1
-                    startTime = round(posixtime(datetime('now'))*1000000)/1000000;
-                    sampleOffset = rawIdealSampleCount - nReceived;
-                    %To estimate the timestamp of the sample before the 
-                    %first one in this first frame we go back in time 
-                    %from the start time. 
-                    lastTimeStamp = startTime - (double(nReceived) + 1) * 1/Config.Fs; 
-                end
-
-                
-                idealSampleCount = rawIdealSampleCount - sampleOffset;
-
-                missingSamples  = idealSampleCount - currSampleCount;
-                
-                if missingSamples > 0 
-
-                    zerosFill = single(zeros(missingSamples, 1)) + ...
-                                    1i*single(zeros(missingSamples, 1));
-
-                    iqDataToWrite = [zerosFill(:); iqData];
-
-                    nextSampleCount = nextSampleCount + nReceived + missingSamples;
-
-                    fprintf('Missing samples detected. Filling with zeros for %u samples.',missingSamples);
-
-                elseif missingSamples < 0
-
-                    error('UAV-RT: Number of samples transmitted to the detector is less than that expected by the detector. Upstream processes (channelizer) may be transmitting more than 1024 IQ data samples per packet. This is not supported by this detetor.')
-
-                else
-
+                if framesReceived == 0 
                     iqDataToWrite = iqData;
-
-                    nextSampleCount = nextSampleCount + nReceived; 
-
+                else
+                    timeDiff = timeStamp - predictNextTimeStamp;
+                    if abs(timeDiff) < Config.tp / 2
+                        iqDataToWrite = iqData;
+                    elseif timeDiff >= Config.tp / 2  && timeDiff < Config.tip %missed samples but not a whole lot
+                        missingSamples = round(timeDiff * Config.Fs);
+                        fprintf('Missing samples detected. Filling with zeros for %u samples.',missingSamples);
+                        zerosFill = single(zeros(missingSamples, 1)) + ...
+                                    1i*single(zeros(missingSamples, 1));
+                        iqDataToWrite = [zerosFill(:); iqData];
+                    elseif (timeDiff >= Config.tp / 2  && timeDiff >= Config.tip) ||... %missed a lot of samples. Reset buffers 
+                           (timeDiff < -Config.tp / 2) %predictions is ahead of recently received packet. Shouldn't ever happen. If it is, reset the incoming data
+                        staleDataFlag    = true;
+                        resetBuffersFlag = true;
+                        iqDataToWrite = [];
+                        
+                    end
                 end
+                
+                timeVector     = timeStamp+1/Config.Fs*(0:(numel(iqDataToWrite)-1)).';
+                
+                frameNSamps          = numel(iqData);
+                predictNextTimeStamp = timeStamp + 1/Config.Fs * frameNSamps;
+                framesReceived       = framesReceived + 1;
 
-fprintf('nReceived: %u \t currSampleCount: %u \t idealSampleCount: %u \t rawIdealSampleCount: %u \t missingSamples: %u numel(iqData): %u numel(iqDataToWrite): %u nextSampleCount: %u \t\n',nReceived, currSampleCount, idealSampleCount, rawIdealSampleCount, missingSamples, uint64(numel(iqData)), uint64(numel(iqDataToWrite)), nextSampleCount)
 
-                timeVector = lastTimeStamp + ...
-                             (1 : numel(iqDataToWrite)).' * 1/Config.Fs;
-                lastTimeStamp = timeVector(end);
+%                % Parse the incoming data and sample count. 
+%                % and fill in any missing data with zeros. 
+%                 framesReceived = framesReceived + 1;
+%                
+%                 iqData           = dataReceived(1:end-1);
+% 
+%                 nReceived        = uint64(numel(iqData));
+% 
+%                 currSampleCount  = nextSampleCount + nReceived;
+%                 %This is the number of samples transmitted by the 
+%                 %upstream process (ideal if none are dropped)
+%                 %If this is the first packet, calculate the offset 
+%                 %sample count since the upstream processess may have 
+%                 %started a while ago and its sample count may not be zero
+%                 if framesReceived == 1
+%                     startTime = round(posixtime(datetime('now'))*1000000)/1000000;
+%                     sampleOffset = rawIdealSampleCount - nReceived;
+%                     %To estimate the timestamp of the sample before the 
+%                     %first one in this first frame we go back in time 
+%                     %from the start time. 
+%                     lastTimeStamp = startTime - (double(nReceived) + 1) * 1/Config.Fs; 
+%                 end
+% 
+% 
+%                 idealSampleCount = rawIdealSampleCount - sampleOffset;
+% 
+%                 missingSamples  = idealSampleCount - currSampleCount;
+% 
+%                 if missingSamples > 0 
+% 
+%                     zerosFill = single(zeros(missingSamples, 1)) + ...
+%                                     1i*single(zeros(missingSamples, 1));
+% 
+%                     iqDataToWrite = [zerosFill(:); iqData];
+% 
+%                     nextSampleCount = nextSampleCount + nReceived + missingSamples;
+% 
+%                     fprintf('Missing samples detected. Filling with zeros for %u samples.',missingSamples);
+% 
+%                 elseif missingSamples < 0
+% 
+%                     error('UAV-RT: Number of samples transmitted to the detector is less than that expected by the detector. Upstream processes (channelizer) may be transmitting more than 1024 IQ data samples per packet. This is not supported by this detetor.')
+% 
+%                 else
+% 
+%                     iqDataToWrite = iqData;
+% 
+%                     nextSampleCount = nextSampleCount + nReceived; 
+% 
+%                 end
+% 
+% fprintf('nReceived: %u \t currSampleCount: %u \t idealSampleCount: %u \t rawIdealSampleCount: %u \t missingSamples: %u numel(iqData): %u numel(iqDataToWrite): %u nextSampleCount: %u \t\n',nReceived, currSampleCount, idealSampleCount, rawIdealSampleCount, missingSamples, uint64(numel(iqData)), uint64(numel(iqDataToWrite)), nextSampleCount)
+% 
+%                 timeVector = lastTimeStamp + ...
+%                              (1 : numel(iqDataToWrite)).' * 1/Config.Fs;
+%                 lastTimeStamp = timeVector(end);
 
                 %Write out data and time.
                 asyncDataBuff.write(iqDataToWrite);
