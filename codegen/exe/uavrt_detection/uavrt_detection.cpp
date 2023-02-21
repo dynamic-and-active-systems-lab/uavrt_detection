@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 17:51:34
+// C/C++ source code generated on  : 20-Feb-2023 18:16:21
 //
 
 // Include Files
@@ -24,7 +24,6 @@
 #include "ftell.h"
 #include "fwrite.h"
 #include "ifWhileCond.h"
-#include "indexShapeCheck.h"
 #include "makepulsestruc.h"
 #include "mean.h"
 #include "pulsestats.h"
@@ -174,12 +173,12 @@ static void binary_expand_op(coder::array<creal32_T, 1U> &in1,
     r[i].re = static_cast<signed char>(in3[i * stride_1_0].re);
     r[i].im = static_cast<signed char>(in3[i * stride_1_0].im);
   }
-  in1.set_size(r.size(0) + 16383);
+  in1.set_size(r.size(0) + 16384);
   loop_ub = r.size(0);
   for (i = 0; i < loop_ub; i++) {
     in1[i] = r[i];
   }
-  for (i = 0; i < 16383; i++) {
+  for (i = 0; i < 16384; i++) {
     in1[i + r.size(0)] = in4[i];
   }
 }
@@ -2015,9 +2014,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
     //  and fill in any missing data with zeros.
     framesReceived++;
     //                 iqData           = dataReceived(1:end-1);
-    currDir_size[0] = 1;
-    currDir_size[1] = 16383;
-    coder::internal::indexShapeCheck(16384, currDir_size);
     // This is the number of samples transmitted by the
     // upstream process (ideal if none are dropped)
     integratedTimeError = singlecomplex2int(dataReceived[16383]);
@@ -2039,21 +2035,21 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
     if (framesReceived == 1.0) {
       b_this.init();
       startTime = std::round(b_this.data.re / 1000.0 * 1.0E+6) / 1.0E+6;
-      sampleOffset = q0 - 16383ULL;
-      if (q0 - 16383ULL > q0) {
+      sampleOffset = q0 - 16384ULL;
+      if (q0 - 16384ULL > q0) {
         sampleOffset = 0ULL;
       }
       // To estimate the timestamp of the sample before the
       // first one in this first frame we go back in time
       // from the start time.
-      lastTimeStamp = startTime - 16384.0 / Config.contents.Fs;
+      lastTimeStamp = startTime - 16385.0 / Config.contents.Fs;
     }
     qY = q0 - sampleOffset;
     if (qY > q0) {
       qY = 0ULL;
     }
-    q0 = nextSampleCount + 16383ULL;
-    if (nextSampleCount + 16383ULL < nextSampleCount) {
+    q0 = nextSampleCount + 16384ULL;
+    if (nextSampleCount + 16384ULL < nextSampleCount) {
       q0 = MAX_uint64_T;
     }
     q0 = qY - q0;
@@ -2093,20 +2089,20 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
                                     &g_emlrtECI);
       }
       if (static_cast<int>(q0) == r.size(0)) {
-        iqDataToWrite.set_size(static_cast<int>(q0) + 16383);
+        iqDataToWrite.set_size(static_cast<int>(q0) + 16384);
         loop_ub = static_cast<int>(q0);
         for (i = 0; i < loop_ub; i++) {
           iqDataToWrite[i].re = 0.0F;
           iqDataToWrite[i].im = static_cast<signed char>(r[i].im);
         }
-        for (i = 0; i < 16383; i++) {
+        for (i = 0; i < 16384; i++) {
           iqDataToWrite[i + static_cast<int>(q0)] = dataReceived[i];
         }
       } else {
         binary_expand_op(iqDataToWrite, q0, r, dataReceived);
       }
-      qY = nextSampleCount + 16383ULL;
-      if (nextSampleCount + 16383ULL < nextSampleCount) {
+      qY = nextSampleCount + 16384ULL;
+      if (nextSampleCount + 16384ULL < nextSampleCount) {
         qY = MAX_uint64_T;
       }
       nextSampleCount = qY + q0;
@@ -2117,12 +2113,12 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
              q0);
       fflush(stdout);
     } else {
-      iqDataToWrite.set_size(16383);
-      for (i = 0; i < 16383; i++) {
+      iqDataToWrite.set_size(16384);
+      for (i = 0; i < 16384; i++) {
         iqDataToWrite[i] = dataReceived[i];
       }
-      qY = nextSampleCount + 16383ULL;
-      if (nextSampleCount + 16383ULL < nextSampleCount) {
+      qY = nextSampleCount + 16384ULL;
+      if (nextSampleCount + 16384ULL < nextSampleCount) {
         qY = MAX_uint64_T;
       }
       nextSampleCount = qY;
@@ -2682,11 +2678,11 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
           pulsesToSkip[loop_ub] = ps_pre_struc_pl[loop_ub].con_dec;
         }
         if (pulsesToSkip.size(1) != 0) {
-          currDir_size[1] = pulsesToSkip.size(1);
+          loop_ub = pulsesToSkip.size(1);
         } else {
-          currDir_size[1] = 0;
+          loop_ub = 0;
         }
-        b_pulsesToSkip = pulsesToSkip.reshape(1, currDir_size[1]);
+        b_pulsesToSkip = pulsesToSkip.reshape(1, loop_ub);
         coder::all(b_pulsesToSkip, r3);
         if (coder::internal::ifWhileCond(r3)) {
           // Check if all were confirmed

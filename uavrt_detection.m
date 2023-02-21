@@ -253,7 +253,7 @@ while true %i <= maxInd
                 framesReceived = framesReceived + 1;
                 
 %                iqData           = dataReceived(1:end-1);
-                iqData           = dataReceived(1:end-1);
+                iqData           = dataReceived;
                 
                 nReceived        = uint64(numel(iqData));
 
