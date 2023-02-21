@@ -5,7 +5,7 @@
 // File: incohsumtoeplitz.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 // Include Files
@@ -426,9 +426,9 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   if (S.size(0) != Wfherm.size(1)) {
     if (((Wfherm.size(0) == 1) && (Wfherm.size(1) == 1)) ||
         ((S.size(0) == 1) && (S.size(1) == 1))) {
-      wb_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
+      vb_rtErrorWithMessageID(fc_emlrtRTEI.fName, fc_emlrtRTEI.lineNo);
     } else {
-      nb_rtErrorWithMessageID(fc_emlrtRTEI.fName, fc_emlrtRTEI.lineNo);
+      mb_rtErrorWithMessageID(ec_emlrtRTEI.fName, ec_emlrtRTEI.lineNo);
     }
   }
   coder::internal::blas::mtimes(Wfherm, S, d_y);

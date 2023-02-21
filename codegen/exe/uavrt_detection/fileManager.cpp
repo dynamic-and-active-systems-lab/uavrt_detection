@@ -5,7 +5,7 @@
 // File: fileManager.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 // Include Files
@@ -51,7 +51,7 @@ static signed char filedata();
 }
 static void h_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-static void pc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void oc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -106,7 +106,7 @@ static void h_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void pc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void oc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -130,7 +130,7 @@ static void pc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 namespace coder {
 int cfclose(double fid)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
       165,                // lineNo
       "conditionalAssert" // fName
   };
@@ -162,7 +162,7 @@ int cfclose(double fid)
     filestar = stderr;
   }
   if ((!(filestar != NULL)) || (fileid < 3)) {
-    c_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
   }
   cst = fclose(filestar);
   if (cst == 0) {
@@ -181,7 +181,7 @@ int cfclose(double fid)
 signed char cfopen(const ::coder::array<char, 2U> &cfilename,
                    const char *cpermission)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
       111,     // lineNo
       "cfopen" // fName
   };
@@ -191,7 +191,7 @@ signed char cfopen(const ::coder::array<char, 2U> &cfilename,
   fileid = -1;
   j = filedata();
   if (j < 1) {
-    pc_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    oc_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
   } else {
     FILE *filestar;
     int i;

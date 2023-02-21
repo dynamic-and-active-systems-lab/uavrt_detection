@@ -5,7 +5,7 @@
 // File: uavrt_detection_rtwutil.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 #ifndef UAVRT_DETECTION_RTWUTIL_H
@@ -25,19 +25,21 @@ struct rtEqualityCheckInfo;
 struct rtDoubleCheckInfo;
 
 // Function Declarations
-extern void bc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+extern void ac_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+extern void bb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void c_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void c_rtErrorWithMessageID(const int i, const char *aFcnName,
                                    int aLineNum);
 
-extern void cb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
-
 extern int div_s32(int numerator, int denominator);
 
 extern void e_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum);
+
+extern void eb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void emlrtDimSizeImpxCheckR2021b(const int aDim1, const int aDim2,
                                         const rtEqualityCheckInfo *aInfo);
@@ -49,10 +51,12 @@ extern void g_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 extern void g_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum);
 
-extern void gb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
-
 extern void h_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum);
+
+extern void hb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+extern void hc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void i_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
@@ -61,30 +65,26 @@ extern void i_rtErrorWithMessageID(const char *r, const char *aFcnName,
 
 extern void ib_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-extern void ic_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
-
 extern void j_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum);
-
-extern void jb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void k_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void l_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
+extern void lc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
 extern void m_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-extern void mc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
-
-extern void nb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+extern void mb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void o_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void p_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-extern void qc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+extern void pc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-extern void rc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+extern void qc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void rtDivisionByZeroErrorN();
 
@@ -130,9 +130,9 @@ extern void u_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void v_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-extern void w_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+extern void vb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-extern void wb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+extern void w_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void y_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 

@@ -5,7 +5,7 @@
 // File: waveform.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 // Include Files
@@ -2577,7 +2577,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   }
 
   if (wind_end_size != 1) {
-    cb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+    bb_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
   }
 
   result.set_size(1, 2);
@@ -2947,7 +2947,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     }
 
     if (wind_end_size != wind_start_size) {
-      cb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+      bb_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
     }
 
     result.set_size(wind_start_size, 2);
@@ -5055,7 +5055,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
             // front of the peak? Use that distance as the
             // 1/2 width of the sideband.
             if (nx != 1) {
-              cb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+              bb_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
             }
 
             excluded_freq_bands.set_size(1, 2);
@@ -5083,7 +5083,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
             // back of the peak? Use that distance as the
             // 1/2 width of the sideband.
             if (ii_size != 1) {
-              cb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+              bb_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
             }
 
             excluded_freq_bands.set_size(1, 2);
@@ -5114,7 +5114,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
             // backwards.
             if (nx != 0) {
               if (wind_start_size != 1) {
-                cb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+                bb_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
               }
 
               excluded_freq_bands.set_size(1, 2);
@@ -5127,7 +5127,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
             if (ii_size != 0) {
               if (wind_end_size != 1) {
-                cb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+                bb_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
               }
 
               excluded_freq_bands.set_size(1, 2);
@@ -5139,7 +5139,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
             }
 
             if (wind_end_size != wind_start_size) {
-              cb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+              bb_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
             }
 
             for (i2 = 0; i2 < wind_start_size; i2++) {
@@ -5813,7 +5813,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   }
 
   if (indsOfBinsValid.size(0) != timeBlinderVec.size(0)) {
-    cb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+    bb_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
   }
 
   excluded_freq_bands.set_size(timeBlinderVec.size(0), 2);
@@ -10210,14 +10210,14 @@ void waveform::setweightingmatrix()
   };
 
   static rtDoubleCheckInfo w_emlrtDCI{ 194,// lineNo
-    48,                                // colNo
+    55,                                // colNo
     "weightingmatrix",                 // fName
     "H:\\repos\\uavrt_detection\\weightingmatrix.m",// pName
     4                                  // checkKind
   };
 
   static rtDoubleCheckInfo x_emlrtDCI{ 194,// lineNo
-    55,                                // colNo
+    48,                                // colNo
     "weightingmatrix",                 // fName
     "H:\\repos\\uavrt_detection\\weightingmatrix.m",// pName
     4                                  // checkKind
@@ -10360,7 +10360,7 @@ void waveform::setweightingmatrix()
       exitg1 = 0;
       if (k < 2) {
         if (std::isnan(tmplt_samps[k])) {
-          gb_rtErrorWithMessageID(ac_emlrtRTEI.fName, ac_emlrtRTEI.lineNo);
+          fb_rtErrorWithMessageID(yb_emlrtRTEI.fName, yb_emlrtRTEI.lineNo);
         } else {
           k++;
         }
@@ -10374,7 +10374,7 @@ void waveform::setweightingmatrix()
         }
 
         if (tmplt_samps[1] <= tmplt_samps[0]) {
-          fb_rtErrorWithMessageID(yb_emlrtRTEI.fName, yb_emlrtRTEI.lineNo);
+          eb_rtErrorWithMessageID(xb_emlrtRTEI.fName, xb_emlrtRTEI.lineNo);
         }
 
         coder::interp1Linear(varargin_2, output_samps, w_time_domain,
@@ -10948,13 +10948,13 @@ void waveform::setweightingmatrix()
   w_time_domain.set_size(1, w_time_domain.size(1));
   xtmp_im = static_cast<double>(output_samps.size(1)) - static_cast<double>(ij);
   if (!(xtmp_im >= 0.0)) {
-    rtNonNegativeError(xtmp_im, &x_emlrtDCI);
+    rtNonNegativeError(xtmp_im, &w_emlrtDCI);
   }
 
   w_time_domain.set_size(w_time_domain.size(0), static_cast<int>(xtmp_im));
   xtmp_im = static_cast<double>(output_samps.size(1)) - static_cast<double>(ij);
   if (!(xtmp_im >= 0.0)) {
-    rtNonNegativeError(xtmp_im, &w_emlrtDCI);
+    rtNonNegativeError(xtmp_im, &x_emlrtDCI);
   }
 
   loop_ub = static_cast<int>(xtmp_im);

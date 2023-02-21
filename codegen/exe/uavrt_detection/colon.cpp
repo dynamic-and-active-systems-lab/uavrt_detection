@@ -5,7 +5,7 @@
 // File: colon.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 // Include Files
@@ -28,7 +28,7 @@
 namespace coder {
 void eml_float_colon(double a, double b, ::coder::array<double, 2U> &y)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
       419,              // lineNo
       "assert_pmaxsize" // fName
   };
@@ -54,7 +54,7 @@ void eml_float_colon(double a, double b, ::coder::array<double, 2U> &y)
     n = 0;
   }
   if (ndbl > 2.147483647E+9) {
-    m_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    m_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
   }
   y.set_size(1, n);
   if (n > 0) {
@@ -85,7 +85,7 @@ void eml_float_colon(double a, double b, ::coder::array<double, 2U> &y)
 //
 void eml_integer_colon_dispatcher(int a, int b, ::coder::array<int, 2U> &y)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
       291,                           // lineNo
       "integer_colon_length_nonnegd" // fName
   };
@@ -95,7 +95,7 @@ void eml_integer_colon_dispatcher(int a, int b, ::coder::array<int, 2U> &y)
   } else {
     bma = b - a;
     if (bma < 0) {
-      i_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+      i_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
     }
     bma++;
   }

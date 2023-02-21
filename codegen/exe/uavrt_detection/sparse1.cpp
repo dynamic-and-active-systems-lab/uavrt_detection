@@ -5,7 +5,7 @@
 // File: sparse1.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 // Include Files
@@ -35,56 +35,56 @@
 #include <string>
 
 // Variable Definitions
-static rtRunTimeErrorInfo dc_emlrtRTEI{
+static rtRunTimeErrorInfo cc_emlrtRTEI{
     29,             // lineNo
     "sparse/mtimes" // fName
 };
 
-static rtRunTimeErrorInfo hc_emlrtRTEI{
+static rtRunTimeErrorInfo gc_emlrtRTEI{
     12,                                  // lineNo
     "sparse/sparse_validateNumericIndex" // fName
 };
 
-static rtRunTimeErrorInfo kc_emlrtRTEI{
+static rtRunTimeErrorInfo jc_emlrtRTEI{
     1629,             // lineNo
     "assertValidSize" // fName
 };
 
-static rtRunTimeErrorInfo oc_emlrtRTEI{
+static rtRunTimeErrorInfo nc_emlrtRTEI{
     11,                                  // lineNo
     "sparse/sparse_validateNumericIndex" // fName
 };
 
-static rtRunTimeErrorInfo pc_emlrtRTEI{
+static rtRunTimeErrorInfo oc_emlrtRTEI{
     92,                       // lineNo
     "parenReference2DColumns" // fName
 };
 
-static rtRunTimeErrorInfo sc_emlrtRTEI{
+static rtRunTimeErrorInfo rc_emlrtRTEI{
     11,                    // lineNo
     "sparse/parenAssign1D" // fName
 };
 
 // Function Declarations
-static void ac_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void cc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-static void dc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void jb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void kb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void lb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-static void mb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void mc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
-
-static void oc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void rtErrorWithMessageID(const int i, const int i1,
                                  const char *aFcnName, int aLineNum);
 
 static void rtErrorWithMessageID(const long long i, const int i1,
                                  const char *aFcnName, int aLineNum);
+
+static void wb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void xb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
@@ -103,7 +103,7 @@ namespace coder {
 void sparse::b_realloc(f_sparse *b_this, int numAllocRequested, int ub1,
                        int lb2, int ub2)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
       237,           // lineNo
       "sparse/numel" // fName
   };
@@ -125,7 +125,7 @@ void sparse::b_realloc(f_sparse *b_this, int numAllocRequested, int ub1,
   if (overflow == 0) {
     internal::b_bigProduct(b_this->m, b_this->n, &numAlloc, &overflow);
     if (overflow != 0) {
-      oc_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+      nc_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
     }
     numAlloc = b_this->m * b_this->n;
     if (numAllocRequested <= numAlloc) {
@@ -173,18 +173,18 @@ void f_sparse::parenAssign2D(boolean_T rhs, double r, double c)
   int vidx;
   boolean_T thisv;
   if ((!(std::floor(r) == r)) || std::isinf(r) || (!(r > 0.0))) {
-    dc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+    cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
   }
   if (!(r <= m)) {
-    rtErrorWithMessageID(static_cast<long long>(r), m, hc_emlrtRTEI.fName,
-                         hc_emlrtRTEI.lineNo);
+    rtErrorWithMessageID(static_cast<long long>(r), m, gc_emlrtRTEI.fName,
+                         gc_emlrtRTEI.lineNo);
   }
   if ((!(std::floor(c) == c)) || std::isinf(c) || (!(c > 0.0))) {
-    dc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+    cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
   }
   if (!(c <= n)) {
-    rtErrorWithMessageID(static_cast<long long>(c), n, hc_emlrtRTEI.fName,
-                         hc_emlrtRTEI.lineNo);
+    rtErrorWithMessageID(static_cast<long long>(c), n, gc_emlrtRTEI.fName,
+                         gc_emlrtRTEI.lineNo);
   }
   b_sparse_locBsearch(rowidx, static_cast<int>(r),
                       colidx[static_cast<int>(c) - 1],
@@ -250,29 +250,7 @@ void f_sparse::parenAssign2D(boolean_T rhs, double r, double c)
 // Return Type  : void
 //
 } // namespace coder
-static void ac_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  outStream << "Unable to represent result of \'~\' because it contains too "
-               "many nonzero elements.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-static void dc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void cc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -294,7 +272,7 @@ static void dc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void kb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void jb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -315,7 +293,7 @@ static void kb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void lb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void kb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -336,7 +314,7 @@ static void lb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void mb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void lb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -357,7 +335,7 @@ static void mb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void mc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -379,7 +357,7 @@ static void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void oc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -462,7 +440,7 @@ static void rtErrorWithMessageID(const long long i, const int i1,
 //                int aLineNum
 // Return Type  : void
 //
-static void xb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void wb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -484,11 +462,33 @@ static void xb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void yb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void xb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
   outStream << "Sparse matrix sizes must be non-negative integers.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void yb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Unable to represent result of \'~\' because it contains too "
+               "many nonzero elements.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -509,15 +509,15 @@ namespace coder {
 void sparse::assertValidIndexArg(const ::coder::array<double, 1U> &s,
                                  ::coder::array<int, 1U> &sint)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
       1658,                 // lineNo
       "assertValidIndexArg" // fName
   };
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       1660,                 // lineNo
       "assertValidIndexArg" // fName
   };
-  static rtRunTimeErrorInfo vc_emlrtRTEI{
+  static rtRunTimeErrorInfo uc_emlrtRTEI{
       1662,                 // lineNo
       "assertValidIndexArg" // fName
   };
@@ -529,13 +529,13 @@ void sparse::assertValidIndexArg(const ::coder::array<double, 1U> &s,
   }
   for (int k{0}; k < ns; k++) {
     if (!(std::floor(s[k]) == s[k])) {
-      kb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+      jb_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
     }
     if (!(s[k] < 2.147483647E+9)) {
-      lb_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+      kb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
     }
     if (!(s[k] > 0.0)) {
-      mb_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+      lb_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
     }
     sint[k] = static_cast<int>(s[k]);
   }
@@ -586,7 +586,7 @@ void f_sparse::b_mtimes(const ::coder::array<double, 2U> &a,
   int b_n;
   int cidx;
   if (a.size(1) != m) {
-    nb_rtErrorWithMessageID(dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
+    mb_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
   }
   b_m = a.size(0);
   b_n = n - 1;
@@ -695,7 +695,7 @@ void f_sparse::b_mtimes(const ::coder::array<double, 2U> &a,
 //
 void d_sparse::b_not(d_sparse *out) const
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
       83,      // lineNo
       "notnnz" // fName
   };
@@ -710,7 +710,7 @@ void d_sparse::b_not(d_sparse *out) const
     if (larger == 0) {
       larger = 0;
     } else if (div_s32(MAX_int32_T, larger) < 1) {
-      ac_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+      yb_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
     }
   }
   nzmax = larger;
@@ -777,7 +777,7 @@ void f_sparse::b_parenAssign(const ::coder::array<boolean_T, 2U> &rhs,
   int varargout_4;
   internal::bigProduct(m, n, &nidx, &overflow);
   if (rhs.size(1) != varargin_1.size(1)) {
-    nc_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    mc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
   }
   if (overflow == 0) {
     overflow = m * n;
@@ -786,11 +786,11 @@ void f_sparse::b_parenAssign(const ::coder::array<boolean_T, 2U> &rhs,
       double b_d;
       b_d = varargin_1[k];
       if ((!(std::floor(b_d) == b_d)) || std::isinf(b_d)) {
-        dc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+        cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
       }
       if (!(b_d <= overflow)) {
         rtErrorWithMessageID(static_cast<long long>(b_d), overflow,
-                             hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+                             gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
       }
     }
   } else {
@@ -799,11 +799,11 @@ void f_sparse::b_parenAssign(const ::coder::array<boolean_T, 2U> &rhs,
       double b_d;
       b_d = varargin_1[k];
       if ((!(std::floor(b_d) == b_d)) || std::isinf(b_d)) {
-        dc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+        cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
       }
       if (!(b_d <= 2.147483647E+9)) {
         rtErrorWithMessageID(static_cast<long long>(b_d), MAX_int32_T,
-                             hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+                             gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
       }
     }
   }
@@ -845,7 +845,7 @@ void f_sparse::c_parenAssign(const h_sparse *rhs,
   if (((varargin_1.size(1) & 65535) + ((varargin_1.size(1) >> 16) << 16) !=
        cend) ||
       (highOrderRHS != 0)) {
-    nc_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    mc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
   }
   if (nidx == 0) {
     cend = m * n;
@@ -854,11 +854,11 @@ void f_sparse::c_parenAssign(const h_sparse *rhs,
       double b_d;
       b_d = varargin_1[k];
       if ((!(std::floor(b_d) == b_d)) || std::isinf(b_d)) {
-        dc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+        cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
       }
       if (!(b_d <= cend)) {
         rtErrorWithMessageID(static_cast<long long>(b_d), cend,
-                             hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+                             gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
       }
     }
   } else {
@@ -867,11 +867,11 @@ void f_sparse::c_parenAssign(const h_sparse *rhs,
       double b_d;
       b_d = varargin_1[k];
       if ((!(std::floor(b_d) == b_d)) || std::isinf(b_d)) {
-        dc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+        cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
       }
       if (!(b_d <= 2.147483647E+9)) {
         rtErrorWithMessageID(static_cast<long long>(b_d), MAX_int32_T,
-                             hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+                             gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
       }
     }
   }
@@ -886,8 +886,8 @@ void f_sparse::c_parenAssign(const h_sparse *rhs,
     ind2sub_indexClass(b_this, varargin_1[k], &varargout_3, &varargout_4);
     if (((rhs->m & 65535) <= MAX_int32_T - ((rhs->m >> 16) << 16)) &&
         (k + 1 > rhs->m)) {
-      rtErrorWithMessageID(k + 1, rhs->m, hc_emlrtRTEI.fName,
-                           hc_emlrtRTEI.lineNo);
+      rtErrorWithMessageID(k + 1, rhs->m, gc_emlrtRTEI.fName,
+                           gc_emlrtRTEI.lineNo);
     }
     s.colidx.set_size(2);
     s.colidx[0] = 1;
@@ -930,7 +930,7 @@ void f_sparse::c_parenAssign(const ::coder::array<double, 2U> &rhs,
   boolean_T thisv;
   internal::bigProduct(m, n, &lowOrderSize, &overflow);
   if (rhs.size(1) != varargin_1.size(1)) {
-    nc_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    mc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
   }
   if (overflow == 0) {
     overflow = m * n;
@@ -939,11 +939,11 @@ void f_sparse::c_parenAssign(const ::coder::array<double, 2U> &rhs,
       double b_d;
       b_d = varargin_1[k];
       if ((!(std::floor(b_d) == b_d)) || std::isinf(b_d)) {
-        dc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+        cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
       }
       if (!(b_d <= overflow)) {
         rtErrorWithMessageID(static_cast<long long>(b_d), overflow,
-                             hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+                             gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
       }
     }
   } else {
@@ -952,11 +952,11 @@ void f_sparse::c_parenAssign(const ::coder::array<double, 2U> &rhs,
       double b_d;
       b_d = varargin_1[k];
       if ((!(std::floor(b_d) == b_d)) || std::isinf(b_d)) {
-        dc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+        cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
       }
       if (!(b_d <= 2.147483647E+9)) {
         rtErrorWithMessageID(static_cast<long long>(b_d), MAX_int32_T,
-                             hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+                             gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
       }
     }
   }
@@ -970,18 +970,18 @@ void f_sparse::c_parenAssign(const ::coder::array<double, 2U> &rhs,
     b_this[1] = n;
     ind2sub_indexClass(b_this, varargin_1[k], &lowOrderSize, &varargout_4);
     if (lowOrderSize <= 0) {
-      dc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+      cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
     }
     if (lowOrderSize > m) {
       rtErrorWithMessageID(static_cast<long long>(lowOrderSize), m,
-                           hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+                           gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
     }
     if (varargout_4 <= 0) {
-      dc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+      cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
     }
     if (varargout_4 > n) {
       rtErrorWithMessageID(static_cast<long long>(varargout_4), n,
-                           hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+                           gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
     }
     b_sparse_locBsearch(rowidx, lowOrderSize, colidx[varargout_4 - 1],
                         colidx[varargout_4], &overflow, &thisv);
@@ -1049,11 +1049,11 @@ void f_sparse::c_parenAssign(const ::coder::array<double, 2U> &rhs,
 //
 void b_sparse::eq(const c_sparse *b, d_sparse *s) const
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
       454,               // lineNo
       "sparse/spfunImpl" // fName
   };
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       178,            // lineNo
       "sparse/sparse" // fName
   };
@@ -1081,23 +1081,23 @@ void b_sparse::eq(const c_sparse *b, d_sparse *s) const
       tmpd[i] = (d[i] == uniOp.workspace.sb);
     }
     if (tmpd.size(0) != colidx[colidx.size(0) - 1] - 1) {
-      jb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+      ib_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
     }
     if (n < 0) {
-      yb_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+      xb_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
     }
     if (n >= MAX_int32_T) {
-      rc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+      qc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
     }
     s->n = n;
     if (colidx[colidx.size(0) - 1] - 1 < 0) {
-      yb_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+      xb_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
     }
     if (colidx[colidx.size(0) - 1] - 1 >= MAX_int32_T) {
-      rc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+      qc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
     }
     if (colidx[colidx.size(0) - 1] - 1 < 0) {
-      xb_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+      wb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
     }
     if (colidx[colidx.size(0) - 1] - 1 >= 1) {
       b_n = colidx[colidx.size(0) - 1] - 2;
@@ -1309,17 +1309,17 @@ void g_sparse::logical(h_sparse *y) const
   int i;
   int numalloc;
   if (m < 0) {
-    yb_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+    xb_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
   }
   if (m >= MAX_int32_T) {
-    rc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+    qc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
   }
   y->m = m;
   if (maxnz < 0) {
-    yb_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+    xb_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
   }
   if (maxnz >= MAX_int32_T) {
-    rc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+    qc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
   }
   numalloc = maxnz;
   if (numalloc < 1) {
@@ -1363,24 +1363,24 @@ void sparse::logical(f_sparse *y) const
   int i;
   int numalloc;
   if (m < 0) {
-    yb_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+    xb_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
   }
   if (m >= MAX_int32_T) {
-    rc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+    qc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
   }
   if (n < 0) {
-    yb_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+    xb_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
   }
   if (n >= MAX_int32_T) {
-    rc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+    qc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
   }
   y->m = m;
   y->n = n;
   if (maxnz < 0) {
-    yb_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+    xb_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
   }
   if (maxnz >= MAX_int32_T) {
-    rc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+    qc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
   }
   numalloc = maxnz;
   if (numalloc < 1) {
@@ -1438,7 +1438,7 @@ void sparse::mtimes(const ::coder::array<double, 2U> &a,
   int b_n;
   int cidx;
   if (a.size(1) != m) {
-    nb_rtErrorWithMessageID(dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
+    mb_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
   }
   b_m = a.size(0);
   b_n = n - 1;
@@ -1548,7 +1548,7 @@ void f_sparse::mtimes(const ::coder::array<double, 2U> &b,
   int nap;
   int nap_tmp;
   if (n != b.size(0)) {
-    nb_rtErrorWithMessageID(dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
+    mb_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
   }
   b_n = b.size(1);
   c.set_size(m, b.size(1));
@@ -1681,7 +1681,7 @@ void f_sparse::parenAssign(const ::coder::array<boolean_T, 1U> &rhs,
   int varargout_4;
   internal::bigProduct(m, n, &nidx, &overflow);
   if (rhs.size(0) != varargin_1.size(1)) {
-    nc_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    mc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
   }
   if (overflow == 0) {
     overflow = m * n;
@@ -1690,11 +1690,11 @@ void f_sparse::parenAssign(const ::coder::array<boolean_T, 1U> &rhs,
       double b_d;
       b_d = varargin_1[k];
       if ((!(std::floor(b_d) == b_d)) || std::isinf(b_d)) {
-        dc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+        cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
       }
       if (!(b_d <= overflow)) {
         rtErrorWithMessageID(static_cast<long long>(b_d), overflow,
-                             hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+                             gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
       }
     }
   } else {
@@ -1703,11 +1703,11 @@ void f_sparse::parenAssign(const ::coder::array<boolean_T, 1U> &rhs,
       double b_d;
       b_d = varargin_1[k];
       if ((!(std::floor(b_d) == b_d)) || std::isinf(b_d)) {
-        dc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+        cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
       }
       if (!(b_d <= 2.147483647E+9)) {
         rtErrorWithMessageID(static_cast<long long>(b_d), MAX_int32_T,
-                             hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+                             gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
       }
     }
   }
@@ -1743,11 +1743,11 @@ void sparse::parenReference(const ::coder::array<double, 1U> &varargin_2,
   for (int k{0}; k < i; k++) {
     if ((!(std::floor(varargin_2[k]) == varargin_2[k])) ||
         std::isinf(varargin_2[k])) {
-      dc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+      cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
     }
     if (!(varargin_2[k] <= ub)) {
       rtErrorWithMessageID(static_cast<long long>(std::floor(varargin_2[k])),
-                           ub, hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+                           ub, gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
     }
   }
   sn = varargin_2.size(0) - 1;
@@ -1761,21 +1761,21 @@ void sparse::parenReference(const ::coder::array<double, 1U> &varargin_2,
     nd = (nd + colidx[nd_tmp]) - colidx[nd_tmp - 1];
   }
   if ((nd > ub) && (ub != 0)) {
-    i_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
   }
   if (m < 0) {
-    yb_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+    xb_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
   }
   if (m >= MAX_int32_T) {
-    rc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+    qc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
   }
   s->m = m;
   s->n = varargin_2.size(0);
   if (nd < 0) {
-    yb_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+    xb_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
   }
   if (nd >= MAX_int32_T) {
-    rc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+    qc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
   }
   if (nd >= 1) {
     ub = nd;
@@ -1829,24 +1829,24 @@ void sparse::parenReference(g_sparse *s) const
   int numalloc;
   if (n < 1) {
     rtErrorWithMessageID(static_cast<long long>(1LL), static_cast<int>(0),
-                         hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+                         gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
   }
   nd_tmp = colidx[1] - colidx[0];
   if ((nd_tmp > m) && (m != 0)) {
-    i_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
   }
   if (m < 0) {
-    yb_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+    xb_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
   }
   if (m >= MAX_int32_T) {
-    rc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+    qc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
   }
   s->m = m;
   if (nd_tmp < 0) {
-    yb_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+    xb_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
   }
   if (nd_tmp >= MAX_int32_T) {
-    rc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+    qc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
   }
   if (nd_tmp >= 1) {
     numalloc = nd_tmp;
@@ -1907,11 +1907,11 @@ void f_sparse::parenReference(const ::coder::array<double, 2U> &varargin_1,
       double b_d;
       b_d = varargin_1[overflow];
       if ((!(std::floor(b_d) == b_d)) || std::isinf(b_d)) {
-        dc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+        cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
       }
       if (!(b_d <= a__1)) {
         rtErrorWithMessageID(static_cast<long long>(b_d), a__1,
-                             hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+                             gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
       }
     }
   } else {
@@ -1920,11 +1920,11 @@ void f_sparse::parenReference(const ::coder::array<double, 2U> &varargin_1,
       double b_d;
       b_d = varargin_1[overflow];
       if ((!(std::floor(b_d) == b_d)) || std::isinf(b_d)) {
-        dc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+        cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
       }
       if (!(b_d <= 2.147483647E+9)) {
         rtErrorWithMessageID(static_cast<long long>(b_d), MAX_int32_T,
-                             hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+                             gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
       }
     }
   }
@@ -2000,7 +2000,7 @@ void b_sparse::parenReference(c_sparse *s) const
   boolean_T found;
   if (n < 1) {
     rtErrorWithMessageID(static_cast<long long>(1LL), static_cast<int>(0),
-                         hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+                         gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
   }
   s->colidx.set_size(2);
   s->colidx[0] = 1;

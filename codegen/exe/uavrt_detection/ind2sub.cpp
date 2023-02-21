@@ -5,7 +5,7 @@
 // File: ind2sub.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 // Include Files
@@ -16,7 +16,7 @@
 #include <string.h>
 
 // Variable Definitions
-static rtRunTimeErrorInfo nc_emlrtRTEI{
+static rtRunTimeErrorInfo mc_emlrtRTEI{
     40,                  // lineNo
     "ind2sub_indexClass" // fName
 };
@@ -36,7 +36,7 @@ void ind2sub_indexClass(const double siz[2], double ndx, int *varargout_1,
   int vk;
   if (static_cast<int>(ndx) >
       static_cast<int>(siz[0]) * static_cast<int>(siz[1])) {
-    bc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+    ac_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
   }
   vk = div_s32(static_cast<int>(ndx) - 1, static_cast<int>(siz[0]));
   *varargout_2 = vk + 1;
@@ -55,7 +55,7 @@ void ind2sub_indexClass(const double siz[2], int ndx, int *varargout_1,
 {
   int vk;
   if (ndx > static_cast<int>(siz[0]) * static_cast<int>(siz[1])) {
-    bc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+    ac_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
   }
   vk = div_s32(ndx - 1, static_cast<int>(siz[0]));
   *varargout_2 = vk + 1;

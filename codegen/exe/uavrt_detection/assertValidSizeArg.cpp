@@ -5,7 +5,7 @@
 // File: assertValidSizeArg.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 // Include Files
@@ -24,7 +24,7 @@
 #include <string>
 
 // Function Declarations
-static void sc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void rc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -32,7 +32,7 @@ static void sc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void sc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void rc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -61,7 +61,7 @@ namespace coder {
 namespace internal {
 void assertValidSizeArg(const double varargin_1[2])
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
       49,                  // lineNo
       "assertValidSizeArg" // fName
   };
@@ -72,7 +72,7 @@ void assertValidSizeArg(const double varargin_1[2])
   exitg1 = false;
   while ((!exitg1) && (k < 2)) {
     if ((varargin_1[k] != varargin_1[k]) || std::isinf(varargin_1[k])) {
-      sc_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+      rc_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
     } else {
       k++;
     }

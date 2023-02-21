@@ -5,7 +5,7 @@
 // File: str2double.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 // Include Files
@@ -55,7 +55,7 @@ creal_T str2double(const ::coder::array<char, 2U> &s)
     while ((!exitg1) && (k + 1 <= s.size(1))) {
       i = static_cast<unsigned char>(s[k]);
       if (i > 127) {
-        qc_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+        pc_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
       }
       if (bv[i] || (s[k] == '\x00')) {
         k++;

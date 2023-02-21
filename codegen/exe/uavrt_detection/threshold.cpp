@@ -5,7 +5,7 @@
 // File: threshold.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 // Include Files
@@ -42,7 +42,7 @@
 #include <string>
 
 // Function Declarations
-static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void jc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -304,7 +304,7 @@ void threshold::setthreshprops(double thresh, const waveform *Wfm)
 //                int aLineNum
 // Return Type  : void
 //
-static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void jc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -388,15 +388,15 @@ void threshold::makenewthreshold(const waveform *Wfm)
       "wgn",                                                  // fName
       "C:\\Program Files\\MATLAB\\toolbox\\comm\\comm\\wgn.m" // pName
   };
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
       81,               // lineNo
       "validate_inputs" // fName
   };
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       449,                      // lineNo
       "general_null_assignment" // fName
   };
-  static rtRunTimeErrorInfo vc_emlrtRTEI{
+  static rtRunTimeErrorInfo uc_emlrtRTEI{
       180,  // lineNo
       "wgn" // fName
   };
@@ -496,7 +496,7 @@ void threshold::makenewthreshold(const waveform *Wfm)
     }
   }
   if (overflow) {
-    kc_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+    jc_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   }
   for (k = 0; k < 6; k++) {
     x_data[k] = b_b[k];
@@ -593,7 +593,7 @@ void threshold::makenewthreshold(const waveform *Wfm)
     }
   }
   if (!overflow) {
-    ic_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    hc_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
   }
   b_x.set_size(Ssynth.size(0), Ssynth.size(1), Ssynth.size(2));
   b_overflow = Ssynth.size(0) * Ssynth.size(1) * Ssynth.size(2);
@@ -626,7 +626,7 @@ void threshold::makenewthreshold(const waveform *Wfm)
   sz_idx_0 = Ssynth.size(0);
   sz_idx_2 = Ssynth.size(2);
   if (nxout > Ssynth.size(1)) {
-    i_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   if (nxout < 0) {
     rtNonNegativeError(static_cast<double>(nxout), &t_emlrtDCI);
@@ -687,9 +687,9 @@ void threshold::makenewthreshold(const waveform *Wfm)
     if (Wfm->W.size(0) != Ssynth.size(0)) {
       if (((Wfm->W.size(0) == 1) && (Wfm->W.size(1) == 1)) ||
           ((Ssynth.size(0) == 1) && (Ssynth.size(1) == 1))) {
-        wb_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
+        vb_rtErrorWithMessageID(fc_emlrtRTEI.fName, fc_emlrtRTEI.lineNo);
       } else {
-        nb_rtErrorWithMessageID(fc_emlrtRTEI.fName, fc_emlrtRTEI.lineNo);
+        mb_rtErrorWithMessageID(ec_emlrtRTEI.fName, ec_emlrtRTEI.lineNo);
       }
     }
     y.set_size(Wfm->W.size(1), Ssynth.size(1));

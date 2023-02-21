@@ -5,7 +5,7 @@
 // File: centerest.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 // Include Files
@@ -135,7 +135,7 @@ void centerest(::coder::array<creal_T, 3U> &y)
       }
       if (ns > y.size(vlend2)) {
         if (y.size(vlend2) == 0) {
-          mc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+          lc_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
         }
         ns -= div_s32_sat(ns, y.size(vlend2)) * y.size(vlend2);
       }

@@ -5,7 +5,7 @@
 // File: sub2ind.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 // Include Files
@@ -24,13 +24,13 @@
 #include <string>
 
 // Variable Definitions
-static rtRunTimeErrorInfo mc_emlrtRTEI{
+static rtRunTimeErrorInfo lc_emlrtRTEI{
     32,           // lineNo
     "eml_sub2ind" // fName
 };
 
 // Function Declarations
-static void cc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void bc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 namespace coder {
 static boolean_T allinrange(const ::coder::array<double, 2U> &x, int hi);
@@ -43,7 +43,7 @@ static boolean_T allinrange(const ::coder::array<double, 2U> &x, int hi);
 //                int aLineNum
 // Return Type  : void
 //
-static void cc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void bc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -108,7 +108,7 @@ void b_eml_sub2ind(const int siz[2],
   boolean_T exitg1;
   boolean_T p;
   if (!allinrange(varargin_1, siz[0])) {
-    bc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+    ac_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
   }
   b_varargin_1[0] = static_cast<unsigned int>(varargin_1.size(0));
   b_varargin_2[0] = static_cast<unsigned int>(varargin_2.size(0));
@@ -127,10 +127,10 @@ void b_eml_sub2ind(const int siz[2],
     }
   }
   if (!p) {
-    cc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+    bc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
   }
   if (!allinrange(varargin_2, siz[1])) {
-    bc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+    ac_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
   }
   idx.set_size(varargin_1.size(0), varargin_1.size(1));
   k = varargin_1.size(0) * varargin_1.size(1);
@@ -163,7 +163,7 @@ void eml_sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
     if ((varargin_1[k] >= 1.0) && (varargin_1[k] <= siz[0])) {
       k++;
     } else {
-      bc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+      ac_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
     }
   }
   b_varargin_1[0] = 1U;
@@ -183,7 +183,7 @@ void eml_sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
     }
   }
   if (!p) {
-    cc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+    bc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
   }
   hi = siz[1];
   k = 0;
@@ -192,7 +192,7 @@ void eml_sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
     if ((varargin_2[k] >= 1.0) && (varargin_2[k] <= hi)) {
       k++;
     } else {
-      bc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+      ac_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
     }
   }
   idx.set_size(1, varargin_1.size(1));
@@ -226,7 +226,7 @@ void eml_sub2ind(const int siz[2], const ::coder::array<double, 1U> &varargin_1,
     if ((varargin_1[k] >= 1.0) && (varargin_1[k] <= siz[0])) {
       k++;
     } else {
-      bc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+      ac_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
     }
   }
   b_varargin_1[0] = static_cast<unsigned int>(varargin_1.size(0));
@@ -246,7 +246,7 @@ void eml_sub2ind(const int siz[2], const ::coder::array<double, 1U> &varargin_1,
     }
   }
   if (!p) {
-    cc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+    bc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
   }
   hi = siz[1];
   k = 0;
@@ -255,7 +255,7 @@ void eml_sub2ind(const int siz[2], const ::coder::array<double, 1U> &varargin_1,
     if ((varargin_2[k] >= 1.0) && (varargin_2[k] <= hi)) {
       k++;
     } else {
-      bc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+      ac_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
     }
   }
   idx.set_size(varargin_1.size(0));
@@ -274,10 +274,10 @@ void eml_sub2ind(const int siz[2], const ::coder::array<double, 1U> &varargin_1,
 int eml_sub2ind(const int siz[2], double varargin_2)
 {
   if (siz[0] < 1) {
-    bc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+    ac_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
   }
   if (!(varargin_2 <= siz[1])) {
-    bc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+    ac_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
   }
   return siz[0] * (static_cast<int>(varargin_2) - 1) + 1;
 }

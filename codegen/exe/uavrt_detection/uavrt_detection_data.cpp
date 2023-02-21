@@ -5,7 +5,7 @@
 // File: uavrt_detection_data.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 // Include Files
@@ -292,43 +292,32 @@ rtRunTimeErrorInfo qb_emlrtRTEI{
     "coderTimeCheckStatus" // fName
 };
 
-rtEqualityCheckInfo
-    e_emlrtECI{
-        -1,                          // nDims
-        227,                         // lineNo
-        13,                          // colNo
-        "AsyncBuffercgHelper/write", // fName
-        "C:\\Program "
-        "Files\\MATLAB\\toolbox\\dsp\\dsp\\+dsp\\+"
-        "internal\\AsyncBuffercgHelper.m" // pName
-    };
-
-rtRunTimeErrorInfo ub_emlrtRTEI{
+rtRunTimeErrorInfo tb_emlrtRTEI{
     275,                  // lineNo
     "check_non_axis_size" // fName
 };
 
-rtRunTimeErrorInfo yb_emlrtRTEI{
+rtRunTimeErrorInfo xb_emlrtRTEI{
     206,           // lineNo
     "interp1_work" // fName
 };
 
-rtRunTimeErrorInfo ac_emlrtRTEI{
+rtRunTimeErrorInfo yb_emlrtRTEI{
     164,           // lineNo
     "interp1_work" // fName
 };
 
-rtRunTimeErrorInfo bc_emlrtRTEI{
+rtRunTimeErrorInfo ac_emlrtRTEI{
     135,            // lineNo
     "unaryMinOrMax" // fName
 };
 
-rtRunTimeErrorInfo fc_emlrtRTEI{
+rtRunTimeErrorInfo ec_emlrtRTEI{
     138,                  // lineNo
     "dynamic_size_checks" // fName
 };
 
-rtRunTimeErrorInfo gc_emlrtRTEI{
+rtRunTimeErrorInfo fc_emlrtRTEI{
     133,                  // lineNo
     "dynamic_size_checks" // fName
 };
@@ -343,17 +332,17 @@ rtDoubleCheckInfo r_emlrtDCI{
     4                   // checkKind
 };
 
-rtRunTimeErrorInfo ic_emlrtRTEI{
+rtRunTimeErrorInfo hc_emlrtRTEI{
     1632,             // lineNo
     "assertValidSize" // fName
 };
 
-rtRunTimeErrorInfo lc_emlrtRTEI{
+rtRunTimeErrorInfo kc_emlrtRTEI{
     42,           // lineNo
     "eml_sub2ind" // fName
 };
 
-rtRunTimeErrorInfo rc_emlrtRTEI{
+rtRunTimeErrorInfo qc_emlrtRTEI{
     132,          // lineNo
     "eml_idivide" // fName
 };

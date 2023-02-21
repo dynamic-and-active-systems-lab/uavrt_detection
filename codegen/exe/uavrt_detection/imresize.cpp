@@ -5,7 +5,7 @@
 // File: imresize.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 // Include Files
@@ -47,7 +47,7 @@ static void resizeAlongDim2D(const ::coder::array<double, 2U> &in,
                              ::coder::array<double, 2U> &out);
 
 } // namespace coder
-static void hc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void gc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -81,10 +81,10 @@ static void b_resizeAlongDim2D(const ::coder::array<double, 2U> &in,
 
   for (int inRInd = 0; inRInd <= ub_loop; inRInd++) {
     if (inRInd + 1 > in.size(0)) {
-      bc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+      ac_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
     }
     if (in.size(1) < 1) {
-      bc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+      ac_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
     }
     i = static_cast<int>(out_length);
     for (outCInd = 0; outCInd < i; outCInd++) {
@@ -488,7 +488,7 @@ static void resizeAlongDim2D(const ::coder::array<double, 2U> &in,
 // Return Type  : void
 //
 } // namespace coder
-static void hc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void gc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -514,7 +514,7 @@ namespace coder {
 void imresize(const ::coder::array<double, 2U> &Ain, const double varargin_1[2],
               ::coder::array<double, 2U> &Bout)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
       319,       // lineNo
       "imresize" // fName
   };
@@ -547,7 +547,7 @@ void imresize(const ::coder::array<double, 2U> &Ain, const double varargin_1[2],
     }
   }
   if (y) {
-    hc_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    gc_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
   }
   if (std::isnan(varargin_1[0])) {
     outputSize_idx_0 =

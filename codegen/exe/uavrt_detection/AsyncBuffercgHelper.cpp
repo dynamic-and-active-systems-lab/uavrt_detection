@@ -5,7 +5,7 @@
 // File: AsyncBuffercgHelper.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 // Include Files
@@ -73,6 +73,31 @@ static rtDoubleCheckInfo
         "Files\\MATLAB\\toolbox\\dsp\\dsp\\+dsp\\+"
         "internal\\AsyncBuffercgHelper.m", // pName
         4                                  // checkKind
+    };
+
+static rtEqualityCheckInfo
+    e_emlrtECI{
+        -1,                          // nDims
+        227,                         // lineNo
+        13,                          // colNo
+        "AsyncBuffercgHelper/write", // fName
+        "C:\\Program "
+        "Files\\MATLAB\\toolbox\\dsp\\dsp\\+dsp\\+"
+        "internal\\AsyncBuffercgHelper.m" // pName
+    };
+
+static rtBoundsCheckInfo
+    y_emlrtBCI{
+        1,                           // iFirst
+        5800321,                     // iLast
+        227,                         // lineNo
+        23,                          // colNo
+        "",                          // aName
+        "AsyncBuffercgHelper/write", // fName
+        "C:\\Program "
+        "Files\\MATLAB\\toolbox\\dsp\\dsp\\+dsp\\+"
+        "internal\\AsyncBuffercgHelper.m", // pName
+        3                                  // checkKind
     };
 
 static rtBoundsCheckInfo
@@ -1473,6 +1498,225 @@ void b_AsyncBuffercgHelper::read(int numRows, ::coder::array<double, 1U> &out,
   } else {
     ReadPointer = c;
   }
+}
+
+//
+// Arguments    : const ::coder::array<creal32_T, 1U> &in
+// Return Type  : int
+//
+int AsyncBuffercgHelper::stepImpl(const ::coder::array<creal32_T, 1U> &in)
+{
+  array<int, 2U> b_y;
+  array<int, 2U> bc;
+  array<int, 2U> y;
+  array<int, 1U> r;
+  int c;
+  int n;
+  int overrun;
+  int rPtr;
+  int wPtr;
+  int yk;
+  wPtr = WritePointer;
+  rPtr = ReadPointer;
+  overrun = 0;
+  if ((wPtr < 1) || (wPtr > 5800321)) {
+    rtErrorWithMessageID(b_emlrtRTEI.fName, b_emlrtRTEI.lineNo);
+  }
+  c = wPtr + 16383;
+  if (wPtr + 16383 > 5800321) {
+    c = wPtr - 5783938;
+    n = 5800322 - wPtr;
+    y.set_size(1, n);
+    y[0] = wPtr;
+    yk = wPtr;
+    for (int k{2}; k <= n; k++) {
+      yk++;
+      y[k - 1] = yk;
+    }
+    if (wPtr - 5783938 < 1) {
+      n = 0;
+    } else {
+      n = wPtr - 5783938;
+    }
+    b_y.set_size(1, n);
+    if (n > 0) {
+      b_y[0] = 1;
+      yk = 1;
+      for (int k{2}; k <= n; k++) {
+        yk++;
+        b_y[k - 1] = yk;
+      }
+    }
+    bc.set_size(1, y.size(1) + b_y.size(1));
+    n = y.size(1);
+    for (yk = 0; yk < n; yk++) {
+      bc[yk] = y[yk];
+    }
+    n = b_y.size(1);
+    for (yk = 0; yk < n; yk++) {
+      bc[yk + y.size(1)] = b_y[yk];
+    }
+    if (wPtr <= rPtr) {
+      overrun = (wPtr - rPtr) + 16384;
+    } else if (rPtr <= wPtr - 5783938) {
+      if ((wPtr - 5783938 >= 0) && (rPtr < wPtr + 2141699711)) {
+        n = MAX_int32_T;
+      } else if ((wPtr - 5783938 < 0) && (rPtr > wPtr + 2141699710)) {
+        n = MIN_int32_T;
+      } else {
+        n = (wPtr - rPtr) - 5783938;
+      }
+      if (n > 2147483646) {
+        overrun = MAX_int32_T;
+      } else {
+        overrun = n + 1;
+      }
+    }
+  } else {
+    eml_integer_colon_dispatcher(wPtr, wPtr + 16383, bc);
+    if ((wPtr <= rPtr) && (rPtr <= wPtr + 16383)) {
+      overrun = (wPtr - rPtr) + 16384;
+    }
+  }
+  r.set_size(bc.size(1));
+  n = bc.size(1);
+  for (yk = 0; yk < n; yk++) {
+    if ((bc[yk] < 1) || (bc[yk] > 5800321)) {
+      rtDynamicBoundsError(bc[yk], 1, 5800321, &y_emlrtBCI);
+    }
+    r[yk] = bc[yk] - 1;
+  }
+  rtSubAssignSizeCheck(r.size(), 1,
+                       ((::coder::array<creal32_T, 1U> *)&in)->size(), 1,
+                       &e_emlrtECI);
+  for (yk = 0; yk < 16384; yk++) {
+    Cache[r[yk]] = in[yk];
+  }
+  if (c + 1 > 5800321) {
+    wPtr = 1;
+  } else {
+    wPtr = c + 1;
+  }
+  if (overrun != 0) {
+    rPtr = wPtr;
+  }
+  n = CumulativeOverrun;
+  if ((n < 0) && (overrun < MIN_int32_T - n)) {
+    n = MIN_int32_T;
+  } else if ((n > 0) && (overrun > MAX_int32_T - n)) {
+    n = MAX_int32_T;
+  } else {
+    n += overrun;
+  }
+  CumulativeOverrun = n;
+  WritePointer = wPtr;
+  ReadPointer = rPtr;
+  return overrun;
+}
+
+//
+// Arguments    : const ::coder::array<double, 1U> &in
+// Return Type  : int
+//
+int b_AsyncBuffercgHelper::stepImpl(const ::coder::array<double, 1U> &in)
+{
+  array<int, 2U> b_y;
+  array<int, 2U> bc;
+  array<int, 2U> y;
+  array<int, 1U> r;
+  int c;
+  int n;
+  int overrun;
+  int rPtr;
+  int wPtr;
+  int yk;
+  wPtr = WritePointer;
+  rPtr = ReadPointer;
+  overrun = 0;
+  if ((wPtr < 1) || (wPtr > 5800321)) {
+    rtErrorWithMessageID(b_emlrtRTEI.fName, b_emlrtRTEI.lineNo);
+  }
+  c = (wPtr + in.size(0)) - 1;
+  if (c > 5800321) {
+    c -= 5800321;
+    n = 5800322 - wPtr;
+    y.set_size(1, n);
+    y[0] = wPtr;
+    yk = wPtr;
+    for (int k{2}; k <= n; k++) {
+      yk++;
+      y[k - 1] = yk;
+    }
+    b_y.set_size(1, c);
+    b_y[0] = 1;
+    yk = 1;
+    for (int k{2}; k <= c; k++) {
+      yk++;
+      b_y[k - 1] = yk;
+    }
+    bc.set_size(1, y.size(1) + b_y.size(1));
+    n = y.size(1);
+    for (yk = 0; yk < n; yk++) {
+      bc[yk] = y[yk];
+    }
+    n = b_y.size(1);
+    for (yk = 0; yk < n; yk++) {
+      bc[yk + y.size(1)] = b_y[yk];
+    }
+    if (wPtr <= rPtr) {
+      overrun = (c - rPtr) + 5800322;
+    } else if (rPtr <= c) {
+      if (rPtr < c - MAX_int32_T) {
+        n = MAX_int32_T;
+      } else {
+        n = c - rPtr;
+      }
+      if (n > 2147483646) {
+        overrun = MAX_int32_T;
+      } else {
+        overrun = n + 1;
+      }
+    }
+  } else {
+    eml_integer_colon_dispatcher(wPtr, c, bc);
+    if ((wPtr <= rPtr) && (rPtr <= c)) {
+      overrun = (c - rPtr) + 1;
+    }
+  }
+  r.set_size(bc.size(1));
+  n = bc.size(1);
+  for (yk = 0; yk < n; yk++) {
+    if ((bc[yk] < 1) || (bc[yk] > 5800321)) {
+      rtDynamicBoundsError(bc[yk], 1, 5800321, &y_emlrtBCI);
+    }
+    r[yk] = bc[yk] - 1;
+  }
+  rtSubAssignSizeCheck(r.size(), 1, ((::coder::array<double, 1U> *)&in)->size(),
+                       1, &e_emlrtECI);
+  n = in.size(0);
+  for (yk = 0; yk < n; yk++) {
+    Cache[r[yk]] = in[yk];
+  }
+  if (c + 1 > 5800321) {
+    wPtr = 1;
+  } else {
+    wPtr = c + 1;
+  }
+  if (overrun != 0) {
+    rPtr = wPtr;
+  }
+  n = CumulativeOverrun;
+  if ((n < 0) && (overrun < MIN_int32_T - n)) {
+    n = MIN_int32_T;
+  } else if ((n > 0) && (overrun > MAX_int32_T - n)) {
+    n = MAX_int32_T;
+  } else {
+    n += overrun;
+  }
+  CumulativeOverrun = n;
+  WritePointer = wPtr;
+  ReadPointer = rPtr;
+  return overrun;
 }
 
 //

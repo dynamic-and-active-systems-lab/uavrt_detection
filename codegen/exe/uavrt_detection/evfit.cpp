@@ -5,7 +5,7 @@
 // File: evfit.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 // Include Files
@@ -24,13 +24,13 @@
 #include <string>
 
 // Function Declarations
+static void nb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
 static void ob_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void pb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void qb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
-
-static void rb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -38,7 +38,7 @@ static void rb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void ob_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void nb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -59,7 +59,7 @@ static void ob_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void pb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void ob_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -80,7 +80,7 @@ static void pb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void qb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void pb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -101,7 +101,7 @@ static void qb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void rb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void qb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -125,33 +125,33 @@ static void rb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 namespace coder {
 void evfit(const double x[100], double parmhat[2])
 {
-  static rtRunTimeErrorInfo ad_emlrtRTEI{
-      209,    // lineNo
-      "evfit" // fName
-  };
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
       218,    // lineNo
       "evfit" // fName
   };
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       227,    // lineNo
       "evfit" // fName
   };
-  static rtRunTimeErrorInfo vc_emlrtRTEI{
+  static rtRunTimeErrorInfo uc_emlrtRTEI{
       149,    // lineNo
       "fzero" // fName
   };
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
+  static rtRunTimeErrorInfo vc_emlrtRTEI{
       14,   // lineNo
       "log" // fName
   };
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       137,    // lineNo
       "fzero" // fName
   };
-  static rtRunTimeErrorInfo yc_emlrtRTEI{
+  static rtRunTimeErrorInfo xc_emlrtRTEI{
       127,    // lineNo
       "fzero" // fName
+  };
+  static rtRunTimeErrorInfo yc_emlrtRTEI{
+      209,    // lineNo
+      "evfit" // fName
   };
   double m;
   double rangex;
@@ -251,7 +251,7 @@ void evfit(const double x[100], double parmhat[2])
           upper = sigmahat;
           sigmahat *= 0.5;
           if (sigmahat < 2.2250738585072014E-308) {
-            ob_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
+            nb_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
           }
         } else {
           exitg1 = 1;
@@ -278,7 +278,7 @@ void evfit(const double x[100], double parmhat[2])
           sigmahat = upper;
           upper *= 2.0;
           if (sigmahat < 2.2250738585072014E-308) {
-            ob_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+            nb_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
           }
         } else {
           exitg1 = 1;
@@ -287,7 +287,7 @@ void evfit(const double x[100], double parmhat[2])
     }
     if (std::isinf(sigmahat) || std::isnan(sigmahat) ||
         (std::isinf(upper) || std::isnan(upper))) {
-      pb_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+      ob_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
     }
     for (int i{0}; i < 100; i++) {
       m = x0[i];
@@ -317,7 +317,7 @@ void evfit(const double x[100], double parmhat[2])
     fb = (upper + wgtmeanUnc) - fb / tempMin;
     if (std::isinf(scale) || std::isnan(scale) ||
         (std::isinf(fb) || std::isnan(fb))) {
-      qb_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+      pb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
     }
     savefa = scale;
     savefb = fb;
@@ -331,7 +331,7 @@ void evfit(const double x[100], double parmhat[2])
       double fc;
       boolean_T exitg2;
       if ((scale > 0.0) == (fb > 0.0)) {
-        rb_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+        qb_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
       }
       fc = fb;
       c = upper;
@@ -414,7 +414,7 @@ void evfit(const double x[100], double parmhat[2])
         }
       }
       if (!(std::abs(fb) <= std::fmax(std::abs(savefa), std::abs(savefb)))) {
-        ob_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+        nb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
       }
     }
     tempMin = std::abs(fb);
@@ -431,7 +431,7 @@ void evfit(const double x[100], double parmhat[2])
     }
     tempMin = fb / 100.0;
     if (tempMin < 0.0) {
-      rtErrorWithMessageID("log", wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+      rtErrorWithMessageID("log", vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
     }
     tempMin = std::log(tempMin);
     parmhat[0] = rangex * (upper * tempMin) + tempMax;

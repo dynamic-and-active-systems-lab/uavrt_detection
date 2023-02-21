@@ -5,7 +5,7 @@
 // File: AsyncBuffercgHelper.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 #ifndef ASYNCBUFFERCGHELPER_H
@@ -24,6 +24,7 @@ namespace dsp {
 namespace internal {
 class AsyncBuffercgHelper {
 public:
+  int stepImpl(const ::coder::array<creal32_T, 1U> &in);
   void read(int numRows, ::coder::array<creal32_T, 1U> &out, int *underrun);
   static void ReadSamplesFromBuffer(const AsyncBuffercgHelper *obj,
                                     int numRowsCast,
@@ -50,7 +51,6 @@ public:
   boolean_T matlabCodegenIsDeleted;
   int isInitialized;
   boolean_T isSetupComplete;
-  cell_wrap_2 inputVarSize[1];
   int NumChannels;
   creal32_T Cache[5800321];
   int CumulativeOverrun;
@@ -58,10 +58,14 @@ public:
   int ReadPointer;
   int WritePointer;
   boolean_T AsyncBuffercgHelper_isInitialized;
+
+private:
+  cell_wrap_2 inputVarSize[1];
 };
 
 class b_AsyncBuffercgHelper {
 public:
+  int stepImpl(const ::coder::array<double, 1U> &in);
   void read(int numRows, ::coder::array<double, 1U> &out, int *underrun);
   static void ReadSamplesFromBuffer(const b_AsyncBuffercgHelper *obj,
                                     int numRowsCast,

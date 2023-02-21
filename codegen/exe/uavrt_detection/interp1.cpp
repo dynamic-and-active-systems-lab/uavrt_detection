@@ -5,7 +5,7 @@
 // File: interp1.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 // Include Files
@@ -33,9 +33,9 @@ static void interp1Linear(const ::coder::array<double, 1U> &y, int nyrows,
                           const ::coder::array<double, 1U> &varargin_1);
 
 }
-static void tb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void sb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-static void ub_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void tb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -118,7 +118,7 @@ static void interp1Linear(const ::coder::array<double, 1U> &y, int nyrows,
 // Return Type  : void
 //
 } // namespace coder
-static void tb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void sb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -139,7 +139,7 @@ static void tb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void ub_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void tb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -168,11 +168,11 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
              const ::coder::array<double, 1U> &varargin_3,
              ::coder::array<double, 1U> &Vq)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
       153,           // lineNo
       "interp1_work" // fName
   };
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       137,           // lineNo
       "interp1_work" // fName
   };
@@ -193,10 +193,10 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
   }
   nx = varargin_1.size(0);
   if (varargin_1.size(0) != varargin_2.size(0)) {
-    tb_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    sb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   if (varargin_1.size(0) <= 1) {
-    ub_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    tb_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
   }
   Vq.set_size(varargin_3.size(0));
   n = varargin_3.size(0);
@@ -214,7 +214,7 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
       exitg1 = 0;
       if (k <= nx - 1) {
         if (std::isnan(varargin_1[k])) {
-          gb_rtErrorWithMessageID(ac_emlrtRTEI.fName, ac_emlrtRTEI.lineNo);
+          fb_rtErrorWithMessageID(yb_emlrtRTEI.fName, yb_emlrtRTEI.lineNo);
         } else {
           k++;
         }
@@ -242,7 +242,7 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
         }
         for (k = 2; k <= nx; k++) {
           if (x[k - 1] <= x[k - 2]) {
-            fb_rtErrorWithMessageID(yb_emlrtRTEI.fName, yb_emlrtRTEI.lineNo);
+            eb_rtErrorWithMessageID(xb_emlrtRTEI.fName, xb_emlrtRTEI.lineNo);
           }
         }
         interp1Linear(y, varargin_2.size(0), varargin_3, Vq, x);

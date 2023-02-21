@@ -5,7 +5,7 @@
 // File: sparse.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 18:16:21
+// C/C++ source code generated on  : 21-Feb-2023 09:24:56
 //
 
 // Include Files
@@ -36,7 +36,7 @@ void i_sparse(const ::coder::array<double, 1U> &varargin_1, g_sparse *y)
   int row;
   mInt = varargin_1.size(0);
   if (varargin_1.size(0) >= MAX_int32_T) {
-    rc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+    qc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
   }
   numalloc = 0;
   row = varargin_1.size(0);
@@ -90,11 +90,11 @@ void i_sparse(const ::coder::array<double, 1U> &varargin_1,
       "sparse\\sparse.m", // pName
       4                   // checkKind
   };
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
       111,            // lineNo
       "sparse/sparse" // fName
   };
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       116,            // lineNo
       "sparse/sparse" // fName
   };
@@ -108,11 +108,11 @@ void i_sparse(const ::coder::array<double, 1U> &varargin_1,
   nc = varargin_2.size(0);
   if ((varargin_1.size(0) != varargin_2.size(0)) ||
       (varargin_3.size(0) != varargin_2.size(0))) {
-    jb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    ib_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
   }
   if ((varargin_3.size(0) != varargin_2.size(0)) &&
       (varargin_3.size(0) != varargin_1.size(0))) {
-    jb_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    ib_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   sparse::assertValidIndexArg(varargin_1, b_this.workspace.b);
   sparse::assertValidIndexArg(varargin_2, b_this.workspace.a);
@@ -215,7 +215,7 @@ void j_sparse(const ::coder::array<boolean_T, 2U> &varargin_1, d_sparse *y)
   int numalloc;
   nInt = varargin_1.size(1);
   if (varargin_1.size(1) >= MAX_int32_T) {
-    rc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+    qc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
   }
   numalloc = 0;
   i = varargin_1.size(1);
