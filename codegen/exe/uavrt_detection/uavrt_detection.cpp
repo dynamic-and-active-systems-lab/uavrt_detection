@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 20-Feb-2023 17:16:38
+// C/C++ source code generated on  : 20-Feb-2023 17:51:34
 //
 
 // Include Files
@@ -1537,7 +1537,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo fb_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      308,                                             // lineNo
+      309,                                             // lineNo
       44,                                              // colNo
       "timeVector",                                    // aName
       "uavrt_detection",                               // fName
@@ -1547,7 +1547,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo gb_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      373,                                             // lineNo
+      374,                                             // lineNo
       32,                                              // colNo
       "t",                                             // aName
       "uavrt_detection",                               // fName
@@ -1557,7 +1557,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo hb_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      535,                                             // lineNo
+      536,                                             // lineNo
       61,                                              // colNo
       "X.ps_pos.pl",                                   // aName
       "uavrt_detection",                               // fName
@@ -1567,7 +1567,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo ib_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      540,                                             // lineNo
+      541,                                             // lineNo
       79,                                              // colNo
       "ps_pre_struc.pl",                               // aName
       "uavrt_detection",                               // fName
@@ -1577,7 +1577,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo jb_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      546,                                             // lineNo
+      547,                                             // lineNo
       50,                                              // colNo
       "pulsesToSkip",                                  // aName
       "uavrt_detection",                               // fName
@@ -1587,7 +1587,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo kb_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      608,                                             // lineNo
+      609,                                             // lineNo
       91,                                              // colNo
       "X.ps_pos.pl",                                   // aName
       "uavrt_detection",                               // fName
@@ -1597,7 +1597,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo lb_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      628,                                             // lineNo
+      629,                                             // lineNo
       50,                                              // colNo
       "pulsesToSkip",                                  // aName
       "uavrt_detection",                               // fName
@@ -1605,28 +1605,28 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
       0                                                // checkKind
   };
   static rtDoubleCheckInfo t_emlrtDCI{
-      282,                                             // lineNo
+      283,                                             // lineNo
       46,                                              // colNo
       "uavrt_detection",                               // fName
       "H:\\repos\\uavrt_detection\\uavrt_detection.m", // pName
       4                                                // checkKind
   };
   static rtDoubleCheckInfo u_emlrtDCI{
-      282,                                             // lineNo
+      283,                                             // lineNo
       46,                                              // colNo
       "uavrt_detection",                               // fName
       "H:\\repos\\uavrt_detection\\uavrt_detection.m", // pName
       1                                                // checkKind
   };
   static rtDoubleCheckInfo v_emlrtDCI{
-      283,                                             // lineNo
+      284,                                             // lineNo
       53,                                              // colNo
       "uavrt_detection",                               // fName
       "H:\\repos\\uavrt_detection\\uavrt_detection.m", // pName
       4                                                // checkKind
   };
   static rtDoubleCheckInfo w_emlrtDCI{
-      283,                                             // lineNo
+      284,                                             // lineNo
       53,                                              // colNo
       "uavrt_detection",                               // fName
       "H:\\repos\\uavrt_detection\\uavrt_detection.m", // pName
@@ -1634,7 +1634,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   };
   static rtEqualityCheckInfo g_emlrtECI{
       1,                                              // nDims
-      282,                                            // lineNo
+      283,                                            // lineNo
       33,                                             // colNo
       "uavrt_detection",                              // fName
       "H:\\repos\\uavrt_detection\\uavrt_detection.m" // pName
@@ -2014,6 +2014,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
     //  Parse the incoming data and sample count.
     //  and fill in any missing data with zeros.
     framesReceived++;
+    //                 iqData           = dataReceived(1:end-1);
     currDir_size[0] = 1;
     currDir_size[1] = 16383;
     coder::internal::indexShapeCheck(16384, currDir_size);
