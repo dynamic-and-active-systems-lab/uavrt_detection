@@ -41,7 +41,6 @@ build_ros2_model.sh
 ReportInfo.mat
 analyze_pulse_train_data.m
 *.o
-uavrt_detection
 
 # Other files
 Build
