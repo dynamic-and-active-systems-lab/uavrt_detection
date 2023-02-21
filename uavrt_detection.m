@@ -163,9 +163,10 @@ ps_pre_struc.cpki   = localCpki;
 % pulseOut.confirmed_status           = false;
 
 
-udpPulseSender = udpPulseSenderSetup("127.0.0.1", 50000);
-[udpReceiver, udpReceiverBufferSize] = udpSamplesReceiverSetup('127.0.0.1', Config.portData, 2048);
-%[udpReceiver, udpReceiverBufferSize] = udpSamplesReceiverSetup('10.0.0.8', Config.portData, 2048);
+pulseInfoStruct = PulseInfoStruct();
+pulseInfoStruct.udpSenderSetup("127.0.0.1", 50000);
+
+udpReceiver = ComplexSamplesUDPReceiver(Config.ipData, Config.portData, 2048);
 
 fprintf('Startup set 6 complete. \n')
 
@@ -216,13 +217,13 @@ while true %i <= maxInd
             end
 
             %% Get data
-            [dataReceived]  = udpSamplesReceiverRead(udpReceiver, udpReceiverBufferSize);
+            [dataReceived]  = udpReceiver.read();
 
             %% Flush UDP buffer if data in the buffer is stale.
             if staleDataFlag
                 fprintf('********STALE DATA FLAG: %u *********\n',uint32(staleDataFlag));
                 fprintf('********CLEARING UDP DATA BUFFER*********\n');
-                udpReceiverClear(udpReceiver);
+                udpReceiver.clear();
                 staleDataFlag = false;
 
                 fprintf('********RESETTING TIMES*********\n');
@@ -608,7 +609,6 @@ previousToc = toc;
                                 groupSNR         = double(groupSNRMeanDB);%10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average SNR in dB
                                 
                                 % Publish pulses to UDP
-                                pulseInfoStruct                             = createPulseInfoStruct();
                                 detectorPulse                               = X.ps_pos.pl(j);
                                 pulseInfoStruct.tag_id                      = uint32(Config.ID);
                                 pulseInfoStruct.frequency_hz                = uint32((Config.channelCenterFreqMHz + detectorPulse.fp) * 1e6);
@@ -620,18 +620,10 @@ previousToc = toc;
                                 pulseInfoStruct.group_snr                   = groupSNR;
                                 pulseInfoStruct.detection_status            = uint8(detectorPulse.det_dec);
                                 pulseInfoStruct.confirmed_status            = uint8(detectorPulse.con_dec);
-                                pulseInfoStruct.position_x                  = NaN;
-                                pulseInfoStruct.position_y                  = NaN;
-                                pulseInfoStruct.position_z                  = NaN;
-                                pulseInfoStruct.orientation_x               = NaN;
-                                pulseInfoStruct.orientation_y               = NaN;
-                                pulseInfoStruct.orientation_z               = NaN;
-                                pulseInfoStruct.orientation_w               = NaN;
-                                pulseInfoStruct = validatePulseInfoStruct(pulseInfoStruct);
 
                                 if ~pulsesToSkip(j)
                                     % UDP Send
-                                    udpPulseSenderSend(udpPulseSender, pulseInfoStruct);
+                                    pulseInfoStruct.sendOverUDP();
 
                                     % ROS send
                                     ros2PulseSend(pulsePub, pulseMsg, pulseInfoStruct, detectorPulse);
