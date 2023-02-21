@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.coder" plugin-version="R2021a">
-  <configuration build-checksum="2425591669" file="H:\repos\uavrt_detection\uavrt_detection.prj" location="H:\repos\uavrt_detection" name="uavrt_detection" target="target.unifiedcoder" target-name="MATLAB Coder">
+  <configuration build-checksum="1537310054" file="H:\repos\uavrt_detection\uavrt_detection.prj" location="H:\repos\uavrt_detection" name="uavrt_detection" target="target.unifiedcoder" target-name="MATLAB Coder">
     <profile key="profile.mex">
       <param.BuiltInstrumentedMex />
       <param.RanInstrumentedMex>false</param.RanInstrumentedMex>
@@ -267,14 +267,14 @@
       <param.CustomSource />
       <param.CustomLibrary />
       <param.PostCodeGenCommand />
-      <param.TargetLangStandard>Auto</param.TargetLangStandard>
+      <param.TargetLangStandard>C++11 (ISO)</param.TargetLangStandard>
       <param.CodeReplacementLibrary>None</param.CodeReplacementLibrary>
       <param.DeprecatedCRLFlag>false</param.DeprecatedCRLFlag>
-      <param.SameHardware>true</param.SameHardware>
+      <param.SameHardware>false</param.SameHardware>
       <param.Toolchain>Automatically locate an installed toolchain</param.Toolchain>
       <param.BuildConfiguration>Faster Runs</param.BuildConfiguration>
       <param.CustomToolchainOptions />
-      <var.ToolchainSettingsVisible>true</var.ToolchainSettingsVisible>
+      <var.ToolchainSettingsVisible>false</var.ToolchainSettingsVisible>
       <param.target.Data>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;ctdata&gt;&lt;configuredHardware/&gt;&lt;/ctdata&gt;</param.target.Data>
       <param.target.ActiveType>option.target.TargetType.Custom</param.target.ActiveType>
       <param.target.ActiveTarget />
@@ -302,7 +302,7 @@
       <param.HardwareVendor.Target>Generic</param.HardwareVendor.Target>
       <param.HardwareType.Target>MATLAB Host Computer</param.HardwareType.Target>
       <param.HWDeviceType.Target>Generic-&gt;MATLAB Host Computer</param.HWDeviceType.Target>
-      <var.instance.enabled.Target>false</var.instance.enabled.Target>
+      <var.instance.enabled.Target>true</var.instance.enabled.Target>
       <param.HardwareSizeChar.Target>8</param.HardwareSizeChar.Target>
       <param.HardwareSizeShort.Target>16</param.HardwareSizeShort.Target>
       <param.HardwareSizeInt.Target>32</param.HardwareSizeInt.Target>
@@ -334,7 +334,7 @@
       <param.IncludeTerminateFcn>true</param.IncludeTerminateFcn>
       <param.GenerateExampleMain>option.GenerateExampleMain.DoNotGenerate</param.GenerateExampleMain>
       <param.PreserveVariableNames>option.PreserveVariableNames.None</param.PreserveVariableNames>
-      <param.GenerateMakefile>true</param.GenerateMakefile>
+      <param.GenerateMakefile>false</param.GenerateMakefile>
       <param.BuildToolEnable>false</param.BuildToolEnable>
       <param.BuildToolConfiguration />
       <param.InlineThreshold>10</param.InlineThreshold>
@@ -470,10 +470,8 @@
         <param.CustomSource />
         <param.CustomLibrary />
         <param.PostCodeGenCommand />
-        <param.TargetLangStandard />
         <param.CodeReplacementLibrary />
         <param.DeprecatedCRLFlag />
-        <param.SameHardware />
         <param.Toolchain />
         <param.BuildConfiguration />
         <param.CustomToolchainOptions />
@@ -519,7 +517,6 @@
         <param.IncludeInitializeFcn />
         <param.IncludeTerminateFcn />
         <param.PreserveVariableNames />
-        <param.GenerateMakefile />
         <param.BuildToolEnable />
         <param.BuildToolConfiguration />
         <param.InlineThreshold />
@@ -587,11 +584,11 @@
     <param.hdlParamStorage />
     <var.gc.lastOutputRoot>codegen\exe\uavrt_detection</var.gc.lastOutputRoot>
     <var.gc.lastOutputType>EXECUTABLE</var.gc.lastOutputType>
-    <var.gc.preBuildChecksum>3452353012</var.gc.preBuildChecksum>
+    <var.gc.preBuildChecksum>1537310054</var.gc.preBuildChecksum>
     <var.cfi.lastOutputRoot />
     <var.cfi.preBuildChecksum />
     <var.outdatedOnRestore>false</var.outdatedOnRestore>
-    <var.lastUserSourceChecksum>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;checksum&gt;&lt;includedFiles&gt;&lt;file&gt;H:\repos\uavrt_detection\assembleWq.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\buildtimecorrelatormatrix.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\cartesian_prod_func.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\DetectorConfig.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\detectorconfigwrite.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\detectorsetting2configstr.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\evthresh.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\fftshiftstft.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\generate_pulse_positions_func.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\gettemplate.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\ifftshiftstft.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\incohsumtoeplitz.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\makepulsestruc.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\makeSTFTFreqVector.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\createPulseInfoStruct.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\structToBytes.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\udpPulseSenderSend.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\udpPulseSenderSetup.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\udpReceiverClear.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\udpSamplesReceiverRead.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\udpSamplesReceiverSetup.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\validatePulseInfoStruct.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\no-ros-pulse-send\ros2PulseSend.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\no-ros-pulse-send\ros2Setup.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\pulsestats.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\singlecomplex2int.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\str2matrix.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\threshold.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\uavrt_detection.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\vecfind.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\waveform.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\waveformcopy.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\weightingmatrix.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\wfmstft.m&lt;/file&gt;&lt;/includedFiles&gt;&lt;value&gt;3264491694&lt;/value&gt;&lt;/checksum&gt;</var.lastUserSourceChecksum>
+    <var.lastUserSourceChecksum>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;checksum&gt;&lt;includedFiles&gt;&lt;file&gt;H:\repos\uavrt_detection\assembleWq.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\buildtimecorrelatormatrix.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\cartesian_prod_func.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\DetectorConfig.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\evthresh.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\fftshiftstft.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\generate_pulse_positions_func.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\gettemplate.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\incohsumtoeplitz.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\makepulsestruc.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\makeSTFTFreqVector.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\createPulseInfoStruct.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\structToBytes.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\udpPulseSenderSend.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\udpPulseSenderSetup.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\udpReceiverClear.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\udpSamplesReceiverRead.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\udpSamplesReceiverSetup.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\validatePulseInfoStruct.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\no-ros-pulse-send\ros2PulseSend.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\no-ros-pulse-send\ros2Setup.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\pulsestats.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\singlecomplex2int.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\str2matrix.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\threshold.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\uavrt_detection.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\vecfind.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\waveform.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\waveformcopy.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\weightingmatrix.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\wfmstft.m&lt;/file&gt;&lt;/includedFiles&gt;&lt;value&gt;3087757235&lt;/value&gt;&lt;/checksum&gt;</var.lastUserSourceChecksum>
     <var.sourceSetState>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;sourceModel&gt;&lt;primarySourceFiles&gt;&lt;file&gt;H:\repos\uavrt_detection\assembleWq.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\buildtimecorrelatormatrix.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\cartesian_prod_func.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\DetectorConfig.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\evthresh.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\fftshiftstft.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\generate_pulse_positions_func.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\gettemplate.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\incohsumtoeplitz.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\makepulsestruc.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\makeSTFTFreqVector.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\createPulseInfoStruct.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\structToBytes.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\udpPulseSenderSend.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\udpPulseSenderSetup.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\udpReceiverClear.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\udpSamplesReceiverRead.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\udpSamplesReceiverSetup.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\matlab-coder-utils\c-udp\validatePulseInfoStruct.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\no-ros-pulse-send\ros2PulseSend.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\no-ros-pulse-send\ros2Setup.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\pulsestats.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\singlecomplex2int.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\str2matrix.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\threshold.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\uavrt_detection.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\vecfind.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\waveform.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\waveformcopy.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\weightingmatrix.m&lt;/file&gt;&lt;file&gt;H:\repos\uavrt_detection\wfmstft.m&lt;/file&gt;&lt;/primarySourceFiles&gt;&lt;fixedPointSourceFiles/&gt;&lt;fixedPointSourceRegistered&gt;false&lt;/fixedPointSourceRegistered&gt;&lt;fixedPointSourceSelected&gt;false&lt;/fixedPointSourceSelected&gt;&lt;/sourceModel&gt;</var.sourceSetState>
     <param.forceMexBuild>false</param.forceMexBuild>
     <param.NoDefaultJIT>false</param.NoDefaultJIT>
