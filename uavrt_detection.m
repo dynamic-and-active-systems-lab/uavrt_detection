@@ -252,6 +252,7 @@ while true %i <= maxInd
                 % and fill in any missing data with zeros. 
                 framesReceived = framesReceived + 1;
                 
+%                iqData           = dataReceived(1:end-1);
                 iqData           = dataReceived(1:end-1);
                 
                 nReceived        = uint64(numel(iqData));
