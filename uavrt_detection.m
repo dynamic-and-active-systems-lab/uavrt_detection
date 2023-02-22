@@ -266,7 +266,7 @@ while true %i <= maxInd
                     %dataFirstTimeStamp = timeStamp;
                 else
                     timeDiff = timeStamp - expectedNextTimeStamp;
-fprintf('Current Received Time Stamp: %f \t Expected Time Stamp: %f \t Diff: %f \n',timeStamp, expectedNextTimeStamp, timeDiff)
+%fprintf('Current Received Time Stamp: %f \t Expected Time Stamp: %f \t Diff: %f \n',timeStamp, expectedNextTimeStamp, timeDiff)
                     if abs(timeDiff) < Config.tp / 2
                         
                         iqDataToWrite = iqData;
