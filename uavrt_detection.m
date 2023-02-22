@@ -165,7 +165,7 @@ ps_pre_struc.cpki   = localCpki;
 pulseInfoStruct = PulseInfoStruct();
 pulseInfoStruct.udpSenderSetup("127.0.0.1", 50000);
 
-udpReceiver = ComplexSamplesUDPReceiver(Config.ipData, Config.portData, 2048);
+udpReceiver = ComplexSingleSamplesUDPReceiver(Config.ipData, Config.portData, 2048);
 
 fprintf('Startup set 6 complete. \n')
 
@@ -221,7 +221,7 @@ while true %i <= maxInd
             end
 
             %% Get data
-            [dataReceived]  = udpReceiver.read();
+            [dataReceived]  = udpReceiver.receive();
 
             %% Flush UDP buffer if data in the buffer is stale.
             if staleDataFlag
