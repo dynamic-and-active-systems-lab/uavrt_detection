@@ -165,7 +165,7 @@ ps_pre_struc.cpki   = localCpki;
 pulseInfoStruct = PulseInfoStruct();
 pulseInfoStruct.udpSenderSetup("127.0.0.1", 50000);
 
-udpReceiver = ComplexSamplesUDPReceiver(Config.ipData, Config.portData, 2048);
+udpReceiver = ComplexSingleSamplesUDPReceiver(Config.ipData, Config.portData, 2048);
 
 fprintf('Startup set 6 complete. \n')
 
@@ -221,7 +221,7 @@ while true %i <= maxInd
             end
 
             %% Get data
-            [dataReceived]  = udpReceiver.read();
+            [dataReceived]  = udpReceiver.receive();
 
             %% Flush UDP buffer if data in the buffer is stale.
             if staleDataFlag
@@ -266,7 +266,7 @@ while true %i <= maxInd
                     %dataFirstTimeStamp = timeStamp;
                 else
                     timeDiff = timeStamp - expectedNextTimeStamp;
-fprintf('Current Received Time Stamp: %f \t Expected Time Stamp: %f \t Diff: %f \n',timeStamp, expectedNextTimeStamp, timeDiff)
+%fprintf('Current Received Time Stamp: %f \t Expected Time Stamp: %f \t Diff: %f \n',timeStamp, expectedNextTimeStamp, timeDiff)
                     if abs(timeDiff) < Config.tp / 2
                         
                         iqDataToWrite = iqData;
@@ -389,7 +389,7 @@ processingStartToc = previousToc;
 
 fprintf('Sample elapsed seconds: %f \t Posix elapsed seconds: %f \n', timeVector(end) - startTime, round(posixtime(datetime('now'))*1000000)/1000000 - startTime)
 
-plot(t, abs(x)); hold on
+%plot(t, abs(x)); hold on
                     %Check the timestamps in the buffer for gaps larger
                     %than the max interpulse uncertainty. If there are
                     %enough dropped packets such that the time is shifted
