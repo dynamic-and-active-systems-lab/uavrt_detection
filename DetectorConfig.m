@@ -9,9 +9,6 @@ classdef DetectorConfig
     %   ipData          String ip from which to receive data. Enter
     %                   '0.0.0.0' to receive from any IP.
     %   portData        Port from which to receive data
-    %   ipCntrl         String ip from which to receive control inputs. 
-    %                   Enter '0.0.0.0' to receive from any IP.
-    %   portCntrl       Port from which to receive control inputs
     %   Fs              Sample rate of incoming data
     %   tagFreqMHz      Expected frequency of tag
     %   tp              Duration of pulse in seconds
@@ -32,10 +29,6 @@ classdef DetectorConfig
     %                       gets loaded from the decisionEntryPath. 
     %   dataRecordPath      Path to location to which record the
     %                       data
-    %   processedOuputPath  Path to location to save processed
-    %                       results.
-    %   ros2enable          Turn on or off ROS2 suppport (True or False)
-    %   startInRunState     Start detector in run state (True or False)
     %
     %METHODS:
     %DetectorConfig     Constructor of this class
@@ -52,8 +45,6 @@ classdef DetectorConfig
         channelCenterFreqMHz     (1, 1) double {mustBeNonnegative, mustBeReal}             = 150.000;
         ipData      (1, 1) string {mustBeTextScalar}                          = "0.0.0.0"
         portData    (1, 1) double {mustBeReal, mustBePositive, mustBeInteger} = 1
-        ipCntrl     (1, 1) string {mustBeTextScalar}                          = "0.0.0.0"
-        portCntrl   (1, 1) double {mustBeReal, mustBePositive, mustBeInteger} = 1     
         Fs          (1, 1) double {mustBeReal, mustBePositive}                = 192000
         tagFreqMHz  (1, 1) double {mustBeReal}                                = 150.000;
         tp 	        (1, 1) double {mustBeReal, mustBePositive}                = 0.02
@@ -65,20 +56,15 @@ classdef DetectorConfig
         excldFreqs  (:, 2) double {mustBeReal}                                = [inf, -inf]
         falseAlarmProb(1,1) double {mustBePositive, mustBeLessThan(falseAlarmProb,1)} = 0.01
         dataRecordPath(1,1) string                                            = ''
-        processedOuputPath(1,1) string                                        = ''
-        ros2enable  (1,1) logical                                             = false
-        startInRunState (1,1) logical                                         = false
     end
     
     methods
-        function obj = DetectorConfig(IDstr, channelCenterFreqMHZ, ipData, portData, ipCntrl, portCntrl, Fs, tagFreqMHz, tp, tip, tipu, K, opMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath, processedOuputPath, ros2enable, startInRunState)
+        function obj = DetectorConfig(ID, channelCenterFreqMHZ, ipData, portData, Fs, tagFreqMHz, tp, tip, tipu, K, opMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath)
             if nargin>0
-                obj.ID          = IDstr;
+                obj.ID          = ID;
                 obj.channelCenterFreqMHz     = channelCenterFreqMHZ;
                 obj.ipData      = ipData;
                 obj.portData    = portData;
-                obj.ipCntrl     = ipCntrl;
-                obj.portCntrl   = portCntrl;               
                 obj.Fs          = Fs;
                 obj.tagFreqMHz  = tagFreqMHz;
                 obj.tp          = tp;
@@ -90,9 +76,6 @@ classdef DetectorConfig
                 obj.excldFreqs          = excldFreqs;
                 obj.falseAlarmProb      = falseAlarmProb;
                 obj.dataRecordPath      = dataRecordPath;
-                obj.processedOuputPath  = processedOuputPath;
-                obj.ros2enable          = ros2enable;
-                obj.startInRunState     = startInRunState;
             end
         end
         
@@ -184,10 +167,6 @@ classdef DetectorConfig
                         obj.ipData  = configValStr;
                     elseif strcmp(configType,'portData')
                         obj.portData    = uint16(real(str2double(configValStr)));
-                    elseif strcmp(configType,'ipCntrl')
-                        obj.ipCntrl = configValStr;
-                    elseif strcmp(configType,'portCntrl')
-                        obj.portCntrl   = uint16(real(str2double(configValStr)));    
                     elseif strcmp(configType,'Fs')
                         obj.Fs      = real(str2double(configValStr));
                     elseif strcmp(configType,'tagFreqMHz')
@@ -210,12 +189,6 @@ classdef DetectorConfig
                         obj.falseAlarmProb = real(str2double(configValStr));
                     elseif strcmp(configType,'dataRecordPath')
                         obj.dataRecordPath = configValStr;
-                    elseif strcmp(configType,'processedOuputPath')
-                        obj.processedOuputPath =  configValStr;
-                    elseif strcmp(configType,'ros2enable')
-                        obj.ros2enable =  str2bool(configValStr);
-                    elseif strcmp(configType,'startInRunState')
-                        obj.startInRunState =  str2bool(configValStr);
                     end
                     %Stop when we have finished reading this entry.
                     done = (feof(fid) == 1) || (ftell(fid)==sepByte(entry+1)) ;
@@ -243,17 +216,13 @@ classdef DetectorConfig
             %   none
             configStr  = detectorsetting2configstr(obj.ID, obj.channelCenterFreqMHz, ...
                                                    obj.ipData, obj.portData, ...
-                                                   obj.ipCntrl, obj.portCntrl, ...
                                                    obj.Fs, obj.tagFreqMHz, ...
                                                    obj.tp, obj.tip, ...
                                                    obj.tipu,obj.tipj,...
                                                    obj.K, obj.opMode,...
                                                    obj.excldFreqs,...
                                                    obj.falseAlarmProb,...
-                                                   obj.dataRecordPath, ...
-                                                   obj.processedOuputPath,...
-                                                   obj.ros2enable,...
-                                                   obj.startInRunState);
+                                                   obj.dataRecordPath)
                                                    
             detectorconfigwrite(fullConfigPath, configStr, writeType)
         end
@@ -266,8 +235,6 @@ classdef DetectorConfig
             objOut.channelCenterFreqMHz     = obj.channelCenterFreqMHz;
             objOut.ipData      = obj.ipData;
             objOut.portData    = obj.portData;
-            objOut.ipCntrl     = obj.ipCntrl;
-            objOut.portCntrl   = obj.portCntrl;
             objOut.Fs          = obj.Fs;
             objOut.tagFreqMHz  = obj.tagFreqMHz;
             objOut.tp          = obj.tp;
@@ -279,9 +246,6 @@ classdef DetectorConfig
             objOut.excldFreqs          = obj.excldFreqs;
             objOut.falseAlarmProb      = obj.falseAlarmProb;
             objOut.dataRecordPath      = obj.dataRecordPath;
-            objOut.processedOuputPath  = obj.processedOuputPath;
-            objOut.ros2enable          = obj.ros2enable;
-            objOut.startInRunState     = obj.startInRunState;
         end
     end
 end

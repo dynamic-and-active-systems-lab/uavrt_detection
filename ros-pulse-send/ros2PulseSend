@@ -1,0 +1,30 @@
+function ros2PulseSend(pulsePub, pulseMsg, pulseInfoStruct, detectorPulse)
+
+fprintf("Sending ROS2 Pulse...");
+
+t_0     = detectorPulse.t_0;
+t_f     = detectorPulse.t_f;
+t_nxt_0 = detectorPulse.t_next(1);
+t_nxt_f = detectorPulse.t_next(2);
+
+pulseMsg.detector_dir               = pwd;
+pulseMsg.tag_id                     = pulseInfoStruct.tag_id ;
+pulseMsg.frequency                  = pulseInfoStruct.frequency_hz * 1e-6;
+pulseMsg.start_time.sec             = int32(floor(t_0));
+pulseMsg.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
+pulseMsg.end_time.sec               = int32(floor(t_f));
+pulseMsg.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
+pulseMsg.predict_next_start.sec     = int32(floor(t_nxt_0));
+pulseMsg.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
+pulseMsg.predict_next_end.sec       = int32(floor(t_nxt_f));
+pulseMsg.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
+pulseMsg.snr                        = pulseInfoStruct.snr;
+pulseMsg.stft_score                 = pulseInfoStruct.stft_score;
+pulseMsg.group_ind                  = pulseInfoStruct.group_ind;
+pulseMsg.group_snr                  = pulseInfoStruct.group_snr;
+pulseMsg.detection_status           = pulseInfoStruct.detection_status;
+pulseMsg.confirmed_status           = pulseInfoStruct.confirmed_status;
+
+send(pulsePub, pulseMsg)
+
+end

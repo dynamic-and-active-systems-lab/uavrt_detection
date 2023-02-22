@@ -1,4 +1,4 @@
-function [] = uavrt_detection()
+function [] = uavrt_detection(configPath)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -6,7 +6,9 @@ function [] = uavrt_detection()
  coder.cinclude('time.h') %Needed for usleep function in generated code
 % coder.cinclude('stdlib.h')%needed for system call to kill the channelizer
 
-configPath = "config/detectorConfig.txt"; %Must exist in the same directory as the execution of this executable
+if nargin == 0
+    configPath = "config/detectorConfig.txt"; %Must exist in the same directory as the execution of this executable
+end
 
 Config =  DetectorConfig(); %Build empty config object
 updateconfig()              %Update (fill) the configuration
@@ -46,17 +48,7 @@ end
 
 fprintf('Curr Directory is: %s\n',currDir)
 
-% ROS2 Setup
-ros2Enable = true;%Config.ros2enable; %Hard coded switch so that can be ROS2 can be turned off for testing/debugging
-
-if ros2Enable
-    fprintf("Preparing ROS2 Node and Messages...")
-    node = ros2node("detector",0);
-    pulsePub = ros2publisher(node,"/pulse","uavrt_interfaces/Pulse");
-    pulseMsg = ros2message(pulsePub);
-    %pulseMsg = ros2message("uavrt_interfaces/Pulse");
-    fprintf("complete.\n")
-end
+[pulsePub, pulseMsg] = ros2Setup();
 
 blankThresh = threshold(Config.falseAlarmProb);
 pulseStatsPriori = pulsestats(Config.tp, Config.tip, Config.tipu, ... % tp, tip, tipu
@@ -73,9 +65,6 @@ overlapSamples	= 0;
 sampsForKPulses = 0;
 updatebufferreadvariables(pulseStatsPriori);
 
-coder.varsize("dataReceived",[1025 1]);
-coder.varsize("state",[1 64]);
-coder.varsize("previousState",[1 64]);
 packetLength = 1025; %1024 plus a time stamp.
 fprintf('Startup set 1 complete. \n')
 
@@ -173,8 +162,10 @@ ps_pre_struc.cpki   = localCpki;
 % pulseOut.confirmed_status           = false;
 
 
-udpPulseOut = dsp.UDPSender('RemoteIPPort',50000);
+pulseInfoStruct = PulseInfoStruct();
+pulseInfoStruct.udpSenderSetup("127.0.0.1", 50000);
 
+udpReceiver = ComplexSamplesUDPReceiver(Config.ipData, Config.portData, 2048);
 
 fprintf('Startup set 6 complete. \n')
 
@@ -192,10 +183,8 @@ fprintf('Startup set 7 complete. \n')
 resetBuffersFlag  = true;
 framesReceived    = 0;
 segmentsProcessed = 0;
-previousState     = 'unspawned';
 suggestedMode     = 'S';
 fLock             = false;
-resetUdp          = true;
 staleDataFlag     = true;%Force buffer  flush on start
 idleTic           = 1;
 i                 = 1;
@@ -217,20 +206,11 @@ repeatedDetectionFlag = false;
 missingSamples    = 0;
 iqDataToWrite     = single(complex([]));
 
-if Config.startInRunState
-    state = 'run';
-else
-    state = 'idle';
-end
-
 fprintf('Startup set 8 complete. Starting processing... \n')
 
 expectedNextTimeStamp = 0;
 
 while true %i <= maxInd
-
-    switch state
-        case 'run'
 
             if resetBuffersFlag
                 asyncDataBuff.reset();
@@ -241,18 +221,13 @@ while true %i <= maxInd
             end
 
             %% Get data
-            [dataReceived]  = channelreceiver('127.0.0.1', Config.portData,resetUdp,false);
-            resetUdp = false;
+            [dataReceived]  = udpReceiver.read();
 
             %% Flush UDP buffer if data in the buffer is stale.
             if staleDataFlag
                 fprintf('********STALE DATA FLAG: %u *********\n',uint32(staleDataFlag));
-                runs = 0;
-                while ~isempty(dataReceived)
-                    fprintf('********CLEARING UDP DATA BUFFER*********\n');
-                    [dataReceived]  = channelreceiver('127.0.0.1', Config.portData,resetUdp,false);
-                    runs = runs+1;
-                end
+                fprintf('********CLEARING UDP DATA BUFFER*********\n');
+                udpReceiver.clear();
                 staleDataFlag = false;
 
                 fprintf('********RESETTING TIMES*********\n');
@@ -615,7 +590,7 @@ previousToc = toc;
                         pulseCount = 0;
 
                         if ~isnan(X.ps_pos.cpki)
-                            fprintf("Transmitting ROS2 pulse messages");
+                            fprintf("Transmitting pulse messages");
                             for j = 1:nPulseList
                                 
                                 % %% Build out pulseOut structure parameters for sending
@@ -661,40 +636,27 @@ previousToc = toc;
                                 %generate type errors
                                 groupSNR         = double(groupSNRMeanDB);%10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average SNR in dB
                                 
-
                                 % Publish pulses to UDP
-                                currPulseOut = pulseOut( X.ps_pos.pl(j), Config.ID, currDir, Config.channelCenterFreqMHz, j, groupSNR, []);
+                                detectorPulse                               = X.ps_pos.pl(j);
+                                pulseInfoStruct.tag_id                      = uint32(Config.ID);
+                                pulseInfoStruct.frequency_hz                = uint32((Config.channelCenterFreqMHz + detectorPulse.fp) * 1e6);
+                                pulseInfoStruct.start_time_seconds          = detectorPulse.t_0;
+                                pulseInfoStruct.predict_next_start_seconds  = detectorPulse.t_next(1);
+                                pulseInfoStruct.snr                         = detectorPulse.SNR;
+                                pulseInfoStruct.stft_score                  = real(detectorPulse.yw);
+                                pulseInfoStruct.group_ind                   = uint16(j);
+                                pulseInfoStruct.group_snr                   = groupSNR;
+                                pulseInfoStruct.detection_status            = uint8(detectorPulse.det_dec);
+                                pulseInfoStruct.confirmed_status            = uint8(detectorPulse.con_dec);
+
                                 if ~pulsesToSkip(j)
-                                    mavlinkTunnelMsg = currPulseOut.formatForTunnelMsg(255, 0, 0);    %tunnelPulse = formatPulseForTunnel(255, 0, 0, pulseOut);
-                                    udpPulseOut(mavlinkTunnelMsg);
+                                    % UDP Send
+                                    pulseInfoStruct.sendOverUDP();
 
-
-
-                                    %% Package and send ROS2 pulse message
-                                    if ros2Enable
-                                        pulseMsg.detector_dir               = char( currPulseOut.detector_dir );
-                                        pulseMsg.tag_id                     = currPulseOut.tag_id;
-                                        pulseMsg.frequency                  = currPulseOut.frequency;
-                                        pulseMsg.start_time.sec             = currPulseOut.start_time_sec;
-                                        pulseMsg.start_time.nanosec         = currPulseOut.start_time_nanosec;
-                                        pulseMsg.end_time.sec               = currPulseOut.end_time_sec;
-                                        pulseMsg.end_time.nanosec           = currPulseOut.end_time_nanosec;
-                                        pulseMsg.predict_next_start.sec     = currPulseOut.predict_next_start_sec;
-                                        pulseMsg.predict_next_start.nanosec = currPulseOut.predict_next_start_nanosec;
-                                        pulseMsg.predict_next_end.sec       = currPulseOut.predict_next_end_sec;
-                                        pulseMsg.predict_next_end.nanosec   = currPulseOut.predict_next_end_nanosec;
-                                        pulseMsg.snr                        = currPulseOut.snr;
-                                        pulseMsg.stft_score                 = currPulseOut.stft_score;
-                                        pulseMsg.group_ind                  = currPulseOut.group_ind;
-                                        pulseMsg.group_snr                  = currPulseOut.group_snr;
-                                        pulseMsg.detection_status           = currPulseOut.detection_status;
-                                        pulseMsg.confirmed_status           = currPulseOut.confirmed_status;
-
-                                        send(pulsePub,pulseMsg)
-                                    end
+                                    % ROS send
+                                    ros2PulseSend(pulsePub, pulseMsg, pulseInfoStruct, detectorPulse);
 
                                     pulseCount = pulseCount+1;
-
                                 end
 
                                 % %s pulseMsg.detector_dir
@@ -768,212 +730,7 @@ previousToc = toc;
                     %     % end
                     % end
                 end
-            end
-
-
-            if toc >= 1 + tocAtLastCommandCheck %no faster than every 1 s check for new commands
-                tocAtLastCommandCheck = toc;
-                cmdReceived = controlreceiver('127.0.0.1', Config.portCntrl,false);
-                previousState = state;
-                state = checkcommand(cmdReceived,state);
-            end
-
-        case 'idle'
-            if mod(idleTic,8) ==0
-                fprintf('Waiting in idle state...\n')
-                idleTic = 1;
-            end
-            idleTic = idleTic+1;
-            dataWriterBuffData = asyncWriteBuff.read();
-            if dataWriterFileID ~= -1
-                count = fwrite(dataWriterFileID, interleaveComplexVector(dataWriterBuffData), 'single');
-            end
-
-            asyncDataBuff.reset();
-            asyncTimeBuff.reset();
-            asyncWriteBuff.reset();
-
-            pause(pauseWhenIdleTime);%Wait a bit so to throttle idle execution
-            staleDataFlag = true;
-            resetUdp = true;
-            cmdReceived = controlreceiver('127.0.0.1', Config.portCntrl,false);
-            previousState = state;
-            state = checkcommand(cmdReceived,state);
-
-        case 'updateconfig'
-            %Write all remaining data in buffer before clearing
-            dataWriterBuffData = asyncWriteBuff.read();
-            if dataWriterFileID ~= -1
-                count = fwrite(dataWriterFileID, interleaveComplexVector(dataWriterBuffData), 'single');
-            end
-            updateconfig();
-            configUpdatedFlag = true;
-
-            %Reset all the buffers and setup the buffer read variables
-            asyncDataBuff.reset();
-            asyncTimeBuff.reset();
-            asyncWriteBuff.reset();
-            updatebufferreadvariables(initializeps(Config));
-
-            %Check control and update states
-            staleDataFlag = true;
-            resetUdp = true;
-            cmdReceived = controlreceiver('127.0.0.1', Config.portCntrl,false);
-            if ~isempty(cmdReceived)
-                previousState = state;
-                state = checkcommand(cmdReceived,state);
-            else %On no command after config update, default to previous state
-                state = previousState;
-                previousState = 'updateconfig';
-            end
-
-        case 'test'
-            if mod(idleTic,8) ==0
-                fprintf('In test mode. Publishing one test pulse per second.\n')
-                idleTic = 1;
-                
-                % pulseOut.tag_id                     = uint32(Config.ID);
-                % pulseOut.detector_dir               = currDir;%ID is a string
-                % pulseOut.frequency                  = Config.tagFreqMHz;
-                % t_0     = posixtime(datetime('now'));
-                % t_f     = 0;
-                % t_nxt_0 = 1;
-                % t_nxt_f = 2;
-                % pulseOut.start_time.sec             = int32(floor(t_0));
-                % pulseOut.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
-                % pulseOut.end_time.sec               = int32(floor(t_f));
-                % pulseOut.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
-                % pulseOut.predict_next_start.sec     = int32(floor(t_nxt_0));
-                % pulseOut.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
-                % pulseOut.predict_next_end.sec       = int32(floor(t_nxt_f));
-                % pulseOut.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
-                % pulseOut.snr                        = 1;
-                % pulseOut.stft_score                 = 1;
-                % pulseOut.group_ind                  = uint16(1);
-                % pulseOut.group_snr          = 1;
-                % pulseOut.detection_status   = false;
-                % pulseOut.confirmed_status   = true;
-
-                %% Publish pulses to UDP
-                currPulseOut = pulseOut( );
-                mavlinkTunnelMsg = currPulseOut.formatForTunnelMsg(255, 0, 0);  %tunnelPulse = formatPulseForTunnel(255, 0, 0, pulseOut);
-                udpPulseOut(mavlinkTunnelMsg);
-
-                if ros2Enable & (coder.target('MATLAB') | coder.target("EXE"))
-                    fprintf("Transmitting ROS2 pulse messages");
-                    pulseCount = 0;
-                    for j = 1:1
-                        %Set pulseMsg parameters for sending
-%                         pulseMsg.tag_id        = uint32(Config.ID);
-%                         pulseMsg.detector_dir  = currDir; %ID is a string
-%                         pulseMsg.frequency          = Config.tagFreqMHz;
-%                         t_0     = posixtime(datetime('now'));
-%                         t_f     = 0;
-%                         t_nxt_0 = 1;
-%                         t_nxt_f = 2;
-%                         pulseMsg.start_time.sec             = int32(floor(t_0));
-%                         pulseMsg.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
-%                         pulseMsg.end_time.sec               = int32(floor(t_f));
-%                         pulseMsg.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
-%                         pulseMsg.predict_next_start.sec     = int32(floor(t_nxt_0));
-%                         pulseMsg.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
-%                         pulseMsg.predict_next_end.sec       = int32(floor(t_nxt_f));
-%                         pulseMsg.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
-%                         pulseMsg.snr                = 1;
-%                         pulseMsg.dft_real           = real(1);
-%                         pulseMsg.dft_imag           = imag(1);
-%                         pulseMsg.group_ind          = uint16(Config.K);
-%                         pulseMsg.group_snr          = 1;
-%                         pulseMsg.detection_status   = false;
-%                         pulseMsg.confirmed_status   = true;
-%                         send(pulsePub,pulseMsg)
-
-
-                        %% Package and send ROS2 pulse message
-                        if ros2Enable
-                            pulseMsg.detector_dir               = char( currPulseOut.detector_dir );
-                            pulseMsg.tag_id                     = currPulseOut.tag_id;
-                            pulseMsg.frequency                  = currPulseOut.frequency;
-                            pulseMsg.start_time.sec             = currPulseOut.start_time_sec;
-                            pulseMsg.start_time.nanosec         = currPulseOut.start_time_nanosec;
-                            pulseMsg.end_time.sec               = currPulseOut.end_time_sec;
-                            pulseMsg.end_time.nanosec           = currPulseOut.end_time_nanosec;
-                            pulseMsg.predict_next_start.sec     = currPulseOut.predict_next_start_sec;
-                            pulseMsg.predict_next_start.nanosec = currPulseOut.predict_next_start_nanosec;
-                            pulseMsg.predict_next_end.sec       = currPulseOut.predict_next_end_sec;
-                            pulseMsg.predict_next_end.nanosec   = currPulseOut.predict_next_end_nanosec;
-                            pulseMsg.snr                        = currPulseOut.snr;
-                            pulseMsg.stft_score                 = currPulseOut.stft_score;
-                            pulseMsg.group_ind                  = currPulseOut.group_ind;
-                            pulseMsg.group_snr                  = currPulseOut.group_snr;
-                            pulseMsg.detection_status           = currPulseOut.detection_status;
-                            pulseMsg.confirmed_status           = currPulseOut.confirmed_status;
-
-                            send(pulsePub,pulseMsg)
-                        end
-
-                        pulseCount = pulseCount+1;
-                        fprintf(".");
-                    end
-                    fprintf("complete. Transmitted %u pulse(s).\n",uint32(pulseCount));
-
-                    fprintf("\n");
-                end
-
-
-            end
-            idleTic = idleTic+1;
-
-            asyncDataBuff.reset();
-            asyncTimeBuff.reset();
-            asyncWriteBuff.reset();
-
-            pause(pauseWhenIdleTime);%Wait a bit so to throttle idle execution
-            staleDataFlag = true;
-            resetUdp = true;
-            cmdReceived = controlreceiver('127.0.0.1', Config.portCntrl,false);
-            previousState = state;
-            state = checkcommand(cmdReceived,state);
-
-        case 'kill'
-            %Send command to release the udp system objects
-            controlreceiver('127.0.0.1', Config.portCntrl,true);
-            channelreceiver('127.0.0.1', Config.portData,true,true);
-            dataWriterBuffData = asyncWriteBuff.read();
-            if dataWriterFileID ~= -1
-                count = fwrite(dataWriterFileID, interleaveComplexVector(dataWriterBuffData), 'single');
-            end
-            asyncDataBuff.reset();
-            asyncTimeBuff.reset();
-            asyncWriteBuff.reset();
-            asyncDataBuff.release();
-            asyncTimeBuff.release();
-            asyncWriteBuff.release();
-
-            previousState = state;
-            fCloseStatus = fclose(dataWriterFileID);
-            if fCloseStatus == -1
-                error('UAV-RT: Error closing data record file. ')
-            end
-
-            
-%             fCloseStatusPulseWriter = fclose(pulseWriterFileID);
-%             if fCloseStatusPulseWriter == -1
-%                 error('UAV-RT: Error closing pulse record file. ')
-%             end
-
-            %release(writer);
-            break
-
-        otherwise
-            %Should never get to this case, but jump to idle if we get
-            %here.
-            previousState = state;
-            state = 'idle';
     end
-
-
-
 end
 
     function [mavlinkTunnelMsgUint8] = formatPulseForTunnel(target_system_in, target_component_in, payload_type_in, pulseStructIn)
@@ -1075,39 +832,6 @@ end
         fprintf('Updating buffer read vars|| N: %u, M: %u, J: %u,\n',uint32(N),uint32(M),uint32(J))
         fprintf('Updating buffer read vars|| sampForKPulses: %u,  overlapSamples: %u,\n',uint32(sampsForKPulses),uint32(overlapSamples))
     end
-
-
-    function state = checkcommand(cmdReceived,currentState)
-        %This function is designed to check the incoming command and decide what to
-        %do based on the received command and the current state
-        if ~isempty(cmdReceived)
-            if cmdReceived == -1
-                fprintf('Received kill command. \n')
-                state = 'kill';
-            elseif cmdReceived == 0
-                fprintf('Received idle command. \n')
-                state = 'idle';
-            elseif cmdReceived == 1
-                fprintf('Received run command. \n')
-                state = 'run';
-            elseif cmdReceived == 2
-                fprintf('Received update config command. \n')
-                state = 'updateconfig';
-            elseif cmdReceived == 3
-                fprintf('Received test command. \n')
-                state = 'test';
-            else
-                %Invalid command. Continue with current state.
-                state = currentState;
-            end
-        else
-            %Nothing received. Continue with current state.
-            state = currentState;
-        end
-    end
-
-
-
 end
 
 
