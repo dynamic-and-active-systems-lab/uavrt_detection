@@ -1,5 +1,5 @@
 ##################################################
-ID:	01
+ID:	1
 channelCenterFreqMHz:	148.525000
 timeStamp:	1646403180.469
 ipData:	0.0.0.0
@@ -17,6 +17,3 @@ opMode:	freqSearchHardLock
 excldFreqs:	[Inf, -Inf]
 falseAlarmProb:	0.00080
 dataRecordPath:	/Users/mshafer/Desktop/uavrt_output/data_record.bin
-processedOuputPath:	/Users/mshafer/Desktop/uavrt_output
-ros2enable:	true
-startInRunState:	true
