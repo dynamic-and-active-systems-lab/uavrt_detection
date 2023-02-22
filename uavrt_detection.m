@@ -389,7 +389,7 @@ processingStartToc = previousToc;
 
 fprintf('Sample elapsed seconds: %f \t Posix elapsed seconds: %f \n', timeVector(end) - startTime, round(posixtime(datetime('now'))*1000000)/1000000 - startTime)
 
-plot(t, abs(x)); hold on
+%plot(t, abs(x)); hold on
                     %Check the timestamps in the buffer for gaps larger
                     %than the max interpulse uncertainty. If there are
                     %enough dropped packets such that the time is shifted
