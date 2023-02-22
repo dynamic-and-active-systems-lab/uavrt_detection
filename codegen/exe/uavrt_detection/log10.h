@@ -5,7 +5,7 @@
 // File: log10.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 21-Feb-2023 09:24:56
+// C/C++ source code generated on  : 21-Feb-2023 17:21:25
 //
 
 #ifndef LOG10_H

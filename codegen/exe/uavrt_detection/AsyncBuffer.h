@@ -5,7 +5,7 @@
 // File: AsyncBuffer.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 21-Feb-2023 09:24:56
+// C/C++ source code generated on  : 21-Feb-2023 17:21:25
 //
 
 #ifndef ASYNCBUFFER_H
@@ -24,7 +24,7 @@ namespace dsp {
 class AsyncBuffer {
 public:
   void reset();
-  void write(const ::coder::array<creal32_T, 1U> &in);
+  void write(const creal32_T in_data[], int in_size);
   void read(double numRows, ::coder::array<creal32_T, 1U> &out);
   void read(double numRows, double overlap, ::coder::array<creal32_T, 1U> &out);
   void matlabCodegenDestructor();
@@ -36,11 +36,11 @@ public:
 
 class b_AsyncBuffer {
 public:
-  void write(const ::coder::array<double, 1U> &in);
   void read(double numRows, ::coder::array<double, 1U> &out);
   void read(double numRows, double overlap, ::coder::array<double, 1U> &out);
   void reset();
   void matlabCodegenDestructor();
+  void write(const double in_data[]);
   ~b_AsyncBuffer();
   b_AsyncBuffer();
   boolean_T matlabCodegenIsDeleted;
@@ -51,7 +51,7 @@ class c_AsyncBuffer {
 public:
   void write();
   void read();
-  void write(const ::coder::array<creal32_T, 1U> &in);
+  void write(const creal32_T in_data[], int in_size);
   void read(::coder::array<creal32_T, 1U> &out);
   void matlabCodegenDestructor();
   ~c_AsyncBuffer();

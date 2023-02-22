@@ -5,7 +5,7 @@
 // File: AsyncBuffer.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 21-Feb-2023 09:24:56
+// C/C++ source code generated on  : 21-Feb-2023 17:21:25
 //
 
 // Include Files
@@ -704,10 +704,11 @@ void c_AsyncBuffer::write()
 }
 
 //
-// Arguments    : const ::coder::array<creal32_T, 1U> &in
+// Arguments    : const creal32_T in_data[]
+//                int in_size
 // Return Type  : void
 //
-void AsyncBuffer::write(const ::coder::array<creal32_T, 1U> &in)
+void AsyncBuffer::write(const creal32_T in_data[], int in_size)
 {
   if (pBuffer.isInitialized == 2) {
     c_rtErrorWithMessageID("step", sb_emlrtRTEI.fName, sb_emlrtRTEI.lineNo);
@@ -730,14 +731,14 @@ void AsyncBuffer::write(const ::coder::array<creal32_T, 1U> &in)
     pBuffer.CumulativeUnderrun = 0;
     std::memset(&pBuffer.Cache[0], 0, 5800321U * sizeof(creal32_T));
   }
-  pBuffer.stepImpl(in);
+  pBuffer.stepImpl(in_data, in_size);
 }
 
 //
-// Arguments    : const ::coder::array<double, 1U> &in
+// Arguments    : const double in_data[]
 // Return Type  : void
 //
-void b_AsyncBuffer::write(const ::coder::array<double, 1U> &in)
+void b_AsyncBuffer::write(const double in_data[])
 {
   internal::b_AsyncBuffercgHelper *obj;
   int i;
@@ -755,7 +756,7 @@ void b_AsyncBuffer::write(const ::coder::array<double, 1U> &in)
       d_rtErrorWithMessageID("setup", rb_emlrtRTEI.fName, rb_emlrtRTEI.lineNo);
     }
     pBuffer.isInitialized = 1;
-    varSizes.f1[0] = static_cast<unsigned int>(in.size(0));
+    varSizes.f1[0] = 2048U;
     varSizes.f1[1] = 1U;
     for (i = 0; i < 6; i++) {
       varSizes.f1[i + 2] = 1U;
@@ -779,7 +780,7 @@ void b_AsyncBuffer::write(const ::coder::array<double, 1U> &in)
     }
   }
   anyInputSizeChanged = false;
-  inSize[0] = static_cast<short>(in.size(0));
+  inSize[0] = 2048;
   inSize[1] = 1;
   for (i = 0; i < 6; i++) {
     inSize[i + 2] = 1;
@@ -801,17 +802,18 @@ void b_AsyncBuffer::write(const ::coder::array<double, 1U> &in)
       (pBuffer.NumChannels != 1)) {
     n_rtErrorWithMessageID(t_emlrtRTEI.fName, t_emlrtRTEI.lineNo);
   }
-  pBuffer.stepImpl(in);
+  pBuffer.stepImpl(in_data, 2048);
 }
 
 //
-// Arguments    : const ::coder::array<creal32_T, 1U> &in
+// Arguments    : const creal32_T in_data[]
+//                int in_size
 // Return Type  : void
 //
-void c_AsyncBuffer::write(const ::coder::array<creal32_T, 1U> &in)
+void c_AsyncBuffer::write(const creal32_T in_data[], int in_size)
 {
-  static const short inSize[8]{16384, 1, 1, 1, 1, 1, 1, 1};
-  static const short iv[8]{16384, 1, 1, 1, 1, 1, 1, 1};
+  static const short inSize[8]{2048, 1, 1, 1, 1, 1, 1, 1};
+  static const short iv[8]{2048, 1, 1, 1, 1, 1, 1, 1};
   internal::c_AsyncBuffercgHelper *obj;
   int i;
   boolean_T anyInputSizeChanged;
@@ -868,7 +870,7 @@ void c_AsyncBuffer::write(const ::coder::array<creal32_T, 1U> &in)
       (pBuffer.NumChannels != 1)) {
     n_rtErrorWithMessageID(t_emlrtRTEI.fName, t_emlrtRTEI.lineNo);
   }
-  pBuffer.stepImpl(in);
+  pBuffer.stepImpl(in_data, in_size);
 }
 
 } // namespace dsp

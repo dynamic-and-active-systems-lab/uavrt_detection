@@ -5,7 +5,7 @@
 // File: waveform.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 21-Feb-2023 09:24:56
+// C/C++ source code generated on  : 21-Feb-2023 17:21:25
 //
 
 // Include Files
@@ -10160,9 +10160,9 @@ void waveform::setweightingmatrix()
 
   static rtBoundsCheckInfo hb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    192,                               // lineNo
-    33,                                // colNo
-    "freqs",                           // aName
+    159,                               // lineNo
+    38,                                // colNo
+    "stackedToeplitzMatrices",         // aName
     "weightingmatrix",                 // fName
     "H:\\repos\\uavrt_detection\\weightingmatrix.m",// pName
     0                                  // checkKind
@@ -10170,9 +10170,9 @@ void waveform::setweightingmatrix()
 
   static rtBoundsCheckInfo ib_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    159,                               // lineNo
-    38,                                // colNo
-    "stackedToeplitzMatrices",         // aName
+    192,                               // lineNo
+    33,                                // colNo
+    "freqs",                           // aName
     "weightingmatrix",                 // fName
     "H:\\repos\\uavrt_detection\\weightingmatrix.m",// pName
     0                                  // checkKind
@@ -10756,7 +10756,7 @@ void waveform::setweightingmatrix()
       if ((static_cast<int>(rowEnd) < 1) || (static_cast<int>(rowEnd) >
            stackedToeplitzMatrices.size(0))) {
         rtDynamicBoundsError(static_cast<int>(rowEnd), 1,
-                             stackedToeplitzMatrices.size(0), &ib_emlrtBCI);
+                             stackedToeplitzMatrices.size(0), &hb_emlrtBCI);
       }
 
       i3 = static_cast<int>(rowEnd);
@@ -10940,7 +10940,7 @@ void waveform::setweightingmatrix()
 
   if (output_samps.size(1) < 1) {
     rtDynamicBoundsError(output_samps.size(1), 1, output_samps.size(1),
-                         &hb_emlrtBCI);
+                         &ib_emlrtBCI);
   }
 
   xtmp = -output_samps[output_samps.size(1) - 1] - (b_Fs -

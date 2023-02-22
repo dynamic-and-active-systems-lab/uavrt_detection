@@ -5,14 +5,16 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 21-Feb-2023 09:24:56
+// C/C++ source code generated on  : 21-Feb-2023 17:21:25
 //
 
 // Include Files
 #include "uavrt_detection.h"
 #include "AsyncBuffer.h"
 #include "AsyncBuffercgHelper.h"
+#include "ComplexSamplesUDPReceiver.h"
 #include "DetectorConfig.h"
+#include "PulseInfoStruct.h"
 #include "all.h"
 #include "datetime.h"
 #include "diff.h"
@@ -43,8 +45,6 @@
 #include "uavrt_detection_internal_types.h"
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
-#include "udpPulseSenderSend.h"
-#include "udpSamplesReceiverRead.h"
 #include "validate_print_arguments.h"
 #include "validator_check_size.h"
 #include "waveform.h"
@@ -767,7 +767,7 @@ static void updateconfig(coder::b_captured_var *Config,
   static rtBoundsCheckInfo fb_emlrtBCI{
       -1,                                             // iFirst
       -1,                                             // iLast
-      124,                                            // lineNo
+      120,                                            // lineNo
       28,                                             // colNo
       "rawLine",                                      // aName
       "DetectorConfig/setFromFile",                   // fName
@@ -777,7 +777,7 @@ static void updateconfig(coder::b_captured_var *Config,
   static rtBoundsCheckInfo gb_emlrtBCI{
       -1,                                             // iFirst
       -1,                                             // iLast
-      155,                                            // lineNo
+      151,                                            // lineNo
       31,                                             // colNo
       "sepByte",                                      // aName
       "DetectorConfig/setFromFile",                   // fName
@@ -787,7 +787,7 @@ static void updateconfig(coder::b_captured_var *Config,
   static rtBoundsCheckInfo hb_emlrtBCI{
       -1,                                             // iFirst
       -1,                                             // iLast
-      159,                                            // lineNo
+      155,                                            // lineNo
       28,                                             // colNo
       "lineStr",                                      // aName
       "DetectorConfig/setFromFile",                   // fName
@@ -797,7 +797,7 @@ static void updateconfig(coder::b_captured_var *Config,
   static rtBoundsCheckInfo ib_emlrtBCI{
       -1,                                             // iFirst
       -1,                                             // iLast
-      162,                                            // lineNo
+      158,                                            // lineNo
       55,                                             // colNo
       "tabLocs",                                      // aName
       "DetectorConfig/setFromFile",                   // fName
@@ -807,7 +807,7 @@ static void updateconfig(coder::b_captured_var *Config,
   static rtBoundsCheckInfo jb_emlrtBCI{
       -1,                                             // iFirst
       -1,                                             // iLast
-      163,                                            // lineNo
+      159,                                            // lineNo
       63,                                             // colNo
       "colonLocation",                                // aName
       "DetectorConfig/setFromFile",                   // fName
@@ -817,7 +817,7 @@ static void updateconfig(coder::b_captured_var *Config,
   static rtBoundsCheckInfo kb_emlrtBCI{
       -1,                                             // iFirst
       -1,                                             // iLast
-      200,                                            // lineNo
+      194,                                            // lineNo
       69,                                             // colNo
       "sepByte",                                      // aName
       "DetectorConfig/setFromFile",                   // fName
@@ -827,7 +827,7 @@ static void updateconfig(coder::b_captured_var *Config,
   static rtBoundsCheckInfo lb_emlrtBCI{
       -1,                                             // iFirst
       -1,                                             // iLast
-      164,                                            // lineNo
+      160,                                            // lineNo
       47,                                             // colNo
       "lineStr",                                      // aName
       "DetectorConfig/setFromFile",                   // fName
@@ -837,7 +837,7 @@ static void updateconfig(coder::b_captured_var *Config,
   static rtBoundsCheckInfo mb_emlrtBCI{
       -1,                                             // iFirst
       -1,                                             // iLast
-      164,                                            // lineNo
+      160,                                            // lineNo
       74,                                             // colNo
       "lineStr",                                      // aName
       "DetectorConfig/setFromFile",                   // fName
@@ -847,7 +847,7 @@ static void updateconfig(coder::b_captured_var *Config,
   static rtBoundsCheckInfo nb_emlrtBCI{
       -1,                                             // iFirst
       -1,                                             // iLast
-      163,                                            // lineNo
+      159,                                            // lineNo
       47,                                             // colNo
       "lineStr",                                      // aName
       "DetectorConfig/setFromFile",                   // fName
@@ -857,7 +857,7 @@ static void updateconfig(coder::b_captured_var *Config,
   static rtBoundsCheckInfo ob_emlrtBCI{
       -1,                                             // iFirst
       -1,                                             // iLast
-      163,                                            // lineNo
+      159,                                            // lineNo
       49,                                             // colNo
       "lineStr",                                      // aName
       "DetectorConfig/setFromFile",                   // fName
@@ -867,7 +867,7 @@ static void updateconfig(coder::b_captured_var *Config,
   static rtBoundsCheckInfo pb_emlrtBCI{
       -1,                                             // iFirst
       -1,                                             // iLast
-      202,                                            // lineNo
+      196,                                            // lineNo
       69,                                             // colNo
       "sepByte",                                      // aName
       "DetectorConfig/setFromFile",                   // fName
@@ -1488,7 +1488,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo fb_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      377,                                             // lineNo
+      378,                                             // lineNo
       32,                                              // colNo
       "t",                                             // aName
       "uavrt_detection",                               // fName
@@ -1498,7 +1498,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo gb_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      539,                                             // lineNo
+      540,                                             // lineNo
       61,                                              // colNo
       "X.ps_pos.pl",                                   // aName
       "uavrt_detection",                               // fName
@@ -1508,7 +1508,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo hb_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      544,                                             // lineNo
+      545,                                             // lineNo
       79,                                              // colNo
       "ps_pre_struc.pl",                               // aName
       "uavrt_detection",                               // fName
@@ -1518,7 +1518,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo ib_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      550,                                             // lineNo
+      551,                                             // lineNo
       50,                                              // colNo
       "pulsesToSkip",                                  // aName
       "uavrt_detection",                               // fName
@@ -1538,7 +1538,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo kb_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      632,                                             // lineNo
+      624,                                             // lineNo
       50,                                              // colNo
       "pulsesToSkip",                                  // aName
       "uavrt_detection",                               // fName
@@ -1551,6 +1551,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
                              'y', '_', 'e', 'r', 'r', 'o', 'r'};
   char *nullVal;
   char *retVal;
+  ComplexSamplesUDPReceiver udpReceiver;
+  PulseInfoStruct pulseInfoStruct;
   b_waveform X;
   coder::b_captured_var Config;
   coder::c_captured_var overlapSamples;
@@ -1558,26 +1560,25 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   coder::c_captured_var stftOverlapFraction;
   coder::captured_var b_configPath;
   coder::datetime b_this;
-  pulsestats lobj_11[4];
-  pulsestats lobj_20[2];
-  pulsestats lobj_14;
-  pulsestats lobj_16;
+  pulsestats lobj_12[4];
+  pulsestats lobj_21[2];
+  pulsestats lobj_15;
   pulsestats lobj_17;
+  pulsestats lobj_18;
   pulsestats *pulseStatsPriori;
   threshold val;
   waveform b_X;
-  waveform lobj_12;
-  waveform lobj_19;
+  waveform lobj_13;
+  waveform lobj_20;
   waveform *Xhold;
-  wfmstft lobj_18[3];
-  wfmstft lobj_10;
-  wfmstft lobj_13;
-  wfmstft lobj_15;
+  wfmstft lobj_19[3];
+  wfmstft lobj_11;
+  wfmstft lobj_14;
+  wfmstft lobj_16;
   coder::array<c_struct_T, 2U> ps_pre_struc_clst;
   coder::array<c_struct_T, 2U> ps_pre_struc_pl;
   coder::array<c_struct_T, 1U> c_X;
   coder::array<creal32_T, 1U> b_asyncDataBuff;
-  coder::array<creal32_T, 1U> dataReceived;
   coder::array<creal32_T, 1U> dataWriterBuffData;
   coder::array<creal32_T, 1U> x;
   coder::array<double, 2U> b_x;
@@ -1585,7 +1586,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   coder::array<double, 2U> ps_pre_struc_cpki;
   coder::array<double, 1U> r1;
   coder::array<double, 1U> t;
-  coder::array<double, 1U> timeVector;
   coder::array<float, 1U> r;
   coder::array<char, 2U> varargin_1;
   coder::array<boolean_T, 2U> b_pulsesToSkip;
@@ -1599,6 +1599,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   c_struct_T detectorPulse;
   c_struct_T expl_temp;
   creal_T dcv[1000];
+  creal32_T dataReceived_data[2048];
   creal32_T exampleData[1000];
   double ps_pre_struc_tmplt[2];
   double dataWriterSamples;
@@ -1622,8 +1623,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   int i;
   int loop_ub;
   int n;
-  int udpPulseSender;
-  int udpReceiver;
   char currDir_data[200];
   char untokenizedDir[200];
   signed char fileid;
@@ -1705,7 +1704,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   expl_temp.SNR = pulseCount;
   expl_temp.P = t9_P;
   expl_temp.A = integratedTimeError;
-  pulseStatsPriori = lobj_20[1].init(Config.contents.tp, Config.contents.tip,
+  pulseStatsPriori = lobj_21[1].init(Config.contents.tp, Config.contents.tip,
                                      Config.contents.tipu, Config.contents.tipj,
                                      &detectorPulse, &expl_temp);
   //  % tp, tip, tipu
@@ -1829,17 +1828,13 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   //  pulseOut.group_snr                  = double(0);
   //  pulseOut.detection_status           = false;
   //  pulseOut.confirmed_status           = false;
-  udpPulseSender = udpSenderSetup(50000.0);
-  if (udpPulseSender <= 0) {
+  pulseInfoStruct.udpBufferSizeBytes = 0.0;
+  loop_ub = udpSenderSetup(50000.0);
+  pulseInfoStruct.udpSender = loop_ub;
+  if (loop_ub <= 0) {
     rtErrorWithMessageID(b_emlrtRTEI.fName, b_emlrtRTEI.lineNo);
   }
-  //  Two floats = 2 * 4 bytes;
-  udpReceiver = udpReceiverSetup(Config.contents.portData);
-  if (udpReceiver <= 0) {
-    rtErrorWithMessageID(b_emlrtRTEI.fName, b_emlrtRTEI.lineNo);
-  }
-  // [udpReceiver, udpReceiverBufferSize] = udpSamplesReceiverSetup('10.0.0.8',
-  // Config.portData, 2048);
+  udpReceiver.init(Config.contents.portData);
   printf("Startup set 6 complete. \n");
   fflush(stdout);
   //  Preallocate X and Xhold so that coder knows the data types.
@@ -1855,13 +1850,13 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   val.evSigmaParam = 0.0;
   val.threshVecFine.set_size(1);
   val.threshVecFine[0] = 0.0;
-  Xhold = lobj_19.init(exampleData, Config.contents.Fs, pulseStatsPriori, &val);
+  Xhold = lobj_20.init(exampleData, Config.contents.Fs, pulseStatsPriori, &val);
   // UNTITLED2 Construct an instance of this class
   //    Detailed explanation goes here
-  X.init(exampleData, Config.contents.Fs, pulseStatsPriori, &lobj_20[0],
-         &lobj_18[2]);
-  Xhold->spectro(&lobj_18[1]);
-  X.spectro(&lobj_18[0]);
+  X.init(exampleData, Config.contents.Fs, pulseStatsPriori, &lobj_21[0],
+         &lobj_19[2]);
+  Xhold->spectro(&lobj_19[1]);
+  X.spectro(&lobj_19[0]);
   printf("Startup set 7 complete. \n");
   fflush(stdout);
   // Initialize loop variables
@@ -1882,6 +1877,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   printf("Startup set 8 complete. Starting processing... \n");
   fflush(stdout);
   while (1) {
+    double timeVector_data[2048];
     // i <= maxInd
     if (resetBuffersFlag) {
       asyncDataBuff.reset();
@@ -1890,14 +1886,14 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
       cleanBuffer = true;
     }
     //             %% Get data
-    udpSamplesReceiverRead(udpReceiver, dataReceived);
+    udpReceiver.read(dataReceived_data, &loop_ub);
     //             %% Flush UDP buffer if data in the buffer is stale.
     if (staleDataFlag) {
       printf("********STALE DATA FLAG: %u *********\n", 1U);
       fflush(stdout);
       printf("********CLEARING UDP DATA BUFFER*********\n");
       fflush(stdout);
-      udpReceiverClear(udpReceiver);
+      udpReceiverClear(udpReceiver.udpReceiver);
       staleDataFlag = false;
       printf("********RESETTING TIMES*********\n");
       fflush(stdout);
@@ -1930,7 +1926,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
       // from the start time.
       //                     lastTimeStamp = startTime - (double(nReceived) + 1)
       //                     * 1/Config.Fs;
-      lastTimeStamp = startTime - 16384.0 / Config.contents.Fs;
+      lastTimeStamp = startTime - 2048.0 / Config.contents.Fs;
     }
     //                 idealSampleCount = rawIdealSampleCount - sampleOffset;
     //                 missingSamples  = idealSampleCount - currSampleCount;
@@ -1939,19 +1935,18 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
     // numel(iqDataToWrite): %u nextSampleCount: %u \t\n',nReceived,
     // currSampleCount, idealSampleCount, rawIdealSampleCount, missingSamples,
     // uint64(numel(iqData)), uint64(numel(iqDataToWrite)), nextSampleCount)
-    timeVector.set_size(16384);
-    for (i = 0; i < 16384; i++) {
-      timeVector[i] =
+    for (i = 0; i < 2048; i++) {
+      timeVector_data[i] =
           lastTimeStamp + (static_cast<double>(i) + 1.0) / Config.contents.Fs;
     }
     // fprintf('Sample elapsed seconds: %f \t Posix elapsed seconds:  \n',
     // timeVector(end), round(posixtime(datetime('now'))*1000000)/1000000 -
     // startTime)
-    lastTimeStamp = timeVector[16383];
+    lastTimeStamp = timeVector_data[2047];
     // Write out data and time.
-    asyncDataBuff.write(dataReceived);
-    asyncTimeBuff.write(timeVector);
-    asyncWriteBuff.write(dataReceived);
+    asyncDataBuff.write(dataReceived_data, loop_ub);
+    asyncTimeBuff.write(timeVector_data);
+    asyncWriteBuff.write(dataReceived_data, loop_ub);
     //  OLD TIME STAMP METHOD
     // asyncWriteBuff.write([dataReceived;
     // int2singlecomplex(timeAtPacketReceive*10^3)]);
@@ -2310,7 +2305,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
           b_expl_temp.SNR = pulseCount;
           b_expl_temp.P = t9_P;
           b_expl_temp.A = integratedTimeError;
-          pulseStatsPriori = lobj_14.init(
+          pulseStatsPriori = lobj_15.init(
               Config.contents.tp, Config.contents.tip, Config.contents.tipu,
               Config.contents.tipj,
               1.0E-5 * std::abs(Config.contents.tagFreqMHz -
@@ -2319,7 +2314,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
           configUpdatedFlag = false;
         } else {
           pulseStatsPriori =
-              lobj_17.c_init(t9_yw, t9_t_0, t9_t_f, t9_fp, t9_fstart, t9_fend,
+              lobj_18.c_init(t9_yw, t9_t_0, t9_t_f, t9_fp, t9_fstart, t9_fend,
                              ps_pre_struc_fend, ps_pre_struc_tmplt,
                              (char *)&mode, ps_pre_struc_pl, ps_pre_struc_clst,
                              ps_pre_struc_cmsk, ps_pre_struc_cpki);
@@ -2333,8 +2328,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
         val.evSigmaParam = 0.0;
         val.threshVecFine.set_size(1);
         val.threshVecFine[0] = 0.0;
-        b_X.init(x, Config.contents.Fs, t[0], pulseStatsPriori, &val, &lobj_16,
-                 &lobj_15);
+        b_X.init(x, Config.contents.Fs, t[0], pulseStatsPriori, &val, &lobj_17,
+                 &lobj_16);
         b_X.K = Config.contents.K;
         integratedTimeError = std::round(b_X.N);
         if (integratedTimeError < 4.294967296E+9) {
@@ -2385,7 +2380,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
         integratedTimeError = coder::toc();
         printf("Computing STFT...");
         fflush(stdout);
-        b_X.spectro(&lobj_13);
+        b_X.spectro(&lobj_14);
         integratedTimeError = coder::toc() - integratedTimeError;
         printf("complete. Elapsed time: %f seconds \n", integratedTimeError);
         fflush(stdout);
@@ -2601,7 +2596,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
         // Xhold{mod(segmentsProcessed,maxSegments)} = X;%Keep a maxSegments
         // running record of waveforms for debugging in Matlab Xstruct =
         // obj2structrecursive(); Xhold = X;
-        Xhold = waveformcopy(&b_X, &lobj_10, &lobj_11[0], &lobj_12);
+        Xhold = waveformcopy(&b_X, &lobj_11, &lobj_12[0], &lobj_13);
         nPulseList = b_X.ps_pos->pl.size(1);
         pulsesToSkip.set_size(1, nPulseList);
         for (i = 0; i < nPulseList; i++) {
@@ -2680,7 +2675,23 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
         if (coder::internal::b_ifWhileCond(r4)) {
           printf("Transmitting ROS2 pulse messages");
           fflush(stdout);
+          if (nPulseList - 1 >= 0) {
+            integratedTimeError = std::round(Config.contents.ID);
+            if (integratedTimeError < 4.294967296E+9) {
+              if (integratedTimeError >= 0.0) {
+                b_varargin_1 = static_cast<unsigned int>(integratedTimeError);
+              } else {
+                b_varargin_1 = 0U;
+              }
+            } else if (integratedTimeError >= 4.294967296E+9) {
+              b_varargin_1 = MAX_uint32_T;
+            } else {
+              b_varargin_1 = 0U;
+            }
+            pulseInfoStruct.tag_id = b_varargin_1;
+          }
           for (int j{0}; j < nPulseList; j++) {
+            unsigned short u;
             //  %% Build out pulseOut structure parameters for sending
             //  pulseOut.tag_id                     = uint32(Config.ID);
             //  pulseOut.detector_dir               = currDir;%ID is a string
@@ -2761,50 +2772,42 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
               rtDynamicBoundsError(j + 1, 1, i, &jb_emlrtBCI);
             }
             detectorPulse = b_X.ps_pos->pl[j];
+            integratedTimeError = std::round(
+                (Config.contents.channelCenterFreqMHz + detectorPulse.fp) *
+                1.0E+6);
+            if (integratedTimeError < 4.294967296E+9) {
+              if (integratedTimeError >= 0.0) {
+                b_varargin_1 = static_cast<unsigned int>(integratedTimeError);
+              } else {
+                b_varargin_1 = 0U;
+              }
+            } else if (integratedTimeError >= 4.294967296E+9) {
+              b_varargin_1 = MAX_uint32_T;
+            } else {
+              b_varargin_1 = 0U;
+            }
+            pulseInfoStruct.frequency_hz = b_varargin_1;
+            pulseInfoStruct.start_time_seconds = detectorPulse.t_0;
+            pulseInfoStruct.predict_next_start_seconds =
+                detectorPulse.t_next[0];
+            pulseInfoStruct.snr = detectorPulse.SNR;
+            pulseInfoStruct.stft_score = detectorPulse.yw;
+            if (j + 1U < 65536U) {
+              u = static_cast<unsigned short>(static_cast<double>(j) + 1.0);
+            } else {
+              u = MAX_uint16_T;
+            }
+            pulseInfoStruct.group_ind = u;
+            pulseInfoStruct.group_snr = 10.0 * t9_P;
+            pulseInfoStruct.detection_status = detectorPulse.det_dec;
+            pulseInfoStruct.confirmed_status = detectorPulse.con_dec;
             if (j + 1 > pulsesToSkip.size(1)) {
               rtDynamicBoundsError(j + 1, 1, pulsesToSkip.size(1),
                                    &kb_emlrtBCI);
             }
             if (!pulsesToSkip[j]) {
-              unsigned short u;
               //  UDP Send
-              integratedTimeError = std::round(Config.contents.ID);
-              if (integratedTimeError < 4.294967296E+9) {
-                if (integratedTimeError >= 0.0) {
-                  b_varargin_1 = static_cast<unsigned int>(integratedTimeError);
-                } else {
-                  b_varargin_1 = 0U;
-                }
-              } else if (integratedTimeError >= 4.294967296E+9) {
-                b_varargin_1 = MAX_uint32_T;
-              } else {
-                b_varargin_1 = 0U;
-              }
-              integratedTimeError = std::round(
-                  (Config.contents.channelCenterFreqMHz + detectorPulse.fp) *
-                  1.0E+6);
-              if (integratedTimeError < 4.294967296E+9) {
-                if (integratedTimeError >= 0.0) {
-                  varargin_2 = static_cast<unsigned int>(integratedTimeError);
-                } else {
-                  varargin_2 = 0U;
-                }
-              } else if (integratedTimeError >= 4.294967296E+9) {
-                varargin_2 = MAX_uint32_T;
-              } else {
-                varargin_2 = 0U;
-              }
-              if (j + 1U < 65536U) {
-                u = static_cast<unsigned short>(static_cast<double>(j) + 1.0);
-              } else {
-                u = MAX_uint16_T;
-              }
-              udpPulseSenderSend(
-                  udpPulseSender, b_varargin_1, varargin_2, detectorPulse.t_0,
-                  detectorPulse.t_next[0], detectorPulse.SNR, detectorPulse.yw,
-                  u, 10.0 * t9_P,
-                  static_cast<unsigned char>(detectorPulse.det_dec),
-                  static_cast<unsigned char>(detectorPulse.con_dec));
+              pulseInfoStruct.sendOverUDP();
               //  ROS send
               pulseCount++;
             }
