@@ -215,6 +215,7 @@ sampleOffset      = uint64(0);
 previousPulseTime = 0;
 repeatedDetectionFlag = false;
 missingSamples    = 0;
+iqDataToWrite     = single(complex([]));
 
 if Config.startInRunState
     state = 'run';
@@ -224,7 +225,7 @@ end
 
 fprintf('Startup set 8 complete. Starting processing... \n')
 
-predictNextTimeStamp = 0;
+expectedNextTimeStamp = 0;
 
 while true %i <= maxInd
 
@@ -260,6 +261,7 @@ while true %i <= maxInd
                 currSampleCount = uint64(0);
                 nextSampleCount = uint64(0);
                 
+                startTime         = round(posixtime(datetime('now'))*1000000)/1000000;
                 tic
             end
 
@@ -275,19 +277,27 @@ while true %i <= maxInd
             else
                 
                 %timeStamp      = 10^-3*singlecomplex2int(dataReceived(1)); % OLD TIME STAMP METHOD
-                timeStamp      = real(double(dataReceived(1))) + 10^-9*imag(double(dataReceived(1))); % OLD TIME STAMP METHOD
-                iqData         = dataReceived(2:end);% OLD TIME STAMP METHOD
+                timeStampRaw     = dataReceived(1);
+                timeStampReal    = real(timeStampRaw);
+                timeStampImag    = imag(timeStampRaw);
+                timeStampSec     = typecast(timeStampReal,'uint32');
+                timeStampNanoSec = typecast(timeStampImag,'uint32');
+                timeStamp        = double(timeStampSec) + 10^-9*double(timeStampNanoSec); % OLD TIME STAMP METHOD
+                iqData           = dataReceived(2:end);% OLD TIME STAMP METHOD
                 %timeVector     = timeStamp+1/Config.Fs*(0:(numel(iqData)-1)).';% OLD TIME STAMP METHOD
                 
                 if framesReceived == 0 
                     iqDataToWrite = iqData;
+                    %dataFirstTimeStamp = timeStamp;
                 else
-                    timeDiff = timeStamp - predictNextTimeStamp;
+                    timeDiff = timeStamp - expectedNextTimeStamp;
+fprintf('Current Received Time Stamp: %f \t Expected Time Stamp: %f \t Diff: %f \n',timeStamp, expectedNextTimeStamp, timeDiff)
                     if abs(timeDiff) < Config.tp / 2
+                        
                         iqDataToWrite = iqData;
                     elseif timeDiff >= Config.tp / 2  && timeDiff < Config.tip %missed samples but not a whole lot
                         missingSamples = round(timeDiff * Config.Fs);
-                        fprintf('Missing samples detected. Filling with zeros for %u samples.',missingSamples);
+                        fprintf('Missing samples detected. Filling with zeros for %u samples.', uint64(missingSamples));
                         zerosFill = single(zeros(missingSamples, 1)) + ...
                                     1i*single(zeros(missingSamples, 1));
                         iqDataToWrite = [zerosFill(:); iqData];
@@ -295,15 +305,15 @@ while true %i <= maxInd
                            (timeDiff < -Config.tp / 2) %predictions is ahead of recently received packet. Shouldn't ever happen. If it is, reset the incoming data
                         staleDataFlag    = true;
                         resetBuffersFlag = true;
-                        iqDataToWrite = [];
-                        
+                        suggestedMode    = 'S';
+                        iqDataToWrite = single(complex(zeros(0,1)));
                     end
                 end
                 
                 timeVector     = timeStamp+1/Config.Fs*(0:(numel(iqDataToWrite)-1)).';
                 
                 frameNSamps          = numel(iqData);
-                predictNextTimeStamp = timeStamp + 1/Config.Fs * frameNSamps;
+                expectedNextTimeStamp = timeStamp + 1/Config.Fs * frameNSamps;
                 framesReceived       = framesReceived + 1;
 
 
@@ -365,8 +375,8 @@ while true %i <= maxInd
 %                 lastTimeStamp = timeVector(end);
 
                 %Write out data and time.
-                asyncDataBuff.write(iqDataToWrite);
-                asyncTimeBuff.write(timeVector);
+                asyncDataBuff.write(iqDataToWrite(:));
+                asyncTimeBuff.write(timeVector(:));
                 asyncWriteBuff.write(dataReceived);% OLD TIME STAMP METHOD
                 %asyncWriteBuff.write([dataReceived; int2singlecomplex(timeAtPacketReceive*10^3)]);
                 if asyncWriteBuff.NumUnreadSamples == dataWriterSamples
@@ -404,7 +414,7 @@ processingStartToc = previousToc;
 
 fprintf('Sample elapsed seconds: %f \t Posix elapsed seconds: %f \n', timeVector(end) - startTime, round(posixtime(datetime('now'))*1000000)/1000000 - startTime)
 
-%plot(t,abs(x)); hold on
+plot(t, abs(x)); hold on
                     %Check the timestamps in the buffer for gaps larger
                     %than the max interpulse uncertainty. If there are
                     %enough dropped packets such that the time is shifted
