@@ -5,7 +5,7 @@
 // File: PulseInfoStruct.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 21-Feb-2023 17:21:25
+// C/C++ source code generated on  : 21-Feb-2023 17:49:40
 //
 
 // Include Files
@@ -67,7 +67,7 @@ void PulseInfoStruct::sendOverUDP() const
     pulseInfoBytes[i + 64] = detection_status_bytes[i];
     pulseInfoBytes[i + 72] = confirmed_status_bytes[i];
   }
-  udpSenderSend(udpSender, &pulseInfoBytes[0], udpBufferSizeBytes);
+  udpSenderSendBytes(udpSender, &pulseInfoBytes[0], udpBufferSizeBytes);
 }
 
 //
