@@ -13,7 +13,6 @@ excldFreqs = [Inf -Inf];
 falseAlarmProb = 0.001;
 %decisionEntryPath  = '/Users/mshafer/Desktop/PLAYGROUND';
 dataRecordPath = '/Users/mshafer/Desktop/PLAYGROUND';
-processedOuputPath = '/Users/mshafer/Desktop/PLAYGROUND';
 
 
 configPath = '/Users/mshafer/Desktop/PLAYGROUND/DETECTOR/CONFIGURATION';
@@ -25,12 +24,12 @@ else
 end
 fullConfigPath = [configPath,folderSep,configFileName];
 
-% configStr  = detectorsetting2configstr(ip, port, centerFreq, Fs, tp, tip, tipu, K, focusMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath, processedOuputPath);
+% configStr  = detectorsetting2configstr(ip, port, centerFreq, Fs, tp, tip, tipu, K, focusMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath);
 % detectorconfigwrite(fullConfigPath, configStr, 'w')
-% configStr  = detectorsetting2configstr(ip, port, centerFreq, Fs, tp, tip, tipu, K, focusMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath, processedOuputPath);
+% configStr  = detectorsetting2configstr(ip, port, centerFreq, Fs, tp, tip, tipu, K, focusMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath);
 % detectorconfigwrite(fullConfigPath, configStr, 'a')
 
-InitialDetector = DetectorConfig(IDstr, freqMHz, ipData, portData, centerFreq, Fs, tp, tip, tipu, K, focusMode, excldFreqs, falseAlarmProb, dataRecordPath, processedOuputPath);
+InitialDetector = DetectorConfig(IDstr, freqMHz, ipData, portData, centerFreq, Fs, tp, tip, tipu, K, focusMode, excldFreqs, falseAlarmProb, dataRecordPath);
 InitialDetector.writeToFile(fullConfigPath,'a') 
 
 %SecondDetector = DetectorConfig();

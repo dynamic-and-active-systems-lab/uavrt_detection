@@ -15,4 +15,3 @@ opMode:	freqSearchHardLock
 excldFreqs:	[Inf, -Inf]
 falseAlarmProb:	0.00080
 dataRecordPath:	/Users/mshafer/Desktop/uavrt_output/data_record.bin
-processedOuputPath:	/Users/mshafer/Desktop/uavrt_output

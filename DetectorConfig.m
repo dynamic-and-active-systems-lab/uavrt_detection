@@ -29,8 +29,6 @@ classdef DetectorConfig
     %                       gets loaded from the decisionEntryPath. 
     %   dataRecordPath      Path to location to which record the
     %                       data
-    %   processedOuputPath  Path to location to save processed
-    %                       results.
     %
     %METHODS:
     %DetectorConfig     Constructor of this class
@@ -58,11 +56,10 @@ classdef DetectorConfig
         excldFreqs  (:, 2) double {mustBeReal}                                = [inf, -inf]
         falseAlarmProb(1,1) double {mustBePositive, mustBeLessThan(falseAlarmProb,1)} = 0.01
         dataRecordPath(1,1) string                                            = ''
-        processedOuputPath(1,1) string                                        = ''
     end
     
     methods
-        function obj = DetectorConfig(ID, channelCenterFreqMHZ, ipData, portData, Fs, tagFreqMHz, tp, tip, tipu, K, opMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath, processedOuputPath)
+        function obj = DetectorConfig(ID, channelCenterFreqMHZ, ipData, portData, Fs, tagFreqMHz, tp, tip, tipu, K, opMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath)
             if nargin>0
                 obj.ID          = ID;
                 obj.channelCenterFreqMHz     = channelCenterFreqMHZ;
@@ -79,7 +76,6 @@ classdef DetectorConfig
                 obj.excldFreqs          = excldFreqs;
                 obj.falseAlarmProb      = falseAlarmProb;
                 obj.dataRecordPath      = dataRecordPath;
-                obj.processedOuputPath  = processedOuputPath;
             end
         end
         
@@ -193,8 +189,6 @@ classdef DetectorConfig
                         obj.falseAlarmProb = real(str2double(configValStr));
                     elseif strcmp(configType,'dataRecordPath')
                         obj.dataRecordPath = configValStr;
-                    elseif strcmp(configType,'processedOuputPath')
-                        obj.processedOuputPath =  configValStr;
                     end
                     %Stop when we have finished reading this entry.
                     done = (feof(fid) == 1) || (ftell(fid)==sepByte(entry+1)) ;
@@ -228,8 +222,7 @@ classdef DetectorConfig
                                                    obj.K, obj.opMode,...
                                                    obj.excldFreqs,...
                                                    obj.falseAlarmProb,...
-                                                   obj.dataRecordPath, ...
-                                                   obj.processedOuputPath)
+                                                   obj.dataRecordPath)
                                                    
             detectorconfigwrite(fullConfigPath, configStr, writeType)
         end
@@ -253,7 +246,6 @@ classdef DetectorConfig
             objOut.excldFreqs          = obj.excldFreqs;
             objOut.falseAlarmProb      = obj.falseAlarmProb;
             objOut.dataRecordPath      = obj.dataRecordPath;
-            objOut.processedOuputPath  = obj.processedOuputPath;
         end
     end
 end
