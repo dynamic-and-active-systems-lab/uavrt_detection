@@ -165,7 +165,9 @@ ps_pre_struc.cpki   = localCpki;
 pulseInfoStruct = PulseInfoStruct();
 pulseInfoStruct.udpSenderSetup("127.0.0.1", 50000);
 
-udpReceiver = ComplexSingleSamplesUDPReceiver(Config.ipData, Config.portData, 1024);
+% The specified frame size must exactly match the size of udp packets sent out by the channelizer.
+channelizerSampleFrameSize = 1024;
+udpReceiver = ComplexSingleSamplesUDPReceiver(Config.ipData, Config.portData, channelizerSampleFrameSize);
 
 fprintf('Startup set 6 complete. \n')
 
