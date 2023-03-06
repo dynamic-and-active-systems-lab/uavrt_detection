@@ -5,7 +5,7 @@
 // File: heapsort.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 26-Feb-2023 08:54:12
+// C/C++ source code generated on  : 06-Mar-2023 15:57:44
 //
 
 // Include Files
@@ -21,10 +21,10 @@
 namespace coder {
 namespace internal {
 static void heapify(::coder::array<int, 1U> &x, int idx, int xstart, int xend,
-                    const c_anonymous_function *cmp);
+                    const anonymous_function *cmp);
 
 static void heapify(::coder::array<int, 1U> &x, int idx, int xstart, int xend,
-                    const anonymous_function *cmp);
+                    const c_anonymous_function *cmp);
 
 } // namespace internal
 } // namespace coder
@@ -35,63 +35,11 @@ static void heapify(::coder::array<int, 1U> &x, int idx, int xstart, int xend,
 //                int idx
 //                int xstart
 //                int xend
-//                const c_anonymous_function *cmp
+//                const anonymous_function *cmp
 // Return Type  : void
 //
 namespace coder {
 namespace internal {
-static void heapify(::coder::array<int, 1U> &x, int idx, int xstart, int xend,
-                    const c_anonymous_function *cmp)
-{
-  int cmpIdx;
-  int extremum;
-  int extremumIdx;
-  int leftIdx;
-  boolean_T changed;
-  boolean_T exitg1;
-  changed = true;
-  extremumIdx = (idx + xstart) - 2;
-  leftIdx = ((idx << 1) + xstart) - 1;
-  exitg1 = false;
-  while ((!exitg1) && (leftIdx < xend)) {
-    int xcmp;
-    changed = false;
-    extremum = x[extremumIdx];
-    cmpIdx = leftIdx - 1;
-    xcmp = x[leftIdx - 1];
-    if (cmp->workspace.x[x[leftIdx - 1] - 1] <
-        cmp->workspace.x[x[leftIdx] - 1]) {
-      cmpIdx = leftIdx;
-      xcmp = x[leftIdx];
-    }
-    if (cmp->workspace.x[x[extremumIdx] - 1] < cmp->workspace.x[xcmp - 1]) {
-      x[extremumIdx] = xcmp;
-      x[cmpIdx] = extremum;
-      extremumIdx = cmpIdx;
-      leftIdx = ((((cmpIdx - xstart) + 2) << 1) + xstart) - 1;
-      changed = true;
-    } else {
-      exitg1 = true;
-    }
-  }
-  if (changed && (leftIdx <= xend)) {
-    extremum = x[extremumIdx];
-    cmpIdx = x[leftIdx - 1];
-    if (cmp->workspace.x[x[extremumIdx] - 1] < cmp->workspace.x[cmpIdx - 1]) {
-      x[extremumIdx] = cmpIdx;
-      x[leftIdx - 1] = extremum;
-    }
-  }
-}
-
-//
-// Arguments    : ::coder::array<int, 1U> &x
-//                int idx
-//                int xstart
-//                int xend
-//                const anonymous_function *cmp
-// Return Type  : void
-//
 static void heapify(::coder::array<int, 1U> &x, int idx, int xstart, int xend,
                     const anonymous_function *cmp)
 {
@@ -170,13 +118,65 @@ static void heapify(::coder::array<int, 1U> &x, int idx, int xstart, int xend,
 
 //
 // Arguments    : ::coder::array<int, 1U> &x
+//                int idx
 //                int xstart
 //                int xend
 //                const c_anonymous_function *cmp
 // Return Type  : void
 //
+static void heapify(::coder::array<int, 1U> &x, int idx, int xstart, int xend,
+                    const c_anonymous_function *cmp)
+{
+  int cmpIdx;
+  int extremum;
+  int extremumIdx;
+  int leftIdx;
+  boolean_T changed;
+  boolean_T exitg1;
+  changed = true;
+  extremumIdx = (idx + xstart) - 2;
+  leftIdx = ((idx << 1) + xstart) - 1;
+  exitg1 = false;
+  while ((!exitg1) && (leftIdx < xend)) {
+    int xcmp;
+    changed = false;
+    extremum = x[extremumIdx];
+    cmpIdx = leftIdx - 1;
+    xcmp = x[leftIdx - 1];
+    if (cmp->workspace.x[x[leftIdx - 1] - 1] <
+        cmp->workspace.x[x[leftIdx] - 1]) {
+      cmpIdx = leftIdx;
+      xcmp = x[leftIdx];
+    }
+    if (cmp->workspace.x[x[extremumIdx] - 1] < cmp->workspace.x[xcmp - 1]) {
+      x[extremumIdx] = xcmp;
+      x[cmpIdx] = extremum;
+      extremumIdx = cmpIdx;
+      leftIdx = ((((cmpIdx - xstart) + 2) << 1) + xstart) - 1;
+      changed = true;
+    } else {
+      exitg1 = true;
+    }
+  }
+  if (changed && (leftIdx <= xend)) {
+    extremum = x[extremumIdx];
+    cmpIdx = x[leftIdx - 1];
+    if (cmp->workspace.x[x[extremumIdx] - 1] < cmp->workspace.x[cmpIdx - 1]) {
+      x[extremumIdx] = cmpIdx;
+      x[leftIdx - 1] = extremum;
+    }
+  }
+}
+
+//
+// Arguments    : ::coder::array<int, 1U> &x
+//                int xstart
+//                int xend
+//                const anonymous_function *cmp
+// Return Type  : void
+//
 void b_heapsort(::coder::array<int, 1U> &x, int xstart, int xend,
-                const c_anonymous_function *cmp)
+                const anonymous_function *cmp)
 {
   int idx;
   int n;
@@ -201,11 +201,11 @@ void b_heapsort(::coder::array<int, 1U> &x, int xstart, int xend,
 // Arguments    : ::coder::array<int, 1U> &x
 //                int xstart
 //                int xend
-//                const anonymous_function *cmp
+//                const c_anonymous_function *cmp
 // Return Type  : void
 //
 void b_heapsort(::coder::array<int, 1U> &x, int xstart, int xend,
-                const anonymous_function *cmp)
+                const c_anonymous_function *cmp)
 {
   int idx;
   int n;

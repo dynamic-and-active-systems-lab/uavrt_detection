@@ -5,7 +5,7 @@
 // File: assertValidSizeArg.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 26-Feb-2023 08:54:12
+// C/C++ source code generated on  : 06-Mar-2023 15:57:44
 //
 
 // Include Files
@@ -54,14 +54,36 @@ static void sc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 }
 
 //
-// Arguments    : const double varargin_1[2]
+// Arguments    : double varargin_2
 // Return Type  : void
 //
 namespace coder {
 namespace internal {
+void assertValidSizeArg(double varargin_2)
+{
+  double b_varargin_2;
+  if ((varargin_2 != std::floor(varargin_2)) || std::isinf(varargin_2) ||
+      (varargin_2 < -2.147483648E+9) || (varargin_2 > 2.147483647E+9)) {
+    c_rtErrorWithMessageID(MIN_int32_T, ob_emlrtRTEI.fName,
+                           ob_emlrtRTEI.lineNo);
+  }
+  if (varargin_2 <= 0.0) {
+    b_varargin_2 = 0.0;
+  } else {
+    b_varargin_2 = varargin_2;
+  }
+  if (!(b_varargin_2 <= 2.147483647E+9)) {
+    m_rtErrorWithMessageID(o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
+  }
+}
+
+//
+// Arguments    : const double varargin_1[2]
+// Return Type  : void
+//
 void assertValidSizeArg(const double varargin_1[2])
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo uc_emlrtRTEI{
       49,                  // lineNo
       "assertValidSizeArg" // fName
   };
@@ -72,7 +94,7 @@ void assertValidSizeArg(const double varargin_1[2])
   exitg1 = false;
   while ((!exitg1) && (k < 2)) {
     if ((varargin_1[k] != varargin_1[k]) || std::isinf(varargin_1[k])) {
-      sc_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+      sc_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
     } else {
       k++;
     }
@@ -88,28 +110,6 @@ void assertValidSizeArg(const double varargin_1[2])
     b_varargin_1 *= varargin_1[1];
   }
   if (!(b_varargin_1 <= 2.147483647E+9)) {
-    m_rtErrorWithMessageID(o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
-  }
-}
-
-//
-// Arguments    : double varargin_2
-// Return Type  : void
-//
-void assertValidSizeArg(double varargin_2)
-{
-  double b_varargin_2;
-  if ((varargin_2 != std::floor(varargin_2)) || std::isinf(varargin_2) ||
-      (varargin_2 < -2.147483648E+9) || (varargin_2 > 2.147483647E+9)) {
-    c_rtErrorWithMessageID(MIN_int32_T, ob_emlrtRTEI.fName,
-                           ob_emlrtRTEI.lineNo);
-  }
-  if (varargin_2 <= 0.0) {
-    b_varargin_2 = 0.0;
-  } else {
-    b_varargin_2 = varargin_2;
-  }
-  if (!(b_varargin_2 <= 2.147483647E+9)) {
     m_rtErrorWithMessageID(o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
   }
 }

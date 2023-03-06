@@ -5,7 +5,7 @@
 // File: insertionsort.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 26-Feb-2023 08:54:12
+// C/C++ source code generated on  : 06-Mar-2023 15:57:44
 //
 
 #ifndef INSERTIONSORT_H
@@ -29,10 +29,10 @@ class c_anonymous_function;
 namespace coder {
 namespace internal {
 void insertionsort(::coder::array<int, 1U> &x, int xstart, int xend,
-                   const c_anonymous_function *cmp);
+                   const anonymous_function *cmp);
 
 void insertionsort(::coder::array<int, 1U> &x, int xstart, int xend,
-                   const anonymous_function *cmp);
+                   const c_anonymous_function *cmp);
 
 } // namespace internal
 } // namespace coder

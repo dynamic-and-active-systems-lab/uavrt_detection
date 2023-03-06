@@ -5,7 +5,7 @@
 // File: insertionsort.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 26-Feb-2023 08:54:12
+// C/C++ source code generated on  : 06-Mar-2023 15:57:44
 //
 
 // Include Files
@@ -22,40 +22,11 @@
 // Arguments    : ::coder::array<int, 1U> &x
 //                int xstart
 //                int xend
-//                const c_anonymous_function *cmp
+//                const anonymous_function *cmp
 // Return Type  : void
 //
 namespace coder {
 namespace internal {
-void insertionsort(::coder::array<int, 1U> &x, int xstart, int xend,
-                   const c_anonymous_function *cmp)
-{
-  int a;
-  a = xstart + 1;
-  if ((xstart + 1 <= xend) && (xend > 2147483646)) {
-    check_forloop_overflow_error();
-  }
-  for (int k{a}; k <= xend; k++) {
-    int idx;
-    int xc;
-    xc = x[k - 1];
-    idx = k - 1;
-    while ((idx >= xstart) &&
-           (cmp->workspace.x[xc - 1] < cmp->workspace.x[x[idx - 1] - 1])) {
-      x[idx] = x[idx - 1];
-      idx--;
-    }
-    x[idx] = xc;
-  }
-}
-
-//
-// Arguments    : ::coder::array<int, 1U> &x
-//                int xstart
-//                int xend
-//                const anonymous_function *cmp
-// Return Type  : void
-//
 void insertionsort(::coder::array<int, 1U> &x, int xstart, int xend,
                    const anonymous_function *cmp)
 {
@@ -88,6 +59,35 @@ void insertionsort(::coder::array<int, 1U> &x, int xstart, int xend,
       }
     }
     x[idx + 1] = xc + 1;
+  }
+}
+
+//
+// Arguments    : ::coder::array<int, 1U> &x
+//                int xstart
+//                int xend
+//                const c_anonymous_function *cmp
+// Return Type  : void
+//
+void insertionsort(::coder::array<int, 1U> &x, int xstart, int xend,
+                   const c_anonymous_function *cmp)
+{
+  int a;
+  a = xstart + 1;
+  if ((xstart + 1 <= xend) && (xend > 2147483646)) {
+    check_forloop_overflow_error();
+  }
+  for (int k{a}; k <= xend; k++) {
+    int idx;
+    int xc;
+    xc = x[k - 1];
+    idx = k - 1;
+    while ((idx >= xstart) &&
+           (cmp->workspace.x[xc - 1] < cmp->workspace.x[x[idx - 1] - 1])) {
+      x[idx] = x[idx - 1];
+      idx--;
+    }
+    x[idx] = xc;
   }
 }
 

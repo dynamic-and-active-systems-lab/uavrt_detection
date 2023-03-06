@@ -5,7 +5,7 @@
 // File: minOrMax.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 26-Feb-2023 08:54:12
+// C/C++ source code generated on  : 06-Mar-2023 15:57:44
 //
 
 #ifndef MINORMAX_H
@@ -20,14 +20,14 @@
 // Function Declarations
 namespace coder {
 namespace internal {
+double maximum(const ::coder::array<double, 1U> &x);
+
 void maximum(const ::coder::array<double, 2U> &x,
              ::coder::array<double, 1U> &ex, ::coder::array<int, 1U> &idx);
 
 void maximum(const ::coder::array<double, 1U> &x, double *ex, int *idx);
 
 double maximum(const double x[2]);
-
-double maximum(const ::coder::array<double, 1U> &x);
 
 double minimum(const double x[2]);
 

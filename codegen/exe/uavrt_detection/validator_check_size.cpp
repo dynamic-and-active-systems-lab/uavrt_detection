@@ -5,7 +5,7 @@
 // File: validator_check_size.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 26-Feb-2023 08:54:12
+// C/C++ source code generated on  : 06-Mar-2023 15:57:44
 //
 
 // Include Files
@@ -701,69 +701,6 @@ void validator_check_size(const ::coder::array<creal_T, 2U> &in,
 
 //
 // Arguments    : const ::coder::array<double, 1U> &in
-//                ::coder::array<double, 2U> &out
-// Return Type  : void
-//
-void validator_check_size(const ::coder::array<double, 1U> &in,
-                          ::coder::array<double, 2U> &out)
-{
-  int sizes_idx_0;
-  char b_tmp_data[10];
-  char tmp_data[10];
-  boolean_T isempty_in;
-  boolean_T isscalar_in;
-  isscalar_in = (in.size(0) == 1);
-  isempty_in = (in.size(0) == 0);
-  if (isscalar_in) {
-    sizes_idx_0 = 1;
-  } else {
-    sizes_idx_0 = in.size(0);
-  }
-  if ((!isempty_in) && (!isscalar_in) && (in.size(0) != sizes_idx_0)) {
-    int b_tmp_size[2];
-    int tmp_size[2];
-    int2str(static_cast<double>(in.size(0)), tmp_data, tmp_size);
-    int2str(sizes_idx_0, b_tmp_data, b_tmp_size);
-    rtErrorWithMessageID(std::string(&tmp_data[0], tmp_size[1]),
-                         std::string(&b_tmp_data[0], b_tmp_size[1]), "1",
-                         l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
-  }
-  if (isscalar_in) {
-    out.set_size(sizes_idx_0, 1);
-    for (int n{0}; n < sizes_idx_0; n++) {
-      out[n] = in[0];
-    }
-  } else if (isempty_in) {
-    if (sizes_idx_0 != 0) {
-      j_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
-    }
-    out.set_size(0, 1);
-  } else {
-    int n;
-    int u0;
-    n = in.size(0);
-    if (in.size(0) < 1) {
-      n = 1;
-    }
-    u0 = in.size(0);
-    if (u0 >= n) {
-      n = u0;
-    }
-    if (sizes_idx_0 > n) {
-      k_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
-    }
-    if (sizes_idx_0 != in.size(0)) {
-      l_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
-    }
-    out.set_size(sizes_idx_0, 1);
-    for (n = 0; n < sizes_idx_0; n++) {
-      out[n] = in[n];
-    }
-  }
-}
-
-//
-// Arguments    : const ::coder::array<double, 1U> &in
 //                ::coder::array<double, 1U> &out
 // Return Type  : void
 //
@@ -819,6 +756,69 @@ void validator_check_size(const ::coder::array<double, 1U> &in,
       l_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
     }
     out.set_size(sizes_idx_0);
+    for (n = 0; n < sizes_idx_0; n++) {
+      out[n] = in[n];
+    }
+  }
+}
+
+//
+// Arguments    : const ::coder::array<double, 1U> &in
+//                ::coder::array<double, 2U> &out
+// Return Type  : void
+//
+void validator_check_size(const ::coder::array<double, 1U> &in,
+                          ::coder::array<double, 2U> &out)
+{
+  int sizes_idx_0;
+  char b_tmp_data[10];
+  char tmp_data[10];
+  boolean_T isempty_in;
+  boolean_T isscalar_in;
+  isscalar_in = (in.size(0) == 1);
+  isempty_in = (in.size(0) == 0);
+  if (isscalar_in) {
+    sizes_idx_0 = 1;
+  } else {
+    sizes_idx_0 = in.size(0);
+  }
+  if ((!isempty_in) && (!isscalar_in) && (in.size(0) != sizes_idx_0)) {
+    int b_tmp_size[2];
+    int tmp_size[2];
+    int2str(static_cast<double>(in.size(0)), tmp_data, tmp_size);
+    int2str(sizes_idx_0, b_tmp_data, b_tmp_size);
+    rtErrorWithMessageID(std::string(&tmp_data[0], tmp_size[1]),
+                         std::string(&b_tmp_data[0], b_tmp_size[1]), "1",
+                         l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+  }
+  if (isscalar_in) {
+    out.set_size(sizes_idx_0, 1);
+    for (int n{0}; n < sizes_idx_0; n++) {
+      out[n] = in[0];
+    }
+  } else if (isempty_in) {
+    if (sizes_idx_0 != 0) {
+      j_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
+    }
+    out.set_size(0, 1);
+  } else {
+    int n;
+    int u0;
+    n = in.size(0);
+    if (in.size(0) < 1) {
+      n = 1;
+    }
+    u0 = in.size(0);
+    if (u0 >= n) {
+      n = u0;
+    }
+    if (sizes_idx_0 > n) {
+      k_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
+    }
+    if (sizes_idx_0 != in.size(0)) {
+      l_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+    }
+    out.set_size(sizes_idx_0, 1);
     for (n = 0; n < sizes_idx_0; n++) {
       out[n] = in[n];
     }

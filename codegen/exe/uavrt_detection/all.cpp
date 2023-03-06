@@ -5,7 +5,7 @@
 // File: all.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 26-Feb-2023 08:54:12
+// C/C++ source code generated on  : 06-Mar-2023 15:57:44
 //
 
 // Include Files
@@ -23,7 +23,7 @@
 #include <string>
 
 // Function Declarations
-static void vb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void wb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -31,7 +31,7 @@ static void vb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void vb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void wb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -56,7 +56,7 @@ namespace coder {
 void all(const ::coder::array<boolean_T, 2U> &x,
          ::coder::array<boolean_T, 1U> &y)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo uc_emlrtRTEI{
       18,                              // lineNo
       "eml_int_forloop_overflow_check" // fName
   };
@@ -86,7 +86,7 @@ void all(const ::coder::array<boolean_T, 2U> &x,
       overflow = (i2 > MAX_int32_T - vstride);
     }
     if (vstride == 0) {
-      vb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+      wb_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
     }
     if (overflow) {
       check_forloop_overflow_error();

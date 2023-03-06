@@ -5,7 +5,7 @@
 // File: assertValidSizeArg.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 26-Feb-2023 08:54:12
+// C/C++ source code generated on  : 06-Mar-2023 15:57:44
 //
 
 #ifndef ASSERTVALIDSIZEARG_H
@@ -19,9 +19,9 @@
 // Function Declarations
 namespace coder {
 namespace internal {
-void assertValidSizeArg(const double varargin_1[2]);
-
 void assertValidSizeArg(double varargin_2);
+
+void assertValidSizeArg(const double varargin_1[2]);
 
 } // namespace internal
 } // namespace coder

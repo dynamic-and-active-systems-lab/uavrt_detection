@@ -5,7 +5,7 @@
 // File: sparse.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 26-Feb-2023 08:54:12
+// C/C++ source code generated on  : 06-Mar-2023 15:57:44
 //
 
 // Include Files
@@ -25,58 +25,12 @@
 // Function Definitions
 //
 // Arguments    : const ::coder::array<double, 1U> &varargin_1
-//                g_sparse *y
-// Return Type  : void
-//
-namespace coder {
-void i_sparse(const ::coder::array<double, 1U> &varargin_1, g_sparse *y)
-{
-  int mInt;
-  int numalloc;
-  int row;
-  mInt = varargin_1.size(0);
-  if (varargin_1.size(0) >= MAX_int32_T) {
-    rc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
-  }
-  numalloc = 0;
-  row = varargin_1.size(0);
-  for (int k{0}; k < row; k++) {
-    if (varargin_1[k] != 0.0) {
-      numalloc++;
-    }
-  }
-  y->m = varargin_1.size(0);
-  if (numalloc < 1) {
-    numalloc = 1;
-  }
-  y->maxnz = numalloc;
-  y->d.set_size(numalloc);
-  y->colidx.set_size(2);
-  y->colidx[0] = 1;
-  y->rowidx.set_size(numalloc);
-  for (row = 0; row < numalloc; row++) {
-    y->d[row] = 0.0;
-    y->rowidx[row] = 0;
-  }
-  y->rowidx[0] = 1;
-  numalloc = 0;
-  for (row = 0; row < mInt; row++) {
-    if (varargin_1[row] != 0.0) {
-      y->rowidx[numalloc] = row + 1;
-      y->d[numalloc] = 1.0;
-      numalloc++;
-    }
-  }
-  y->colidx[1] = numalloc + 1;
-}
-
-//
-// Arguments    : const ::coder::array<double, 1U> &varargin_1
 //                const ::coder::array<double, 1U> &varargin_2
 //                const ::coder::array<double, 1U> &varargin_3
 //                sparse *y
 // Return Type  : void
 //
+namespace coder {
 void i_sparse(const ::coder::array<double, 1U> &varargin_1,
               const ::coder::array<double, 1U> &varargin_2,
               const ::coder::array<double, 1U> &varargin_3, sparse *y)
@@ -90,11 +44,11 @@ void i_sparse(const ::coder::array<double, 1U> &varargin_1,
       "sparse\\sparse.m", // pName
       4                   // checkKind
   };
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo uc_emlrtRTEI{
       111,            // lineNo
       "sparse/sparse" // fName
   };
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo vc_emlrtRTEI{
       116,            // lineNo
       "sparse/sparse" // fName
   };
@@ -108,11 +62,11 @@ void i_sparse(const ::coder::array<double, 1U> &varargin_1,
   nc = varargin_2.size(0);
   if ((varargin_1.size(0) != varargin_2.size(0)) ||
       (varargin_3.size(0) != varargin_2.size(0))) {
-    jb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    jb_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   }
   if ((varargin_3.size(0) != varargin_2.size(0)) &&
       (varargin_3.size(0) != varargin_1.size(0))) {
-    jb_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    jb_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
   }
   sparse::assertValidIndexArg(varargin_1, b_this.workspace.b);
   sparse::assertValidIndexArg(varargin_2, b_this.workspace.a);
@@ -203,6 +157,52 @@ void i_sparse(const ::coder::array<double, 1U> &varargin_1,
 }
 
 //
+// Arguments    : const ::coder::array<double, 1U> &varargin_1
+//                g_sparse *y
+// Return Type  : void
+//
+void i_sparse(const ::coder::array<double, 1U> &varargin_1, g_sparse *y)
+{
+  int mInt;
+  int numalloc;
+  int row;
+  mInt = varargin_1.size(0);
+  if (varargin_1.size(0) >= MAX_int32_T) {
+    rc_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
+  }
+  numalloc = 0;
+  row = varargin_1.size(0);
+  for (int k{0}; k < row; k++) {
+    if (varargin_1[k] != 0.0) {
+      numalloc++;
+    }
+  }
+  y->m = varargin_1.size(0);
+  if (numalloc < 1) {
+    numalloc = 1;
+  }
+  y->maxnz = numalloc;
+  y->d.set_size(numalloc);
+  y->colidx.set_size(2);
+  y->colidx[0] = 1;
+  y->rowidx.set_size(numalloc);
+  for (row = 0; row < numalloc; row++) {
+    y->d[row] = 0.0;
+    y->rowidx[row] = 0;
+  }
+  y->rowidx[0] = 1;
+  numalloc = 0;
+  for (row = 0; row < mInt; row++) {
+    if (varargin_1[row] != 0.0) {
+      y->rowidx[numalloc] = row + 1;
+      y->d[numalloc] = 1.0;
+      numalloc++;
+    }
+  }
+  y->colidx[1] = numalloc + 1;
+}
+
+//
 // Arguments    : const ::coder::array<boolean_T, 2U> &varargin_1
 //                d_sparse *y
 // Return Type  : void
@@ -215,7 +215,7 @@ void j_sparse(const ::coder::array<boolean_T, 2U> &varargin_1, d_sparse *y)
   int numalloc;
   nInt = varargin_1.size(1);
   if (varargin_1.size(1) >= MAX_int32_T) {
-    rc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+    rc_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
   }
   numalloc = 0;
   i = varargin_1.size(1);

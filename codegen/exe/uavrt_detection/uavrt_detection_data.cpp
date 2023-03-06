@@ -5,7 +5,7 @@
 // File: uavrt_detection_data.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 26-Feb-2023 08:54:12
+// C/C++ source code generated on  : 06-Mar-2023 15:57:44
 //
 
 // Include Files
@@ -318,12 +318,17 @@ rtRunTimeErrorInfo bc_emlrtRTEI{
     "unaryMinOrMax" // fName
 };
 
-rtRunTimeErrorInfo fc_emlrtRTEI{
+rtRunTimeErrorInfo dc_emlrtRTEI{
+    13,    // lineNo
+    "sqrt" // fName
+};
+
+rtRunTimeErrorInfo gc_emlrtRTEI{
     138,                  // lineNo
     "dynamic_size_checks" // fName
 };
 
-rtRunTimeErrorInfo gc_emlrtRTEI{
+rtRunTimeErrorInfo hc_emlrtRTEI{
     133,                  // lineNo
     "dynamic_size_checks" // fName
 };
@@ -338,17 +343,17 @@ rtDoubleCheckInfo r_emlrtDCI{
     4                   // checkKind
 };
 
-rtRunTimeErrorInfo ic_emlrtRTEI{
+rtRunTimeErrorInfo jc_emlrtRTEI{
     1632,             // lineNo
     "assertValidSize" // fName
 };
 
-rtRunTimeErrorInfo lc_emlrtRTEI{
+rtRunTimeErrorInfo mc_emlrtRTEI{
     42,           // lineNo
     "eml_sub2ind" // fName
 };
 
-rtRunTimeErrorInfo rc_emlrtRTEI{
+rtRunTimeErrorInfo sc_emlrtRTEI{
     132,          // lineNo
     "eml_idivide" // fName
 };
@@ -366,23 +371,6 @@ const boolean_T bv[128]{
     false, false, false, false, false, false, false, false, false, false, false,
     false, false, false, false, false, false, false, false, false, false, false,
     false, false, false, false, false, false, false};
-
-const char cv[128]{
-    '\x00', '\x01', '\x02', '\x03', '\x04', '\x05', '\x06', '\x07', '\x08',
-    '	',  '\x0a', '\x0b', '\x0c', '\x0d', '\x0e', '\x0f', '\x10', '\x11',
-    '\x12', '\x13', '\x14', '\x15', '\x16', '\x17', '\x18', '\x19', '\x1a',
-    '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ',    '!',    '\"',   '#',
-    '$',    '%',    '&',    '\'',   '(',    ')',    '*',    '+',    ',',
-    '-',    '.',    '/',    '0',    '1',    '2',    '3',    '4',    '5',
-    '6',    '7',    '8',    '9',    ':',    ';',    '<',    '=',    '>',
-    '?',    '@',    'a',    'b',    'c',    'd',    'e',    'f',    'g',
-    'h',    'i',    'j',    'k',    'l',    'm',    'n',    'o',    'p',
-    'q',    'r',    's',    't',    'u',    'v',    'w',    'x',    'y',
-    'z',    '[',    '\\',   ']',    '^',    '_',    '`',    'a',    'b',
-    'c',    'd',    'e',    'f',    'g',    'h',    'i',    'j',    'k',
-    'l',    'm',    'n',    'o',    'p',    'q',    'r',    's',    't',
-    'u',    'v',    'w',    'x',    'y',    'z',    '{',    '|',    '}',
-    '~',    '\x7f'};
 
 const char cv1[22]{'c', 'o', 'd', 'e', 'r', 'I', 'n', 'i', 't', 'T', 'i',
                    'm', 'e', 'F', 'u', 'n', 'c', 't', 'i', 'o', 'n', 's'};

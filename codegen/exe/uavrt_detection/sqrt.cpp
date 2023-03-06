@@ -5,13 +5,14 @@
 // File: sqrt.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 26-Feb-2023 08:54:12
+// C/C++ source code generated on  : 06-Mar-2023 15:57:44
 //
 
 // Include Files
 #include "sqrt.h"
 #include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
+#include "uavrt_detection_data.h"
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
@@ -26,10 +27,6 @@
 namespace coder {
 void b_sqrt(::coder::array<double, 2U> &x)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
-      13,    // lineNo
-      "sqrt" // fName
-  };
   int nx;
   boolean_T p;
   p = false;
@@ -40,7 +37,7 @@ void b_sqrt(::coder::array<double, 2U> &x)
     }
   }
   if (p) {
-    rtErrorWithMessageID("sqrt", tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    rtErrorWithMessageID("sqrt", dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
   }
   nx = x.size(0) * x.size(1);
   if (nx > 2147483646) {

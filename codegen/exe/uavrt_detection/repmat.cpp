@@ -5,7 +5,7 @@
 // File: repmat.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 26-Feb-2023 08:54:12
+// C/C++ source code generated on  : 06-Mar-2023 15:57:44
 //
 
 // Include Files
@@ -22,60 +22,12 @@
 
 // Function Definitions
 //
-// Arguments    : const c_struct_T *a
-//                double varargin_1
-//                double varargin_2
-//                ::coder::array<c_struct_T, 2U> &b
-// Return Type  : void
-//
-namespace coder {
-void repmat(const c_struct_T *a, double varargin_1, double varargin_2,
-            ::coder::array<c_struct_T, 2U> &b)
-{
-  double b_varargin_1;
-  int loop_ub;
-  boolean_T b_b;
-  if ((varargin_1 != std::floor(varargin_1)) || std::isinf(varargin_1) ||
-      (varargin_1 < -2.147483648E+9) || (varargin_1 > 2.147483647E+9)) {
-    c_rtErrorWithMessageID(MIN_int32_T, ob_emlrtRTEI.fName,
-                           ob_emlrtRTEI.lineNo);
-  } else {
-    b_b = true;
-  }
-  if ((varargin_2 != std::floor(varargin_2)) || std::isinf(varargin_2) ||
-      (varargin_2 < -2.147483648E+9) || (varargin_2 > 2.147483647E+9)) {
-    b_b = false;
-  }
-  if (!b_b) {
-    c_rtErrorWithMessageID(MIN_int32_T, ob_emlrtRTEI.fName,
-                           ob_emlrtRTEI.lineNo);
-  }
-  if (varargin_1 <= 0.0) {
-    b_varargin_1 = 0.0;
-  } else {
-    b_varargin_1 = varargin_1;
-  }
-  if (varargin_2 <= 0.0) {
-    b_varargin_1 = 0.0;
-  } else {
-    b_varargin_1 *= varargin_2;
-  }
-  if (!(b_varargin_1 <= 2.147483647E+9)) {
-    m_rtErrorWithMessageID(o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
-  }
-  b.set_size(static_cast<int>(varargin_1), static_cast<int>(varargin_2));
-  loop_ub = static_cast<int>(varargin_1) * static_cast<int>(varargin_2);
-  for (int i{0}; i < loop_ub; i++) {
-    b[i] = *a;
-  }
-}
-
-//
 // Arguments    : const ::coder::array<double, 2U> &a
 //                double varargin_1
 //                ::coder::array<double, 2U> &b
 // Return Type  : void
 //
+namespace coder {
 void repmat(const ::coder::array<double, 2U> &a, double varargin_1,
             ::coder::array<double, 2U> &b)
 {
@@ -156,6 +108,54 @@ void repmat(const ::coder::array<double, 1U> &a, double varargin_2,
     for (int k{0}; k < nrows; k++) {
       b[ibtile + k] = a[k];
     }
+  }
+}
+
+//
+// Arguments    : const c_struct_T *a
+//                double varargin_1
+//                double varargin_2
+//                ::coder::array<c_struct_T, 2U> &b
+// Return Type  : void
+//
+void repmat(const c_struct_T *a, double varargin_1, double varargin_2,
+            ::coder::array<c_struct_T, 2U> &b)
+{
+  double b_varargin_1;
+  int loop_ub;
+  boolean_T b_b;
+  if ((varargin_1 != std::floor(varargin_1)) || std::isinf(varargin_1) ||
+      (varargin_1 < -2.147483648E+9) || (varargin_1 > 2.147483647E+9)) {
+    c_rtErrorWithMessageID(MIN_int32_T, ob_emlrtRTEI.fName,
+                           ob_emlrtRTEI.lineNo);
+  } else {
+    b_b = true;
+  }
+  if ((varargin_2 != std::floor(varargin_2)) || std::isinf(varargin_2) ||
+      (varargin_2 < -2.147483648E+9) || (varargin_2 > 2.147483647E+9)) {
+    b_b = false;
+  }
+  if (!b_b) {
+    c_rtErrorWithMessageID(MIN_int32_T, ob_emlrtRTEI.fName,
+                           ob_emlrtRTEI.lineNo);
+  }
+  if (varargin_1 <= 0.0) {
+    b_varargin_1 = 0.0;
+  } else {
+    b_varargin_1 = varargin_1;
+  }
+  if (varargin_2 <= 0.0) {
+    b_varargin_1 = 0.0;
+  } else {
+    b_varargin_1 *= varargin_2;
+  }
+  if (!(b_varargin_1 <= 2.147483647E+9)) {
+    m_rtErrorWithMessageID(o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
+  }
+  b.set_size(static_cast<int>(varargin_1), static_cast<int>(varargin_2));
+  loop_ub = static_cast<int>(varargin_1) * static_cast<int>(varargin_2);
+  for (int i{0}; i < loop_ub; i++) {
+    b[i] = *a;
   }
 }
 

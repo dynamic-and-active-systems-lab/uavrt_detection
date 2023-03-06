@@ -5,7 +5,7 @@
 // File: wgn.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 26-Feb-2023 08:54:12
+// C/C++ source code generated on  : 06-Mar-2023 15:57:44
 //
 
 #ifndef WGN_H
@@ -13,6 +13,7 @@
 
 // Include Files
 #include "rtwtypes.h"
+#include "coder_array.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -20,7 +21,9 @@
 namespace coder {
 void wgn(creal_T y[1000]);
 
-}
+void wgn(double varargin_1, double varargin_3, ::coder::array<creal_T, 2U> &y);
+
+} // namespace coder
 
 #endif
 //

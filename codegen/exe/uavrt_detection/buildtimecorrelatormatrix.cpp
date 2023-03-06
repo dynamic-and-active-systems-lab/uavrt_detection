@@ -5,7 +5,7 @@
 // File: buildtimecorrelatormatrix.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 26-Feb-2023 08:54:12
+// C/C++ source code generated on  : 06-Mar-2023 15:57:44
 //
 
 // Include Files
@@ -402,7 +402,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       "generate_pulse_positions_func",                              // fName
       "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m" // pName
   };
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo uc_emlrtRTEI{
       82,        // lineNo
       "fltpower" // fName
   };
@@ -529,7 +529,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   nrows = priJtrList.size(1);
   if ((nrows < 0) && (!std::isnan(reps - 1.0)) &&
       (std::floor(reps - 1.0) != reps - 1.0)) {
-    hb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    hb_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   }
   num_PRI_patterns = static_cast<double>(priMeansList.size(1)) *
                      rt_powd_snf(static_cast<double>(nrows), reps - 1.0);

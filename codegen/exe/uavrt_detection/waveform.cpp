@@ -5,7 +5,7 @@
 // File: waveform.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 26-Feb-2023 08:54:12
+// C/C++ source code generated on  : 06-Mar-2023 15:57:44
 //
 
 // Include Files
@@ -10150,9 +10150,9 @@ void waveform::setweightingmatrix()
 
   static rtBoundsCheckInfo gb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    159,                               // lineNo
-    29,                                // colNo
-    "stackedToeplitzMatrices",         // aName
+    192,                               // lineNo
+    33,                                // colNo
+    "freqs",                           // aName
     "weightingmatrix",                 // fName
     "H:\\repos\\uavrt_detection\\weightingmatrix.m",// pName
     0                                  // checkKind
@@ -10170,9 +10170,9 @@ void waveform::setweightingmatrix()
 
   static rtBoundsCheckInfo ib_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    192,                               // lineNo
-    33,                                // colNo
-    "freqs",                           // aName
+    159,                               // lineNo
+    29,                                // colNo
+    "stackedToeplitzMatrices",         // aName
     "weightingmatrix",                 // fName
     "H:\\repos\\uavrt_detection\\weightingmatrix.m",// pName
     0                                  // checkKind
@@ -10245,15 +10245,15 @@ void waveform::setweightingmatrix()
   };
 
   static rtEqualityCheckInfo j_emlrtECI{ 1,// nDims
-    195,                               // lineNo
-    6,                                 // colNo
+    146,                               // lineNo
+    19,                                // colNo
     "weightingmatrix",                 // fName
     "H:\\repos\\uavrt_detection\\weightingmatrix.m"// pName
   };
 
   static rtEqualityCheckInfo k_emlrtECI{ 1,// nDims
-    146,                               // lineNo
-    19,                                // colNo
+    195,                               // lineNo
+    6,                                 // colNo
     "weightingmatrix",                 // fName
     "H:\\repos\\uavrt_detection\\weightingmatrix.m"// pName
   };
@@ -10590,7 +10590,7 @@ void waveform::setweightingmatrix()
 
     if ((s.size(0) != x_of_n.size(0)) && ((s.size(0) != 1) && (x_of_n.size(0) !=
           1))) {
-      emlrtDimSizeImpxCheckR2021b(s.size(0), x_of_n.size(0), &k_emlrtECI);
+      emlrtDimSizeImpxCheckR2021b(s.size(0), x_of_n.size(0), &j_emlrtECI);
     }
 
     if (s.size(0) == x_of_n.size(0)) {
@@ -10749,7 +10749,7 @@ void waveform::setweightingmatrix()
       if ((static_cast<int>(rowStart) < 1) || (static_cast<int>(rowStart) >
            stackedToeplitzMatrices.size(0))) {
         rtDynamicBoundsError(static_cast<int>(rowStart), 1,
-                             stackedToeplitzMatrices.size(0), &gb_emlrtBCI);
+                             stackedToeplitzMatrices.size(0), &ib_emlrtBCI);
       }
 
       i2 = static_cast<int>(rowStart) - 1;
@@ -10940,7 +10940,7 @@ void waveform::setweightingmatrix()
 
   if (output_samps.size(1) < 1) {
     rtDynamicBoundsError(output_samps.size(1), 1, output_samps.size(1),
-                         &ib_emlrtBCI);
+                         &gb_emlrtBCI);
   }
 
   xtmp = -output_samps[output_samps.size(1) - 1] - (b_Fs -
@@ -10975,7 +10975,7 @@ void waveform::setweightingmatrix()
   if ((wrapper.size(1) != output_samps.size(1)) && ((wrapper.size(1) != 1) &&
        (output_samps.size(1) != 1))) {
     emlrtDimSizeImpxCheckR2021b(wrapper.size(1), output_samps.size(1),
-      &j_emlrtECI);
+      &k_emlrtECI);
   }
 
   // Here we sort the output to set up to have an ascending order of frequency
