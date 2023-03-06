@@ -207,6 +207,7 @@ previousPulseTime = 0;
 repeatedDetectionFlag = false;
 missingSamples    = 0;
 iqDataToWrite     = single(complex([]));
+groupSeqCounter   = uint16(0);
 
 fprintf('Startup set 8 complete. Starting processing... \n')
 
@@ -647,6 +648,7 @@ previousToc = toc;
                                 pulseInfoStruct.predict_next_start_seconds  = detectorPulse.t_next(1);
                                 pulseInfoStruct.snr                         = detectorPulse.SNR;
                                 pulseInfoStruct.stft_score                  = real(detectorPulse.yw);
+                                pulseInfoStruct.group_seq_counter           = groupSeqCounter;
                                 pulseInfoStruct.group_ind                   = uint16(j);
                                 pulseInfoStruct.group_snr                   = groupSNR;
                                 pulseInfoStruct.detection_status            = uint8(detectorPulse.det_dec);
@@ -707,6 +709,7 @@ previousToc = toc;
                                 fprintf(".");
                                 %                                    end
                             end
+                            groupSeqCounter = groupSeqCounter + 1;
                             fprintf("complete. Transmitted %u pulse(s).\n",uint32(pulseCount));
                         else
                             fprintf("\n");
