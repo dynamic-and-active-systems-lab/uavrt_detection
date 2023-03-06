@@ -484,9 +484,9 @@ previousToc = toc;
                         if segmentsProcessed==0
                             fprintf('Building thresholds  ...')
                             X.thresh = X.thresh.makenewthreshold(X);
-                        else
-                            fprintf('Setting thresholds from previous waveform  ...')
-                            X.thresh = X.thresh.setthreshold(X,Xhold);
+                        % else
+                        %     fprintf('Setting thresholds from previous waveform  ...')
+                        %     X.thresh = X.thresh.setthreshold(X,Xhold);
                         end
                         fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
                         
