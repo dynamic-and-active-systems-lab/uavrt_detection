@@ -5,7 +5,7 @@
 // File: str2matrix.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 06-Mar-2023 15:57:44
+// C/C++ source code generated on  : 09-Mar-2023 11:19:16
 //
 
 #ifndef STR2MATRIX_H

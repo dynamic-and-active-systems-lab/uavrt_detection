@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 06-Mar-2023 15:57:44
+// C/C++ source code generated on  : 09-Mar-2023 11:19:16
 //
 
 // Include Files
@@ -2915,9 +2915,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
                 timeStampSec = 0U;
               }
               doublesBuffer[0] = timeStampSec;
-              t9_yw = std::round(
-                  (Config.contents.channelCenterFreqMHz + detectorPulse.fp) *
-                  1.0E+6);
+              t9_yw = std::round(Config.contents.channelCenterFreqMHz * 1.0E+6 +
+                                 detectorPulse.fp);
               if (t9_yw < 4.294967296E+9) {
                 if (t9_yw >= 0.0) {
                   timeStampSec = static_cast<unsigned int>(t9_yw);
