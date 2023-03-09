@@ -643,7 +643,7 @@ previousToc = toc;
                                 % Publish pulses to UDP
                                 detectorPulse                               = X.ps_pos.pl(j);
                                 pulseInfoStruct.tag_id                      = uint32(Config.ID);
-                                pulseInfoStruct.frequency_hz                = uint32((Config.channelCenterFreqMHz + detectorPulse.fp) * 1e6);
+                                pulseInfoStruct.frequency_hz                = uint32((Config.channelCenterFreqMHz * 1e6) + detectorPulse.fp);
                                 pulseInfoStruct.start_time_seconds          = detectorPulse.t_0;
                                 pulseInfoStruct.predict_next_start_seconds  = detectorPulse.t_next(1);
                                 pulseInfoStruct.snr                         = detectorPulse.SNR;
