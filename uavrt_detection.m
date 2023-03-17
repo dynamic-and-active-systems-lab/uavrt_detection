@@ -494,6 +494,9 @@ previousToc = toc;
                         
                         fprintf('Time windows in S: %u \n',uint32(size(X.stft.S,2)))
 previousToc = toc;
+
+                        pulseInfoStruct.sendHeartbeatOverUDP(uint32(Config.ID));
+
                         fprintf('Finding pulses...')
                         X.process(mode, 'most', Config.excldFreqs)
                         fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
