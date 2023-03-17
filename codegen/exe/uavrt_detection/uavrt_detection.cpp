@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 16-Mar-2023 20:03:46
+// C/C++ source code generated on  : 16-Mar-2023 20:12:42
 //
 
 // Include Files
@@ -1682,6 +1682,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   creal_T dcv[1000];
   creal32_T dataReceived_data[1024];
   creal32_T exampleData[1000];
+  double doublesBuffer[11];
   double ps_pre_struc_tmplt[2];
   double dataWriterSamples;
   double expectedNextTimeStamp;
@@ -2383,7 +2384,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
         resetBuffersFlag = true;
         staleDataFlag = true;
       } else {
-        unsigned int doublesBuffer[11];
         unsigned int validatedHoleFilling[3];
         unsigned int varargin_3;
         if (t.size(0) < 1) {
@@ -2601,16 +2601,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
           timeStampSec = 0U;
         }
         doublesBuffer[0] = timeStampSec;
-        doublesBuffer[1] = 0U;
-        doublesBuffer[2] = 0U;
-        doublesBuffer[3] = 0U;
-        doublesBuffer[4] = 0U;
-        doublesBuffer[5] = 0U;
-        doublesBuffer[6] = 0U;
-        doublesBuffer[7] = 0U;
-        doublesBuffer[8] = 0U;
-        doublesBuffer[9] = 0U;
-        doublesBuffer[10] = 0U;
+        std::memset(&doublesBuffer[1], 0, 10U * sizeof(double));
         //  % self.frequency_hz ...
         //  % self.start_time_seconds ...
         //  % self.predict_next_start_seconds ...
@@ -2935,7 +2926,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
                                    &lb_emlrtBCI);
             }
             if (!pulsesToSkip[j]) {
-              double b_doublesBuffer[11];
               unsigned short u1;
               //  UDP Send
               if (t9_t_0 < 4.294967296E+9) {
@@ -2949,7 +2939,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
               } else {
                 timeStampSec = 0U;
               }
-              b_doublesBuffer[0] = timeStampSec;
+              doublesBuffer[0] = timeStampSec;
               timeDiff =
                   std::round(Config.contents.channelCenterFreqMHz * 1.0E+6 +
                              detectorPulse.fp);
@@ -2964,22 +2954,22 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
               } else {
                 timeStampSec = 0U;
               }
-              b_doublesBuffer[1] = timeStampSec;
-              b_doublesBuffer[2] = detectorPulse.t_0;
-              b_doublesBuffer[3] = detectorPulse.t_next[0];
-              b_doublesBuffer[4] = detectorPulse.SNR;
-              b_doublesBuffer[5] = detectorPulse.yw;
-              b_doublesBuffer[6] = groupSeqCounter;
+              doublesBuffer[1] = timeStampSec;
+              doublesBuffer[2] = detectorPulse.t_0;
+              doublesBuffer[3] = detectorPulse.t_next[0];
+              doublesBuffer[4] = detectorPulse.SNR;
+              doublesBuffer[5] = detectorPulse.yw;
+              doublesBuffer[6] = groupSeqCounter;
               if (j + 1U < 65536U) {
                 u1 = static_cast<unsigned short>(static_cast<double>(j) + 1.0);
               } else {
                 u1 = MAX_uint16_T;
               }
-              b_doublesBuffer[7] = u1;
-              b_doublesBuffer[8] = 10.0 * t9_SNR;
-              b_doublesBuffer[9] = detectorPulse.det_dec;
-              b_doublesBuffer[10] = detectorPulse.con_dec;
-              udpSenderSendDoubles(val, &b_doublesBuffer[0], 11U);
+              doublesBuffer[7] = u1;
+              doublesBuffer[8] = 10.0 * t9_SNR;
+              doublesBuffer[9] = detectorPulse.det_dec;
+              doublesBuffer[10] = detectorPulse.con_dec;
+              udpSenderSendDoubles(val, &doublesBuffer[0], 11U);
               //  ROS send
               printf("Skipping ROS2 Pulse send...");
               fflush(stdout);
