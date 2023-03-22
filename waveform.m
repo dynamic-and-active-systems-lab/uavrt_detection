@@ -1768,36 +1768,9 @@ previousToc = toc;
                 % Detection?
                 if ~isnan(pk_ind)%~isempty(pulselist)%obj.decide(pulselist,PF,decision_table) %Decision on IDed pulses
                     %True ->
-                    tref = obj.ps_pre.pl(end).t_0;
-                    tp   = obj.ps_pre.t_p;
-                    tip  = obj.ps_pre.t_ip;
-                    tipu = obj.ps_pre.t_ipu;
-                    tipj = obj.ps_pre.t_ipj;
-                    if tref>obj.t_0 %First pulse in this segment exists in last segment as well because of overlap
-                        pulsestarttimes_nom        = tref+(tip*(0:(obj.K-1)));
-                        pulsestarttimes_withuncert = tref+((tip-tipu)*(0:(obj.K-1)))-tipj*ones(1,obj.K);
-                        pulseendtimes_withuncert   = tref+((tip+tipu)*(0:(obj.K-1)))+tipj*ones(1,obj.K);
-                    else %First pulse in this segment does not exists in last segment as well because of overlap
-                        pulsestarttimes_nom        = tref+(tip*(1:(obj.K)));
-                        pulsestarttimes_withuncert = tref+((tip-tipu)*(1:(obj.K)))-tipj*ones(1,obj.K);
-                        pulseendtimes_withuncert   = tref+((tip+tipu)*(1:(obj.K)))+tipj*ones(1,obj.K);
-                    end
-                    %pulseendtimes_nom          = pulsestarttimes_nom+tp;
-                    %pulsestarttimes_withuncert = pulsestarttimes_nom-tipu-tipj;
-                    %pulseendtimes_withuncert   = pulsestarttimes_nom+tipu+tipj;
+                 
+                    conflog = confirmpulses(obj);
 
-                    %Check if pulses started after expected minimum start times
-                    minstartlog = [obj.ps_pos.pl(:).t_0]>=pulsestarttimes_withuncert;
-                    %Check if pulses started before expected maximum start times
-                    maxstartlog = [obj.ps_pos.pl(:).t_0]<=pulseendtimes_withuncert;
-                    
-                    %Frequency check. Within +/- 100 Hz of previously
-                    %detected pulses?
-                    freqInBand = [obj.ps_pos.pl.fp] >= [obj.ps_pre.pl.fp]-100 &...
-                                 [obj.ps_pos.pl.fp] <= [obj.ps_pre.pl.fp]+100;
-
-
-                    conflog = maxstartlog & minstartlog & freqInBand;
                     %[minstartlog', maxstartlog', freqInBand', conflog']
                     if any(conflog,'all')
                         % 	Confirmed?
@@ -1878,40 +1851,50 @@ previousToc = toc;
                 % Detection?
                 if ~isnan(pk_ind)%~isempty(pulselist)%obj.decide(pulselist,PF,decision_table) %Decision on IDed pulses
                     %True ->
-                    %Update confirmation property for each pulse
-                    %If we are in tracking mode, we have narrowed the time and
-                    %frequeny bounds, so if there is a detection then we are
-                    %confirming the previous projections.
-                    for ip = 1:length(obj.ps_pos.pl)
-                        obj.ps_pos.pl(ip).con_dec = true;
-                    end
-                    
-%                     %Open focus mode will never get to tracking, so we
-%                     %don't need the 'if' statement here checking the focuse
-%                     %most like in the discovery case above
-%                     %   Calculate & set post. Stats (reduced uncertainty)
-%                     %obj.update_posteriori(obj.ps_pos.pl)
-%                     obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl)
+                    conflog = confirmpulses(obj);
 
-                    %   Mode -> Tracking
+                    %[minstartlog', maxstartlog', freqInBand', conflog']
+                    if any(conflog,'all')
+                        % 	Confirmed?
+                        % 		True -> Confirmation = True
+                        conf = true;
+                    else
+                        % 		False -> Confirmation = False
+                        conf = false;
+                    end
+                else
+                    %False ->
+                    %Set confirmation = False
+                    conf = false;
+                end
+                % Confirmation?
+                if conf
+                    %True ->
+                    %Update confirmation property for each pulse
+                    for ip = 1:length(obj.ps_pos.pl)
+                        %obj.ps_pos.pl(ip).con_dec = true;
+                        obj.ps_pos.pl(ip).con_dec = conflog(ip);
+                    end
+
                     %Update mode suggestion for next segment processing
+                    %   Mode -> Tracking
                     obj.ps_pos.mode = mode;%'T';
                 else
                     %False ->
                     %Update confirmation property for each pulse. Don't need to
                     %do this since there are no pulses to record a confirmation
                     %decision on.
-                    
+
                     %Update mode suggestion for next segment processing
                     %   Mode -> Discovery
                     obj.ps_pos.mode = 'S';%'D';
 
                     %obj.ps_pos.updateposteriori(obj.ps_pre,[]);%No pulses to update the posteriori
                 end
-                %Set the mode in the pulse and candidate listing for 
-                %records. This records the mode that was used in the 
-                %detection of the record pulses. This is useful for 
-                %debugging. 
+                %Set the mode in the pulse and candidate listing for
+                %records. This records the mode that was used in the
+                %detection of the record pulses. This is useful for
+                %debugging.
                 for tick = 1:numel(obj.ps_pos.pl)
                     obj.ps_pos.pl(tick).mode    = mode;% 'T';
                 end
