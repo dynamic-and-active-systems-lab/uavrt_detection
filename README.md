@@ -101,3 +101,14 @@ In separate terminal windows:
     2. Transition the detector to 'Run' state: `$ echo -e -n '\x01'| netcat -u -c localhost 30000`
     3. When ready, kill the channelize: `$ echo -e -n '\xFF'| netcat -u -c localhost 10001`
     4. When ready, kill the detector: `$ echo -e -n '\xFF'| netcat -u -c localhost 30000`
+	
+# To codegen and build an rPi version of uavrt_detection
+
+* Delete the uavrt_detection/codegen folder
+* Add the following to the Matlab path
+    * matlab-coder-utils/c-udp
+	* no-ros-pulse-send
+* Run the uavrt_detection_codegen_no_ros_script.m
+* `git add .` to stage all the new files
+* Commit and push the changes
+* To build the executable just run 'make'

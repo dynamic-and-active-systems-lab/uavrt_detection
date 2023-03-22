@@ -1858,6 +1858,16 @@ previousToc = toc;
                         % 	Confirmed?
                         % 		True -> Confirmation = True
                         conf = true;
+
+                        %Update confirmation property for each pulse
+                        for ip = 1:length(obj.ps_pos.pl)
+                            %obj.ps_pos.pl(ip).con_dec = true;
+                            obj.ps_pos.pl(ip).con_dec = conflog(ip);
+                        end
+
+                        %Update mode suggestion for next segment processing
+                        %   Mode -> Tracking
+                        obj.ps_pos.mode = mode;%'T';
                     else
                         % 		False -> Confirmation = False
                         conf = false;
@@ -1867,19 +1877,8 @@ previousToc = toc;
                     %Set confirmation = False
                     conf = false;
                 end
-                % Confirmation?
-                if conf
-                    %True ->
-                    %Update confirmation property for each pulse
-                    for ip = 1:length(obj.ps_pos.pl)
-                        %obj.ps_pos.pl(ip).con_dec = true;
-                        obj.ps_pos.pl(ip).con_dec = conflog(ip);
-                    end
-
-                    %Update mode suggestion for next segment processing
-                    %   Mode -> Tracking
-                    obj.ps_pos.mode = mode;%'T';
-                else
+                % Handle not confirmed
+                if ~conf
                     %False ->
                     %Update confirmation property for each pulse. Don't need to
                     %do this since there are no pulses to record a confirmation
