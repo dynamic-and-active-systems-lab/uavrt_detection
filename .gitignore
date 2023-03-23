@@ -41,6 +41,7 @@ build_ros2_model.sh
 ReportInfo.mat
 analyze_pulse_train_data.m
 *.o
+*.prj
 
 # Other files
 Build

@@ -5,7 +5,7 @@
 // File: wgn.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -158,11 +158,13 @@ void wgn(creal_T y[1000])
 
 //
 // Arguments    : double varargin_1
+//                unsigned int varargin_2
 //                double varargin_3
 //                ::coder::array<creal_T, 2U> &y
 // Return Type  : void
 //
-void wgn(double varargin_1, double varargin_3, ::coder::array<creal_T, 2U> &y)
+void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
+         ::coder::array<creal_T, 2U> &y)
 {
   static rtEqualityCheckInfo g_emlrtECI{
       2,                                                      // nDims
@@ -171,7 +173,7 @@ void wgn(double varargin_1, double varargin_3, ::coder::array<creal_T, 2U> &y)
       "wgn",                                                  // fName
       "C:\\Program Files\\MATLAB\\toolbox\\comm\\comm\\wgn.m" // pName
   };
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       180,  // lineNo
       "wgn" // fName
   };
@@ -197,7 +199,7 @@ void wgn(double varargin_1, double varargin_3, ::coder::array<creal_T, 2U> &y)
     cplxMode_data[b_y] = b[b_y];
   }
   x[0] = (varargin_1 <= 0.0);
-  x[1] = false;
+  x[1] = (varargin_2 <= 0U);
   x[2] = false;
   x[3] = false;
   x[4] = (varargin_1 - std::floor(varargin_1) != 0.0);
@@ -214,7 +216,7 @@ void wgn(double varargin_1, double varargin_3, ::coder::array<creal_T, 2U> &y)
     }
   }
   if (c_y) {
-    nb_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    nb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   }
   for (k = 0; k < 6; k++) {
     x_data[k] = b_b[k];
@@ -261,10 +263,10 @@ void wgn(double varargin_1, double varargin_3, ::coder::array<creal_T, 2U> &y)
     }
   } while (exitg2 == 0);
   if (c_y) {
-    randn(varargin_1, r);
-    randn(varargin_1, c_b);
-    y.set_size(c_b.size(0), 100);
-    k = c_b.size(0) * 100;
+    randn(varargin_1, varargin_2, r);
+    randn(varargin_1, varargin_2, c_b);
+    y.set_size(c_b.size(0), c_b.size(1));
+    k = c_b.size(0) * c_b.size(1);
     for (b_y = 0; b_y < k; b_y++) {
       y[b_y].re = c_b[b_y] * 0.0;
       y[b_y].im = c_b[b_y];
@@ -276,23 +278,23 @@ void wgn(double varargin_1, double varargin_3, ::coder::array<creal_T, 2U> &y)
     rtSizeEqNDCheck(&iv[0], &iv1[0], &g_emlrtECI);
     noisePower /= 2.0;
     if (noisePower < 0.0) {
-      rtErrorWithMessageID("sqrt", dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
+      rtErrorWithMessageID("sqrt", ec_emlrtRTEI.fName, ec_emlrtRTEI.lineNo);
     }
     noisePower = std::sqrt(noisePower);
-    k = r.size(0) * 100;
-    y.set_size(r.size(0), 100);
+    k = r.size(0) * r.size(1);
+    y.set_size(r.size(0), r.size(1));
     for (b_y = 0; b_y < k; b_y++) {
       y[b_y].re = noisePower * (r[b_y] + y[b_y].re);
       y[b_y].im = noisePower * y[b_y].im;
     }
   } else {
     if (noisePower < 0.0) {
-      rtErrorWithMessageID("sqrt", dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
+      rtErrorWithMessageID("sqrt", ec_emlrtRTEI.fName, ec_emlrtRTEI.lineNo);
     }
     noisePower = std::sqrt(noisePower);
-    randn(varargin_1, c_b);
-    y.set_size(c_b.size(0), 100);
-    k = c_b.size(0) * 100;
+    randn(varargin_1, varargin_2, c_b);
+    y.set_size(c_b.size(0), c_b.size(1));
+    k = c_b.size(0) * c_b.size(1);
     for (b_y = 0; b_y < k; b_y++) {
       y[b_y].re = noisePower * c_b[b_y];
       y[b_y].im = 0.0;

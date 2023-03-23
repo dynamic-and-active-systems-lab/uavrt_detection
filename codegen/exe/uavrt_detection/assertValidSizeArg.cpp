@@ -5,7 +5,7 @@
 // File: assertValidSizeArg.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -64,8 +64,8 @@ void assertValidSizeArg(double varargin_2)
   double b_varargin_2;
   if ((varargin_2 != std::floor(varargin_2)) || std::isinf(varargin_2) ||
       (varargin_2 < -2.147483648E+9) || (varargin_2 > 2.147483647E+9)) {
-    c_rtErrorWithMessageID(MIN_int32_T, ob_emlrtRTEI.fName,
-                           ob_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(MIN_int32_T, pb_emlrtRTEI.fName,
+                           pb_emlrtRTEI.lineNo);
   }
   if (varargin_2 <= 0.0) {
     b_varargin_2 = 0.0;
@@ -83,7 +83,7 @@ void assertValidSizeArg(double varargin_2)
 //
 void assertValidSizeArg(const double varargin_1[2])
 {
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       49,                  // lineNo
       "assertValidSizeArg" // fName
   };
@@ -94,7 +94,7 @@ void assertValidSizeArg(const double varargin_1[2])
   exitg1 = false;
   while ((!exitg1) && (k < 2)) {
     if ((varargin_1[k] != varargin_1[k]) || std::isinf(varargin_1[k])) {
-      sc_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+      sc_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
     } else {
       k++;
     }

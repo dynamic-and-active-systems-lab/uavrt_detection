@@ -5,7 +5,7 @@
 // File: repmat.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -36,8 +36,8 @@ void repmat(const ::coder::array<double, 2U> &a, double varargin_1,
   int ncols;
   if ((varargin_1 != std::floor(varargin_1)) || std::isinf(varargin_1) ||
       (varargin_1 < -2.147483648E+9) || (varargin_1 > 2.147483647E+9)) {
-    c_rtErrorWithMessageID(MIN_int32_T, ob_emlrtRTEI.fName,
-                           ob_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(MIN_int32_T, pb_emlrtRTEI.fName,
+                           pb_emlrtRTEI.lineNo);
   }
   if (varargin_1 <= 0.0) {
     b_varargin_1 = 0.0;
@@ -79,8 +79,8 @@ void repmat(const ::coder::array<double, 1U> &a, double varargin_2,
   int nrows;
   if ((varargin_2 != std::floor(varargin_2)) || std::isinf(varargin_2) ||
       (varargin_2 < -2.147483648E+9) || (varargin_2 > 2.147483647E+9)) {
-    c_rtErrorWithMessageID(MIN_int32_T, ob_emlrtRTEI.fName,
-                           ob_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(MIN_int32_T, pb_emlrtRTEI.fName,
+                           pb_emlrtRTEI.lineNo);
   }
   if (varargin_2 <= 0.0) {
     b_varargin_2 = 0.0;
@@ -126,8 +126,8 @@ void repmat(const c_struct_T *a, double varargin_1, double varargin_2,
   boolean_T b_b;
   if ((varargin_1 != std::floor(varargin_1)) || std::isinf(varargin_1) ||
       (varargin_1 < -2.147483648E+9) || (varargin_1 > 2.147483647E+9)) {
-    c_rtErrorWithMessageID(MIN_int32_T, ob_emlrtRTEI.fName,
-                           ob_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(MIN_int32_T, pb_emlrtRTEI.fName,
+                           pb_emlrtRTEI.lineNo);
   } else {
     b_b = true;
   }
@@ -136,8 +136,8 @@ void repmat(const c_struct_T *a, double varargin_1, double varargin_2,
     b_b = false;
   }
   if (!b_b) {
-    c_rtErrorWithMessageID(MIN_int32_T, ob_emlrtRTEI.fName,
-                           ob_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(MIN_int32_T, pb_emlrtRTEI.fName,
+                           pb_emlrtRTEI.lineNo);
   }
   if (varargin_1 <= 0.0) {
     b_varargin_1 = 0.0;

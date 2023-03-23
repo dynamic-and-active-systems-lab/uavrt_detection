@@ -5,7 +5,7 @@
 // File: buildtimecorrelatormatrix.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -402,7 +402,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       "generate_pulse_positions_func",                              // fName
       "H:\\repos\\uavrt_detection\\generate_pulse_positions_func.m" // pName
   };
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       82,        // lineNo
       "fltpower" // fName
   };
@@ -529,7 +529,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   nrows = priJtrList.size(1);
   if ((nrows < 0) && (!std::isnan(reps - 1.0)) &&
       (std::floor(reps - 1.0) != reps - 1.0)) {
-    hb_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    hb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   }
   num_PRI_patterns = static_cast<double>(priMeansList.size(1)) *
                      rt_powd_snf(static_cast<double>(nrows), reps - 1.0);
@@ -822,12 +822,12 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   }
   if ((static_cast<int>(num_position_patterns) != nrows) &&
       (static_cast<int>(num_position_patterns) != 0)) {
-    cb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+    cb_rtErrorWithMessageID(vb_emlrtRTEI.fName, vb_emlrtRTEI.lineNo);
   }
   if ((pulsePositionMatrix.size(0) != nrows) &&
       ((pulsePositionMatrix.size(0) != 0) &&
        (pulsePositionMatrix.size(1) != 0))) {
-    cb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+    cb_rtErrorWithMessageID(vb_emlrtRTEI.fName, vb_emlrtRTEI.lineNo);
   }
   empty_non_axis_sizes = (nrows == 0);
   if (empty_non_axis_sizes || (static_cast<int>(num_position_patterns) != 0)) {

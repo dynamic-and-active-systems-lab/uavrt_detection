@@ -5,7 +5,7 @@
 // File: confirmpulses.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -322,56 +322,56 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       0                                              // checkKind
   };
   static rtDoubleCheckInfo ab_emlrtDCI{
-      12,                                            // lineNo
-      76,                                            // colNo
+      16,                                            // lineNo
+      74,                                            // colNo
       "confirmpulses",                               // fName
       "H:\\repos\\uavrt_detection\\confirmpulses.m", // pName
-      1                                              // checkKind
+      4                                              // checkKind
   };
   static rtDoubleCheckInfo bb_emlrtDCI{
-      12,                                            // lineNo
-      76,                                            // colNo
-      "confirmpulses",                               // fName
-      "H:\\repos\\uavrt_detection\\confirmpulses.m", // pName
-      4                                              // checkKind
-  };
-  static rtDoubleCheckInfo t_emlrtDCI{
-      16,                                            // lineNo
-      74,                                            // colNo
-      "confirmpulses",                               // fName
-      "H:\\repos\\uavrt_detection\\confirmpulses.m", // pName
-      4                                              // checkKind
-  };
-  static rtDoubleCheckInfo u_emlrtDCI{
       16,                                            // lineNo
       74,                                            // colNo
       "confirmpulses",                               // fName
       "H:\\repos\\uavrt_detection\\confirmpulses.m", // pName
       1                                              // checkKind
   };
-  static rtDoubleCheckInfo v_emlrtDCI{
+  static rtDoubleCheckInfo t_emlrtDCI{
       15,                                            // lineNo
       74,                                            // colNo
+      "confirmpulses",                               // fName
+      "H:\\repos\\uavrt_detection\\confirmpulses.m", // pName
+      1                                              // checkKind
+  };
+  static rtDoubleCheckInfo u_emlrtDCI{
+      15,                                            // lineNo
+      74,                                            // colNo
+      "confirmpulses",                               // fName
+      "H:\\repos\\uavrt_detection\\confirmpulses.m", // pName
+      4                                              // checkKind
+  };
+  static rtDoubleCheckInfo v_emlrtDCI{
+      13,                                            // lineNo
+      76,                                            // colNo
       "confirmpulses",                               // fName
       "H:\\repos\\uavrt_detection\\confirmpulses.m", // pName
       1                                              // checkKind
   };
   static rtDoubleCheckInfo w_emlrtDCI{
-      15,                                            // lineNo
-      74,                                            // colNo
+      13,                                            // lineNo
+      76,                                            // colNo
       "confirmpulses",                               // fName
       "H:\\repos\\uavrt_detection\\confirmpulses.m", // pName
       4                                              // checkKind
   };
   static rtDoubleCheckInfo x_emlrtDCI{
-      13,                                            // lineNo
+      12,                                            // lineNo
       76,                                            // colNo
       "confirmpulses",                               // fName
       "H:\\repos\\uavrt_detection\\confirmpulses.m", // pName
       1                                              // checkKind
   };
   static rtDoubleCheckInfo y_emlrtDCI{
-      13,                                            // lineNo
+      12,                                            // lineNo
       76,                                            // colNo
       "confirmpulses",                               // fName
       "H:\\repos\\uavrt_detection\\confirmpulses.m", // pName
@@ -379,15 +379,15 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   };
   static rtEqualityCheckInfo g_emlrtECI{
       2,                                            // nDims
-      16,                                           // lineNo
+      15,                                           // lineNo
       34,                                           // colNo
       "confirmpulses",                              // fName
       "H:\\repos\\uavrt_detection\\confirmpulses.m" // pName
   };
   static rtEqualityCheckInfo h_emlrtECI{
       2,                                            // nDims
-      15,                                           // lineNo
-      34,                                           // colNo
+      27,                                           // lineNo
+      14,                                           // colNo
       "confirmpulses",                              // fName
       "H:\\repos\\uavrt_detection\\confirmpulses.m" // pName
   };
@@ -400,42 +400,42 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   };
   static rtEqualityCheckInfo j_emlrtECI{
       2,                                            // nDims
-      27,                                           // lineNo
+      26,                                           // lineNo
       14,                                           // colNo
       "confirmpulses",                              // fName
       "H:\\repos\\uavrt_detection\\confirmpulses.m" // pName
   };
   static rtEqualityCheckInfo k_emlrtECI{
       2,                                            // nDims
-      26,                                           // lineNo
-      14,                                           // colNo
-      "confirmpulses",                              // fName
-      "H:\\repos\\uavrt_detection\\confirmpulses.m" // pName
-  };
-  static rtEqualityCheckInfo l_emlrtECI{
-      2,                                            // nDims
       22,                                           // lineNo
       15,                                           // colNo
       "confirmpulses",                              // fName
       "H:\\repos\\uavrt_detection\\confirmpulses.m" // pName
   };
-  static rtEqualityCheckInfo m_emlrtECI{
+  static rtEqualityCheckInfo l_emlrtECI{
       2,                                            // nDims
       20,                                           // lineNo
       15,                                           // colNo
       "confirmpulses",                              // fName
       "H:\\repos\\uavrt_detection\\confirmpulses.m" // pName
   };
-  static rtEqualityCheckInfo n_emlrtECI{
+  static rtEqualityCheckInfo m_emlrtECI{
       2,                                            // nDims
       13,                                           // lineNo
       34,                                           // colNo
       "confirmpulses",                              // fName
       "H:\\repos\\uavrt_detection\\confirmpulses.m" // pName
   };
-  static rtEqualityCheckInfo o_emlrtECI{
+  static rtEqualityCheckInfo n_emlrtECI{
       2,                                            // nDims
       12,                                           // lineNo
+      34,                                           // colNo
+      "confirmpulses",                              // fName
+      "H:\\repos\\uavrt_detection\\confirmpulses.m" // pName
+  };
+  static rtEqualityCheckInfo o_emlrtECI{
+      2,                                            // nDims
+      16,                                           // lineNo
       34,                                           // colNo
       "confirmpulses",                              // fName
       "H:\\repos\\uavrt_detection\\confirmpulses.m" // pName
@@ -496,17 +496,17 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       pulsestarttimes_withuncert[i] = b * pulseendtimes_withuncert[i];
     }
     if (!(X->K >= 0.0)) {
-      rtNonNegativeError(X->K, &bb_emlrtDCI);
+      rtNonNegativeError(X->K, &y_emlrtDCI);
     }
     i = static_cast<int>(std::floor(X->K));
     if (X->K != i) {
-      rtIntegerError(X->K, &ab_emlrtDCI);
+      rtIntegerError(X->K, &x_emlrtDCI);
     }
     n = static_cast<int>(X->K);
     if ((pulsestarttimes_withuncert.size(1) != n) &&
         ((pulsestarttimes_withuncert.size(1) != 1) && (n != 1))) {
       emlrtDimSizeImpxCheckR2021b(pulsestarttimes_withuncert.size(1), n,
-                                  &o_emlrtECI);
+                                  &n_emlrtECI);
     }
     if (pulsestarttimes_withuncert.size(1) == n) {
       loop_ub = pulsestarttimes_withuncert.size(1) - 1;
@@ -526,15 +526,15 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       pulseendtimes_withuncert[i1] = b * pulseendtimes_withuncert[i1];
     }
     if (!(X->K >= 0.0)) {
-      rtNonNegativeError(X->K, &y_emlrtDCI);
+      rtNonNegativeError(X->K, &w_emlrtDCI);
     }
     if (X->K != i) {
-      rtIntegerError(X->K, &x_emlrtDCI);
+      rtIntegerError(X->K, &v_emlrtDCI);
     }
     if ((pulseendtimes_withuncert.size(1) != n) &&
         ((pulseendtimes_withuncert.size(1) != 1) && (n != 1))) {
       emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1), n,
-                                  &n_emlrtECI);
+                                  &m_emlrtECI);
     }
     if (pulseendtimes_withuncert.size(1) == n) {
       loop_ub = pulseendtimes_withuncert.size(1) - 1;
@@ -570,17 +570,17 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       pulsestarttimes_withuncert[i] = b * pulseendtimes_withuncert[i];
     }
     if (!(X->K >= 0.0)) {
-      rtNonNegativeError(X->K, &w_emlrtDCI);
+      rtNonNegativeError(X->K, &u_emlrtDCI);
     }
     i = static_cast<int>(std::floor(X->K));
     if (X->K != i) {
-      rtIntegerError(X->K, &v_emlrtDCI);
+      rtIntegerError(X->K, &t_emlrtDCI);
     }
     n = static_cast<int>(X->K);
     if ((pulsestarttimes_withuncert.size(1) != n) &&
         ((pulsestarttimes_withuncert.size(1) != 1) && (n != 1))) {
       emlrtDimSizeImpxCheckR2021b(pulsestarttimes_withuncert.size(1), n,
-                                  &h_emlrtECI);
+                                  &g_emlrtECI);
     }
     if (pulsestarttimes_withuncert.size(1) == n) {
       loop_ub = pulsestarttimes_withuncert.size(1) - 1;
@@ -600,15 +600,15 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       pulseendtimes_withuncert[i1] = b * pulseendtimes_withuncert[i1];
     }
     if (!(X->K >= 0.0)) {
-      rtNonNegativeError(X->K, &t_emlrtDCI);
+      rtNonNegativeError(X->K, &ab_emlrtDCI);
     }
     if (X->K != i) {
-      rtIntegerError(X->K, &u_emlrtDCI);
+      rtIntegerError(X->K, &bb_emlrtDCI);
     }
     if ((pulseendtimes_withuncert.size(1) != n) &&
         ((pulseendtimes_withuncert.size(1) != 1) && (n != 1))) {
       emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1), n,
-                                  &g_emlrtECI);
+                                  &o_emlrtECI);
     }
     if (pulseendtimes_withuncert.size(1) == n) {
       loop_ub = pulseendtimes_withuncert.size(1) - 1;
@@ -645,7 +645,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   if ((input_sizes[1] != pulsestarttimes_withuncert.size(1)) &&
       ((input_sizes[1] != 1) && (pulsestarttimes_withuncert.size(1) != 1))) {
     emlrtDimSizeImpxCheckR2021b(
-        input_sizes[1], pulsestarttimes_withuncert.size(1), &m_emlrtECI);
+        input_sizes[1], pulsestarttimes_withuncert.size(1), &l_emlrtECI);
   }
   if (input_sizes[1] == pulsestarttimes_withuncert.size(1)) {
     minstartlog.set_size(1, input_sizes[1]);
@@ -681,7 +681,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   if ((b_input_sizes[1] != pulseendtimes_withuncert.size(1)) &&
       ((b_input_sizes[1] != 1) && (pulseendtimes_withuncert.size(1) != 1))) {
     emlrtDimSizeImpxCheckR2021b(b_input_sizes[1],
-                                pulseendtimes_withuncert.size(1), &l_emlrtECI);
+                                pulseendtimes_withuncert.size(1), &k_emlrtECI);
   }
   if (b_input_sizes[1] == pulseendtimes_withuncert.size(1)) {
     confLog.set_size(1, b_input_sizes[1]);
@@ -736,7 +736,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   if ((c_input_sizes[1] != d_input_sizes[1]) &&
       ((c_input_sizes[1] != 1) && (d_input_sizes[1] != 1))) {
     emlrtDimSizeImpxCheckR2021b(c_input_sizes[1], d_input_sizes[1],
-                                &k_emlrtECI);
+                                &j_emlrtECI);
   }
   structure = &X->ps_pos->pl;
   n = structure->size(1);
@@ -779,7 +779,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   if ((e_input_sizes[1] != f_input_sizes[1]) &&
       ((e_input_sizes[1] != 1) && (f_input_sizes[1] != 1))) {
     emlrtDimSizeImpxCheckR2021b(e_input_sizes[1], f_input_sizes[1],
-                                &j_emlrtECI);
+                                &h_emlrtECI);
   }
   if (c_input_sizes[1] == d_input_sizes[1]) {
     freqInBand.set_size(1, c_input_sizes[1]);
@@ -803,7 +803,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   }
   if ((freqInBand.size(1) != r.size(1)) &&
       ((freqInBand.size(1) != 1) && (r.size(1) != 1))) {
-    emlrtDimSizeImpxCheckR2021b(freqInBand.size(1), r.size(1), &k_emlrtECI);
+    emlrtDimSizeImpxCheckR2021b(freqInBand.size(1), r.size(1), &j_emlrtECI);
   }
   if (freqInBand.size(1) == r.size(1)) {
     loop_ub = freqInBand.size(1) - 1;

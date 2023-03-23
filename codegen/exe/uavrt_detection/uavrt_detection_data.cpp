@@ -5,7 +5,7 @@
 // File: uavrt_detection_data.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -15,6 +15,8 @@
 #include <string.h>
 
 // Variable Definitions
+coder::array<char, 2U> globalThresholdCachePath;
+
 unsigned int state[625];
 
 double freq;
@@ -87,32 +89,32 @@ rtRunTimeErrorInfo w_emlrtRTEI{
     "AsyncBuffercgHelper/read" // fName
 };
 
-rtRunTimeErrorInfo db_emlrtRTEI{
+rtRunTimeErrorInfo eb_emlrtRTEI{
     14,              // lineNo
     "validatefinite" // fName
 };
 
-rtRunTimeErrorInfo eb_emlrtRTEI{
+rtRunTimeErrorInfo fb_emlrtRTEI{
     14,              // lineNo
     "validatenonnan" // fName
 };
 
-rtRunTimeErrorInfo fb_emlrtRTEI{
+rtRunTimeErrorInfo gb_emlrtRTEI{
     13,                // lineNo
     "validatenonempty" // fName
 };
 
-rtRunTimeErrorInfo gb_emlrtRTEI{
+rtRunTimeErrorInfo hb_emlrtRTEI{
     13,               // lineNo
     "validateinteger" // fName
 };
 
-rtRunTimeErrorInfo ib_emlrtRTEI{
+rtRunTimeErrorInfo jb_emlrtRTEI{
     31,         // lineNo
     "circshift" // fName
 };
 
-rtRunTimeErrorInfo jb_emlrtRTEI{
+rtRunTimeErrorInfo kb_emlrtRTEI{
     53,      // lineNo
     "bsxfun" // fName
 };
@@ -213,12 +215,12 @@ rtDoubleCheckInfo
         1 // checkKind
     };
 
-rtRunTimeErrorInfo kb_emlrtRTEI{
+rtRunTimeErrorInfo lb_emlrtRTEI{
     12,        // lineNo
     "datawrap" // fName
 };
 
-rtRunTimeErrorInfo lb_emlrtRTEI{
+rtRunTimeErrorInfo mb_emlrtRTEI{
     37,   // lineNo
     "fft" // fName
 };
@@ -259,7 +261,7 @@ rtBoundsCheckInfo
         0 // checkKind
     };
 
-rtRunTimeErrorInfo mb_emlrtRTEI{
+rtRunTimeErrorInfo nb_emlrtRTEI{
     13,              // lineNo
     "toLogicalCheck" // fName
 };
@@ -272,17 +274,17 @@ rtDoubleCheckInfo o_emlrtDCI{
     4 // checkKind
 };
 
-rtRunTimeErrorInfo ob_emlrtRTEI{
+rtRunTimeErrorInfo pb_emlrtRTEI{
     58,                  // lineNo
     "assertValidSizeArg" // fName
 };
 
-rtRunTimeErrorInfo pb_emlrtRTEI{
+rtRunTimeErrorInfo qb_emlrtRTEI{
     13,                    // lineNo
     "assertCompatibleDims" // fName
 };
 
-rtRunTimeErrorInfo qb_emlrtRTEI{
+rtRunTimeErrorInfo rb_emlrtRTEI{
     159,                   // lineNo
     "coderTimeCheckStatus" // fName
 };
@@ -298,37 +300,37 @@ rtEqualityCheckInfo
         "internal\\AsyncBuffercgHelper.m" // pName
     };
 
-rtRunTimeErrorInfo ub_emlrtRTEI{
+rtRunTimeErrorInfo vb_emlrtRTEI{
     275,                  // lineNo
     "check_non_axis_size" // fName
 };
 
-rtRunTimeErrorInfo yb_emlrtRTEI{
+rtRunTimeErrorInfo ac_emlrtRTEI{
     206,           // lineNo
     "interp1_work" // fName
 };
 
-rtRunTimeErrorInfo ac_emlrtRTEI{
+rtRunTimeErrorInfo bc_emlrtRTEI{
     164,           // lineNo
     "interp1_work" // fName
 };
 
-rtRunTimeErrorInfo bc_emlrtRTEI{
+rtRunTimeErrorInfo cc_emlrtRTEI{
     135,            // lineNo
     "unaryMinOrMax" // fName
 };
 
-rtRunTimeErrorInfo dc_emlrtRTEI{
+rtRunTimeErrorInfo ec_emlrtRTEI{
     13,    // lineNo
     "sqrt" // fName
 };
 
-rtRunTimeErrorInfo gc_emlrtRTEI{
+rtRunTimeErrorInfo hc_emlrtRTEI{
     138,                  // lineNo
     "dynamic_size_checks" // fName
 };
 
-rtRunTimeErrorInfo hc_emlrtRTEI{
+rtRunTimeErrorInfo ic_emlrtRTEI{
     133,                  // lineNo
     "dynamic_size_checks" // fName
 };
@@ -343,17 +345,17 @@ rtDoubleCheckInfo r_emlrtDCI{
     4                   // checkKind
 };
 
-rtRunTimeErrorInfo jc_emlrtRTEI{
+rtRunTimeErrorInfo kc_emlrtRTEI{
     1632,             // lineNo
     "assertValidSize" // fName
 };
 
-rtRunTimeErrorInfo mc_emlrtRTEI{
+rtRunTimeErrorInfo nc_emlrtRTEI{
     42,           // lineNo
     "eml_sub2ind" // fName
 };
 
-rtRunTimeErrorInfo sc_emlrtRTEI{
+rtRunTimeErrorInfo uc_emlrtRTEI{
     132,          // lineNo
     "eml_idivide" // fName
 };

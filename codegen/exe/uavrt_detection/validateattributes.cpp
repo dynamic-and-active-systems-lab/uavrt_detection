@@ -5,7 +5,7 @@
 // File: validateattributes.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -65,20 +65,20 @@ static void rtErrorWithMessageID(const char *r, const char *r1, const char *r2,
 namespace coder {
 void b_validateattributes(double a, double attributesMixed_f9)
 {
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       22,          // lineNo
       "validatege" // fName
   };
   if (std::isinf(a) || std::isnan(a) || (!(std::floor(a) == a))) {
-    j_rtErrorWithMessageID("FFTLength", gb_emlrtRTEI.fName,
-                           gb_emlrtRTEI.lineNo);
+    j_rtErrorWithMessageID("FFTLength", hb_emlrtRTEI.fName,
+                           hb_emlrtRTEI.lineNo);
   }
   if (a < 0.0) {
     e_rtErrorWithMessageID("FFTLength", v_emlrtRTEI.fName, v_emlrtRTEI.lineNo);
   }
   if (!(a >= attributesMixed_f9)) {
-    rtErrorWithMessageID("FFTLength", ">=", "NaN", uc_emlrtRTEI.fName,
-                         uc_emlrtRTEI.lineNo);
+    rtErrorWithMessageID("FFTLength", ">=", "NaN", wc_emlrtRTEI.fName,
+                         wc_emlrtRTEI.lineNo);
   }
 }
 
@@ -92,7 +92,7 @@ void validateattributes(const ::coder::array<double, 1U> &a)
   boolean_T exitg1;
   boolean_T p;
   if (a.size(0) == 0) {
-    i_rtErrorWithMessageID("Window", fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID("Window", gb_emlrtRTEI.fName, gb_emlrtRTEI.lineNo);
   }
   p = true;
   k = 0;
@@ -106,7 +106,7 @@ void validateattributes(const ::coder::array<double, 1U> &a)
     }
   }
   if (!p) {
-    g_rtErrorWithMessageID("Window", db_emlrtRTEI.fName, db_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID("Window", eb_emlrtRTEI.fName, eb_emlrtRTEI.lineNo);
   }
   p = true;
   k = 0;
@@ -120,7 +120,7 @@ void validateattributes(const ::coder::array<double, 1U> &a)
     }
   }
   if (!p) {
-    h_rtErrorWithMessageID("Window", eb_emlrtRTEI.fName, eb_emlrtRTEI.lineNo);
+    h_rtErrorWithMessageID("Window", fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
   }
 }
 
@@ -130,21 +130,21 @@ void validateattributes(const ::coder::array<double, 1U> &a)
 //
 void validateattributes(double a)
 {
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       22,          // lineNo
       "validategt" // fName
   };
   if (std::isinf(a) || std::isnan(a) || (!(std::floor(a) == a))) {
-    j_rtErrorWithMessageID("WindowLength", gb_emlrtRTEI.fName,
-                           gb_emlrtRTEI.lineNo);
+    j_rtErrorWithMessageID("WindowLength", hb_emlrtRTEI.fName,
+                           hb_emlrtRTEI.lineNo);
   }
   if (a < 0.0) {
     e_rtErrorWithMessageID("WindowLength", v_emlrtRTEI.fName,
                            v_emlrtRTEI.lineNo);
   }
   if (!(a > 1.0)) {
-    rtErrorWithMessageID("WindowLength", ">", "1", uc_emlrtRTEI.fName,
-                         uc_emlrtRTEI.lineNo);
+    rtErrorWithMessageID("WindowLength", ">", "1", wc_emlrtRTEI.fName,
+                         wc_emlrtRTEI.lineNo);
   }
 }
 
@@ -155,21 +155,21 @@ void validateattributes(double a)
 //
 void validateattributes(double a, double attributesMixed_f11)
 {
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       22,          // lineNo
       "validatelt" // fName
   };
   if (std::isinf(a) || std::isnan(a) || (!(std::floor(a) == a))) {
-    j_rtErrorWithMessageID("OverlapLength", gb_emlrtRTEI.fName,
-                           gb_emlrtRTEI.lineNo);
+    j_rtErrorWithMessageID("OverlapLength", hb_emlrtRTEI.fName,
+                           hb_emlrtRTEI.lineNo);
   }
   if (a < 0.0) {
     e_rtErrorWithMessageID("OverlapLength", v_emlrtRTEI.fName,
                            v_emlrtRTEI.lineNo);
   }
   if (!(a < attributesMixed_f11)) {
-    rtErrorWithMessageID("OverlapLength", "<", "NaN", uc_emlrtRTEI.fName,
-                         uc_emlrtRTEI.lineNo);
+    rtErrorWithMessageID("OverlapLength", "<", "NaN", wc_emlrtRTEI.fName,
+                         wc_emlrtRTEI.lineNo);
   }
 }
 

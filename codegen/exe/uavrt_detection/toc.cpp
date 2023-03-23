@@ -5,7 +5,7 @@
 // File: toc.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -36,14 +36,14 @@ double toc()
     freq_not_empty = true;
     status = coderInitTimeFunctions(&freq);
     if (status != 0) {
-      rtErrorWithMessageID(std::string(&cv1[0], 22), status, qb_emlrtRTEI.fName,
-                           qb_emlrtRTEI.lineNo);
+      rtErrorWithMessageID(std::string(&cv1[0], 22), status, rb_emlrtRTEI.fName,
+                           rb_emlrtRTEI.lineNo);
     }
   }
   status = coderTimeClockGettimeMonotonic(&b_timespec, freq);
   if (status != 0) {
-    rtErrorWithMessageID(std::string(&cv2[0], 30), status, qb_emlrtRTEI.fName,
-                         qb_emlrtRTEI.lineNo);
+    rtErrorWithMessageID(std::string(&cv2[0], 30), status, rb_emlrtRTEI.fName,
+                         rb_emlrtRTEI.lineNo);
   }
   return (b_timespec.tv_sec - tstart_tv_sec) +
          (b_timespec.tv_nsec - tstart_tv_nsec) / 1.0E+9;

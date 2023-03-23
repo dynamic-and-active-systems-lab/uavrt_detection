@@ -5,7 +5,7 @@
 // File: blockedSummation.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 #ifndef BLOCKEDSUMMATION_H
@@ -19,10 +19,12 @@
 
 // Function Declarations
 namespace coder {
+double blockedSummation(const ::coder::array<double, 1U> &x, int vlen);
+
 void colMajorFlatIter(const ::coder::array<double, 1U> &x, int vlen, double *y,
                       int *counts);
 
-}
+} // namespace coder
 
 #endif
 //

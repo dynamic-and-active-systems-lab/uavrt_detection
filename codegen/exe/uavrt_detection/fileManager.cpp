@@ -5,7 +5,7 @@
 // File: fileManager.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -130,7 +130,7 @@ static void pc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 namespace coder {
 int cfclose(double fid)
 {
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       165,                // lineNo
       "conditionalAssert" // fName
   };
@@ -162,7 +162,7 @@ int cfclose(double fid)
     filestar = stderr;
   }
   if ((!(filestar != NULL)) || (fileid < 3)) {
-    c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   }
   cst = fclose(filestar);
   if (cst == 0) {
@@ -181,7 +181,7 @@ int cfclose(double fid)
 signed char cfopen(const ::coder::array<char, 2U> &cfilename,
                    const char *cpermission)
 {
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       111,     // lineNo
       "cfopen" // fName
   };
@@ -191,7 +191,7 @@ signed char cfopen(const ::coder::array<char, 2U> &cfilename,
   fileid = -1;
   j = filedata();
   if (j < 1) {
-    pc_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    pc_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   } else {
     FILE *filestar;
     int i;

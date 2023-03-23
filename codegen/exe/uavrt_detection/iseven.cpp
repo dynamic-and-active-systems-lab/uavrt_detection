@@ -5,7 +5,7 @@
 // File: iseven.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -55,13 +55,13 @@ namespace signalwavelet {
 namespace internal {
 boolean_T iseven(double x)
 {
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       12,      // lineNo
       "iseven" // fName
   };
   double r;
   if (x - std::trunc(x) != 0.0) {
-    t_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    t_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   }
   if (std::isnan(x) || std::isinf(x)) {
     r = rtNaN;

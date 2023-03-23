@@ -5,7 +5,7 @@
 // File: uavrt_detection.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 #ifndef UAVRT_DETECTION_H
@@ -18,7 +18,8 @@
 #include <cstdlib>
 
 // Function Declarations
-extern void uavrt_detection(const coder::array<char, 2U> &configPath);
+extern void uavrt_detection(const coder::array<char, 2U> &configPath,
+                            const coder::array<char, 2U> &thresholdCachePath);
 
 #endif
 //

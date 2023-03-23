@@ -5,7 +5,7 @@
 // File: datetime.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -56,7 +56,7 @@ static void ab_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 namespace coder {
 void datetime::init()
 {
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       1,                  // lineNo
       "createFromDateVec" // fName
   };
@@ -82,10 +82,10 @@ void datetime::init()
         (!(std::ceil(c_tm_mon) == c_tm_mon)) || (!(std::ceil(shi) == shi)) ||
         (!(std::ceil(c_tm_hour) == c_tm_hour)) ||
         (!(std::ceil(c_tm_min) == c_tm_min))) {
-      ab_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+      ab_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
     }
     if (std::ceil(b_second) != b_second) {
-      ab_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+      ab_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
     }
     if ((c_tm_mon < 1.0) || (c_tm_mon > 12.0)) {
       wholeSecsFromMillis = std::floor((c_tm_mon - 1.0) / 12.0);

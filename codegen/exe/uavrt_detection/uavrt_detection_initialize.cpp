@@ -5,7 +5,7 @@
 // File: uavrt_detection_initialize.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -16,6 +16,7 @@
 #include "rt_nonfinite.h"
 #include "timeKeeper.h"
 #include "uavrt_detection_data.h"
+#include "coder_array.h"
 #include "omp.h"
 #include <string.h>
 
@@ -29,6 +30,8 @@ void uavrt_detection_initialize()
   omp_init_nest_lock(&uavrt_detection_nestLockGlobal);
   savedTime_not_empty_init();
   freq_not_empty_init();
+  globalThresholdCachePath.set_size(1, 1);
+  globalThresholdCachePath[0] = 'X';
   filedata_init();
   eml_rand_mt19937ar_stateful_init();
   isInitialized_uavrt_detection = true;

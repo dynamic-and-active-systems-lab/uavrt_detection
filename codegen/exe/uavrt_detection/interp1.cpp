@@ -5,7 +5,7 @@
 // File: interp1.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -168,11 +168,11 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
              const ::coder::array<double, 1U> &varargin_3,
              ::coder::array<double, 1U> &Vq)
 {
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       153,           // lineNo
       "interp1_work" // fName
   };
-  static rtRunTimeErrorInfo vc_emlrtRTEI{
+  static rtRunTimeErrorInfo xc_emlrtRTEI{
       137,           // lineNo
       "interp1_work" // fName
   };
@@ -193,10 +193,10 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
   }
   nx = varargin_1.size(0);
   if (varargin_1.size(0) != varargin_2.size(0)) {
-    ub_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+    ub_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
   }
   if (varargin_1.size(0) <= 1) {
-    vb_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    vb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   }
   Vq.set_size(varargin_3.size(0));
   n = varargin_3.size(0);
@@ -214,7 +214,7 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
       exitg1 = 0;
       if (k <= nx - 1) {
         if (std::isnan(varargin_1[k])) {
-          gb_rtErrorWithMessageID(ac_emlrtRTEI.fName, ac_emlrtRTEI.lineNo);
+          gb_rtErrorWithMessageID(bc_emlrtRTEI.fName, bc_emlrtRTEI.lineNo);
         } else {
           k++;
         }
@@ -242,7 +242,7 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
         }
         for (k = 2; k <= nx; k++) {
           if (x[k - 1] <= x[k - 2]) {
-            fb_rtErrorWithMessageID(yb_emlrtRTEI.fName, yb_emlrtRTEI.lineNo);
+            fb_rtErrorWithMessageID(ac_emlrtRTEI.fName, ac_emlrtRTEI.lineNo);
           }
         }
         interp1Linear(y, varargin_2.size(0), varargin_3, Vq, x);

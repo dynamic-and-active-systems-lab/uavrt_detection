@@ -5,7 +5,7 @@
 // File: stft.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -34,16 +34,21 @@
 
 // Variable Definitions
 static rtRunTimeErrorInfo bb_emlrtRTEI{
-    386,                // lineNo
+    368,                // lineNo
     "verifyDataAndTime" // fName
 };
 
 static rtRunTimeErrorInfo cb_emlrtRTEI{
+    386,                // lineNo
+    "verifyDataAndTime" // fName
+};
+
+static rtRunTimeErrorInfo db_emlrtRTEI{
     419,                // lineNo
     "verifyDataAndTime" // fName
 };
 
-static rtRunTimeErrorInfo hb_emlrtRTEI{
+static rtRunTimeErrorInfo ib_emlrtRTEI{
     14,                // lineNo
     "validatepositive" // fName
 };
@@ -463,7 +468,7 @@ static void computeSTFT(const ::coder::array<creal32_T, 1U> &x,
   } else if (opts_Window.size(0) == xin.size(0)) {
     csz_idx_0 = opts_Window.size(0);
   } else {
-    u_rtErrorWithMessageID(jb_emlrtRTEI.fName, jb_emlrtRTEI.lineNo);
+    u_rtErrorWithMessageID(kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
   }
   c.set_size(csz_idx_0, xin.size(1));
   if ((csz_idx_0 != 0) && (xin.size(1) != 0)) {
@@ -503,8 +508,8 @@ static void computeSTFT(const ::coder::array<creal32_T, 1U> &x,
         i2 = 0;
       }
       if (static_cast<int>(nCol) != nCol) {
-        rtErrorWithMessageID("int32", "int32", ib_emlrtRTEI.fName,
-                             ib_emlrtRTEI.lineNo);
+        rtErrorWithMessageID("int32", "int32", jb_emlrtRTEI.fName,
+                             jb_emlrtRTEI.lineNo);
       }
       if ((S.size(0) != 0) && (S.size(1) != 0) &&
           ((S.size(0) != 1) || (S.size(1) != 1))) {
@@ -789,9 +794,8 @@ static void computeSTFT(const ::coder::array<creal_T, 2U> &x,
   static const char b_b[8]{'t', 'w', 'o', 's', 'i', 'd', 'e', 'd'};
   array<creal_T, 3U> b_c;
   array<creal_T, 3U> xin;
-  array<creal_T, 2U> b_x;
   array<creal_T, 2U> wrappedData;
-  array<creal_T, 1U> c_x;
+  array<creal_T, 1U> b_x;
   array<double, 2U> costab;
   array<double, 2U> sintab;
   array<double, 2U> sintabinv;
@@ -880,10 +884,11 @@ static void computeSTFT(const ::coder::array<creal_T, 2U> &x,
     c_bcoef = i3 - i2;
     c[0] = c_bcoef;
     rtSubAssignSizeCheck(&b_xin[0], 3, &c[0], 2, &c_emlrtECI);
-    b_x.set_size(c_bcoef, i1);
+    wrappedData.set_size(c_bcoef, i1);
     for (i3 = 0; i3 < loop_ub; i3++) {
       for (bcoef = 0; bcoef < c_bcoef; bcoef++) {
-        b_x[bcoef + b_x.size(0) * i3] = x[((i2 + bcoef) + x.size(0) * i3) + 1];
+        wrappedData[bcoef + wrappedData.size(0) * i3] =
+            x[((i2 + bcoef) + x.size(0) * i3) + 1];
       }
     }
     b_xin[0] = xin.size(0);
@@ -891,7 +896,7 @@ static void computeSTFT(const ::coder::array<creal_T, 2U> &x,
     for (i2 = 0; i2 < bcoef; i2++) {
       for (i3 = 0; i3 < b_bcoef; i3++) {
         xin[(i3 + xin.size(0) * iCol) + xin.size(0) * xin.size(1) * i2] =
-            b_x[i3 + b_xin[0] * i2];
+            wrappedData[i3 + b_xin[0] * i2];
       }
     }
   }
@@ -908,10 +913,10 @@ static void computeSTFT(const ::coder::array<creal_T, 2U> &x,
   } else if (opts_Window.size(0) == xin.size(0)) {
     csz_idx_0 = opts_Window.size(0);
   } else {
-    u_rtErrorWithMessageID(jb_emlrtRTEI.fName, jb_emlrtRTEI.lineNo);
+    u_rtErrorWithMessageID(kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
   }
   b_c.set_size(csz_idx_0, xin.size(1), xin.size(2));
-  if ((csz_idx_0 != 0) && (xin.size(1) != 0)) {
+  if ((csz_idx_0 != 0) && (xin.size(1) != 0) && (xin.size(2) != 0)) {
     c_bcoef = (xin.size(2) != 1);
     i = xin.size(2) - 1;
     b_bcoef = (xin.size(1) != 1);
@@ -966,12 +971,12 @@ static void computeSTFT(const ::coder::array<creal_T, 2U> &x,
           (static_cast<int>(iCol + 1U) > i1)) {
         rtDynamicBoundsError(static_cast<int>(iCol + 1U), 1, i1, &x_emlrtBCI);
       }
-      c_x.set_size(b_c.size(0));
+      b_x.set_size(b_c.size(0));
       for (i1 = 0; i1 < bcoef; i1++) {
-        c_x[i1] = b_c[i1 + c[0] * iCol];
+        b_x[i1] = b_c[i1 + c[0] * iCol];
       }
       if (!(opts_FFTLength >= 1.0)) {
-        c_rtErrorWithMessageID(1, kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
+        c_rtErrorWithMessageID(1, lb_emlrtRTEI.fName, lb_emlrtRTEI.lineNo);
       }
       if (b_c.size(0) == 1) {
         wrappedData.set_size(1, loop_ub);
@@ -1001,7 +1006,7 @@ static void computeSTFT(const ::coder::array<creal_T, 2U> &x,
         if ((i1 < 1) || (i1 > b_c.size(0))) {
           rtDynamicBoundsError(i1, 1, b_c.size(0), &v_emlrtBCI);
         }
-        wrappedData[k].re = c_x[i1 - 1].re;
+        wrappedData[k].re = b_x[i1 - 1].re;
         i2 = wrappedData.size(0) * wrappedData.size(1);
         if (k + 1 > i2) {
           rtDynamicBoundsError(k + 1, 1, i2, &u_emlrtBCI);
@@ -1009,7 +1014,7 @@ static void computeSTFT(const ::coder::array<creal_T, 2U> &x,
         if ((i1 < 1) || (i1 > b_c.size(0))) {
           rtDynamicBoundsError(i1, 1, b_c.size(0), &v_emlrtBCI);
         }
-        wrappedData[k].im = c_x[i1 - 1].im;
+        wrappedData[k].im = b_x[i1 - 1].im;
       }
       i1 = c_bcoef + 1;
       for (int k{i1}; k <= loop_ub; k++) {
@@ -1042,7 +1047,7 @@ static void computeSTFT(const ::coder::array<creal_T, 2U> &x,
           if ((i1 < 1) || (i1 > b_c.size(0))) {
             rtDynamicBoundsError(i1, 1, b_c.size(0), &r_emlrtBCI);
           }
-          wrappedData[k].re = wrappedData[k].re + c_x[i1 - 1].re;
+          wrappedData[k].re = wrappedData[k].re + b_x[i1 - 1].re;
           i2 = wrappedData.size(0) * wrappedData.size(1);
           if (k + 1 > i2) {
             rtDynamicBoundsError(k + 1, 1, i2, &q_emlrtBCI);
@@ -1054,7 +1059,7 @@ static void computeSTFT(const ::coder::array<creal_T, 2U> &x,
           if (k + 1 > i2) {
             rtDynamicBoundsError(k + 1, 1, i2, &s_emlrtBCI);
           }
-          wrappedData[k].im = wrappedData[k].im + c_x[i1 - 1].im;
+          wrappedData[k].im = wrappedData[k].im + b_x[i1 - 1].im;
         }
       }
       i1 = xin.size(1) * xin.size(2);
@@ -1077,9 +1082,10 @@ static void computeSTFT(const ::coder::array<creal_T, 2U> &x,
     }
   }
   if (xin.size(0) == 1) {
-    v_rtErrorWithMessageID(lb_emlrtRTEI.fName, lb_emlrtRTEI.lineNo);
+    v_rtErrorWithMessageID(mb_emlrtRTEI.fName, mb_emlrtRTEI.lineNo);
   }
-  if ((xin.size(0) == 0) || (xin.size(1) == 0) || (opts_FFTLength == 0.0)) {
+  if ((xin.size(0) == 0) || (xin.size(1) == 0) || (xin.size(2) == 0) ||
+      (opts_FFTLength == 0.0)) {
     S.set_size(loop_ub, xin.size(1), xin.size(2));
     bcoef = loop_ub * xin.size(1) * xin.size(2);
     for (i = 0; i < bcoef; i++) {
@@ -1353,10 +1359,6 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
           ::coder::array<float, 1U> &varargout_2,
           ::coder::array<float, 1U> &varargout_3)
 {
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
-      368,                // lineNo
-      "verifyDataAndTime" // fName
-  };
   static const char b[8]{'o', 'n', 'e', 's', 'i', 'd', 'e', 'd'};
   static const char freqRange[8]{'c', 'e', 'n', 't', 'e', 'r', 'e', 'd'};
   array<creal32_T, 1U> b_x;
@@ -1383,7 +1385,7 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
     }
   }
   if (!isOnesided) {
-    g_rtErrorWithMessageID("X", db_emlrtRTEI.fName, db_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID("X", eb_emlrtRTEI.fName, eb_emlrtRTEI.lineNo);
   }
   isOnesided = true;
   ret = 0;
@@ -1397,13 +1399,13 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
     }
   }
   if (!isOnesided) {
-    h_rtErrorWithMessageID("X", eb_emlrtRTEI.fName, eb_emlrtRTEI.lineNo);
+    h_rtErrorWithMessageID("X", fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
   }
   if (x.size(1) == 0) {
-    i_rtErrorWithMessageID("X", fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID("X", gb_emlrtRTEI.fName, gb_emlrtRTEI.lineNo);
   }
   if (x.size(1) < 2) {
-    r_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    r_rtErrorWithMessageID(bb_emlrtRTEI.fName, bb_emlrtRTEI.lineNo);
   }
   ret = memcmp(&freqRange[0], &b[0], 8);
   isOnesided = (ret == 0);
@@ -1418,10 +1420,10 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
   }
   if (varargin_3.size(0) > x.size(1)) {
     rtErrorWithMessageID(static_cast<long long>(varargin_3.size(0)),
-                         bb_emlrtRTEI.fName, bb_emlrtRTEI.lineNo);
+                         cb_emlrtRTEI.fName, cb_emlrtRTEI.lineNo);
   }
   if (isOnesided) {
-    s_rtErrorWithMessageID(cb_emlrtRTEI.fName, cb_emlrtRTEI.lineNo);
+    s_rtErrorWithMessageID(db_emlrtRTEI.fName, db_emlrtRTEI.lineNo);
   }
   varargout_2_Window.set_size(varargin_3.size(0));
   ret = varargin_3.size(0);
@@ -1429,12 +1431,12 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
     varargout_2_Window[i] = static_cast<float>(varargin_3[i]);
   }
   if (std::isinf(varargin_1) || std::isnan(varargin_1)) {
-    g_rtErrorWithMessageID("sample rate", db_emlrtRTEI.fName,
-                           db_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID("sample rate", eb_emlrtRTEI.fName,
+                           eb_emlrtRTEI.lineNo);
   }
   if (varargin_1 <= 0.0) {
-    k_rtErrorWithMessageID("sample rate", hb_emlrtRTEI.fName,
-                           hb_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID("sample rate", ib_emlrtRTEI.fName,
+                           ib_emlrtRTEI.lineNo);
   }
   ret = x.size(1);
   b_x = x.reshape(ret);
@@ -1480,7 +1482,7 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
   validateattributes(varargin_5, static_cast<double>(varargin_3.size(0)));
   b_validateattributes(varargin_7, static_cast<double>(varargin_3.size(0)));
   isOnesided = true;
-  i = x.size(0) * 100;
+  i = x.size(0) * x.size(1);
   ret = 0;
   exitg1 = false;
   while ((!exitg1) && (ret <= i - 1)) {
@@ -1493,10 +1495,10 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
     }
   }
   if (!isOnesided) {
-    g_rtErrorWithMessageID("X", db_emlrtRTEI.fName, db_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID("X", eb_emlrtRTEI.fName, eb_emlrtRTEI.lineNo);
   }
   isOnesided = true;
-  i = x.size(0) * 100;
+  i = x.size(0) * x.size(1);
   ret = 0;
   exitg1 = false;
   while ((!exitg1) && (ret <= i - 1)) {
@@ -1508,22 +1510,26 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
     }
   }
   if (!isOnesided) {
-    h_rtErrorWithMessageID("X", eb_emlrtRTEI.fName, eb_emlrtRTEI.lineNo);
+    h_rtErrorWithMessageID("X", fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
   }
-  if (x.size(0) == 0) {
-    i_rtErrorWithMessageID("X", fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
+  if ((x.size(0) == 0) || (x.size(1) == 0)) {
+    i_rtErrorWithMessageID("X", gb_emlrtRTEI.fName, gb_emlrtRTEI.lineNo);
   }
   if (x.size(0) == 1) {
-    b_varargout_1.set_size(100, 1);
-    for (i = 0; i < 100; i++) {
-      b_varargout_1[i] = x[i];
-    }
-  } else {
-    b_varargout_1.set_size(x.size(0), 100);
-    ret = x.size(0) * 100;
+    b_varargout_1.set_size(x.size(1), 1);
+    ret = x.size(1);
     for (i = 0; i < ret; i++) {
       b_varargout_1[i] = x[i];
     }
+  } else {
+    b_varargout_1.set_size(x.size(0), x.size(1));
+    ret = x.size(0) * x.size(1);
+    for (i = 0; i < ret; i++) {
+      b_varargout_1[i] = x[i];
+    }
+  }
+  if (b_varargout_1.size(0) < 2) {
+    r_rtErrorWithMessageID(bb_emlrtRTEI.fName, bb_emlrtRTEI.lineNo);
   }
   ret = memcmp(&freqRange[0], &b[0], 8);
   isOnesided = (ret == 0);
@@ -1538,18 +1544,18 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
   }
   if (varargin_3.size(0) > b_varargout_1.size(0)) {
     rtErrorWithMessageID(static_cast<long long>(varargin_3.size(0)),
-                         bb_emlrtRTEI.fName, bb_emlrtRTEI.lineNo);
+                         cb_emlrtRTEI.fName, cb_emlrtRTEI.lineNo);
   }
   if (isOnesided) {
-    s_rtErrorWithMessageID(cb_emlrtRTEI.fName, cb_emlrtRTEI.lineNo);
+    s_rtErrorWithMessageID(db_emlrtRTEI.fName, db_emlrtRTEI.lineNo);
   }
   if (std::isinf(varargin_1) || std::isnan(varargin_1)) {
-    g_rtErrorWithMessageID("sample rate", db_emlrtRTEI.fName,
-                           db_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID("sample rate", eb_emlrtRTEI.fName,
+                           eb_emlrtRTEI.lineNo);
   }
   if (varargin_1 <= 0.0) {
-    k_rtErrorWithMessageID("sample rate", hb_emlrtRTEI.fName,
-                           hb_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID("sample rate", ib_emlrtRTEI.fName,
+                           ib_emlrtRTEI.lineNo);
   }
   computeSTFT(b_varargout_1, static_cast<double>(b_varargout_1.size(0)),
               varargin_1, varargin_3, static_cast<double>(varargin_3.size(0)),

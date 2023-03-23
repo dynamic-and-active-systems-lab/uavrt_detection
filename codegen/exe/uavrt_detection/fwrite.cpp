@@ -5,7 +5,7 @@
 // File: fwrite.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -28,11 +28,11 @@
 namespace coder {
 double b_fwrite(double fileID, const ::coder::array<float, 1U> &x)
 {
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       158,          // lineNo
       "getFileStar" // fName
   };
-  static rtRunTimeErrorInfo vc_emlrtRTEI{
+  static rtRunTimeErrorInfo xc_emlrtRTEI{
       33,      // lineNo
       "fwrite" // fName
   };
@@ -40,11 +40,11 @@ double b_fwrite(double fileID, const ::coder::array<float, 1U> &x)
   double count;
   boolean_T autoflush;
   if (!(fileID != 0.0)) {
-    g_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
   }
   getfilestar(fileID, &filestar, &autoflush);
   if (filestar == NULL) {
-    c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   }
   if (!(fileID != 0.0)) {
     filestar = NULL;

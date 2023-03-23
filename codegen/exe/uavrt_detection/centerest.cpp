@@ -5,7 +5,7 @@
 // File: centerest.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -113,10 +113,10 @@ void centerest(::coder::array<creal_T, 3U> &y)
       vlend2 = 2;
     }
     if (static_cast<int>(xtmp_re) != xtmp_re) {
-      rtErrorWithMessageID("int32", "int32", ib_emlrtRTEI.fName,
-                           ib_emlrtRTEI.lineNo);
+      rtErrorWithMessageID("int32", "int32", jb_emlrtRTEI.fName,
+                           jb_emlrtRTEI.lineNo);
     }
-    if ((y.size(0) != 0) && (y.size(1) != 0) &&
+    if ((y.size(0) != 0) && (y.size(1) != 0) && (y.size(2) != 0) &&
         ((y.size(0) != 1) || (y.size(1) != 1) || (y.size(2) != 1))) {
       int b_i;
       int i2;
@@ -135,7 +135,7 @@ void centerest(::coder::array<creal_T, 3U> &y)
       }
       if (ns > y.size(vlend2)) {
         if (y.size(vlend2) == 0) {
-          mc_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+          mc_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
         }
         ns -= div_s32_sat(ns, y.size(vlend2)) * y.size(vlend2);
       }
@@ -147,7 +147,7 @@ void centerest(::coder::array<creal_T, 3U> &y)
       if ((y.size(0) > 0) && ((y.size(1) == 0) || (y.size(1) > y.size(0)))) {
         lowerDim = y.size(1);
       }
-      if ((lowerDim > 0) && (y.size(2) > lowerDim)) {
+      if ((lowerDim > 0) && ((y.size(2) == 0) || (y.size(2) > lowerDim))) {
         lowerDim = y.size(2);
       }
       lowerDim =

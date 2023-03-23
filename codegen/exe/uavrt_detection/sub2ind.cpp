@@ -5,7 +5,7 @@
 // File: sub2ind.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -24,7 +24,7 @@
 #include <string>
 
 // Variable Definitions
-static rtRunTimeErrorInfo nc_emlrtRTEI{
+static rtRunTimeErrorInfo oc_emlrtRTEI{
     32,           // lineNo
     "eml_sub2ind" // fName
 };
@@ -109,7 +109,7 @@ void b_eml_sub2ind(const int siz[2],
   boolean_T exitg1;
   boolean_T p;
   if (!allinrange(varargin_1, siz[0])) {
-    cc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+    cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
   }
   b_varargin_1[0] = static_cast<unsigned int>(varargin_1.size(0));
   b_varargin_2[0] = static_cast<unsigned int>(varargin_2.size(0));
@@ -128,10 +128,10 @@ void b_eml_sub2ind(const int siz[2],
     }
   }
   if (!p) {
-    dc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+    dc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
   }
   if (!allinrange(varargin_2, siz[1])) {
-    cc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+    cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
   }
   idx.set_size(varargin_1.size(0), varargin_1.size(1));
   k = varargin_1.size(0) * varargin_1.size(1);
@@ -164,7 +164,7 @@ void eml_sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
     if ((varargin_1[k] >= 1.0) && (varargin_1[k] <= siz[0])) {
       k++;
     } else {
-      cc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+      cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
     }
   }
   b_varargin_1[0] = 1U;
@@ -184,7 +184,7 @@ void eml_sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
     }
   }
   if (!p) {
-    dc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+    dc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
   }
   hi = siz[1];
   k = 0;
@@ -193,7 +193,7 @@ void eml_sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
     if ((varargin_2[k] >= 1.0) && (varargin_2[k] <= hi)) {
       k++;
     } else {
-      cc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+      cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
     }
   }
   idx.set_size(1, varargin_1.size(1));
@@ -227,7 +227,7 @@ void eml_sub2ind(const int siz[2], const ::coder::array<double, 1U> &varargin_1,
     if ((varargin_1[k] >= 1.0) && (varargin_1[k] <= siz[0])) {
       k++;
     } else {
-      cc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+      cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
     }
   }
   b_varargin_1[0] = static_cast<unsigned int>(varargin_1.size(0));
@@ -247,7 +247,7 @@ void eml_sub2ind(const int siz[2], const ::coder::array<double, 1U> &varargin_1,
     }
   }
   if (!p) {
-    dc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+    dc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
   }
   hi = siz[1];
   k = 0;
@@ -256,7 +256,7 @@ void eml_sub2ind(const int siz[2], const ::coder::array<double, 1U> &varargin_1,
     if ((varargin_2[k] >= 1.0) && (varargin_2[k] <= hi)) {
       k++;
     } else {
-      cc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+      cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
     }
   }
   idx.set_size(varargin_1.size(0));
@@ -275,10 +275,10 @@ void eml_sub2ind(const int siz[2], const ::coder::array<double, 1U> &varargin_1,
 int eml_sub2ind(const int siz[2], double varargin_2)
 {
   if (siz[0] < 1) {
-    cc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+    cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
   }
   if (!(varargin_2 <= siz[1])) {
-    cc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+    cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
   }
   return siz[0] * (static_cast<int>(varargin_2) - 1) + 1;
 }

@@ -5,7 +5,7 @@
 // File: mean.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 #ifndef MEAN_H
@@ -19,11 +19,9 @@
 
 // Function Declarations
 namespace coder {
-double mean(const ::coder::array<double, 2U> &x);
-
 void mean(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y);
 
-} // namespace coder
+}
 
 #endif
 //

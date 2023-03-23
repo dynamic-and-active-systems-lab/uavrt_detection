@@ -9,6 +9,7 @@ classdef threshold
         thresh1W        (1,1) double
         threshVecCoarse (:,1) double
         threshVecFine   (:,1) double
+        trials          (1,1) uint32 = 100  % Number of sets of synthetic noise to generate
     end
 
     methods (Access = public)
@@ -85,7 +86,7 @@ classdef threshold
             %fprintf('%f\n',obj.pf)
 
             obj.pf = pfNew;
-            thresh = evthresh(obj.evMuParam,obj.evSigmaParam, pfNew); %Build a single threshold value at 1 W bin power
+            thresh = evthresh(obj.evMuParam, obj.evSigmaParam, pfNew); %Build a single threshold value at 1 W bin power
             obj    = obj.setthreshprops(thresh, Wfm);                   %Set thresholds for each bin based on their bin powers
         end
 
@@ -111,90 +112,99 @@ classdef threshold
             %Author:    Michael W. Shafer
             %Date:      2022-05-04
             %--------------------------------------------------------------------------
-    
+
             PF = obj.pf;
 
-            %This will be the reference power for the trials. Thresholds will be
-            %interpolated for each bin from this value based on their bin power
-            medPowAllFreqBins = 1; %median(freqBinPow);
+            previousToc = toc;
 
-            stftSz     = size(Wfm.stft.S);
-            nTimeWinds = stftSz(2);
-            nFreqBins  = stftSz(1);
+            [ obj.evMuParam, obj.evSigmaParam ] = obj.loadThresholdValuesFromCache(Wfm);
 
-previousToc = toc;
-fprintf('\n \t Building time correlation matrix ...')
-            %Build the Wq time correlation matrix
-            Wq = buildtimecorrelatormatrix(Wfm.N, Wfm.M, Wfm.J, Wfm.K);
-fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+            if obj.evMuParam == 0 && obj.evSigmaParam == 0
+                % Mu and Sigma were not available from the cache. We have to generate them here.
 
-previousToc = toc;
-fprintf('\t Building synthetic data and taking STFTs ...')
-            if nTimeWinds ~= size(Wq,1)
-                error('UAV-RT: Time correlator/selection matrix must have the same number of rows as the number of columns (time windows) in the waveforms STFT matrix.')
+                %This will be the reference power for the trials. Thresholds will be
+                %interpolated for each bin from this value based on their bin power
+                medPowAllFreqBins = 1; %median(freqBinPow);
+
+                stftSz     = size(Wfm.stft.S);
+                nTimeWinds = stftSz(2);
+                nFreqBins  = stftSz(1);
+
+    fprintf('\n \t Building time correlation matrix ...')
+                %Build the Wq time correlation matrix
+                Wq = buildtimecorrelatormatrix(Wfm.N, Wfm.M, Wfm.J, Wfm.K);
+    fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+
+    previousToc = toc;
+    fprintf('\t Building synthetic data and taking STFTs ...')
+                if nTimeWinds ~= size(Wq,1)
+                    error('UAV-RT: Time correlator/selection matrix must have the same number of rows as the number of columns (time windows) in the waveforms STFT matrix.')
+                end
+                %Here we approximated the number of samples of synthetic noise data needed
+                %to get the correct number of time windows. We over estimate here and then
+                %clip the number of correct windows after the stft operation.
+                nSamps = (nTimeWinds+1)*Wfm.n_ws+Wfm.n_ol;%Based on the STFT help file for the number of windows as a function of samples. We add an additional windows worth of samples to ensure we have enough in our STFT output. We'll clip off any excess after the STFT
+
+                scores       = zeros(obj.trials,1);                                 %Preallocate the scores matrix
+                Psynthall    = medPowAllFreqBins*nFreqBins;                     %Calculate the total power in the waveform for all frequency bins. Units are W/bin * # bins = W
+                xsynth       = wgn(nSamps,obj.trials,Psynthall,'linear','complex'); %Generate the synthetic data
+                [Ssynth,~,~] = stft(xsynth,Wfm.Fs,'Window',Wfm.stft.wind,'OverlapLength',Wfm.n_ol,'FFTLength',Wfm.n_w);
+                Ssynth(:,nTimeWinds+1:end,:) = [];                              %Trim excess so we have the correct number of windows.
+
+    fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+    previousToc = toc;
+    fprintf('\t Running pulse summing process for all datasets ...')
+
+                %Preform the incoherent summation using a matrix multiply.
+                %Could use pagetimes.m for this, but it isn't supported for
+                %code generation with sparse matrices as of R2023a
+                
+                for i = 1:obj.trials
+                    scores(i) = max(abs(Wfm.W'*Ssynth(:,:,i)).^2 * Wq, [], 'all'); %'all' call finds max across all temporal correlation sets and frequency bins just like we do in the dectection code.
+                end
+    fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+    previousToc = toc;
+
+    fprintf('\t Extracing extreme value fit parameters ...')
+
+                %Build the distribution for all scores.
+                %Old kernel density estimation method
+                % [f,xi]   = ksdensity(scores(:),'BoundaryCorrection','reflection','Support','positive');
+                % F        = cumtrapz(xi,f);
+                %Updated extreme value estimation method
+                %xi = linspace(1/2*min(scores),2*max(scores),1000);
+                %paramEstsMaxima = evfit(-scores);
+                %cdfVals = evcdf(-xi,paramEstsMaxima(1),paramEstsMaxima(2));
+                %F = 1 - cdfVals;
+                paramEstsMaxima = evfit(-scores);
+
+                obj.evMuParam       = paramEstsMaxima(1);
+                obj.evSigmaParam    = paramEstsMaxima(2);
+
+                obj.saveThresholdValuesToCache(Wfm);
+
+                %figure;plot(xi,F)
+
+                %Uncomment to see how fitted distribution compares to histogram of max
+                %scores
+    %             p = evpdf(-xi,paramEstsMaxima(1),paramEstsMaxima(2));
+    %             figure
+    %             histogram(scores,'Normalization','pdf');
+    %             hold on
+    %             plot(xi,p,'DisplayName','EV Fit'); legend('Location','best')
+    %             p = 1-evcdf(-xi,paramEstsMaxima(1),paramEstsMaxima(2));
+    %             figure
+    %             histogram(scores,'Normalization','cdf');
+    %             hold on
+    %             plot(xi,p,'DisplayName','EV Fit'); legend('Location','best')
+            else
+                fprintf("Threshold values were pulled from cache\n");
             end
-            %Here we approximated the number of samples of synthetic noise data needed
-            %to get the correct number of time windows. We over estimate here and then
-            %clip the number of correct windows after the stft operation.
-            nSamps = (nTimeWinds+1)*Wfm.n_ws+Wfm.n_ol;%Based on the STFT help file for the number of windows as a function of samples. We add an additional windows worth of samples to ensure we have enough in our STFT output. We'll clip off any excess after the STFT
-
-            trials       = 100;                             %Number of sets of synthetic noise to generate
-            scores       = zeros(trials,1);                 %Preallocate the scores matrix
-            Psynthall    = medPowAllFreqBins*nFreqBins;     %Calculate the total power in the waveform for all frequency bins. Units are W/bin * # bins = W
-            xsynth       = wgn(nSamps,trials,Psynthall,'linear','complex'); %Generate the synthetic data
-            [Ssynth,~,~] = stft(xsynth,Wfm.Fs,'Window',Wfm.stft.wind,'OverlapLength',Wfm.n_ol,'FFTLength',Wfm.n_w);
-            Ssynth(:,nTimeWinds+1:end,:) = [];              %Trim excess so we have the correct number of windows.
-
-fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
-previousToc = toc;
-fprintf('\t Running pulse summing process for all datasets ...')
-
-            %Preform the incoherent summation using a matrix multiply.
-            %Could use pagetimes.m for this, but it isn't supported for
-            %code generation with sparse matrices as of R2023a
-            
-            for i = 1:trials
-                scores(i) = max(abs(Wfm.W'*Ssynth(:,:,i)).^2 * Wq, [], 'all'); %'all' call finds max across all temporal correlation sets and frequency bins just like we do in the dectection code.
-            end
-fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
-previousToc = toc;
-
-fprintf('\t Extracing extreme value fit parameters ...')
-
-            %Build the distribution for all scores.
-            %Old kernel density estimation method
-            % [f,xi]   = ksdensity(scores(:),'BoundaryCorrection','reflection','Support','positive');
-            % F        = cumtrapz(xi,f);
-            %Updated extreme value estimation method
-            %xi = linspace(1/2*min(scores),2*max(scores),1000);
-            %paramEstsMaxima = evfit(-scores);
-            %cdfVals = evcdf(-xi,paramEstsMaxima(1),paramEstsMaxima(2));
-            %F = 1 - cdfVals;
-            paramEstsMaxima = evfit(-scores);
-            mu              = paramEstsMaxima(1);
-            sigma           = paramEstsMaxima(2);
-
-            threshMedPow    = evthresh(mu,sigma,PF);
+    
+            threshMedPow  = evthresh(obj.evMuParam, obj.evSigmaParam, PF);
 
 fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
 previousToc = toc;      
-
-            %figure;plot(xi,F)
-
-            %Uncomment to see how fitted distribution compares to histogram of max
-            %scores
-%             p = evpdf(-xi,paramEstsMaxima(1),paramEstsMaxima(2));
-%             figure
-%             histogram(scores,'Normalization','pdf');
-%             hold on
-%             plot(xi,p,'DisplayName','EV Fit'); legend('Location','best')
-%             p = 1-evcdf(-xi,paramEstsMaxima(1),paramEstsMaxima(2));
-%             figure
-%             histogram(scores,'Normalization','cdf');
-%             hold on
-%             plot(xi,p,'DisplayName','EV Fit'); legend('Location','best')
-
-
 
             %Now we linearly interpolate the threshold values for different noise
             %powers. We showed elsewhere this linear relationship hold by calculating
@@ -204,9 +214,6 @@ previousToc = toc;
             %values.
             %nochangelogic = [false,diff(F)==0];
             %threshMedPow = interp1(F(~nochangelogic),xi(~nochangelogic),1-PF,'pchip','extrap');
-
-
-
 
 %             powGrid    = [0 medPowAllFreqBins];
 %             threshGrid = [0 threshMedPow];
@@ -229,8 +236,6 @@ previousToc = toc;
 %             obj.threshVecCoarse = newThresh;
 %             obj.threshVecFine   = interp1(Wfm.stft.f,double(newThresh),Wfm.Wf,'linear','extrap');
 
-            obj.evMuParam       = paramEstsMaxima(1);
-            obj.evSigmaParam    = paramEstsMaxima(2);
             obj = obj.setthreshprops(threshMedPow, Wfm);
         end
         
@@ -269,6 +274,7 @@ previousToc = toc;
 %             charArray  = sprintf(charArray(1:end-numel(sepChars)));
 %         end
     end
+
     methods(Access = protected)
         function [obj] = setthreshprops(obj, thresh, Wfm)
             
@@ -297,6 +303,43 @@ previousToc = toc;
             obj.threshVecCoarse = newThresh;
             obj.threshVecFine   = interp1(Wfm.stft.f,double(newThresh),Wfm.Wf,'linear','extrap');
             
+        end
+
+        function filename = thresholdCacheFileName(self, Wfm)
+            global globalThresholdCachePath;
+            filename = sprintf("%s/N%f-M%f-J%f-K%f-Trials%u.threshold", globalThresholdCachePath, Wfm.N, Wfm.M, Wfm.J, Wfm.K, self.trials);
+        end
+
+        function saveThresholdValuesToCache(self, Wfm)
+            filename = self.thresholdCacheFileName(Wfm);
+            fid = fopen(filename, "w");
+            if fid == -1
+                fprintf("threshold::saveThresholdValuesToCache ERROR - Unable to open file %s\n", filename);
+                return;
+            end
+
+            fprintf(fid,"%f\n", self.evMuParam);
+            fprintf(fid,"%f\n", self.evSigmaParam);
+
+            fclose(fid);
+        end
+
+        function [ evMuParam, evSigmaParam ] = loadThresholdValuesFromCache(self, Wfm)
+            evMuParam       = 0;
+            evSigmaParam    = 0;
+
+            filename = self.thresholdCacheFileName(Wfm);
+            fid = fopen(filename, "r");
+            if fid == -1
+                % Cache miss
+                return;
+            end
+
+            values          = fscanf(fid, "%f");
+            evMuParam      = values(1);
+            evSigmaParam   = values(2);
+
+            fclose(fid);
         end
     end
 end

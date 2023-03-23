@@ -5,7 +5,7 @@
 // File: _coder_uavrt_detection_mex.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -45,11 +45,11 @@ emlrtCTX mexFunctionCreateRootTLS()
 //
 // Arguments    : int32_T nlhs
 //                int32_T nrhs
-//                const mxArray *prhs[1]
+//                const mxArray *prhs[2]
 // Return Type  : void
 //
 void uavrt_detection_mexFunction(int32_T nlhs, int32_T nrhs,
-                                 const mxArray *prhs[1])
+                                 const mxArray *prhs[2])
 {
   emlrtStack st{
       nullptr, // site
@@ -58,8 +58,8 @@ void uavrt_detection_mexFunction(int32_T nlhs, int32_T nrhs,
   };
   st.tls = emlrtRootTLSGlobal;
   // Check for proper number of arguments.
-  if (nrhs != 1) {
-    emlrtErrMsgIdAndTxt(&st, "EMLRT:runTime:WrongNumberOfInputs", 5, 12, 1, 4,
+  if (nrhs != 2) {
+    emlrtErrMsgIdAndTxt(&st, "EMLRT:runTime:WrongNumberOfInputs", 5, 12, 2, 4,
                         15, "uavrt_detection");
   }
   if (nlhs > 0) {
@@ -67,7 +67,7 @@ void uavrt_detection_mexFunction(int32_T nlhs, int32_T nrhs,
                         "uavrt_detection");
   }
   // Call the function.
-  uavrt_detection_api(prhs[0]);
+  uavrt_detection_api(prhs);
 }
 
 //

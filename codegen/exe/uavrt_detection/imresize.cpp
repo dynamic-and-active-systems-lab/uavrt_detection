@@ -5,7 +5,7 @@
 // File: imresize.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -81,10 +81,10 @@ static void b_resizeAlongDim2D(const ::coder::array<double, 2U> &in,
 
   for (int inRInd = 0; inRInd <= ub_loop; inRInd++) {
     if (inRInd + 1 > in.size(0)) {
-      cc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+      cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
     }
     if (in.size(1) < 1) {
-      cc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+      cc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
     }
     i = static_cast<int>(out_length);
     for (outCInd = 0; outCInd < i; outCInd++) {
@@ -213,7 +213,7 @@ static void contributions(int in_length, double out_length, double scale,
   } else if (u.size(0) == absx.size(0)) {
     csz_idx_0 = u.size(0);
   } else {
-    u_rtErrorWithMessageID(jb_emlrtRTEI.fName, jb_emlrtRTEI.lineNo);
+    u_rtErrorWithMessageID(kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
   }
   b_x.set_size(csz_idx_0, absx.size(1));
   if (csz_idx_0 != 0) {
@@ -298,7 +298,7 @@ static void contributions(int in_length, double out_length, double scale,
   }
   nx = weights.size(1);
   if (!iscompatible) {
-    u_rtErrorWithMessageID(jb_emlrtRTEI.fName, jb_emlrtRTEI.lineNo);
+    u_rtErrorWithMessageID(kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
   }
   weights.set_size(csz_idx_0, nx);
   if (csz_idx_0 != 0) {
@@ -514,7 +514,7 @@ namespace coder {
 void imresize(const ::coder::array<double, 2U> &Ain, const double varargin_1[2],
               ::coder::array<double, 2U> &Bout)
 {
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       319,       // lineNo
       "imresize" // fName
   };
@@ -530,8 +530,8 @@ void imresize(const ::coder::array<double, 2U> &Ain, const double varargin_1[2],
   boolean_T exitg1;
   boolean_T y;
   if ((Ain.size(0) == 0) || (Ain.size(1) == 0)) {
-    i_rtErrorWithMessageID("input number 1, A,", fb_emlrtRTEI.fName,
-                           fb_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID("input number 1, A,", gb_emlrtRTEI.fName,
+                           gb_emlrtRTEI.lineNo);
   }
   x[0] = (varargin_1[0] <= 0.0);
   x[1] = (varargin_1[1] <= 0.0);
@@ -547,7 +547,7 @@ void imresize(const ::coder::array<double, 2U> &Ain, const double varargin_1[2],
     }
   }
   if (y) {
-    ic_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    ic_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   }
   if (std::isnan(varargin_1[0])) {
     outputSize_idx_0 =

@@ -74,8 +74,14 @@ static void main_uavrt_detection(const char* configPathAsChar)
     configPathAsArray[idx1] = configPathAsChar[idx1];
   }
 
+  auto homeStr = std::getenv("HOME");
+  coder::array<char, 2U> homePathAsArray;
+  homePathAsArray.set_size(1, strlen(homeStr));
+  for (int idx1{0}; idx1 < homePathAsArray.size(1); idx1++) {
+    homePathAsArray[idx1] = homeStr[idx1];
+  }
 
-  uavrt_detection(configPathAsArray);
+  uavrt_detection(configPathAsArray, homePathAsArray);
 }
 
 //

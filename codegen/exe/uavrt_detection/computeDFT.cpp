@@ -5,7 +5,7 @@
 // File: computeDFT.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -78,7 +78,7 @@ void computeDFT(const ::coder::array<creal32_T, 2U> &xin, double nfft,
         x[i1] = xin[i1 + xin.size(0) * j];
       }
       if (!(nfft >= 1.0)) {
-        c_rtErrorWithMessageID(1, kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
+        c_rtErrorWithMessageID(1, lb_emlrtRTEI.fName, lb_emlrtRTEI.lineNo);
       }
       if (xin.size(0) == 1) {
         wrappedData.set_size(1, loop_ub_tmp);
@@ -182,7 +182,7 @@ void computeDFT(const ::coder::array<creal32_T, 2U> &xin, double nfft,
     }
   }
   if (xw.size(0) == 1) {
-    v_rtErrorWithMessageID(lb_emlrtRTEI.fName, lb_emlrtRTEI.lineNo);
+    v_rtErrorWithMessageID(mb_emlrtRTEI.fName, mb_emlrtRTEI.lineNo);
   }
   if ((xw.size(0) == 0) || (xw.size(1) == 0) || (nfft == 0.0)) {
     Xx.set_size(loop_ub_tmp, xw.size(1));
