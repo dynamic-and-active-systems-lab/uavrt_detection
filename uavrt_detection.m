@@ -1,14 +1,20 @@
-function [] = uavrt_detection(configPath)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+% configPath            - Fully qualified path to detect config file
+% thresholdCachePath    - Fully qualified path to where the threshold cache files are stored.
+%                         If not specified thresholds will be re-generated.
+
+function [] = uavrt_detection(configPath, thresholdCachePath)
 
  %#codegen
  coder.cinclude('time.h') %Needed for usleep function in generated code
 % coder.cinclude('stdlib.h')%needed for system call to kill the channelizer
 
 if nargin == 0
-    configPath = "config/detectorConfig.txt"; %Must exist in the same directory as the execution of this executable
+    configPath          = "config/detectorConfig.txt"; %Must exist in the same directory as the execution of this executable
+    thresholdCachePath  = "";                              % Forces thresholds to be generated
 end
+
+global globalThresholdCachePath;
+globalThresholdCachePath = thresholdCachePath;
 
 Config =  DetectorConfig(); %Build empty config object
 updateconfig()              %Update (fill) the configuration
