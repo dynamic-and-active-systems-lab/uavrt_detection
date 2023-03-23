@@ -5,7 +5,7 @@
 // File: uavrt_detection_rtwutil.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 #ifndef UAVRT_DETECTION_RTWUTIL_H
@@ -44,10 +44,10 @@ extern void emlrtDimSizeImpxCheckR2021b(const int aDim1, const int aDim2,
 
 extern void fb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
+extern void g_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
 extern void g_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum);
-
-extern void g_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void gb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
@@ -65,8 +65,6 @@ extern void j_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum);
 
 extern void jb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
-
-extern void jc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void k_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 

@@ -5,7 +5,7 @@
 // File: indexShapeCheck.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -21,7 +21,7 @@
 #include <string>
 
 // Variable Definitions
-static rtRunTimeErrorInfo nb_emlrtRTEI{
+static rtRunTimeErrorInfo ob_emlrtRTEI{
     122,          // lineNo
     "errOrWarnIf" // fName
 };
@@ -156,7 +156,7 @@ void b_indexShapeCheck(const int matrixSize[2], const int indexSize[2])
       nonSingletonDimFound = true;
     }
     if (nonSingletonDimFound) {
-      gc_rtErrorWithMessageID(nb_emlrtRTEI.fName, nb_emlrtRTEI.lineNo);
+      gc_rtErrorWithMessageID(ob_emlrtRTEI.fName, ob_emlrtRTEI.lineNo);
     }
   } else {
     nonSingletonDimFound = (indexSize[0] != 1);
@@ -173,7 +173,7 @@ void b_indexShapeCheck(const int matrixSize[2], const int indexSize[2])
         nonSingletonDimFound = true;
       }
       if (nonSingletonDimFound) {
-        hc_rtErrorWithMessageID(nb_emlrtRTEI.fName, nb_emlrtRTEI.lineNo);
+        hc_rtErrorWithMessageID(ob_emlrtRTEI.fName, ob_emlrtRTEI.lineNo);
       }
     }
   }
@@ -211,7 +211,7 @@ void indexShapeCheck(const int matrixSize[2], const int indexSize[2])
         nonSingletonDimFound = true;
       }
       if (nonSingletonDimFound) {
-        fc_rtErrorWithMessageID(nb_emlrtRTEI.fName, nb_emlrtRTEI.lineNo);
+        fc_rtErrorWithMessageID(ob_emlrtRTEI.fName, ob_emlrtRTEI.lineNo);
       }
     }
   }
@@ -249,7 +249,7 @@ void indexShapeCheck(const double matrixSize[2], const double indexSize[2])
         nonSingletonDimFound = true;
       }
       if (nonSingletonDimFound) {
-        fc_rtErrorWithMessageID(nb_emlrtRTEI.fName, nb_emlrtRTEI.lineNo);
+        fc_rtErrorWithMessageID(ob_emlrtRTEI.fName, ob_emlrtRTEI.lineNo);
       }
     }
   }
@@ -263,7 +263,7 @@ void indexShapeCheck(const double matrixSize[2], const double indexSize[2])
 void indexShapeCheck(int matrixSize, const int indexSize[2])
 {
   if ((matrixSize == 1) && (indexSize[1] != 1)) {
-    x_rtErrorWithMessageID(nb_emlrtRTEI.fName, nb_emlrtRTEI.lineNo);
+    x_rtErrorWithMessageID(ob_emlrtRTEI.fName, ob_emlrtRTEI.lineNo);
   }
 }
 

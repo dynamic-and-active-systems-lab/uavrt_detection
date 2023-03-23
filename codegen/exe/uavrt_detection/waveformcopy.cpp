@@ -5,7 +5,7 @@
 // File: waveformcopy.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -43,6 +43,7 @@ waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
                        waveform *iobj_2)
 {
   pulsestats *g_val;
+  threshold obj;
   waveform *wfmOut;
   wfmstft *d_val;
   coder::array<c_struct_T, 2U> _in;
@@ -52,9 +53,9 @@ waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
   coder::array<c_struct_T, 2U> r6;
   coder::array<c_struct_T, 2U> r7;
   coder::array<creal_T, 2U> b_val;
-  coder::array<creal_T, 2U> i_val;
+  coder::array<creal_T, 2U> h_val;
   coder::array<creal_T, 2U> r1;
-  coder::array<creal32_T, 2U> l_val;
+  coder::array<creal32_T, 2U> k_val;
   coder::array<creal32_T, 2U> r;
   coder::array<creal32_T, 2U> val;
   coder::array<double, 2U> b__in;
@@ -63,15 +64,15 @@ waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
   coder::array<double, 2U> f_tmp_data;
   coder::array<double, 1U> b_tmp_data;
   coder::array<double, 1U> c_val;
-  coder::array<double, 1U> j_val;
+  coder::array<double, 1U> i_val;
   coder::array<boolean_T, 2U> c_tmp_data;
   coder::array<boolean_T, 2U> e_tmp_data;
   coder::array<boolean_T, 2U> f_val;
-  c_struct_T r3;
-  emxArray_struct_T_1x1 r2;
+  c_struct_T r2;
+  emxArray_struct_T_1x1 r3;
   double tmp_data[400];
   double c_wfmIn[2];
-  double k_val;
+  double j_val;
   int loop_ub;
   // WAVEFORM Constructs an instance of this class
   // INPUTS:
@@ -106,7 +107,15 @@ waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
   for (int i{0}; i < loop_ub; i++) {
     iobj_2->Wf[i] = c_val[i];
   }
-  iobj_2->thresh.init();
+  // UNTITLED2 Construct an instance of this class
+  //    Detailed explanation goes here
+  obj.trials = 100U;
+  obj.pf = 0.01;
+  obj.evMuParam = 0.0;
+  obj.evSigmaParam = 0.0;
+  obj.threshVecFine.set_size(1);
+  obj.threshVecFine[0] = 0.0;
+  iobj_2->thresh = obj;
   // Set custom types for coder.
   d_val = iobj_0->init();
   iobj_2->stft = d_val;
@@ -134,21 +143,26 @@ waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
   //             %%
   // Tell coder these are variable size.
   // Now actually assign them
-  r2.size[0] = 1;
-  r2.size[1] = 1;
-  makepulsestruc(&r3);
-  r2.data[0] = r3;
-  r4.set(&r2.data[0], r2.size[0], r2.size[1]);
+  makepulsestruc(&r2.A, &r2.P, &r2.SNR, &r2.yw, &r2.t_0, &r2.t_f, r2.t_next,
+                 &r2.fp, &r2.fstart, &r2.fend, r2.mode, &r2.det_dec,
+                 &r2.con_dec);
+  r3.size[0] = 1;
+  r3.size[1] = 1;
+  r3.data[0] = r2;
+  r4.set(&r3.data[0], r3.size[0], r3.size[1]);
   coder::internal::validator_check_size(r4, _in);
   (&iobj_1[0])[0].pl.set_size(1, _in.size(1));
   loop_ub = _in.size(1);
   for (int i{0}; i < loop_ub; i++) {
     (&iobj_1[0])[0].pl[i] = _in[i];
   }
-  r2.size[0] = 1;
-  r2.size[1] = 1;
-  r2.data[0] = r3;
-  r5.set(&r2.data[0], r2.size[0], r2.size[1]);
+  makepulsestruc(&r2.A, &r2.P, &r2.SNR, &r2.yw, &r2.t_0, &r2.t_f, r2.t_next,
+                 &r2.fp, &r2.fstart, &r2.fend, r2.mode, &r2.det_dec,
+                 &r2.con_dec);
+  r3.size[0] = 1;
+  r3.size[1] = 1;
+  r3.data[0] = r2;
+  r5.set(&r3.data[0], r3.size[0], r3.size[1]);
   coder::internal::b_validator_check_size(r5, e_val);
   (&iobj_1[0])[0].clst.set_size(e_val.size(0), e_val.size(1));
   loop_ub = e_val.size(0) * e_val.size(1);
@@ -194,20 +208,26 @@ waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
   //             %%
   // Tell coder these are variable size.
   // Now actually assign them
-  r2.size[0] = 1;
-  r2.size[1] = 1;
-  r2.data[0] = r3;
-  r6.set(&r2.data[0], r2.size[0], r2.size[1]);
+  makepulsestruc(&r2.A, &r2.P, &r2.SNR, &r2.yw, &r2.t_0, &r2.t_f, r2.t_next,
+                 &r2.fp, &r2.fstart, &r2.fend, r2.mode, &r2.det_dec,
+                 &r2.con_dec);
+  r3.size[0] = 1;
+  r3.size[1] = 1;
+  r3.data[0] = r2;
+  r6.set(&r3.data[0], r3.size[0], r3.size[1]);
   coder::internal::validator_check_size(r6, _in);
   (&iobj_1[0])[1].pl.set_size(1, _in.size(1));
   loop_ub = _in.size(1);
   for (int i{0}; i < loop_ub; i++) {
     (&iobj_1[0])[1].pl[i] = _in[i];
   }
-  r2.size[0] = 1;
-  r2.size[1] = 1;
-  r2.data[0] = r3;
-  r7.set(&r2.data[0], r2.size[0], r2.size[1]);
+  makepulsestruc(&r2.A, &r2.P, &r2.SNR, &r2.yw, &r2.t_0, &r2.t_f, r2.t_next,
+                 &r2.fp, &r2.fstart, &r2.fend, r2.mode, &r2.det_dec,
+                 &r2.con_dec);
+  r3.size[0] = 1;
+  r3.size[1] = 1;
+  r3.data[0] = r2;
+  r7.set(&r3.data[0], r3.size[0], r3.size[1]);
   coder::internal::b_validator_check_size(r7, e_val);
   (&iobj_1[0])[1].clst.set_size(e_val.size(0), e_val.size(1));
   loop_ub = e_val.size(0) * e_val.size(1);
@@ -277,7 +297,6 @@ waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
   for (int i{0}; i <= loop_ub; i++) {
     b_wfmIn[i] = wfmIn->ps_pos->cpki[i];
   }
-  threshold h_val;
   c_wfmIn[0] = wfmIn->ps_pos->tmplt[0];
   c_wfmIn[1] = wfmIn->ps_pos->tmplt[1];
   g_val = iobj_1[3].b_init(wfmIn->ps_pos->t_p, wfmIn->ps_pos->t_ip,
@@ -286,20 +305,20 @@ waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
                            wfmIn->ps_pos->fend, c_wfmIn, wfmIn->ps_pos->mode,
                            _in, e_val, f_val, b_wfmIn);
   iobj_2->ps_pos = g_val;
-  h_val = wfmIn->thresh;
-  iobj_2->thresh = h_val;
+  obj = wfmIn->thresh;
+  iobj_2->thresh = obj;
   d_val = iobj_2->stft;
   b_val.set_size(wfmIn->stft->S.size(0), wfmIn->stft->S.size(1));
   loop_ub = wfmIn->stft->S.size(0) * wfmIn->stft->S.size(1);
   for (int i{0}; i < loop_ub; i++) {
     b_val[i] = wfmIn->stft->S[i];
   }
-  i_val.set_size(b_val.size(0), b_val.size(1));
+  h_val.set_size(b_val.size(0), b_val.size(1));
   loop_ub = b_val.size(0) * b_val.size(1) - 1;
   for (int i{0}; i <= loop_ub; i++) {
-    i_val[i] = b_val[i];
+    h_val[i] = b_val[i];
   }
-  coder::internal::validator_check_size(i_val, b_val);
+  coder::internal::validator_check_size(h_val, b_val);
   d_val->S.set_size(b_val.size(0), b_val.size(1));
   loop_ub = b_val.size(0) * b_val.size(1);
   for (int i{0}; i < loop_ub; i++) {
@@ -311,12 +330,12 @@ waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
   for (int i{0}; i < loop_ub; i++) {
     c_val[i] = wfmIn->stft->f[i];
   }
-  j_val.set_size(c_val.size(0));
+  i_val.set_size(c_val.size(0));
   loop_ub = c_val.size(0) - 1;
   for (int i{0}; i <= loop_ub; i++) {
-    j_val[i] = c_val[i];
+    i_val[i] = c_val[i];
   }
-  coder::internal::validator_check_size(j_val, c_val);
+  coder::internal::validator_check_size(i_val, c_val);
   d_val->f.set_size(c_val.size(0));
   loop_ub = c_val.size(0);
   for (int i{0}; i < loop_ub; i++) {
@@ -328,12 +347,12 @@ waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
   for (int i{0}; i < loop_ub; i++) {
     c_val[i] = wfmIn->stft->t[i];
   }
-  j_val.set_size(c_val.size(0));
+  i_val.set_size(c_val.size(0));
   loop_ub = c_val.size(0) - 1;
   for (int i{0}; i <= loop_ub; i++) {
-    j_val[i] = c_val[i];
+    i_val[i] = c_val[i];
   }
-  coder::internal::validator_check_size(j_val, c_val);
+  coder::internal::validator_check_size(i_val, c_val);
   d_val->t.set_size(c_val.size(0));
   loop_ub = c_val.size(0);
   for (int i{0}; i < loop_ub; i++) {
@@ -345,84 +364,84 @@ waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
   for (int i{0}; i < loop_ub; i++) {
     c_val[i] = wfmIn->stft->psd[i];
   }
-  j_val.set_size(c_val.size(0));
+  i_val.set_size(c_val.size(0));
   loop_ub = c_val.size(0) - 1;
   for (int i{0}; i <= loop_ub; i++) {
-    j_val[i] = c_val[i];
+    i_val[i] = c_val[i];
   }
-  coder::internal::validator_check_size(j_val, c_val);
+  coder::internal::validator_check_size(i_val, c_val);
   d_val->psd.set_size(c_val.size(0));
   loop_ub = c_val.size(0);
   for (int i{0}; i < loop_ub; i++) {
     d_val->psd[i] = c_val[i];
   }
   d_val = iobj_2->stft;
-  k_val = wfmIn->stft->dt;
-  d_val->dt = k_val;
+  j_val = wfmIn->stft->dt;
+  d_val->dt = j_val;
   d_val = iobj_2->stft;
-  k_val = wfmIn->stft->T;
-  d_val->T = k_val;
+  j_val = wfmIn->stft->T;
+  d_val->T = j_val;
   d_val = iobj_2->stft;
   c_val.set_size(wfmIn->stft->wind.size(0));
   loop_ub = wfmIn->stft->wind.size(0);
   for (int i{0}; i < loop_ub; i++) {
     c_val[i] = wfmIn->stft->wind[i];
   }
-  j_val.set_size(c_val.size(0));
+  i_val.set_size(c_val.size(0));
   loop_ub = c_val.size(0) - 1;
   for (int i{0}; i <= loop_ub; i++) {
-    j_val[i] = c_val[i];
+    i_val[i] = c_val[i];
   }
-  coder::internal::validator_check_size(j_val, c_val);
+  coder::internal::validator_check_size(i_val, c_val);
   d_val->wind.set_size(c_val.size(0));
   loop_ub = c_val.size(0);
   for (int i{0}; i < loop_ub; i++) {
     d_val->wind[i] = c_val[i];
   }
-  k_val = wfmIn->K;
-  iobj_2->K = k_val;
+  j_val = wfmIn->K;
+  iobj_2->K = j_val;
   val.set_size(1, wfmIn->x.size(1));
   loop_ub = wfmIn->x.size(1);
   for (int i{0}; i < loop_ub; i++) {
     val[i] = wfmIn->x[i];
   }
-  l_val.set_size(1, val.size(1));
+  k_val.set_size(1, val.size(1));
   loop_ub = val.size(0) * val.size(1) - 1;
   for (int i{0}; i <= loop_ub; i++) {
-    l_val[i] = val[i];
+    k_val[i] = val[i];
   }
-  coder::internal::validator_check_size(l_val, val);
+  coder::internal::validator_check_size(k_val, val);
   iobj_2->x.set_size(1, val.size(1));
   loop_ub = val.size(1);
   for (int i{0}; i < loop_ub; i++) {
     iobj_2->x[i] = val[i];
   }
   double val_idx_1;
-  k_val = wfmIn->Fs;
-  iobj_2->Fs = k_val;
-  k_val = wfmIn->l;
-  iobj_2->l = k_val;
-  k_val = wfmIn->t_0;
-  iobj_2->t_0 = k_val;
-  k_val = wfmIn->t_f;
-  iobj_2->t_0 = k_val;
-  k_val = wfmIn->t_nextsegstart[0];
+  j_val = wfmIn->Fs;
+  iobj_2->Fs = j_val;
+  j_val = wfmIn->l;
+  iobj_2->l = j_val;
+  j_val = wfmIn->t_0;
+  iobj_2->t_0 = j_val;
+  j_val = wfmIn->t_f;
+  iobj_2->t_0 = j_val;
+  j_val = wfmIn->t_nextsegstart[0];
   val_idx_1 = wfmIn->t_nextsegstart[1];
-  iobj_2->t_nextsegstart[0] = k_val;
+  iobj_2->t_nextsegstart[0] = j_val;
   iobj_2->t_nextsegstart[1] = val_idx_1;
-  k_val = wfmIn->OLF;
-  iobj_2->OLF = k_val;
+  j_val = wfmIn->OLF;
+  iobj_2->OLF = j_val;
   b_val.set_size(wfmIn->W.size(0), wfmIn->W.size(1));
   loop_ub = wfmIn->W.size(0) * wfmIn->W.size(1);
   for (int i{0}; i < loop_ub; i++) {
     b_val[i] = wfmIn->W[i];
   }
-  i_val.set_size(b_val.size(0), b_val.size(1));
+  h_val.set_size(b_val.size(0), b_val.size(1));
   loop_ub = b_val.size(0) * b_val.size(1) - 1;
   for (int i{0}; i <= loop_ub; i++) {
-    i_val[i] = b_val[i];
+    h_val[i] = b_val[i];
   }
-  coder::internal::validator_check_size(i_val, b_val);
+  coder::internal::validator_check_size(h_val, b_val);
   iobj_2->W.set_size(b_val.size(0), b_val.size(1));
   loop_ub = b_val.size(0) * b_val.size(1);
   for (int i{0}; i < loop_ub; i++) {
@@ -433,35 +452,35 @@ waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
   for (int i{0}; i < loop_ub; i++) {
     c_val[i] = wfmIn->Wf[i];
   }
-  j_val.set_size(c_val.size(0));
+  i_val.set_size(c_val.size(0));
   loop_ub = c_val.size(0) - 1;
   for (int i{0}; i <= loop_ub; i++) {
-    j_val[i] = c_val[i];
+    i_val[i] = c_val[i];
   }
-  coder::internal::validator_check_size(j_val, c_val);
+  coder::internal::validator_check_size(i_val, c_val);
   iobj_2->Wf.set_size(c_val.size(0));
   loop_ub = c_val.size(0);
   for (int i{0}; i < loop_ub; i++) {
     iobj_2->Wf[i] = c_val[i];
   }
-  k_val = wfmIn->n_p;
-  iobj_2->n_p = k_val;
-  k_val = wfmIn->n_w;
-  iobj_2->n_w = k_val;
-  k_val = wfmIn->n_ol;
-  iobj_2->n_ol = k_val;
-  k_val = wfmIn->n_ws;
-  iobj_2->n_ws = k_val;
-  k_val = wfmIn->t_ws;
-  iobj_2->t_ws = k_val;
-  k_val = wfmIn->n_ip;
-  iobj_2->n_ip = k_val;
-  k_val = wfmIn->N;
-  iobj_2->N = k_val;
-  k_val = wfmIn->M;
-  iobj_2->M = k_val;
-  k_val = wfmIn->J;
-  iobj_2->J = k_val;
+  j_val = wfmIn->n_p;
+  iobj_2->n_p = j_val;
+  j_val = wfmIn->n_w;
+  iobj_2->n_w = j_val;
+  j_val = wfmIn->n_ol;
+  iobj_2->n_ol = j_val;
+  j_val = wfmIn->n_ws;
+  iobj_2->n_ws = j_val;
+  j_val = wfmIn->t_ws;
+  iobj_2->t_ws = j_val;
+  j_val = wfmIn->n_ip;
+  iobj_2->n_ip = j_val;
+  j_val = wfmIn->N;
+  iobj_2->N = j_val;
+  j_val = wfmIn->M;
+  iobj_2->M = j_val;
+  j_val = wfmIn->J;
+  iobj_2->J = j_val;
   return wfmOut;
 }
 

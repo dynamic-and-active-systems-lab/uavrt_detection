@@ -5,7 +5,7 @@
 // File: unaryMinOrMax.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -31,7 +31,7 @@ double b_unaryMinOrMax_anonFcn1(const ::coder::array<double, 1U> &x)
   double varargout_1;
   int last;
   if (x.size(0) < 1) {
-    ib_rtErrorWithMessageID(bc_emlrtRTEI.fName, bc_emlrtRTEI.lineNo);
+    ib_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
   }
   last = x.size(0);
   if (x.size(0) <= 2) {
@@ -94,7 +94,7 @@ double unaryMinOrMax_anonFcn1(const ::coder::array<double, 1U> &x)
   double varargout_1;
   int last;
   if (x.size(0) < 1) {
-    ib_rtErrorWithMessageID(bc_emlrtRTEI.fName, bc_emlrtRTEI.lineNo);
+    ib_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
   }
   last = x.size(0);
   if (x.size(0) <= 2) {

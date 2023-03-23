@@ -5,7 +5,7 @@
 // File: randn.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -33,10 +33,12 @@ void randn(double r[1000])
 
 //
 // Arguments    : double varargin_1
+//                unsigned int varargin_2
 //                ::coder::array<double, 2U> &r
 // Return Type  : void
 //
-void randn(double varargin_1, ::coder::array<double, 2U> &r)
+void randn(double varargin_1, unsigned int varargin_2,
+           ::coder::array<double, 2U> &r)
 {
   static rtDoubleCheckInfo t_emlrtDCI{
       37,                            // lineNo
@@ -51,8 +53,8 @@ void randn(double varargin_1, ::coder::array<double, 2U> &r)
   if (!(varargin_1 >= 0.0)) {
     rtNonNegativeError(varargin_1, &t_emlrtDCI);
   }
-  r.set_size(static_cast<int>(varargin_1), 100);
-  i = static_cast<int>(varargin_1) * 100;
+  r.set_size(static_cast<int>(varargin_1), static_cast<int>(varargin_2));
+  i = static_cast<int>(varargin_1) * static_cast<int>(varargin_2);
   for (int k{0}; k < i; k++) {
     r[k] = eml_rand_mt19937ar(state);
   }

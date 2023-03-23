@@ -5,7 +5,7 @@
 // File: threshold.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 #ifndef THRESHOLD_H
@@ -23,10 +23,12 @@ class waveform;
 // Type Definitions
 class threshold {
 public:
-  void init();
   void makenewthreshold(const waveform *Wfm);
   double pf;
+  double evMuParam;
+  double evSigmaParam;
   coder::array<double, 1U> threshVecFine;
+  unsigned int trials;
 };
 
 #endif

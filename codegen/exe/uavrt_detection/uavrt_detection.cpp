@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -15,6 +15,7 @@
 #include "ComplexSingleSamplesUDPReceiver.h"
 #include "DetectorConfig.h"
 #include "all.h"
+#include "blockedSummation.h"
 #include "datetime.h"
 #include "diff.h"
 #include "eml_int_forloop_overflow_check.h"
@@ -27,7 +28,6 @@
 #include "ifWhileCond.h"
 #include "indexShapeCheck.h"
 #include "makepulsestruc.h"
-#include "mean.h"
 #include "pulsestats.h"
 #include "ref.h"
 #include "rt_nonfinite.h"
@@ -36,7 +36,6 @@
 #include "strcmp.h"
 #include "string1.h"
 #include "strtok.h"
-#include "sum.h"
 #include "threshold.h"
 #include "tic.h"
 #include "toc.h"
@@ -253,7 +252,7 @@ interleaveComplexVector(const coder::array<creal32_T, 1U> &complexDataIn,
     varargin_2[i] = complexDataIn[i].im;
   }
   if (varargin_2.size(0) != varargin_1.size(0)) {
-    cb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+    cb_rtErrorWithMessageID(vb_emlrtRTEI.fName, vb_emlrtRTEI.lineNo);
   }
   dataMatrix.set_size(2, varargin_1.size(0));
   loop_ub = varargin_1.size(0);
@@ -315,6 +314,8 @@ updatebufferreadvariables(const coder::b_captured_var *Config,
   // Build an empty waveform just so that we can calculate number
   // of overlapSamples. This is needed for buffer operations
   // X0 = waveform([], Config.Fs, 0, pulsestats, stftOverlapFraction);
+  // UNTITLED2 Construct an instance of this class
+  //    Detailed explanation goes here
   // WAVEFORM Constructs an instance of this class
   // INPUTS:
   //    x       1xn     Vector of samples
@@ -921,21 +922,21 @@ static void updateconfig(coder::b_captured_var *Config,
       "H:\\repos\\uavrt_detection\\DetectorConfig.m", // pName
       0                                               // checkKind
   };
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo ad_emlrtRTEI{
+      18,                    // lineNo
+      "binaryRelopValidator" // fName
+  };
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       37,     // lineNo
       "fopen" // fName
   };
-  static rtRunTimeErrorInfo vc_emlrtRTEI{
+  static rtRunTimeErrorInfo xc_emlrtRTEI{
       10,              // lineNo
       "mustBePositive" // fName
   };
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
+  static rtRunTimeErrorInfo yc_emlrtRTEI{
       10,                 // lineNo
       "mustBeNonnegative" // fName
-  };
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
-      18,                    // lineNo
-      "binaryRelopValidator" // fName
   };
   static const char b_cv[2]{'I', 'D'};
   FILE *b_NULL;
@@ -983,7 +984,7 @@ static void updateconfig(coder::b_captured_var *Config,
   //    none (method modifies the properties of the instance)
   //
   if (coder::internal::b_strcmp(configPath->contents)) {
-    b_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   } else {
     signed char fileid;
     fileid = coder::cfopen(configPath->contents, "rb");
@@ -1175,7 +1176,7 @@ static void updateconfig(coder::b_captured_var *Config,
           }
           Config->contents.ID = in;
           if (in <= 0U) {
-            d_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+            d_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
           }
         } else {
           c_lineStr.set_size(1, match_idx);
@@ -1191,7 +1192,7 @@ static void updateconfig(coder::b_captured_var *Config,
             }
             dc = coder::str2double(c_lineStr);
             if (!(dc.re >= 0.0)) {
-              e_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+              e_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
             }
             Config->contents.channelCenterFreqMHz = dc.re;
           } else {
@@ -1227,8 +1228,8 @@ static void updateconfig(coder::b_captured_var *Config,
                 }
                 Config->contents.portData = b_in;
                 if (b_in <= 0) {
-                  d_rtErrorWithMessageID(vc_emlrtRTEI.fName,
-                                         vc_emlrtRTEI.lineNo);
+                  d_rtErrorWithMessageID(xc_emlrtRTEI.fName,
+                                         xc_emlrtRTEI.lineNo);
                 }
               } else {
                 c_lineStr.set_size(1, match_idx);
@@ -1244,8 +1245,8 @@ static void updateconfig(coder::b_captured_var *Config,
                   }
                   dc = coder::str2double(c_lineStr);
                   if (!(dc.re > 0.0)) {
-                    d_rtErrorWithMessageID(vc_emlrtRTEI.fName,
-                                           vc_emlrtRTEI.lineNo);
+                    d_rtErrorWithMessageID(xc_emlrtRTEI.fName,
+                                           xc_emlrtRTEI.lineNo);
                   }
                   Config->contents.Fs = dc.re;
                 } else {
@@ -1276,8 +1277,8 @@ static void updateconfig(coder::b_captured_var *Config,
                       }
                       dc = coder::str2double(c_lineStr);
                       if (!(dc.re > 0.0)) {
-                        d_rtErrorWithMessageID(vc_emlrtRTEI.fName,
-                                               vc_emlrtRTEI.lineNo);
+                        d_rtErrorWithMessageID(xc_emlrtRTEI.fName,
+                                               xc_emlrtRTEI.lineNo);
                       }
                       Config->contents.tp = dc.re;
                     } else {
@@ -1294,8 +1295,8 @@ static void updateconfig(coder::b_captured_var *Config,
                         }
                         dc = coder::str2double(c_lineStr);
                         if (!(dc.re > 0.0)) {
-                          d_rtErrorWithMessageID(vc_emlrtRTEI.fName,
-                                                 vc_emlrtRTEI.lineNo);
+                          d_rtErrorWithMessageID(xc_emlrtRTEI.fName,
+                                                 xc_emlrtRTEI.lineNo);
                         }
                         Config->contents.tip = dc.re;
                       } else {
@@ -1312,8 +1313,8 @@ static void updateconfig(coder::b_captured_var *Config,
                           }
                           dc = coder::str2double(c_lineStr);
                           if (!(dc.re >= 0.0)) {
-                            e_rtErrorWithMessageID(wc_emlrtRTEI.fName,
-                                                   wc_emlrtRTEI.lineNo);
+                            e_rtErrorWithMessageID(yc_emlrtRTEI.fName,
+                                                   yc_emlrtRTEI.lineNo);
                           }
                           Config->contents.tipu = dc.re;
                         } else {
@@ -1330,8 +1331,8 @@ static void updateconfig(coder::b_captured_var *Config,
                             }
                             dc = coder::str2double(c_lineStr);
                             if (!(dc.re >= 0.0)) {
-                              e_rtErrorWithMessageID(wc_emlrtRTEI.fName,
-                                                     wc_emlrtRTEI.lineNo);
+                              e_rtErrorWithMessageID(yc_emlrtRTEI.fName,
+                                                     yc_emlrtRTEI.lineNo);
                             }
                             Config->contents.tipj = dc.re;
                           } else {
@@ -1363,8 +1364,8 @@ static void updateconfig(coder::b_captured_var *Config,
                               }
                               Config->contents.K = c_in;
                               if (c_in <= 0) {
-                                d_rtErrorWithMessageID(vc_emlrtRTEI.fName,
-                                                       vc_emlrtRTEI.lineNo);
+                                d_rtErrorWithMessageID(xc_emlrtRTEI.fName,
+                                                       xc_emlrtRTEI.lineNo);
                               }
                             } else {
                               c_lineStr.set_size(1, match_idx);
@@ -1418,14 +1419,14 @@ static void updateconfig(coder::b_captured_var *Config,
                                     dc = coder::str2double(c_lineStr);
                                     if (!(dc.re > 0.0)) {
                                       d_rtErrorWithMessageID(
-                                          vc_emlrtRTEI.fName,
-                                          vc_emlrtRTEI.lineNo);
+                                          xc_emlrtRTEI.fName,
+                                          xc_emlrtRTEI.lineNo);
                                     }
                                     if (!(dc.re < 1.0)) {
                                       b_rtErrorWithMessageID(
                                           "  1.000000000000000e+00",
-                                          xc_emlrtRTEI.fName,
-                                          xc_emlrtRTEI.lineNo);
+                                          ad_emlrtRTEI.fName,
+                                          ad_emlrtRTEI.lineNo);
                                     }
                                     Config->contents.falseAlarmProb = dc.re;
                                   } else {
@@ -1521,13 +1522,12 @@ static void updateconfig(coder::b_captured_var *Config,
 }
 
 //
-// UNTITLED Summary of this function goes here
-//    Detailed explanation goes here
-//
 // Arguments    : const coder::array<char, 2U> &configPath
+//                const coder::array<char, 2U> &thresholdCachePath
 // Return Type  : void
 //
-void uavrt_detection(const coder::array<char, 2U> &configPath)
+void uavrt_detection(const coder::array<char, 2U> &configPath,
+                     const coder::array<char, 2U> &thresholdCachePath)
 {
   static coder::dsp::AsyncBuffer asyncDataBuff;
   static coder::dsp::b_AsyncBuffer asyncTimeBuff;
@@ -1535,7 +1535,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo fb_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      393,                                             // lineNo
+      399,                                             // lineNo
       82,                                              // colNo
       "timeVector",                                    // aName
       "uavrt_detection",                               // fName
@@ -1545,7 +1545,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo gb_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      409,                                             // lineNo
+      415,                                             // lineNo
       32,                                              // colNo
       "t",                                             // aName
       "uavrt_detection",                               // fName
@@ -1555,7 +1555,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo hb_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      575,                                             // lineNo
+      581,                                             // lineNo
       61,                                              // colNo
       "X.ps_pos.pl",                                   // aName
       "uavrt_detection",                               // fName
@@ -1565,7 +1565,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo ib_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      580,                                             // lineNo
+      586,                                             // lineNo
       79,                                              // colNo
       "ps_pre_struc.pl",                               // aName
       "uavrt_detection",                               // fName
@@ -1575,7 +1575,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo jb_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      586,                                             // lineNo
+      592,                                             // lineNo
       50,                                              // colNo
       "pulsesToSkip",                                  // aName
       "uavrt_detection",                               // fName
@@ -1585,7 +1585,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo kb_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      647,                                             // lineNo
+      653,                                             // lineNo
       91,                                              // colNo
       "X.ps_pos.pl",                                   // aName
       "uavrt_detection",                               // fName
@@ -1595,7 +1595,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   static rtBoundsCheckInfo lb_emlrtBCI{
       -1,                                              // iFirst
       -1,                                              // iLast
-      660,                                             // lineNo
+      666,                                             // lineNo
       50,                                              // colNo
       "pulsesToSkip",                                  // aName
       "uavrt_detection",                               // fName
@@ -1603,14 +1603,14 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
       0                                                // checkKind
   };
   static rtDoubleCheckInfo t_emlrtDCI{
-      279,                                             // lineNo
+      285,                                             // lineNo
       50,                                              // colNo
       "uavrt_detection",                               // fName
       "H:\\repos\\uavrt_detection\\uavrt_detection.m", // pName
       4                                                // checkKind
   };
   static rtDoubleCheckInfo u_emlrtDCI{
-      279,                                             // lineNo
+      285,                                             // lineNo
       50,                                              // colNo
       "uavrt_detection",                               // fName
       "H:\\repos\\uavrt_detection\\uavrt_detection.m", // pName
@@ -1618,7 +1618,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   };
   static rtEqualityCheckInfo g_emlrtECI{
       1,                                              // nDims
-      279,                                            // lineNo
+      285,                                            // lineNo
       37,                                             // colNo
       "uavrt_detection",                              // fName
       "H:\\repos\\uavrt_detection\\uavrt_detection.m" // pName
@@ -1643,7 +1643,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   pulsestats lobj_17;
   pulsestats lobj_18;
   pulsestats *pulseStatsPriori;
-  threshold obj;
+  threshold b_val;
   waveform b_X;
   waveform lobj_13;
   waveform lobj_20;
@@ -1660,24 +1660,26 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   coder::array<creal32_T, 1U> c_iqDataToWrite;
   coder::array<creal32_T, 1U> dataWriterBuffData;
   coder::array<creal32_T, 1U> x;
-  coder::array<cuint8_T, 1U> r1;
-  coder::array<double, 2U> b_varargin_1;
+  coder::array<cuint8_T, 1U> r;
   coder::array<double, 2U> b_x;
+  coder::array<double, 2U> groupSNRList;
   coder::array<double, 2U> ps_pre_struc_cpki;
-  coder::array<double, 1U> r3;
+  coder::array<double, 1U> b_groupSNRList;
+  coder::array<double, 1U> r2;
   coder::array<double, 1U> t;
   coder::array<double, 1U> timeVector;
-  coder::array<float, 1U> r2;
+  coder::array<float, 1U> r1;
   coder::array<char, 2U> varargin_1;
   coder::array<boolean_T, 2U> b_pulsesToSkip;
   coder::array<boolean_T, 2U> ps_pre_struc_cmsk;
   coder::array<boolean_T, 2U> pulsesToSkip;
+  coder::array<boolean_T, 2U> r4;
   coder::array<boolean_T, 2U> r5;
-  coder::array<boolean_T, 2U> r6;
   coder::array<boolean_T, 1U> b_tmp_data;
-  coder::array<boolean_T, 1U> r4;
+  coder::array<boolean_T, 1U> r3;
+  c_struct_T b_expl_temp;
   c_struct_T detectorPulse;
-  c_struct_T r;
+  c_struct_T expl_temp;
   creal_T dcv[1000];
   creal32_T dataReceived_data[1024];
   creal32_T exampleData[1000];
@@ -1690,12 +1692,17 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   double ps_pre_struc_fend;
   double ps_pre_struc_fp;
   double ps_pre_struc_fstart;
-  double ps_pre_struc_t_ip;
-  double ps_pre_struc_t_ipj;
-  double ps_pre_struc_t_ipu;
-  double ps_pre_struc_t_p;
+  double pulseCount;
   double segmentsProcessed;
   double startTime;
+  double t9_SNR;
+  double t9_fend;
+  double t9_fp;
+  double t9_fstart;
+  double t9_t_0;
+  double t9_t_f;
+  double timeDiff;
+  double timeStamp;
   double trackedCount;
   int currDir_size[2];
   int i;
@@ -1713,6 +1720,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   boolean_T fLock;
   boolean_T resetBuffersFlag;
   boolean_T staleDataFlag;
+  boolean_T t9_con_dec;
+  boolean_T t9_det_dec;
   boolean_T tmp_data;
   if (!isInitialized_uavrt_detection) {
     uavrt_detection_initialize();
@@ -1722,8 +1731,17 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   for (i = 0; i < n; i++) {
     b_configPath.contents[i] = configPath[i];
   }
+  //  configPath            - Fully qualified path to detect config file
+  //  thresholdCachePath    - Fully qualified path to where the threshold cache
+  //  files are stored.
+  //                          If not specified thresholds will be re-generated.
   // Needed for usleep function in generated code
   //  coder.cinclude('stdlib.h')%needed for system call to kill the channelizer
+  globalThresholdCachePath.set_size(1, thresholdCachePath.size(1));
+  n = thresholdCachePath.size(1);
+  for (i = 0; i < n; i++) {
+    globalThresholdCachePath[i] = thresholdCachePath[i];
+  }
   Config.contents.init();
   // Build empty config object
   updateconfig(&Config, &b_configPath);
@@ -1764,11 +1782,28 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   fflush(stdout);
   printf("ROS2 setup disabled");
   fflush(stdout);
-  makepulsestruc(&detectorPulse);
-  makepulsestruc(&r);
+  makepulsestruc(&detectorPulse.A, &detectorPulse.P, &detectorPulse.SNR,
+                 &detectorPulse.yw, &detectorPulse.t_0, &detectorPulse.t_f,
+                 detectorPulse.t_next, &detectorPulse.fp, &detectorPulse.fstart,
+                 &detectorPulse.fend, detectorPulse.mode,
+                 &detectorPulse.det_dec, &detectorPulse.con_dec);
+  makepulsestruc(&timeDiff, &timeStamp, &t9_SNR, &pulseCount, &t9_t_0, &t9_t_f,
+                 expl_temp.t_next, &t9_fp, &t9_fstart, &t9_fend, expl_temp.mode,
+                 &t9_det_dec, &t9_con_dec);
+  expl_temp.con_dec = t9_con_dec;
+  expl_temp.det_dec = t9_det_dec;
+  expl_temp.fend = t9_fend;
+  expl_temp.fstart = t9_fstart;
+  expl_temp.fp = t9_fp;
+  expl_temp.t_f = t9_t_f;
+  expl_temp.t_0 = t9_t_0;
+  expl_temp.yw = pulseCount;
+  expl_temp.SNR = t9_SNR;
+  expl_temp.P = timeStamp;
+  expl_temp.A = timeDiff;
   pulseStatsPriori = lobj_21[1].init(Config.contents.tp, Config.contents.tip,
                                      Config.contents.tipu, Config.contents.tipj,
-                                     &detectorPulse, &r);
+                                     &detectorPulse, &expl_temp);
   //  % tp, tip, tipu
   //  % tipj, fp, fstart, fend, tmplt, mode
   //   % pl ,clst
@@ -1845,18 +1880,27 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   // dims 0 if fixed, 1 if variable
   printf("Startup set 5 complete. \n");
   fflush(stdout);
-  ps_pre_struc_t_p = 0.0;
-  ps_pre_struc_t_ip = 0.0;
-  ps_pre_struc_t_ipu = 0.0;
-  ps_pre_struc_t_ipj = 0.0;
+  t9_t_f = 0.0;
+  t9_fp = 0.0;
+  t9_fstart = 0.0;
+  t9_fend = 0.0;
   ps_pre_struc_fp = 0.0;
   ps_pre_struc_fstart = 0.0;
   ps_pre_struc_fend = 0.0;
   ps_pre_struc_tmplt[0] = 1.0;
   ps_pre_struc_tmplt[1] = 1.0;
+  makepulsestruc(&detectorPulse.A, &detectorPulse.P, &detectorPulse.SNR,
+                 &detectorPulse.yw, &detectorPulse.t_0, &detectorPulse.t_f,
+                 detectorPulse.t_next, &detectorPulse.fp, &detectorPulse.fstart,
+                 &detectorPulse.fend, detectorPulse.mode,
+                 &detectorPulse.det_dec, &detectorPulse.con_dec);
   ps_pre_struc_pl.set_size(1, 1);
-  makepulsestruc(&detectorPulse);
   ps_pre_struc_pl[0] = detectorPulse;
+  makepulsestruc(&detectorPulse.A, &detectorPulse.P, &detectorPulse.SNR,
+                 &detectorPulse.yw, &detectorPulse.t_0, &detectorPulse.t_f,
+                 detectorPulse.t_next, &detectorPulse.fp, &detectorPulse.fstart,
+                 &detectorPulse.fend, detectorPulse.mode,
+                 &detectorPulse.det_dec, &detectorPulse.con_dec);
   ps_pre_struc_clst.set_size(1, 1);
   ps_pre_struc_clst[0] = detectorPulse;
   ps_pre_struc_cmsk.set_size(1, 1);
@@ -1897,10 +1941,14 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   }
   // UNTITLED2 Construct an instance of this class
   //    Detailed explanation goes here
-  obj.pf = Config.contents.falseAlarmProb;
-  obj.threshVecFine.set_size(1);
-  obj.threshVecFine[0] = 0.0;
-  Xhold = lobj_20.init(exampleData, Config.contents.Fs, pulseStatsPriori, &obj);
+  b_val.trials = 100U;
+  b_val.pf = Config.contents.falseAlarmProb;
+  b_val.evMuParam = 0.0;
+  b_val.evSigmaParam = 0.0;
+  b_val.threshVecFine.set_size(1);
+  b_val.threshVecFine[0] = 0.0;
+  Xhold =
+      lobj_20.init(exampleData, Config.contents.Fs, pulseStatsPriori, &b_val);
   // UNTITLED2 Construct an instance of this class
   //    Detailed explanation goes here
   X.init(exampleData, Config.contents.Fs, pulseStatsPriori, &lobj_21[0],
@@ -1929,9 +1977,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
   fflush(stdout);
   expectedNextTimeStamp = 0.0;
   while (1) {
-    double d;
-    double timeDiff;
-    double timeStamp;
     int currDir;
     unsigned int timeStampNanoSec;
     unsigned int timeStampSec;
@@ -1987,13 +2032,13 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
       timeDiff = timeStamp - expectedNextTimeStamp;
       // fprintf('Current Received Time Stamp: %f \t Expected Time Stamp: %f \t
       // Diff: %f \n',timeStamp, expectedNextTimeStamp, timeDiff)
-      d = Config.contents.tp / 2.0;
-      if (std::abs(timeDiff) < d) {
+      t9_t_0 = Config.contents.tp / 2.0;
+      if (std::abs(timeDiff) < t9_t_0) {
         iqDataToWrite.set_size(1023, 1);
         for (i = 0; i < 1023; i++) {
           iqDataToWrite[i] = dataReceived_data[i + 1];
         }
-      } else if ((timeDiff >= d) && (timeDiff < Config.contents.tip)) {
+      } else if ((timeDiff >= t9_t_0) && (timeDiff < Config.contents.tip)) {
         unsigned long long u;
         // missed samples but not a whole lot
         timeDiff = std::round(timeDiff * Config.contents.Fs);
@@ -2017,37 +2062,37 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
         if (timeDiff != static_cast<int>(timeDiff)) {
           rtIntegerError(timeDiff, &u_emlrtDCI);
         }
-        r1.set_size(static_cast<int>(timeDiff));
+        r.set_size(static_cast<int>(timeDiff));
         n = static_cast<int>(timeDiff);
         for (i = 0; i < n; i++) {
-          r1[i].re = 0U;
-          r1[i].im = 0U;
+          r[i].re = 0U;
+          r[i].im = 0U;
         }
-        if ((static_cast<int>(timeDiff) != r1.size(0)) &&
-            ((static_cast<int>(timeDiff) != 1) && (r1.size(0) != 1))) {
-          emlrtDimSizeImpxCheckR2021b(static_cast<int>(timeDiff), r1.size(0),
+        if ((static_cast<int>(timeDiff) != r.size(0)) &&
+            ((static_cast<int>(timeDiff) != 1) && (r.size(0) != 1))) {
+          emlrtDimSizeImpxCheckR2021b(static_cast<int>(timeDiff), r.size(0),
                                       &g_emlrtECI);
         }
-        if (static_cast<int>(timeDiff) == r1.size(0)) {
+        if (static_cast<int>(timeDiff) == r.size(0)) {
           b_iqDataToWrite.set_size(static_cast<int>(timeDiff) + 1023);
           n = static_cast<int>(timeDiff);
           for (i = 0; i < n; i++) {
             b_iqDataToWrite[i].re = 0.0F;
-            b_iqDataToWrite[i].im = static_cast<signed char>(r1[i].im);
+            b_iqDataToWrite[i].im = static_cast<signed char>(r[i].im);
           }
           for (i = 0; i < 1023; i++) {
             b_iqDataToWrite[i + static_cast<int>(timeDiff)] =
                 dataReceived_data[i + 1];
           }
         } else {
-          binary_expand_op(b_iqDataToWrite, timeDiff, r1, dataReceived_data);
+          binary_expand_op(b_iqDataToWrite, timeDiff, r, dataReceived_data);
         }
         iqDataToWrite.set_size(b_iqDataToWrite.size(0), 1);
         n = b_iqDataToWrite.size(0);
         for (i = 0; i < n; i++) {
           iqDataToWrite[i] = b_iqDataToWrite[i];
         }
-      } else if (((timeDiff >= d) && (timeDiff >= Config.contents.tip)) ||
+      } else if (((timeDiff >= t9_t_0) && (timeDiff >= Config.contents.tip)) ||
                  (timeDiff < -Config.contents.tp / 2.0)) {
         //  %missed a lot of samples. Reset buffers
         // predictions is ahead of recently received packet. Shouldn't ever
@@ -2060,18 +2105,18 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
     }
     n = iqDataToWrite.size(0) * iqDataToWrite.size(1) - 1;
     if (n < 0) {
-      b_varargin_1.set_size(1, 0);
+      groupSNRList.set_size(1, 0);
     } else {
-      b_varargin_1.set_size(1, n + 1);
+      groupSNRList.set_size(1, n + 1);
       for (i = 0; i <= n; i++) {
-        b_varargin_1[i] = i;
+        groupSNRList[i] = i;
       }
     }
     timeDiff = 1.0 / Config.contents.Fs;
-    timeVector.set_size(b_varargin_1.size(1));
-    n = b_varargin_1.size(1);
+    timeVector.set_size(groupSNRList.size(1));
+    n = groupSNRList.size(1);
     for (i = 0; i < n; i++) {
-      timeVector[i] = timeStamp + timeDiff * b_varargin_1[i];
+      timeVector[i] = timeStamp + timeDiff * groupSNRList[i];
     }
     expectedNextTimeStamp = timeStamp + timeDiff * 1023.0;
     framesReceived++;
@@ -2192,8 +2237,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
     if (currDir == dataWriterSamples) {
       asyncWriteBuff.read(dataWriterBuffData);
       if (fileid != -1) {
-        interleaveComplexVector(dataWriterBuffData, r2);
-        coder::b_fwrite(static_cast<double>(fileid), r2);
+        interleaveComplexVector(dataWriterBuffData, r1);
+        coder::b_fwrite(static_cast<double>(fileid), r1);
       }
     }
     // end
@@ -2238,26 +2283,26 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
     }
     if (currDir >= sampsForKPulses.contents + overlapSamples.contents) {
       double processingStartToc;
-      d = std::round(sampsForKPulses.contents);
-      if (d < 4.294967296E+9) {
-        if (d >= 0.0) {
-          timeStampSec = static_cast<unsigned int>(d);
+      t9_t_0 = std::round(sampsForKPulses.contents);
+      if (t9_t_0 < 4.294967296E+9) {
+        if (t9_t_0 >= 0.0) {
+          timeStampSec = static_cast<unsigned int>(t9_t_0);
         } else {
           timeStampSec = 0U;
         }
-      } else if (d >= 4.294967296E+9) {
+      } else if (t9_t_0 >= 4.294967296E+9) {
         timeStampSec = MAX_uint32_T;
       } else {
         timeStampSec = 0U;
       }
-      d = std::round(overlapSamples.contents);
-      if (d < 4.294967296E+9) {
-        if (d >= 0.0) {
-          timeStampNanoSec = static_cast<unsigned int>(d);
+      t9_t_0 = std::round(overlapSamples.contents);
+      if (t9_t_0 < 4.294967296E+9) {
+        if (t9_t_0 >= 0.0) {
+          timeStampNanoSec = static_cast<unsigned int>(t9_t_0);
         } else {
           timeStampNanoSec = 0U;
         }
-      } else if (d >= 4.294967296E+9) {
+      } else if (t9_t_0 >= 4.294967296E+9) {
         timeStampNanoSec = MAX_uint32_T;
       } else {
         timeStampNanoSec = 0U;
@@ -2339,12 +2384,12 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
       // by more than the interpulse uncertainty, then the
       // detection will likely fail or produces bad results. In
       // this case. Skip the processing and clear the buffer.
-      coder::diff(t, r3);
-      n = r3.size(0);
+      coder::diff(t, r2);
+      n = r2.size(0);
       for (i = 0; i < n; i++) {
-        r3[i] = r3[i] - timeDiff;
+        r2[i] = r2[i] - timeDiff;
       }
-      timeDiff = coder::sum(r3);
+      timeDiff = coder::blockedSummation(r2, r2.size(0));
       if ((Config.contents.K > 1.0) &&
           (timeDiff > Config.contents.tipu + Config.contents.tipj)) {
         printf("Significant time differences found in timestamp record. "
@@ -2353,7 +2398,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
         resetBuffersFlag = true;
         staleDataFlag = true;
       } else {
-        double pulseCount;
         unsigned int validatedHoleFilling[3];
         unsigned int varargin_3;
         if (t.size(0) < 1) {
@@ -2392,65 +2436,92 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
             fLock = false;
             break;
           }
-          makepulsestruc(&detectorPulse);
-          makepulsestruc(&r);
+          makepulsestruc(&detectorPulse.A, &detectorPulse.P, &detectorPulse.SNR,
+                         &detectorPulse.yw, &detectorPulse.t_0,
+                         &detectorPulse.t_f, detectorPulse.t_next,
+                         &detectorPulse.fp, &detectorPulse.fstart,
+                         &detectorPulse.fend, detectorPulse.mode,
+                         &detectorPulse.det_dec, &detectorPulse.con_dec);
+          makepulsestruc(&timeDiff, &timeStamp, &t9_SNR, &pulseCount, &t9_t_0,
+                         &t9_t_f, expl_temp.t_next, &t9_fp, &t9_fstart,
+                         &t9_fend, expl_temp.mode, &t9_det_dec, &t9_con_dec);
+          b_expl_temp.con_dec = t9_con_dec;
+          b_expl_temp.det_dec = t9_det_dec;
+          b_expl_temp.mode.set_size(1, expl_temp.mode.size(1));
+          n = expl_temp.mode.size(1);
+          for (i = 0; i < n; i++) {
+            b_expl_temp.mode[i] = expl_temp.mode[i];
+          }
+          b_expl_temp.fend = t9_fend;
+          b_expl_temp.fstart = t9_fstart;
+          b_expl_temp.fp = t9_fp;
+          b_expl_temp.t_next[0] = expl_temp.t_next[0];
+          b_expl_temp.t_next[1] = expl_temp.t_next[1];
+          b_expl_temp.t_f = t9_t_f;
+          b_expl_temp.t_0 = t9_t_0;
+          b_expl_temp.yw = pulseCount;
+          b_expl_temp.SNR = t9_SNR;
+          b_expl_temp.P = timeStamp;
+          b_expl_temp.A = timeDiff;
           pulseStatsPriori = lobj_15.init(
               Config.contents.tp, Config.contents.tip, Config.contents.tipu,
               Config.contents.tipj,
               1.0E-5 * std::abs(Config.contents.tagFreqMHz -
                                 Config.contents.channelCenterFreqMHz),
-              &detectorPulse, &r);
+              &detectorPulse, &b_expl_temp);
           configUpdatedFlag = false;
         } else {
           pulseStatsPriori = lobj_18.c_init(
-              ps_pre_struc_t_p, ps_pre_struc_t_ip, ps_pre_struc_t_ipu,
-              ps_pre_struc_t_ipj, ps_pre_struc_fp, ps_pre_struc_fstart,
-              ps_pre_struc_fend, ps_pre_struc_tmplt, (char *)&mode,
-              ps_pre_struc_pl, ps_pre_struc_clst, ps_pre_struc_cmsk,
-              ps_pre_struc_cpki);
+              t9_t_f, t9_fp, t9_fstart, t9_fend, ps_pre_struc_fp,
+              ps_pre_struc_fstart, ps_pre_struc_fend, ps_pre_struc_tmplt,
+              (char *)&mode, ps_pre_struc_pl, ps_pre_struc_clst,
+              ps_pre_struc_cmsk, ps_pre_struc_cpki);
         }
         //                         %% PRIMARY PROCESSING BLOCK
         // Prep waveform for processing/detection
         // UNTITLED2 Construct an instance of this class
         //    Detailed explanation goes here
-        obj.pf = Config.contents.falseAlarmProb;
-        obj.threshVecFine.set_size(1);
-        obj.threshVecFine[0] = 0.0;
-        b_X.init(x, Config.contents.Fs, t[0], pulseStatsPriori, &obj, &lobj_17,
-                 &lobj_16);
+        b_val.trials = 100U;
+        b_val.pf = Config.contents.falseAlarmProb;
+        b_val.evMuParam = 0.0;
+        b_val.evSigmaParam = 0.0;
+        b_val.threshVecFine.set_size(1);
+        b_val.threshVecFine[0] = 0.0;
+        b_X.init(x, Config.contents.Fs, t[0], pulseStatsPriori, &b_val,
+                 &lobj_17, &lobj_16);
         b_X.K = Config.contents.K;
-        d = std::round(b_X.N);
-        if (d < 4.294967296E+9) {
-          if (d >= 0.0) {
-            timeStampSec = static_cast<unsigned int>(d);
+        t9_t_0 = std::round(b_X.N);
+        if (t9_t_0 < 4.294967296E+9) {
+          if (t9_t_0 >= 0.0) {
+            timeStampSec = static_cast<unsigned int>(t9_t_0);
           } else {
             timeStampSec = 0U;
           }
-        } else if (d >= 4.294967296E+9) {
+        } else if (t9_t_0 >= 4.294967296E+9) {
           timeStampSec = MAX_uint32_T;
         } else {
           timeStampSec = 0U;
         }
-        d = std::round(b_X.M);
-        if (d < 4.294967296E+9) {
-          if (d >= 0.0) {
-            timeStampNanoSec = static_cast<unsigned int>(d);
+        t9_t_0 = std::round(b_X.M);
+        if (t9_t_0 < 4.294967296E+9) {
+          if (t9_t_0 >= 0.0) {
+            timeStampNanoSec = static_cast<unsigned int>(t9_t_0);
           } else {
             timeStampNanoSec = 0U;
           }
-        } else if (d >= 4.294967296E+9) {
+        } else if (t9_t_0 >= 4.294967296E+9) {
           timeStampNanoSec = MAX_uint32_T;
         } else {
           timeStampNanoSec = 0U;
         }
-        d = std::round(b_X.J);
-        if (d < 4.294967296E+9) {
-          if (d >= 0.0) {
-            varargin_3 = static_cast<unsigned int>(d);
+        t9_t_0 = std::round(b_X.J);
+        if (t9_t_0 < 4.294967296E+9) {
+          if (t9_t_0 >= 0.0) {
+            varargin_3 = static_cast<unsigned int>(t9_t_0);
           } else {
             varargin_3 = 0U;
           }
-        } else if (d >= 4.294967296E+9) {
+        } else if (t9_t_0 >= 4.294967296E+9) {
           varargin_3 = MAX_uint32_T;
         } else {
           varargin_3 = 0U;
@@ -2517,15 +2588,15 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
         if (segmentsProcessed == 0.0) {
           printf("Building thresholds  ...");
           fflush(stdout);
-          obj = b_X.thresh;
-          obj.makenewthreshold(&b_X);
-          b_X.thresh = obj;
+          b_val = b_X.thresh;
+          b_val.makenewthreshold(&b_X);
+          b_X.thresh = b_val;
         } else {
           printf("Setting thresholds from previous waveform  ...");
           fflush(stdout);
           // X.thresh = X.thresh.setthreshold(X,Xhold);
-          obj = Xhold->thresh;
-          b_X.thresh = obj;
+          b_val = Xhold->thresh;
+          b_X.thresh = b_val;
         }
         timeDiff = coder::toc() - timeDiff;
         printf("complete. Elapsed time: %f seconds \n", timeDiff);
@@ -2534,14 +2605,14 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
         printf("Time windows in S: %u \n", timeStampSec);
         fflush(stdout);
         timeDiff = coder::toc();
-        d = std::round(Config.contents.ID);
-        if (d < 4.294967296E+9) {
-          if (d >= 0.0) {
-            timeStampSec = static_cast<unsigned int>(d);
+        t9_t_0 = std::round(Config.contents.ID);
+        if (t9_t_0 < 4.294967296E+9) {
+          if (t9_t_0 >= 0.0) {
+            timeStampSec = static_cast<unsigned int>(t9_t_0);
           } else {
             timeStampSec = 0U;
           }
-        } else if (d >= 4.294967296E+9) {
+        } else if (t9_t_0 >= 4.294967296E+9) {
           timeStampSec = MAX_uint32_T;
         } else {
           timeStampSec = 0U;
@@ -2596,8 +2667,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
           currDir_size[1] = 0;
         }
         b_pulsesToSkip = pulsesToSkip.reshape(1, currDir_size[1]);
-        coder::all(b_pulsesToSkip, r4);
-        if (coder::internal::ifWhileCond(r4)) {
+        coder::all(b_pulsesToSkip, r3);
+        if (coder::internal::ifWhileCond(r3)) {
           // Check if all were confirmed
           fLock = true;
         }
@@ -2605,10 +2676,10 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
         // only do so in that case if we are no longer confirming
         // pulses.
         if (coder::internal::c_strcmp(&Config.contents.opMode)) {
-          currDir = r4.size(0);
-          n = r4.size(0);
+          currDir = r3.size(0);
+          n = r3.size(0);
           for (i = 0; i < n; i++) {
-            tmp_data = !r4[i];
+            tmp_data = !r3[i];
           }
           b_tmp_data.set(&tmp_data, currDir);
           if (coder::internal::ifWhileCond(b_tmp_data)) {
@@ -2617,7 +2688,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
         }
         // Decide when/how the priori is updated for the next
         // segment's processing.
-        if (coder::internal::ifWhileCond(r4) &&
+        if (coder::internal::ifWhileCond(r3) &&
             ((mode == 'C') || (mode == 'T'))) {
           ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
           n = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
@@ -2664,10 +2735,10 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
         // Prepare priori for next segment
         printf("Updating priori...\n");
         fflush(stdout);
-        ps_pre_struc_t_p = b_X.ps_pos->t_p;
-        ps_pre_struc_t_ip = b_X.ps_pos->t_ip;
-        ps_pre_struc_t_ipu = b_X.ps_pos->t_ipu;
-        ps_pre_struc_t_ipj = b_X.ps_pos->t_ipj;
+        t9_t_f = b_X.ps_pos->t_p;
+        t9_fp = b_X.ps_pos->t_ip;
+        t9_fstart = b_X.ps_pos->t_ipu;
+        t9_fend = b_X.ps_pos->t_ipj;
         ps_pre_struc_fp = b_X.ps_pos->fp;
         ps_pre_struc_fstart = b_X.ps_pos->fstart;
         ps_pre_struc_fend = b_X.ps_pos->fend;
@@ -2719,17 +2790,17 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
         for (i = 0; i < n; i++) {
           b_x[i] = b_X.ps_pos->cpki[i];
         }
-        r5.set_size(b_x.size(0), b_x.size(1));
+        r4.set_size(b_x.size(0), b_x.size(1));
         n = b_x.size(0) * b_x.size(1);
         for (i = 0; i < n; i++) {
-          r5[i] = std::isnan(b_x[i]);
+          r4[i] = std::isnan(b_x[i]);
         }
-        r6.set_size(r5.size(0), r5.size(1));
-        n = r5.size(0) * r5.size(1);
+        r5.set_size(r4.size(0), r4.size(1));
+        n = r4.size(0) * r4.size(1);
         for (i = 0; i < n; i++) {
-          r6[i] = !r5[i];
+          r5[i] = !r4[i];
         }
-        if (coder::internal::b_ifWhileCond(r6)) {
+        if (coder::internal::b_ifWhileCond(r5)) {
           for (int j{0}; j < nPulseList; j++) {
             i = b_X.ps_pos->pl.size(1);
             if (j + 1 > i) {
@@ -2772,17 +2843,17 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
         for (i = 0; i < n; i++) {
           b_x[i] = b_X.ps_pos->cpki[i];
         }
-        r5.set_size(b_x.size(0), b_x.size(1));
+        r4.set_size(b_x.size(0), b_x.size(1));
         n = b_x.size(0) * b_x.size(1);
         for (i = 0; i < n; i++) {
-          r5[i] = std::isnan(b_x[i]);
+          r4[i] = std::isnan(b_x[i]);
         }
-        r6.set_size(r5.size(0), r5.size(1));
-        n = r5.size(0) * r5.size(1);
+        r5.set_size(r4.size(0), r4.size(1));
+        n = r4.size(0) * r4.size(1);
         for (i = 0; i < n; i++) {
-          r6[i] = !r5[i];
+          r5[i] = !r4[i];
         }
-        if (coder::internal::b_ifWhileCond(r6)) {
+        if (coder::internal::b_ifWhileCond(r5)) {
           printf("Transmitting pulse messages");
           fflush(stdout);
           for (int j{0}; j < nPulseList; j++) {
@@ -2833,30 +2904,34 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
             } else {
               i = c_X.size(0);
             }
-            b_varargin_1.set_size(1, i);
+            groupSNRList.set_size(1, i);
             if (c_X.size(0) > 2147483646) {
               coder::check_forloop_overflow_error();
             }
             for (currDir = 0; currDir < n; currDir++) {
-              b_varargin_1[currDir] = c_X[currDir].SNR;
+              groupSNRList[currDir] = c_X[currDir].SNR;
             }
-            if (b_varargin_1.size(1) != 0) {
-              n = b_varargin_1.size(1);
+            if (groupSNRList.size(1) != 0) {
+              n = groupSNRList.size(1);
             } else {
               n = 0;
             }
-            // Average SNR in dB
-            b_varargin_1.set_size(1, n);
+            groupSNRList.set_size(1, n);
             for (i = 0; i < n; i++) {
-              timeDiff = b_varargin_1[i] / 10.0;
-              b_varargin_1[i] = rt_powd_snf(10.0, timeDiff);
+              timeDiff = groupSNRList[i] / 10.0;
+              groupSNRList[i] = rt_powd_snf(10.0, timeDiff);
             }
-            timeStamp = coder::mean(b_varargin_1);
-            if (timeStamp < 0.0) {
+            // Average SNR in dB
+            currDir = groupSNRList.size(1);
+            b_groupSNRList = groupSNRList.reshape(currDir);
+            t9_SNR =
+                coder::blockedSummation(b_groupSNRList, groupSNRList.size(1)) /
+                static_cast<double>(groupSNRList.size(1));
+            if (t9_SNR < 0.0) {
               rtErrorWithMessageID("log10", b_emlrtRTEI.fName,
                                    b_emlrtRTEI.lineNo);
             }
-            timeStamp = std::log10(timeStamp);
+            t9_SNR = std::log10(t9_SNR);
             // 10log10 can produce complex results and group_snr required a real
             // value. Otherwise coder will generate type errors
             // 10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average
@@ -2874,13 +2949,13 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
             if (!pulsesToSkip[j]) {
               unsigned short u1;
               //  UDP Send
-              if (d < 4.294967296E+9) {
-                if (d >= 0.0) {
-                  timeStampSec = static_cast<unsigned int>(d);
+              if (t9_t_0 < 4.294967296E+9) {
+                if (t9_t_0 >= 0.0) {
+                  timeStampSec = static_cast<unsigned int>(t9_t_0);
                 } else {
                   timeStampSec = 0U;
                 }
-              } else if (d >= 4.294967296E+9) {
+              } else if (t9_t_0 >= 4.294967296E+9) {
                 timeStampSec = MAX_uint32_T;
               } else {
                 timeStampSec = 0U;
@@ -2912,7 +2987,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath)
                 u1 = MAX_uint16_T;
               }
               doublesBuffer[7] = u1;
-              doublesBuffer[8] = 10.0 * timeStamp;
+              doublesBuffer[8] = 10.0 * t9_SNR;
               doublesBuffer[9] = detectorPulse.det_dec;
               doublesBuffer[10] = detectorPulse.con_dec;
               udpSenderSendDoubles(val, &doublesBuffer[0], 11U);

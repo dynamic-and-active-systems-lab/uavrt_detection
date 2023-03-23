@@ -5,7 +5,7 @@
 // File: uavrt_detection_rtwutil.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -217,16 +217,15 @@ void fb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 }
 
 //
-// Arguments    : const char *r
-//                const char *aFcnName
+// Arguments    : const char *aFcnName
 //                int aLineNum
 // Return Type  : void
 //
-void g_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
+void g_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
-  ((outStream << "Expected ") << r) << " to be finite.";
+  outStream << "Operation is not implemented for requested file identifier.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -239,15 +238,16 @@ void g_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
 }
 
 //
-// Arguments    : const char *aFcnName
+// Arguments    : const char *r
+//                const char *aFcnName
 //                int aLineNum
 // Return Type  : void
 //
-void g_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+void g_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
-  outStream << "Operation is not implemented for requested file identifier.";
+  ((outStream << "Expected ") << r) << " to be finite.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -399,27 +399,6 @@ void jb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
   std::string errMsg;
   std::stringstream outStream;
   outStream << "Vectors must be the same length.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-void jc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  outStream << "Matrix index is out of range for deletion.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {

@@ -5,7 +5,7 @@
 // File: fgetl.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 22-Mar-2023 16:43:02
+// C/C++ source code generated on  : 23-Mar-2023 12:56:08
 //
 
 // Include Files
@@ -91,25 +91,25 @@ static void rtErrorWithMessageID(const int i, const char *aFcnName,
 namespace coder {
 void fgetl(double fileID, ::coder::array<char, 2U> &out)
 {
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
-      104,     // lineNo
-      "cFgets" // fName
-  };
-  static rtRunTimeErrorInfo vc_emlrtRTEI{
-      249,          // lineNo
-      "getFileStar" // fName
-  };
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
-      72,     // lineNo
-      "fread" // fName
-  };
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
+  static rtRunTimeErrorInfo ad_emlrtRTEI{
       122,     // lineNo
       "cFgets" // fName
   };
-  static rtRunTimeErrorInfo yc_emlrtRTEI{
+  static rtRunTimeErrorInfo bd_emlrtRTEI{
       143,     // lineNo
       "cFgets" // fName
+  };
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
+      104,     // lineNo
+      "cFgets" // fName
+  };
+  static rtRunTimeErrorInfo xc_emlrtRTEI{
+      249,          // lineNo
+      "getFileStar" // fName
+  };
+  static rtRunTimeErrorInfo yc_emlrtRTEI{
+      72,     // lineNo
+      "fread" // fName
   };
   FILE *b_filestar;
   FILE *filestar;
@@ -121,7 +121,7 @@ void fgetl(double fileID, ::coder::array<char, 2U> &out)
   boolean_T newLineAfterCarriageReturn;
   getfilestar(fileID, &filestar, &newLineAfterCarriageReturn);
   if (filestar == NULL) {
-    c_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
   }
   if ((!(fileID != 0.0)) || (!(fileID != 1.0)) || (!(fileID != 2.0))) {
     filestar = NULL;
@@ -148,7 +148,7 @@ void fgetl(double fileID, ::coder::array<char, 2U> &out)
         reachedEndOfFile = ((int)st != 0);
       }
       if ((cOut == NULL) && (out.size(1) == 0)) {
-        f_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+        f_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
       }
       if (cOut == NULL) {
         exitg1 = 1;
@@ -171,7 +171,7 @@ void fgetl(double fileID, ::coder::array<char, 2U> &out)
                   (static_cast<unsigned char>(ReadBuff[i]) > 127)) {
                 rtErrorWithMessageID(
                     static_cast<int>(static_cast<unsigned char>(ReadBuff[i])),
-                    xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+                    ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
               }
               if ((carriageReturnAt == 0) && (ReadBuff[i] == '\x0d')) {
                 carriageReturnAt = i + 1;
@@ -198,7 +198,7 @@ void fgetl(double fileID, ::coder::array<char, 2U> &out)
                   (static_cast<unsigned char>(ReadBuff[i]) > 127)) {
                 rtErrorWithMessageID(
                     static_cast<int>(static_cast<unsigned char>(ReadBuff[i])),
-                    yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+                    bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
               }
               if ((carriageReturnAt == 0) && (ReadBuff[i] == '\x0d')) {
                 carriageReturnAt = i + 1;
@@ -266,11 +266,11 @@ void fgetl(double fileID, ::coder::array<char, 2U> &out)
     }
     if (i1 == 0) {
       if ((!(fileID != 0.0)) || (!(fileID != 1.0)) || (!(fileID != 2.0))) {
-        g_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+        g_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
       }
       getfilestar(fileID, &filestar, &newLineAfterCarriageReturn);
       if (filestar == NULL) {
-        c_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+        c_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
       }
       if ((!(fileID != 0.0)) || (!(fileID != 1.0)) || (!(fileID != 2.0))) {
         filestar = NULL;

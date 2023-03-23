@@ -22,7 +22,8 @@ cfg.RuntimeChecks = true;
 ARGS = cell(1,1);
 ARGS{1} = cell(1,1);
 ARGS{1}{1} = coder.typeof('X',[1 Inf],[0 1]);
+ARGS{1}{2} = coder.typeof('X',[1 Inf],[0 1]);
 
 %% Invoke MATLAB Coder.
-codegen -config cfg uavrt_detection -args ARGS{1}
+codegen -config cfg -globals {'globalThresholdCachePath', {coder.typeof('X', [1 Inf], [0 1]), ['X']}} uavrt_detection -args ARGS{1}
 

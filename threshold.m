@@ -307,12 +307,12 @@ previousToc = toc;
 
         function filename = thresholdCacheFileName(self, Wfm)
             global globalThresholdCachePath;
-            filename = sprintf("%s/N%u-M%u-J%u-K%u-Trials%u.threshold", globalThresholdCachePath, Wfm.N, Wfm.M, Wfm.J, Wfm.K, self.trials);
+            filename = sprintf("%s/N%f-M%f-J%f-K%f-Trials%u.threshold", globalThresholdCachePath, Wfm.N, Wfm.M, Wfm.J, Wfm.K, self.trials);
         end
 
         function saveThresholdValuesToCache(self, Wfm)
             filename = self.thresholdCacheFileName(Wfm);
-            fid = fopen(filename, "wt");
+            fid = fopen(filename, "w");
             if fid == -1
                 fprintf("threshold::saveThresholdValuesToCache ERROR - Unable to open file %s\n", filename);
                 return;
@@ -329,13 +329,9 @@ previousToc = toc;
             evSigmaParam    = 0;
 
             filename = self.thresholdCacheFileName(Wfm);
-            if ~isfile(filename)
-                return;
-            end
-
-            fid = fopen(filename, "rt");
+            fid = fopen(filename, "r");
             if fid == -1
-                fprintf("threshold::loadThresholdValuesFromCache ERROR - Unable to open file %s\n", filename);
+                % Cache miss
                 return;
             end
 
