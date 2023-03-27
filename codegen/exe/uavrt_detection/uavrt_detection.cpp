@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 23-Mar-2023 12:56:08
+// C/C++ source code generated on  : 27-Mar-2023 15:47:21
 //
 
 // Include Files
@@ -2234,7 +2234,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
                asyncWriteBuff.pBuffer.WritePointer) {
       currDir = 600650;
     }
-    if (currDir == dataWriterSamples) {
+    if (currDir >= dataWriterSamples) {
       asyncWriteBuff.read(dataWriterBuffData);
       if (fileid != -1) {
         interleaveComplexVector(dataWriterBuffData, r1);

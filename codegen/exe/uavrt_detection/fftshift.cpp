@@ -5,7 +5,7 @@
 // File: fftshift.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 23-Mar-2023 12:56:08
+// C/C++ source code generated on  : 27-Mar-2023 15:47:21
 //
 
 // Include Files
@@ -27,23 +27,30 @@ void fftshift(::coder::array<creal_T, 2U> &x)
     vlend2 = x.size(0) / 2 - 1;
     if ((vlend2 + 1) << 1 == x.size(0)) {
       for (int k{0}; k <= vlend2; k++) {
-        creal_T xtmp;
+        double xtmp_im;
+        double xtmp_re;
         int i;
-        xtmp = x[k];
+        xtmp_re = x[k].re;
+        xtmp_im = x[k].im;
         i = (vlend2 + k) + 1;
         x[k] = x[i];
-        x[i] = xtmp;
+        x[i].re = xtmp_re;
+        x[i].im = xtmp_im;
       }
     } else {
-      creal_T xtmp;
-      xtmp = x[vlend2 + 1];
+      double xtmp_im;
+      double xtmp_re;
+      xtmp_re = x[vlend2 + 1].re;
+      xtmp_im = x[vlend2 + 1].im;
       for (int k{0}; k <= vlend2; k++) {
         int i;
         i = (vlend2 + k) + 1;
         x[i] = x[k];
         x[k] = x[i + 1];
       }
-      x[(vlend2 + vlend2) + 2] = xtmp;
+      vlend2 = (vlend2 + vlend2) + 2;
+      x[vlend2].re = xtmp_re;
+      x[vlend2].im = xtmp_im;
     }
   }
 }
