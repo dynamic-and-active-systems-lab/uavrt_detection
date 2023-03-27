@@ -363,7 +363,7 @@ while true %i <= maxInd
                 asyncTimeBuff.write(timeVector(:));
                 asyncWriteBuff.write(dataReceived);% OLD TIME STAMP METHOD
                 %asyncWriteBuff.write([dataReceived; int2singlecomplex(timeAtPacketReceive*10^3)]);
-                if asyncWriteBuff.NumUnreadSamples == dataWriterSamples
+                if asyncWriteBuff.NumUnreadSamples >= dataWriterSamples
                     dataWriterBuffData = asyncWriteBuff.read();
                     if dataWriterFileID ~= -1
                     [~] = fwrite(dataWriterFileID,interleaveComplexVector(dataWriterBuffData),'single');
