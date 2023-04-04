@@ -5,7 +5,7 @@
 // File: AsyncBuffer.h
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// C/C++ source code generated on  : 04-Apr-2023 11:47:02
 //
 
 #ifndef ASYNCBUFFER_H
@@ -52,9 +52,9 @@ public:
   void write();
   void read();
   void reset();
-  void write(const creal32_T in_data[], int in_size);
   void read(::coder::array<creal32_T, 1U> &out);
   void matlabCodegenDestructor();
+  void write(const creal32_T in_data[]);
   ~c_AsyncBuffer();
   c_AsyncBuffer();
   boolean_T matlabCodegenIsDeleted;
