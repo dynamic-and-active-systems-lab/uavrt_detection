@@ -361,7 +361,7 @@ while true %i <= maxInd
                 %Write out data and time.
                 asyncDataBuff.write(iqDataToWrite(:));
                 asyncTimeBuff.write(timeVector(:));
-                asyncWriteBuff.write(dataReceived);% OLD TIME STAMP METHOD
+                asyncWriteBuff.write(iqData);
                 %asyncWriteBuff.write([dataReceived; int2singlecomplex(timeAtPacketReceive*10^3)]);
                 if asyncWriteBuff.NumUnreadSamples >= dataWriterSamples
                     dataWriterBuffData = asyncWriteBuff.read();

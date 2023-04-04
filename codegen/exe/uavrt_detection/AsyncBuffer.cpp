@@ -5,7 +5,7 @@
 // File: AsyncBuffer.cpp
 //
 // MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// C/C++ source code generated on  : 04-Apr-2023 11:47:02
 //
 
 // Include Files
@@ -1177,13 +1177,12 @@ void b_AsyncBuffer::write(const ::coder::array<double, 1U> &in)
 
 //
 // Arguments    : const creal32_T in_data[]
-//                int in_size
 // Return Type  : void
 //
-void c_AsyncBuffer::write(const creal32_T in_data[], int in_size)
+void c_AsyncBuffer::write(const creal32_T in_data[])
 {
-  static const short inSize[8]{1024, 1, 1, 1, 1, 1, 1, 1};
-  static const short iv[8]{1024, 1, 1, 1, 1, 1, 1, 1};
+  static const short inSize[8]{1023, 1, 1, 1, 1, 1, 1, 1};
+  static const short iv[8]{1023, 1, 1, 1, 1, 1, 1, 1};
   internal::c_AsyncBuffercgHelper *obj;
   int i;
   boolean_T anyInputSizeChanged;
@@ -1240,7 +1239,7 @@ void c_AsyncBuffer::write(const creal32_T in_data[], int in_size)
       (pBuffer.NumChannels != 1)) {
     n_rtErrorWithMessageID(t_emlrtRTEI.fName, t_emlrtRTEI.lineNo);
   }
-  pBuffer.stepImpl(in_data, in_size);
+  pBuffer.stepImpl(in_data, 1023);
 }
 
 } // namespace dsp
