@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: minOrMax.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef MINORMAX_H
@@ -25,7 +25,7 @@ double maximum(const ::coder::array<double, 1U> &x);
 void maximum(const ::coder::array<double, 2U> &x,
              ::coder::array<double, 1U> &ex, ::coder::array<int, 1U> &idx);
 
-void maximum(const ::coder::array<double, 1U> &x, double *ex, int *idx);
+double maximum(const ::coder::array<double, 1U> &x, int &idx);
 
 double maximum(const double x[2]);
 

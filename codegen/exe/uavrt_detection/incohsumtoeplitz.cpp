@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: incohsumtoeplitz.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -27,7 +27,6 @@
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
-#include <string.h>
 
 // Function Definitions
 //
@@ -124,7 +123,7 @@
 //                const coder::array<creal_T, 2U> &Wfherm
 //                const coder::array<creal_T, 2U> &S
 //                const coder::array<double, 1U> &Tb
-//                const coder::sparse *Wq
+//                const coder::sparse &Wq
 //                coder::array<double, 2U> &Sscores
 //                coder::array<double, 2U> &Scols
 // Return Type  : void
@@ -133,59 +132,64 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
                       const coder::array<creal_T, 2U> &Wfherm,
                       const coder::array<creal_T, 2U> &S,
                       const coder::array<double, 1U> &Tb,
-                      const coder::sparse *Wq,
+                      const coder::sparse &Wq,
                       coder::array<double, 2U> &Sscores,
                       coder::array<double, 2U> &Scols)
 {
-  static rtBoundsCheckInfo fb_emlrtBCI{
-      -1,                                               // iFirst
-      -1,                                               // iLast
-      163,                                              // lineNo
-      37,                                               // colNo
-      "Fb",                                             // aName
-      "incohsumtoeplitz",                               // fName
-      "H:\\repos\\uavrt_detection\\incohsumtoeplitz.m", // pName
-      0                                                 // checkKind
+  static rtBoundsCheckInfo ab_emlrtBCI{
+      -1,                 // iFirst
+      -1,                 // iLast
+      176,                // lineNo
+      37,                 // colNo
+      "Tb",               // aName
+      "incohsumtoeplitz", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
+      0                                                     // checkKind
   };
-  static rtBoundsCheckInfo gb_emlrtBCI{
-      -1,                                               // iFirst
-      -1,                                               // iLast
-      176,                                              // lineNo
-      37,                                               // colNo
-      "Tb",                                             // aName
-      "incohsumtoeplitz",                               // fName
-      "H:\\repos\\uavrt_detection\\incohsumtoeplitz.m", // pName
-      0                                                 // checkKind
+  static rtBoundsCheckInfo bb_emlrtBCI{
+      -1,                 // iFirst
+      -1,                 // iLast
+      198,                // lineNo
+      1,                  // colNo
+      "Scols",            // aName
+      "incohsumtoeplitz", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
+      0                                                     // checkKind
   };
-  static rtBoundsCheckInfo hb_emlrtBCI{
-      -1,                                               // iFirst
-      -1,                                               // iLast
-      198,                                              // lineNo
-      1,                                                // colNo
-      "Scols",                                          // aName
-      "incohsumtoeplitz",                               // fName
-      "H:\\repos\\uavrt_detection\\incohsumtoeplitz.m", // pName
-      0                                                 // checkKind
+  static rtBoundsCheckInfo cb_emlrtBCI{
+      -1,                 // iFirst
+      -1,                 // iLast
+      197,                // lineNo
+      1,                  // colNo
+      "Sscores",          // aName
+      "incohsumtoeplitz", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
+      0                                                     // checkKind
   };
-  static rtBoundsCheckInfo ib_emlrtBCI{
-      -1,                                               // iFirst
-      -1,                                               // iLast
-      197,                                              // lineNo
-      1,                                                // colNo
-      "Sscores",                                        // aName
-      "incohsumtoeplitz",                               // fName
-      "H:\\repos\\uavrt_detection\\incohsumtoeplitz.m", // pName
-      0                                                 // checkKind
+  static rtBoundsCheckInfo db_emlrtBCI{
+      -1,                 // iFirst
+      -1,                 // iLast
+      192,                // lineNo
+      24,                 // colNo
+      "allScores",        // aName
+      "incohsumtoeplitz", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
+      0                                                     // checkKind
   };
-  static rtBoundsCheckInfo jb_emlrtBCI{
-      -1,                                               // iFirst
-      -1,                                               // iLast
-      192,                                              // lineNo
-      24,                                               // colNo
-      "allScores",                                      // aName
-      "incohsumtoeplitz",                               // fName
-      "H:\\repos\\uavrt_detection\\incohsumtoeplitz.m", // pName
-      0                                                 // checkKind
+  static rtBoundsCheckInfo y_emlrtBCI{
+      -1,                 // iFirst
+      -1,                 // iLast
+      163,                // lineNo
+      37,                 // colNo
+      "Fb",               // aName
+      "incohsumtoeplitz", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
+      0                                                     // checkKind
   };
   coder::b_sparse pulsesInEachColumn;
   coder::c_sparse firstPulseNum;
@@ -210,16 +214,17 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   coder::array<int, 1U> b_idx;
   coder::array<int, 1U> jj;
   coder::array<int, 1U> r4;
-  coder::array<int, 1U> r5;
   coder::array<boolean_T, 2U> Fbdiags;
-  coder::array<boolean_T, 2U> b_Fb;
+  coder::array<boolean_T, 2U> b_S;
   double K;
   double varargin_1;
   int b_Fbnumrows_tmp[2];
   int Fbnumrows_tmp;
   int Tbnumrows_tmp;
+  int a;
   int b_minval_tmp;
   int cend;
+  int loop_ub_tmp;
   int maxdimlen;
   int minval_tmp;
   boolean_T y;
@@ -258,38 +263,57 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   if (S.size(1) != Tbnumrows_tmp) {
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
   }
-  if (Tbnumrows_tmp != Wq->m) {
+  if (Tbnumrows_tmp != Wq.m) {
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
   }
   // Make sure the number of pulses considered for all Wq columns is the same
-  coder::sum(Wq, &pulsesInEachColumn);
-  pulsesInEachColumn.parenReference(&firstPulseNum);
-  pulsesInEachColumn.b_le(&r);
-  coder::any(&r, &b_this);
+  coder::sum(Wq, pulsesInEachColumn);
+  pulsesInEachColumn.parenReference(firstPulseNum);
+  b_S.set_size(1, pulsesInEachColumn.n);
+  loop_ub_tmp = pulsesInEachColumn.n;
+  for (int idx{0}; idx < loop_ub_tmp; idx++) {
+    b_S[idx] = true;
+  }
+  if (pulsesInEachColumn.n > 2147483646) {
+    coder::check_forloop_overflow_error();
+  }
+  for (cend = 0; cend < loop_ub_tmp; cend++) {
+    a = pulsesInEachColumn.colidx[cend];
+    maxdimlen = pulsesInEachColumn.colidx[cend + 1] - 1;
+    if ((pulsesInEachColumn.colidx[cend] <= maxdimlen) &&
+        (maxdimlen > 2147483646)) {
+      coder::check_forloop_overflow_error();
+    }
+    for (int idx{a}; idx <= maxdimlen; idx++) {
+      b_S[cend] = (pulsesInEachColumn.d[idx - 1] <= 0.0);
+    }
+  }
+  coder::j_sparse(b_S, sameAsFirst);
+  coder::any(sameAsFirst, b_this);
   y = false;
   cend = b_this.colidx[1] - 1;
-  maxdimlen = b_this.colidx[0];
+  a = b_this.colidx[0];
   if ((b_this.colidx[0] <= b_this.colidx[1] - 1) &&
       (b_this.colidx[1] - 1 > 2147483646)) {
     coder::check_forloop_overflow_error();
   }
-  for (int idx{maxdimlen}; idx <= cend; idx++) {
+  for (int idx{a}; idx <= cend; idx++) {
     y = b_this.d[idx - 1];
   }
   if (y) {
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
   }
-  pulsesInEachColumn.eq(&firstPulseNum, &sameAsFirst);
-  sameAsFirst.b_not(&r);
-  coder::any(&r, &b_this);
+  pulsesInEachColumn.eq(firstPulseNum, sameAsFirst);
+  sameAsFirst.b_not(r);
+  coder::any(r, b_this);
   y = false;
   cend = b_this.colidx[1] - 1;
-  maxdimlen = b_this.colidx[0];
+  a = b_this.colidx[0];
   if ((b_this.colidx[0] <= b_this.colidx[1] - 1) &&
       (b_this.colidx[1] - 1 > 2147483646)) {
     coder::check_forloop_overflow_error();
   }
-  for (int idx{maxdimlen}; idx <= cend; idx++) {
+  for (int idx{a}; idx <= cend; idx++) {
     y = b_this.d[idx - 1];
   }
   if (y) {
@@ -301,34 +325,34 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   // Frequency Blinder (Fb) matrix definitions:
   coder::internal::assertValidSizeArg(static_cast<double>(Fbnumrows_tmp));
   coder::internal::assertValidSizeArg(static_cast<double>(Fbnumrows_tmp));
-  coder::sparse::eyeLike(Fbnumrows_tmp, Fbnumrows_tmp, Fbnumrows_tmp, &b_y);
-  b_y.logical(&FbSparseMat);
+  coder::sparse::eyeLike(Fbnumrows_tmp, Fbnumrows_tmp, Fbnumrows_tmp, b_y);
+  b_y.logical(FbSparseMat);
   // Prototype Fb matrix with identity logical matrix
   if (Fbnumrows_tmp < 1) {
     FbmatDiagInds.set_size(1, 0);
     c_y.set_size(1, 0);
   } else {
     FbmatDiagInds.set_size(1, Fbnumrows_tmp);
-    cend = Fbnumrows_tmp - 1;
+    loop_ub_tmp = Fbnumrows_tmp - 1;
     c_y.set_size(1, Fbnumrows_tmp);
-    for (int idx{0}; idx <= cend; idx++) {
+    for (int idx{0}; idx <= loop_ub_tmp; idx++) {
       FbmatDiagInds[idx] = static_cast<double>(idx) + 1.0;
       c_y[idx] = static_cast<double>(idx) + 1.0;
     }
   }
   b_Fbnumrows_tmp[0] = Fbnumrows_tmp;
   b_Fbnumrows_tmp[1] = Fbnumrows_tmp;
-  coder::eml_sub2ind(b_Fbnumrows_tmp, FbmatDiagInds, c_y, r1);
+  coder::internal::sub2ind(b_Fbnumrows_tmp, FbmatDiagInds, c_y, r1);
   FbmatDiagInds.set_size(1, r1.size(1));
-  Fbnumrows_tmp = r1.size(1);
-  for (int idx{0}; idx < Fbnumrows_tmp; idx++) {
+  maxdimlen = r1.size(1);
+  for (int idx{0}; idx < maxdimlen; idx++) {
     FbmatDiagInds[idx] = r1[idx];
   }
   if (b_minval_tmp == 1) {
     // Passed a vector, so make the matrix
     Fbdiags.set_size(Fb.size(0), 1);
-    Fbnumrows_tmp = Fb.size(0);
-    for (int idx{0}; idx < Fbnumrows_tmp; idx++) {
+    maxdimlen = Fb.size(0);
+    for (int idx{0}; idx < maxdimlen; idx++) {
       Fbdiags[idx] = Fb[idx];
     }
     // FbSparseMat = logical(speye(max(Fbsz)));
@@ -336,27 +360,26 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   } else {
     // Passed a matrix, so make sparse.
     // FbSparseMat = logical(sparse(Fb));
-    b_Fb.set_size(1, FbmatDiagInds.size(1));
-    Fbnumrows_tmp = FbmatDiagInds.size(1);
-    for (int idx{0}; idx < Fbnumrows_tmp; idx++) {
-      b_minval_tmp = static_cast<int>(FbmatDiagInds[idx]);
-      if ((b_minval_tmp < 1) || (b_minval_tmp > Fb.size(0))) {
-        rtDynamicBoundsError(static_cast<int>(FbmatDiagInds[idx]), 1,
-                             Fb.size(0), &fb_emlrtBCI);
+    b_S.set_size(1, FbmatDiagInds.size(1));
+    maxdimlen = FbmatDiagInds.size(1);
+    for (int idx{0}; idx < maxdimlen; idx++) {
+      a = static_cast<int>(FbmatDiagInds[idx]);
+      if ((a < 1) || (a > Fb.size(0))) {
+        rtDynamicBoundsError(a, 1, Fb.size(0), y_emlrtBCI);
       }
-      b_Fb[idx] = Fb[b_minval_tmp - 1];
+      b_S[idx] = Fb[a - 1];
     }
-    FbSparseMat.b_parenAssign(b_Fb, FbmatDiagInds);
+    FbSparseMat.b_parenAssign(b_S, FbmatDiagInds);
     // Had do do it this way rather than with logical(sparse(Fb)) to get code to
     // work with Fb being either a vector or matrix.
-    FbSparseMat.parenReference(FbmatDiagInds, &r);
-    r.full(b_Fb);
-    cend = b_Fb.size(1);
-    FbSparseMat.parenReference(FbmatDiagInds, &r);
-    r.full(b_Fb);
+    FbSparseMat.parenReference(FbmatDiagInds, r);
+    r.full(b_S);
+    cend = b_S.size(1);
+    FbSparseMat.parenReference(FbmatDiagInds, r);
+    r.full(b_S);
     Fbdiags.set_size(cend, 1);
     for (int idx{0}; idx < cend; idx++) {
-      Fbdiags[idx] = b_Fb[idx];
+      Fbdiags[idx] = b_S[idx];
     }
     // Get the diag elements. Transpose needed for size considerations for code
     // generation.
@@ -364,46 +387,45 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   // Time Blinder (Tb) matrix definitions:
   coder::internal::assertValidSizeArg(static_cast<double>(Tbnumrows_tmp));
   coder::internal::assertValidSizeArg(static_cast<double>(Tbnumrows_tmp));
-  coder::sparse::eyeLike(Tbnumrows_tmp, Tbnumrows_tmp, Tbnumrows_tmp, &b_y);
-  b_y.logical(&TbSparseMat);
+  coder::sparse::eyeLike(Tbnumrows_tmp, Tbnumrows_tmp, Tbnumrows_tmp, b_y);
+  b_y.logical(TbSparseMat);
   // Prototype Fb matrix with identity logical matrix
   if (Tbnumrows_tmp < 1) {
     FbmatDiagInds.set_size(1, 0);
     c_y.set_size(1, 0);
   } else {
     FbmatDiagInds.set_size(1, Tbnumrows_tmp);
-    cend = Tbnumrows_tmp - 1;
+    loop_ub_tmp = Tbnumrows_tmp - 1;
     c_y.set_size(1, Tbnumrows_tmp);
-    for (int idx{0}; idx <= cend; idx++) {
+    for (int idx{0}; idx <= loop_ub_tmp; idx++) {
       FbmatDiagInds[idx] = static_cast<double>(idx) + 1.0;
       c_y[idx] = static_cast<double>(idx) + 1.0;
     }
   }
   b_Fbnumrows_tmp[0] = Tbnumrows_tmp;
   b_Fbnumrows_tmp[1] = Tbnumrows_tmp;
-  coder::eml_sub2ind(b_Fbnumrows_tmp, FbmatDiagInds, c_y, r1);
+  coder::internal::sub2ind(b_Fbnumrows_tmp, FbmatDiagInds, c_y, r1);
   FbmatDiagInds.set_size(1, r1.size(1));
-  Fbnumrows_tmp = r1.size(1);
-  for (int idx{0}; idx < Fbnumrows_tmp; idx++) {
+  maxdimlen = r1.size(1);
+  for (int idx{0}; idx < maxdimlen; idx++) {
     FbmatDiagInds[idx] = r1[idx];
   }
   if (minval_tmp == 1) {
-    coder::i_sparse(Tb, &r2);
-    r2.logical(&Tbdiags);
+    coder::i_sparse(Tb, r2);
+    r2.logical(Tbdiags);
     coder::internal::assertValidSizeArg(static_cast<double>(Tbnumrows_tmp));
-    coder::sparse::eyeLike(Tbnumrows_tmp, Tbnumrows_tmp, Tbnumrows_tmp, &b_y);
-    b_y.logical(&TbSparseMat);
-    TbSparseMat.c_parenAssign(&Tbdiags, FbmatDiagInds);
+    coder::sparse::eyeLike(Tbnumrows_tmp, Tbnumrows_tmp, Tbnumrows_tmp, b_y);
+    b_y.logical(TbSparseMat);
+    TbSparseMat.c_parenAssign(Tbdiags, FbmatDiagInds);
   } else {
     c_y.set_size(1, FbmatDiagInds.size(1));
-    Fbnumrows_tmp = FbmatDiagInds.size(1);
-    for (int idx{0}; idx < Fbnumrows_tmp; idx++) {
-      b_minval_tmp = static_cast<int>(FbmatDiagInds[idx]);
-      if ((b_minval_tmp < 1) || (b_minval_tmp > Tb.size(0))) {
-        rtDynamicBoundsError(static_cast<int>(FbmatDiagInds[idx]), 1,
-                             Tb.size(0), &gb_emlrtBCI);
+    maxdimlen = FbmatDiagInds.size(1);
+    for (int idx{0}; idx < maxdimlen; idx++) {
+      a = static_cast<int>(FbmatDiagInds[idx]);
+      if ((a < 1) || (a > Tb.size(0))) {
+        rtDynamicBoundsError(a, 1, Tb.size(0), ab_emlrtBCI);
       }
-      c_y[idx] = Tb[b_minval_tmp - 1];
+      c_y[idx] = Tb[a - 1];
     }
     TbSparseMat.c_parenAssign(c_y, FbmatDiagInds);
     // Had do do it this way rather than with logical(sparse(Tb)) to get code to
@@ -411,24 +433,24 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   }
   //  Perform the incoherent summation
   // S          = abs(S).^2;
-  Wq->parenReference(&r2);
-  coder::sum(&r2, &firstPulseNum);
+  Wq.parenReference(r2);
+  coder::sum(r2, firstPulseNum);
   K = 0.0;
   cend = firstPulseNum.colidx[1] - 1;
-  maxdimlen = firstPulseNum.colidx[0];
+  a = firstPulseNum.colidx[0];
   if ((firstPulseNum.colidx[0] <= firstPulseNum.colidx[1] - 1) &&
       (firstPulseNum.colidx[1] - 1 > 2147483646)) {
     coder::check_forloop_overflow_error();
   }
-  for (int idx{maxdimlen}; idx <= cend; idx++) {
+  for (int idx{a}; idx <= cend; idx++) {
     K = firstPulseNum.d[0];
   }
   if (S.size(0) != Wfherm.size(1)) {
     if (((Wfherm.size(0) == 1) && (Wfherm.size(1) == 1)) ||
         ((S.size(0) == 1) && (S.size(1) == 1))) {
-      xb_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+      xb_rtErrorWithMessageID(bc_emlrtRTEI.fName, bc_emlrtRTEI.lineNo);
     } else {
-      ob_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+      ob_rtErrorWithMessageID(ac_emlrtRTEI.fName, ac_emlrtRTEI.lineNo);
     }
   }
   coder::internal::blas::mtimes(Wfherm, S, d_y);
@@ -441,29 +463,29 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
     Srows[maxdimlen] = rt_hypotd_snf(d_y[maxdimlen].re, d_y[maxdimlen].im);
   }
   allScores.set_size(Srows.size(0), Srows.size(1));
-  Fbnumrows_tmp = Srows.size(0) * Srows.size(1);
-  for (int idx{0}; idx < Fbnumrows_tmp; idx++) {
+  loop_ub_tmp = Srows.size(0) * Srows.size(1);
+  for (int idx{0}; idx < loop_ub_tmp; idx++) {
     varargin_1 = Srows[idx];
     allScores[idx] = varargin_1 * varargin_1;
   }
   FbSparseMat.mtimes(allScores, Srows);
   TbSparseMat.b_mtimes(Srows, Sinds);
-  Wq->mtimes(Sinds, selectedCombinedScores);
+  Wq.mtimes(Sinds, selectedCombinedScores);
   coder::internal::maximum(selectedCombinedScores, ex, b_idx);
   // Check max on each row (frequency). This gives the columns of the resulting
   // matrix output with the max for each frequency bin This and the next line
   // gets the column numbers (time windows) of the S matrix where the highest
   // K-summed entries exist for each row (frequency bin)
   ex.set_size(b_idx.size(0));
-  Fbnumrows_tmp = b_idx.size(0);
-  for (int idx{0}; idx < Fbnumrows_tmp; idx++) {
+  maxdimlen = b_idx.size(0);
+  for (int idx{0}; idx < maxdimlen; idx++) {
     ex[idx] = b_idx[idx];
   }
-  Wq->parenReference(ex, &b_y);
-  coder::e_eml_find(&b_y, b_idx, jj);
+  Wq.parenReference(ex, b_y);
+  coder::e_eml_find(b_y, b_idx, jj);
   ex.set_size(b_idx.size(0));
-  Fbnumrows_tmp = b_idx.size(0);
-  for (int idx{0}; idx < Fbnumrows_tmp; idx++) {
+  maxdimlen = b_idx.size(0);
+  for (int idx{0}; idx < maxdimlen; idx++) {
     ex[idx] = b_idx[idx];
   }
   // Get the rows that had 1s in them that corresponded to the winning columns
@@ -479,44 +501,43 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
     maxdimlen = cend;
   }
   if (static_cast<int>(K) > maxdimlen) {
-    k_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
   }
   if (static_cast<int>(varargin_1) > maxdimlen) {
-    k_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
   }
   if (static_cast<int>(K) * static_cast<int>(varargin_1) != ex.size(0)) {
-    l_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+    l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
   }
+  cend = static_cast<int>(K);
+  maxdimlen = static_cast<int>(varargin_1);
   Scols.set_size(static_cast<int>(varargin_1), static_cast<int>(K));
-  Fbnumrows_tmp = static_cast<int>(K);
-  for (int idx{0}; idx < Fbnumrows_tmp; idx++) {
-    cend = static_cast<int>(varargin_1);
-    for (b_minval_tmp = 0; b_minval_tmp < cend; b_minval_tmp++) {
-      Scols[b_minval_tmp + Scols.size(0) * idx] =
-          ex[idx + static_cast<int>(K) * b_minval_tmp];
+  for (int idx{0}; idx < cend; idx++) {
+    for (a = 0; a < maxdimlen; a++) {
+      Scols[a + Scols.size(0) * idx] = ex[idx + static_cast<int>(K) * a];
     }
   }
   if (Wfherm.size(0) < 1) {
     FbmatDiagInds.set_size(1, 0);
   } else {
     FbmatDiagInds.set_size(1, Wfherm.size(0));
-    Fbnumrows_tmp = Wfherm.size(0) - 1;
-    for (int idx{0}; idx <= Fbnumrows_tmp; idx++) {
+    maxdimlen = Wfherm.size(0) - 1;
+    for (int idx{0}; idx <= maxdimlen; idx++) {
       FbmatDiagInds[idx] = static_cast<double>(idx) + 1.0;
     }
   }
   ex.set_size(FbmatDiagInds.size(1));
-  Fbnumrows_tmp = FbmatDiagInds.size(1);
-  for (int idx{0}; idx < Fbnumrows_tmp; idx++) {
+  maxdimlen = FbmatDiagInds.size(1);
+  for (int idx{0}; idx < maxdimlen; idx++) {
     ex[idx] = FbmatDiagInds[idx];
   }
   coder::repmat(ex, K, Srows);
   b_Fbnumrows_tmp[0] = (*(int(*)[2])allScores.size())[0];
   b_Fbnumrows_tmp[1] = (*(int(*)[2])allScores.size())[1];
-  coder::b_eml_sub2ind(b_Fbnumrows_tmp, Srows, Scols, r3);
+  coder::internal::b_sub2ind(b_Fbnumrows_tmp, Srows, Scols, r3);
   Sinds.set_size(r3.size(0), r3.size(1));
-  Fbnumrows_tmp = r3.size(0) * r3.size(1);
-  for (int idx{0}; idx < Fbnumrows_tmp; idx++) {
+  cend = r3.size(0) * r3.size(1);
+  for (int idx{0}; idx < cend; idx++) {
     Sinds[idx] = r3[idx];
   }
   int iv[2];
@@ -526,14 +547,12 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   iv[1] = (*(int(*)[2])Sinds.size())[1];
   coder::internal::indexShapeCheck(b_Fbnumrows_tmp, iv);
   Sscores.set_size(Sinds.size(0), Sinds.size(1));
-  cend = allScores.size(0) * allScores.size(1);
-  Fbnumrows_tmp = Sinds.size(0) * Sinds.size(1);
-  for (int idx{0}; idx < Fbnumrows_tmp; idx++) {
-    b_minval_tmp = static_cast<int>(Sinds[idx]);
-    if ((b_minval_tmp < 1) || (b_minval_tmp > cend)) {
-      rtDynamicBoundsError(b_minval_tmp, 1, cend, &jb_emlrtBCI);
+  for (int idx{0}; idx < cend; idx++) {
+    a = static_cast<int>(Sinds[idx]);
+    if ((a < 1) || (a > loop_ub_tmp)) {
+      rtDynamicBoundsError(a, 1, loop_ub_tmp, db_emlrtBCI);
     }
-    Sscores[idx] = allScores[b_minval_tmp - 1];
+    Sscores[idx] = allScores[a - 1];
   }
   // Extract individual pulse scores
   // The max function will just return the first index if all elements are
@@ -541,53 +560,37 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   // were ignored with the frequency blinder matrix.
   maxdimlen = Fbdiags.size(0) - 1;
   cend = 0;
-  for (Fbnumrows_tmp = 0; Fbnumrows_tmp <= maxdimlen; Fbnumrows_tmp++) {
-    if (!Fbdiags[Fbnumrows_tmp]) {
+  for (a = 0; a <= maxdimlen; a++) {
+    if (!Fbdiags[a]) {
       cend++;
     }
   }
   r4.set_size(cend);
   cend = 0;
-  for (Fbnumrows_tmp = 0; Fbnumrows_tmp <= maxdimlen; Fbnumrows_tmp++) {
-    if (!Fbdiags[Fbnumrows_tmp]) {
-      r4[cend] = Fbnumrows_tmp + 1;
+  for (a = 0; a <= maxdimlen; a++) {
+    if (!Fbdiags[a]) {
+      r4[cend] = a;
       cend++;
     }
   }
-  Fbnumrows_tmp = Sinds.size(1);
-  for (int idx{0}; idx < Fbnumrows_tmp; idx++) {
+  maxdimlen = Sinds.size(1);
+  for (int idx{0}; idx < maxdimlen; idx++) {
     cend = r4.size(0);
-    for (b_minval_tmp = 0; b_minval_tmp < cend; b_minval_tmp++) {
-      if (r4[b_minval_tmp] > Sinds.size(0)) {
-        rtDynamicBoundsError(r4[b_minval_tmp], 1, Sinds.size(0), &ib_emlrtBCI);
+    for (a = 0; a < cend; a++) {
+      if (r4[a] > Sinds.size(0) - 1) {
+        rtDynamicBoundsError(r4[a], 0, Sinds.size(0) - 1, cb_emlrtBCI);
       }
-      Sscores[(r4[b_minval_tmp] + Sscores.size(0) * idx) - 1] = rtNaN;
+      Sscores[r4[a] + Sscores.size(0) * idx] = rtNaN;
     }
   }
-  maxdimlen = Fbdiags.size(0) - 1;
-  cend = 0;
-  for (Fbnumrows_tmp = 0; Fbnumrows_tmp <= maxdimlen; Fbnumrows_tmp++) {
-    if (!Fbdiags[Fbnumrows_tmp]) {
-      cend++;
-    }
-  }
-  r5.set_size(cend);
-  cend = 0;
-  for (Fbnumrows_tmp = 0; Fbnumrows_tmp <= maxdimlen; Fbnumrows_tmp++) {
-    if (!Fbdiags[Fbnumrows_tmp]) {
-      r5[cend] = Fbnumrows_tmp + 1;
-      cend++;
-    }
-  }
-  maxdimlen = Scols.size(0);
-  Fbnumrows_tmp = Scols.size(1);
-  for (int idx{0}; idx < Fbnumrows_tmp; idx++) {
-    cend = r5.size(0);
-    for (b_minval_tmp = 0; b_minval_tmp < cend; b_minval_tmp++) {
-      if (r5[b_minval_tmp] > maxdimlen) {
-        rtDynamicBoundsError(r5[b_minval_tmp], 1, maxdimlen, &hb_emlrtBCI);
+  maxdimlen = Scols.size(1);
+  for (int idx{0}; idx < maxdimlen; idx++) {
+    cend = r4.size(0);
+    for (a = 0; a < cend; a++) {
+      if (r4[a] > Scols.size(0) - 1) {
+        rtDynamicBoundsError(r4[a], 0, Scols.size(0) - 1, bb_emlrtBCI);
       }
-      Scols[(r5[b_minval_tmp] + Scols.size(0) * idx) - 1] = rtNaN;
+      Scols[r4[a] + Scols.size(0) * idx] = rtNaN;
     }
   }
 }

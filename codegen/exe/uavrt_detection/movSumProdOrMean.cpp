@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: movSumProdOrMean.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -14,7 +14,6 @@
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include "omp.h"
-#include <string.h>
 
 // Function Definitions
 //
@@ -48,7 +47,7 @@ void vmovfun(const ::coder::array<double, 1U> &x, int nx,
   }
   loop_ub = nx - 1;
 #pragma omp parallel for num_threads(omp_get_max_threads()) private(           \
-    iLeft, b_k, vlen, b_y, firstBlockLength, lastBlockLength, nblocks, ib,     \
+    iLeft, vlen, b_y, firstBlockLength, lastBlockLength, nblocks, b_k, ib,     \
     bsum, hi)
 
   for (int k = 0; k <= loop_ub; k++) {
@@ -58,11 +57,11 @@ void vmovfun(const ::coder::array<double, 1U> &x, int nx,
       iLeft = k - 1;
     }
     if (k + 2 > x.size(0)) {
-      b_k = x.size(0);
+      vlen = x.size(0);
     } else {
-      b_k = k + 2;
+      vlen = k + 2;
     }
-    vlen = b_k - iLeft;
+    vlen -= iLeft;
     if ((x.size(0) == 0) || (vlen == 0)) {
       b_y = 0.0;
     } else {

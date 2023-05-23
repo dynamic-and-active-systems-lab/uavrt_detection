@@ -4,15 +4,14 @@
 // government, commercial, or other organizational use.
 // File: CoderTimeAPI.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
 #include "CoderTimeAPI.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection_data.h"
-#include <string.h>
 
 // Function Definitions
 //

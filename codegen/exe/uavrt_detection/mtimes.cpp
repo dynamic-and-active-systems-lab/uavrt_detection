@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: mtimes.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -13,7 +13,6 @@
 #include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
-#include <string.h>
 
 // Function Definitions
 //
@@ -50,22 +49,28 @@ void mtimes(const ::coder::array<creal_T, 2U> &A,
     for (int i{0}; i < m; i++) {
       double s_im;
       double s_re;
-      int A_re_tmp;
+      int A_re_tmp_tmp;
       s_re = 0.0;
       s_im = 0.0;
       if (inner > 2147483646) {
         check_forloop_overflow_error();
       }
       for (int k{0}; k < inner; k++) {
-        A_re_tmp = boffset + k;
-        s_re += A[k * A.size(0) + i].re * B[A_re_tmp].re -
-                A[k * A.size(0) + i].im * B[A_re_tmp].im;
-        s_im += A[k * A.size(0) + i].re * B[A_re_tmp].im +
-                A[k * A.size(0) + i].im * B[A_re_tmp].re;
+        double A_re_tmp;
+        double b_A_re_tmp;
+        double c_A_re_tmp;
+        double d_A_re_tmp;
+        A_re_tmp = A[k * A.size(0) + i].re;
+        A_re_tmp_tmp = boffset + k;
+        b_A_re_tmp = B[A_re_tmp_tmp].im;
+        c_A_re_tmp = A[k * A.size(0) + i].im;
+        d_A_re_tmp = B[A_re_tmp_tmp].re;
+        s_re += A_re_tmp * d_A_re_tmp - c_A_re_tmp * b_A_re_tmp;
+        s_im += A_re_tmp * b_A_re_tmp + c_A_re_tmp * d_A_re_tmp;
       }
-      A_re_tmp = coffset + i;
-      C[A_re_tmp].re = s_re;
-      C[A_re_tmp].im = s_im;
+      A_re_tmp_tmp = coffset + i;
+      C[A_re_tmp_tmp].re = s_re;
+      C[A_re_tmp_tmp].im = s_im;
     }
   }
 }

@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: fseek.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -16,8 +16,7 @@
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
 #include <cmath>
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
 
 // Function Definitions
 //
@@ -28,21 +27,23 @@
 namespace coder {
 void b_fseek(double fileID, double offset)
 {
-  FILE *filestar;
   int wherefrom;
+  std::FILE *f;
+  std::FILE *filestar;
   boolean_T a;
   wherefrom = SEEK_SET;
   if ((!std::isinf(offset)) && (!std::isnan(offset)) &&
       (std::floor(offset) == offset)) {
-    getfilestar(fileID, &filestar, &a);
-    if (filestar == NULL) {
+    f = internal::getfilestar(fileID, a);
+    filestar = f;
+    if (f == nullptr) {
       c_rtErrorWithMessageID(d_emlrtRTEI.fName, d_emlrtRTEI.lineNo);
     }
     if ((!(fileID != 0.0)) || (!(fileID != 1.0)) || (!(fileID != 2.0))) {
-      filestar = NULL;
+      filestar = nullptr;
     }
-    if (!(filestar == NULL)) {
-      fseek(filestar, (long int)offset, wherefrom);
+    if (!(filestar == nullptr)) {
+      std::fseek(filestar, (long int)offset, wherefrom);
     }
   }
 }

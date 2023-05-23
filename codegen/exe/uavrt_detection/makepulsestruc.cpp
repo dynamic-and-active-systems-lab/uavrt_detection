@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: makepulsestruc.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -13,7 +13,6 @@
 #include "rt_nonfinite.h"
 #include "uavrt_detection_internal_types.h"
 #include "coder_array.h"
-#include <string.h>
 
 // Function Definitions
 //
@@ -108,29 +107,29 @@ void b_makepulsestruc(double A, double yw, double SNR, double t_0, double t_f,
 //          record false.
 //
 //
-// Arguments    : double *thepulse_A
-//                double *thepulse_P
-//                double *thepulse_SNR
-//                double *thepulse_yw
-//                double *thepulse_t_0
-//                double *thepulse_t_f
-//                double thepulse_t_next[2]
-//                double *thepulse_fp
-//                double *thepulse_fstart
-//                double *thepulse_fend
+// Arguments    : double thepulse_t_next[2]
 //                coder::array<char, 2U> &thepulse_mode
-//                boolean_T *thepulse_det_dec
-//                boolean_T *thepulse_con_dec
-// Return Type  : void
+//                double &thepulse_P
+//                double &thepulse_SNR
+//                double &thepulse_yw
+//                double &thepulse_t_0
+//                double &thepulse_t_f
+//                double &thepulse_fp
+//                double &thepulse_fstart
+//                double &thepulse_fend
+//                boolean_T &thepulse_det_dec
+//                boolean_T &thepulse_con_dec
+// Return Type  : double
 //
-void makepulsestruc(double *thepulse_A, double *thepulse_P,
-                    double *thepulse_SNR, double *thepulse_yw,
-                    double *thepulse_t_0, double *thepulse_t_f,
-                    double thepulse_t_next[2], double *thepulse_fp,
-                    double *thepulse_fstart, double *thepulse_fend,
-                    coder::array<char, 2U> &thepulse_mode,
-                    boolean_T *thepulse_det_dec, boolean_T *thepulse_con_dec)
+double makepulsestruc(double thepulse_t_next[2],
+                      coder::array<char, 2U> &thepulse_mode, double &thepulse_P,
+                      double &thepulse_SNR, double &thepulse_yw,
+                      double &thepulse_t_0, double &thepulse_t_f,
+                      double &thepulse_fp, double &thepulse_fstart,
+                      double &thepulse_fend, boolean_T &thepulse_det_dec,
+                      boolean_T &thepulse_con_dec)
 {
+  double thepulse_A;
   // PULSE Constructs an instance of this class
   //
   // Needed to let coder know the mode string will be of variable length
@@ -142,17 +141,18 @@ void makepulsestruc(double *thepulse_A, double *thepulse_P,
   thepulse_mode[0] = 'T';
   thepulse_mode[1] = 'B';
   thepulse_mode[2] = 'D';
-  *thepulse_A = rtNaN;
-  *thepulse_P = rtNaN;
-  *thepulse_SNR = rtNaN;
-  *thepulse_yw = rtNaN;
-  *thepulse_t_0 = rtNaN;
-  *thepulse_t_f = rtNaN;
-  *thepulse_fp = rtNaN;
-  *thepulse_fstart = rtNaN;
-  *thepulse_fend = rtNaN;
-  *thepulse_det_dec = false;
-  *thepulse_con_dec = false;
+  thepulse_A = rtNaN;
+  thepulse_P = rtNaN;
+  thepulse_SNR = rtNaN;
+  thepulse_yw = rtNaN;
+  thepulse_t_0 = rtNaN;
+  thepulse_t_f = rtNaN;
+  thepulse_fp = rtNaN;
+  thepulse_fstart = rtNaN;
+  thepulse_fend = rtNaN;
+  thepulse_det_dec = false;
+  thepulse_con_dec = false;
+  return thepulse_A;
 }
 
 //

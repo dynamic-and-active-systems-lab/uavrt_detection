@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: uavrt_detection_internal_types.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef UAVRT_DETECTION_INTERNAL_TYPES_H
@@ -49,11 +49,6 @@ struct c_struct_T {
   boolean_T con_dec;
 };
 
-struct emxArray_struct_T_1x1 {
-  c_struct_T data[1];
-  int size[2];
-};
-
 struct d_struct_T {
   coder::array<int, 1U> a;
   coder::array<int, 1U> b;
@@ -65,10 +60,6 @@ struct e_struct_T {
 
 struct f_struct_T {
   double sb;
-};
-
-struct emxArray_struct_T_120 {
-  struct_T data[120];
 };
 
 #endif

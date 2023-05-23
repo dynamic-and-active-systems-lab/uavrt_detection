@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: FFTImplementationCallback.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef FFTIMPLEMENTATIONCALLBACK_H
@@ -20,10 +20,10 @@
 // Type Definitions
 namespace coder {
 namespace internal {
+namespace fft {
 class FFTImplementationCallback {
 public:
-  static void get_algo_sizes(int nfft, boolean_T useRadix2, int *n2blue,
-                             int *nRows);
+  static int get_algo_sizes(int nfft, boolean_T useRadix2, int &nRows);
   static void r2br_r2dit_trig(const ::coder::array<creal32_T, 2U> &x,
                               int n1_unsigned,
                               const ::coder::array<float, 2U> &costab,
@@ -72,6 +72,7 @@ protected:
                                    ::coder::array<creal_T, 1U> &y);
 };
 
+} // namespace fft
 } // namespace internal
 } // namespace coder
 

@@ -4,20 +4,20 @@
 // government, commercial, or other organizational use.
 // File: fwrite.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
 #include "fwrite.h"
 #include "fileManager.h"
 #include "rt_nonfinite.h"
+#include "uavrt_detection_data.h"
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
 #include <cstddef>
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
 
 // Function Definitions
 //
@@ -28,37 +28,44 @@
 namespace coder {
 double b_fwrite(double fileID, const ::coder::array<float, 1U> &x)
 {
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
-      158,          // lineNo
-      "getFileStar" // fName
-  };
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
-      33,      // lineNo
-      "fwrite" // fName
-  };
-  FILE *filestar;
+  static rtRunTimeErrorInfo
+      qc_emlrtRTEI{
+          163,           // lineNo
+          5,             // colNo
+          "getFileStar", // fName
+          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/"
+          "fwrite.m" // pName
+      };
+  static rtRunTimeErrorInfo
+      rc_emlrtRTEI{
+          33,       // lineNo
+          5,        // colNo
+          "fwrite", // fName
+          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/"
+          "fwrite.m" // pName
+      };
+  std::FILE *f;
+  std::FILE *filestar;
   double count;
   boolean_T autoflush;
   if (!(fileID != 0.0)) {
-    g_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
   }
-  getfilestar(fileID, &filestar, &autoflush);
-  if (filestar == NULL) {
-    c_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+  f = internal::getfilestar(fileID, autoflush);
+  filestar = f;
+  if (f == nullptr) {
+    c_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
   }
-  if (!(fileID != 0.0)) {
-    filestar = NULL;
-  }
-  if ((filestar == NULL) || (x.size(0) == 0)) {
+  if ((filestar == nullptr) || (x.size(0) == 0)) {
     count = 0.0;
   } else {
     size_t bytesOutSizet;
-    bytesOutSizet = fwrite(&(((::coder::array<float, 1U> *)&x)->data())[0],
-                           sizeof(float), (size_t)x.size(0), filestar);
+    bytesOutSizet = std::fwrite(&(((::coder::array<float, 1U> *)&x)->data())[0],
+                                sizeof(float), (size_t)x.size(0), filestar);
     count = (double)bytesOutSizet;
     if (((double)bytesOutSizet > 0.0) && autoflush) {
       int status;
-      status = fflush(filestar);
+      status = std::fflush(filestar);
       if (status != 0) {
         count = 0.0;
       }

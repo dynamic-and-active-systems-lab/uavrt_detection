@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: wfmstft.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef WFMSTFT_H
@@ -20,7 +20,6 @@
 // Type Definitions
 class wfmstft {
 public:
-  wfmstft *init();
   void updatepsd();
   coder::array<creal_T, 2U> S;
   coder::array<double, 1U> f;

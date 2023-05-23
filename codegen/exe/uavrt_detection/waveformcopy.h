@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: waveformcopy.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef WAVEFORMCOPY_H
@@ -24,8 +24,8 @@ class wfmstft;
 class pulsestats;
 
 // Function Declarations
-waveform *waveformcopy(waveform *wfmIn, wfmstft *iobj_0, pulsestats *iobj_1,
-                       waveform *iobj_2);
+waveform *waveformcopy(waveform &wfmIn, wfmstft &iobj_0, pulsestats &iobj_1,
+                       waveform &iobj_2);
 
 #endif
 //

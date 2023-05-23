@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: sparse.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -20,37 +20,41 @@
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
-#include <string.h>
 
 // Function Definitions
 //
 // Arguments    : const ::coder::array<double, 1U> &varargin_1
 //                const ::coder::array<double, 1U> &varargin_2
 //                const ::coder::array<double, 1U> &varargin_3
-//                sparse *y
+//                sparse &y
 // Return Type  : void
 //
 namespace coder {
 void i_sparse(const ::coder::array<double, 1U> &varargin_1,
               const ::coder::array<double, 1U> &varargin_2,
-              const ::coder::array<double, 1U> &varargin_3, sparse *y)
+              const ::coder::array<double, 1U> &varargin_3, sparse &y)
 {
-  static rtDoubleCheckInfo t_emlrtDCI{
+  static rtDoubleCheckInfo q_emlrtDCI{
       193,             // lineNo
       48,              // colNo
       "sparse/sparse", // fName
-      "C:\\Program "
-      "Files\\MATLAB\\toolbox\\shared\\coder\\coder\\+coder\\+internal\\@"
-      "sparse\\sparse.m", // pName
-      4                   // checkKind
+      "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/+coder/"
+      "+internal/@sparse/sparse.m", // pName
+      4                             // checkKind
   };
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
-      111,            // lineNo
-      "sparse/sparse" // fName
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      111,             // lineNo
+      35,              // colNo
+      "sparse/sparse", // fName
+      "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/+coder/"
+      "+internal/@sparse/sparse.m" // pName
   };
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
-      116,            // lineNo
-      "sparse/sparse" // fName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      116,             // lineNo
+      35,              // colNo
+      "sparse/sparse", // fName
+      "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/+coder/"
+      "+internal/@sparse/sparse.m" // pName
   };
   anonymous_function b_this;
   array<int, 1U> sortedIndices;
@@ -62,11 +66,11 @@ void i_sparse(const ::coder::array<double, 1U> &varargin_1,
   nc = varargin_2.size(0);
   if ((varargin_1.size(0) != varargin_2.size(0)) ||
       (varargin_3.size(0) != varargin_2.size(0))) {
-    jb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+    jb_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
   }
   if ((varargin_3.size(0) != varargin_2.size(0)) &&
       (varargin_3.size(0) != varargin_1.size(0))) {
-    jb_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+    jb_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
   }
   sparse::assertValidIndexArg(varargin_1, b_this.workspace.b);
   sparse::assertValidIndexArg(varargin_2, b_this.workspace.a);
@@ -77,7 +81,7 @@ void i_sparse(const ::coder::array<double, 1U> &varargin_1,
   for (int k{0}; k < nc; k++) {
     sortedIndices[k] = k + 1;
   }
-  internal::introsort(sortedIndices, b_this.workspace.a.size(0), &b_this);
+  internal::introsort(sortedIndices, b_this.workspace.a.size(0), b_this);
   ny = b_this.workspace.a.size(0);
   t.set_size(b_this.workspace.a.size(0));
   numalloc = b_this.workspace.a.size(0);
@@ -104,7 +108,7 @@ void i_sparse(const ::coder::array<double, 1U> &varargin_1,
   }
   if ((b_this.workspace.b.size(0) == 0) || (b_this.workspace.a.size(0) == 0)) {
     ny = 0;
-    y->n = 0;
+    y.n = 0;
   } else {
     numalloc = b_this.workspace.b.size(0);
     ny = b_this.workspace.b[0];
@@ -117,58 +121,58 @@ void i_sparse(const ::coder::array<double, 1U> &varargin_1,
         ny = i;
       }
     }
-    y->n = b_this.workspace.a[b_this.workspace.a.size(0) - 1];
+    y.n = b_this.workspace.a[b_this.workspace.a.size(0) - 1];
   }
-  y->m = ny;
+  y.m = ny;
   numalloc = varargin_2.size(0);
   if (numalloc < 1) {
     numalloc = 1;
   }
-  y->d.set_size(numalloc);
+  y.d.set_size(numalloc);
   for (i = 0; i < numalloc; i++) {
-    y->d[i] = 0.0;
+    y.d[i] = 0.0;
   }
-  y->maxnz = numalloc;
-  if (y->n + 1 < 0) {
-    rtNonNegativeError(static_cast<double>(y->n + 1), &t_emlrtDCI);
+  y.maxnz = numalloc;
+  if (y.n + 1 < 0) {
+    rtNonNegativeError(static_cast<double>(y.n + 1), q_emlrtDCI);
   }
-  y->colidx.set_size(y->n + 1);
-  y->colidx[0] = 1;
-  y->rowidx.set_size(numalloc);
+  y.colidx.set_size(y.n + 1);
+  y.colidx[0] = 1;
+  y.rowidx.set_size(numalloc);
   for (i = 0; i < numalloc; i++) {
-    y->rowidx[i] = 0;
+    y.rowidx[i] = 0;
   }
   numalloc = 0;
-  ny = y->n;
-  if (y->n > 2147483646) {
+  ny = y.n;
+  if (y.n > 2147483646) {
     check_forloop_overflow_error();
   }
   for (int k{0}; k < ny; k++) {
     while ((numalloc + 1 <= nc) && (b_this.workspace.a[numalloc] == k + 1)) {
-      y->rowidx[numalloc] = b_this.workspace.b[numalloc];
+      y.rowidx[numalloc] = b_this.workspace.b[numalloc];
       numalloc++;
     }
-    y->colidx[k + 1] = numalloc + 1;
+    y.colidx[k + 1] = numalloc + 1;
   }
   for (int k{0}; k < nc; k++) {
-    y->d[k] = 1.0;
+    y.d[k] = 1.0;
   }
-  y->fillIn();
+  y.fillIn();
 }
 
 //
 // Arguments    : const ::coder::array<double, 1U> &varargin_1
-//                g_sparse *y
+//                g_sparse &y
 // Return Type  : void
 //
-void i_sparse(const ::coder::array<double, 1U> &varargin_1, g_sparse *y)
+void i_sparse(const ::coder::array<double, 1U> &varargin_1, g_sparse &y)
 {
   int mInt;
   int numalloc;
   int row;
   mInt = varargin_1.size(0);
   if (varargin_1.size(0) >= MAX_int32_T) {
-    rc_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+    pc_rtErrorWithMessageID(dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
   }
   numalloc = 0;
   row = varargin_1.size(0);
@@ -177,37 +181,37 @@ void i_sparse(const ::coder::array<double, 1U> &varargin_1, g_sparse *y)
       numalloc++;
     }
   }
-  y->m = varargin_1.size(0);
+  y.m = varargin_1.size(0);
   if (numalloc < 1) {
     numalloc = 1;
   }
-  y->maxnz = numalloc;
-  y->d.set_size(numalloc);
-  y->colidx.set_size(2);
-  y->colidx[0] = 1;
-  y->rowidx.set_size(numalloc);
+  y.maxnz = numalloc;
+  y.d.set_size(numalloc);
+  y.colidx.set_size(2);
+  y.colidx[0] = 1;
+  y.rowidx.set_size(numalloc);
   for (row = 0; row < numalloc; row++) {
-    y->d[row] = 0.0;
-    y->rowidx[row] = 0;
+    y.d[row] = 0.0;
+    y.rowidx[row] = 0;
   }
-  y->rowidx[0] = 1;
+  y.rowidx[0] = 1;
   numalloc = 0;
   for (row = 0; row < mInt; row++) {
     if (varargin_1[row] != 0.0) {
-      y->rowidx[numalloc] = row + 1;
-      y->d[numalloc] = 1.0;
+      y.rowidx[numalloc] = row + 1;
+      y.d[numalloc] = 1.0;
       numalloc++;
     }
   }
-  y->colidx[1] = numalloc + 1;
+  y.colidx[1] = numalloc + 1;
 }
 
 //
 // Arguments    : const ::coder::array<boolean_T, 2U> &varargin_1
-//                d_sparse *y
+//                d_sparse &y
 // Return Type  : void
 //
-void j_sparse(const ::coder::array<boolean_T, 2U> &varargin_1, d_sparse *y)
+void j_sparse(const ::coder::array<boolean_T, 2U> &varargin_1, d_sparse &y)
 {
   int ctr;
   int i;
@@ -215,7 +219,7 @@ void j_sparse(const ::coder::array<boolean_T, 2U> &varargin_1, d_sparse *y)
   int numalloc;
   nInt = varargin_1.size(1);
   if (varargin_1.size(1) >= MAX_int32_T) {
-    rc_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+    pc_rtErrorWithMessageID(dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
   }
   numalloc = 0;
   i = varargin_1.size(1);
@@ -224,33 +228,33 @@ void j_sparse(const ::coder::array<boolean_T, 2U> &varargin_1, d_sparse *y)
       numalloc++;
     }
   }
-  y->n = varargin_1.size(1);
+  y.n = varargin_1.size(1);
   if (numalloc < 1) {
     numalloc = 1;
   }
-  y->d.set_size(numalloc);
+  y.d.set_size(numalloc);
   for (i = 0; i < numalloc; i++) {
-    y->d[i] = false;
+    y.d[i] = false;
   }
-  y->colidx.set_size(varargin_1.size(1) + 1);
+  y.colidx.set_size(varargin_1.size(1) + 1);
   ctr = varargin_1.size(1);
   for (i = 0; i <= ctr; i++) {
-    y->colidx[i] = 0;
+    y.colidx[i] = 0;
   }
-  y->colidx[0] = 1;
-  y->rowidx.set_size(numalloc);
+  y.colidx[0] = 1;
+  y.rowidx.set_size(numalloc);
   for (i = 0; i < numalloc; i++) {
-    y->rowidx[i] = 0;
+    y.rowidx[i] = 0;
   }
-  y->rowidx[0] = 1;
+  y.rowidx[0] = 1;
   ctr = 0;
   for (numalloc = 0; numalloc < nInt; numalloc++) {
     if (varargin_1[numalloc]) {
-      y->rowidx[ctr] = 1;
-      y->d[ctr] = true;
+      y.rowidx[ctr] = 1;
+      y.d[ctr] = true;
       ctr++;
     }
-    y->colidx[numalloc + 1] = ctr + 1;
+    y.colidx[numalloc + 1] = ctr + 1;
   }
 }
 

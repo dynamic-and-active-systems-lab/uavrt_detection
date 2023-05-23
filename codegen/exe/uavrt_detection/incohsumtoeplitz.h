@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: incohsumtoeplitz.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef INCOHSUMTOEPLITZ_H
@@ -28,7 +28,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
                       const coder::array<creal_T, 2U> &Wfherm,
                       const coder::array<creal_T, 2U> &S,
                       const coder::array<double, 1U> &Tb,
-                      const coder::sparse *Wq,
+                      const coder::sparse &Wq,
                       coder::array<double, 2U> &Sscores,
                       coder::array<double, 2U> &Scols);
 

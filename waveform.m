@@ -827,12 +827,25 @@ fprintf('\t Running Peeling Algorithm  ...')
             %detections as the zeta steps, but use the S matrix for PSD
             %estimates so there is a size mismatch that necessitates the
             %code below. 
+            
+            %In cases when there are K+1 pulses in a waveform, the
+            %detection method will pull the first K, but an extra pulse
+            %will be in the S matrix and needs to be excluded from the
+            %noise power consideration. Here we add another column to the
+            %S_cols matrix that projects the next Kth pulse out by 1
+            %interpulse duration (N) so that that K+1th pulse will be
+            %masked as well.
+            S_cols_for_mask = [S_cols , S_cols(:,end) + obj.N];
+            numOfSMatrixColumns = size(obj.stft.S,2);
+            S_cols_for_mask(S_cols_for_mask > numOfSMatrixColumns) = numOfSMatrixColumns;
+
             weightedSRowSubs = transpose(1:numel(obj.Wf));
-            weightedSRowSubsMat = repmat(weightedSRowSubs,1,obj.K);
+            weightedSRowSubsMat = repmat(weightedSRowSubs,1, size(S_cols_for_mask,2));
+
             %sub2ind doesn't support NaN values, so we focus here on those
             %that don't have NaN
-            S_cols_withoutNan = S_cols(~isnan(S_cols));
-            weightedSRowSubsMat_withoutNan = weightedSRowSubsMat(~isnan(S_cols));
+            S_cols_withoutNan = S_cols_for_mask(~isnan(S_cols_for_mask));
+            weightedSRowSubsMat_withoutNan = weightedSRowSubsMat(~isnan(S_cols_for_mask));
             indsOfBins = sub2ind([nZetas*nRowsOfS nColsOfS],weightedSRowSubsMat_withoutNan,S_cols_withoutNan);
             indsOfBinsValid = indsOfBins(~isnan(indsOfBins));
             %binMaskMatrix will be a matrix of NaN at potential pulse
@@ -849,7 +862,7 @@ fprintf('\t Running Peeling Algorithm  ...')
                                        circshift(freqShiftedBinMaskMatrix,1,2) + ...
                                        circshift(freqShiftedBinMaskMatrix,-1,2);
             freqtimeShiftedBinMaskMatrixScaled = imresize(freqtimeShiftedBinMaskMatrix,[nRowsOfS, nColsOfS]);
-            %figure;spy(freqtimeShiftedBinMaskMatrix_scaled)
+            %figure;spy(freqtimeShiftedBinMaskMatrixScaled)
             dt = 1/obj.Fs;
             T = obj.n_w/obj.Fs;
             %noisePSD = dt^2/T*abs(mean(obj.stft.S+freqtimeShiftedBinMaskMatrixScaled,2,'omitnan')).^2;%Add since it is 0 where we expect noise and NaN where there might be a pulse

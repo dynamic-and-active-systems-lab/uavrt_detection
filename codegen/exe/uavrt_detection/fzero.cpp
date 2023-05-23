@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: fzero.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -20,7 +20,6 @@
 #include <cstdlib>
 #include <sstream>
 #include <stdexcept>
-#include <string.h>
 #include <string>
 
 // Function Declarations
@@ -55,10 +54,14 @@ static void tb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 namespace coder {
 double fzero(const b_anonymous_function FunFcn)
 {
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
-      83,     // lineNo
-      "fzero" // fName
-  };
+  static rtRunTimeErrorInfo
+      qc_emlrtRTEI{
+          83,      // lineNo
+          9,       // colNo
+          "fzero", // fName
+          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/optimfun/"
+          "fzero.m" // pName
+      };
   double b;
   double fx;
   fx = (1.0 - std::exp(-std::exp((-0.0 - FunFcn.workspace.mu) /
@@ -72,27 +75,29 @@ double fzero(const b_anonymous_function FunFcn)
     double fb;
     int exitg2;
     if (std::isinf(fx) || std::isnan(fx)) {
-      tb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+      tb_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
     }
     dx = 0.02;
     a = 0.0;
     b = 0.0;
     fb = fx;
+    int i;
     do {
       exitg2 = 0;
-      if ((fx > 0.0) == (fb > 0.0)) {
+      i = (fb > 0.0);
+      if (static_cast<int>(fx > 0.0) == i) {
         dx *= 1.4142135623730951;
-        a = 0.0 - dx;
-        fx = (1.0 - std::exp(-std::exp((-(0.0 - dx) - FunFcn.workspace.mu) /
+        a = -dx;
+        fx = (1.0 - std::exp(-std::exp((dx - FunFcn.workspace.mu) /
                                        FunFcn.workspace.sigma))) -
              FunFcn.workspace.pf;
         if (std::isinf(fx) || std::isnan(fx)) {
           b = rtNaN;
           exitg2 = 1;
-        } else if (std::isinf(0.0 - dx)) {
+        } else if (std::isinf(-dx)) {
           b = rtNaN;
           exitg2 = 1;
-        } else if ((fx > 0.0) != (fb > 0.0)) {
+        } else if (static_cast<int>(fx > 0.0) != i) {
           exitg2 = 2;
         } else {
           b = dx;

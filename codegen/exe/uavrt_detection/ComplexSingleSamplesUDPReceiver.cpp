@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: ComplexSingleSamplesUDPReceiver.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -17,7 +17,6 @@
 #include "udp.h"
 #include <algorithm>
 #include <cstring>
-#include <string.h>
 
 // Function Definitions
 //
@@ -35,18 +34,18 @@ void ComplexSingleSamplesUDPReceiver::init(double ipPort)
 
 //
 // Arguments    : creal32_T complexData_data[]
-//                int *complexData_size
-// Return Type  : void
+// Return Type  : int
 //
-void ComplexSingleSamplesUDPReceiver::receive(creal32_T complexData_data[],
-                                              int *complexData_size) const
+int ComplexSingleSamplesUDPReceiver::receive(creal32_T complexData_data[]) const
 {
   creal32_T complexBuffer_data[1024];
+  int complexData_size;
   std::memset(&complexBuffer_data[0], 0, 1024U * sizeof(creal32_T));
   udpReceiverReadComplex(udpReceiver, &complexBuffer_data[0], 1024.0);
-  *complexData_size = 1024;
+  complexData_size = 1024;
   std::copy(&complexBuffer_data[0], &complexBuffer_data[1024],
             &complexData_data[0]);
+  return complexData_size;
 }
 
 //

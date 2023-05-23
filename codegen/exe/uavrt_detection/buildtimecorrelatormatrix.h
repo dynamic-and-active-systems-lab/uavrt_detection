@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: buildtimecorrelatormatrix.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef BUILDTIMECORRELATORMATRIX_H
@@ -24,7 +24,7 @@ class sparse;
 
 // Function Declarations
 void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
-                               double reps, coder::sparse *Wq);
+                               double reps, coder::sparse &Wq);
 
 #endif
 //

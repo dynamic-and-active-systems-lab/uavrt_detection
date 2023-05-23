@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: ind2sub.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -13,55 +13,56 @@
 #include "rt_nonfinite.h"
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
-#include <string.h>
 
 // Variable Definitions
-static rtRunTimeErrorInfo pc_emlrtRTEI{
-    40,                  // lineNo
-    "ind2sub_indexClass" // fName
-};
+static rtRunTimeErrorInfo
+    ic_emlrtRTEI{
+        21,        // lineNo
+        15,        // colNo
+        "ind2sub", // fName
+        "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+        "ind2sub.m" // pName
+    };
 
 // Function Definitions
 //
 // Arguments    : const double siz[2]
 //                double ndx
-//                int *varargout_1
-//                int *varargout_2
-// Return Type  : void
+//                int &varargout_2
+// Return Type  : int
 //
 namespace coder {
-void ind2sub_indexClass(const double siz[2], double ndx, int *varargout_1,
-                        int *varargout_2)
+namespace internal {
+int ind2sub(const double siz[2], double ndx, int &varargout_2)
 {
   int vk;
   if (static_cast<int>(ndx) >
       static_cast<int>(siz[0]) * static_cast<int>(siz[1])) {
-    cc_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
+    cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
   }
   vk = div_s32(static_cast<int>(ndx) - 1, static_cast<int>(siz[0]));
-  *varargout_2 = vk + 1;
-  *varargout_1 = static_cast<int>(ndx) - vk * static_cast<int>(siz[0]);
+  varargout_2 = vk + 1;
+  return static_cast<int>(ndx) - vk * static_cast<int>(siz[0]);
 }
 
 //
 // Arguments    : const double siz[2]
 //                int ndx
-//                int *varargout_1
-//                int *varargout_2
-// Return Type  : void
+//                int &varargout_2
+// Return Type  : int
 //
-void ind2sub_indexClass(const double siz[2], int ndx, int *varargout_1,
-                        int *varargout_2)
+int ind2sub(const double siz[2], int ndx, int &varargout_2)
 {
   int vk;
   if (ndx > static_cast<int>(siz[0]) * static_cast<int>(siz[1])) {
-    cc_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
+    cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
   }
   vk = div_s32(ndx - 1, static_cast<int>(siz[0]));
-  *varargout_2 = vk + 1;
-  *varargout_1 = ndx - vk * static_cast<int>(siz[0]);
+  varargout_2 = vk + 1;
+  return ndx - vk * static_cast<int>(siz[0]);
 }
 
+} // namespace internal
 } // namespace coder
 
 //

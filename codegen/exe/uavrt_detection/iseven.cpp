@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: iseven.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -18,11 +18,10 @@
 #include <cstdlib>
 #include <sstream>
 #include <stdexcept>
-#include <string.h>
 #include <string>
 
 // Function Declarations
-static void t_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void w_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -30,7 +29,7 @@ static void t_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void t_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void w_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -55,13 +54,16 @@ namespace signalwavelet {
 namespace internal {
 boolean_T iseven(double x)
 {
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
-      12,      // lineNo
-      "iseven" // fName
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      12,       // lineNo
+      1,        // colNo
+      "iseven", // fName
+      "/Applications/MATLAB_R2023a.app/toolbox/shared/signalwavelet/"
+      "signalwavelet/+signalwavelet/+internal/iseven.m" // pName
   };
   double r;
   if (x - std::trunc(x) != 0.0) {
-    t_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+    w_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
   }
   if (std::isnan(x) || std::isinf(x)) {
     r = rtNaN;
@@ -71,8 +73,6 @@ boolean_T iseven(double x)
     r = std::fmod(x, 2.0);
     if (r == 0.0) {
       r = 0.0;
-    } else if (x < 0.0) {
-      r += 2.0;
     }
   }
   return r == 0.0;

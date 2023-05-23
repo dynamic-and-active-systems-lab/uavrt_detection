@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: minOrMax.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -17,7 +17,6 @@
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
 #include <cmath>
-#include <string.h>
 
 // Function Definitions
 //
@@ -31,7 +30,7 @@ double maximum(const ::coder::array<double, 1U> &x)
   double ex;
   int last;
   if (x.size(0) < 1) {
-    ib_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
+    ib_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
   }
   last = x.size(0);
   if (x.size(0) <= 2) {
@@ -98,7 +97,7 @@ void maximum(const ::coder::array<double, 2U> &x,
   int m;
   int n;
   if (x.size(1) < 1) {
-    ib_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
+    ib_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
   }
   m = x.size(0);
   n = x.size(1);
@@ -141,35 +140,35 @@ void maximum(const ::coder::array<double, 2U> &x,
 
 //
 // Arguments    : const ::coder::array<double, 1U> &x
-//                double *ex
-//                int *idx
-// Return Type  : void
+//                int &idx
+// Return Type  : double
 //
-void maximum(const ::coder::array<double, 1U> &x, double *ex, int *idx)
+double maximum(const ::coder::array<double, 1U> &x, int &idx)
 {
+  double ex;
   int last;
   if (x.size(0) < 1) {
-    ib_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
+    ib_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
   }
   last = x.size(0);
   if (x.size(0) <= 2) {
     if (x.size(0) == 1) {
-      *ex = x[0];
-      *idx = 1;
+      ex = x[0];
+      idx = 1;
     } else if ((x[0] < x[1]) || (std::isnan(x[0]) && (!std::isnan(x[1])))) {
-      *ex = x[1];
-      *idx = 2;
+      ex = x[1];
+      idx = 2;
     } else {
-      *ex = x[0];
-      *idx = 1;
+      ex = x[0];
+      idx = 1;
     }
   } else {
     int k;
     if (!std::isnan(x[0])) {
-      *idx = 1;
+      idx = 1;
     } else {
       boolean_T exitg1;
-      *idx = 0;
+      idx = 0;
       if (x.size(0) > 2147483646) {
         check_forloop_overflow_error();
       }
@@ -177,33 +176,34 @@ void maximum(const ::coder::array<double, 1U> &x, double *ex, int *idx)
       exitg1 = false;
       while ((!exitg1) && (k <= last)) {
         if (!std::isnan(x[k - 1])) {
-          *idx = k;
+          idx = k;
           exitg1 = true;
         } else {
           k++;
         }
       }
     }
-    if (*idx == 0) {
-      *ex = x[0];
-      *idx = 1;
+    if (idx == 0) {
+      ex = x[0];
+      idx = 1;
     } else {
       int a;
-      *ex = x[*idx - 1];
-      a = *idx + 1;
-      if ((*idx + 1 <= x.size(0)) && (x.size(0) > 2147483646)) {
+      ex = x[idx - 1];
+      a = idx + 1;
+      if ((idx + 1 <= x.size(0)) && (x.size(0) > 2147483646)) {
         check_forloop_overflow_error();
       }
       for (k = a; k <= last; k++) {
         double d;
         d = x[k - 1];
-        if (*ex < d) {
-          *ex = d;
-          *idx = k;
+        if (ex < d) {
+          ex = d;
+          idx = k;
         }
       }
     }
   }
+  return ex;
 }
 
 //

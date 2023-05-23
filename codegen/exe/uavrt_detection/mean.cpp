@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: mean.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -18,7 +18,6 @@
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
 #include <cmath>
-#include <string.h>
 
 // Function Definitions
 //
@@ -36,12 +35,9 @@ void mean(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y)
   if ((x.size(0) == 0) || (x.size(1) == 0)) {
     y.set_size(x.size(0));
     firstBlockLength = x.size(0);
+    counts.set_size(x.size(0));
     for (xblockoffset = 0; xblockoffset < firstBlockLength; xblockoffset++) {
       y[xblockoffset] = 0.0;
-    }
-    counts.set_size(x.size(0));
-    firstBlockLength = x.size(0);
-    for (xblockoffset = 0; xblockoffset < firstBlockLength; xblockoffset++) {
       counts[xblockoffset] = 0;
     }
   } else {
@@ -62,7 +58,7 @@ void mean(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y)
       nblocks = 1;
     } else {
       firstBlockLength = 1024;
-      nblocks = x.size(1) / 1024;
+      nblocks = static_cast<int>(static_cast<unsigned int>(x.size(1)) >> 10);
       lastBlockLength = x.size(1) - (nblocks << 10);
       if (lastBlockLength > 0) {
         nblocks++;
@@ -136,7 +132,7 @@ void mean(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y)
     bsum[xblockoffset] = counts[xblockoffset];
   }
   if ((y.size(0) != 1) && (bsum.size(0) != 1) && (y.size(0) != bsum.size(0))) {
-    y_rtErrorWithMessageID(qb_emlrtRTEI.fName, qb_emlrtRTEI.lineNo);
+    y_rtErrorWithMessageID(jb_emlrtRTEI.fName, jb_emlrtRTEI.lineNo);
   }
   if (y.size(0) == bsum.size(0)) {
     firstBlockLength = y.size(0);

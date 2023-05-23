@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: find.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef FIND_H
@@ -25,25 +25,22 @@ class sparse;
 class waveform;
 
 // Function Declarations
-void binary_expand_op(int in1_data[], int *in1_size,
-                      const coder::array<double, 1U> &in2, int in3, int in4,
-                      int in5, const waveform *in6, int in7, int in8, int in9);
+int binary_expand_op(int in1_data[], const coder::array<double, 1U> &in2,
+                     int in3, int in4, int in5, const waveform *in6, int in7,
+                     int in8, int in9);
 
-void binary_expand_op(int in1_data[], int *in1_size,
-                      const coder::array<double, 1U> &in2, int in3, int in4,
-                      const waveform *in5, int in6, int in7);
+int binary_expand_op(int in1_data[], const coder::array<double, 1U> &in2,
+                     int in3, int in4, const waveform *in5, int in6, int in7);
 
 namespace coder {
 void b_eml_find(const ::coder::array<boolean_T, 2U> &x,
                 ::coder::array<int, 2U> &i);
 
-void c_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[],
-                int *i_size);
+int c_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[]);
 
-void d_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[],
-                int *i_size);
+int d_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[]);
 
-void e_eml_find(const sparse *x, ::coder::array<int, 1U> &i,
+void e_eml_find(const sparse &x, ::coder::array<int, 1U> &i,
                 ::coder::array<int, 1U> &j);
 
 void eml_find(const ::coder::array<boolean_T, 2U> &x, int i_data[],

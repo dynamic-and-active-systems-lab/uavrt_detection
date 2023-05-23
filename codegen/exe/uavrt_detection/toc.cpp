@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: toc.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -16,7 +16,6 @@
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
 #include "coder_posix_time.h"
-#include <string.h>
 #include <string>
 
 // Function Definitions
@@ -31,19 +30,19 @@ double toc()
   double tstart_tv_nsec;
   double tstart_tv_sec;
   int status;
-  internal::time::impl::timeKeeper(&tstart_tv_sec, &tstart_tv_nsec);
+  tstart_tv_sec = internal::b_time::impl::timeKeeper(tstart_tv_nsec);
   if (!freq_not_empty) {
     freq_not_empty = true;
     status = coderInitTimeFunctions(&freq);
     if (status != 0) {
-      rtErrorWithMessageID(std::string(&cv1[0], 22), status, rb_emlrtRTEI.fName,
-                           rb_emlrtRTEI.lineNo);
+      rtErrorWithMessageID(std::string(&cv1[0], 22), status, kb_emlrtRTEI.fName,
+                           kb_emlrtRTEI.lineNo);
     }
   }
   status = coderTimeClockGettimeMonotonic(&b_timespec, freq);
   if (status != 0) {
-    rtErrorWithMessageID(std::string(&cv2[0], 30), status, rb_emlrtRTEI.fName,
-                         rb_emlrtRTEI.lineNo);
+    rtErrorWithMessageID(std::string(&cv2[0], 30), status, kb_emlrtRTEI.fName,
+                         kb_emlrtRTEI.lineNo);
   }
   return (b_timespec.tv_sec - tstart_tv_sec) +
          (b_timespec.tv_nsec - tstart_tv_nsec) / 1.0E+9;

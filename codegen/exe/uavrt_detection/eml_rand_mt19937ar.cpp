@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: eml_rand_mt19937ar.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -18,7 +18,6 @@
 #include <cstdlib>
 #include <sstream>
 #include <stdexcept>
-#include <string.h>
 #include <string>
 
 // Function Declarations
@@ -28,7 +27,7 @@ static void genrand_uint32_vector(unsigned int mt[625], unsigned int u[2]);
 static double genrandu(unsigned int mt[625]);
 
 } // namespace coder
-static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void jc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -86,9 +85,12 @@ static void genrand_uint32_vector(unsigned int mt[625], unsigned int u[2])
 //
 static double genrandu(unsigned int mt[625])
 {
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
-      158,       // lineNo
-      "genrandu" // fName
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      158,        // lineNo
+      17,         // colNo
+      "genrandu", // fName
+      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/randfun/"
+      "eml_rand_mt19937ar.m" // pName
   };
   double r;
   // ========================= COPYRIGHT NOTICE ============================
@@ -161,7 +163,7 @@ static double genrandu(unsigned int mt[625])
         }
       }
       if (!isvalid) {
-        kc_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+        jc_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
       }
     } else {
       exitg1 = 1;
@@ -176,7 +178,7 @@ static double genrandu(unsigned int mt[625])
 // Return Type  : void
 //
 } // namespace coder
-static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void jc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;

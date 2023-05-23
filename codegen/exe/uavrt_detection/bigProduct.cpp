@@ -4,34 +4,33 @@
 // government, commercial, or other organizational use.
 // File: bigProduct.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
 #include "bigProduct.h"
 #include "rt_nonfinite.h"
-#include <string.h>
 
 // Function Definitions
 //
 // Arguments    : int a
 //                int b
-//                int *loworderbits
-//                int *highorderbits
-// Return Type  : void
+//                int &highorderbits
+// Return Type  : int
 //
 namespace coder {
 namespace internal {
-void b_bigProduct(int a, int b, int *loworderbits, int *highorderbits)
+int b_bigProduct(int a, int b, int &highorderbits)
 {
   int highOrderA;
   int highOrderB;
+  int loworderbits;
   int partialResults_idx_0_tmp;
   int partialResults_idx_1;
   int partialResults_idx_2;
   int tmp;
-  *loworderbits = 0;
+  loworderbits = 0;
   highOrderA = a >> 16;
   tmp = a & 65535;
   highOrderB = b >> 16;
@@ -39,43 +38,44 @@ void b_bigProduct(int a, int b, int *loworderbits, int *highorderbits)
   partialResults_idx_0_tmp = tmp * partialResults_idx_2;
   tmp *= highOrderB;
   partialResults_idx_1 = tmp << 16;
-  *highorderbits = tmp >> 16;
-  if (*highorderbits <= 0) {
+  highorderbits = tmp >> 16;
+  if (highorderbits <= 0) {
     tmp = highOrderA * partialResults_idx_2;
     partialResults_idx_2 = tmp << 16;
-    *highorderbits = tmp >> 16;
-    if (*highorderbits <= 0) {
-      *highorderbits = highOrderA * highOrderB;
-      if (*highorderbits <= 0) {
+    highorderbits = tmp >> 16;
+    if (highorderbits <= 0) {
+      highorderbits = highOrderA * highOrderB;
+      if (highorderbits <= 0) {
         if (partialResults_idx_0_tmp > MAX_int32_T - partialResults_idx_1) {
-          *loworderbits =
+          loworderbits =
               (partialResults_idx_0_tmp + partialResults_idx_1) - MAX_int32_T;
-          *highorderbits = 1;
+          highorderbits = 1;
         } else {
-          *loworderbits = partialResults_idx_0_tmp + partialResults_idx_1;
+          loworderbits = partialResults_idx_0_tmp + partialResults_idx_1;
         }
-        if (*loworderbits > MAX_int32_T - partialResults_idx_2) {
-          *loworderbits = (*loworderbits + partialResults_idx_2) - MAX_int32_T;
-          (*highorderbits)++;
+        if (loworderbits > MAX_int32_T - partialResults_idx_2) {
+          loworderbits = (loworderbits + partialResults_idx_2) - MAX_int32_T;
+          highorderbits++;
         } else {
-          *loworderbits += partialResults_idx_2;
+          loworderbits += partialResults_idx_2;
         }
       }
     }
   }
+  return loworderbits;
 }
 
 //
 // Arguments    : int a
 //                int b
-//                int *loworderbits
-//                int *highorderbits
-// Return Type  : void
+//                int &highorderbits
+// Return Type  : int
 //
-void bigProduct(int a, int b, int *loworderbits, int *highorderbits)
+int bigProduct(int a, int b, int &highorderbits)
 {
   int highOrderA;
   int highOrderB;
+  int loworderbits;
   int partialResults_idx_0_tmp;
   int partialResults_idx_1;
   int partialResults_idx_2;
@@ -87,24 +87,25 @@ void bigProduct(int a, int b, int *loworderbits, int *highorderbits)
   partialResults_idx_0_tmp = tmp * partialResults_idx_2;
   tmp *= highOrderB;
   partialResults_idx_1 = tmp << 16;
-  *highorderbits = tmp >> 16;
+  highorderbits = tmp >> 16;
   tmp = highOrderA * partialResults_idx_2;
   partialResults_idx_2 = tmp << 16;
-  *highorderbits += tmp >> 16;
-  *highorderbits += highOrderA * highOrderB;
+  highorderbits += tmp >> 16;
+  highorderbits += highOrderA * highOrderB;
   if (partialResults_idx_0_tmp > MAX_int32_T - partialResults_idx_1) {
-    *loworderbits =
+    loworderbits =
         (partialResults_idx_0_tmp + partialResults_idx_1) - MAX_int32_T;
-    (*highorderbits)++;
+    highorderbits++;
   } else {
-    *loworderbits = partialResults_idx_0_tmp + partialResults_idx_1;
+    loworderbits = partialResults_idx_0_tmp + partialResults_idx_1;
   }
-  if (*loworderbits > MAX_int32_T - partialResults_idx_2) {
-    *loworderbits = (*loworderbits + partialResults_idx_2) - MAX_int32_T;
-    (*highorderbits)++;
+  if (loworderbits > MAX_int32_T - partialResults_idx_2) {
+    loworderbits = (loworderbits + partialResults_idx_2) - MAX_int32_T;
+    highorderbits++;
   } else {
-    *loworderbits += partialResults_idx_2;
+    loworderbits += partialResults_idx_2;
   }
+  return loworderbits;
 }
 
 } // namespace internal

@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: datetime.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -20,7 +20,6 @@
 #include <cstdlib>
 #include <sstream>
 #include <stdexcept>
-#include <string.h>
 #include <string>
 
 // Function Declarations
@@ -56,9 +55,12 @@ static void ab_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 namespace coder {
 void datetime::init()
 {
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
-      1,                  // lineNo
-      "createFromDateVec" // fName
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      1,                   // lineNo
+      1,                   // colNo
+      "createFromDateVec", // fName
+      "/Applications/MATLAB_R2023a.app/toolbox/matlab/datatypes/codegen/"
+      "datetime/+matlab/+internal/+coder/+datetime/createFromDateVec.p" // pName
   };
   double b_second;
   double c_tm_hour;
@@ -69,8 +71,8 @@ void datetime::init()
   double fracSecs;
   double shi;
   boolean_T expl_temp;
-  internal::time::getLocalTime(&check, &b_second, &c_tm_min, &c_tm_hour, &shi,
-                               &c_tm_mon, &c_tm_year, &expl_temp);
+  check = internal::b_time::getLocalTime(b_second, c_tm_min, c_tm_hour, shi,
+                                         c_tm_mon, c_tm_year, expl_temp);
   fracSecs = check / 1.0E+6;
   check =
       (((((c_tm_year + c_tm_mon) + shi) + c_tm_hour) + c_tm_min) + b_second) +
@@ -82,10 +84,10 @@ void datetime::init()
         (!(std::ceil(c_tm_mon) == c_tm_mon)) || (!(std::ceil(shi) == shi)) ||
         (!(std::ceil(c_tm_hour) == c_tm_hour)) ||
         (!(std::ceil(c_tm_min) == c_tm_min))) {
-      ab_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+      ab_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
     }
     if (std::ceil(b_second) != b_second) {
-      ab_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+      ab_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
     }
     if ((c_tm_mon < 1.0) || (c_tm_mon > 12.0)) {
       wholeSecsFromMillis = std::floor((c_tm_mon - 1.0) / 12.0);

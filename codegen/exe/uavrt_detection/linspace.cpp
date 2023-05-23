@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: linspace.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -19,7 +19,6 @@
 #include <cstdlib>
 #include <sstream>
 #include <stdexcept>
-#include <string.h>
 #include <string>
 
 // Function Declarations
@@ -59,13 +58,17 @@ static void l_rtErrorWithMessageID(const char *r, const char *aFcnName,
 namespace coder {
 void linspace(double d2, double n, ::coder::array<double, 2U> &y)
 {
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
-      33,        // lineNo
-      "linspace" // fName
-  };
+  static rtRunTimeErrorInfo
+      qc_emlrtRTEI{
+          33,         // lineNo
+          37,         // colNo
+          "linspace", // fName
+          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/elmat/"
+          "linspace.m" // pName
+      };
   if (!(n >= 0.0)) {
     if (std::isnan(n)) {
-      l_rtErrorWithMessageID("N", wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+      l_rtErrorWithMessageID("N", qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
     }
     y.set_size(1, 0);
   } else {
@@ -79,17 +82,14 @@ void linspace(double d2, double n, ::coder::array<double, 2U> &y)
       if (y.size(1) >= 2) {
         y[0] = 0.0;
         if (y.size(1) >= 3) {
-          if ((-d2 == 0.0) && (static_cast<int>(delta1) > 2)) {
-            double d2scaled;
-            d2scaled =
-                d2 / (static_cast<double>(static_cast<int>(delta1)) - 1.0);
+          if (-d2 == 0.0) {
+            delta1 = d2 / (static_cast<double>(y.size(1)) - 1.0);
             for (int k{2}; k <= y_tmp; k++) {
-              y[k - 1] = static_cast<double>(
-                             ((k << 1) - static_cast<int>(delta1)) - 1) *
-                         d2scaled;
+              y[k - 1] =
+                  static_cast<double>(((k << 1) - y.size(1)) - 1) * delta1;
             }
-            if ((static_cast<int>(delta1) & 1) == 1) {
-              y[static_cast<int>(delta1) >> 1] = 0.0;
+            if ((y.size(1) & 1) == 1) {
+              y[y.size(1) >> 1] = 0.0;
             }
           } else if ((d2 < 0.0) && (std::abs(d2) > 8.9884656743115785E+307)) {
             delta1 = d2 / (static_cast<double>(y.size(1)) - 1.0);

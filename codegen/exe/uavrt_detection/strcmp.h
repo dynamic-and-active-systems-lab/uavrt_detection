@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: strcmp.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef STRCMP_H
@@ -26,15 +26,15 @@ class rtString;
 // Function Declarations
 namespace coder {
 namespace internal {
-boolean_T b_strcmp(const ::coder::array<char, 2U> &a);
+boolean_T b_strcmp(const rtString &a);
 
-boolean_T b_strcmp(const rtString *a);
+boolean_T b_strcmp(const ::coder::array<char, 2U> &a);
 
 boolean_T b_strcmp(const char a_data[], const int a_size[2]);
 
-boolean_T c_strcmp(const ::coder::array<char, 2U> &a);
+boolean_T c_strcmp(const rtString &a);
 
-boolean_T c_strcmp(const rtString *a);
+boolean_T c_strcmp(const ::coder::array<char, 2U> &a);
 
 boolean_T c_strcmp(const char a_data[], const int a_size[2]);
 

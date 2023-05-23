@@ -4,54 +4,63 @@
 // government, commercial, or other organizational use.
 // File: fileManager.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
 #include "fileManager.h"
 #include "rt_nonfinite.h"
+#include "uavrt_detection_data.h"
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
 #include "omp.h"
-#include <cmath>
 #include <cstdio>
 #include <cstdlib>
 #include <sstream>
 #include <stdexcept>
-#include <stdio.h>
-#include <string.h>
 #include <string>
 
 // Variable Definitions
-static FILE *eml_openfiles[20];
+static std::FILE *eml_openfiles[20];
 
 static boolean_T eml_autoflush[20];
 
 static rtRunTimeErrorInfo e_emlrtRTEI{
-    144,          // lineNo
-    "getfilestar" // fName
+    147,           // lineNo
+    5,             // colNo
+    "getfilestar", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+    "fileManager.m" // pName
 };
 
 static rtRunTimeErrorInfo f_emlrtRTEI{
-    292,                    // lineNo
-    "cast_and_validate_fid" // fName
+    297,                     // lineNo
+    1,                       // colNo
+    "cast_and_validate_fid", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+    "fileManager.m" // pName
 };
 
 static rtRunTimeErrorInfo g_emlrtRTEI{
-    288,                    // lineNo
-    "cast_and_validate_fid" // fName
+    293,                     // lineNo
+    1,                       // colNo
+    "cast_and_validate_fid", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+    "fileManager.m" // pName
 };
 
 // Function Declarations
 namespace coder {
+namespace internal {
 static signed char filedata();
 
 }
+} // namespace coder
 static void h_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-static void pc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -59,6 +68,7 @@ static void pc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 // Return Type  : signed char
 //
 namespace coder {
+namespace internal {
 static signed char filedata()
 {
   int k;
@@ -68,7 +78,7 @@ static signed char filedata()
   k = 0;
   exitg1 = false;
   while ((!exitg1) && (k < 20)) {
-    if (eml_openfiles[k] == NULL) {
+    if (eml_openfiles[k] == nullptr) {
       f = static_cast<signed char>(k + 1);
       exitg1 = true;
     } else {
@@ -83,6 +93,7 @@ static signed char filedata()
 //                int aLineNum
 // Return Type  : void
 //
+} // namespace internal
 } // namespace coder
 static void h_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
@@ -106,7 +117,7 @@ static void h_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void pc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -128,13 +139,18 @@ static void pc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 // Return Type  : int
 //
 namespace coder {
+namespace internal {
 int cfclose(double fid)
 {
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
-      165,                // lineNo
-      "conditionalAssert" // fName
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      168,                 // lineNo
+      5,                   // colNo
+      "conditionalAssert", // fName
+      "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+      "fileManager.m" // pName
   };
-  FILE *filestar;
+  std::FILE *f;
+  std::FILE *f_tmp;
   int cst;
   int st;
   signed char fileid;
@@ -142,32 +158,36 @@ int cfclose(double fid)
   if (fid < 0.0) {
     c_rtErrorWithMessageID(g_emlrtRTEI.fName, g_emlrtRTEI.lineNo);
   }
-  fileid = static_cast<signed char>(std::round(fid));
-  if (fid != fileid) {
+  fileid = static_cast<signed char>(fid);
+  if (fid != static_cast<signed char>(fid)) {
     c_rtErrorWithMessageID(f_emlrtRTEI.fName, f_emlrtRTEI.lineNo);
   }
-  if (static_cast<int>(fid) != fileid) {
+  if (static_cast<int>(fid) != static_cast<signed char>(fid)) {
+    fileid = -1;
+  }
+  if (fileid < 0) {
     c_rtErrorWithMessageID(g_emlrtRTEI.fName, g_emlrtRTEI.lineNo);
   }
   if (fileid >= 3) {
-    filestar = eml_openfiles[fileid - 3];
-    if (eml_openfiles[fileid - 3] == NULL) {
+    f_tmp = eml_openfiles[fileid - 3];
+    f = f_tmp;
+    if (f_tmp == nullptr) {
       h_rtErrorWithMessageID(e_emlrtRTEI.fName, e_emlrtRTEI.lineNo);
     }
   } else if (fileid == 0) {
-    filestar = stdin;
+    f = stdin;
   } else if (fileid == 1) {
-    filestar = stdout;
+    f = stdout;
   } else {
-    filestar = stderr;
+    f = stderr;
   }
-  if ((!(filestar != NULL)) || (fileid < 3)) {
-    c_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+  if ((!(f != nullptr)) || (fileid < 3)) {
+    c_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
   }
-  cst = fclose(filestar);
+  cst = std::fclose(f);
   if (cst == 0) {
     st = 0;
-    eml_openfiles[fileid - 3] = NULL;
+    eml_openfiles[fileid - 3] = nullptr;
     eml_autoflush[fileid - 3] = true;
   }
   return st;
@@ -181,19 +201,22 @@ int cfclose(double fid)
 signed char cfopen(const ::coder::array<char, 2U> &cfilename,
                    const char *cpermission)
 {
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
-      111,     // lineNo
-      "cfopen" // fName
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      111,      // lineNo
+      5,        // colNo
+      "cfopen", // fName
+      "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+      "fileManager.m" // pName
   };
+  std::FILE *filestar;
   array<char, 2U> ccfilename;
   signed char fileid;
   signed char j;
   fileid = -1;
   j = filedata();
   if (j < 1) {
-    pc_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+    nc_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
   } else {
-    FILE *filestar;
     int i;
     int loop_ub;
     ccfilename.set_size(1, cfilename.size(1) + 1);
@@ -202,8 +225,8 @@ signed char cfopen(const ::coder::array<char, 2U> &cfilename,
       ccfilename[i] = cfilename[i];
     }
     ccfilename[cfilename.size(1)] = '\x00';
-    filestar = fopen(&ccfilename[0], cpermission);
-    if (filestar != NULL) {
+    filestar = std::fopen(&ccfilename[0], cpermission);
+    if (filestar != nullptr) {
       eml_openfiles[j - 1] = filestar;
       eml_autoflush[j - 1] = true;
       i = j + 2;
@@ -218,56 +241,60 @@ signed char cfopen(const ::coder::array<char, 2U> &cfilename,
 
 //
 // Arguments    : double fid
-//                FILE* *filestar
-//                boolean_T *autoflush
-// Return Type  : void
+//                boolean_T &autoflush
+// Return Type  : std::FILE *
 //
-void getfilestar(double fid, FILE **filestar, boolean_T *autoflush)
+std::FILE *getfilestar(double fid, boolean_T &autoflush)
 {
+  std::FILE *filestar;
+  std::FILE *filestar_tmp;
   signed char fileid;
   if (fid < 0.0) {
     c_rtErrorWithMessageID(g_emlrtRTEI.fName, g_emlrtRTEI.lineNo);
   }
-  fileid = static_cast<signed char>(std::round(fid));
-  if (fid != fileid) {
+  fileid = static_cast<signed char>(fid);
+  if (fid != static_cast<signed char>(fid)) {
     c_rtErrorWithMessageID(f_emlrtRTEI.fName, f_emlrtRTEI.lineNo);
   }
-  if (static_cast<int>(fid) != fileid) {
+  if (static_cast<int>(fid) != static_cast<signed char>(fid)) {
     fileid = -1;
   }
   if (fileid >= 3) {
-    *autoflush = eml_autoflush[fileid - 3];
-    *filestar = eml_openfiles[fileid - 3];
-    if (eml_openfiles[fileid - 3] == NULL) {
+    autoflush = eml_autoflush[fileid - 3];
+    filestar_tmp = eml_openfiles[fileid - 3];
+    filestar = filestar_tmp;
+    if (filestar_tmp == nullptr) {
       h_rtErrorWithMessageID(e_emlrtRTEI.fName, e_emlrtRTEI.lineNo);
     }
   } else if (fileid == 0) {
-    *filestar = stdin;
-    *autoflush = true;
+    filestar = stdin;
+    autoflush = true;
   } else if (fileid == 1) {
-    *filestar = stdout;
-    *autoflush = true;
+    filestar = stdout;
+    autoflush = true;
   } else if (fileid == 2) {
-    *filestar = stderr;
-    *autoflush = true;
+    filestar = stderr;
+    autoflush = true;
   } else {
-    *filestar = NULL;
-    *autoflush = true;
+    filestar = nullptr;
+    autoflush = true;
   }
+  return filestar;
 }
 
 //
 // Arguments    : void
 // Return Type  : void
 //
+} // namespace internal
 } // namespace coder
 void filedata_init()
 {
-  FILE *a;
-  a = NULL;
   for (int i{0}; i < 20; i++) {
     eml_autoflush[i] = false;
-    eml_openfiles[i] = a;
+  }
+  for (int i{0}; i < 20; i++) {
+    eml_openfiles[i] = nullptr;
   }
 }
 

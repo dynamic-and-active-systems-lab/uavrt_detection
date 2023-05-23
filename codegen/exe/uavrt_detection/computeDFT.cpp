@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: computeDFT.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -19,7 +19,6 @@
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
 #include <cmath>
-#include <string.h>
 
 // Function Definitions
 //
@@ -42,23 +41,24 @@ void computeDFT(const ::coder::array<creal32_T, 2U> &xin, double nfft,
   array<float, 2U> costab1q;
   array<float, 2U> sintab;
   array<float, 2U> sintabinv;
+  int N2blue;
   int b_remainder;
   int i;
   int i1;
   int loop_ub_tmp;
-  int nFullPasses;
   int offset;
+  boolean_T useRadix2;
   if (!(nfft >= 0.0)) {
-    rtNonNegativeError(nfft, &l_emlrtDCI);
+    rtNonNegativeError(nfft, h_emlrtDCI);
   }
   i = static_cast<int>(std::floor(nfft));
   if (nfft != i) {
-    rtIntegerError(nfft, &m_emlrtDCI);
+    rtIntegerError(nfft, i_emlrtDCI);
   }
   loop_ub_tmp = static_cast<int>(nfft);
   xw.set_size(loop_ub_tmp, xin.size(1));
   if (loop_ub_tmp != i) {
-    rtIntegerError(nfft, &k_emlrtDCI);
+    rtIntegerError(nfft, g_emlrtDCI);
   }
   offset = loop_ub_tmp * xin.size(1);
   for (i = 0; i < offset; i++) {
@@ -70,7 +70,7 @@ void computeDFT(const ::coder::array<creal32_T, 2U> &xin, double nfft,
     for (int j{0}; j < i; j++) {
       int i2;
       if (j + 1 > xin.size(1)) {
-        rtDynamicBoundsError(j + 1, 1, xin.size(1), &x_emlrtBCI);
+        rtDynamicBoundsError(j + 1, 1, xin.size(1), q_emlrtBCI);
       }
       offset = xin.size(0);
       x.set_size(xin.size(0));
@@ -78,7 +78,7 @@ void computeDFT(const ::coder::array<creal32_T, 2U> &xin, double nfft,
         x[i1] = xin[i1 + xin.size(0) * j];
       }
       if (!(nfft >= 1.0)) {
-        c_rtErrorWithMessageID(1, lb_emlrtRTEI.fName, lb_emlrtRTEI.lineNo);
+        b_rtErrorWithMessageID(1, eb_emlrtRTEI.fName, eb_emlrtRTEI.lineNo);
       }
       if (xin.size(0) == 1) {
         wrappedData.set_size(1, loop_ub_tmp);
@@ -93,83 +93,68 @@ void computeDFT(const ::coder::array<creal32_T, 2U> &xin, double nfft,
           wrappedData[i1].im = 0.0F;
         }
       }
-      nFullPasses = div_s32(xin.size(0), loop_ub_tmp);
-      offset = nFullPasses * loop_ub_tmp;
+      i1 = static_cast<int>(static_cast<unsigned int>(xin.size(0)) /
+                            static_cast<unsigned int>(nfft));
+      offset = i1 * loop_ub_tmp;
       b_remainder = xin.size(0) - offset;
       if (b_remainder > 2147483646) {
         check_forloop_overflow_error();
       }
       for (int k{0}; k < b_remainder; k++) {
-        i1 = wrappedData.size(0) * wrappedData.size(1);
-        if ((k + 1 < 1) || (k + 1 > i1)) {
-          rtDynamicBoundsError(k + 1, 1, i1, &u_emlrtBCI);
+        N2blue = wrappedData.size(0) * wrappedData.size(1);
+        if ((k + 1 < 1) || (k + 1 > N2blue)) {
+          rtDynamicBoundsError(k + 1, 1, N2blue, n_emlrtBCI);
         }
-        i1 = (offset + k) + 1;
-        if ((i1 < 1) || (i1 > xin.size(0))) {
-          rtDynamicBoundsError(i1, 1, xin.size(0), &v_emlrtBCI);
+        i2 = (offset + k) + 1;
+        useRadix2 = ((i2 < 1) || (i2 > xin.size(0)));
+        if (useRadix2) {
+          rtDynamicBoundsError(i2, 1, xin.size(0), o_emlrtBCI);
         }
-        wrappedData[k].re = x[i1 - 1].re;
-        i2 = wrappedData.size(0) * wrappedData.size(1);
-        if (k + 1 > i2) {
-          rtDynamicBoundsError(k + 1, 1, i2, &u_emlrtBCI);
+        wrappedData[k].re = x[i2 - 1].re;
+        if (k + 1 > N2blue) {
+          rtDynamicBoundsError(k + 1, 1, N2blue, n_emlrtBCI);
         }
-        if ((i1 < 1) || (i1 > xin.size(0))) {
-          rtDynamicBoundsError(i1, 1, xin.size(0), &v_emlrtBCI);
-        }
-        wrappedData[k].im = x[i1 - 1].im;
+        wrappedData[k].im = x[i2 - 1].im;
       }
-      i1 = b_remainder + 1;
-      for (int k{i1}; k <= loop_ub_tmp; k++) {
+      N2blue = b_remainder + 1;
+      for (int k{N2blue}; k <= loop_ub_tmp; k++) {
         i2 = wrappedData.size(0) * wrappedData.size(1);
         if ((k < 1) || (k > i2)) {
-          rtDynamicBoundsError(k, 1, i2, &t_emlrtBCI);
+          rtDynamicBoundsError(k, 1, i2, m_emlrtBCI);
         }
         wrappedData[k - 1].re = 0.0F;
-        i2 = wrappedData.size(0) * wrappedData.size(1);
         if (k > i2) {
-          rtDynamicBoundsError(k, 1, i2, &t_emlrtBCI);
+          rtDynamicBoundsError(k, 1, i2, m_emlrtBCI);
         }
         wrappedData[k - 1].im = 0.0F;
       }
-      if (nFullPasses > 2147483646) {
+      if (i1 > 2147483646) {
         check_forloop_overflow_error();
       }
-      for (b_remainder = 0; b_remainder < nFullPasses; b_remainder++) {
+      for (b_remainder = 0; b_remainder < i1; b_remainder++) {
         offset = b_remainder * loop_ub_tmp;
         for (int k{0}; k < loop_ub_tmp; k++) {
-          i1 = wrappedData.size(0) * wrappedData.size(1);
-          if (k + 1 > i1) {
-            rtDynamicBoundsError(k + 1, 1, i1, &q_emlrtBCI);
+          N2blue = wrappedData.size(0) * wrappedData.size(1);
+          if (k + 1 > N2blue) {
+            rtDynamicBoundsError(k + 1, 1, N2blue, k_emlrtBCI);
           }
-          i1 = wrappedData.size(0) * wrappedData.size(1);
-          if (k + 1 > i1) {
-            rtDynamicBoundsError(k + 1, 1, i1, &s_emlrtBCI);
+          i2 = (offset + k) + 1;
+          useRadix2 = ((i2 < 1) || (i2 > xin.size(0)));
+          if (useRadix2) {
+            rtDynamicBoundsError(i2, 1, xin.size(0), l_emlrtBCI);
           }
-          i1 = (offset + k) + 1;
-          if ((i1 < 1) || (i1 > xin.size(0))) {
-            rtDynamicBoundsError(i1, 1, xin.size(0), &r_emlrtBCI);
+          wrappedData[k].re = wrappedData[k].re + x[i2 - 1].re;
+          if (k + 1 > N2blue) {
+            rtDynamicBoundsError(k + 1, 1, N2blue, k_emlrtBCI);
           }
-          wrappedData[k].re = wrappedData[k].re + x[i1 - 1].re;
-          i2 = wrappedData.size(0) * wrappedData.size(1);
-          if (k + 1 > i2) {
-            rtDynamicBoundsError(k + 1, 1, i2, &q_emlrtBCI);
-          }
-          if (i1 > xin.size(0)) {
-            rtDynamicBoundsError(i1, 1, xin.size(0), &r_emlrtBCI);
-          }
-          i2 = wrappedData.size(0) * wrappedData.size(1);
-          if (k + 1 > i2) {
-            rtDynamicBoundsError(k + 1, 1, i2, &s_emlrtBCI);
-          }
-          wrappedData[k].im = wrappedData[k].im + x[i1 - 1].im;
+          wrappedData[k].im = wrappedData[k].im + x[i2 - 1].im;
         }
       }
       if (j + 1 > xw.size(1)) {
-        rtDynamicBoundsError(j + 1, 1, xw.size(1), &w_emlrtBCI);
+        rtDynamicBoundsError(j + 1, 1, xw.size(1), p_emlrtBCI);
       }
       offset = wrappedData.size(0) * wrappedData.size(1);
-      rtSubAssignSizeCheck(xw.size(), 1, &offset, 1, &d_emlrtECI);
-      offset = wrappedData.size(0) * wrappedData.size(1);
+      rtSubAssignSizeCheck(xw.size(), 1, &offset, 1, d_emlrtECI);
       for (i1 = 0; i1 < offset; i1++) {
         xw[i1 + xw.size(0) * j] = wrappedData[i1];
       }
@@ -182,7 +167,7 @@ void computeDFT(const ::coder::array<creal32_T, 2U> &xin, double nfft,
     }
   }
   if (xw.size(0) == 1) {
-    v_rtErrorWithMessageID(mb_emlrtRTEI.fName, mb_emlrtRTEI.lineNo);
+    u_rtErrorWithMessageID(fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
   }
   if ((xw.size(0) == 0) || (xw.size(1) == 0) || (nfft == 0.0)) {
     Xx.set_size(loop_ub_tmp, xw.size(1));
@@ -193,10 +178,9 @@ void computeDFT(const ::coder::array<creal32_T, 2U> &xin, double nfft,
     }
   } else {
     float e;
-    boolean_T useRadix2;
     useRadix2 = ((loop_ub_tmp & (loop_ub_tmp - 1)) == 0);
-    internal::FFTImplementationCallback::get_algo_sizes(
-        static_cast<int>(nfft), useRadix2, &nFullPasses, &offset);
+    N2blue = internal::fft::FFTImplementationCallback::get_algo_sizes(
+        static_cast<int>(nfft), useRadix2, offset);
     e = 6.28318548F / static_cast<float>(offset);
     b_remainder = offset / 2 / 2;
     costab1q.set_size(1, b_remainder + 1);
@@ -254,12 +238,11 @@ void computeDFT(const ::coder::array<creal32_T, 2U> &xin, double nfft,
       sintabinv.set_size(1, 0);
     }
     if (useRadix2) {
-      internal::FFTImplementationCallback::r2br_r2dit_trig(
+      internal::fft::FFTImplementationCallback::r2br_r2dit_trig(
           xw, static_cast<int>(nfft), costab, sintab, Xx);
     } else {
-      internal::FFTImplementationCallback::dobluesteinfft(
-          xw, nFullPasses, static_cast<int>(nfft), costab, sintab, sintabinv,
-          Xx);
+      internal::fft::FFTImplementationCallback::dobluesteinfft(
+          xw, N2blue, static_cast<int>(nfft), costab, sintab, sintabinv, Xx);
     }
   }
   psdfreqvec(nfft, varargin_1, f);

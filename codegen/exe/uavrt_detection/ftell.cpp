@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: ftell.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -15,8 +15,7 @@
 #include "uavrt_detection_data.h"
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
 
 // Function Definitions
 //
@@ -26,21 +25,23 @@
 namespace coder {
 double b_ftell(double fileID)
 {
-  FILE *filestar;
+  std::FILE *f;
+  std::FILE *filestar;
   double position;
   boolean_T a;
-  getfilestar(fileID, &filestar, &a);
-  if (filestar == NULL) {
+  f = internal::getfilestar(fileID, a);
+  filestar = f;
+  if (f == nullptr) {
     c_rtErrorWithMessageID(d_emlrtRTEI.fName, d_emlrtRTEI.lineNo);
   }
   if ((!(fileID != 0.0)) || (!(fileID != 1.0)) || (!(fileID != 2.0))) {
-    filestar = NULL;
+    filestar = nullptr;
   }
-  if (filestar == NULL) {
+  if (filestar == nullptr) {
     position = -1.0;
   } else {
     long position_t;
-    position_t = ftell(filestar);
+    position_t = std::ftell(filestar);
     position = (double)position_t;
   }
   return position;

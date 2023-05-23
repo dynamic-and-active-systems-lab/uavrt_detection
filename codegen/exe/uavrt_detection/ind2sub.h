@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: ind2sub.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef IND2SUB_H
@@ -18,12 +18,12 @@
 
 // Function Declarations
 namespace coder {
-void ind2sub_indexClass(const double siz[2], double ndx, int *varargout_1,
-                        int *varargout_2);
+namespace internal {
+int ind2sub(const double siz[2], double ndx, int &varargout_2);
 
-void ind2sub_indexClass(const double siz[2], int ndx, int *varargout_1,
-                        int *varargout_2);
+int ind2sub(const double siz[2], int ndx, int &varargout_2);
 
+} // namespace internal
 } // namespace coder
 
 #endif

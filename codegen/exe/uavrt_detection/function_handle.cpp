@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: function_handle.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -15,7 +15,6 @@
 #include "threshold.h"
 #include "waveform.h"
 #include "coder_array.h"
-#include <string.h>
 
 // Function Definitions
 //
@@ -76,24 +75,18 @@ void h_binary_expand_op(const coder::array<boolean_T, 1U> &in1,
                         const coder::array<boolean_T, 1U> &in2)
 {
   coder::array<boolean_T, 1U> b_in1;
-  int i;
   int loop_ub;
   int stride_0_0;
   int stride_1_0;
-  if (in2.size(0) == 1) {
-    i = in1.size(0);
-  } else {
-    i = in2.size(0);
-  }
-  b_in1.set_size(i);
-  stride_0_0 = (in1.size(0) != 1);
-  stride_1_0 = (in2.size(0) != 1);
   if (in2.size(0) == 1) {
     loop_ub = in1.size(0);
   } else {
     loop_ub = in2.size(0);
   }
-  for (i = 0; i < loop_ub; i++) {
+  b_in1.set_size(loop_ub);
+  stride_0_0 = (in1.size(0) != 1);
+  stride_1_0 = (in2.size(0) != 1);
+  for (int i{0}; i < loop_ub; i++) {
     b_in1[i] = (in1[i * stride_0_0] && in2[i * stride_1_0]);
   }
   if (b_in1.size(0) > 2147483646) {

@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: diff.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -15,12 +15,13 @@
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
-#include <string.h>
 
 // Variable Definitions
-static rtRunTimeErrorInfo xb_emlrtRTEI{
-    51,    // lineNo
-    "diff" // fName
+static rtRunTimeErrorInfo qb_emlrtRTEI{
+    51,     // lineNo
+    19,     // colNo
+    "diff", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/datafun/diff.m" // pName
 };
 
 // Function Definitions
@@ -47,7 +48,7 @@ void diff(const ::coder::array<double, 1U> &x, ::coder::array<double, 1U> &y)
     } else {
       double work_data;
       if (x.size(0) == 1) {
-        v_rtErrorWithMessageID(xb_emlrtRTEI.fName, xb_emlrtRTEI.lineNo);
+        u_rtErrorWithMessageID(qb_emlrtRTEI.fName, qb_emlrtRTEI.lineNo);
       }
       y.set_size(x.size(0) - 1);
       work_data = x[0];
@@ -83,7 +84,7 @@ void diff(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U> &y)
     } else {
       double work_data;
       if (x.size(0) == 1) {
-        v_rtErrorWithMessageID(xb_emlrtRTEI.fName, xb_emlrtRTEI.lineNo);
+        u_rtErrorWithMessageID(qb_emlrtRTEI.fName, qb_emlrtRTEI.lineNo);
       }
       y.set_size(x.size(0) - 1, 1);
       work_data = x[0];

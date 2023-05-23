@@ -4,15 +4,14 @@
 // government, commercial, or other organizational use.
 // File: quickselect.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
 #include "quickselect.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
-#include <string.h>
 
 // Function Declarations
 namespace coder {
@@ -40,19 +39,25 @@ static int thirdOfFive(const ::coder::array<double, 1U> &v, int ia, int ib)
     double v4;
     v4 = v[ia - 1];
     if (v4 < v[ia]) {
-      if (v[ia] < v[ia + 1]) {
+      double v5;
+      v5 = v[ia + 1];
+      if (v[ia] < v5) {
         im = ia + 1;
-      } else if (v[ia - 1] < v[ia + 1]) {
+      } else if (v4 < v5) {
         im = ia + 2;
       } else {
         im = ia;
       }
-    } else if (v4 < v[ia + 1]) {
-      im = ia;
-    } else if (v[ia] < v[ia + 1]) {
-      im = ia + 2;
     } else {
-      im = ia + 1;
+      double v5;
+      v5 = v[ia + 1];
+      if (v4 < v5) {
+        im = ia;
+      } else if (v[ia] < v5) {
+        im = ia + 2;
+      } else {
+        im = ia + 1;
+      }
     }
   } else {
     double v4;
@@ -122,18 +127,18 @@ static int thirdOfFive(const ::coder::array<double, 1U> &v, int ia, int ib)
 // Arguments    : ::coder::array<double, 1U> &v
 //                int n
 //                int vlen
-//                double *vn
-//                int *nfirst
-//                int *nlast
-// Return Type  : void
+//                int &nfirst
+//                int &nlast
+// Return Type  : double
 //
-void quickselect(::coder::array<double, 1U> &v, int n, int vlen, double *vn,
-                 int *nfirst, int *nlast)
+double quickselect(::coder::array<double, 1U> &v, int n, int vlen, int &nfirst,
+                   int &nlast)
 {
+  double vn;
   if (n > vlen) {
-    *vn = rtNaN;
-    *nfirst = 0;
-    *nlast = 0;
+    vn = rtNaN;
+    nfirst = 0;
+    nlast = 0;
   } else {
     int ia;
     int ib;
@@ -146,7 +151,7 @@ void quickselect(::coder::array<double, 1U> &v, int n, int vlen, double *vn,
     ipiv = n;
     ia = 0;
     ib = vlen - 1;
-    *nfirst = 1;
+    nfirst = 1;
     ilast = vlen - 1;
     oldnv = vlen;
     checkspeed = false;
@@ -161,18 +166,16 @@ void quickselect(::coder::array<double, 1U> &v, int n, int vlen, double *vn,
       ilast = ia;
       ipiv = -1;
       for (int k{ia + 1}; k <= ib; k++) {
-        double d;
-        double vk;
-        vk = v[k - 1];
-        d = v[k - 1];
-        if (d == vref) {
+        double vk_tmp;
+        vk_tmp = v[k - 1];
+        if (vk_tmp == vref) {
           v[k - 1] = v[ilast];
-          v[ilast] = vk;
+          v[ilast] = vk_tmp;
           ipiv++;
           ilast++;
-        } else if (d < vref) {
+        } else if (vk_tmp < vref) {
           v[k - 1] = v[ilast];
-          v[ilast] = vk;
+          v[ilast] = vk_tmp;
           ilast++;
         }
       }
@@ -180,8 +183,8 @@ void quickselect(::coder::array<double, 1U> &v, int n, int vlen, double *vn,
       v[ilast] = vref;
       guard1 = false;
       if (n <= ilast + 1) {
-        *nfirst = ilast - ipiv;
-        if (n >= *nfirst) {
+        nfirst = ilast - ipiv;
+        if (n >= nfirst) {
           exitg1 = true;
         } else {
           ib = ilast - 1;
@@ -203,7 +206,7 @@ void quickselect(::coder::array<double, 1U> &v, int n, int vlen, double *vn,
           while (c > 1) {
             int ngroupsof5;
             ngroupsof5 = c / 5;
-            *nlast = c - ngroupsof5 * 5;
+            nlast = c - ngroupsof5 * 5;
             c = ngroupsof5;
             for (int k{0}; k < ngroupsof5; k++) {
               ipiv = (ia + k * 5) + 1;
@@ -213,9 +216,9 @@ void quickselect(::coder::array<double, 1U> &v, int n, int vlen, double *vn,
               v[ilast] = v[ipiv];
               v[ipiv] = vref;
             }
-            if (*nlast > 0) {
+            if (nlast > 0) {
               ipiv = (ia + ngroupsof5 * 5) + 1;
-              ipiv = thirdOfFive(v, ipiv, (ipiv + *nlast) - 1) - 1;
+              ipiv = thirdOfFive(v, ipiv, (ipiv + nlast) - 1) - 1;
               ilast = ia + ngroupsof5;
               vref = v[ilast];
               v[ilast] = v[ipiv];
@@ -224,7 +227,7 @@ void quickselect(::coder::array<double, 1U> &v, int n, int vlen, double *vn,
             }
           }
         } else if (c >= 3) {
-          ipiv = ia + (c - 1) / 2;
+          ipiv = ia + static_cast<int>(static_cast<unsigned int>(c - 1) >> 1);
           if (v[ia] < v[ipiv]) {
             if (!(v[ipiv] < v[ib])) {
               if (v[ia] < v[ib]) {
@@ -245,13 +248,14 @@ void quickselect(::coder::array<double, 1U> &v, int n, int vlen, double *vn,
           }
         }
         ipiv = ia + 1;
-        *nfirst = ia + 1;
+        nfirst = ia + 1;
         ilast = ib;
       }
     }
-    *vn = v[ilast];
-    *nlast = ilast + 1;
+    vn = v[ilast];
+    nlast = ilast + 1;
   }
+  return vn;
 }
 
 } // namespace internal

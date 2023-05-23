@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: log10.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -17,7 +17,6 @@
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
 #include <cmath>
-#include <string.h>
 
 // Function Definitions
 //
@@ -27,11 +26,11 @@
 namespace coder {
 void b_log10(::coder::array<double, 2U> &x)
 {
-  int nx;
+  int i;
   boolean_T p;
   p = false;
-  nx = x.size(0) * x.size(1);
-  for (int k{0}; k < nx; k++) {
+  i = x.size(0) * x.size(1);
+  for (int k{0}; k < i; k++) {
     if (p || (x[k] < 0.0)) {
       p = true;
     }
@@ -39,11 +38,10 @@ void b_log10(::coder::array<double, 2U> &x)
   if (p) {
     rtErrorWithMessageID("log10", b_emlrtRTEI.fName, b_emlrtRTEI.lineNo);
   }
-  nx = x.size(0) * x.size(1);
-  if (nx > 2147483646) {
+  if (i > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (int k{0}; k < nx; k++) {
+  for (int k{0}; k < i; k++) {
     x[k] = std::log10(x[k]);
   }
 }

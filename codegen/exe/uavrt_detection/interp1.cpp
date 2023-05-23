@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: interp1.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -22,7 +22,6 @@
 #include <cstdlib>
 #include <sstream>
 #include <stdexcept>
-#include <string.h>
 #include <string>
 
 // Function Declarations
@@ -52,6 +51,7 @@ static void interp1Linear(const ::coder::array<double, 1U> &y, int nyrows,
                           ::coder::array<double, 1U> &yi,
                           const ::coder::array<double, 1U> &varargin_1)
 {
+  double d;
   double maxx;
   double minx;
   double penx;
@@ -69,15 +69,15 @@ static void interp1Linear(const ::coder::array<double, 1U> &y, int nyrows,
   }
   ub_loop = xi.size(0) - 1;
 #pragma omp parallel for num_threads(omp_get_max_threads()) private(           \
-    r, high_i, low_i, low_ip1, mid_i)
+    d, high_i, low_i, low_ip1, r, mid_i)
 
   for (int k = 0; k <= ub_loop; k++) {
     if (std::isnan(xi[k])) {
       yi[k] = rtNaN;
     } else if (xi[k] > maxx) {
       if (nyrows > 1) {
-        r = y[nyrows - 1];
-        yi[k] = r + (xi[k] - maxx) / (maxx - penx) * (r - y[nyrows - 2]);
+        d = y[nyrows - 1];
+        yi[k] = d + (xi[k] - maxx) / (maxx - penx) * (d - y[nyrows - 2]);
       }
     } else if (xi[k] < minx) {
       yi[k] = y[0] + (xi[k] - minx) / (varargin_1[1] - minx) * (y[1] - y[0]);
@@ -103,10 +103,13 @@ static void interp1Linear(const ::coder::array<double, 1U> &y, int nyrows,
         yi[k] = y[low_i - 1];
       } else if (r == 1.0) {
         yi[k] = y[low_i];
-      } else if (y[low_i - 1] == y[low_i]) {
-        yi[k] = y[low_i - 1];
       } else {
-        yi[k] = (1.0 - r) * y[low_i - 1] + r * y[low_i];
+        d = y[low_i - 1];
+        if (d == y[low_i]) {
+          yi[k] = d;
+        } else {
+          yi[k] = (1.0 - r) * d + r * y[low_i];
+        }
       }
     }
   }
@@ -168,14 +171,22 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
              const ::coder::array<double, 1U> &varargin_3,
              ::coder::array<double, 1U> &Vq)
 {
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
-      153,           // lineNo
-      "interp1_work" // fName
-  };
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
-      137,           // lineNo
-      "interp1_work" // fName
-  };
+  static rtRunTimeErrorInfo
+      qc_emlrtRTEI{
+          155,            // lineNo
+          15,             // colNo
+          "interp1_work", // fName
+          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/polyfun/"
+          "interp1.m" // pName
+      };
+  static rtRunTimeErrorInfo
+      rc_emlrtRTEI{
+          139,            // lineNo
+          23,             // colNo
+          "interp1_work", // fName
+          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/polyfun/"
+          "interp1.m" // pName
+      };
   array<double, 1U> x;
   array<double, 1U> y;
   int n;
@@ -193,10 +204,10 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
   }
   nx = varargin_1.size(0);
   if (varargin_1.size(0) != varargin_2.size(0)) {
-    ub_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+    ub_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
   }
   if (varargin_1.size(0) <= 1) {
-    vb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+    vb_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
   }
   Vq.set_size(varargin_3.size(0));
   n = varargin_3.size(0);
@@ -214,7 +225,7 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
       exitg1 = 0;
       if (k <= nx - 1) {
         if (std::isnan(varargin_1[k])) {
-          gb_rtErrorWithMessageID(bc_emlrtRTEI.fName, bc_emlrtRTEI.lineNo);
+          gb_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
         } else {
           k++;
         }
@@ -242,7 +253,7 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
         }
         for (k = 2; k <= nx; k++) {
           if (x[k - 1] <= x[k - 2]) {
-            fb_rtErrorWithMessageID(ac_emlrtRTEI.fName, ac_emlrtRTEI.lineNo);
+            fb_rtErrorWithMessageID(sb_emlrtRTEI.fName, sb_emlrtRTEI.lineNo);
           }
         }
         interp1Linear(y, varargin_2.size(0), varargin_3, Vq, x);

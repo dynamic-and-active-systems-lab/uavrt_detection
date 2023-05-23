@@ -4,15 +4,14 @@
 // government, commercial, or other organizational use.
 // File: fftshift.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
 #include "fftshift.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
-#include <string.h>
 
 // Function Definitions
 //
@@ -24,7 +23,7 @@ void fftshift(::coder::array<creal_T, 2U> &x)
 {
   if (x.size(0) > 1) {
     int vlend2;
-    vlend2 = x.size(0) / 2 - 1;
+    vlend2 = static_cast<int>(static_cast<unsigned int>(x.size(0)) >> 1) - 1;
     if ((vlend2 + 1) << 1 == x.size(0)) {
       for (int k{0}; k <= vlend2; k++) {
         double xtmp_im;

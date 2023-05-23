@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: fileManager.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef FILEMANAGER_H
@@ -15,18 +15,20 @@
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
+#include <cstdio>
 #include <cstdlib>
-#include <stdio.h>
 
 // Function Declarations
 namespace coder {
+namespace internal {
 int cfclose(double fid);
 
 signed char cfopen(const ::coder::array<char, 2U> &cfilename,
                    const char *cpermission);
 
-void getfilestar(double fid, FILE **filestar, boolean_T *autoflush);
+std::FILE *getfilestar(double fid, boolean_T &autoflush);
 
+} // namespace internal
 } // namespace coder
 void filedata_init();
 

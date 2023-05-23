@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: circshift.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef CIRCSHIFT_H
@@ -22,8 +22,6 @@ namespace coder {
 void b_circshift(::coder::array<double, 2U> &a);
 
 void c_circshift(::coder::array<double, 2U> &a);
-
-void circshift(::coder::array<creal_T, 2U> &a);
 
 void circshift(::coder::array<double, 2U> &a);
 

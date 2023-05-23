@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: weightingmatrix.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef WEIGHTINGMATRIX_H
@@ -19,8 +19,8 @@
 
 // Function Declarations
 void binary_expand_op(coder::array<creal_T, 2U> &in1,
-                      const coder::array<creal_T, 2U> &in2, int in3, int in4,
-                      const coder::array<double, 2U> &in5);
+                      const coder::array<creal_T, 2U> &in2, int in3,
+                      const coder::array<double, 2U> &in4);
 
 #endif
 //

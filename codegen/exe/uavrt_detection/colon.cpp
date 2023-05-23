@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: colon.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -16,7 +16,6 @@
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
 #include <cmath>
-#include <string.h>
 
 // Function Definitions
 //
@@ -28,9 +27,11 @@
 namespace coder {
 void eml_float_colon(double a, double b, ::coder::array<double, 2U> &y)
 {
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
-      419,              // lineNo
-      "assert_pmaxsize" // fName
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      419,               // lineNo
+      15,                // colNo
+      "assert_pmaxsize", // fName
+      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/ops/colon.m" // pName
   };
   double apnd;
   double cdiff;
@@ -54,7 +55,7 @@ void eml_float_colon(double a, double b, ::coder::array<double, 2U> &y)
     n = 0;
   }
   if (ndbl > 2.147483647E+9) {
-    m_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+    m_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
   }
   y.set_size(1, n);
   if (n > 0) {
@@ -79,15 +80,51 @@ void eml_float_colon(double a, double b, ::coder::array<double, 2U> &y)
 
 //
 // Arguments    : int a
+//                ::coder::array<int, 2U> &y
+// Return Type  : void
+//
+void eml_integer_colon_dispatcher(int a, ::coder::array<int, 2U> &y)
+{
+  int n;
+  if (a > 5800321) {
+    n = 0;
+  } else {
+    unsigned int u;
+    if (a < 0) {
+      u = 5800321U - static_cast<unsigned int>(a);
+    } else {
+      u = static_cast<unsigned int>(5800321 - a);
+    }
+    n = static_cast<int>(u) + 1;
+  }
+  y.set_size(1, n);
+  if (n > 0) {
+    int yk;
+    y[0] = a;
+    yk = a;
+    if (n > 2147483646) {
+      check_forloop_overflow_error();
+    }
+    for (int k{2}; k <= n; k++) {
+      yk++;
+      y[k - 1] = yk;
+    }
+  }
+}
+
+//
+// Arguments    : int a
 //                int b
 //                ::coder::array<int, 2U> &y
 // Return Type  : void
 //
 void eml_integer_colon_dispatcher(int a, int b, ::coder::array<int, 2U> &y)
 {
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
-      291,                           // lineNo
-      "integer_colon_length_nonnegd" // fName
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      291,                            // lineNo
+      9,                              // colNo
+      "integer_colon_length_nonnegd", // fName
+      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/ops/colon.m" // pName
   };
   int bma;
   if (b < a) {
@@ -95,7 +132,7 @@ void eml_integer_colon_dispatcher(int a, int b, ::coder::array<int, 2U> &y)
   } else {
     bma = b - a;
     if (bma < 0) {
-      i_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+      i_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
     }
     bma++;
   }

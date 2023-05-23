@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: eml_rand_mt19937ar.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef EML_RAND_MT19937AR_H

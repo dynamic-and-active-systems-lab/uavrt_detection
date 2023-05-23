@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: eml_rand_mt19937ar_stateful.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -13,7 +13,6 @@
 #include "rt_nonfinite.h"
 #include "uavrt_detection_data.h"
 #include <cstring>
-#include <string.h>
 
 // Function Definitions
 //
@@ -27,7 +26,7 @@ void eml_rand_mt19937ar_stateful_init()
   r = 5489U;
   state[0] = 5489U;
   for (int mti{0}; mti < 623; mti++) {
-    r = ((r ^ r >> 30U) * 1812433253U + mti) + 1U;
+    r = ((r ^ r >> 30U) * 1812433253U + static_cast<unsigned int>(mti)) + 1U;
     state[mti + 1] = r;
   }
   state[624] = 624U;

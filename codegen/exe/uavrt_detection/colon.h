@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: colon.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef COLON_H
@@ -20,6 +20,8 @@
 // Function Declarations
 namespace coder {
 void eml_float_colon(double a, double b, ::coder::array<double, 2U> &y);
+
+void eml_integer_colon_dispatcher(int a, ::coder::array<int, 2U> &y);
 
 void eml_integer_colon_dispatcher(int a, int b, ::coder::array<int, 2U> &y);
 

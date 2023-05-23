@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: _coder_uavrt_detection_api.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -23,7 +23,7 @@ static uint32_T globalThresholdCachePath_guard;
 emlrtContext emlrtContextGlobal{
     true,                                                 // bFirstTime
     false,                                                // bInitialized
-    131626U,                                              // fVersionInfo
+    131642U,                                              // fVersionInfo
     nullptr,                                              // fErrorFunction
     "uavrt_detection",                                    // fFunctionName
     nullptr,                                              // fRTCallStack
@@ -65,11 +65,11 @@ static void b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
 {
   static const int32_T dims[2]{1, -1};
   int32_T iv[2];
-  const boolean_T bv[2]{false, true};
-  emlrtCheckVsBuiltInR2012b((emlrtCTX)sp, msgId, src, (const char_T *)"char",
-                            false, 2U, (void *)&dims[0], &bv[0], &iv[0]);
+  boolean_T bv[2]{false, true};
+  emlrtCheckVsBuiltInR2012b((emlrtConstCTX)sp, msgId, src, "char", false, 2U,
+                            (const void *)&dims[0], &bv[0], &iv[0]);
   ret.set_size(iv[0], iv[1]);
-  emlrtImportArrayR2015b((emlrtCTX)sp, src, &ret[0], 1, false);
+  emlrtImportArrayR2015b((emlrtConstCTX)sp, src, &ret[0], 1, false);
   emlrtDestroyArray(&src);
 }
 
@@ -123,7 +123,7 @@ static const mxArray *emlrt_marshallOut(const emlrtStack *sp,
   iv[0] = 1;
   iv[1] = u.size(1);
   m = emlrtCreateCharArray(2, &iv[0]);
-  emlrtInitCharArrayR2013a((emlrtCTX)sp, u.size(1), m, &u[0]);
+  emlrtInitCharArrayR2013a((emlrtConstCTX)sp, u.size(1), m, &u[0]);
   emlrtAssign(&y, m);
   return y;
 }
@@ -145,7 +145,7 @@ void MEXGlobalSyncInFunction(const emlrtStack *sp)
 {
   const mxArray *tmp;
   // Marshall in global variables
-  tmp = emlrtGetGlobalVariable((const char_T *)"globalThresholdCachePath");
+  tmp = emlrtGetGlobalVariable("globalThresholdCachePath");
   if (tmp != nullptr) {
     emlrt_marshallIn(sp, tmp, "globalThresholdCachePath",
                      globalThresholdCachePath);
@@ -162,7 +162,7 @@ void MEXGlobalSyncOutFunction(const emlrtStack *sp, boolean_T skipDirtyCheck)
 {
   // Marshall out global variables
   if (skipDirtyCheck || (globalThresholdCachePath_guard != 0U)) {
-    emlrtPutGlobalVariable((const char_T *)"globalThresholdCachePath",
+    emlrtPutGlobalVariable("globalThresholdCachePath",
                            emlrt_marshallOut(sp, globalThresholdCachePath));
   }
 }
@@ -209,7 +209,6 @@ void uavrt_detection_atexit()
   mexFunctionCreateRootTLS();
   st.tls = emlrtRootTLSGlobal;
   emlrtEnterRtStackR2012b(&st);
-  emlrtLeaveRtStackR2012b(&st);
   emlrtDestroyRootTLS(&emlrtRootTLSGlobal);
   uavrt_detection_xil_terminate();
   uavrt_detection_xil_shutdown();
@@ -242,13 +241,6 @@ void uavrt_detection_initialize()
 //
 void uavrt_detection_terminate()
 {
-  emlrtStack st{
-      nullptr, // site
-      nullptr, // tls
-      nullptr  // prev
-  };
-  st.tls = emlrtRootTLSGlobal;
-  emlrtLeaveRtStackR2012b(&st);
   emlrtDestroyRootTLS(&emlrtRootTLSGlobal);
 }
 

@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: assertValidSizeArg.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -20,11 +20,10 @@
 #include <cstdlib>
 #include <sstream>
 #include <stdexcept>
-#include <string.h>
 #include <string>
 
 // Function Declarations
-static void sc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void qc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -32,7 +31,7 @@ static void sc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void sc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void qc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -61,19 +60,19 @@ namespace coder {
 namespace internal {
 void assertValidSizeArg(double varargin_2)
 {
-  double b_varargin_2;
+  double d;
   if ((varargin_2 != std::floor(varargin_2)) || std::isinf(varargin_2) ||
       (varargin_2 < -2.147483648E+9) || (varargin_2 > 2.147483647E+9)) {
-    c_rtErrorWithMessageID(MIN_int32_T, pb_emlrtRTEI.fName,
-                           pb_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(MIN_int32_T, ib_emlrtRTEI.fName,
+                           ib_emlrtRTEI.lineNo);
   }
   if (varargin_2 <= 0.0) {
-    b_varargin_2 = 0.0;
+    d = 0.0;
   } else {
-    b_varargin_2 = varargin_2;
+    d = varargin_2;
   }
-  if (!(b_varargin_2 <= 2.147483647E+9)) {
-    m_rtErrorWithMessageID(o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
+  if (!(d <= 2.147483647E+9)) {
+    m_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
   }
 }
 
@@ -83,34 +82,37 @@ void assertValidSizeArg(double varargin_2)
 //
 void assertValidSizeArg(const double varargin_1[2])
 {
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
-      49,                  // lineNo
-      "assertValidSizeArg" // fName
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      49,                   // lineNo
+      19,                   // colNo
+      "assertValidSizeArg", // fName
+      "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+      "assertValidSizeArg.m" // pName
   };
-  double b_varargin_1;
+  double d;
   int k;
   boolean_T exitg1;
   k = 0;
   exitg1 = false;
   while ((!exitg1) && (k < 2)) {
     if ((varargin_1[k] != varargin_1[k]) || std::isinf(varargin_1[k])) {
-      sc_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+      qc_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
     } else {
       k++;
     }
   }
   if (varargin_1[0] <= 0.0) {
-    b_varargin_1 = 0.0;
+    d = 0.0;
   } else {
-    b_varargin_1 = varargin_1[0];
+    d = varargin_1[0];
   }
   if (varargin_1[1] <= 0.0) {
-    b_varargin_1 = 0.0;
+    d = 0.0;
   } else {
-    b_varargin_1 *= varargin_1[1];
+    d *= varargin_1[1];
   }
-  if (!(b_varargin_1 <= 2.147483647E+9)) {
-    m_rtErrorWithMessageID(o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
+  if (!(d <= 2.147483647E+9)) {
+    m_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
   }
 }
 

@@ -4,20 +4,15 @@
 // government, commercial, or other organizational use.
 // File: circshift.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
 #include "circshift.h"
 #include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
-#include "uavrt_detection_data.h"
-#include "uavrt_detection_rtwutil.h"
-#include "uavrt_detection_types.h"
 #include "coder_array.h"
-#include <cmath>
-#include <string.h>
 
 // Function Definitions
 //
@@ -34,58 +29,30 @@ void b_circshift(::coder::array<double, 2U> &a)
     int npages;
     int ns;
     int nv;
-    boolean_T shiftright;
-    ns = 0;
-    shiftright = false;
-    if (a.size(0) < 1) {
-      mc_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    int pageroot;
+    ns = 1;
+    if (a.size(0) <= 1) {
+      ns = 0;
     }
-    if ((a.size(0) >> 1) < 1) {
-      ns = a.size(0) - 2;
-      shiftright = true;
-    }
-    nv = static_cast<int>(std::floor(static_cast<double>(a.size(0)) / 2.0));
-    buffer.set_size(
-        1, static_cast<int>(std::floor(static_cast<double>(a.size(0)) / 2.0)));
-    for (i = 0; i < nv; i++) {
+    pageroot = static_cast<int>(static_cast<unsigned int>(a.size(0)) >> 1);
+    buffer.set_size(1, pageroot);
+    for (i = 0; i < pageroot; i++) {
       buffer[i] = 0.0;
     }
     nv = a.size(0);
     npages = a.size(1);
-    if ((a.size(0) > 1) && (ns + 1 > 0)) {
+    if ((a.size(0) > 1) && (ns > 0)) {
       if (a.size(1) > 2147483646) {
         check_forloop_overflow_error();
       }
-      for (int b_i{0}; b_i < npages; b_i++) {
-        int pageroot;
-        pageroot = b_i * nv;
-        if (shiftright) {
-          for (int k{0}; k <= ns; k++) {
-            buffer[k] = a[(((pageroot + k) + nv) - ns) - 1];
-          }
-          i = ns + 2;
-          for (int k{nv}; k >= i; k--) {
-            int i1;
-            i1 = pageroot + k;
-            a[i1 - 1] = a[(i1 - ns) - 2];
-          }
-          for (int k{0}; k <= ns; k++) {
-            a[pageroot + k] = buffer[k];
-          }
-        } else {
-          for (int k{0}; k <= ns; k++) {
-            buffer[k] = a[pageroot + k];
-          }
-          i = nv - ns;
-          for (int k{0}; k <= i - 2; k++) {
-            int i1;
-            i1 = pageroot + k;
-            a[i1] = a[(i1 + ns) + 1];
-          }
-          for (int k{0}; k <= ns; k++) {
-            a[(((pageroot + k) + nv) - ns) - 1] = buffer[k];
-          }
+      for (ns = 0; ns < npages; ns++) {
+        pageroot = ns * nv;
+        buffer[0] = a[pageroot];
+        for (int k{0}; k <= nv - 2; k++) {
+          i = pageroot + k;
+          a[i] = a[i + 1];
         }
+        a[(pageroot + nv) - 1] = buffer[0];
       }
     }
   }
@@ -107,19 +74,14 @@ void c_circshift(::coder::array<double, 2U> &a)
     boolean_T shiftright;
     ns = 1;
     shiftright = true;
-    if (a.size(0) < 2) {
-      if (a.size(0) == 0) {
-        mc_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
-      }
-      ns = 1 - (a.size(0) << 1);
-    }
-    if (ns + 1 > (a.size(0) >> 1)) {
-      ns = (a.size(0) - ns) - 2;
+    if (a.size(0) <= 1) {
+      ns = -1;
+    } else if ((a.size(0) >> 1) < 2) {
+      ns = a.size(0) - 3;
       shiftright = false;
     }
-    nv = static_cast<int>(std::floor(static_cast<double>(a.size(0)) / 2.0));
-    buffer.set_size(
-        1, static_cast<int>(std::floor(static_cast<double>(a.size(0)) / 2.0)));
+    nv = static_cast<int>(static_cast<unsigned int>(a.size(0)) >> 1);
+    buffer.set_size(1, nv);
     for (i = 0; i < nv; i++) {
       buffer[i] = 0.0;
     }
@@ -158,79 +120,6 @@ void c_circshift(::coder::array<double, 2U> &a)
           for (int k{0}; k <= ns; k++) {
             a[(((pageroot + k) + nv) - ns) - 1] = buffer[k];
           }
-        }
-      }
-    }
-  }
-}
-
-//
-// Arguments    : ::coder::array<creal_T, 2U> &a
-// Return Type  : void
-//
-void circshift(::coder::array<creal_T, 2U> &a)
-{
-  array<creal_T, 2U> buffer;
-  if ((a.size(0) != 0) && (a.size(0) != 1)) {
-    int i;
-    int loop_ub;
-    int ns;
-    int u0;
-    boolean_T shiftright;
-    ns = 0;
-    shiftright = false;
-    if (a.size(0) < 1) {
-      mc_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
-    }
-    if ((a.size(0) >> 1) < 1) {
-      ns = a.size(0) - 2;
-      shiftright = true;
-    }
-    u0 = a.size(0);
-    if (u0 < 1) {
-      u0 = 1;
-    }
-    if (a.size(0) == 0) {
-      u0 = 0;
-    }
-    loop_ub = static_cast<int>(std::floor(static_cast<double>(u0) / 2.0));
-    u0 = a.size(0);
-    if (u0 < 1) {
-      u0 = 1;
-    }
-    if (a.size(0) == 0) {
-      u0 = 0;
-    }
-    buffer.set_size(
-        1, static_cast<int>(std::floor(static_cast<double>(u0) / 2.0)));
-    for (i = 0; i < loop_ub; i++) {
-      buffer[i].re = 0.0;
-      buffer[i].im = 0.0;
-    }
-    i = a.size(0) - 1;
-    u0 = a.size(0);
-    if ((a.size(0) > 1) && (ns + 1 > 0)) {
-      if (shiftright) {
-        for (loop_ub = 0; loop_ub <= ns; loop_ub++) {
-          buffer[loop_ub] = a[(loop_ub + i) - ns];
-        }
-        i = ns + 2;
-        for (loop_ub = u0; loop_ub >= i; loop_ub--) {
-          a[loop_ub - 1] = a[(loop_ub - ns) - 2];
-        }
-        for (loop_ub = 0; loop_ub <= ns; loop_ub++) {
-          a[loop_ub] = buffer[loop_ub];
-        }
-      } else {
-        for (loop_ub = 0; loop_ub <= ns; loop_ub++) {
-          buffer[loop_ub] = a[loop_ub];
-        }
-        u0 = (i - ns) - 1;
-        for (loop_ub = 0; loop_ub <= u0; loop_ub++) {
-          a[loop_ub] = a[(loop_ub + ns) + 1];
-        }
-        for (loop_ub = 0; loop_ub <= ns; loop_ub++) {
-          a[(loop_ub + i) - ns] = buffer[loop_ub];
         }
       }
     }
@@ -250,58 +139,30 @@ void circshift(::coder::array<double, 2U> &a)
     int npages;
     int ns;
     int nv;
-    boolean_T shiftright;
-    ns = 0;
-    shiftright = true;
-    if (a.size(0) < 1) {
-      mc_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    int pageroot;
+    ns = 1;
+    if (a.size(0) <= 1) {
+      ns = 0;
     }
-    if ((a.size(0) >> 1) < 1) {
-      ns = a.size(0) - 2;
-      shiftright = false;
-    }
-    nv = static_cast<int>(std::floor(static_cast<double>(a.size(0)) / 2.0));
-    buffer.set_size(
-        1, static_cast<int>(std::floor(static_cast<double>(a.size(0)) / 2.0)));
-    for (i = 0; i < nv; i++) {
+    pageroot = static_cast<int>(static_cast<unsigned int>(a.size(0)) >> 1);
+    buffer.set_size(1, pageroot);
+    for (i = 0; i < pageroot; i++) {
       buffer[i] = 0.0;
     }
     nv = a.size(0);
     npages = a.size(1);
-    if ((a.size(0) > 1) && (ns + 1 > 0)) {
+    if ((a.size(0) > 1) && (ns > 0)) {
       if (a.size(1) > 2147483646) {
         check_forloop_overflow_error();
       }
-      for (int b_i{0}; b_i < npages; b_i++) {
-        int pageroot;
-        pageroot = b_i * nv;
-        if (shiftright) {
-          for (int k{0}; k <= ns; k++) {
-            buffer[k] = a[(((pageroot + k) + nv) - ns) - 1];
-          }
-          i = ns + 2;
-          for (int k{nv}; k >= i; k--) {
-            int i1;
-            i1 = pageroot + k;
-            a[i1 - 1] = a[(i1 - ns) - 2];
-          }
-          for (int k{0}; k <= ns; k++) {
-            a[pageroot + k] = buffer[k];
-          }
-        } else {
-          for (int k{0}; k <= ns; k++) {
-            buffer[k] = a[pageroot + k];
-          }
-          i = nv - ns;
-          for (int k{0}; k <= i - 2; k++) {
-            int i1;
-            i1 = pageroot + k;
-            a[i1] = a[(i1 + ns) + 1];
-          }
-          for (int k{0}; k <= ns; k++) {
-            a[(((pageroot + k) + nv) - ns) - 1] = buffer[k];
-          }
+      for (ns = 0; ns < npages; ns++) {
+        pageroot = ns * nv;
+        buffer[0] = a[(pageroot + nv) - 1];
+        for (int k{nv}; k >= 2; k--) {
+          i = pageroot + k;
+          a[i - 1] = a[i - 2];
         }
+        a[pageroot] = buffer[0];
       }
     }
   }
@@ -323,19 +184,14 @@ void d_circshift(::coder::array<double, 2U> &a)
     boolean_T shiftright;
     ns = 1;
     shiftright = false;
-    if (a.size(0) < 2) {
-      if (a.size(0) == 0) {
-        mc_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
-      }
-      ns = 1 - (a.size(0) << 1);
-    }
-    if (ns + 1 > (a.size(0) >> 1)) {
-      ns = (a.size(0) - ns) - 2;
+    if (a.size(0) <= 1) {
+      ns = -1;
+    } else if ((a.size(0) >> 1) < 2) {
+      ns = a.size(0) - 3;
       shiftright = true;
     }
-    nv = static_cast<int>(std::floor(static_cast<double>(a.size(0)) / 2.0));
-    buffer.set_size(
-        1, static_cast<int>(std::floor(static_cast<double>(a.size(0)) / 2.0)));
+    nv = static_cast<int>(static_cast<unsigned int>(a.size(0)) >> 1);
+    buffer.set_size(1, nv);
     for (i = 0; i < nv; i++) {
       buffer[i] = 0.0;
     }
@@ -389,57 +245,30 @@ void e_circshift(::coder::array<double, 2U> &a)
   array<double, 2U> buffer;
   if ((a.size(0) != 0) && (a.size(1) != 0) &&
       ((a.size(0) != 1) || (a.size(1) != 1))) {
-    int i;
-    int loop_ub;
     int ns;
     int stride;
-    boolean_T shiftright;
-    ns = 0;
-    shiftright = true;
-    if (a.size(1) < 1) {
-      mc_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    int unnamed_idx_1;
+    ns = 1;
+    if (a.size(1) <= 1) {
+      ns = 0;
     }
-    if ((a.size(1) >> 1) < 1) {
-      ns = a.size(1) - 2;
-      shiftright = false;
+    unnamed_idx_1 = static_cast<int>(static_cast<unsigned int>(a.size(1)) >> 1);
+    buffer.set_size(1, unnamed_idx_1);
+    for (stride = 0; stride < unnamed_idx_1; stride++) {
+      buffer[stride] = 0.0;
     }
-    loop_ub =
-        static_cast<int>(std::floor(static_cast<double>(a.size(1)) / 2.0));
-    buffer.set_size(
-        1, static_cast<int>(std::floor(static_cast<double>(a.size(1)) / 2.0)));
-    for (i = 0; i < loop_ub; i++) {
-      buffer[i] = 0.0;
-    }
-    loop_ub = a.size(1) - 1;
+    unnamed_idx_1 = a.size(1);
     stride = a.size(0);
-    if ((a.size(1) > 1) && (ns + 1 > 0)) {
+    if ((a.size(1) > 1) && (ns > 0)) {
       if (a.size(0) > 2147483646) {
         check_forloop_overflow_error();
       }
-      for (int j{0}; j < stride; j++) {
-        if (shiftright) {
-          for (int k{0}; k <= ns; k++) {
-            buffer[k] = a[j + ((k + loop_ub) - ns) * stride];
-          }
-          i = ns + 2;
-          for (int k{loop_ub + 1}; k >= i; k--) {
-            a[j + (k - 1) * stride] = a[j + ((k - ns) - 2) * stride];
-          }
-          for (int k{0}; k <= ns; k++) {
-            a[j + k * stride] = buffer[k];
-          }
-        } else {
-          for (int k{0}; k <= ns; k++) {
-            buffer[k] = a[j + k * stride];
-          }
-          i = loop_ub - ns;
-          for (int k{0}; k < i; k++) {
-            a[j + k * stride] = a[j + ((k + ns) + 1) * stride];
-          }
-          for (int k{0}; k <= ns; k++) {
-            a[j + ((k + loop_ub) - ns) * stride] = buffer[k];
-          }
+      for (ns = 0; ns < stride; ns++) {
+        buffer[0] = a[ns + (unnamed_idx_1 - 1) * stride];
+        for (int k{unnamed_idx_1}; k >= 2; k--) {
+          a[ns + (k - 1) * stride] = a[ns + (k - 2) * stride];
         }
+        a[ns] = buffer[0];
       }
     }
   }
@@ -454,57 +283,30 @@ void f_circshift(::coder::array<double, 2U> &a)
   array<double, 2U> buffer;
   if ((a.size(0) != 0) && (a.size(1) != 0) &&
       ((a.size(0) != 1) || (a.size(1) != 1))) {
-    int i;
-    int loop_ub;
     int ns;
     int stride;
-    boolean_T shiftright;
-    ns = 0;
-    shiftright = false;
-    if (a.size(1) < 1) {
-      mc_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    int unnamed_idx_1;
+    ns = 1;
+    if (a.size(1) <= 1) {
+      ns = 0;
     }
-    if ((a.size(1) >> 1) < 1) {
-      ns = a.size(1) - 2;
-      shiftright = true;
+    unnamed_idx_1 = static_cast<int>(static_cast<unsigned int>(a.size(1)) >> 1);
+    buffer.set_size(1, unnamed_idx_1);
+    for (stride = 0; stride < unnamed_idx_1; stride++) {
+      buffer[stride] = 0.0;
     }
-    loop_ub =
-        static_cast<int>(std::floor(static_cast<double>(a.size(1)) / 2.0));
-    buffer.set_size(
-        1, static_cast<int>(std::floor(static_cast<double>(a.size(1)) / 2.0)));
-    for (i = 0; i < loop_ub; i++) {
-      buffer[i] = 0.0;
-    }
-    loop_ub = a.size(1) - 1;
+    unnamed_idx_1 = a.size(1) - 2;
     stride = a.size(0);
-    if ((a.size(1) > 1) && (ns + 1 > 0)) {
+    if ((a.size(1) > 1) && (ns > 0)) {
       if (a.size(0) > 2147483646) {
         check_forloop_overflow_error();
       }
-      for (int j{0}; j < stride; j++) {
-        if (shiftright) {
-          for (int k{0}; k <= ns; k++) {
-            buffer[k] = a[j + ((k + loop_ub) - ns) * stride];
-          }
-          i = ns + 2;
-          for (int k{loop_ub + 1}; k >= i; k--) {
-            a[j + (k - 1) * stride] = a[j + ((k - ns) - 2) * stride];
-          }
-          for (int k{0}; k <= ns; k++) {
-            a[j + k * stride] = buffer[k];
-          }
-        } else {
-          for (int k{0}; k <= ns; k++) {
-            buffer[k] = a[j + k * stride];
-          }
-          i = loop_ub - ns;
-          for (int k{0}; k < i; k++) {
-            a[j + k * stride] = a[j + ((k + ns) + 1) * stride];
-          }
-          for (int k{0}; k <= ns; k++) {
-            a[j + ((k + loop_ub) - ns) * stride] = buffer[k];
-          }
+      for (ns = 0; ns < stride; ns++) {
+        buffer[0] = a[ns];
+        for (int k{0}; k <= unnamed_idx_1; k++) {
+          a[ns + k * stride] = a[ns + (k + 1) * stride];
         }
+        a[ns + (unnamed_idx_1 + 1) * stride] = buffer[0];
       }
     }
   }
@@ -519,57 +321,30 @@ void g_circshift(::coder::array<boolean_T, 2U> &a)
   array<boolean_T, 2U> buffer;
   if ((a.size(0) != 0) && (a.size(1) != 0) &&
       ((a.size(0) != 1) || (a.size(1) != 1))) {
-    int i;
-    int loop_ub;
     int ns;
     int stride;
-    boolean_T shiftright;
-    ns = 0;
-    shiftright = false;
-    if (a.size(1) < 1) {
-      mc_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    int unnamed_idx_1;
+    ns = 1;
+    if (a.size(1) <= 1) {
+      ns = 0;
     }
-    if ((a.size(1) >> 1) < 1) {
-      ns = a.size(1) - 2;
-      shiftright = true;
+    unnamed_idx_1 = static_cast<int>(static_cast<unsigned int>(a.size(1)) >> 1);
+    buffer.set_size(1, unnamed_idx_1);
+    for (stride = 0; stride < unnamed_idx_1; stride++) {
+      buffer[stride] = false;
     }
-    loop_ub =
-        static_cast<int>(std::floor(static_cast<double>(a.size(1)) / 2.0));
-    buffer.set_size(
-        1, static_cast<int>(std::floor(static_cast<double>(a.size(1)) / 2.0)));
-    for (i = 0; i < loop_ub; i++) {
-      buffer[i] = false;
-    }
-    loop_ub = a.size(1) - 1;
+    unnamed_idx_1 = a.size(1) - 2;
     stride = a.size(0);
-    if ((a.size(1) > 1) && (ns + 1 > 0)) {
+    if ((a.size(1) > 1) && (ns > 0)) {
       if (a.size(0) > 2147483646) {
         check_forloop_overflow_error();
       }
-      for (int j{0}; j < stride; j++) {
-        if (shiftright) {
-          for (int k{0}; k <= ns; k++) {
-            buffer[k] = a[j + ((k + loop_ub) - ns) * stride];
-          }
-          i = ns + 2;
-          for (int k{loop_ub + 1}; k >= i; k--) {
-            a[j + (k - 1) * stride] = a[j + ((k - ns) - 2) * stride];
-          }
-          for (int k{0}; k <= ns; k++) {
-            a[j + k * stride] = buffer[k];
-          }
-        } else {
-          for (int k{0}; k <= ns; k++) {
-            buffer[k] = a[j + k * stride];
-          }
-          i = loop_ub - ns;
-          for (int k{0}; k < i; k++) {
-            a[j + k * stride] = a[j + ((k + ns) + 1) * stride];
-          }
-          for (int k{0}; k <= ns; k++) {
-            a[j + ((k + loop_ub) - ns) * stride] = buffer[k];
-          }
+      for (ns = 0; ns < stride; ns++) {
+        buffer[0] = a[ns];
+        for (int k{0}; k <= unnamed_idx_1; k++) {
+          a[ns + k * stride] = a[ns + (k + 1) * stride];
         }
+        a[ns + (unnamed_idx_1 + 1) * stride] = buffer[0];
       }
     }
   }

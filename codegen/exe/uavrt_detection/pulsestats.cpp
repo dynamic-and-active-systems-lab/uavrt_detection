@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: pulsestats.cpp
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 // Include Files
@@ -21,68 +21,59 @@
 #include "uavrt_detection_types.h"
 #include "validator_check_size.h"
 #include "coder_array.h"
+#include "coder_bounded_array.h"
 #include "omp.h"
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
 #include <sstream>
 #include <stdexcept>
-#include <string.h>
 #include <string>
 
 // Variable Definitions
 static rtEqualityCheckInfo emlrtECI{
-    2,                                         // nDims
-    148,                                       // lineNo
-    17,                                        // colNo
-    "pulsestats/pulsestats",                   // fName
-    "H:\\repos\\uavrt_detection\\pulsestats.m" // pName
+    2,                       // nDims
+    148,                     // lineNo
+    17,                      // colNo
+    "pulsestats/pulsestats", // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+    "CODE_PLAYGROUND/uavrt_detection/pulsestats.m" // pName
 };
 
-static rtBoundsCheckInfo db_emlrtBCI{
-    -1,                                         // iFirst
-    -1,                                         // iLast
-    245,                                        // lineNo
-    64,                                         // colNo
-    "ps_pre.pl",                                // aName
-    "pulsestats/updateposteriori",              // fName
-    "H:\\repos\\uavrt_detection\\pulsestats.m", // pName
-    0                                           // checkKind
-};
-
-static rtBoundsCheckInfo eb_emlrtBCI{
-    -1,                                         // iFirst
-    -1,                                         // iLast
-    246,                                        // lineNo
-    25,                                         // colNo
-    "ps_pre.pl",                                // aName
-    "pulsestats/updateposteriori",              // fName
-    "H:\\repos\\uavrt_detection\\pulsestats.m", // pName
-    0                                           // checkKind
+static rtBoundsCheckInfo v_emlrtBCI{
+    -1,                            // iFirst
+    -1,                            // iLast
+    245,                           // lineNo
+    64,                            // colNo
+    "ps_pre.pl",                   // aName
+    "pulsestats/updateposteriori", // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+    "CODE_PLAYGROUND/uavrt_detection/pulsestats.m", // pName
+    0                                               // checkKind
 };
 
 // Function Declarations
 static void rtDimSizeGeqError(const int aDim2,
-                              const rtEqualityCheckInfo *aInfo);
+                              const rtEqualityCheckInfo &aInfo);
 
 // Function Definitions
 //
 // Arguments    : const int aDim2
-//                const rtEqualityCheckInfo *aInfo
+//                const rtEqualityCheckInfo &aInfo
 // Return Type  : void
 //
-static void rtDimSizeGeqError(const int aDim2, const rtEqualityCheckInfo *aInfo)
+static void rtDimSizeGeqError(const int aDim2, const rtEqualityCheckInfo &aInfo)
 {
   std::string errMsg;
   std::stringstream outStream;
-  ((((((outStream << "Size overflow error on dimension ") << aInfo->nDims)
+  ((((((outStream << "Size overflow error on dimension ") << aInfo.nDims)
       << ": upper bound is ")
      << 1)
     << ", but actual size is ")
    << aDim2)
       << ".";
   outStream << "\n";
-  ((((outStream << "Error in ") << aInfo->fName) << " (line ") << aInfo->lineNo)
+  ((((outStream << "Error in ") << aInfo.fName) << " (line ") << aInfo.lineNo)
       << ")";
   if (omp_in_parallel()) {
     errMsg = outStream.str();
@@ -141,10 +132,7 @@ pulsestats *pulsestats::b_init(double tp, double tip, double tipu, double tipj,
                                const coder::array<double, 2U> &b_cpki)
 {
   pulsestats *obj;
-  coder::array<c_struct_T, 2U> _in;
   coder::array<c_struct_T, 2U> val;
-  coder::array<double, 2U> localCpki;
-  coder::array<boolean_T, 2U> b_val;
   int loop_ub;
   obj = this;
   if (std::isnan(tp) || std::isnan(tip) || std::isnan(tipu) ||
@@ -169,33 +157,30 @@ pulsestats *pulsestats::b_init(double tp, double tip, double tipu, double tipj,
   // localMode = mode;
   // coder.varsize('localMode',[1 inf],[0 1]); %dims 0 if fixed, 1 if variable
   if (b_cpki.size(1) > 1) {
-    rtDimSizeGeqError(b_cpki.size(1), &emlrtECI);
+    rtDimSizeGeqError(b_cpki.size(1), emlrtECI);
   }
   // Tell coder these are variable size.
   // Now actually assign them
-  coder::internal::validator_check_size(b_pl, _in);
-  obj->pl.set_size(1, _in.size(1));
-  loop_ub = _in.size(1);
+  coder::internal::validator_check_size(b_pl, val);
+  obj->pl.set_size(1, val.size(1));
+  loop_ub = val.size(1);
   for (int i{0}; i < loop_ub; i++) {
-    obj->pl[i] = _in[i];
+    obj->pl[i] = val[i];
   }
-  coder::internal::b_validator_check_size(b_clst, val);
-  obj->clst.set_size(val.size(0), val.size(1));
-  loop_ub = val.size(0) * val.size(1);
+  obj->clst.set_size(b_clst.size(0), b_clst.size(1));
+  loop_ub = b_clst.size(0) * b_clst.size(1);
   for (int i{0}; i < loop_ub; i++) {
-    obj->clst[i] = val[i];
+    obj->clst[i] = b_clst[i];
   }
-  coder::internal::c_validator_check_size(b_cmsk, b_val);
-  obj->cmsk.set_size(b_val.size(0), b_val.size(1));
-  loop_ub = b_val.size(0) * b_val.size(1);
+  obj->cmsk.set_size(b_cmsk.size(0), b_cmsk.size(1));
+  loop_ub = b_cmsk.size(0) * b_cmsk.size(1);
   for (int i{0}; i < loop_ub; i++) {
-    obj->cmsk[i] = b_val[i];
+    obj->cmsk[i] = b_cmsk[i];
   }
-  coder::internal::b_validator_check_size(b_cpki, localCpki);
-  obj->cpki.set_size(localCpki.size(0), localCpki.size(1));
-  loop_ub = localCpki.size(0) * localCpki.size(1);
+  obj->cpki.set_size(b_cpki.size(0), b_cpki.size(1));
+  loop_ub = b_cpki.size(0) * b_cpki.size(1);
   for (int i{0}; i < loop_ub; i++) {
-    obj->cpki[i] = localCpki[i];
+    obj->cpki[i] = b_cpki[i];
   }
   return obj;
 }
@@ -236,19 +221,15 @@ void pulsestats::b_updateposteriori(
   coder::array<double, 1U> result;
   coder::array<boolean_T, 2U> b_recent_tip;
   coder::array<boolean_T, 2U> b_recent_tip_data;
-  double x;
-  int input_sizes_idx_1;
   boolean_T recent_tip_data;
   if (pulselist.size(1) != 0) {
+    double x_tmp;
+    int input_sizes_idx_0;
     int k;
     boolean_T exitg1;
     boolean_T y;
     coder::internal::b_horzcatStructList(pulselist, varargin_1);
-    if (varargin_1.size(1) != 0) {
-      input_sizes_idx_1 = varargin_1.size(1);
-    } else {
-      input_sizes_idx_1 = 0;
-    }
+    input_sizes_idx_0 = varargin_1.size(1);
     coder::internal::b_horzcatStructList(pulselist, varargin_1);
     //  pulselist(:).t_0]'
     coder::internal::horzcatStructList(pulselist, b_pulselist);
@@ -275,24 +256,17 @@ void pulsestats::b_updateposteriori(
       //  Happens if K=1
       // We only have one pulse to reference, so we need to check
       // the prior pulse too.
-      y = (ps_pre->pl.size(1) == 0);
       guard1 = false;
-      if (!y) {
+      if (ps_pre->pl.size(1) != 0) {
         k = ps_pre->pl.size(1);
-        input_sizes_idx_1 = ps_pre->pl.size(1);
-        if ((input_sizes_idx_1 < 1) || (input_sizes_idx_1 > k)) {
-          rtDynamicBoundsError(input_sizes_idx_1, 1, k, &db_emlrtBCI);
+        input_sizes_idx_0 = ps_pre->pl.size(1);
+        if ((input_sizes_idx_0 < 1) || (input_sizes_idx_0 > k)) {
+          rtDynamicBoundsError(input_sizes_idx_0, 1, k, v_emlrtBCI);
         }
-        x = ps_pre->pl[input_sizes_idx_1 - 1].t_0;
-        if (!std::isnan(x)) {
+        x_tmp = ps_pre->pl[input_sizes_idx_0 - 1].t_0;
+        if (!std::isnan(x_tmp)) {
           recent_tip.set_size(1, 1);
-          k = ps_pre->pl.size(1);
-          input_sizes_idx_1 = ps_pre->pl.size(1);
-          if ((input_sizes_idx_1 < 1) || (input_sizes_idx_1 > k)) {
-            rtDynamicBoundsError(input_sizes_idx_1, 1, k, &eb_emlrtBCI);
-          }
-          recent_tip[0] =
-              pulselist[0].t_0 - ps_pre->pl[input_sizes_idx_1 - 1].t_0;
+          recent_tip[0] = pulselist[0].t_0 - x_tmp;
           // recent_tip =
           // pulselist.t_0-ps_pre.pl(end).t_0;%Conflicts with
           // Coder. Needed the (1) callout
@@ -300,20 +274,19 @@ void pulsestats::b_updateposteriori(
           // segement identified the same pulse. In this case
           // recent_tip will be very small. In this case, we just
           // say we learned nothing about t_ip in this segment.
-          x = ps_pre->t_ipu + ps_pre->t_ipj;
-          recent_tip_data = (recent_tip[0] < x);
+          recent_tip_data = (recent_tip[0] < ps_pre->t_ipu + ps_pre->t_ipj);
           b_recent_tip_data.set(&recent_tip_data, 1, 1);
           y = ((b_recent_tip_data.size(0) != 0) &&
                (b_recent_tip_data.size(1) != 0));
           if (y) {
-            input_sizes_idx_1 =
+            input_sizes_idx_0 =
                 b_recent_tip_data.size(0) * b_recent_tip_data.size(1);
-            if (input_sizes_idx_1 > 2147483646) {
+            if (input_sizes_idx_0 > 2147483646) {
               coder::check_forloop_overflow_error();
             }
             k = 0;
             exitg1 = false;
-            while ((!exitg1) && (k <= input_sizes_idx_1 - 1)) {
+            while ((!exitg1) && (k <= input_sizes_idx_0 - 1)) {
               if (!b_recent_tip_data[k]) {
                 y = false;
                 exitg1 = true;
@@ -339,8 +312,8 @@ void pulsestats::b_updateposteriori(
         recent_tip[0] = rtNaN;
       }
     } else {
-      b_varargin_1.set_size(input_sizes_idx_1, 1);
-      for (k = 0; k < input_sizes_idx_1; k++) {
+      b_varargin_1.set_size(input_sizes_idx_0, 1);
+      for (k = 0; k < input_sizes_idx_0; k++) {
         b_varargin_1[k] = varargin_1[k];
       }
       coder::diff(b_varargin_1, recent_tip);
@@ -353,21 +326,21 @@ void pulsestats::b_updateposteriori(
     // 2*tip back in time, producing a very large recenttip values.
     // If something like this happens, we ignore it so it doesn't
     // affect our new tip estimates.
-    x = 1.5 * ps_pre->t_ip;
+    x_tmp = 1.5 * ps_pre->t_ip;
     b_recent_tip.set_size(recent_tip.size(0), 1);
-    input_sizes_idx_1 = recent_tip.size(0);
-    for (k = 0; k < input_sizes_idx_1; k++) {
-      b_recent_tip[k] = (recent_tip[k] > x);
+    input_sizes_idx_0 = recent_tip.size(0);
+    for (k = 0; k < input_sizes_idx_0; k++) {
+      b_recent_tip[k] = (recent_tip[k] > x_tmp);
     }
     y = ((b_recent_tip.size(0) != 0) && (b_recent_tip.size(1) != 0));
     if (y) {
-      input_sizes_idx_1 = b_recent_tip.size(0) * b_recent_tip.size(1);
-      if (input_sizes_idx_1 > 2147483646) {
+      input_sizes_idx_0 = b_recent_tip.size(0) * b_recent_tip.size(1);
+      if (input_sizes_idx_0 > 2147483646) {
         coder::check_forloop_overflow_error();
       }
       k = 0;
       exitg1 = false;
-      while ((!exitg1) && (k <= input_sizes_idx_1 - 1)) {
+      while ((!exitg1) && (k <= input_sizes_idx_0 - 1)) {
         if (!b_recent_tip[k]) {
           y = false;
           exitg1 = true;
@@ -377,21 +350,21 @@ void pulsestats::b_updateposteriori(
       }
     }
     if (y) {
-      x = 0.5 * ps_pre->t_ip;
+      x_tmp = 0.5 * ps_pre->t_ip;
       b_recent_tip.set_size(recent_tip.size(0), 1);
-      input_sizes_idx_1 = recent_tip.size(0);
-      for (k = 0; k < input_sizes_idx_1; k++) {
-        b_recent_tip[k] = (recent_tip[k] < x);
+      input_sizes_idx_0 = recent_tip.size(0);
+      for (k = 0; k < input_sizes_idx_0; k++) {
+        b_recent_tip[k] = (recent_tip[k] < x_tmp);
       }
       y = ((b_recent_tip.size(0) != 0) && (b_recent_tip.size(1) != 0));
       if (y) {
-        input_sizes_idx_1 = b_recent_tip.size(0) * b_recent_tip.size(1);
-        if (input_sizes_idx_1 > 2147483646) {
+        input_sizes_idx_0 = b_recent_tip.size(0) * b_recent_tip.size(1);
+        if (input_sizes_idx_0 > 2147483646) {
           coder::check_forloop_overflow_error();
         }
         k = 0;
         exitg1 = false;
-        while ((!exitg1) && (k <= input_sizes_idx_1 - 1)) {
+        while ((!exitg1) && (k <= input_sizes_idx_0 - 1)) {
           if (!b_recent_tip[k]) {
             y = false;
             exitg1 = true;
@@ -420,25 +393,22 @@ void pulsestats::b_updateposteriori(
     //                  freq_found;%nanmean([freq_found;wfm.ps_pre.fp]);%Previous
     //                  fc may be nan if unknown obj.fp     = fp_pos; obj.fstart
     //                  = fp_pos-bw_found/2; obj.fend   = fp_pos+bw_found/2;
-    x = ps_pre->t_ip;
     if (recent_tip.size(0) != 0) {
-      input_sizes_idx_1 = recent_tip.size(0);
+      input_sizes_idx_0 = recent_tip.size(0);
     } else {
-      input_sizes_idx_1 = 0;
+      input_sizes_idx_0 = 0;
     }
-    result.set_size(input_sizes_idx_1 + 1);
-    for (k = 0; k < input_sizes_idx_1; k++) {
+    result.set_size(input_sizes_idx_0 + 1);
+    for (k = 0; k < input_sizes_idx_0; k++) {
       result[k] = recent_tip[k];
     }
-    result[input_sizes_idx_1] = x;
-    coder::colMajorFlatIter(result, result.size(0), &x, &input_sizes_idx_1);
-    t_ip = x / static_cast<double>(input_sizes_idx_1);
-    x = ps_pre->t_ipu;
-    t_ipu = x;
+    result[input_sizes_idx_0] = ps_pre->t_ip;
+    x_tmp = coder::colMajorFlatIter(result, result.size(0), input_sizes_idx_0);
+    t_ip = x_tmp / static_cast<double>(input_sizes_idx_0);
+    t_ipu = ps_pre->t_ipu;
     // Don't update this because it can get too
     // narrow.%mean([3*std(diff(t_found));wfm.ps_pre.t_ipu]);
-    x = ps_pre->t_ipj;
-    t_ipj = x;
+    t_ipj = ps_pre->t_ipj;
   }
 }
 
@@ -490,10 +460,7 @@ pulsestats *pulsestats::c_init(double tp, double tip, double tipu, double tipj,
                                const coder::array<double, 2U> &b_cpki)
 {
   pulsestats *obj;
-  coder::array<c_struct_T, 2U> _in;
   coder::array<c_struct_T, 2U> val;
-  coder::array<double, 2U> localCpki;
-  coder::array<boolean_T, 2U> b_val;
   int loop_ub;
   obj = this;
   if (std::isnan(tp) || std::isnan(tip) || std::isnan(tipu) ||
@@ -518,33 +485,30 @@ pulsestats *pulsestats::c_init(double tp, double tip, double tipu, double tipj,
   // localMode = mode;
   // coder.varsize('localMode',[1 inf],[0 1]); %dims 0 if fixed, 1 if variable
   if (b_cpki.size(1) > 1) {
-    rtDimSizeGeqError(b_cpki.size(1), &emlrtECI);
+    rtDimSizeGeqError(b_cpki.size(1), emlrtECI);
   }
   // Tell coder these are variable size.
   // Now actually assign them
-  coder::internal::validator_check_size(b_pl, _in);
-  obj->pl.set_size(1, _in.size(1));
-  loop_ub = _in.size(1);
+  coder::internal::validator_check_size(b_pl, val);
+  obj->pl.set_size(1, val.size(1));
+  loop_ub = val.size(1);
   for (int i{0}; i < loop_ub; i++) {
-    obj->pl[i] = _in[i];
+    obj->pl[i] = val[i];
   }
-  coder::internal::b_validator_check_size(b_clst, val);
-  obj->clst.set_size(val.size(0), val.size(1));
-  loop_ub = val.size(0) * val.size(1);
+  obj->clst.set_size(b_clst.size(0), b_clst.size(1));
+  loop_ub = b_clst.size(0) * b_clst.size(1);
   for (int i{0}; i < loop_ub; i++) {
-    obj->clst[i] = val[i];
+    obj->clst[i] = b_clst[i];
   }
-  coder::internal::c_validator_check_size(b_cmsk, b_val);
-  obj->cmsk.set_size(b_val.size(0), b_val.size(1));
-  loop_ub = b_val.size(0) * b_val.size(1);
+  obj->cmsk.set_size(b_cmsk.size(0), b_cmsk.size(1));
+  loop_ub = b_cmsk.size(0) * b_cmsk.size(1);
   for (int i{0}; i < loop_ub; i++) {
-    obj->cmsk[i] = b_val[i];
+    obj->cmsk[i] = b_cmsk[i];
   }
-  coder::internal::b_validator_check_size(b_cpki, localCpki);
-  obj->cpki.set_size(localCpki.size(0), localCpki.size(1));
-  loop_ub = localCpki.size(0) * localCpki.size(1);
+  obj->cpki.set_size(b_cpki.size(0), b_cpki.size(1));
+  loop_ub = b_cpki.size(0) * b_cpki.size(1);
   for (int i{0}; i < loop_ub; i++) {
-    obj->cpki[i] = localCpki[i];
+    obj->cpki[i] = b_cpki[i];
   }
   return obj;
 }
@@ -577,23 +541,17 @@ pulsestats *pulsestats::c_init(double tp, double tip, double tipu, double tipj,
 //                double tip
 //                double tipu
 //                double tipj
-//                const c_struct_T *b_pl
-//                const c_struct_T *b_clst
+//                const c_struct_T &b_pl
+//                const c_struct_T &b_clst
 // Return Type  : pulsestats *
 //
 pulsestats *pulsestats::init(double tp, double tip, double tipu, double tipj,
-                             const c_struct_T *b_pl, const c_struct_T *b_clst)
+                             const c_struct_T &b_pl, const c_struct_T &b_clst)
 {
   pulsestats *obj;
-  coder::array<c_struct_T, 2U> _in;
   coder::array<c_struct_T, 2U> d_pl;
-  coder::array<c_struct_T, 2U> e_pl;
   coder::array<c_struct_T, 2U> val;
-  coder::array<double, 2U> b_cmsk;
-  coder::array<double, 2U> b_val;
-  coder::array<boolean_T, 2U> b__in;
-  coder::array<boolean_T, 2U> cmsk_data;
-  emxArray_struct_T_1x1 c_pl;
+  coder::bounded_array<c_struct_T, 1U, 2U> c_pl;
   int loop_ub;
   obj = this;
   if (std::isnan(tp) || std::isnan(tip) || std::isnan(tipu) ||
@@ -621,38 +579,18 @@ pulsestats *pulsestats::init(double tp, double tip, double tipu, double tipj,
   // Now actually assign them
   c_pl.size[0] = 1;
   c_pl.size[1] = 1;
-  c_pl.data[0] = *b_pl;
+  c_pl.data[0] = b_pl;
   d_pl.set(&c_pl.data[0], c_pl.size[0], c_pl.size[1]);
-  coder::internal::validator_check_size(d_pl, _in);
-  obj->pl.set_size(1, _in.size(1));
-  loop_ub = _in.size(1);
+  coder::internal::validator_check_size(d_pl, val);
+  obj->pl.set_size(1, val.size(1));
+  loop_ub = val.size(1);
   for (int i{0}; i < loop_ub; i++) {
-    obj->pl[i] = _in[i];
+    obj->pl[i] = val[i];
   }
-  c_pl.size[0] = 1;
-  c_pl.size[1] = 1;
-  c_pl.data[0] = *b_clst;
-  e_pl.set(&c_pl.data[0], c_pl.size[0], c_pl.size[1]);
-  coder::internal::b_validator_check_size(e_pl, val);
-  obj->clst.set_size(val.size(0), val.size(1));
-  loop_ub = val.size(0) * val.size(1);
-  for (int i{0}; i < loop_ub; i++) {
-    obj->clst[i] = val[i];
-  }
-  cmsk_data.set(nullptr, 0, 0);
-  coder::internal::c_validator_check_size(cmsk_data, b__in);
-  obj->cmsk.set_size(b__in.size(0), b__in.size(1));
-  loop_ub = b__in.size(0) * b__in.size(1);
-  for (int i{0}; i < loop_ub; i++) {
-    obj->cmsk[i] = b__in[i];
-  }
-  b_cmsk.set(nullptr, 0, 0);
-  coder::internal::b_validator_check_size(b_cmsk, b_val);
-  obj->cpki.set_size(b_val.size(0), b_val.size(1));
-  loop_ub = b_val.size(0) * b_val.size(1);
-  for (int i{0}; i < loop_ub; i++) {
-    obj->cpki[i] = b_val[i];
-  }
+  obj->clst.set_size(1, 1);
+  obj->clst[0] = b_clst;
+  obj->cmsk.set_size(0, 0);
+  obj->cpki.set_size(0, 0);
   return obj;
 }
 
@@ -685,27 +623,19 @@ pulsestats *pulsestats::init(double tp, double tip, double tipu, double tipj,
 //                double tipu
 //                double tipj
 //                double b_fp
-//                const c_struct_T *b_pl
-//                const c_struct_T *b_clst
+//                const c_struct_T &b_pl
+//                const c_struct_T &b_clst
 // Return Type  : pulsestats *
 //
 pulsestats *pulsestats::init(double tp, double tip, double tipu, double tipj,
-                             double b_fp, const c_struct_T *b_pl,
-                             const c_struct_T *b_clst)
+                             double b_fp, const c_struct_T &b_pl,
+                             const c_struct_T &b_clst)
 {
   pulsestats *obj;
-  coder::array<c_struct_T, 2U> _in;
   coder::array<c_struct_T, 2U> d_pl;
-  coder::array<c_struct_T, 2U> e_pl;
   coder::array<c_struct_T, 2U> val;
-  coder::array<double, 2U> c_val;
-  coder::array<double, 2U> d_tmp_data;
-  coder::array<boolean_T, 2U> b_tmp_data;
-  coder::array<boolean_T, 2U> b_val;
-  emxArray_struct_T_1x1 c_pl;
-  double c_tmp_data;
+  coder::bounded_array<c_struct_T, 1U, 2U> c_pl;
   int loop_ub;
-  boolean_T tmp_data;
   obj = this;
   if (std::isnan(tp) || std::isnan(tip) || std::isnan(tipu) ||
       std::isnan(tipj)) {
@@ -732,40 +662,20 @@ pulsestats *pulsestats::init(double tp, double tip, double tipu, double tipj,
   // Now actually assign them
   c_pl.size[0] = 1;
   c_pl.size[1] = 1;
-  c_pl.data[0] = *b_pl;
+  c_pl.data[0] = b_pl;
   d_pl.set(&c_pl.data[0], c_pl.size[0], c_pl.size[1]);
-  coder::internal::validator_check_size(d_pl, _in);
-  obj->pl.set_size(1, _in.size(1));
-  loop_ub = _in.size(1);
+  coder::internal::validator_check_size(d_pl, val);
+  obj->pl.set_size(1, val.size(1));
+  loop_ub = val.size(1);
   for (int i{0}; i < loop_ub; i++) {
-    obj->pl[i] = _in[i];
+    obj->pl[i] = val[i];
   }
-  c_pl.size[0] = 1;
-  c_pl.size[1] = 1;
-  c_pl.data[0] = *b_clst;
-  e_pl.set(&c_pl.data[0], c_pl.size[0], c_pl.size[1]);
-  coder::internal::b_validator_check_size(e_pl, val);
-  obj->clst.set_size(val.size(0), val.size(1));
-  loop_ub = val.size(0) * val.size(1);
-  for (int i{0}; i < loop_ub; i++) {
-    obj->clst[i] = val[i];
-  }
-  tmp_data = false;
-  b_tmp_data.set(&tmp_data, 1, 1);
-  coder::internal::c_validator_check_size(b_tmp_data, b_val);
-  obj->cmsk.set_size(b_val.size(0), b_val.size(1));
-  loop_ub = b_val.size(0) * b_val.size(1);
-  for (int i{0}; i < loop_ub; i++) {
-    obj->cmsk[i] = b_val[i];
-  }
-  c_tmp_data = rtNaN;
-  d_tmp_data.set(&c_tmp_data, 1, 1);
-  coder::internal::b_validator_check_size(d_tmp_data, c_val);
-  obj->cpki.set_size(c_val.size(0), c_val.size(1));
-  loop_ub = c_val.size(0) * c_val.size(1);
-  for (int i{0}; i < loop_ub; i++) {
-    obj->cpki[i] = c_val[i];
-  }
+  obj->clst.set_size(1, 1);
+  obj->clst[0] = b_clst;
+  obj->cmsk.set_size(1, 1);
+  obj->cmsk[0] = false;
+  obj->cpki.set_size(1, 1);
+  obj->cpki[0] = rtNaN;
   return obj;
 }
 
@@ -798,44 +708,48 @@ pulsestats *pulsestats::init(double tp, double tip, double tipu, double tipj,
 void pulsestats::updateposteriori(const pulsestats *ps_pre,
                                   const coder::array<c_struct_T, 2U> &pulselist)
 {
+  static rtBoundsCheckInfo y_emlrtBCI{
+      -1,                            // iFirst
+      -1,                            // iLast
+      246,                           // lineNo
+      25,                            // colNo
+      "ps_pre.pl",                   // aName
+      "pulsestats/updateposteriori", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/pulsestats.m", // pName
+      0                                               // checkKind
+  };
   coder::array<double, 2U> b_varargin_1;
-  coder::array<double, 2U> d_varargin_1;
+  coder::array<double, 2U> e_varargin_1;
   coder::array<double, 2U> recent_tip;
   coder::array<double, 2U> varargin_1;
+  coder::array<double, 1U> d_varargin_1;
   coder::array<boolean_T, 2U> b_recent_tip;
   coder::array<boolean_T, 2U> b_recent_tip_data;
-  double y;
-  int counts;
   boolean_T recent_tip_data;
   if (pulselist.size(1) != 0) {
+    double d;
     double freq_found;
-    int b_input_sizes_idx_1;
-    int input_sizes_idx_1;
-    boolean_T b_y;
+    int c_varargin_1;
+    int i;
+    int size_tmp_idx_1;
     boolean_T exitg1;
+    boolean_T y;
     coder::internal::b_horzcatStructList(pulselist, varargin_1);
-    if (varargin_1.size(1) != 0) {
-      input_sizes_idx_1 = varargin_1.size(1);
-    } else {
-      input_sizes_idx_1 = 0;
-    }
+    size_tmp_idx_1 = varargin_1.size(1);
     coder::internal::b_horzcatStructList(pulselist, varargin_1);
     //  pulselist(:).t_0]'
     coder::internal::horzcatStructList(pulselist, b_varargin_1);
-    if (b_varargin_1.size(1) != 0) {
-      b_input_sizes_idx_1 = b_varargin_1.size(1);
+    if (b_varargin_1.size(1) == 0) {
+      freq_found = 0.0;
+      c_varargin_1 = 0;
     } else {
-      b_input_sizes_idx_1 = 0;
+      c_varargin_1 = b_varargin_1.size(1);
+      d_varargin_1 = b_varargin_1.reshape(c_varargin_1);
+      freq_found = coder::colMajorFlatIter(d_varargin_1, b_varargin_1.size(1),
+                                           c_varargin_1);
     }
-    if (b_input_sizes_idx_1 == 0) {
-      y = 0.0;
-      counts = 0;
-    } else {
-      coder::array<double, 1U> c_varargin_1;
-      c_varargin_1 = b_varargin_1.reshape(b_input_sizes_idx_1);
-      coder::colMajorFlatIter(c_varargin_1, b_input_sizes_idx_1, &y, &counts);
-    }
-    freq_found = y / static_cast<double>(counts);
+    freq_found /= static_cast<double>(c_varargin_1);
     // pulselist(:).fp
     // Create a vector of bandwidths from the pulselist
     // fEnds   = [pulselist.fend];
@@ -859,24 +773,21 @@ void pulsestats::updateposteriori(const pulsestats *ps_pre,
       //  Happens if K=1
       // We only have one pulse to reference, so we need to check
       // the prior pulse too.
-      b_y = (ps_pre->pl.size(1) == 0);
       guard1 = false;
-      if (!b_y) {
-        counts = ps_pre->pl.size(1);
-        b_input_sizes_idx_1 = ps_pre->pl.size(1);
-        if ((b_input_sizes_idx_1 < 1) || (b_input_sizes_idx_1 > counts)) {
-          rtDynamicBoundsError(b_input_sizes_idx_1, 1, counts, &db_emlrtBCI);
+      if (ps_pre->pl.size(1) != 0) {
+        i = ps_pre->pl.size(1);
+        c_varargin_1 = ps_pre->pl.size(1);
+        if ((c_varargin_1 < 1) || (c_varargin_1 > i)) {
+          rtDynamicBoundsError(c_varargin_1, 1, i, v_emlrtBCI);
         }
-        y = ps_pre->pl[b_input_sizes_idx_1 - 1].t_0;
-        if (!std::isnan(y)) {
+        if (!std::isnan(ps_pre->pl[c_varargin_1 - 1].t_0)) {
           recent_tip.set_size(1, 1);
-          counts = ps_pre->pl.size(1);
-          b_input_sizes_idx_1 = ps_pre->pl.size(1);
-          if ((b_input_sizes_idx_1 < 1) || (b_input_sizes_idx_1 > counts)) {
-            rtDynamicBoundsError(b_input_sizes_idx_1, 1, counts, &eb_emlrtBCI);
+          i = ps_pre->pl.size(1);
+          c_varargin_1 = ps_pre->pl.size(1);
+          if ((c_varargin_1 < 1) || (c_varargin_1 > i)) {
+            rtDynamicBoundsError(c_varargin_1, 1, i, y_emlrtBCI);
           }
-          recent_tip[0] =
-              pulselist[0].t_0 - ps_pre->pl[b_input_sizes_idx_1 - 1].t_0;
+          recent_tip[0] = pulselist[0].t_0 - ps_pre->pl[c_varargin_1 - 1].t_0;
           // recent_tip =
           // pulselist.t_0-ps_pre.pl(end).t_0;%Conflicts with
           // Coder. Needed the (1) callout
@@ -884,29 +795,28 @@ void pulsestats::updateposteriori(const pulsestats *ps_pre,
           // segement identified the same pulse. In this case
           // recent_tip will be very small. In this case, we just
           // say we learned nothing about t_ip in this segment.
-          y = ps_pre->t_ipu + ps_pre->t_ipj;
-          recent_tip_data = (recent_tip[0] < y);
+          recent_tip_data = (recent_tip[0] < ps_pre->t_ipu + ps_pre->t_ipj);
           b_recent_tip_data.set(&recent_tip_data, 1, 1);
-          b_y = ((b_recent_tip_data.size(0) != 0) &&
-                 (b_recent_tip_data.size(1) != 0));
-          if (b_y) {
-            b_input_sizes_idx_1 =
+          y = ((b_recent_tip_data.size(0) != 0) &&
+               (b_recent_tip_data.size(1) != 0));
+          if (y) {
+            c_varargin_1 =
                 b_recent_tip_data.size(0) * b_recent_tip_data.size(1);
-            if (b_input_sizes_idx_1 > 2147483646) {
+            if (c_varargin_1 > 2147483646) {
               coder::check_forloop_overflow_error();
             }
-            counts = 0;
+            size_tmp_idx_1 = 0;
             exitg1 = false;
-            while ((!exitg1) && (counts <= b_input_sizes_idx_1 - 1)) {
-              if (!b_recent_tip_data[counts]) {
-                b_y = false;
+            while ((!exitg1) && (size_tmp_idx_1 <= c_varargin_1 - 1)) {
+              if (!b_recent_tip_data[size_tmp_idx_1]) {
+                y = false;
                 exitg1 = true;
               } else {
-                counts++;
+                size_tmp_idx_1++;
               }
             }
           }
-          if (b_y) {
+          if (y) {
             recent_tip.set_size(1, 1);
             recent_tip[0] = rtNaN;
           }
@@ -923,11 +833,11 @@ void pulsestats::updateposteriori(const pulsestats *ps_pre,
         recent_tip[0] = rtNaN;
       }
     } else {
-      d_varargin_1.set_size(input_sizes_idx_1, 1);
-      for (counts = 0; counts < input_sizes_idx_1; counts++) {
-        d_varargin_1[counts] = varargin_1[counts];
+      e_varargin_1.set_size(size_tmp_idx_1, 1);
+      for (i = 0; i < size_tmp_idx_1; i++) {
+        e_varargin_1[i] = varargin_1[i];
       }
-      coder::diff(d_varargin_1, recent_tip);
+      coder::diff(e_varargin_1, recent_tip);
     }
     // Do a check here to make sure the new tip isn't a huge change.
     // This could potentially happen if we are in the K = 1 case and
@@ -937,40 +847,40 @@ void pulsestats::updateposteriori(const pulsestats *ps_pre,
     // 2*tip back in time, producing a very large recenttip values.
     // If something like this happens, we ignore it so it doesn't
     // affect our new tip estimates.
-    y = 1.5 * ps_pre->t_ip;
+    d = 1.5 * ps_pre->t_ip;
     b_recent_tip.set_size(recent_tip.size(0), 1);
-    b_input_sizes_idx_1 = recent_tip.size(0);
-    for (counts = 0; counts < b_input_sizes_idx_1; counts++) {
-      b_recent_tip[counts] = (recent_tip[counts] > y);
+    c_varargin_1 = recent_tip.size(0);
+    for (i = 0; i < c_varargin_1; i++) {
+      b_recent_tip[i] = (recent_tip[i] > d);
     }
-    b_y = ((b_recent_tip.size(0) != 0) && (b_recent_tip.size(1) != 0));
-    if (b_y) {
-      b_input_sizes_idx_1 = b_recent_tip.size(0) * b_recent_tip.size(1);
-      if (b_input_sizes_idx_1 > 2147483646) {
+    y = ((b_recent_tip.size(0) != 0) && (b_recent_tip.size(1) != 0));
+    if (y) {
+      c_varargin_1 = b_recent_tip.size(0) * b_recent_tip.size(1);
+      if (c_varargin_1 > 2147483646) {
         coder::check_forloop_overflow_error();
       }
-      counts = 0;
+      size_tmp_idx_1 = 0;
       exitg1 = false;
-      while ((!exitg1) && (counts <= b_input_sizes_idx_1 - 1)) {
-        if (!b_recent_tip[counts]) {
-          b_y = false;
+      while ((!exitg1) && (size_tmp_idx_1 <= c_varargin_1 - 1)) {
+        if (!b_recent_tip[size_tmp_idx_1]) {
+          y = false;
           exitg1 = true;
         } else {
-          counts++;
+          size_tmp_idx_1++;
         }
       }
     }
-    if (b_y) {
-      y = 0.5 * ps_pre->t_ip;
+    if (y) {
+      d = 0.5 * ps_pre->t_ip;
       b_recent_tip.set_size(recent_tip.size(0), 1);
-      b_input_sizes_idx_1 = recent_tip.size(0);
-      for (counts = 0; counts < b_input_sizes_idx_1; counts++) {
-        b_recent_tip[counts] = (recent_tip[counts] < y);
+      c_varargin_1 = recent_tip.size(0);
+      for (i = 0; i < c_varargin_1; i++) {
+        b_recent_tip[i] = (recent_tip[i] < d);
       }
-      b_y = ((b_recent_tip.size(0) != 0) && (b_recent_tip.size(1) != 0));
-      if (b_y) {
-        b_input_sizes_idx_1 = b_recent_tip.size(0) * b_recent_tip.size(1);
-        if (b_input_sizes_idx_1 > 2147483646) {
+      y = ((b_recent_tip.size(0) != 0) && (b_recent_tip.size(1) != 0));
+      if (y) {
+        c_varargin_1 = b_recent_tip.size(0) * b_recent_tip.size(1);
+        if (c_varargin_1 > 2147483646) {
           coder::check_forloop_overflow_error();
         }
       }

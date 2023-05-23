@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: sparse1.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef SPARSE1_H
@@ -39,11 +39,11 @@ public:
                                   ::coder::array<int, 1U> &sint);
   void mtimes(const ::coder::array<double, 2U> &a,
               ::coder::array<double, 2U> &c) const;
-  static void eyeLike(int ndiag, int b_m, int b_n, sparse *b_I);
-  void logical(f_sparse *y) const;
-  void parenReference(g_sparse *s) const;
+  static void eyeLike(int ndiag, int b_m, int b_n, sparse &b_I);
+  void logical(f_sparse &y) const;
+  void parenReference(g_sparse &s) const;
   void parenReference(const ::coder::array<double, 1U> &varargin_2,
-                      sparse *s) const;
+                      sparse &s) const;
   void fillIn();
   static void b_realloc(f_sparse *b_this, int numAllocRequested, int ub1,
                         int lb2, int ub2);
@@ -57,9 +57,8 @@ public:
 
 class b_sparse {
 public:
-  void parenReference(c_sparse *s) const;
-  void b_le(d_sparse *s) const;
-  void eq(const c_sparse *b, d_sparse *s) const;
+  void parenReference(c_sparse &s) const;
+  void eq(const c_sparse &b, d_sparse &s) const;
   array<double, 1U> d;
   array<int, 1U> colidx;
   array<int, 1U> rowidx;
@@ -75,7 +74,7 @@ public:
 
 class d_sparse {
 public:
-  void b_not(d_sparse *out) const;
+  void b_not(d_sparse &out) const;
   void full(::coder::array<boolean_T, 2U> &y) const;
   array<boolean_T, 1U> d;
   array<int, 1U> colidx;
@@ -93,7 +92,7 @@ public:
 class f_sparse {
 public:
   void parenReference(const ::coder::array<double, 2U> &varargin_1,
-                      d_sparse *s) const;
+                      d_sparse &s) const;
   void mtimes(const ::coder::array<double, 2U> &b,
               ::coder::array<double, 2U> &c) const;
   void b_mtimes(const ::coder::array<double, 2U> &a,
@@ -103,7 +102,7 @@ public:
   void parenAssign2D(boolean_T rhs, double r, double c);
   void b_parenAssign(const ::coder::array<boolean_T, 2U> &rhs,
                      const ::coder::array<double, 2U> &varargin_1);
-  void c_parenAssign(const h_sparse *rhs,
+  void c_parenAssign(const h_sparse &rhs,
                      const ::coder::array<double, 2U> &varargin_1);
   void c_parenAssign(const ::coder::array<double, 2U> &rhs,
                      const ::coder::array<double, 2U> &varargin_1);
@@ -117,7 +116,7 @@ public:
 
 class g_sparse {
 public:
-  void logical(h_sparse *y) const;
+  void logical(h_sparse &y) const;
   array<double, 1U> d;
   array<int, 1U> colidx;
   array<int, 1U> rowidx;

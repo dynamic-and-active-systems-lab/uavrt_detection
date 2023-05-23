@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: waveform.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef WAVEFORM_H
@@ -37,12 +37,12 @@ public:
                  coder::array<c_struct_T, 2U> &pl_out,
                  coder::array<boolean_T, 2U> &indiv_msk,
                  coder::array<double, 1U> &peak_ind) const;
-  void spectro(wfmstft *iobj_0);
+  void spectro(wfmstft &iobj_0);
   waveform *init(const creal32_T b_x[1000], double b_Fs, pulsestats *b_ps_pre,
-                 const threshold *b_thresh);
+                 const threshold &b_thresh);
   waveform *init(const coder::array<creal32_T, 1U> &b_x, double b_Fs,
-                 double b_t_0, pulsestats *b_ps_pre, const threshold *b_thresh,
-                 pulsestats *iobj_0, wfmstft *iobj_1);
+                 double b_t_0, pulsestats *b_ps_pre, const threshold &b_thresh,
+                 pulsestats &iobj_0, wfmstft &iobj_1);
   pulsestats *ps_pre;
   pulsestats *ps_pos;
   double K;
@@ -72,9 +72,9 @@ public:
 
 class b_waveform {
 public:
-  void spectro(wfmstft *iobj_0);
+  void spectro(wfmstft &iobj_0);
   b_waveform *init(const creal32_T b_x[1000], double b_Fs, pulsestats *b_ps_pre,
-                   pulsestats *iobj_0, wfmstft *iobj_1);
+                   pulsestats &iobj_0, wfmstft &iobj_1);
   pulsestats *ps_pre;
   pulsestats *ps_pos;
   double K;

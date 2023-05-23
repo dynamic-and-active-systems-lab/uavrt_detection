@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: bigProduct.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef BIGPRODUCT_H
@@ -19,9 +19,9 @@
 // Function Declarations
 namespace coder {
 namespace internal {
-void b_bigProduct(int a, int b, int *loworderbits, int *highorderbits);
+int b_bigProduct(int a, int b, int &highorderbits);
 
-void bigProduct(int a, int b, int *loworderbits, int *highorderbits);
+int bigProduct(int a, int b, int &highorderbits);
 
 } // namespace internal
 } // namespace coder

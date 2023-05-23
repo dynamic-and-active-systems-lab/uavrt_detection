@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: stack1.h
 //
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 27-Mar-2023 15:47:21
+// MATLAB Coder version            : 5.6
+// C/C++ source code generated on  : 23-May-2023 12:05:02
 //
 
 #ifndef STACK1_H
@@ -14,6 +14,7 @@
 // Include Files
 #include "rtwtypes.h"
 #include "uavrt_detection_internal_types.h"
+#include "coder_bounded_array.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -22,7 +23,7 @@ namespace coder {
 namespace internal {
 class stack {
 public:
-  emxArray_struct_T_120 d;
+  bounded_array<struct_T, 120U, 1U> d;
   int n;
 };
 
