@@ -4,8 +4,13 @@
 // government, commercial, or other organizational use.
 // File: AsyncBuffer.cpp
 //
+<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
 // C/C++ source code generated on  : 23-May-2023 12:05:02
+=======
+// MATLAB Coder version            : 5.4
+// C/C++ source code generated on  : 04-Apr-2023 11:47:02
+>>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
 //
 
 // Include Files
@@ -1191,14 +1196,18 @@ void b_AsyncBuffer::write(const ::coder::array<double, 1U> &in)
 
 //
 // Arguments    : const creal32_T in_data[]
-//                int in_size
 // Return Type  : void
 //
-void c_AsyncBuffer::write(const creal32_T in_data[], int in_size)
+void c_AsyncBuffer::write(const creal32_T in_data[])
 {
+<<<<<<< HEAD
   static const short inSize[8]{1024, 1, 1, 1, 1, 1, 1, 1};
   static const short iv[8]{1024, 1, 1, 1, 1, 1, 1, 1};
   static const short iv1[8]{1024, 1, 1, 1, 1, 1, 1, 1};
+=======
+  static const short inSize[8]{1023, 1, 1, 1, 1, 1, 1, 1};
+  static const short iv[8]{1023, 1, 1, 1, 1, 1, 1, 1};
+>>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
   internal::c_AsyncBuffercgHelper *obj;
   int i;
   boolean_T anyInputSizeChanged;
@@ -1255,7 +1264,7 @@ void c_AsyncBuffer::write(const creal32_T in_data[], int in_size)
       (pBuffer.NumChannels != 1)) {
     o_rtErrorWithMessageID(o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
   }
-  pBuffer.stepImpl(in_data, in_size);
+  pBuffer.stepImpl(in_data, 1023);
 }
 
 } // namespace dsp
