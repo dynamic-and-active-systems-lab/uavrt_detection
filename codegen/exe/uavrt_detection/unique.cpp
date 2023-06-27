@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: unique.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -33,10 +28,10 @@ void unique_rows(const ::coder::array<double, 2U> &a,
                  ::coder::array<double, 2U> &b)
 {
   static rtRunTimeErrorInfo qc_emlrtRTEI{
-      331,           // lineNo
-      1,             // colNo
-      "unique_rows", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/ops/unique.m" // pName
+      331,                                                    // lineNo
+      1,                                                      // colNo
+      "unique_rows",                                          // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/ops/unique.m" // pName
   };
   array<double, 1U> ycol;
   array<int, 2U> col;

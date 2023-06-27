@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: evfit.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -60,11 +55,11 @@ static double lkeqn(double sigma, const ::coder::array<double, 1U> &x,
                     double xbarWgtUnc)
 {
   static rtEqualityCheckInfo g_emlrtECI{
-      1,                                                          // nDims
-      273,                                                        // lineNo
-      34,                                                         // colNo
-      "lkeqn",                                                    // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/stats/eml/evfit.m" // pName
+      1,                                            // nDims
+      273,                                          // lineNo
+      34,                                           // colNo
+      "lkeqn",                                      // fName
+      "/home/dasl/matlab/toolbox/stats/eml/evfit.m" // pName
   };
   array<double, 1U> b_x;
   array<double, 1U> wt;
@@ -223,9 +218,9 @@ void evfit(const ::coder::array<double, 1U> &x, double parmhat[2])
       14,                   // colNo
       "",                   // aName
       "rangeWithCensoring", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/stats/stats/+stats/+coder/"
-      "+internal/rangeWithCensoring.m", // pName
-      0                                 // checkKind
+      "/home/dasl/matlab/toolbox/stats/stats/+stats/+coder/+internal/"
+      "rangeWithCensoring.m", // pName
+      0                       // checkKind
   };
   static rtBoundsCheckInfo bb_emlrtBCI{
       -1,                   // iFirst
@@ -234,9 +229,9 @@ void evfit(const ::coder::array<double, 1U> &x, double parmhat[2])
       25,                   // colNo
       "",                   // aName
       "rangeWithCensoring", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/stats/stats/+stats/+coder/"
-      "+internal/rangeWithCensoring.m", // pName
-      0                                 // checkKind
+      "/home/dasl/matlab/toolbox/stats/stats/+stats/+coder/+internal/"
+      "rangeWithCensoring.m", // pName
+      0                       // checkKind
   };
   static rtBoundsCheckInfo cb_emlrtBCI{
       -1,                   // iFirst
@@ -245,9 +240,9 @@ void evfit(const ::coder::array<double, 1U> &x, double parmhat[2])
       14,                   // colNo
       "",                   // aName
       "rangeWithCensoring", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/stats/stats/+stats/+coder/"
-      "+internal/rangeWithCensoring.m", // pName
-      0                                 // checkKind
+      "/home/dasl/matlab/toolbox/stats/stats/+stats/+coder/+internal/"
+      "rangeWithCensoring.m", // pName
+      0                       // checkKind
   };
   static rtBoundsCheckInfo y_emlrtBCI{
       -1,                   // iFirst
@@ -256,58 +251,52 @@ void evfit(const ::coder::array<double, 1U> &x, double parmhat[2])
       25,                   // colNo
       "",                   // aName
       "rangeWithCensoring", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/stats/stats/+stats/+coder/"
-      "+internal/rangeWithCensoring.m", // pName
-      0                                 // checkKind
+      "/home/dasl/matlab/toolbox/stats/stats/+stats/+coder/+internal/"
+      "rangeWithCensoring.m", // pName
+      0                       // checkKind
   };
-  static rtRunTimeErrorInfo
-      qc_emlrtRTEI{
-          127,     // lineNo
-          19,      // colNo
-          "fzero", // fName
-          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/optimfun/"
-          "fzero.m" // pName
-      };
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      127,                                                        // lineNo
+      19,                                                         // colNo
+      "fzero",                                                    // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/optimfun/fzero.m" // pName
+  };
   static rtRunTimeErrorInfo rc_emlrtRTEI{
-      209,                                                        // lineNo
-      9,                                                          // colNo
-      "evfit",                                                    // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/stats/eml/evfit.m" // pName
+      209,                                          // lineNo
+      9,                                            // colNo
+      "evfit",                                      // fName
+      "/home/dasl/matlab/toolbox/stats/eml/evfit.m" // pName
   };
   static rtRunTimeErrorInfo sc_emlrtRTEI{
-      218,                                                        // lineNo
-      9,                                                          // colNo
-      "evfit",                                                    // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/stats/eml/evfit.m" // pName
+      218,                                          // lineNo
+      9,                                            // colNo
+      "evfit",                                      // fName
+      "/home/dasl/matlab/toolbox/stats/eml/evfit.m" // pName
   };
-  static rtRunTimeErrorInfo
-      tc_emlrtRTEI{
-          149,     // lineNo
-          9,       // colNo
-          "fzero", // fName
-          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/optimfun/"
-          "fzero.m" // pName
-      };
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
+      149,                                                        // lineNo
+      9,                                                          // colNo
+      "fzero",                                                    // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/optimfun/fzero.m" // pName
+  };
   static rtRunTimeErrorInfo uc_emlrtRTEI{
-      14,    // lineNo
-      9,     // colNo
-      "log", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/elfun/log.m" // pName
+      14,                                                    // lineNo
+      9,                                                     // colNo
+      "log",                                                 // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/elfun/log.m" // pName
   };
   static rtRunTimeErrorInfo vc_emlrtRTEI{
-      227,                                                        // lineNo
-      1,                                                          // colNo
-      "evfit",                                                    // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/stats/eml/evfit.m" // pName
+      227,                                          // lineNo
+      1,                                            // colNo
+      "evfit",                                      // fName
+      "/home/dasl/matlab/toolbox/stats/eml/evfit.m" // pName
   };
-  static rtRunTimeErrorInfo
-      wc_emlrtRTEI{
-          137,     // lineNo
-          9,       // colNo
-          "fzero", // fName
-          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/optimfun/"
-          "fzero.m" // pName
-      };
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
+      137,                                                        // lineNo
+      9,                                                          // colNo
+      "fzero",                                                    // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/optimfun/fzero.m" // pName
+  };
   array<double, 1U> x0;
   double rangex;
   double tempMax;

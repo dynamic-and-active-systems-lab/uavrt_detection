@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: stft.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -42,8 +37,8 @@ static rtEqualityCheckInfo c_emlrtECI{
     23,               // lineNo
     5,                // colNo
     "getSTFTColumns", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/getSTFTColumns.m" // pName
+    "/home/dasl/matlab/toolbox/signal/signal/+signal/+internal/+stft/"
+    "getSTFTColumns.m" // pName
 };
 
 static rtBoundsCheckInfo d_emlrtBCI{
@@ -53,9 +48,9 @@ static rtBoundsCheckInfo d_emlrtBCI{
     11,               // colNo
     "",               // aName
     "getSTFTColumns", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/getSTFTColumns.m", // pName
-    0                         // checkKind
+    "/home/dasl/matlab/toolbox/signal/signal/+signal/+internal/+stft/"
+    "getSTFTColumns.m", // pName
+    0                   // checkKind
 };
 
 static rtBoundsCheckInfo e_emlrtBCI{
@@ -65,18 +60,18 @@ static rtBoundsCheckInfo e_emlrtBCI{
     42,               // colNo
     "",               // aName
     "getSTFTColumns", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/getSTFTColumns.m", // pName
-    0                         // checkKind
+    "/home/dasl/matlab/toolbox/signal/signal/+signal/+internal/+stft/"
+    "getSTFTColumns.m", // pName
+    0                   // checkKind
 };
 
 static rtDoubleCheckInfo b_emlrtDCI{
     23,               // lineNo
     42,               // colNo
     "getSTFTColumns", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/getSTFTColumns.m", // pName
-    1                         // checkKind
+    "/home/dasl/matlab/toolbox/signal/signal/+signal/+internal/+stft/"
+    "getSTFTColumns.m", // pName
+    1                   // checkKind
 };
 
 static rtBoundsCheckInfo f_emlrtBCI{
@@ -86,112 +81,112 @@ static rtBoundsCheckInfo f_emlrtBCI{
     23,               // colNo
     "",               // aName
     "getSTFTColumns", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/getSTFTColumns.m", // pName
-    0                         // checkKind
+    "/home/dasl/matlab/toolbox/signal/signal/+signal/+internal/+stft/"
+    "getSTFTColumns.m", // pName
+    0                   // checkKind
 };
 
 static rtDoubleCheckInfo c_emlrtDCI{
     23,               // lineNo
     23,               // colNo
     "getSTFTColumns", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/getSTFTColumns.m", // pName
-    1                         // checkKind
+    "/home/dasl/matlab/toolbox/signal/signal/+signal/+internal/+stft/"
+    "getSTFTColumns.m", // pName
+    1                   // checkKind
 };
 
 static rtRunTimeErrorInfo ab_emlrtRTEI{
     336,                 // lineNo
     5,                   // colNo
     "verifyDataAndTime", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/stftParser.m" // pName
+    "/home/dasl/matlab/toolbox/signal/signal/+signal/+internal/+stft/"
+    "stftParser.m" // pName
 };
 
 static rtRunTimeErrorInfo bb_emlrtRTEI{
     318,                 // lineNo
     5,                   // colNo
     "verifyDataAndTime", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/stftParser.m" // pName
+    "/home/dasl/matlab/toolbox/signal/signal/+signal/+internal/+stft/"
+    "stftParser.m" // pName
 };
 
 static rtBoundsCheckInfo g_emlrtBCI{
-    -1,                                                             // iFirst
-    -1,                                                             // iLast
-    278,                                                            // lineNo
-    14,                                                             // colNo
-    "",                                                             // aName
-    "computeSTFT",                                                  // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/stft.m", // pName
-    0                                                               // checkKind
+    -1,                                               // iFirst
+    -1,                                               // iLast
+    278,                                              // lineNo
+    14,                                               // colNo
+    "",                                               // aName
+    "computeSTFT",                                    // fName
+    "/home/dasl/matlab/toolbox/signal/signal/stft.m", // pName
+    0                                                 // checkKind
 };
 
 static rtBoundsCheckInfo h_emlrtBCI{
-    -1,                                                             // iFirst
-    -1,                                                             // iLast
-    278,                                                            // lineNo
-    12,                                                             // colNo
-    "",                                                             // aName
-    "computeSTFT",                                                  // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/stft.m", // pName
-    0                                                               // checkKind
+    -1,                                               // iFirst
+    -1,                                               // iLast
+    278,                                              // lineNo
+    12,                                               // colNo
+    "",                                               // aName
+    "computeSTFT",                                    // fName
+    "/home/dasl/matlab/toolbox/signal/signal/stft.m", // pName
+    0                                                 // checkKind
 };
 
 static rtBoundsCheckInfo i_emlrtBCI{
-    -1,                                                             // iFirst
-    -1,                                                             // iLast
-    277,                                                            // lineNo
-    14,                                                             // colNo
-    "",                                                             // aName
-    "computeSTFT",                                                  // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/stft.m", // pName
-    0                                                               // checkKind
+    -1,                                               // iFirst
+    -1,                                               // iLast
+    277,                                              // lineNo
+    14,                                               // colNo
+    "",                                               // aName
+    "computeSTFT",                                    // fName
+    "/home/dasl/matlab/toolbox/signal/signal/stft.m", // pName
+    0                                                 // checkKind
 };
 
 static rtBoundsCheckInfo j_emlrtBCI{
-    -1,                                                             // iFirst
-    -1,                                                             // iLast
-    277,                                                            // lineNo
-    12,                                                             // colNo
-    "",                                                             // aName
-    "computeSTFT",                                                  // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/stft.m", // pName
-    0                                                               // checkKind
+    -1,                                               // iFirst
+    -1,                                               // iLast
+    277,                                              // lineNo
+    12,                                               // colNo
+    "",                                               // aName
+    "computeSTFT",                                    // fName
+    "/home/dasl/matlab/toolbox/signal/signal/stft.m", // pName
+    0                                                 // checkKind
 };
 
 static rtDoubleCheckInfo d_emlrtDCI{
     14,               // lineNo
     30,               // colNo
     "getSTFTColumns", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/getSTFTColumns.m", // pName
-    1                         // checkKind
+    "/home/dasl/matlab/toolbox/signal/signal/+signal/+internal/+stft/"
+    "getSTFTColumns.m", // pName
+    1                   // checkKind
 };
 
 static rtDoubleCheckInfo e_emlrtDCI{
     14,               // lineNo
     30,               // colNo
     "getSTFTColumns", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/getSTFTColumns.m", // pName
-    4                         // checkKind
+    "/home/dasl/matlab/toolbox/signal/signal/+signal/+internal/+stft/"
+    "getSTFTColumns.m", // pName
+    4                   // checkKind
 };
 
 static rtDoubleCheckInfo f_emlrtDCI{
     14,               // lineNo
     5,                // colNo
     "getSTFTColumns", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/getSTFTColumns.m", // pName
-    1                         // checkKind
+    "/home/dasl/matlab/toolbox/signal/signal/+signal/+internal/+stft/"
+    "getSTFTColumns.m", // pName
+    1                   // checkKind
 };
 
 static rtRunTimeErrorInfo db_emlrtRTEI{
     14,                 // lineNo
     37,                 // colNo
     "validatepositive", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/+valattr/"
+    "/home/dasl/matlab/toolbox/eml/eml/+coder/+internal/+valattr/"
     "validatepositive.m" // pName
 };
 

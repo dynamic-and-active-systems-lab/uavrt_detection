@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: indexShapeCheck.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -29,8 +24,7 @@ static rtRunTimeErrorInfo hb_emlrtRTEI{
     122,           // lineNo
     5,             // colNo
     "errOrWarnIf", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
-    "indexShapeCheck.m" // pName
+    "/home/dasl/matlab/toolbox/eml/eml/+coder/+internal/indexShapeCheck.m" // pName
 };
 
 // Function Declarations

@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: fgetl.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -94,34 +89,34 @@ namespace coder {
 void fgetl(double fileID, ::coder::array<char, 2U> &out)
 {
   static rtRunTimeErrorInfo qc_emlrtRTEI{
-      106,      // lineNo
-      9,        // colNo
-      "cFgets", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/fgets.m" // pName
+      106,                                                     // lineNo
+      9,                                                       // colNo
+      "cFgets",                                                // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/iofun/fgets.m" // pName
   };
   static rtRunTimeErrorInfo rc_emlrtRTEI{
-      253,           // lineNo
-      5,             // colNo
-      "getFileStar", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/fgets.m" // pName
+      253,                                                     // lineNo
+      5,                                                       // colNo
+      "getFileStar",                                           // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/iofun/fgets.m" // pName
   };
   static rtRunTimeErrorInfo sc_emlrtRTEI{
-      72,      // lineNo
-      9,       // colNo
-      "fread", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/fread.m" // pName
+      72,                                                      // lineNo
+      9,                                                       // colNo
+      "fread",                                                 // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/iofun/fread.m" // pName
   };
   static rtRunTimeErrorInfo tc_emlrtRTEI{
-      124,      // lineNo
-      17,       // colNo
-      "cFgets", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/fgets.m" // pName
+      124,                                                     // lineNo
+      17,                                                      // colNo
+      "cFgets",                                                // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/iofun/fgets.m" // pName
   };
   static rtRunTimeErrorInfo uc_emlrtRTEI{
-      145,      // lineNo
-      17,       // colNo
-      "cFgets", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/fgets.m" // pName
+      145,                                                     // lineNo
+      17,                                                      // colNo
+      "cFgets",                                                // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/iofun/fgets.m" // pName
   };
   std::FILE *b_filestar;
   std::FILE *f;

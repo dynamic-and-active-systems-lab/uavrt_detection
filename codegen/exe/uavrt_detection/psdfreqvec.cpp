@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: psdfreqvec.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -64,58 +59,58 @@ void psdfreqvec(double varargin_2, double varargin_4,
                 ::coder::array<double, 1U> &w)
 {
   static rtBoundsCheckInfo ab_emlrtBCI{
-      -1,              // iFirst
-      -1,              // iLast
-      75,              // lineNo
-      8,               // colNo
-      "",              // aName
-      "frequencygrid", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/siglib/psdfreqvec.m", // pName
-      0 // checkKind
+      -1,                                                     // iFirst
+      -1,                                                     // iLast
+      75,                                                     // lineNo
+      8,                                                      // colNo
+      "",                                                     // aName
+      "frequencygrid",                                        // fName
+      "/home/dasl/matlab/toolbox/shared/siglib/psdfreqvec.m", // pName
+      0                                                       // checkKind
   };
   static rtBoundsCheckInfo bb_emlrtBCI{
-      -1,              // iFirst
-      -1,              // iLast
-      80,              // lineNo
-      4,               // colNo
-      "",              // aName
-      "frequencygrid", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/siglib/psdfreqvec.m", // pName
-      0 // checkKind
+      -1,                                                     // iFirst
+      -1,                                                     // iLast
+      80,                                                     // lineNo
+      4,                                                      // colNo
+      "",                                                     // aName
+      "frequencygrid",                                        // fName
+      "/home/dasl/matlab/toolbox/shared/siglib/psdfreqvec.m", // pName
+      0                                                       // checkKind
   };
   static rtBoundsCheckInfo cb_emlrtBCI{
-      -1,              // iFirst
-      -1,              // iLast
-      78,              // lineNo
-      8,               // colNo
-      "",              // aName
-      "frequencygrid", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/siglib/psdfreqvec.m", // pName
-      0 // checkKind
+      -1,                                                     // iFirst
+      -1,                                                     // iLast
+      78,                                                     // lineNo
+      8,                                                      // colNo
+      "",                                                     // aName
+      "frequencygrid",                                        // fName
+      "/home/dasl/matlab/toolbox/shared/siglib/psdfreqvec.m", // pName
+      0                                                       // checkKind
   };
   static rtBoundsCheckInfo y_emlrtBCI{
-      -1,              // iFirst
-      -1,              // iLast
-      74,              // lineNo
-      8,               // colNo
-      "",              // aName
-      "frequencygrid", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/siglib/psdfreqvec.m", // pName
-      0 // checkKind
+      -1,                                                     // iFirst
+      -1,                                                     // iLast
+      74,                                                     // lineNo
+      8,                                                      // colNo
+      "",                                                     // aName
+      "frequencygrid",                                        // fName
+      "/home/dasl/matlab/toolbox/shared/siglib/psdfreqvec.m", // pName
+      0                                                       // checkKind
   };
   static rtDoubleCheckInfo q_emlrtDCI{
-      74,              // lineNo
-      8,               // colNo
-      "frequencygrid", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/siglib/psdfreqvec.m", // pName
-      1 // checkKind
+      74,                                                     // lineNo
+      8,                                                      // colNo
+      "frequencygrid",                                        // fName
+      "/home/dasl/matlab/toolbox/shared/siglib/psdfreqvec.m", // pName
+      1                                                       // checkKind
   };
   static rtDoubleCheckInfo r_emlrtDCI{
-      78,              // lineNo
-      8,               // colNo
-      "frequencygrid", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/siglib/psdfreqvec.m", // pName
-      1 // checkKind
+      78,                                                     // lineNo
+      8,                                                      // colNo
+      "frequencygrid",                                        // fName
+      "/home/dasl/matlab/toolbox/shared/siglib/psdfreqvec.m", // pName
+      1                                                       // checkKind
   };
   array<double, 2U> w1;
   double Fs1;

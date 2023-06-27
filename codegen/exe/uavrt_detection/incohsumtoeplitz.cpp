@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: incohsumtoeplitz.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -142,59 +137,54 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
                       coder::array<double, 2U> &Scols)
 {
   static rtBoundsCheckInfo ab_emlrtBCI{
-      -1,                 // iFirst
-      -1,                 // iLast
-      176,                // lineNo
-      37,                 // colNo
-      "Tb",               // aName
-      "incohsumtoeplitz", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
-      0                                                     // checkKind
+      -1,                                                    // iFirst
+      -1,                                                    // iLast
+      176,                                                   // lineNo
+      37,                                                    // colNo
+      "Tb",                                                  // aName
+      "incohsumtoeplitz",                                    // fName
+      "/home/dasl/repos/uavrt_detection/incohsumtoeplitz.m", // pName
+      0                                                      // checkKind
   };
   static rtBoundsCheckInfo bb_emlrtBCI{
-      -1,                 // iFirst
-      -1,                 // iLast
-      198,                // lineNo
-      1,                  // colNo
-      "Scols",            // aName
-      "incohsumtoeplitz", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
-      0                                                     // checkKind
+      -1,                                                    // iFirst
+      -1,                                                    // iLast
+      198,                                                   // lineNo
+      1,                                                     // colNo
+      "Scols",                                               // aName
+      "incohsumtoeplitz",                                    // fName
+      "/home/dasl/repos/uavrt_detection/incohsumtoeplitz.m", // pName
+      0                                                      // checkKind
   };
   static rtBoundsCheckInfo cb_emlrtBCI{
-      -1,                 // iFirst
-      -1,                 // iLast
-      197,                // lineNo
-      1,                  // colNo
-      "Sscores",          // aName
-      "incohsumtoeplitz", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
-      0                                                     // checkKind
+      -1,                                                    // iFirst
+      -1,                                                    // iLast
+      197,                                                   // lineNo
+      1,                                                     // colNo
+      "Sscores",                                             // aName
+      "incohsumtoeplitz",                                    // fName
+      "/home/dasl/repos/uavrt_detection/incohsumtoeplitz.m", // pName
+      0                                                      // checkKind
   };
   static rtBoundsCheckInfo db_emlrtBCI{
-      -1,                 // iFirst
-      -1,                 // iLast
-      192,                // lineNo
-      24,                 // colNo
-      "allScores",        // aName
-      "incohsumtoeplitz", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
-      0                                                     // checkKind
+      -1,                                                    // iFirst
+      -1,                                                    // iLast
+      192,                                                   // lineNo
+      24,                                                    // colNo
+      "allScores",                                           // aName
+      "incohsumtoeplitz",                                    // fName
+      "/home/dasl/repos/uavrt_detection/incohsumtoeplitz.m", // pName
+      0                                                      // checkKind
   };
   static rtBoundsCheckInfo y_emlrtBCI{
-      -1,                 // iFirst
-      -1,                 // iLast
-      163,                // lineNo
-      37,                 // colNo
-      "Fb",               // aName
-      "incohsumtoeplitz", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
-      0                                                     // checkKind
+      -1,                                                    // iFirst
+      -1,                                                    // iLast
+      163,                                                   // lineNo
+      37,                                                    // colNo
+      "Fb",                                                  // aName
+      "incohsumtoeplitz",                                    // fName
+      "/home/dasl/repos/uavrt_detection/incohsumtoeplitz.m", // pName
+      0                                                      // checkKind
   };
   coder::b_sparse pulsesInEachColumn;
   coder::c_sparse firstPulseNum;

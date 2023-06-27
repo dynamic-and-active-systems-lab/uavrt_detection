@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: eml_rand_mt19937ar.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -90,13 +85,14 @@ static void genrand_uint32_vector(unsigned int mt[625], unsigned int u[2])
 //
 static double genrandu(unsigned int mt[625])
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
-      158,        // lineNo
-      17,         // colNo
-      "genrandu", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/randfun/"
-      "eml_rand_mt19937ar.m" // pName
-  };
+  static rtRunTimeErrorInfo
+      qc_emlrtRTEI{
+          158,        // lineNo
+          17,         // colNo
+          "genrandu", // fName
+          "/home/dasl/matlab/toolbox/eml/lib/matlab/randfun/"
+          "eml_rand_mt19937ar.m" // pName
+      };
   double r;
   // ========================= COPYRIGHT NOTICE ============================
   //  This is a uniform (0,1) pseudorandom number generator based on:

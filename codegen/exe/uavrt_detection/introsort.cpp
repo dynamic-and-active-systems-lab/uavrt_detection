@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: introsort.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -33,22 +28,24 @@
 #include <string>
 
 // Variable Definitions
-static rtRunTimeErrorInfo nc_emlrtRTEI{
-    62,           // lineNo
-    39,           // colNo
-    "stack/push", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/lib/+coder/"
-    "+internal/stack.m" // pName
-};
+static rtRunTimeErrorInfo
+    nc_emlrtRTEI{
+        62,           // lineNo
+        39,           // colNo
+        "stack/push", // fName
+        "/home/dasl/matlab/toolbox/shared/coder/coder/lib/+coder/+internal/"
+        "stack.m" // pName
+    };
 
-static rtDoubleCheckInfo p_emlrtDCI{
-    48,            // lineNo
-    48,            // colNo
-    "stack/stack", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/lib/+coder/"
-    "+internal/stack.m", // pName
-    4                    // checkKind
-};
+static rtDoubleCheckInfo
+    p_emlrtDCI{
+        48,            // lineNo
+        48,            // colNo
+        "stack/stack", // fName
+        "/home/dasl/matlab/toolbox/shared/coder/coder/lib/+coder/+internal/"
+        "stack.m", // pName
+        4          // checkKind
+    };
 
 // Function Declarations
 static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);

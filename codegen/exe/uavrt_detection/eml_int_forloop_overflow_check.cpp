@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: eml_int_forloop_overflow_check.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -29,7 +24,7 @@ static rtRunTimeErrorInfo lc_emlrtRTEI{
     87,                             // lineNo
     33,                             // colNo
     "check_forloop_overflow_error", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/eml/"
+    "/home/dasl/matlab/toolbox/eml/lib/matlab/eml/"
     "eml_int_forloop_overflow_check.m" // pName
 };
 

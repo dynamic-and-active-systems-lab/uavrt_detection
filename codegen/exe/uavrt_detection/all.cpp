@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: all.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -64,7 +59,7 @@ void all(const ::coder::array<boolean_T, 2U> &x,
       18,                               // lineNo
       27,                               // colNo
       "eml_int_forloop_overflow_check", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/eml/"
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/eml/"
       "eml_int_forloop_overflow_check.m" // pName
   };
   int i1;

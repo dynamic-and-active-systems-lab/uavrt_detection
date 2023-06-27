@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: randn.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -71,7 +66,7 @@ void complexLike(double varargin_1, unsigned int varargin_2,
       29,                            // lineNo
       34,                            // colNo
       "eml_rand_mt19937ar_stateful", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/randfun/private/"
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/randfun/private/"
       "eml_rand_mt19937ar_stateful.m", // pName
       4                                // checkKind
   };
@@ -154,7 +149,7 @@ void randn(double varargin_1, unsigned int varargin_2,
       37,                            // lineNo
       34,                            // colNo
       "eml_rand_mt19937ar_stateful", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/randfun/private/"
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/randfun/private/"
       "eml_rand_mt19937ar_stateful.m", // pName
       4                                // checkKind
   };

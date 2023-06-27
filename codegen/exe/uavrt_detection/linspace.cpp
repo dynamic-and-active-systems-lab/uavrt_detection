@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: linspace.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -63,14 +58,12 @@ static void l_rtErrorWithMessageID(const char *r, const char *aFcnName,
 namespace coder {
 void linspace(double d2, double n, ::coder::array<double, 2U> &y)
 {
-  static rtRunTimeErrorInfo
-      qc_emlrtRTEI{
-          33,         // lineNo
-          37,         // colNo
-          "linspace", // fName
-          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/elmat/"
-          "linspace.m" // pName
-      };
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      33,                                                         // lineNo
+      37,                                                         // colNo
+      "linspace",                                                 // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/elmat/linspace.m" // pName
+  };
   if (!(n >= 0.0)) {
     if (std::isnan(n)) {
       l_rtErrorWithMessageID("N", qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);

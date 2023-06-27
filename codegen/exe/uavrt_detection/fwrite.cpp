@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: fwrite.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -33,22 +28,18 @@
 namespace coder {
 double b_fwrite(double fileID, const ::coder::array<float, 1U> &x)
 {
-  static rtRunTimeErrorInfo
-      qc_emlrtRTEI{
-          163,           // lineNo
-          5,             // colNo
-          "getFileStar", // fName
-          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/"
-          "fwrite.m" // pName
-      };
-  static rtRunTimeErrorInfo
-      rc_emlrtRTEI{
-          33,       // lineNo
-          5,        // colNo
-          "fwrite", // fName
-          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/"
-          "fwrite.m" // pName
-      };
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      163,                                                      // lineNo
+      5,                                                        // colNo
+      "getFileStar",                                            // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/iofun/fwrite.m" // pName
+  };
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      33,                                                       // lineNo
+      5,                                                        // colNo
+      "fwrite",                                                 // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/iofun/fwrite.m" // pName
+  };
   std::FILE *f;
   std::FILE *filestar;
   double count;

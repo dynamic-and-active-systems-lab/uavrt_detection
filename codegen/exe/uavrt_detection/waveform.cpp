@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: waveform.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -73,13 +68,13 @@
 static rtRunTimeErrorInfo t_emlrtRTEI{ 18,// lineNo
   5,                                   // colNo
   "check_order",                       // fName
-  "/Applications/MATLAB_R2023a.app/toolbox/signal/eml/private/check_order.m"// pName
+  "/home/dasl/matlab/toolbox/signal/eml/private/check_order.m"// pName
 };
 
 static rtRunTimeErrorInfo u_emlrtRTEI{ 22,// lineNo
   23,                                  // colNo
   "check_order",                       // fName
-  "/Applications/MATLAB_R2023a.app/toolbox/signal/eml/private/check_order.m"// pName
+  "/home/dasl/matlab/toolbox/signal/eml/private/check_order.m"// pName
 };
 
 // Function Declarations
@@ -215,7 +210,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     56,                                // colNo
     "timeSearchRange",                 // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -225,7 +220,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     40,                                // colNo
     "msk",                             // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -235,7 +230,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     33,                                // colNo
     "msk",                             // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -245,7 +240,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     36,                                // colNo
     "freq_found",                      // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -255,7 +250,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     42,                                // colNo
     "obj.stft.t",                      // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -265,7 +260,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     33,                                // colNo
     "timeSearchRange",                 // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -275,7 +270,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     42,                                // colNo
     "sideband_msk",                    // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -285,7 +280,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     38,                                // colNo
     "peak_ind",                        // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -295,7 +290,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     33,                                // colNo
     "f_bands",                         // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -305,7 +300,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     57,                                // colNo
     "obj.stft.t",                      // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -315,7 +310,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     29,                                // colNo
     "timeSearchRange",                 // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -325,7 +320,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     44,                                // colNo
     "sideband_msk",                    // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -335,7 +330,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     40,                                // colNo
     "peak_ind",                        // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -345,7 +340,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     28,                                // colNo
     "cur_pl",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -355,7 +350,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     44,                                // colNo
     "obj.stft.t",                      // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -365,7 +360,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     29,                                // colNo
     "timeSearchRange",                 // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -375,7 +370,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     42,                                // colNo
     "sideband_msk",                    // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -385,7 +380,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     29,                                // colNo
     "obj.Wf",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -395,7 +390,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     30,                                // colNo
     "cur_pl",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -405,7 +400,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     49,                                // colNo
     "obj.stft.t",                      // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -415,7 +410,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     48,                                // colNo
     "timeSearchRange",                 // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -425,7 +420,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     54,                                // colNo
     "sideband_msk",                    // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -435,7 +430,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     41,                                // colNo
     "S_cols",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -445,7 +440,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     28,                                // colNo
     "cur_pl",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -455,7 +450,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     32,                                // colNo
     "timeBlinderVec",                  // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -465,7 +460,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     42,                                // colNo
     "sideband_msk",                    // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -475,7 +470,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     50,                                // colNo
     "t_found_inds",                    // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -485,7 +480,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     30,                                // colNo
     "cur_pl",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -495,7 +490,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     53,                                // colNo
     "timeBlinderVec",                  // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -505,7 +500,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     47,                                // colNo
     "bandwidth_of_peak",               // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -515,7 +510,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     20,                                // colNo
     "t_found",                         // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -525,7 +520,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     31,                                // colNo
     "scores",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -535,7 +530,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     40,                                // colNo
     "freq_ind_rng",                    // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -545,7 +540,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     83,                                // colNo
     "bandwidth_of_peak",               // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -555,7 +550,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     57,                                // colNo
     "obj.stft.t",                      // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -565,7 +560,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     32,                                // colNo
     "cur_pl",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -575,7 +570,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     56,                                // colNo
     "freq_ind_rng",                    // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -585,7 +580,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     38,                                // colNo
     "sideband_msk",                    // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -595,7 +590,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     89,                                // colNo
     "obj.stft.t",                      // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -605,7 +600,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     34,                                // colNo
     "cur_pl",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -615,7 +610,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     50,                                // colNo
     "S_cols",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -625,7 +620,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     38,                                // colNo
     "sideband_msk",                    // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -635,7 +630,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     42,                                // colNo
     "obj.Wf",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -645,7 +640,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     37,                                // colNo
     "indiv_msk",                       // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -655,7 +650,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     29,                                // colNo
     "S_cols_for_mask",                 // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -665,7 +660,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     49,                                // colNo
     "bandwidth_of_peak",               // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -675,7 +670,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     52,                                // colNo
     "obj.Wf",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -685,7 +680,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     39,                                // colNo
     "indiv_msk",                       // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -695,7 +690,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     49,                                // colNo
     "S_cols_for_mask",                 // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -705,7 +700,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     47,                                // colNo
     "bandwidth_of_peak",               // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -715,7 +710,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     42,                                // colNo
     "obj.Wf",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -725,7 +720,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     62,                                // colNo
     "slope_val",                       // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -735,7 +730,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     66,                                // colNo
     "weightedSRowSubsMat",             // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -745,7 +740,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     87,                                // colNo
     "thresh",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -755,7 +750,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     52,                                // colNo
     "obj.Wf",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -765,7 +760,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     76,                                // colNo
     "slope_val",                       // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -775,7 +770,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     42,                                // colNo
     "indsOfBins",                      // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -785,7 +780,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     101,                               // colNo
     "thresh",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -795,7 +790,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     26,                                // colNo
     "t_found",                         // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -805,7 +800,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     62,                                // colNo
     "slope_val",                       // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -815,7 +810,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     27,                                // colNo
     "binMaskMatrix",                   // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -825,7 +820,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     59,                                // colNo
     "scores",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -835,7 +830,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     25,                                // colNo
     "t_found",                         // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -845,7 +840,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     79,                                // colNo
     "slope_val",                       // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -855,7 +850,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     29,                                // colNo
     "noisePSDAtZetas",                 // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -865,7 +860,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     73,                                // colNo
     "scores",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -875,7 +870,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     61,                                // colNo
     "signalAmps",                      // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -885,7 +880,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     48,                                // colNo
     "scores",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -895,7 +890,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     41,                                // colNo
     "obj.stft.f",                      // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -905,7 +900,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     59,                                // colNo
     "scores",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -915,7 +910,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     63,                                // colNo
     "signalAmps",                      // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -925,7 +920,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     50,                                // colNo
     "scores",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -935,7 +930,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     55,                                // colNo
     "obj.stft.f",                      // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -945,7 +940,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     76,                                // colNo
     "scores",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -955,7 +950,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     41,                                // colNo
     "yw_max_all_freq",                 // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -965,7 +960,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     74,                                // colNo
     "scores",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -975,7 +970,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     23,                                // colNo
     "signalPSD",                       // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -985,7 +980,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     88,                                // colNo
     "thresh",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -995,7 +990,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     43,                                // colNo
     "yw_max_all_freq",                 // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1005,7 +1000,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     76,                                // colNo
     "scores",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1015,7 +1010,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     19,                                // colNo
     "SNRdB",                           // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1025,7 +1020,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     105,                               // colNo
     "thresh",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1035,7 +1030,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     31,                                // colNo
     "SNRdB",                           // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1045,7 +1040,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     57,                                // colNo
     "scores",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1055,7 +1050,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     23,                                // colNo
     "peak",                            // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1065,7 +1060,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     82,                                // colNo
     "S_cols",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1075,7 +1070,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     33,                                // colNo
     "SNRdB",                           // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1085,7 +1080,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     59,                                // colNo
     "scores",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1095,7 +1090,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     52,                                // colNo
     "S_cols",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1105,7 +1100,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     40,                                // colNo
     "msk",                             // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1115,7 +1110,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     33,                                // colNo
     "t_found",                         // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1125,7 +1120,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     27,                                // colNo
     "freq_mask",                       // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1135,7 +1130,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     64,                                // colNo
     "S_cols",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1145,7 +1140,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     51,                                // colNo
     "msk",                             // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1155,7 +1150,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     35,                                // colNo
     "t_found",                         // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1165,7 +1160,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     43,                                // colNo
     "freq_mask",                       // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1175,7 +1170,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     82,                                // colNo
     "S_cols",                          // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1185,7 +1180,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     46,                                // colNo
     "msk",                             // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1195,7 +1190,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     33,                                // colNo
     "t_found",                         // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1205,7 +1200,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     80,                                // colNo
     "obj.ps_pre.pl",                   // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1215,7 +1210,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     29,                                // colNo
     "timeSearchRange",                 // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1225,7 +1220,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     40,                                // colNo
     "msk",                             // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1235,7 +1230,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     31,                                // colNo
     "msk",                             // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1245,7 +1240,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     35,                                // colNo
     "t_found",                         // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -1255,196 +1250,196 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     45,                                // colNo
     "obj.ps_pre.pl",                   // aName
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
   static rtDoubleCheckInfo ab_emlrtDCI{ 1033,// lineNo
     58,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo bb_emlrtDCI{ 1045,// lineNo
     68,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo cb_emlrtDCI{ 1046,// lineNo
     70,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo db_emlrtDCI{ 1048,// lineNo
     68,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo eb_emlrtDCI{ 1049,// lineNo
     70,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo fb_emlrtDCI{ 1100,// lineNo
     44,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo gb_emlrtDCI{ 1102,// lineNo
     42,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo hb_emlrtDCI{ 1104,// lineNo
     42,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo ib_emlrtDCI{ 1169,// lineNo
     38,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo jb_emlrtDCI{ 1170,// lineNo
     38,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo kb_emlrtDCI{ 1065,// lineNo
     87,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo lb_emlrtDCI{ 1065,// lineNo
     59,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo mb_emlrtDCI{ 1064,// lineNo
     59,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo nb_emlrtDCI{ 1064,// lineNo
     88,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo ob_emlrtDCI{ 1035,// lineNo
     58,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo pb_emlrtDCI{ 1262,// lineNo
     57,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo q_emlrtDCI{ 669,// lineNo
     37,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     4                                  // checkKind
   };
 
   static rtDoubleCheckInfo qb_emlrtDCI{ 1075,// lineNo
     62,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo r_emlrtDCI{ 669,// lineNo
     37,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo rb_emlrtDCI{ 1074,// lineNo
     62,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo s_emlrtDCI{ 669,// lineNo
     13,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     4                                  // checkKind
   };
 
   static rtDoubleCheckInfo t_emlrtDCI{ 669,// lineNo
     13,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo u_emlrtDCI{ 682,// lineNo
     32,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo v_emlrtDCI{ 682,// lineNo
     53,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo w_emlrtDCI{ 853,// lineNo
     35,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     4                                  // checkKind
   };
 
   static rtDoubleCheckInfo x_emlrtDCI{ 853,// lineNo
     35,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo y_emlrtDCI{ 1016,// lineNo
     52,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
@@ -1452,336 +1447,336 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     927,                               // lineNo
     27,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo ac_emlrtECI{ 1,// nDims
     1196,                              // lineNo
     43,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo bb_emlrtECI{ 1,// nDims
     928,                               // lineNo
     28,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo bc_emlrtECI{ 1,// nDims
     1197,                              // lineNo
     69,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo cb_emlrtECI{ 1,// nDims
     929,                               // lineNo
     27,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo cc_emlrtECI{ 1,// nDims
     1197,                              // lineNo
     43,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo db_emlrtECI{ 1,// nDims
     930,                               // lineNo
     28,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo dc_emlrtECI{ -1,// nDims
     1262,                              // lineNo
     12,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo eb_emlrtECI{ 1,// nDims
     932,                               // lineNo
     39,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo fb_emlrtECI{ 1,// nDims
     933,                               // lineNo
     34,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo g_emlrtECI{ -1,// nDims
     670,                               // lineNo
     13,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo gb_emlrtECI{ 1,// nDims
     943,                               // lineNo
     27,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo h_emlrtECI{ 1,// nDims
     53,                                // lineNo
     14,                                // colNo
     "vecfind",                         // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/vecfind.m"// pName
+    "/home/dasl/repos/uavrt_detection/vecfind.m"// pName
   };
 
   static rtEqualityCheckInfo hb_emlrtECI{ 1,// nDims
     942,                               // lineNo
     26,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo i_emlrtECI{ 2,// nDims
     53,                                // lineNo
     14,                                // colNo
     "vecfind",                         // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/vecfind.m"// pName
+    "/home/dasl/repos/uavrt_detection/vecfind.m"// pName
   };
 
   static rtEqualityCheckInfo ib_emlrtECI{ 1,// nDims
     943,                               // lineNo
     56,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo j_emlrtECI{ 1,// nDims
     57,                                // lineNo
     14,                                // colNo
     "vecfind",                         // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/vecfind.m"// pName
+    "/home/dasl/repos/uavrt_detection/vecfind.m"// pName
   };
 
   static rtEqualityCheckInfo jb_emlrtECI{ 1,// nDims
     968,                               // lineNo
     39,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo k_emlrtECI{ 2,// nDims
     57,                                // lineNo
     14,                                // colNo
     "vecfind",                         // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/vecfind.m"// pName
+    "/home/dasl/repos/uavrt_detection/vecfind.m"// pName
   };
 
   static rtEqualityCheckInfo kb_emlrtECI{ 1,// nDims
     983,                               // lineNo
     65,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo l_emlrtECI{ 1,// nDims
     691,                               // lineNo
     32,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo lb_emlrtECI{ 1,// nDims
     983,                               // lineNo
     39,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo m_emlrtECI{ 2,// nDims
     691,                               // lineNo
     32,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo mb_emlrtECI{ 1,// nDims
     988,                               // lineNo
     21,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo n_emlrtECI{ 1,// nDims
     733,                               // lineNo
     57,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo nb_emlrtECI{ 1,// nDims
     998,                               // lineNo
     23,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo o_emlrtECI{ 1,// nDims
     740,                               // lineNo
     26,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo ob_emlrtECI{ -1,// nDims
     1045,                              // lineNo
     48,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo p_emlrtECI{ 1,// nDims
     856,                               // lineNo
     40,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo pb_emlrtECI{ -1,// nDims
     1048,                              // lineNo
     48,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo q_emlrtECI{ 2,// nDims
     856,                               // lineNo
     40,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo qb_emlrtECI{ 1,// nDims
     1050,                              // lineNo
     39,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo r_emlrtECI{ 1,// nDims
     861,                               // lineNo
     44,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo rb_emlrtECI{ 1,// nDims
     1064,                              // lineNo
     52,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo s_emlrtECI{ 2,// nDims
     861,                               // lineNo
     44,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo sb_emlrtECI{ 1,// nDims
     1065,                              // lineNo
     52,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo t_emlrtECI{ 1,// nDims
     869,                               // lineNo
     40,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo tb_emlrtECI{ 1,// nDims
     1186,                              // lineNo
     34,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo u_emlrtECI{ 2,// nDims
     869,                               // lineNo
     40,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo ub_emlrtECI{ 1,// nDims
     1185,                              // lineNo
     34,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo v_emlrtECI{ 1,// nDims
     882,                               // lineNo
     37,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo vb_emlrtECI{ 1,// nDims
     1183,                              // lineNo
     34,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo w_emlrtECI{ 2,// nDims
     882,                               // lineNo
     37,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo wb_emlrtECI{ -1,// nDims
     1183,                              // lineNo
     21,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo x_emlrtECI{ 1,// nDims
     920,                               // lineNo
     33,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo xb_emlrtECI{ -1,// nDims
     1192,                              // lineNo
     17,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo y_emlrtECI{ 1,// nDims
     921,                               // lineNo
     33,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo yb_emlrtECI{ 1,// nDims
     1195,                              // lineNo
     31,                                // colNo
     "waveform/findpulse",              // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m"// pName
   };
 
   coder::sparse Wq;
@@ -2456,8 +2451,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   // Naive or informed frequency search
   y = coder::internal::f_strcmp(freq_searchtype_data, freq_searchtype_size);
   if (y) {
-    boolean_T guard1{ false };
-
+    boolean_T guard1;
     tp_temp = ps_pre->fstart;
     tip_temp = ps_pre->fend;
 
@@ -6049,6 +6043,170 @@ waveform *waveform::init(const creal32_T b_x[1000], double b_Fs, pulsestats
 //    obj             The waveform object
 //             %%
 //
+// Arguments    : const coder::array<creal32_T, 1U> &b_x
+//                double b_Fs
+//                double b_t_0
+//                pulsestats *b_ps_pre
+//                const threshold &b_thresh
+//                pulsestats &iobj_0
+//                wfmstft &iobj_1
+// Return Type  : waveform *
+//
+waveform *waveform::init(const coder::array<creal32_T, 1U> &b_x, double b_Fs,
+  double b_t_0, pulsestats *b_ps_pre, const threshold &b_thresh, pulsestats &
+  iobj_0, wfmstft &iobj_1)
+{
+  pulsestats *obj_out;
+  waveform *obj;
+  coder::array<c_struct_T, 2U> c_ps_pre;
+  coder::array<c_struct_T, 2U> d_ps_pre;
+  coder::array<double, 2U> f_ps_pre;
+  coder::array<boolean_T, 2U> e_ps_pre;
+  int n;
+  int u0;
+  obj = this;
+  obj->x.set_size(1, 0);
+  obj->W.set_size(0, 0);
+  obj->Wf.set_size(0);
+  n = b_x.size(0);
+  if (b_x.size(0) < 1) {
+    n = 1;
+  }
+
+  u0 = b_x.size(0);
+  if (u0 >= n) {
+    n = u0;
+  }
+
+  if (b_x.size(0) > n) {
+    k_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
+  }
+
+  // Flatten input to row
+  obj->x.set_size(1, b_x.size(0));
+  n = b_x.size(0);
+  for (u0 = 0; u0 < n; u0++) {
+    obj->x[u0] = b_x[u0];
+  }
+
+  // Data vector
+  obj->l = b_x.size(0);
+
+  // Elements in the data
+  obj->Fs = b_Fs;
+
+  // Sample rate
+  obj->t_0 = b_t_0;
+
+  // Time stamp of first element
+  obj->t_f = b_t_0 + (static_cast<double>(b_x.size(0)) - 1.0) / b_Fs;
+
+  // Time stamp of last element
+  obj->t_nextsegstart[0] = b_t_0;
+  obj->t_nextsegstart[1] = b_t_0;
+
+  // This is the time when next
+  // segment should start to
+  // ensure sufficient overlap.
+  // Will need to be updated
+  // elsewhere.
+  obj->ps_pre = b_ps_pre;
+  obj->OLF = 0.5;
+
+  // Overlap Fraction for STFT
+  obj->K = rtNaN;
+
+  // Unknown number of pulses.
+  // WFMSTFT Constructs and returns an instance of this class
+  //
+  // An waveform object must be passed to this construction method
+  // so that the constructor has access to the data vector, desired
+  // overlap fraction, and priori pulse data, which is used to
+  // develop the window sizes.
+  // INPUTS:
+  //    waveform_obj   A single waveform object with prior
+  //                   dependent properties set.
+  // OUTPUTS:
+  //    obj             A wfmstft object
+  //             %%
+  //
+  // The following are variable sized properties. To tell coder
+  // that they may vary setup as a local variable size variable
+  // first, then set.
+  // Instructions on https://www.mathworks.com/help/simulink/ug/how-working-with-matlab-classes-is-different-for-code-generation.html
+  // maxFs*maxpulsewidth
+  // Now actually assign them
+  iobj_1.S.set_size(0, 0);
+  iobj_1.t.set_size(0);
+  iobj_1.f.set_size(0);
+  iobj_1.psd.set_size(0);
+  iobj_1.wind.set_size(0);
+  iobj_1.dt = 0.0;
+  iobj_1.T = 0.0;
+  obj->stft = &iobj_1;
+
+  // Unknown values but set types
+  obj->W.set_size(0, 0);
+  obj->Wf.set_size(0);
+
+  // Copy over ps_
+  // COPY Creates an exact copy of the pulse stats object as a separate object
+  c_ps_pre.set_size(1, b_ps_pre->pl.size(1));
+  n = b_ps_pre->pl.size(0) * b_ps_pre->pl.size(1) - 1;
+  for (u0 = 0; u0 <= n; u0++) {
+    c_ps_pre[u0] = b_ps_pre->pl[u0];
+  }
+
+  d_ps_pre.set_size(b_ps_pre->clst.size(0), b_ps_pre->clst.size(1));
+  n = b_ps_pre->clst.size(0) * b_ps_pre->clst.size(1) - 1;
+  for (u0 = 0; u0 <= n; u0++) {
+    d_ps_pre[u0] = b_ps_pre->clst[u0];
+  }
+
+  e_ps_pre.set_size(b_ps_pre->cmsk.size(0), b_ps_pre->cmsk.size(1));
+  n = b_ps_pre->cmsk.size(0) * b_ps_pre->cmsk.size(1) - 1;
+  for (u0 = 0; u0 <= n; u0++) {
+    e_ps_pre[u0] = b_ps_pre->cmsk[u0];
+  }
+
+  f_ps_pre.set_size(b_ps_pre->cpki.size(0), b_ps_pre->cpki.size(1));
+  n = b_ps_pre->cpki.size(0) * b_ps_pre->cpki.size(1) - 1;
+  for (u0 = 0; u0 <= n; u0++) {
+    f_ps_pre[u0] = b_ps_pre->cpki[u0];
+  }
+
+  double g_ps_pre[2];
+  g_ps_pre[0] = b_ps_pre->tmplt[0];
+  g_ps_pre[1] = b_ps_pre->tmplt[1];
+  obj_out = iobj_0.b_init(b_ps_pre->t_p, b_ps_pre->t_ip, b_ps_pre->t_ipu,
+    b_ps_pre->t_ipj, b_ps_pre->fp, b_ps_pre->fstart, b_ps_pre->fend, g_ps_pre,
+    b_ps_pre->mode, c_ps_pre, d_ps_pre, e_ps_pre, f_ps_pre);
+
+  // ,...
+  // obj.thresh);
+  obj->ps_pos = obj_out;
+
+  // Current stats are same as previous during construction
+  // obj.ps_pos = pulsestats();%TESTING FOR CODER - NEEDS TO BE REVERTED BACK TO LAST LINE
+  // obj.TimeCorr = TemporalCorrelator(10, 0, 0);%Generate a temporalcorrelator object so coder knows the type of the object
+  obj->setprioridependentprops(b_ps_pre);
+  obj->thresh = b_thresh;
+  return obj;
+}
+
+//
+// WAVEFORM Constructs an instance of this class
+// INPUTS:
+//    x       1xn     Vector of samples
+//    Fs      1x1     Sample frequency (Hz)
+//    t_0     1x1     Time stamp of first element (s)
+//  ps_pre  1x1     Pulse stats object from previous data (priori)
+//    OLF     1x1     Overlap fraction as decimal (0.5 = 50%
+//                    overlap)
+// OUTPUTS:
+//    obj             The waveform object
+//             %%
+//
 // Arguments    : const creal32_T b_x[1000]
 //                double b_Fs
 //                pulsestats *b_ps_pre
@@ -6298,170 +6456,6 @@ b_waveform *b_waveform::init(const creal32_T b_x[1000], double b_Fs, pulsestats 
 }
 
 //
-// WAVEFORM Constructs an instance of this class
-// INPUTS:
-//    x       1xn     Vector of samples
-//    Fs      1x1     Sample frequency (Hz)
-//    t_0     1x1     Time stamp of first element (s)
-//  ps_pre  1x1     Pulse stats object from previous data (priori)
-//    OLF     1x1     Overlap fraction as decimal (0.5 = 50%
-//                    overlap)
-// OUTPUTS:
-//    obj             The waveform object
-//             %%
-//
-// Arguments    : const coder::array<creal32_T, 1U> &b_x
-//                double b_Fs
-//                double b_t_0
-//                pulsestats *b_ps_pre
-//                const threshold &b_thresh
-//                pulsestats &iobj_0
-//                wfmstft &iobj_1
-// Return Type  : waveform *
-//
-waveform *waveform::init(const coder::array<creal32_T, 1U> &b_x, double b_Fs,
-  double b_t_0, pulsestats *b_ps_pre, const threshold &b_thresh, pulsestats &
-  iobj_0, wfmstft &iobj_1)
-{
-  pulsestats *obj_out;
-  waveform *obj;
-  coder::array<c_struct_T, 2U> c_ps_pre;
-  coder::array<c_struct_T, 2U> d_ps_pre;
-  coder::array<double, 2U> f_ps_pre;
-  coder::array<boolean_T, 2U> e_ps_pre;
-  int n;
-  int u0;
-  obj = this;
-  obj->x.set_size(1, 0);
-  obj->W.set_size(0, 0);
-  obj->Wf.set_size(0);
-  n = b_x.size(0);
-  if (b_x.size(0) < 1) {
-    n = 1;
-  }
-
-  u0 = b_x.size(0);
-  if (u0 >= n) {
-    n = u0;
-  }
-
-  if (b_x.size(0) > n) {
-    k_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
-  }
-
-  // Flatten input to row
-  obj->x.set_size(1, b_x.size(0));
-  n = b_x.size(0);
-  for (u0 = 0; u0 < n; u0++) {
-    obj->x[u0] = b_x[u0];
-  }
-
-  // Data vector
-  obj->l = b_x.size(0);
-
-  // Elements in the data
-  obj->Fs = b_Fs;
-
-  // Sample rate
-  obj->t_0 = b_t_0;
-
-  // Time stamp of first element
-  obj->t_f = b_t_0 + (static_cast<double>(b_x.size(0)) - 1.0) / b_Fs;
-
-  // Time stamp of last element
-  obj->t_nextsegstart[0] = b_t_0;
-  obj->t_nextsegstart[1] = b_t_0;
-
-  // This is the time when next
-  // segment should start to
-  // ensure sufficient overlap.
-  // Will need to be updated
-  // elsewhere.
-  obj->ps_pre = b_ps_pre;
-  obj->OLF = 0.5;
-
-  // Overlap Fraction for STFT
-  obj->K = rtNaN;
-
-  // Unknown number of pulses.
-  // WFMSTFT Constructs and returns an instance of this class
-  //
-  // An waveform object must be passed to this construction method
-  // so that the constructor has access to the data vector, desired
-  // overlap fraction, and priori pulse data, which is used to
-  // develop the window sizes.
-  // INPUTS:
-  //    waveform_obj   A single waveform object with prior
-  //                   dependent properties set.
-  // OUTPUTS:
-  //    obj             A wfmstft object
-  //             %%
-  //
-  // The following are variable sized properties. To tell coder
-  // that they may vary setup as a local variable size variable
-  // first, then set.
-  // Instructions on https://www.mathworks.com/help/simulink/ug/how-working-with-matlab-classes-is-different-for-code-generation.html
-  // maxFs*maxpulsewidth
-  // Now actually assign them
-  iobj_1.S.set_size(0, 0);
-  iobj_1.t.set_size(0);
-  iobj_1.f.set_size(0);
-  iobj_1.psd.set_size(0);
-  iobj_1.wind.set_size(0);
-  iobj_1.dt = 0.0;
-  iobj_1.T = 0.0;
-  obj->stft = &iobj_1;
-
-  // Unknown values but set types
-  obj->W.set_size(0, 0);
-  obj->Wf.set_size(0);
-
-  // Copy over ps_
-  // COPY Creates an exact copy of the pulse stats object as a separate object
-  c_ps_pre.set_size(1, b_ps_pre->pl.size(1));
-  n = b_ps_pre->pl.size(0) * b_ps_pre->pl.size(1) - 1;
-  for (u0 = 0; u0 <= n; u0++) {
-    c_ps_pre[u0] = b_ps_pre->pl[u0];
-  }
-
-  d_ps_pre.set_size(b_ps_pre->clst.size(0), b_ps_pre->clst.size(1));
-  n = b_ps_pre->clst.size(0) * b_ps_pre->clst.size(1) - 1;
-  for (u0 = 0; u0 <= n; u0++) {
-    d_ps_pre[u0] = b_ps_pre->clst[u0];
-  }
-
-  e_ps_pre.set_size(b_ps_pre->cmsk.size(0), b_ps_pre->cmsk.size(1));
-  n = b_ps_pre->cmsk.size(0) * b_ps_pre->cmsk.size(1) - 1;
-  for (u0 = 0; u0 <= n; u0++) {
-    e_ps_pre[u0] = b_ps_pre->cmsk[u0];
-  }
-
-  f_ps_pre.set_size(b_ps_pre->cpki.size(0), b_ps_pre->cpki.size(1));
-  n = b_ps_pre->cpki.size(0) * b_ps_pre->cpki.size(1) - 1;
-  for (u0 = 0; u0 <= n; u0++) {
-    f_ps_pre[u0] = b_ps_pre->cpki[u0];
-  }
-
-  double g_ps_pre[2];
-  g_ps_pre[0] = b_ps_pre->tmplt[0];
-  g_ps_pre[1] = b_ps_pre->tmplt[1];
-  obj_out = iobj_0.b_init(b_ps_pre->t_p, b_ps_pre->t_ip, b_ps_pre->t_ipu,
-    b_ps_pre->t_ipj, b_ps_pre->fp, b_ps_pre->fstart, b_ps_pre->fend, g_ps_pre,
-    b_ps_pre->mode, c_ps_pre, d_ps_pre, e_ps_pre, f_ps_pre);
-
-  // ,...
-  // obj.thresh);
-  obj->ps_pos = obj_out;
-
-  // Current stats are same as previous during construction
-  // obj.ps_pos = pulsestats();%TESTING FOR CODER - NEEDS TO BE REVERTED BACK TO LAST LINE
-  // obj.TimeCorr = TemporalCorrelator(10, 0, 0);%Generate a temporalcorrelator object so coder knows the type of the object
-  obj->setprioridependentprops(b_ps_pre);
-  obj->thresh = b_thresh;
-  return obj;
-}
-
-//
 // PROCESS is a method that runs the pulse detection algorithm on
 // a waveform object.
 //
@@ -6491,7 +6485,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     56,                                // colNo
     "obj.ps_pre.pl",                   // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -6501,7 +6495,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     58,                                // colNo
     "pk_ind",                          // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -6511,7 +6505,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     51,                                // colNo
     "candidatelist",                   // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -6521,7 +6515,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     65,                                // colNo
     "conflog",                         // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -6531,7 +6525,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     43,                                // colNo
     "obj.ps_pos.pl(ip)",               // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -6541,7 +6535,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     35,                                // colNo
     "obj.ps_pos.pl(tick)",             // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -6551,7 +6545,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     37,                                // colNo
     "obj.ps_pos.clst(tick)",           // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -6561,7 +6555,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     58,                                // colNo
     "pk_ind",                          // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -6571,7 +6565,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     51,                                // colNo
     "candidatelist",                   // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -6581,7 +6575,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     61,                                // colNo
     "conflog",                         // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -6591,7 +6585,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     39,                                // colNo
     "obj.ps_pos.pl(ip)",               // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -6601,7 +6595,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     35,                                // colNo
     "obj.ps_pos.pl(tick)",             // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -6611,7 +6605,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     37,                                // colNo
     "obj.ps_pos.clst(tick)",           // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -6621,7 +6615,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     58,                                // colNo
     "pk_ind",                          // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -6631,7 +6625,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     51,                                // colNo
     "candidatelist",                   // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -6641,7 +6635,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     39,                                // colNo
     "obj.ps_pos.pl(ip)",               // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -6651,7 +6645,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     35,                                // colNo
     "obj.ps_pos.pl(tick)",             // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -6661,7 +6655,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     37,                                // colNo
     "obj.ps_pos.clst(tick)",           // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
@@ -6671,28 +6665,28 @@ void waveform::process(char mode, const coder::array<double, 2U>
     56,                                // colNo
     "obj.ps_pre.pl",                   // aName
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
   static rtDoubleCheckInfo q_emlrtDCI{ 1855,// lineNo
     51,                                // colNo
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo r_emlrtDCI{ 1769,// lineNo
     51,                                // colNo
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo s_emlrtDCI{ 1699,// lineNo
     51,                                // colNo
     "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    "/home/dasl/repos/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
@@ -7954,7 +7948,7 @@ void waveform::setweightingmatrix()
     29,                                // colNo
     "stackedToeplitzMatrices",         // aName
     "weightingmatrix",                 // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/weightingmatrix.m",// pName
+    "/home/dasl/repos/uavrt_detection/weightingmatrix.m",// pName
     0                                  // checkKind
   };
 
@@ -7964,7 +7958,7 @@ void waveform::setweightingmatrix()
     38,                                // colNo
     "stackedToeplitzMatrices",         // aName
     "weightingmatrix",                 // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/weightingmatrix.m",// pName
+    "/home/dasl/repos/uavrt_detection/weightingmatrix.m",// pName
     0                                  // checkKind
   };
 
@@ -7974,7 +7968,7 @@ void waveform::setweightingmatrix()
     33,                                // colNo
     "freqs",                           // aName
     "weightingmatrix",                 // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/weightingmatrix.m",// pName
+    "/home/dasl/repos/uavrt_detection/weightingmatrix.m",// pName
     0                                  // checkKind
   };
 
@@ -7984,7 +7978,7 @@ void waveform::setweightingmatrix()
     71,                                // colNo
     "Xs",                              // aName
     "weightingmatrix",                 // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/weightingmatrix.m",// pName
+    "/home/dasl/repos/uavrt_detection/weightingmatrix.m",// pName
     0                                  // checkKind
   };
 
@@ -7994,35 +7988,35 @@ void waveform::setweightingmatrix()
     9,                                 // colNo
     "W",                               // aName
     "weightingmatrix",                 // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/weightingmatrix.m",// pName
+    "/home/dasl/repos/uavrt_detection/weightingmatrix.m",// pName
     0                                  // checkKind
   };
 
   static rtDoubleCheckInfo q_emlrtDCI{ 43,// lineNo
     28,                                // colNo
     "gettemplate",                     // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/gettemplate.m",// pName
+    "/home/dasl/repos/uavrt_detection/gettemplate.m",// pName
     4                                  // checkKind
   };
 
   static rtDoubleCheckInfo r_emlrtDCI{ 155,// lineNo
     41,                                // colNo
     "weightingmatrix",                 // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/weightingmatrix.m",// pName
+    "/home/dasl/repos/uavrt_detection/weightingmatrix.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo s_emlrtDCI{ 155,// lineNo
     1,                                 // colNo
     "weightingmatrix",                 // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/weightingmatrix.m",// pName
+    "/home/dasl/repos/uavrt_detection/weightingmatrix.m",// pName
     1                                  // checkKind
   };
 
   static rtDoubleCheckInfo t_emlrtDCI{ 194,// lineNo
     55,                                // colNo
     "weightingmatrix",                 // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/weightingmatrix.m",// pName
+    "/home/dasl/repos/uavrt_detection/weightingmatrix.m",// pName
     4                                  // checkKind
   };
 
@@ -8030,42 +8024,42 @@ void waveform::setweightingmatrix()
     145,                               // lineNo
     5,                                 // colNo
     "weightingmatrix",                 // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/weightingmatrix.m"// pName
+    "/home/dasl/repos/uavrt_detection/weightingmatrix.m"// pName
   };
 
   static rtEqualityCheckInfo h_emlrtECI{ 1,// nDims
     146,                               // lineNo
     19,                                // colNo
     "weightingmatrix",                 // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/weightingmatrix.m"// pName
+    "/home/dasl/repos/uavrt_detection/weightingmatrix.m"// pName
   };
 
   static rtEqualityCheckInfo i_emlrtECI{ -1,// nDims
     159,                               // lineNo
     5,                                 // colNo
     "weightingmatrix",                 // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/weightingmatrix.m"// pName
+    "/home/dasl/repos/uavrt_detection/weightingmatrix.m"// pName
   };
 
   static rtEqualityCheckInfo j_emlrtECI{ -1,// nDims
     147,                               // lineNo
     5,                                 // colNo
     "weightingmatrix",                 // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/weightingmatrix.m"// pName
+    "/home/dasl/repos/uavrt_detection/weightingmatrix.m"// pName
   };
 
   static rtEqualityCheckInfo k_emlrtECI{ 1,// nDims
     195,                               // lineNo
     6,                                 // colNo
     "weightingmatrix",                 // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/weightingmatrix.m"// pName
+    "/home/dasl/repos/uavrt_detection/weightingmatrix.m"// pName
   };
 
   static rtEqualityCheckInfo l_emlrtECI{ -1,// nDims
     191,                               // lineNo
     1,                                 // colNo
     "weightingmatrix",                 // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/weightingmatrix.m"// pName
+    "/home/dasl/repos/uavrt_detection/weightingmatrix.m"// pName
   };
 
   coder::array<creal_T, 2U> Xs;
@@ -8830,7 +8824,7 @@ void waveform::setweightingmatrix()
 // Arguments    : wfmstft &iobj_0
 // Return Type  : void
 //
-void b_waveform::spectro(wfmstft &iobj_0)
+void waveform::spectro(wfmstft &iobj_0)
 {
   coder::array<creal32_T, 2U> S;
   coder::array<creal32_T, 2U> obj;
@@ -8963,7 +8957,7 @@ void b_waveform::spectro(wfmstft &iobj_0)
 // Arguments    : wfmstft &iobj_0
 // Return Type  : void
 //
-void waveform::spectro(wfmstft &iobj_0)
+void b_waveform::spectro(wfmstft &iobj_0)
 {
   coder::array<creal32_T, 2U> S;
   coder::array<creal32_T, 2U> obj;

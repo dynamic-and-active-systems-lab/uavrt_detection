@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: datetime.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -64,8 +59,8 @@ void datetime::init()
       1,                   // lineNo
       1,                   // colNo
       "createFromDateVec", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/matlab/datatypes/codegen/"
-      "datetime/+matlab/+internal/+coder/+datetime/createFromDateVec.p" // pName
+      "/home/dasl/matlab/toolbox/matlab/datatypes/codegen/datetime/+matlab/"
+      "+internal/+coder/+datetime/createFromDateVec.p" // pName
   };
   double b_second;
   double c_tm_hour;

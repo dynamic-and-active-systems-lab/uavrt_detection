@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: sparse1.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -43,48 +38,48 @@ static rtRunTimeErrorInfo xb_emlrtRTEI{
     29,              // lineNo
     23,              // colNo
     "sparse/mtimes", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/+coder/"
-    "+internal/@sparse/mtimes.m" // pName
+    "/home/dasl/matlab/toolbox/shared/coder/coder/+coder/+internal/@sparse/"
+    "mtimes.m" // pName
 };
 
 static rtRunTimeErrorInfo cc_emlrtRTEI{
     12,                                   // lineNo
     27,                                   // colNo
     "sparse/sparse_validateNumericIndex", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/+coder/"
-    "+internal/@sparse/private/validateNumericIndex.m" // pName
+    "/home/dasl/matlab/toolbox/shared/coder/coder/+coder/+internal/@sparse/"
+    "private/validateNumericIndex.m" // pName
 };
 
 static rtRunTimeErrorInfo fc_emlrtRTEI{
     1629,              // lineNo
     9,                 // colNo
     "assertValidSize", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/+coder/"
-    "+internal/@sparse/sparse.m" // pName
+    "/home/dasl/matlab/toolbox/shared/coder/coder/+coder/+internal/@sparse/"
+    "sparse.m" // pName
 };
 
 static rtRunTimeErrorInfo jc_emlrtRTEI{
     11,                                   // lineNo
     27,                                   // colNo
     "sparse/sparse_validateNumericIndex", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/+coder/"
-    "+internal/@sparse/private/validateNumericIndex.m" // pName
+    "/home/dasl/matlab/toolbox/shared/coder/coder/+coder/+internal/@sparse/"
+    "private/validateNumericIndex.m" // pName
 };
 
 static rtRunTimeErrorInfo kc_emlrtRTEI{
     92,                        // lineNo
     1,                         // colNo
     "parenReference2DColumns", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/+coder/"
-    "+internal/@sparse/parenReference2D.m" // pName
+    "/home/dasl/matlab/toolbox/shared/coder/coder/+coder/+internal/@sparse/"
+    "parenReference2D.m" // pName
 };
 
 static rtRunTimeErrorInfo oc_emlrtRTEI{
     11,                     // lineNo
     23,                     // colNo
     "sparse/parenAssign1D", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/+coder/"
-    "+internal/@sparse/parenAssign1D.m" // pName
+    "/home/dasl/matlab/toolbox/shared/coder/coder/+coder/+internal/@sparse/"
+    "parenAssign1D.m" // pName
 };
 
 // Function Declarations
@@ -129,8 +124,8 @@ void sparse::b_realloc(f_sparse *b_this, int numAllocRequested, int ub1,
       237,            // lineNo
       13,             // colNo
       "sparse/numel", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/+coder/"
-      "+internal/@sparse/sparse.m" // pName
+      "/home/dasl/matlab/toolbox/shared/coder/coder/+coder/+internal/@sparse/"
+      "sparse.m" // pName
   };
   array<int, 1U> rowidxt;
   array<boolean_T, 1U> dt;
@@ -543,22 +538,22 @@ void sparse::assertValidIndexArg(const ::coder::array<double, 1U> &s,
       1660,                  // lineNo
       31,                    // colNo
       "assertValidIndexArg", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/+coder/"
-      "+internal/@sparse/sparse.m" // pName
+      "/home/dasl/matlab/toolbox/shared/coder/coder/+coder/+internal/@sparse/"
+      "sparse.m" // pName
   };
   static rtRunTimeErrorInfo rc_emlrtRTEI{
       1658,                  // lineNo
       31,                    // colNo
       "assertValidIndexArg", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/+coder/"
-      "+internal/@sparse/sparse.m" // pName
+      "/home/dasl/matlab/toolbox/shared/coder/coder/+coder/+internal/@sparse/"
+      "sparse.m" // pName
   };
   static rtRunTimeErrorInfo sc_emlrtRTEI{
       1662,                  // lineNo
       31,                    // colNo
       "assertValidIndexArg", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/+coder/"
-      "+internal/@sparse/sparse.m" // pName
+      "/home/dasl/matlab/toolbox/shared/coder/coder/+coder/+internal/@sparse/"
+      "sparse.m" // pName
   };
   int ns;
   ns = s.size(0);
@@ -706,8 +701,8 @@ void d_sparse::b_not(d_sparse &out) const
       83,       // lineNo
       27,       // colNo
       "notnnz", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/+coder/"
-      "+internal/@sparse/not.m" // pName
+      "/home/dasl/matlab/toolbox/shared/coder/coder/+coder/+internal/@sparse/"
+      "not.m" // pName
   };
   int b;
   int curPosition;
@@ -831,104 +826,6 @@ void f_sparse::b_parenAssign(const ::coder::array<boolean_T, 2U> &rhs,
     b_this[1] = n;
     overflow = internal::ind2sub(b_this, varargin_1[k], varargout_4);
     parenAssign2D(rhs[k], static_cast<double>(overflow),
-                  static_cast<double>(varargout_4));
-  }
-}
-
-//
-// Arguments    : const h_sparse &rhs
-//                const ::coder::array<double, 2U> &varargin_1
-// Return Type  : void
-//
-void f_sparse::c_parenAssign(const h_sparse &rhs,
-                             const ::coder::array<double, 2U> &varargin_1)
-{
-  e_sparse s;
-  double varargout_1_tmp[2];
-  int cend;
-  int highOrderRHS;
-  int nidx;
-  int varargout_4;
-  boolean_T rhsv;
-  internal::bigProduct(m, n, nidx);
-  varargout_1_tmp[0] = rhs.m;
-  varargout_1_tmp[1] = 1.0;
-  cend = internal::bigProduct(rhs.m, 1, highOrderRHS);
-  if (((varargin_1.size(1) & 65535) + ((varargin_1.size(1) >> 16) << 16) !=
-       cend) ||
-      (highOrderRHS != 0)) {
-    lc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
-  }
-  if (nidx == 0) {
-    cend = m * n;
-    highOrderRHS = varargin_1.size(1);
-    for (int k{0}; k < highOrderRHS; k++) {
-      double b_d;
-      double d1;
-      b_d = varargin_1[k];
-      d1 = std::floor(b_d);
-      if ((!(d1 == b_d)) || std::isinf(b_d)) {
-        ec_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
-      }
-      if (!(b_d <= cend)) {
-        rtErrorWithMessageID(static_cast<long>(d1), cend, cc_emlrtRTEI.fName,
-                             cc_emlrtRTEI.lineNo);
-      }
-    }
-  } else {
-    highOrderRHS = varargin_1.size(1);
-    for (int k{0}; k < highOrderRHS; k++) {
-      double b_d;
-      double d1;
-      b_d = varargin_1[k];
-      d1 = std::floor(b_d);
-      if ((!(d1 == b_d)) || std::isinf(b_d)) {
-        ec_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
-      }
-      if (!(b_d <= 2.147483647E+9)) {
-        rtErrorWithMessageID(static_cast<long>(d1), MAX_int32_T,
-                             cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
-      }
-    }
-  }
-  nidx = varargin_1.size(1);
-  if (varargin_1.size(1) > 2147483646) {
-    check_forloop_overflow_error();
-  }
-  for (int k{0}; k < nidx; k++) {
-    double b_this[2];
-    int idx;
-    int varargout_3;
-    b_this[0] = m;
-    b_this[1] = n;
-    varargout_3 = internal::ind2sub(b_this, varargin_1[k], varargout_4);
-    if (((rhs.m & 65535) <= MAX_int32_T - ((rhs.m >> 16) << 16)) &&
-        (k + 1 > rhs.m)) {
-      rtErrorWithMessageID(k + 1, rhs.m, cc_emlrtRTEI.fName,
-                           cc_emlrtRTEI.lineNo);
-    }
-    s.colidx.set_size(2);
-    s.colidx[0] = 1;
-    s.colidx[1] = 1;
-    cend = internal::ind2sub(varargout_1_tmp, k + 1, highOrderRHS);
-    idx = sparse_locBsearch(rhs.rowidx, static_cast<double>(cend),
-                            rhs.colidx[highOrderRHS - 1],
-                            rhs.colidx[highOrderRHS], rhsv);
-    if (rhsv) {
-      s.d.set_size(1);
-      s.d[0] = rhs.d[idx - 1];
-      s.colidx[1] = 2;
-    } else {
-      s.d.set_size(1);
-      s.d[0] = false;
-    }
-    rhsv = false;
-    cend = s.colidx[1] - 1;
-    highOrderRHS = s.colidx[0];
-    for (idx = highOrderRHS; idx <= cend; idx++) {
-      rhsv = s.d[idx - 1];
-    }
-    parenAssign2D(rhsv, static_cast<double>(varargout_3),
                   static_cast<double>(varargout_4));
   }
 }
@@ -1068,6 +965,104 @@ void f_sparse::c_parenAssign(const ::coder::array<double, 2U> &rhs,
 }
 
 //
+// Arguments    : const h_sparse &rhs
+//                const ::coder::array<double, 2U> &varargin_1
+// Return Type  : void
+//
+void f_sparse::c_parenAssign(const h_sparse &rhs,
+                             const ::coder::array<double, 2U> &varargin_1)
+{
+  e_sparse s;
+  double varargout_1_tmp[2];
+  int cend;
+  int highOrderRHS;
+  int nidx;
+  int varargout_4;
+  boolean_T rhsv;
+  internal::bigProduct(m, n, nidx);
+  varargout_1_tmp[0] = rhs.m;
+  varargout_1_tmp[1] = 1.0;
+  cend = internal::bigProduct(rhs.m, 1, highOrderRHS);
+  if (((varargin_1.size(1) & 65535) + ((varargin_1.size(1) >> 16) << 16) !=
+       cend) ||
+      (highOrderRHS != 0)) {
+    lc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+  }
+  if (nidx == 0) {
+    cend = m * n;
+    highOrderRHS = varargin_1.size(1);
+    for (int k{0}; k < highOrderRHS; k++) {
+      double b_d;
+      double d1;
+      b_d = varargin_1[k];
+      d1 = std::floor(b_d);
+      if ((!(d1 == b_d)) || std::isinf(b_d)) {
+        ec_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
+      }
+      if (!(b_d <= cend)) {
+        rtErrorWithMessageID(static_cast<long>(d1), cend, cc_emlrtRTEI.fName,
+                             cc_emlrtRTEI.lineNo);
+      }
+    }
+  } else {
+    highOrderRHS = varargin_1.size(1);
+    for (int k{0}; k < highOrderRHS; k++) {
+      double b_d;
+      double d1;
+      b_d = varargin_1[k];
+      d1 = std::floor(b_d);
+      if ((!(d1 == b_d)) || std::isinf(b_d)) {
+        ec_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
+      }
+      if (!(b_d <= 2.147483647E+9)) {
+        rtErrorWithMessageID(static_cast<long>(d1), MAX_int32_T,
+                             cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
+      }
+    }
+  }
+  nidx = varargin_1.size(1);
+  if (varargin_1.size(1) > 2147483646) {
+    check_forloop_overflow_error();
+  }
+  for (int k{0}; k < nidx; k++) {
+    double b_this[2];
+    int idx;
+    int varargout_3;
+    b_this[0] = m;
+    b_this[1] = n;
+    varargout_3 = internal::ind2sub(b_this, varargin_1[k], varargout_4);
+    if (((rhs.m & 65535) <= MAX_int32_T - ((rhs.m >> 16) << 16)) &&
+        (k + 1 > rhs.m)) {
+      rtErrorWithMessageID(k + 1, rhs.m, cc_emlrtRTEI.fName,
+                           cc_emlrtRTEI.lineNo);
+    }
+    s.colidx.set_size(2);
+    s.colidx[0] = 1;
+    s.colidx[1] = 1;
+    cend = internal::ind2sub(varargout_1_tmp, k + 1, highOrderRHS);
+    idx = sparse_locBsearch(rhs.rowidx, static_cast<double>(cend),
+                            rhs.colidx[highOrderRHS - 1],
+                            rhs.colidx[highOrderRHS], rhsv);
+    if (rhsv) {
+      s.d.set_size(1);
+      s.d[0] = rhs.d[idx - 1];
+      s.colidx[1] = 2;
+    } else {
+      s.d.set_size(1);
+      s.d[0] = false;
+    }
+    rhsv = false;
+    cend = s.colidx[1] - 1;
+    highOrderRHS = s.colidx[0];
+    for (idx = highOrderRHS; idx <= cend; idx++) {
+      rhsv = s.d[idx - 1];
+    }
+    parenAssign2D(rhsv, static_cast<double>(varargout_3),
+                  static_cast<double>(varargout_4));
+  }
+}
+
+//
 // Arguments    : const c_sparse &b
 //                d_sparse &s
 // Return Type  : void
@@ -1078,15 +1073,15 @@ void b_sparse::eq(const c_sparse &b, d_sparse &s) const
       460,                // lineNo
       34,                 // colNo
       "sparse/spfunImpl", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/+coder/"
-      "+internal/@sparse/sparse.m" // pName
+      "/home/dasl/matlab/toolbox/shared/coder/coder/+coder/+internal/@sparse/"
+      "sparse.m" // pName
   };
   static rtRunTimeErrorInfo rc_emlrtRTEI{
       178,             // lineNo
       39,              // colNo
       "sparse/sparse", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/+coder/"
-      "+internal/@sparse/sparse.m" // pName
+      "/home/dasl/matlab/toolbox/shared/coder/coder/+coder/+internal/@sparse/"
+      "sparse.m" // pName
   };
   d_anonymous_function uniOp;
   array<boolean_T, 2U> S;

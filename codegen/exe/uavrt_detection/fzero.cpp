@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: fzero.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -59,14 +54,12 @@ static void tb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 namespace coder {
 double fzero(const b_anonymous_function FunFcn)
 {
-  static rtRunTimeErrorInfo
-      qc_emlrtRTEI{
-          83,      // lineNo
-          9,       // colNo
-          "fzero", // fName
-          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/optimfun/"
-          "fzero.m" // pName
-      };
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      83,                                                         // lineNo
+      9,                                                          // colNo
+      "fzero",                                                    // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/optimfun/fzero.m" // pName
+  };
   double b;
   double fx;
   fx = (1.0 - std::exp(-std::exp((-0.0 - FunFcn.workspace.mu) /

@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: uavrt_detection_rtwutil.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -372,15 +367,16 @@ void ib_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 }
 
 //
-// Arguments    : const char *aFcnName
+// Arguments    : const char *r
+//                const char *aFcnName
 //                int aLineNum
 // Return Type  : void
 //
-void j_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+void j_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
-  outStream << "Matrix index is out of range for deletion.";
+  ((outStream << "Expected ") << r) << " to be integer-valued.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -393,16 +389,15 @@ void j_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 }
 
 //
-// Arguments    : const char *r
-//                const char *aFcnName
+// Arguments    : const char *aFcnName
 //                int aLineNum
 // Return Type  : void
 //
-void j_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
+void j_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
-  ((outStream << "Expected ") << r) << " to be integer-valued.";
+  outStream << "Matrix index is out of range for deletion.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -679,6 +674,31 @@ void rtDynamicBoundsError(int aIndexValue, int aLoBound, int aHiBound,
 }
 
 //
+// Arguments    : const std::string r
+//                const int i
+//                const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+void rtErrorWithMessageID(const std::string r, const int i,
+                          const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  ((((outStream << "Call to \'") << r) << "\' failed with return value ") << i)
+      << ".";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
 // Arguments    : const char *r
 //                const char *aFcnName
 //                int aLineNum
@@ -715,31 +735,6 @@ void rtErrorWithMessageID(const char *aFcnName, int aLineNum)
       << "Detected a run-time error from a call to the function ASSERT or "
          "ERROR, but unable to report the details in standalone code. To s"
          "ee the error message, generate and execute a MEX function.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const std::string r
-//                const int i
-//                const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-void rtErrorWithMessageID(const std::string r, const int i,
-                          const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  ((((outStream << "Call to \'") << r) << "\' failed with return value ") << i)
-      << ".";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {

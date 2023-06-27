@@ -5,7 +5,7 @@
 // File: stickyStruct.h
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 #ifndef STICKYSTRUCT_H

@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: pulsestats.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -37,24 +32,22 @@
 
 // Variable Definitions
 static rtEqualityCheckInfo emlrtECI{
-    2,                       // nDims
-    148,                     // lineNo
-    17,                      // colNo
-    "pulsestats/pulsestats", // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-    "CODE_PLAYGROUND/uavrt_detection/pulsestats.m" // pName
+    2,                                              // nDims
+    148,                                            // lineNo
+    17,                                             // colNo
+    "pulsestats/pulsestats",                        // fName
+    "/home/dasl/repos/uavrt_detection/pulsestats.m" // pName
 };
 
 static rtBoundsCheckInfo v_emlrtBCI{
-    -1,                            // iFirst
-    -1,                            // iLast
-    245,                           // lineNo
-    64,                            // colNo
-    "ps_pre.pl",                   // aName
-    "pulsestats/updateposteriori", // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-    "CODE_PLAYGROUND/uavrt_detection/pulsestats.m", // pName
-    0                                               // checkKind
+    -1,                                              // iFirst
+    -1,                                              // iLast
+    245,                                             // lineNo
+    64,                                              // colNo
+    "ps_pre.pl",                                     // aName
+    "pulsestats/updateposteriori",                   // fName
+    "/home/dasl/repos/uavrt_detection/pulsestats.m", // pName
+    0                                                // checkKind
 };
 
 // Function Declarations
@@ -257,7 +250,7 @@ void pulsestats::b_updateposteriori(
     // could be improved in the future.
     // wfm.ps_pre.t_p; %tp doesn't change. We assume it is stationary
     if (pulselist.size(1) == 1) {
-      boolean_T guard1{false};
+      boolean_T guard1;
       //  Happens if K=1
       // We only have one pulse to reference, so we need to check
       // the prior pulse too.
@@ -714,15 +707,14 @@ void pulsestats::updateposteriori(const pulsestats *ps_pre,
                                   const coder::array<c_struct_T, 2U> &pulselist)
 {
   static rtBoundsCheckInfo y_emlrtBCI{
-      -1,                            // iFirst
-      -1,                            // iLast
-      246,                           // lineNo
-      25,                            // colNo
-      "ps_pre.pl",                   // aName
-      "pulsestats/updateposteriori", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/pulsestats.m", // pName
-      0                                               // checkKind
+      -1,                                              // iFirst
+      -1,                                              // iLast
+      246,                                             // lineNo
+      25,                                              // colNo
+      "ps_pre.pl",                                     // aName
+      "pulsestats/updateposteriori",                   // fName
+      "/home/dasl/repos/uavrt_detection/pulsestats.m", // pName
+      0                                                // checkKind
   };
   coder::array<double, 2U> b_varargin_1;
   coder::array<double, 2U> e_varargin_1;
@@ -774,7 +766,7 @@ void pulsestats::updateposteriori(const pulsestats *ps_pre,
     // could be improved in the future.
     // wfm.ps_pre.t_p; %tp doesn't change. We assume it is stationary
     if (pulselist.size(1) == 1) {
-      boolean_T guard1{false};
+      boolean_T guard1;
       //  Happens if K=1
       // We only have one pulse to reference, so we need to check
       // the prior pulse too.

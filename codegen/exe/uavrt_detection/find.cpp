@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: find.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -27,17 +22,17 @@
 
 // Variable Definitions
 static rtRunTimeErrorInfo h_emlrtRTEI{
-    81,         // lineNo
-    1,          // colNo
-    "eml_find", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/elmat/find.m" // pName
+    81,                                                     // lineNo
+    1,                                                      // colNo
+    "eml_find",                                             // fName
+    "/home/dasl/matlab/toolbox/eml/lib/matlab/elmat/find.m" // pName
 };
 
 static rtRunTimeErrorInfo i_emlrtRTEI{
-    392,                  // lineNo
-    1,                    // colNo
-    "find_first_indices", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/elmat/find.m" // pName
+    392,                                                    // lineNo
+    1,                                                      // colNo
+    "find_first_indices",                                   // fName
+    "/home/dasl/matlab/toolbox/eml/lib/matlab/elmat/find.m" // pName
 };
 
 // Function Definitions
@@ -218,10 +213,10 @@ int c_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[])
 int d_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[])
 {
   static rtRunTimeErrorInfo qc_emlrtRTEI{
-      447,                 // lineNo
-      1,                   // colNo
-      "find_last_indices", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/elmat/find.m" // pName
+      447,                                                    // lineNo
+      1,                                                      // colNo
+      "find_last_indices",                                    // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/elmat/find.m" // pName
   };
   int i_size;
   int idx;
@@ -270,17 +265,17 @@ void e_eml_find(const sparse &x, ::coder::array<int, 1U> &i,
                 ::coder::array<int, 1U> &j)
 {
   static rtDoubleCheckInfo q_emlrtDCI{
-      195,                           // lineNo
-      30,                            // colNo
-      "find_first_nonempty_triples", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/elmat/find.m", // pName
-      4 // checkKind
+      195,                                                     // lineNo
+      30,                                                      // colNo
+      "find_first_nonempty_triples",                           // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/elmat/find.m", // pName
+      4                                                        // checkKind
   };
   static rtRunTimeErrorInfo qc_emlrtRTEI{
-      239,                           // lineNo
-      1,                             // colNo
-      "find_first_nonempty_triples", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/elmat/find.m" // pName
+      239,                                                    // lineNo
+      1,                                                      // colNo
+      "find_first_nonempty_triples",                          // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/elmat/find.m" // pName
   };
   array<double, 1U> v;
   int nx;

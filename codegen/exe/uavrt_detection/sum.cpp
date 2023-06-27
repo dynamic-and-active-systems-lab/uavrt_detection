@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: sum.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -32,15 +27,13 @@
 namespace coder {
 void sum(const sparse &x, b_sparse &y)
 {
-  static rtDoubleCheckInfo
-      q_emlrtDCI{
-          20,    // lineNo
-          1,     // colNo
-          "sum", // fName
-          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/datafun/"
-          "sum.m", // pName
-          4        // checkKind
-      };
+  static rtDoubleCheckInfo q_emlrtDCI{
+      20,                                                       // lineNo
+      1,                                                        // colNo
+      "sum",                                                    // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/datafun/sum.m", // pName
+      4                                                         // checkKind
+  };
   if ((x.m == 0) || (x.n == 0) || (x.m == 0)) {
     int outidx;
     y.n = x.n;

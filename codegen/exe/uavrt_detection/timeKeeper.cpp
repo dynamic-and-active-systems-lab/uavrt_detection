@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: timeKeeper.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -101,8 +96,8 @@ double timeKeeper(double &outTime_tv_nsec)
       11,           // lineNo
       9,            // colNo
       "timeKeeper", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/lib/+coder/"
-      "+internal/+time/+impl/timeKeeper.m" // pName
+      "/home/dasl/matlab/toolbox/shared/coder/coder/lib/+coder/+internal/+time/"
+      "+impl/timeKeeper.m" // pName
   };
   double outTime_tv_sec;
   if (!savedTime_not_empty) {

@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: confirmpulses.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -260,135 +255,119 @@ static void l_binary_expand_op(coder::array<double, 2U> &in1, double in2,
 void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
 {
   static rtBoundsCheckInfo y_emlrtBCI{
-      -1,              // iFirst
-      -1,              // iLast
-      6,               // lineNo
-      20,              // colNo
-      "X.ps_pre.pl",   // aName
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      0                                                  // checkKind
+      -1,                                                 // iFirst
+      -1,                                                 // iLast
+      6,                                                  // lineNo
+      20,                                                 // colNo
+      "X.ps_pre.pl",                                      // aName
+      "confirmpulses",                                    // fName
+      "/home/dasl/repos/uavrt_detection/confirmpulses.m", // pName
+      0                                                   // checkKind
   };
   static rtDoubleCheckInfo q_emlrtDCI{
-      12,              // lineNo
-      76,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      4                                                  // checkKind
+      12,                                                 // lineNo
+      76,                                                 // colNo
+      "confirmpulses",                                    // fName
+      "/home/dasl/repos/uavrt_detection/confirmpulses.m", // pName
+      4                                                   // checkKind
   };
   static rtDoubleCheckInfo r_emlrtDCI{
-      12,              // lineNo
-      76,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      1                                                  // checkKind
+      12,                                                 // lineNo
+      76,                                                 // colNo
+      "confirmpulses",                                    // fName
+      "/home/dasl/repos/uavrt_detection/confirmpulses.m", // pName
+      1                                                   // checkKind
   };
   static rtDoubleCheckInfo s_emlrtDCI{
-      13,              // lineNo
-      76,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      1                                                  // checkKind
+      13,                                                 // lineNo
+      76,                                                 // colNo
+      "confirmpulses",                                    // fName
+      "/home/dasl/repos/uavrt_detection/confirmpulses.m", // pName
+      1                                                   // checkKind
   };
   static rtDoubleCheckInfo t_emlrtDCI{
-      15,              // lineNo
-      74,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      4                                                  // checkKind
+      15,                                                 // lineNo
+      74,                                                 // colNo
+      "confirmpulses",                                    // fName
+      "/home/dasl/repos/uavrt_detection/confirmpulses.m", // pName
+      4                                                   // checkKind
   };
   static rtDoubleCheckInfo u_emlrtDCI{
-      15,              // lineNo
-      74,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      1                                                  // checkKind
+      15,                                                 // lineNo
+      74,                                                 // colNo
+      "confirmpulses",                                    // fName
+      "/home/dasl/repos/uavrt_detection/confirmpulses.m", // pName
+      1                                                   // checkKind
   };
   static rtDoubleCheckInfo v_emlrtDCI{
-      16,              // lineNo
-      74,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      1                                                  // checkKind
+      16,                                                 // lineNo
+      74,                                                 // colNo
+      "confirmpulses",                                    // fName
+      "/home/dasl/repos/uavrt_detection/confirmpulses.m", // pName
+      1                                                   // checkKind
   };
   static rtEqualityCheckInfo g_emlrtECI{
-      2,               // nDims
-      12,              // lineNo
-      34,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,                                                 // nDims
+      12,                                                // lineNo
+      34,                                                // colNo
+      "confirmpulses",                                   // fName
+      "/home/dasl/repos/uavrt_detection/confirmpulses.m" // pName
   };
   static rtEqualityCheckInfo h_emlrtECI{
-      2,               // nDims
-      13,              // lineNo
-      34,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,                                                 // nDims
+      13,                                                // lineNo
+      34,                                                // colNo
+      "confirmpulses",                                   // fName
+      "/home/dasl/repos/uavrt_detection/confirmpulses.m" // pName
   };
   static rtEqualityCheckInfo i_emlrtECI{
-      2,               // nDims
-      20,              // lineNo
-      15,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,                                                 // nDims
+      20,                                                // lineNo
+      15,                                                // colNo
+      "confirmpulses",                                   // fName
+      "/home/dasl/repos/uavrt_detection/confirmpulses.m" // pName
   };
   static rtEqualityCheckInfo j_emlrtECI{
-      2,               // nDims
-      22,              // lineNo
-      15,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,                                                 // nDims
+      22,                                                // lineNo
+      15,                                                // colNo
+      "confirmpulses",                                   // fName
+      "/home/dasl/repos/uavrt_detection/confirmpulses.m" // pName
   };
   static rtEqualityCheckInfo k_emlrtECI{
-      2,               // nDims
-      26,              // lineNo
-      14,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,                                                 // nDims
+      26,                                                // lineNo
+      14,                                                // colNo
+      "confirmpulses",                                   // fName
+      "/home/dasl/repos/uavrt_detection/confirmpulses.m" // pName
   };
   static rtEqualityCheckInfo l_emlrtECI{
-      2,               // nDims
-      27,              // lineNo
-      14,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,                                                 // nDims
+      27,                                                // lineNo
+      14,                                                // colNo
+      "confirmpulses",                                   // fName
+      "/home/dasl/repos/uavrt_detection/confirmpulses.m" // pName
   };
   static rtEqualityCheckInfo m_emlrtECI{
-      2,               // nDims
-      29,              // lineNo
-      11,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,                                                 // nDims
+      29,                                                // lineNo
+      11,                                                // colNo
+      "confirmpulses",                                   // fName
+      "/home/dasl/repos/uavrt_detection/confirmpulses.m" // pName
   };
   static rtEqualityCheckInfo n_emlrtECI{
-      2,               // nDims
-      15,              // lineNo
-      34,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,                                                 // nDims
+      15,                                                // lineNo
+      34,                                                // colNo
+      "confirmpulses",                                   // fName
+      "/home/dasl/repos/uavrt_detection/confirmpulses.m" // pName
   };
   static rtEqualityCheckInfo o_emlrtECI{
-      2,               // nDims
-      16,              // lineNo
-      34,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,                                                 // nDims
+      16,                                                // lineNo
+      34,                                                // colNo
+      "confirmpulses",                                   // fName
+      "/home/dasl/repos/uavrt_detection/confirmpulses.m" // pName
   };
   const coder::array<c_struct_T, 2U> *structure;
   coder::array<c_struct_T, 1U> b_X;

@@ -4,13 +4,8 @@
 // government, commercial, or other organizational use.
 // File: uavrt_detection.cpp
 //
-<<<<<<< HEAD
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-May-2023 12:05:02
-=======
-// MATLAB Coder version            : 5.4
-// C/C++ source code generated on  : 04-Apr-2023 11:47:02
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+// C/C++ source code generated on  : 27-Jun-2023 14:21:03
 //
 
 // Include Files
@@ -771,152 +766,141 @@ static void updateconfig(coder::b_captured_var &Config,
                          const coder::captured_var &configPath)
 {
   static rtBoundsCheckInfo ab_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      151,                          // lineNo
-      31,                           // colNo
-      "sepByte",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      -1,                                                  // iFirst
+      -1,                                                  // iLast
+      151,                                                 // lineNo
+      31,                                                  // colNo
+      "sepByte",                                           // aName
+      "DetectorConfig/setFromFile",                        // fName
+      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
+      0                                                    // checkKind
   };
   static rtBoundsCheckInfo bb_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      155,                          // lineNo
-      28,                           // colNo
-      "lineStr",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      -1,                                                  // iFirst
+      -1,                                                  // iLast
+      155,                                                 // lineNo
+      28,                                                  // colNo
+      "lineStr",                                           // aName
+      "DetectorConfig/setFromFile",                        // fName
+      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
+      0                                                    // checkKind
   };
   static rtBoundsCheckInfo cb_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      158,                          // lineNo
-      55,                           // colNo
-      "tabLocs",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      -1,                                                  // iFirst
+      -1,                                                  // iLast
+      158,                                                 // lineNo
+      55,                                                  // colNo
+      "tabLocs",                                           // aName
+      "DetectorConfig/setFromFile",                        // fName
+      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
+      0                                                    // checkKind
   };
   static rtBoundsCheckInfo db_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      159,                          // lineNo
-      63,                           // colNo
-      "colonLocation",              // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      -1,                                                  // iFirst
+      -1,                                                  // iLast
+      159,                                                 // lineNo
+      63,                                                  // colNo
+      "colonLocation",                                     // aName
+      "DetectorConfig/setFromFile",                        // fName
+      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
+      0                                                    // checkKind
   };
   static rtBoundsCheckInfo eb_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      194,                          // lineNo
-      69,                           // colNo
-      "sepByte",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      -1,                                                  // iFirst
+      -1,                                                  // iLast
+      194,                                                 // lineNo
+      69,                                                  // colNo
+      "sepByte",                                           // aName
+      "DetectorConfig/setFromFile",                        // fName
+      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
+      0                                                    // checkKind
   };
   static rtBoundsCheckInfo fb_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      160,                          // lineNo
-      47,                           // colNo
-      "lineStr",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      -1,                                                  // iFirst
+      -1,                                                  // iLast
+      160,                                                 // lineNo
+      47,                                                  // colNo
+      "lineStr",                                           // aName
+      "DetectorConfig/setFromFile",                        // fName
+      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
+      0                                                    // checkKind
   };
   static rtBoundsCheckInfo gb_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      160,                          // lineNo
-      74,                           // colNo
-      "lineStr",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      -1,                                                  // iFirst
+      -1,                                                  // iLast
+      160,                                                 // lineNo
+      74,                                                  // colNo
+      "lineStr",                                           // aName
+      "DetectorConfig/setFromFile",                        // fName
+      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
+      0                                                    // checkKind
   };
   static rtBoundsCheckInfo hb_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      159,                          // lineNo
-      47,                           // colNo
-      "lineStr",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      -1,                                                  // iFirst
+      -1,                                                  // iLast
+      159,                                                 // lineNo
+      47,                                                  // colNo
+      "lineStr",                                           // aName
+      "DetectorConfig/setFromFile",                        // fName
+      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
+      0                                                    // checkKind
   };
   static rtBoundsCheckInfo ib_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      159,                          // lineNo
-      49,                           // colNo
-      "lineStr",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      -1,                                                  // iFirst
+      -1,                                                  // iLast
+      159,                                                 // lineNo
+      49,                                                  // colNo
+      "lineStr",                                           // aName
+      "DetectorConfig/setFromFile",                        // fName
+      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
+      0                                                    // checkKind
   };
   static rtBoundsCheckInfo jb_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      196,                          // lineNo
-      69,                           // colNo
-      "sepByte",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      -1,                                                  // iFirst
+      -1,                                                  // iLast
+      196,                                                 // lineNo
+      69,                                                  // colNo
+      "sepByte",                                           // aName
+      "DetectorConfig/setFromFile",                        // fName
+      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
+      0                                                    // checkKind
   };
   static rtBoundsCheckInfo y_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      120,                          // lineNo
-      28,                           // colNo
-      "rawLine",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      -1,                                                  // iFirst
+      -1,                                                  // iLast
+      120,                                                 // lineNo
+      28,                                                  // colNo
+      "rawLine",                                           // aName
+      "DetectorConfig/setFromFile",                        // fName
+      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
+      0                                                    // checkKind
   };
   static rtRunTimeErrorInfo qc_emlrtRTEI{
-      37,      // lineNo
-      9,       // colNo
-      "fopen", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/fopen.m" // pName
+      37,                                                      // lineNo
+      9,                                                       // colNo
+      "fopen",                                                 // fName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/iofun/fopen.m" // pName
   };
   static rtRunTimeErrorInfo rc_emlrtRTEI{
       12,               // lineNo
       23,               // colNo
       "mustBePositive", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/validators/"
-      "mustBePositive.m" // pName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/validators/mustBePositive.m" // pName
   };
-  static rtRunTimeErrorInfo sc_emlrtRTEI{
-      11,                  // lineNo
-      24,                  // colNo
-      "mustBeNonnegative", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/validators/"
-      "mustBeNonnegative.m" // pName
-  };
+  static rtRunTimeErrorInfo
+      sc_emlrtRTEI{
+          11,                  // lineNo
+          24,                  // colNo
+          "mustBeNonnegative", // fName
+          "/home/dasl/matlab/toolbox/eml/lib/matlab/validators/"
+          "mustBeNonnegative.m" // pName
+      };
   static rtRunTimeErrorInfo tc_emlrtRTEI{
       18,                     // lineNo
       5,                      // colNo
       "binaryRelopValidator", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/validators/"
-      "private/binaryRelopValidator.m" // pName
+      "/home/dasl/matlab/toolbox/eml/lib/matlab/validators/private/"
+      "binaryRelopValidator.m" // pName
   };
   static const char b_cv[2]{'I', 'D'};
   int st;
@@ -1379,105 +1363,95 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static coder::dsp::b_AsyncBuffer asyncTimeBuff;
   static coder::dsp::c_AsyncBuffer asyncWriteBuff;
   static rtBoundsCheckInfo ab_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      415,               // lineNo
-      32,                // colNo
-      "t",               // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
+      -1,                                                   // iFirst
+      -1,                                                   // iLast
+      415,                                                  // lineNo
+      32,                                                   // colNo
+      "t",                                                  // aName
+      "uavrt_detection",                                    // fName
+      "/home/dasl/repos/uavrt_detection/uavrt_detection.m", // pName
+      0                                                     // checkKind
   };
   static rtBoundsCheckInfo bb_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      581,               // lineNo
-      61,                // colNo
-      "X.ps_pos.pl",     // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
+      -1,                                                   // iFirst
+      -1,                                                   // iLast
+      581,                                                  // lineNo
+      61,                                                   // colNo
+      "X.ps_pos.pl",                                        // aName
+      "uavrt_detection",                                    // fName
+      "/home/dasl/repos/uavrt_detection/uavrt_detection.m", // pName
+      0                                                     // checkKind
   };
   static rtBoundsCheckInfo cb_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      586,               // lineNo
-      79,                // colNo
-      "ps_pre_struc.pl", // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
+      -1,                                                   // iFirst
+      -1,                                                   // iLast
+      586,                                                  // lineNo
+      79,                                                   // colNo
+      "ps_pre_struc.pl",                                    // aName
+      "uavrt_detection",                                    // fName
+      "/home/dasl/repos/uavrt_detection/uavrt_detection.m", // pName
+      0                                                     // checkKind
   };
   static rtBoundsCheckInfo db_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      592,               // lineNo
-      50,                // colNo
-      "pulsesToSkip",    // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
+      -1,                                                   // iFirst
+      -1,                                                   // iLast
+      592,                                                  // lineNo
+      50,                                                   // colNo
+      "pulsesToSkip",                                       // aName
+      "uavrt_detection",                                    // fName
+      "/home/dasl/repos/uavrt_detection/uavrt_detection.m", // pName
+      0                                                     // checkKind
   };
   static rtBoundsCheckInfo eb_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      653,               // lineNo
-      91,                // colNo
-      "X.ps_pos.pl",     // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
+      -1,                                                   // iFirst
+      -1,                                                   // iLast
+      653,                                                  // lineNo
+      91,                                                   // colNo
+      "X.ps_pos.pl",                                        // aName
+      "uavrt_detection",                                    // fName
+      "/home/dasl/repos/uavrt_detection/uavrt_detection.m", // pName
+      0                                                     // checkKind
   };
   static rtBoundsCheckInfo fb_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      666,               // lineNo
-      50,                // colNo
-      "pulsesToSkip",    // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
+      -1,                                                   // iFirst
+      -1,                                                   // iLast
+      666,                                                  // lineNo
+      50,                                                   // colNo
+      "pulsesToSkip",                                       // aName
+      "uavrt_detection",                                    // fName
+      "/home/dasl/repos/uavrt_detection/uavrt_detection.m", // pName
+      0                                                     // checkKind
   };
   static rtBoundsCheckInfo y_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      399,               // lineNo
-      82,                // colNo
-      "timeVector",      // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
+      -1,                                                   // iFirst
+      -1,                                                   // iLast
+      399,                                                  // lineNo
+      82,                                                   // colNo
+      "timeVector",                                         // aName
+      "uavrt_detection",                                    // fName
+      "/home/dasl/repos/uavrt_detection/uavrt_detection.m", // pName
+      0                                                     // checkKind
   };
   static rtDoubleCheckInfo q_emlrtDCI{
-      285,               // lineNo
-      50,                // colNo
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      4                                                    // checkKind
+      285,                                                  // lineNo
+      50,                                                   // colNo
+      "uavrt_detection",                                    // fName
+      "/home/dasl/repos/uavrt_detection/uavrt_detection.m", // pName
+      4                                                     // checkKind
   };
   static rtDoubleCheckInfo r_emlrtDCI{
-      285,               // lineNo
-      50,                // colNo
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      1                                                    // checkKind
+      285,                                                  // lineNo
+      50,                                                   // colNo
+      "uavrt_detection",                                    // fName
+      "/home/dasl/repos/uavrt_detection/uavrt_detection.m", // pName
+      1                                                     // checkKind
   };
   static rtEqualityCheckInfo g_emlrtECI{
-      -1,                // nDims
-      285,               // lineNo
-      37,                // colNo
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m" // pName
+      -1,                                                  // nDims
+      285,                                                 // lineNo
+      37,                                                  // colNo
+      "uavrt_detection",                                   // fName
+      "/home/dasl/repos/uavrt_detection/uavrt_detection.m" // pName
   };
   static const char b_cv[31]{'c', 'u', 'r', 'r', 'e', 'n', 't', '_',
                              'w', 'o', 'r', 'k', 'i', 'n', 'g', '_',
@@ -1833,10 +1807,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   currDir_size[1] = 1023;
   while (1) {
     int n;
-<<<<<<< HEAD
     int nPulseList;
-=======
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
     unsigned int timeStampNanoSec;
     unsigned int timeStampSec;
     // i <= maxInd
@@ -1848,11 +1819,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       cleanBuffer = true;
     }
     //             %% Get data
-<<<<<<< HEAD
-    n = udpReceiver.receive(dataReceived_data);
-=======
-    udpReceiver.receive(dataReceived_data, &loop_ub);
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+    udpReceiver.receive(dataReceived_data);
     //             %% Flush UDP buffer if data in the buffer is stale.
     if (staleDataFlag) {
       std::printf("********STALE DATA FLAG: %u *********\n", 1U);
@@ -1925,10 +1892,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         }
         loop_ub = static_cast<int>(timeDiff);
         r.set_size(static_cast<int>(timeDiff));
-<<<<<<< HEAD
-=======
-        loop_ub = static_cast<int>(timeDiff);
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
         for (i = 0; i < loop_ub; i++) {
           r[i].re = 0U;
           r[i].im = 0U;
@@ -1936,7 +1899,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         if (static_cast<int>(timeDiff) != r.size(0)) {
           rtSizeEq1DError(static_cast<int>(timeDiff), r.size(0), g_emlrtECI);
         }
-<<<<<<< HEAD
         b_iqDataToWrite.set_size(static_cast<int>(timeDiff) + 1023);
         for (i = 0; i < loop_ub; i++) {
           b_iqDataToWrite[i].re = 0.0F;
@@ -1945,21 +1907,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         for (i = 0; i < 1023; i++) {
           b_iqDataToWrite[i + static_cast<int>(timeDiff)] =
               dataReceived_data[i + 1];
-=======
-        if (static_cast<int>(timeDiff) == r.size(0)) {
-          b_iqDataToWrite.set_size(static_cast<int>(timeDiff) + 1023);
-          loop_ub = static_cast<int>(timeDiff);
-          for (i = 0; i < loop_ub; i++) {
-            b_iqDataToWrite[i].re = 0.0F;
-            b_iqDataToWrite[i].im = static_cast<signed char>(r[i].im);
-          }
-          for (i = 0; i < 1023; i++) {
-            b_iqDataToWrite[i + static_cast<int>(timeDiff)] =
-                dataReceived_data[i + 1];
-          }
-        } else {
-          binary_expand_op(b_iqDataToWrite, timeDiff, r, dataReceived_data);
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
         }
         iqDataToWrite.set_size(b_iqDataToWrite.size(0), 1);
         loop_ub = b_iqDataToWrite.size(0);
@@ -1977,21 +1924,13 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         iqDataToWrite.set_size(0, 1);
       }
     }
-<<<<<<< HEAD
     nPulseList = iqDataToWrite.size(0) * iqDataToWrite.size(1);
-    loop_ub = nPulseList - 1;
+    n = nPulseList - 1;
     if (nPulseList - 1 < 0) {
       groupSNRList.set_size(1, 0);
     } else {
       groupSNRList.set_size(1, nPulseList);
-=======
-    loop_ub = iqDataToWrite.size(0) * iqDataToWrite.size(1) - 1;
-    if (loop_ub < 0) {
-      groupSNRList.set_size(1, 0);
-    } else {
-      groupSNRList.set_size(1, loop_ub + 1);
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
-      for (i = 0; i <= loop_ub; i++) {
+      for (i = 0; i <= n; i++) {
         groupSNRList[i] = i;
       }
     }
@@ -2071,85 +2010,53 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
     //                               (1 : numel(iqDataToWrite)).' * 1/Config.Fs;
     //                  lastTimeStamp = timeVector(end);
     // Write out data and time.
-<<<<<<< HEAD
     c_iqDataToWrite = iqDataToWrite.reshape(nPulseList);
-    asyncDataBuff.write(c_iqDataToWrite);
-    asyncTimeBuff.write(timeVector);
-    asyncWriteBuff.write(dataReceived_data, n);
-    //  OLD TIME STAMP METHOD
-=======
-    loop_ub = iqDataToWrite.size(0) * iqDataToWrite.size(1);
-    c_iqDataToWrite = iqDataToWrite.reshape(loop_ub);
     asyncDataBuff.write(c_iqDataToWrite);
     asyncTimeBuff.write(timeVector);
     std::copy(&dataReceived_data[1], &dataReceived_data[1024],
               &b_dataReceived_data[0]);
     asyncWriteBuff.write(b_dataReceived_data);
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
     // asyncWriteBuff.write([dataReceived;
     // int2singlecomplex(timeAtPacketReceive*10^3)]);
     if ((asyncWriteBuff.pBuffer.WritePointer >= 0) &&
         (asyncWriteBuff.pBuffer.ReadPointer <
          asyncWriteBuff.pBuffer.WritePointer - MAX_int32_T)) {
-      loop_ub = MAX_int32_T;
+      n = MAX_int32_T;
     } else if ((asyncWriteBuff.pBuffer.WritePointer < 0) &&
                (asyncWriteBuff.pBuffer.ReadPointer >
                 asyncWriteBuff.pBuffer.WritePointer - MIN_int32_T)) {
-      loop_ub = MIN_int32_T;
+      n = MIN_int32_T;
     } else {
-      loop_ub = asyncWriteBuff.pBuffer.WritePointer -
-                asyncWriteBuff.pBuffer.ReadPointer;
+      n = asyncWriteBuff.pBuffer.WritePointer -
+          asyncWriteBuff.pBuffer.ReadPointer;
     }
-    if (loop_ub < -2147483647) {
-      loop_ub = MIN_int32_T;
+    if (n < -2147483647) {
+      n = MIN_int32_T;
     } else {
-      loop_ub--;
+      n--;
     }
     if (asyncWriteBuff.pBuffer.ReadPointer < -2146882997) {
-<<<<<<< HEAD
-      loop_ub = MAX_int32_T;
+      nPulseList = MAX_int32_T;
     } else {
-      loop_ub = 600650 - asyncWriteBuff.pBuffer.ReadPointer;
+      nPulseList = 600650 - asyncWriteBuff.pBuffer.ReadPointer;
     }
-    if ((loop_ub < 0) &&
-        (asyncWriteBuff.pBuffer.WritePointer < MIN_int32_T - loop_ub)) {
-      loop_ub = MIN_int32_T;
-    } else if ((loop_ub > 0) &&
-               (asyncWriteBuff.pBuffer.WritePointer > MAX_int32_T - loop_ub)) {
-      loop_ub = MAX_int32_T;
+    if ((nPulseList < 0) &&
+        (asyncWriteBuff.pBuffer.WritePointer < MIN_int32_T - nPulseList)) {
+      nPulseList = MIN_int32_T;
+    } else if ((nPulseList > 0) && (asyncWriteBuff.pBuffer.WritePointer >
+                                    MAX_int32_T - nPulseList)) {
+      nPulseList = MAX_int32_T;
     } else {
-      loop_ub += asyncWriteBuff.pBuffer.WritePointer;
+      nPulseList += asyncWriteBuff.pBuffer.WritePointer;
     }
     if (asyncWriteBuff.pBuffer.ReadPointer <
         asyncWriteBuff.pBuffer.WritePointer) {
-      loop_ub = n;
+      nPulseList = n;
     } else if (asyncWriteBuff.pBuffer.ReadPointer ==
                asyncWriteBuff.pBuffer.WritePointer) {
-      loop_ub = 600650;
+      nPulseList = 600650;
     }
-    if (loop_ub >= dataWriterSamples) {
-=======
-      n = MAX_int32_T;
-    } else {
-      n = 600650 - asyncWriteBuff.pBuffer.ReadPointer;
-    }
-    if ((n < 0) && (asyncWriteBuff.pBuffer.WritePointer < MIN_int32_T - n)) {
-      n = MIN_int32_T;
-    } else if ((n > 0) &&
-               (asyncWriteBuff.pBuffer.WritePointer > MAX_int32_T - n)) {
-      n = MAX_int32_T;
-    } else {
-      n += asyncWriteBuff.pBuffer.WritePointer;
-    }
-    if (asyncWriteBuff.pBuffer.ReadPointer <
-        asyncWriteBuff.pBuffer.WritePointer) {
-      n = loop_ub;
-    } else if (asyncWriteBuff.pBuffer.ReadPointer ==
-               asyncWriteBuff.pBuffer.WritePointer) {
-      n = 600650;
-    }
-    if (n >= dataWriterSamples) {
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+    if (nPulseList >= dataWriterSamples) {
       asyncWriteBuff.read(dataWriterBuffData);
       if (fileid != -1) {
         interleaveComplexVector(dataWriterBuffData, r1);
@@ -2158,76 +2065,46 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
     }
     // end
     //                 %% Process data if there is enough in the buffers
-<<<<<<< HEAD
     t9_det_dec = ((asyncDataBuff.pBuffer.WritePointer >= 0) &&
                   (asyncDataBuff.pBuffer.ReadPointer <
                    asyncDataBuff.pBuffer.WritePointer - MAX_int32_T));
     if (t9_det_dec) {
       n = MAX_int32_T;
-=======
-    if ((asyncDataBuff.pBuffer.WritePointer >= 0) &&
-        (asyncDataBuff.pBuffer.ReadPointer <
-         asyncDataBuff.pBuffer.WritePointer - MAX_int32_T)) {
-      loop_ub = MAX_int32_T;
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
     } else if ((asyncDataBuff.pBuffer.WritePointer < 0) &&
                (asyncDataBuff.pBuffer.ReadPointer >
                 asyncDataBuff.pBuffer.WritePointer - MIN_int32_T)) {
-      loop_ub = MIN_int32_T;
+      n = MIN_int32_T;
     } else {
-      loop_ub = asyncDataBuff.pBuffer.WritePointer -
-                asyncDataBuff.pBuffer.ReadPointer;
+      n = asyncDataBuff.pBuffer.WritePointer -
+          asyncDataBuff.pBuffer.ReadPointer;
     }
-    if (loop_ub < -2147483647) {
-      loop_ub = MIN_int32_T;
+    if (n < -2147483647) {
+      n = MIN_int32_T;
     } else {
-      loop_ub--;
+      n--;
     }
     if (asyncDataBuff.pBuffer.ReadPointer < -2141683327) {
-<<<<<<< HEAD
-      loop_ub = MAX_int32_T;
+      nPulseList = MAX_int32_T;
     } else {
-      loop_ub = 5800320 - asyncDataBuff.pBuffer.ReadPointer;
+      nPulseList = 5800320 - asyncDataBuff.pBuffer.ReadPointer;
     }
-    if ((loop_ub < 0) &&
-        (asyncDataBuff.pBuffer.WritePointer < MIN_int32_T - loop_ub)) {
-      loop_ub = MIN_int32_T;
-    } else if ((loop_ub > 0) &&
-               (asyncDataBuff.pBuffer.WritePointer > MAX_int32_T - loop_ub)) {
-      loop_ub = MAX_int32_T;
+    if ((nPulseList < 0) &&
+        (asyncDataBuff.pBuffer.WritePointer < MIN_int32_T - nPulseList)) {
+      nPulseList = MIN_int32_T;
+    } else if ((nPulseList > 0) && (asyncDataBuff.pBuffer.WritePointer >
+                                    MAX_int32_T - nPulseList)) {
+      nPulseList = MAX_int32_T;
     } else {
-      loop_ub += asyncDataBuff.pBuffer.WritePointer;
+      nPulseList += asyncDataBuff.pBuffer.WritePointer;
     }
     if (asyncDataBuff.pBuffer.ReadPointer <
         asyncDataBuff.pBuffer.WritePointer) {
-      loop_ub = n;
+      nPulseList = n;
     } else if (asyncDataBuff.pBuffer.ReadPointer ==
                asyncDataBuff.pBuffer.WritePointer) {
-      loop_ub = 5800320;
+      nPulseList = 5800320;
     }
-    if (loop_ub >= sampsForKPulses.contents + overlapSamples.contents) {
-=======
-      n = MAX_int32_T;
-    } else {
-      n = 5800320 - asyncDataBuff.pBuffer.ReadPointer;
-    }
-    if ((n < 0) && (asyncDataBuff.pBuffer.WritePointer < MIN_int32_T - n)) {
-      n = MIN_int32_T;
-    } else if ((n > 0) &&
-               (asyncDataBuff.pBuffer.WritePointer > MAX_int32_T - n)) {
-      n = MAX_int32_T;
-    } else {
-      n += asyncDataBuff.pBuffer.WritePointer;
-    }
-    if (asyncDataBuff.pBuffer.ReadPointer <
-        asyncDataBuff.pBuffer.WritePointer) {
-      n = loop_ub;
-    } else if (asyncDataBuff.pBuffer.ReadPointer ==
-               asyncDataBuff.pBuffer.WritePointer) {
-      n = 5800320;
-    }
-    if (n >= sampsForKPulses.contents + overlapSamples.contents) {
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
+    if (nPulseList >= sampsForKPulses.contents + overlapSamples.contents) {
       double processingStartToc;
       t9_SNR = std::round(sampsForKPulses.contents);
       if (t9_SNR < 4.294967296E+9) {
@@ -2253,82 +2130,48 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       } else {
         timeStampNanoSec = 0U;
       }
-<<<<<<< HEAD
       std::printf("Buffer Full|| sampsForKPulses: %u, overlapSamples: %u,\n",
                   timeStampSec, timeStampNanoSec);
       std::fflush(stdout);
       if (t9_det_dec) {
         n = MAX_int32_T;
-=======
-      printf("Buffer Full|| sampsForKPulses: %u, overlapSamples: %u,\n",
-             timeStampSec, timeStampNanoSec);
-      fflush(stdout);
-      if ((asyncDataBuff.pBuffer.WritePointer >= 0) &&
-          (asyncDataBuff.pBuffer.ReadPointer <
-           asyncDataBuff.pBuffer.WritePointer - MAX_int32_T)) {
-        loop_ub = MAX_int32_T;
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
       } else if ((asyncDataBuff.pBuffer.WritePointer < 0) &&
                  (asyncDataBuff.pBuffer.ReadPointer >
                   asyncDataBuff.pBuffer.WritePointer - MIN_int32_T)) {
-        loop_ub = MIN_int32_T;
+        n = MIN_int32_T;
       } else {
-        loop_ub = asyncDataBuff.pBuffer.WritePointer -
-                  asyncDataBuff.pBuffer.ReadPointer;
+        n = asyncDataBuff.pBuffer.WritePointer -
+            asyncDataBuff.pBuffer.ReadPointer;
       }
-      if (loop_ub < -2147483647) {
-        loop_ub = MIN_int32_T;
+      if (n < -2147483647) {
+        n = MIN_int32_T;
       } else {
-        loop_ub--;
+        n--;
       }
       if (asyncDataBuff.pBuffer.ReadPointer < -2141683327) {
-<<<<<<< HEAD
-        loop_ub = MAX_int32_T;
+        nPulseList = MAX_int32_T;
       } else {
-        loop_ub = 5800320 - asyncDataBuff.pBuffer.ReadPointer;
+        nPulseList = 5800320 - asyncDataBuff.pBuffer.ReadPointer;
       }
-      if ((loop_ub < 0) &&
-          (asyncDataBuff.pBuffer.WritePointer < MIN_int32_T - loop_ub)) {
-        loop_ub = MIN_int32_T;
-      } else if ((loop_ub > 0) &&
-                 (asyncDataBuff.pBuffer.WritePointer > MAX_int32_T - loop_ub)) {
-        loop_ub = MAX_int32_T;
+      if ((nPulseList < 0) &&
+          (asyncDataBuff.pBuffer.WritePointer < MIN_int32_T - nPulseList)) {
+        nPulseList = MIN_int32_T;
+      } else if ((nPulseList > 0) && (asyncDataBuff.pBuffer.WritePointer >
+                                      MAX_int32_T - nPulseList)) {
+        nPulseList = MAX_int32_T;
       } else {
-        loop_ub += asyncDataBuff.pBuffer.WritePointer;
+        nPulseList += asyncDataBuff.pBuffer.WritePointer;
       }
       if (asyncDataBuff.pBuffer.ReadPointer <
           asyncDataBuff.pBuffer.WritePointer) {
-        loop_ub = n;
+        nPulseList = n;
       } else if (asyncDataBuff.pBuffer.ReadPointer ==
                  asyncDataBuff.pBuffer.WritePointer) {
-        loop_ub = 5800320;
+        nPulseList = 5800320;
       }
       std::printf("Running...Buffer full with %d samples. Processing. \n",
-                  loop_ub);
+                  nPulseList);
       std::fflush(stdout);
-=======
-        n = MAX_int32_T;
-      } else {
-        n = 5800320 - asyncDataBuff.pBuffer.ReadPointer;
-      }
-      if ((n < 0) && (asyncDataBuff.pBuffer.WritePointer < MIN_int32_T - n)) {
-        n = MIN_int32_T;
-      } else if ((n > 0) &&
-                 (asyncDataBuff.pBuffer.WritePointer > MAX_int32_T - n)) {
-        n = MAX_int32_T;
-      } else {
-        n += asyncDataBuff.pBuffer.WritePointer;
-      }
-      if (asyncDataBuff.pBuffer.ReadPointer <
-          asyncDataBuff.pBuffer.WritePointer) {
-        n = loop_ub;
-      } else if (asyncDataBuff.pBuffer.ReadPointer ==
-                 asyncDataBuff.pBuffer.WritePointer) {
-        n = 5800320;
-      }
-      printf("Running...Buffer full with %d samples. Processing. \n", n);
-      fflush(stdout);
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
       processingStartToc = coder::toc();
       if (cleanBuffer) {
         // Overlap reads back into the buffer, but there
@@ -2379,11 +2222,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         staleDataFlag = true;
       } else {
         unsigned int validatedHoleFilling[3];
-<<<<<<< HEAD
         int pulseCount;
-=======
-        int nPulseList;
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
         unsigned int varargin_3;
         if (t.size(0) < 1) {
           rtDynamicBoundsError(1, 1, t.size(0), ab_emlrtBCI);
@@ -2394,17 +2233,17 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         if (configUpdatedFlag) {
           // Initialize states for operational modes
           if (Config.contents.opMode.eq()) {
-            loop_ub = 0;
+            n = 0;
           } else if (Config.contents.opMode.b_eq()) {
-            loop_ub = 1;
+            n = 1;
           } else if (Config.contents.opMode.c_eq()) {
-            loop_ub = 2;
+            n = 2;
           } else if (Config.contents.opMode.d_eq()) {
-            loop_ub = 3;
+            n = 3;
           } else {
-            loop_ub = -1;
+            n = -1;
           }
-          switch (loop_ub) {
+          switch (n) {
           case 0:
             fLock = false;
             break;
@@ -2421,7 +2260,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             fLock = false;
             break;
           }
-<<<<<<< HEAD
           detectorPulse.A = makepulsestruc(
               detectorPulse.t_next, detectorPulse.mode, detectorPulse.P,
               detectorPulse.SNR, detectorPulse.yw, detectorPulse.t_0,
@@ -2441,35 +2279,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           expl_temp.SNR = t9_SNR;
           expl_temp.P = timeStamp;
           expl_temp.A = timeDiff;
-=======
-          makepulsestruc(&detectorPulse.A, &detectorPulse.P, &detectorPulse.SNR,
-                         &detectorPulse.yw, &detectorPulse.t_0,
-                         &detectorPulse.t_f, detectorPulse.t_next,
-                         &detectorPulse.fp, &detectorPulse.fstart,
-                         &detectorPulse.fend, detectorPulse.mode,
-                         &detectorPulse.det_dec, &detectorPulse.con_dec);
-          makepulsestruc(&timeDiff, &timeStamp, &t9_SNR, &pulseCount, &t9_t_0,
-                         &t9_t_f, expl_temp.t_next, &t9_fp, &t9_fstart,
-                         &t9_fend, expl_temp.mode, &t9_det_dec, &t9_con_dec);
-          b_expl_temp.con_dec = t9_con_dec;
-          b_expl_temp.det_dec = t9_det_dec;
-          b_expl_temp.mode.set_size(1, expl_temp.mode.size(1));
-          loop_ub = expl_temp.mode.size(1);
-          for (i = 0; i < loop_ub; i++) {
-            b_expl_temp.mode[i] = expl_temp.mode[i];
-          }
-          b_expl_temp.fend = t9_fend;
-          b_expl_temp.fstart = t9_fstart;
-          b_expl_temp.fp = t9_fp;
-          b_expl_temp.t_next[0] = expl_temp.t_next[0];
-          b_expl_temp.t_next[1] = expl_temp.t_next[1];
-          b_expl_temp.t_f = t9_t_f;
-          b_expl_temp.t_0 = t9_t_0;
-          b_expl_temp.yw = pulseCount;
-          b_expl_temp.SNR = t9_SNR;
-          b_expl_temp.P = timeStamp;
-          b_expl_temp.A = timeDiff;
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
           pulseStatsPriori = lobj_15.init(
               Config.contents.tp, Config.contents.tip, Config.contents.tipu,
               Config.contents.tipj,
@@ -2550,15 +2359,15 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         std::printf("complete. Elapsed time: %f seconds \n", timeDiff);
         std::fflush(stdout);
         if (suggestedMode == 'S') {
-          loop_ub = 0;
+          n = 0;
         } else if (suggestedMode == 'C') {
-          loop_ub = 1;
+          n = 1;
         } else if (suggestedMode == 'T') {
-          loop_ub = 2;
+          n = 2;
         } else {
-          loop_ub = -1;
+          n = -1;
         }
-        switch (loop_ub) {
+        switch (n) {
         case 0:
           if (fLock) {
             mode = 'I';
@@ -2668,11 +2477,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         // We only ever release if we are in softlock mode and
         // only do so in that case if we are no longer confirming
         // pulses.
-<<<<<<< HEAD
         if (coder::internal::c_strcmp(Config.contents.opMode)) {
-=======
-        if (coder::internal::c_strcmp(&Config.contents.opMode)) {
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
           n = r3.size(0);
           loop_ub = r3.size(0);
           for (i = 0; i < loop_ub; i++) {
@@ -2789,16 +2594,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         r4.set_size(b_x.size(0), b_x.size(1));
         loop_ub = b_x.size(0) * b_x.size(1);
         for (i = 0; i < loop_ub; i++) {
-<<<<<<< HEAD
           r4[i] = !std::isnan(b_x[i]);
-=======
-          r4[i] = std::isnan(b_x[i]);
-        }
-        r5.set_size(r4.size(0), r4.size(1));
-        loop_ub = r4.size(0) * r4.size(1);
-        for (i = 0; i < loop_ub; i++) {
-          r5[i] = !r4[i];
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
         }
         if (coder::internal::b_ifWhileCond(r4)) {
           for (int j{0}; j < nPulseList; j++) {
@@ -2846,24 +2642,11 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         r4.set_size(b_x.size(0), b_x.size(1));
         loop_ub = b_x.size(0) * b_x.size(1);
         for (i = 0; i < loop_ub; i++) {
-<<<<<<< HEAD
           r4[i] = !std::isnan(b_x[i]);
         }
         if (coder::internal::b_ifWhileCond(r4)) {
           std::printf("Transmitting pulse messages");
           std::fflush(stdout);
-=======
-          r4[i] = std::isnan(b_x[i]);
-        }
-        r5.set_size(r4.size(0), r4.size(1));
-        loop_ub = r4.size(0) * r4.size(1);
-        for (i = 0; i < loop_ub; i++) {
-          r5[i] = !r4[i];
-        }
-        if (coder::internal::b_ifWhileCond(r5)) {
-          printf("Transmitting pulse messages");
-          fflush(stdout);
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
           for (int j{0}; j < nPulseList; j++) {
             //  %% Build out pulseOut structure parameters for sending
             //  pulseOut.tag_id                     = uint32(Config.ID);
@@ -2900,15 +2683,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             //  double(groupSNRMeanDB);%10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average
             //  SNR in dB pulseOut.detection_status   = X.ps_pos.pl(j).det_dec;
             //  pulseOut.confirmed_status   = X.ps_pos.pl(j).con_dec;
-<<<<<<< HEAD
             n = b_X.ps_pos->pl.size(1);
             c_X.set_size(n);
             loop_ub = n - 1;
-=======
-            loop_ub = b_X.ps_pos->pl.size(1);
-            c_X.set_size(loop_ub);
-            loop_ub--;
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
             for (i = 0; i <= loop_ub; i++) {
               c_X[i] = b_X.ps_pos->pl[i];
             }
@@ -2924,34 +2701,17 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             }
             for (loop_ub = 0; loop_ub < n; loop_ub++) {
               groupSNRList[loop_ub] = c_X[loop_ub].SNR;
-<<<<<<< HEAD
             }
             groupSNRList.set_size(1, groupSNRList.size(1));
             loop_ub = groupSNRList.size(1) - 1;
             for (i = 0; i <= loop_ub; i++) {
-=======
-            }
-            if (groupSNRList.size(1) != 0) {
-              loop_ub = groupSNRList.size(1);
-            } else {
-              loop_ub = 0;
-            }
-            groupSNRList.set_size(1, loop_ub);
-            for (i = 0; i < loop_ub; i++) {
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
               timeDiff = groupSNRList[i] / 10.0;
               groupSNRList[i] = rt_powd_snf(10.0, timeDiff);
             }
             // Average SNR in dB
-<<<<<<< HEAD
             n = groupSNRList.size(1);
             b_groupSNRList = groupSNRList.reshape(n);
             timeStamp =
-=======
-            loop_ub = groupSNRList.size(1);
-            b_groupSNRList = groupSNRList.reshape(loop_ub);
-            t9_SNR =
->>>>>>> 3930a1e557481905555f2756f2f70ac82e87beba
                 coder::blockedSummation(b_groupSNRList, groupSNRList.size(1)) /
                 static_cast<double>(groupSNRList.size(1));
             if (timeStamp < 0.0) {
