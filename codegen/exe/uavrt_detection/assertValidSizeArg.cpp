@@ -5,7 +5,7 @@
 // File: assertValidSizeArg.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 27-Jun-2023 14:21:03
+// C/C++ source code generated on  : 31-Jul-2023 09:40:06
 //
 
 // Include Files
@@ -82,14 +82,13 @@ void assertValidSizeArg(double varargin_2)
 //
 void assertValidSizeArg(const double varargin_1[2])
 {
-  static rtRunTimeErrorInfo
-      qc_emlrtRTEI{
-          49,                   // lineNo
-          19,                   // colNo
-          "assertValidSizeArg", // fName
-          "/home/dasl/matlab/toolbox/eml/eml/+coder/+internal/"
-          "assertValidSizeArg.m" // pName
-      };
+  static rtRunTimeErrorInfo qc_emlrtRTEI{
+      49,                   // lineNo
+      19,                   // colNo
+      "assertValidSizeArg", // fName
+      "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+      "assertValidSizeArg.m" // pName
+  };
   double d;
   int k;
   boolean_T exitg1;

@@ -5,7 +5,7 @@
 // File: strcmp.h
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 27-Jun-2023 14:21:03
+// C/C++ source code generated on  : 31-Jul-2023 09:40:06
 //
 
 #ifndef STRCMP_H
@@ -32,9 +32,9 @@ boolean_T b_strcmp(const ::coder::array<char, 2U> &a);
 
 boolean_T b_strcmp(const char a_data[], const int a_size[2]);
 
-boolean_T c_strcmp(const ::coder::array<char, 2U> &a);
-
 boolean_T c_strcmp(const rtString &a);
+
+boolean_T c_strcmp(const ::coder::array<char, 2U> &a);
 
 boolean_T c_strcmp(const char a_data[], const int a_size[2]);
 
@@ -46,9 +46,9 @@ boolean_T e_strcmp(const ::coder::array<char, 2U> &a);
 
 boolean_T e_strcmp(const char a_data[], const int a_size[2]);
 
-boolean_T f_strcmp(const char a_data[], const int a_size[2]);
-
 boolean_T f_strcmp(const ::coder::array<char, 2U> &a);
+
+boolean_T f_strcmp(const char a_data[], const int a_size[2]);
 
 boolean_T g_strcmp(const ::coder::array<char, 2U> &a);
 

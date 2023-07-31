@@ -5,7 +5,7 @@
 // File: sub2ind.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 27-Jun-2023 14:21:03
+// C/C++ source code generated on  : 31-Jul-2023 09:40:06
 //
 
 // Include Files
@@ -23,12 +23,14 @@
 #include <string>
 
 // Variable Definitions
-static rtRunTimeErrorInfo hc_emlrtRTEI{
-    18,                                                            // lineNo
-    23,                                                            // colNo
-    "sub2ind",                                                     // fName
-    "/home/dasl/matlab/toolbox/eml/eml/+coder/+internal/sub2ind.m" // pName
-};
+static rtRunTimeErrorInfo
+    hc_emlrtRTEI{
+        18,        // lineNo
+        23,        // colNo
+        "sub2ind", // fName
+        "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+        "sub2ind.m" // pName
+    };
 
 // Function Declarations
 namespace coder {

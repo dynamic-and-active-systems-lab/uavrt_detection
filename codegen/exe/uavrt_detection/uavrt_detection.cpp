@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 27-Jun-2023 14:21:03
+// C/C++ source code generated on  : 31-Jul-2023 09:40:06
 //
 
 // Include Files
@@ -194,6 +194,55 @@ interleaveComplexVector(const coder::array<creal32_T, 1U> &complexDataIn,
   coder::array<float, 1U> varargin_1;
   coder::array<float, 1U> varargin_2;
   int loop_ub;
+  //  function [mavlinkTunnelMsgUint8] = formatPulseForTunnel(target_system_in,
+  //  target_component_in, payload_type_in, pulseStructIn)
+  //       %% Build PulsePose Mavlink Tunnel Message Payload
+  //       %Typecast maintains little-endian, in line
+  //       %with the mavlink serialization standard:
+  //       https://mavlink.io/en/guide/serialization.html target_system        =
+  //       dec2hex(typecast(uint8(target_system_in),'uint8'), 2); %uint8
+  //       target_component     =
+  //       dec2hex(typecast(uint8(target_component_in),'uint8'), 2); %uint8
+  //       payload_type         =
+  //       dec2hex(typecast(uint16(payload_type_in),'uint8'), 2); %uint16
+  //       %payload_length      = dec2hex(typecast(uint8(0),'uint8'), 2); %uint8
+  //       id                   =
+  //       dec2hex(typecast(uint32(pulseStructIn.tag_id),'uint8'), 2);   %uint32
+  //       freq                 =
+  //       dec2hex(typecast(double(pulseStructIn.frequency),'uint8'), 2);
+  //       %uint32 start_time_sec       =
+  //       dec2hex(typecast(int32(pulseStructIn.start_time.sec),'uint8'), 2);
+  //       %int32 start_time_nanosec   =
+  //       dec2hex(typecast(uint32(pulseStructIn.start_time.nanosec),'uint8'),
+  //       2);           %uint32 predict_next_sec     =
+  //       dec2hex(typecast(int32(pulseStructIn.predict_next_start.sec),'uint8'),
+  //       2);        %int32 predict_next_nanosec =
+  //       dec2hex(typecast(uint32(pulseStructIn.predict_next_start.nanosec),'uint8'),
+  //       2);   %uint32 snr                  =
+  //       dec2hex(typecast(double(pulseStructIn.snr),'uint8'), 2); %double
+  //       stft_score           =
+  //       dec2hex(typecast(double(pulseStructIn.stft_score),'uint8'), 2);
+  //       %double group_ind            =
+  //       dec2hex(typecast(uint16(pulseStructIn.group_ind),'uint8'), 2);
+  //       %uint16 detection_status     =
+  //       dec2hex(typecast(uint8(pulseStructIn.detection_status),'uint8'), 2);
+  //       %uint8 confirmed_status     =
+  //       dec2hex(typecast(uint8(pulseStructIn.confirmed_status),'uint8'), 2);
+  //       %uint8 noise_psd            =
+  //       dec2hex(typecast(double(pulseStructIn.noise_psd),'uint8'), 2);
+  //       %double
+  //
+  //       payload_hex = [id; freq; start_time_sec; start_time_nanosec; ...
+  //                  predict_next_sec; predict_next_nanosec; snr; ...
+  //                  stft_score; group_ind; detection_status; ...
+  //                  confirmed_status; noise_psd];
+  //       payload_length =
+  //       dec2hex(typecast(uint8(size(payload_hex,1)),'uint8'),2);
+  //       mavlinkTunnelMsgHex = [target_system; target_component; ...
+  //                              payload_type; payload_length;...
+  //                              payload_hex];
+  //       mavlinkTunnelMsgUint8 = uint8( hex2dec( mavlinkTunnelMsgHex ) );
+  //  end
   // Enforce column vector
   varargin_1.set_size(complexDataIn.size(0));
   loop_ub = complexDataIn.size(0);
@@ -766,141 +815,152 @@ static void updateconfig(coder::b_captured_var &Config,
                          const coder::captured_var &configPath)
 {
   static rtBoundsCheckInfo ab_emlrtBCI{
-      -1,                                                  // iFirst
-      -1,                                                  // iLast
-      151,                                                 // lineNo
-      31,                                                  // colNo
-      "sepByte",                                           // aName
-      "DetectorConfig/setFromFile",                        // fName
-      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
-      0                                                    // checkKind
+      -1,                           // iFirst
+      -1,                           // iLast
+      151,                          // lineNo
+      31,                           // colNo
+      "sepByte",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
+      0                                                   // checkKind
   };
   static rtBoundsCheckInfo bb_emlrtBCI{
-      -1,                                                  // iFirst
-      -1,                                                  // iLast
-      155,                                                 // lineNo
-      28,                                                  // colNo
-      "lineStr",                                           // aName
-      "DetectorConfig/setFromFile",                        // fName
-      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
-      0                                                    // checkKind
+      -1,                           // iFirst
+      -1,                           // iLast
+      155,                          // lineNo
+      28,                           // colNo
+      "lineStr",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
+      0                                                   // checkKind
   };
   static rtBoundsCheckInfo cb_emlrtBCI{
-      -1,                                                  // iFirst
-      -1,                                                  // iLast
-      158,                                                 // lineNo
-      55,                                                  // colNo
-      "tabLocs",                                           // aName
-      "DetectorConfig/setFromFile",                        // fName
-      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
-      0                                                    // checkKind
+      -1,                           // iFirst
+      -1,                           // iLast
+      158,                          // lineNo
+      55,                           // colNo
+      "tabLocs",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
+      0                                                   // checkKind
   };
   static rtBoundsCheckInfo db_emlrtBCI{
-      -1,                                                  // iFirst
-      -1,                                                  // iLast
-      159,                                                 // lineNo
-      63,                                                  // colNo
-      "colonLocation",                                     // aName
-      "DetectorConfig/setFromFile",                        // fName
-      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
-      0                                                    // checkKind
+      -1,                           // iFirst
+      -1,                           // iLast
+      159,                          // lineNo
+      63,                           // colNo
+      "colonLocation",              // aName
+      "DetectorConfig/setFromFile", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
+      0                                                   // checkKind
   };
   static rtBoundsCheckInfo eb_emlrtBCI{
-      -1,                                                  // iFirst
-      -1,                                                  // iLast
-      194,                                                 // lineNo
-      69,                                                  // colNo
-      "sepByte",                                           // aName
-      "DetectorConfig/setFromFile",                        // fName
-      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
-      0                                                    // checkKind
+      -1,                           // iFirst
+      -1,                           // iLast
+      194,                          // lineNo
+      69,                           // colNo
+      "sepByte",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
+      0                                                   // checkKind
   };
   static rtBoundsCheckInfo fb_emlrtBCI{
-      -1,                                                  // iFirst
-      -1,                                                  // iLast
-      160,                                                 // lineNo
-      47,                                                  // colNo
-      "lineStr",                                           // aName
-      "DetectorConfig/setFromFile",                        // fName
-      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
-      0                                                    // checkKind
+      -1,                           // iFirst
+      -1,                           // iLast
+      160,                          // lineNo
+      47,                           // colNo
+      "lineStr",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
+      0                                                   // checkKind
   };
   static rtBoundsCheckInfo gb_emlrtBCI{
-      -1,                                                  // iFirst
-      -1,                                                  // iLast
-      160,                                                 // lineNo
-      74,                                                  // colNo
-      "lineStr",                                           // aName
-      "DetectorConfig/setFromFile",                        // fName
-      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
-      0                                                    // checkKind
+      -1,                           // iFirst
+      -1,                           // iLast
+      160,                          // lineNo
+      74,                           // colNo
+      "lineStr",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
+      0                                                   // checkKind
   };
   static rtBoundsCheckInfo hb_emlrtBCI{
-      -1,                                                  // iFirst
-      -1,                                                  // iLast
-      159,                                                 // lineNo
-      47,                                                  // colNo
-      "lineStr",                                           // aName
-      "DetectorConfig/setFromFile",                        // fName
-      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
-      0                                                    // checkKind
+      -1,                           // iFirst
+      -1,                           // iLast
+      159,                          // lineNo
+      47,                           // colNo
+      "lineStr",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
+      0                                                   // checkKind
   };
   static rtBoundsCheckInfo ib_emlrtBCI{
-      -1,                                                  // iFirst
-      -1,                                                  // iLast
-      159,                                                 // lineNo
-      49,                                                  // colNo
-      "lineStr",                                           // aName
-      "DetectorConfig/setFromFile",                        // fName
-      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
-      0                                                    // checkKind
+      -1,                           // iFirst
+      -1,                           // iLast
+      159,                          // lineNo
+      49,                           // colNo
+      "lineStr",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
+      0                                                   // checkKind
   };
   static rtBoundsCheckInfo jb_emlrtBCI{
-      -1,                                                  // iFirst
-      -1,                                                  // iLast
-      196,                                                 // lineNo
-      69,                                                  // colNo
-      "sepByte",                                           // aName
-      "DetectorConfig/setFromFile",                        // fName
-      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
-      0                                                    // checkKind
+      -1,                           // iFirst
+      -1,                           // iLast
+      196,                          // lineNo
+      69,                           // colNo
+      "sepByte",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
+      0                                                   // checkKind
   };
   static rtBoundsCheckInfo y_emlrtBCI{
-      -1,                                                  // iFirst
-      -1,                                                  // iLast
-      120,                                                 // lineNo
-      28,                                                  // colNo
-      "rawLine",                                           // aName
-      "DetectorConfig/setFromFile",                        // fName
-      "/home/dasl/repos/uavrt_detection/DetectorConfig.m", // pName
-      0                                                    // checkKind
+      -1,                           // iFirst
+      -1,                           // iLast
+      120,                          // lineNo
+      28,                           // colNo
+      "rawLine",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
+      0                                                   // checkKind
   };
   static rtRunTimeErrorInfo qc_emlrtRTEI{
-      37,                                                      // lineNo
-      9,                                                       // colNo
-      "fopen",                                                 // fName
-      "/home/dasl/matlab/toolbox/eml/lib/matlab/iofun/fopen.m" // pName
+      37,      // lineNo
+      9,       // colNo
+      "fopen", // fName
+      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/fopen.m" // pName
   };
   static rtRunTimeErrorInfo rc_emlrtRTEI{
       12,               // lineNo
       23,               // colNo
       "mustBePositive", // fName
-      "/home/dasl/matlab/toolbox/eml/lib/matlab/validators/mustBePositive.m" // pName
+      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/validators/"
+      "mustBePositive.m" // pName
   };
-  static rtRunTimeErrorInfo
-      sc_emlrtRTEI{
-          11,                  // lineNo
-          24,                  // colNo
-          "mustBeNonnegative", // fName
-          "/home/dasl/matlab/toolbox/eml/lib/matlab/validators/"
-          "mustBeNonnegative.m" // pName
-      };
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
+      11,                  // lineNo
+      24,                  // colNo
+      "mustBeNonnegative", // fName
+      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/validators/"
+      "mustBeNonnegative.m" // pName
+  };
   static rtRunTimeErrorInfo tc_emlrtRTEI{
       18,                     // lineNo
       5,                      // colNo
       "binaryRelopValidator", // fName
-      "/home/dasl/matlab/toolbox/eml/lib/matlab/validators/private/"
-      "binaryRelopValidator.m" // pName
+      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/validators/"
+      "private/binaryRelopValidator.m" // pName
   };
   static const char b_cv[2]{'I', 'D'};
   int st;
@@ -1363,95 +1423,105 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static coder::dsp::b_AsyncBuffer asyncTimeBuff;
   static coder::dsp::c_AsyncBuffer asyncWriteBuff;
   static rtBoundsCheckInfo ab_emlrtBCI{
-      -1,                                                   // iFirst
-      -1,                                                   // iLast
-      415,                                                  // lineNo
-      32,                                                   // colNo
-      "t",                                                  // aName
-      "uavrt_detection",                                    // fName
-      "/home/dasl/repos/uavrt_detection/uavrt_detection.m", // pName
-      0                                                     // checkKind
+      -1,                // iFirst
+      -1,                // iLast
+      415,               // lineNo
+      32,                // colNo
+      "t",               // aName
+      "uavrt_detection", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
+      0                                                    // checkKind
   };
   static rtBoundsCheckInfo bb_emlrtBCI{
-      -1,                                                   // iFirst
-      -1,                                                   // iLast
-      581,                                                  // lineNo
-      61,                                                   // colNo
-      "X.ps_pos.pl",                                        // aName
-      "uavrt_detection",                                    // fName
-      "/home/dasl/repos/uavrt_detection/uavrt_detection.m", // pName
-      0                                                     // checkKind
+      -1,                // iFirst
+      -1,                // iLast
+      581,               // lineNo
+      61,                // colNo
+      "X.ps_pos.pl",     // aName
+      "uavrt_detection", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
+      0                                                    // checkKind
   };
   static rtBoundsCheckInfo cb_emlrtBCI{
-      -1,                                                   // iFirst
-      -1,                                                   // iLast
-      586,                                                  // lineNo
-      79,                                                   // colNo
-      "ps_pre_struc.pl",                                    // aName
-      "uavrt_detection",                                    // fName
-      "/home/dasl/repos/uavrt_detection/uavrt_detection.m", // pName
-      0                                                     // checkKind
+      -1,                // iFirst
+      -1,                // iLast
+      586,               // lineNo
+      79,                // colNo
+      "ps_pre_struc.pl", // aName
+      "uavrt_detection", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
+      0                                                    // checkKind
   };
   static rtBoundsCheckInfo db_emlrtBCI{
-      -1,                                                   // iFirst
-      -1,                                                   // iLast
-      592,                                                  // lineNo
-      50,                                                   // colNo
-      "pulsesToSkip",                                       // aName
-      "uavrt_detection",                                    // fName
-      "/home/dasl/repos/uavrt_detection/uavrt_detection.m", // pName
-      0                                                     // checkKind
+      -1,                // iFirst
+      -1,                // iLast
+      592,               // lineNo
+      50,                // colNo
+      "pulsesToSkip",    // aName
+      "uavrt_detection", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
+      0                                                    // checkKind
   };
   static rtBoundsCheckInfo eb_emlrtBCI{
-      -1,                                                   // iFirst
-      -1,                                                   // iLast
-      653,                                                  // lineNo
-      91,                                                   // colNo
-      "X.ps_pos.pl",                                        // aName
-      "uavrt_detection",                                    // fName
-      "/home/dasl/repos/uavrt_detection/uavrt_detection.m", // pName
-      0                                                     // checkKind
+      -1,                // iFirst
+      -1,                // iLast
+      621,               // lineNo
+      91,                // colNo
+      "X.ps_pos.pl",     // aName
+      "uavrt_detection", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
+      0                                                    // checkKind
   };
   static rtBoundsCheckInfo fb_emlrtBCI{
-      -1,                                                   // iFirst
-      -1,                                                   // iLast
-      666,                                                  // lineNo
-      50,                                                   // colNo
-      "pulsesToSkip",                                       // aName
-      "uavrt_detection",                                    // fName
-      "/home/dasl/repos/uavrt_detection/uavrt_detection.m", // pName
-      0                                                     // checkKind
+      -1,                // iFirst
+      -1,                // iLast
+      637,               // lineNo
+      50,                // colNo
+      "pulsesToSkip",    // aName
+      "uavrt_detection", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
+      0                                                    // checkKind
   };
   static rtBoundsCheckInfo y_emlrtBCI{
-      -1,                                                   // iFirst
-      -1,                                                   // iLast
-      399,                                                  // lineNo
-      82,                                                   // colNo
-      "timeVector",                                         // aName
-      "uavrt_detection",                                    // fName
-      "/home/dasl/repos/uavrt_detection/uavrt_detection.m", // pName
-      0                                                     // checkKind
+      -1,                // iFirst
+      -1,                // iLast
+      399,               // lineNo
+      82,                // colNo
+      "timeVector",      // aName
+      "uavrt_detection", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
+      0                                                    // checkKind
   };
   static rtDoubleCheckInfo q_emlrtDCI{
-      285,                                                  // lineNo
-      50,                                                   // colNo
-      "uavrt_detection",                                    // fName
-      "/home/dasl/repos/uavrt_detection/uavrt_detection.m", // pName
-      4                                                     // checkKind
+      285,               // lineNo
+      50,                // colNo
+      "uavrt_detection", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
+      4                                                    // checkKind
   };
   static rtDoubleCheckInfo r_emlrtDCI{
-      285,                                                  // lineNo
-      50,                                                   // colNo
-      "uavrt_detection",                                    // fName
-      "/home/dasl/repos/uavrt_detection/uavrt_detection.m", // pName
-      1                                                     // checkKind
+      285,               // lineNo
+      50,                // colNo
+      "uavrt_detection", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
+      1                                                    // checkKind
   };
   static rtEqualityCheckInfo g_emlrtECI{
-      -1,                                                  // nDims
-      285,                                                 // lineNo
-      37,                                                  // colNo
-      "uavrt_detection",                                   // fName
-      "/home/dasl/repos/uavrt_detection/uavrt_detection.m" // pName
+      -1,                // nDims
+      285,               // lineNo
+      37,                // colNo
+      "uavrt_detection", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m" // pName
   };
   static const char b_cv[31]{'c', 'u', 'r', 'r', 'e', 'n', 't', '_',
                              'w', 'o', 'r', 'k', 'i', 'n', 'g', '_',
@@ -1512,20 +1582,23 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   creal32_T dataReceived_data[1024];
   creal32_T b_dataReceived_data[1023];
   creal32_T exampleData[1000];
-  double doublesBuffer[11];
+  double doublesBuffer[12];
   double ps_pre_struc_tmplt[2];
+  double T;
   double dataWriterSamples;
   double expectedNextTimeStamp;
   double framesReceived;
   double previousPulseTime;
   double ps_pre_struc_fend;
+  double ps_pre_struc_fp;
+  double ps_pre_struc_fstart;
+  double ps_pre_struc_t_ipj;
   double segmentsProcessed;
   double startTime;
   double t9_SNR;
   double t9_fend;
   double t9_fp;
   double t9_fstart;
-  double t9_t_0;
   double t9_t_f;
   double t9_yw;
   double timeDiff;
@@ -1614,7 +1687,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       detectorPulse.fp, detectorPulse.fstart, detectorPulse.fend,
       detectorPulse.det_dec, detectorPulse.con_dec);
   timeDiff = makepulsestruc(expl_temp.t_next, expl_temp.mode, timeStamp, t9_SNR,
-                            t9_yw, t9_t_0, t9_t_f, t9_fp, t9_fstart, t9_fend,
+                            t9_yw, T, t9_t_f, t9_fp, t9_fstart, t9_fend,
                             t9_det_dec, t9_con_dec);
   expl_temp.con_dec = t9_con_dec;
   expl_temp.det_dec = t9_det_dec;
@@ -1622,7 +1695,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   expl_temp.fstart = t9_fstart;
   expl_temp.fp = t9_fp;
   expl_temp.t_f = t9_t_f;
-  expl_temp.t_0 = t9_t_0;
+  expl_temp.t_0 = T;
   expl_temp.yw = t9_yw;
   expl_temp.SNR = t9_SNR;
   expl_temp.P = timeStamp;
@@ -1707,12 +1780,12 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   // dims 0 if fixed, 1 if variable
   std::printf("Startup set 5 complete. \n");
   std::fflush(stdout);
-  t9_yw = 0.0;
-  t9_t_0 = 0.0;
-  t9_t_f = 0.0;
   t9_fp = 0.0;
   t9_fstart = 0.0;
   t9_fend = 0.0;
+  ps_pre_struc_t_ipj = 0.0;
+  ps_pre_struc_fp = 0.0;
+  ps_pre_struc_fstart = 0.0;
   ps_pre_struc_fend = 0.0;
   ps_pre_struc_tmplt[0] = 1.0;
   ps_pre_struc_tmplt[1] = 1.0;
@@ -1860,13 +1933,13 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       timeDiff = timeStamp - expectedNextTimeStamp;
       // fprintf('Current Received Time Stamp: %f \t Expected Time Stamp: %f \t
       // Diff: %f \n',timeStamp, expectedNextTimeStamp, timeDiff)
-      t9_SNR = Config.contents.tp / 2.0;
-      if (std::abs(timeDiff) < t9_SNR) {
+      t9_t_f = Config.contents.tp / 2.0;
+      if (std::abs(timeDiff) < t9_t_f) {
         iqDataToWrite.set_size(1023, 1);
         for (i = 0; i < 1023; i++) {
           iqDataToWrite[i] = dataReceived_data[i + 1];
         }
-      } else if ((timeDiff >= t9_SNR) && (timeDiff < Config.contents.tip)) {
+      } else if ((timeDiff >= t9_t_f) && (timeDiff < Config.contents.tip)) {
         unsigned long u;
         // missed samples but not a whole lot
         timeDiff = std::round(timeDiff * Config.contents.Fs);
@@ -1913,7 +1986,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         for (i = 0; i < loop_ub; i++) {
           iqDataToWrite[i] = b_iqDataToWrite[i];
         }
-      } else if (((timeDiff >= t9_SNR) && (timeDiff >= Config.contents.tip)) ||
+      } else if (((timeDiff >= t9_t_f) && (timeDiff >= Config.contents.tip)) ||
                  (timeDiff < -Config.contents.tp / 2.0)) {
         //  %missed a lot of samples. Reset buffers
         // predictions is ahead of recently received packet. Shouldn't ever
@@ -2106,26 +2179,26 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
     }
     if (nPulseList >= sampsForKPulses.contents + overlapSamples.contents) {
       double processingStartToc;
-      t9_SNR = std::round(sampsForKPulses.contents);
-      if (t9_SNR < 4.294967296E+9) {
-        if (t9_SNR >= 0.0) {
-          timeStampSec = static_cast<unsigned int>(t9_SNR);
+      t9_t_f = std::round(sampsForKPulses.contents);
+      if (t9_t_f < 4.294967296E+9) {
+        if (t9_t_f >= 0.0) {
+          timeStampSec = static_cast<unsigned int>(t9_t_f);
         } else {
           timeStampSec = 0U;
         }
-      } else if (t9_SNR >= 4.294967296E+9) {
+      } else if (t9_t_f >= 4.294967296E+9) {
         timeStampSec = MAX_uint32_T;
       } else {
         timeStampSec = 0U;
       }
-      t9_SNR = std::round(overlapSamples.contents);
-      if (t9_SNR < 4.294967296E+9) {
-        if (t9_SNR >= 0.0) {
-          timeStampNanoSec = static_cast<unsigned int>(t9_SNR);
+      t9_t_f = std::round(overlapSamples.contents);
+      if (t9_t_f < 4.294967296E+9) {
+        if (t9_t_f >= 0.0) {
+          timeStampNanoSec = static_cast<unsigned int>(t9_t_f);
         } else {
           timeStampNanoSec = 0U;
         }
-      } else if (t9_SNR >= 4.294967296E+9) {
+      } else if (t9_t_f >= 4.294967296E+9) {
         timeStampNanoSec = MAX_uint32_T;
       } else {
         timeStampNanoSec = 0U;
@@ -2266,15 +2339,15 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
               detectorPulse.t_f, detectorPulse.fp, detectorPulse.fstart,
               detectorPulse.fend, detectorPulse.det_dec, detectorPulse.con_dec);
           timeDiff = makepulsestruc(expl_temp.t_next, expl_temp.mode, timeStamp,
-                                    t9_SNR, t9_yw, t9_t_0, t9_t_f, t9_fp,
-                                    t9_fstart, t9_fend, t9_det_dec, t9_con_dec);
+                                    t9_SNR, t9_yw, T, t9_t_f, t9_fp, t9_fstart,
+                                    t9_fend, t9_det_dec, t9_con_dec);
           expl_temp.con_dec = t9_con_dec;
           expl_temp.det_dec = t9_det_dec;
           expl_temp.fend = t9_fend;
           expl_temp.fstart = t9_fstart;
           expl_temp.fp = t9_fp;
           expl_temp.t_f = t9_t_f;
-          expl_temp.t_0 = t9_t_0;
+          expl_temp.t_0 = T;
           expl_temp.yw = t9_yw;
           expl_temp.SNR = t9_SNR;
           expl_temp.P = timeStamp;
@@ -2287,49 +2360,49 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
               detectorPulse, expl_temp);
           configUpdatedFlag = false;
         } else {
-          pulseStatsPriori =
-              lobj_18.c_init(t9_yw, t9_t_0, t9_t_f, t9_fp, t9_fstart, t9_fend,
-                             ps_pre_struc_fend, ps_pre_struc_tmplt,
-                             (char *)&mode, ps_pre_struc_pl, ps_pre_struc_clst,
-                             ps_pre_struc_cmsk, ps_pre_struc_cpki);
+          pulseStatsPriori = lobj_18.c_init(
+              t9_fp, t9_fstart, t9_fend, ps_pre_struc_t_ipj, ps_pre_struc_fp,
+              ps_pre_struc_fstart, ps_pre_struc_fend, ps_pre_struc_tmplt,
+              (char *)&mode, ps_pre_struc_pl, ps_pre_struc_clst,
+              ps_pre_struc_cmsk, ps_pre_struc_cpki);
         }
         //                         %% PRIMARY PROCESSING BLOCK
         // Prep waveform for processing/detection
         b_X.init(x, Config.contents.Fs, t[0], pulseStatsPriori, Xhold_tmp,
                  lobj_17, lobj_16);
         b_X.K = Config.contents.K;
-        t9_SNR = std::round(b_X.N);
-        if (t9_SNR < 4.294967296E+9) {
-          if (t9_SNR >= 0.0) {
-            timeStampSec = static_cast<unsigned int>(t9_SNR);
+        t9_t_f = std::round(b_X.N);
+        if (t9_t_f < 4.294967296E+9) {
+          if (t9_t_f >= 0.0) {
+            timeStampSec = static_cast<unsigned int>(t9_t_f);
           } else {
             timeStampSec = 0U;
           }
-        } else if (t9_SNR >= 4.294967296E+9) {
+        } else if (t9_t_f >= 4.294967296E+9) {
           timeStampSec = MAX_uint32_T;
         } else {
           timeStampSec = 0U;
         }
-        t9_SNR = std::round(b_X.M);
-        if (t9_SNR < 4.294967296E+9) {
-          if (t9_SNR >= 0.0) {
-            timeStampNanoSec = static_cast<unsigned int>(t9_SNR);
+        t9_t_f = std::round(b_X.M);
+        if (t9_t_f < 4.294967296E+9) {
+          if (t9_t_f >= 0.0) {
+            timeStampNanoSec = static_cast<unsigned int>(t9_t_f);
           } else {
             timeStampNanoSec = 0U;
           }
-        } else if (t9_SNR >= 4.294967296E+9) {
+        } else if (t9_t_f >= 4.294967296E+9) {
           timeStampNanoSec = MAX_uint32_T;
         } else {
           timeStampNanoSec = 0U;
         }
-        t9_SNR = std::round(b_X.J);
-        if (t9_SNR < 4.294967296E+9) {
-          if (t9_SNR >= 0.0) {
-            varargin_3 = static_cast<unsigned int>(t9_SNR);
+        t9_t_f = std::round(b_X.J);
+        if (t9_t_f < 4.294967296E+9) {
+          if (t9_t_f >= 0.0) {
+            varargin_3 = static_cast<unsigned int>(t9_t_f);
           } else {
             varargin_3 = 0U;
           }
-        } else if (t9_SNR >= 4.294967296E+9) {
+        } else if (t9_t_f >= 4.294967296E+9) {
           varargin_3 = MAX_uint32_T;
         } else {
           varargin_3 = 0U;
@@ -2413,20 +2486,20 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         std::printf("Time windows in S: %u \n", timeStampSec);
         std::fflush(stdout);
         timeDiff = coder::toc();
-        t9_SNR = std::round(Config.contents.ID);
-        if (t9_SNR < 4.294967296E+9) {
-          if (t9_SNR >= 0.0) {
-            timeStampSec = static_cast<unsigned int>(t9_SNR);
+        t9_t_f = std::round(Config.contents.ID);
+        if (t9_t_f < 4.294967296E+9) {
+          if (t9_t_f >= 0.0) {
+            timeStampSec = static_cast<unsigned int>(t9_t_f);
           } else {
             timeStampSec = 0U;
           }
-        } else if (t9_SNR >= 4.294967296E+9) {
+        } else if (t9_t_f >= 4.294967296E+9) {
           timeStampSec = MAX_uint32_T;
         } else {
           timeStampSec = 0U;
         }
         doublesBuffer[0] = timeStampSec;
-        std::memset(&doublesBuffer[1], 0, 10U * sizeof(double));
+        std::memset(&doublesBuffer[1], 0, 11U * sizeof(double));
         //  % self.frequency_hz ...
         //  % self.start_time_seconds ...
         //  % self.predict_next_start_seconds ...
@@ -2437,6 +2510,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         //  % self.group_snr ...
         //  % self.detection_status ...
         //  % self.confirmed_status ...
+        //  % self.noise_psd ...
         udpSenderSendDoubles(val, &doublesBuffer[0], 11U);
         std::printf("Finding pulses...");
         std::fflush(stdout);
@@ -2537,12 +2611,12 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         // Prepare priori for next segment
         std::printf("Updating priori...\n");
         std::fflush(stdout);
-        t9_yw = b_X.ps_pos->t_p;
-        t9_t_0 = b_X.ps_pos->t_ip;
-        t9_t_f = b_X.ps_pos->t_ipu;
-        t9_fp = b_X.ps_pos->t_ipj;
-        t9_fstart = b_X.ps_pos->fp;
-        t9_fend = b_X.ps_pos->fstart;
+        t9_fp = b_X.ps_pos->t_p;
+        t9_fstart = b_X.ps_pos->t_ip;
+        t9_fend = b_X.ps_pos->t_ipu;
+        ps_pre_struc_t_ipj = b_X.ps_pos->t_ipj;
+        ps_pre_struc_fp = b_X.ps_pos->fp;
+        ps_pre_struc_fstart = b_X.ps_pos->fstart;
         ps_pre_struc_fend = b_X.ps_pos->fend;
         ps_pre_struc_tmplt[0] = b_X.ps_pos->tmplt[0];
         ps_pre_struc_tmplt[1] = b_X.ps_pos->tmplt[1];
@@ -2648,41 +2722,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           std::printf("Transmitting pulse messages");
           std::fflush(stdout);
           for (int j{0}; j < nPulseList; j++) {
-            //  %% Build out pulseOut structure parameters for sending
-            //  pulseOut.tag_id                     = uint32(Config.ID);
-            //  pulseOut.detector_dir               = currDir;%ID is a string
-            //  pulseOut.frequency                  =
-            //  Config.channelCenterFreqMHz + (X.ps_pos.pl(j).fp)*1e-6;
-            //      t_0     = X.ps_pos.pl(j).t_0;
-            //      t_f     = X.ps_pos.pl(j).t_f;
-            //      t_nxt_0 = X.ps_pos.pl(j).t_next(1);
-            //      t_nxt_f = X.ps_pos.pl(j).t_next(2);
-            //  pulseOut.start_time.sec             = int32(floor(t_0));
-            //  pulseOut.start_time.nanosec         =
-            //  uint32(mod(t_0,floor(t_0))*1e9); pulseOut.end_time.sec =
-            //  int32(floor(t_f)); pulseOut.end_time.nanosec           =
-            //  uint32(mod(t_f,floor(t_f))*1e9); pulseOut.predict_next_start.sec
-            //  = int32(floor(t_nxt_0)); pulseOut.predict_next_start.nanosec =
-            //  uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
-            //  pulseOut.predict_next_end.sec       = int32(floor(t_nxt_f));
-            //  pulseOut.predict_next_end.nanosec   =
-            //  uint32(mod(t_nxt_f,round(t_nxt_f))*1e9); pulseOut.snr =
-            //  X.ps_pos.pl(j).SNR; pulseOut.stft_score                 =
-            //  real(X.ps_pos.pl(j).yw); pulseOut.group_ind                  =
-            //  uint16(j); groupSNRList = 10.^([X.ps_pos.pl(:).SNR]/10);%Average
-            //  SNR in dB groupSNRMeanLinear                  =
-            //  mean(groupSNRList,'all'); if groupSNRMeanLinear<0
-            //      groupSNRMeanDB                  = -Inf;
-            //  else
-            //      groupSNRMeanDB                  =
-            //      10*log10(groupSNRMeanLinear);
-            //  end
-            //  %10log10 can produce complex results and group_snr required a
-            //  real value. Otherwise coder will %generate type errors
-            //  pulseOut.group_snr          =
-            //  double(groupSNRMeanDB);%10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average
-            //  SNR in dB pulseOut.detection_status   = X.ps_pos.pl(j).det_dec;
-            //  pulseOut.confirmed_status   = X.ps_pos.pl(j).con_dec;
             n = b_X.ps_pos->pl.size(1);
             c_X.set_size(n);
             loop_ub = n - 1;
@@ -2711,14 +2750,14 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             // Average SNR in dB
             n = groupSNRList.size(1);
             b_groupSNRList = groupSNRList.reshape(n);
-            timeStamp =
+            t9_SNR =
                 coder::blockedSummation(b_groupSNRList, groupSNRList.size(1)) /
                 static_cast<double>(groupSNRList.size(1));
-            if (timeStamp < 0.0) {
+            if (t9_SNR < 0.0) {
               rtErrorWithMessageID("log10", b_emlrtRTEI.fName,
                                    b_emlrtRTEI.lineNo);
             }
-            timeStamp = std::log10(timeStamp);
+            t9_SNR = std::log10(t9_SNR);
             // 10log10 can produce complex results and group_snr required a real
             // value. Otherwise coder will generate type errors
             // 10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average
@@ -2729,19 +2768,22 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
               rtDynamicBoundsError(j + 1, 1, i, eb_emlrtBCI);
             }
             detectorPulse = b_X.ps_pos->pl[j];
+            t9_yw = b_X.stft->dt;
+            T = b_X.stft->T;
+            // See Notebook Entry 2023-07-07 for derivation
             if (j + 1 > pulsesToSkip.size(1)) {
               rtDynamicBoundsError(j + 1, 1, pulsesToSkip.size(1), fb_emlrtBCI);
             }
             if (!pulsesToSkip[j]) {
               unsigned short u1;
               //  UDP Send
-              if (t9_SNR < 4.294967296E+9) {
-                if (t9_SNR >= 0.0) {
-                  timeStampSec = static_cast<unsigned int>(t9_SNR);
+              if (t9_t_f < 4.294967296E+9) {
+                if (t9_t_f >= 0.0) {
+                  timeStampSec = static_cast<unsigned int>(t9_t_f);
                 } else {
                   timeStampSec = 0U;
                 }
-              } else if (t9_SNR >= 4.294967296E+9) {
+              } else if (t9_t_f >= 4.294967296E+9) {
                 timeStampSec = MAX_uint32_T;
               } else {
                 timeStampSec = 0U;
@@ -2773,57 +2815,18 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
                 u1 = MAX_uint16_T;
               }
               doublesBuffer[7] = u1;
-              doublesBuffer[8] = 10.0 * timeStamp;
+              doublesBuffer[8] = 10.0 * t9_SNR;
               doublesBuffer[9] = detectorPulse.det_dec;
               doublesBuffer[10] = detectorPulse.con_dec;
+              doublesBuffer[11] =
+                  detectorPulse.yw * (t9_yw * t9_yw) / T *
+                  (1.0 / (rt_powd_snf(10.0, detectorPulse.SNR / 10.0) + 1.0));
               udpSenderSendDoubles(val, &doublesBuffer[0], 11U);
               //  ROS send
               std::printf("Skipping ROS2 Pulse send...");
               std::fflush(stdout);
               pulseCount++;
             }
-            //  %s pulseMsg.detector_dir
-            //  %s pulseMsg.tag_id
-            //  %.6f pulseMsg.frequency
-            //  %d pulseMsg.start_time.sec
-            //  %u pulseMsg.start_time.nanosec
-            //  %d pulseMsg.end_time.sec
-            //  %u pulseMsg.end_time.nanosec
-            //  %d pulseMsg.predict_next_start.sec
-            //  %u pulseMsg.predict_next_start.nanosec
-            //  %d pulseMsg.predict_next_end.sec
-            //  %u pulseMsg.predict_next_end.nanosec
-            //  %.2f pulseMsg.snr
-            //  %.3e pulseMsg.dft_real
-            //  %.3e pulseMsg.dft_imag
-            //  %u pulseMsg.group_ind
-            //  %.2e pulseMsg.group_snr
-            //  logicalStr = {'0','1'}
-            //  %u logicalStr{int8(pulseMsg.detection_status)+1}
-            //  %u logicalStr{int8(pulseMsg.confirmed_status)+1}
-            //
-            //                                          logicalStr = {'0','1'};
-            //                                          formatSpecPulseMsg =
-            //                                          ['%.6f',',','%d',',','%u','%d',',','%u',',','%d',',','%u',',','%d',',','%u',',',...
-            //                                                                '%.2f',',','%.3e',',','%.3e',',','%u',',','%.2e',',','%c',',','%c','\n'];
-            //
-            //                                          fprintf(pulseWriterFileID,formatSpecPulseMsg,...
-            //                                              pulseMsg.frequency,...
-            //                                              pulseMsg.start_time.sec,...
-            //                                              pulseMsg.start_time.nanosec,...
-            //                                              pulseMsg.end_time.sec,...
-            //                                              pulseMsg.end_time.nanosec,...
-            //                                              pulseMsg.predict_next_start.sec,...
-            //                                              pulseMsg.predict_next_start.nanosec,...
-            //                                              pulseMsg.predict_next_end.sec,...
-            //                                              pulseMsg.predict_next_end.nanosec,...
-            //                                              pulseMsg.snr,...
-            //                                              pulseMsg.dft_real,...
-            //                                              pulseMsg.dft_imag,...
-            //                                              pulseMsg.group_ind,...
-            //                                              pulseMsg.group_snr,...
-            //                                              logicalStr{int8(pulseMsg.detection_status)+1},...
-            //                                              logicalStr{int8(pulseMsg.confirmed_status)+1});
             std::printf(".");
             std::fflush(stdout);
             //                                     end

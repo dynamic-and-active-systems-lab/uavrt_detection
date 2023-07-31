@@ -5,7 +5,7 @@
 // File: threshold.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 27-Jun-2023 14:21:03
+// C/C++ source code generated on  : 31-Jul-2023 09:40:06
 //
 
 // Include Files
@@ -66,185 +66,208 @@
 void threshold::makenewthreshold(const waveform &Wfm)
 {
   static rtBoundsCheckInfo ab_emlrtBCI{
-      -1,                                             // iFirst
-      -1,                                             // iLast
-      163,                                            // lineNo
-      28,                                             // colNo
-      "scores",                                       // aName
-      "threshold/makenewthreshold",                   // fName
-      "/home/dasl/repos/uavrt_detection/threshold.m", // pName
-      0                                               // checkKind
+      -1,                           // iFirst
+      -1,                           // iLast
+      163,                          // lineNo
+      28,                           // colNo
+      "scores",                     // aName
+      "threshold/makenewthreshold", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
   };
   static rtBoundsCheckInfo bb_emlrtBCI{
-      -1,                                             // iFirst
-      -1,                                             // iLast
-      340,                                            // lineNo
-      37,                                             // colNo
-      "values",                                       // aName
-      "threshold/loadThresholdValuesFromCache",       // fName
-      "/home/dasl/repos/uavrt_detection/threshold.m", // pName
-      0                                               // checkKind
+      -1,                                       // iFirst
+      -1,                                       // iLast
+      340,                                      // lineNo
+      37,                                       // colNo
+      "values",                                 // aName
+      "threshold/loadThresholdValuesFromCache", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
   };
   static rtBoundsCheckInfo cb_emlrtBCI{
-      -1,                                             // iFirst
-      -1,                                             // iLast
-      339,                                            // lineNo
-      37,                                             // colNo
-      "values",                                       // aName
-      "threshold/loadThresholdValuesFromCache",       // fName
-      "/home/dasl/repos/uavrt_detection/threshold.m", // pName
-      0                                               // checkKind
+      -1,                                       // iFirst
+      -1,                                       // iLast
+      339,                                      // lineNo
+      37,                                       // colNo
+      "values",                                 // aName
+      "threshold/loadThresholdValuesFromCache", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
   };
   static rtBoundsCheckInfo db_emlrtBCI{
-      -1,                                             // iFirst
-      -1,                                             // iLast
-      163,                                            // lineNo
-      59,                                             // colNo
-      "Ssynth",                                       // aName
-      "threshold/makenewthreshold",                   // fName
-      "/home/dasl/repos/uavrt_detection/threshold.m", // pName
-      0                                               // checkKind
+      -1,                           // iFirst
+      -1,                           // iLast
+      163,                          // lineNo
+      59,                           // colNo
+      "Ssynth",                     // aName
+      "threshold/makenewthreshold", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
   };
   static rtBoundsCheckInfo eb_emlrtBCI{
-      -1,                                             // iFirst
-      -1,                                             // iLast
-      282,                                            // lineNo
-      63,                                             // colNo
-      "Wfm.stft.f",                                   // aName
-      "threshold/setthreshprops",                     // fName
-      "/home/dasl/repos/uavrt_detection/threshold.m", // pName
-      0                                               // checkKind
+      -1,                         // iFirst
+      -1,                         // iLast
+      282,                        // lineNo
+      63,                         // colNo
+      "Wfm.stft.f",               // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
   };
   static rtBoundsCheckInfo fb_emlrtBCI{
-      -1,                                             // iFirst
-      -1,                                             // iLast
-      296,                                            // lineNo
-      44,                                             // colNo
-      "newThresh",                                    // aName
-      "threshold/setthreshprops",                     // fName
-      "/home/dasl/repos/uavrt_detection/threshold.m", // pName
-      0                                               // checkKind
+      -1,                         // iFirst
+      -1,                         // iLast
+      296,                        // lineNo
+      44,                         // colNo
+      "newThresh",                // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
   };
   static rtBoundsCheckInfo gb_emlrtBCI{
-      -1,                                             // iFirst
-      -1,                                             // iLast
-      297,                                            // lineNo
-      44,                                             // colNo
-      "newThresh",                                    // aName
-      "threshold/setthreshprops",                     // fName
-      "/home/dasl/repos/uavrt_detection/threshold.m", // pName
-      0                                               // checkKind
+      -1,                         // iFirst
+      -1,                         // iLast
+      297,                        // lineNo
+      44,                         // colNo
+      "newThresh",                // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
   };
   static rtBoundsCheckInfo hb_emlrtBCI{
-      -1,                                             // iFirst
-      -1,                                             // iLast
-      298,                                            // lineNo
-      44,                                             // colNo
-      "firstTrueThreshInd",                           // aName
-      "threshold/setthreshprops",                     // fName
-      "/home/dasl/repos/uavrt_detection/threshold.m", // pName
-      0                                               // checkKind
+      -1,                         // iFirst
+      -1,                         // iLast
+      298,                        // lineNo
+      44,                         // colNo
+      "firstTrueThreshInd",       // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
   };
   static rtBoundsCheckInfo ib_emlrtBCI{
-      -1,                                             // iFirst
-      -1,                                             // iLast
-      298,                                            // lineNo
-      23,                                             // colNo
-      "newThresh",                                    // aName
-      "threshold/setthreshprops",                     // fName
-      "/home/dasl/repos/uavrt_detection/threshold.m", // pName
-      0                                               // checkKind
+      -1,                         // iFirst
+      -1,                         // iLast
+      298,                        // lineNo
+      23,                         // colNo
+      "newThresh",                // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
   };
   static rtBoundsCheckInfo jb_emlrtBCI{
-      -1,                                             // iFirst
-      -1,                                             // iLast
-      298,                                            // lineNo
-      25,                                             // colNo
-      "newThresh",                                    // aName
-      "threshold/setthreshprops",                     // fName
-      "/home/dasl/repos/uavrt_detection/threshold.m", // pName
-      0                                               // checkKind
+      -1,                         // iFirst
+      -1,                         // iLast
+      298,                        // lineNo
+      25,                         // colNo
+      "newThresh",                // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
   };
   static rtBoundsCheckInfo kb_emlrtBCI{
-      -1,                                             // iFirst
-      -1,                                             // iLast
-      299,                                            // lineNo
-      41,                                             // colNo
-      "lastTrueThreshInd",                            // aName
-      "threshold/setthreshprops",                     // fName
-      "/home/dasl/repos/uavrt_detection/threshold.m", // pName
-      0                                               // checkKind
+      -1,                         // iFirst
+      -1,                         // iLast
+      299,                        // lineNo
+      41,                         // colNo
+      "lastTrueThreshInd",        // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
   };
   static rtBoundsCheckInfo lb_emlrtBCI{
-      -1,                                             // iFirst
-      -1,                                             // iLast
-      299,                                            // lineNo
-      23,                                             // colNo
-      "newThresh",                                    // aName
-      "threshold/setthreshprops",                     // fName
-      "/home/dasl/repos/uavrt_detection/threshold.m", // pName
-      0                                               // checkKind
+      -1,                         // iFirst
+      -1,                         // iLast
+      299,                        // lineNo
+      23,                         // colNo
+      "newThresh",                // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
   };
   static rtBoundsCheckInfo mb_emlrtBCI{
-      -1,                                             // iFirst
-      -1,                                             // iLast
-      299,                                            // lineNo
-      44,                                             // colNo
-      "newThresh",                                    // aName
-      "threshold/setthreshprops",                     // fName
-      "/home/dasl/repos/uavrt_detection/threshold.m", // pName
-      0                                               // checkKind
+      -1,                         // iFirst
+      -1,                         // iLast
+      299,                        // lineNo
+      44,                         // colNo
+      "newThresh",                // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
   };
   static rtBoundsCheckInfo y_emlrtBCI{
-      -1,                                             // iFirst
-      -1,                                             // iLast
-      282,                                            // lineNo
-      49,                                             // colNo
-      "Wfm.stft.f",                                   // aName
-      "threshold/setthreshprops",                     // fName
-      "/home/dasl/repos/uavrt_detection/threshold.m", // pName
-      0                                               // checkKind
+      -1,                         // iFirst
+      -1,                         // iLast
+      282,                        // lineNo
+      49,                         // colNo
+      "Wfm.stft.f",               // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
   };
-  static rtDoubleCheckInfo q_emlrtDCI{
-      12,                                                         // lineNo
-      20,                                                         // colNo
-      "blanks",                                                   // fName
-      "/home/dasl/matlab/toolbox/eml/lib/matlab/strfun/blanks.m", // pName
-      4                                                           // checkKind
-  };
+  static rtDoubleCheckInfo
+      q_emlrtDCI{
+          12,       // lineNo
+          20,       // colNo
+          "blanks", // fName
+          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/strfun/"
+          "blanks.m", // pName
+          4           // checkKind
+      };
   static rtDoubleCheckInfo r_emlrtDCI{
-      148,                                            // lineNo
-      17,                                             // colNo
-      "threshold/makenewthreshold",                   // fName
-      "/home/dasl/repos/uavrt_detection/threshold.m", // pName
-      1                                               // checkKind
+      148,                          // lineNo
+      17,                           // colNo
+      "threshold/makenewthreshold", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      1                                              // checkKind
   };
   static rtEqualityCheckInfo g_emlrtECI{
-      -1,                                            // nDims
-      298,                                           // lineNo
-      13,                                            // colNo
-      "threshold/setthreshprops",                    // fName
-      "/home/dasl/repos/uavrt_detection/threshold.m" // pName
+      -1,                         // nDims
+      298,                        // lineNo
+      13,                         // colNo
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m" // pName
   };
   static rtEqualityCheckInfo h_emlrtECI{
-      -1,                                            // nDims
-      299,                                           // lineNo
-      13,                                            // colNo
-      "threshold/setthreshprops",                    // fName
-      "/home/dasl/repos/uavrt_detection/threshold.m" // pName
+      -1,                         // nDims
+      299,                        // lineNo
+      13,                         // colNo
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m" // pName
   };
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
-      48,                                                        // lineNo
-      5,                                                         // colNo
-      "fprintf",                                                 // fName
-      "/home/dasl/matlab/toolbox/eml/lib/matlab/iofun/fprintf.m" // pName
-  };
-  static rtRunTimeErrorInfo rc_emlrtRTEI{
-      125,                                                       // lineNo
-      17,                                                        // colNo
-      "cfprintf",                                                // fName
-      "/home/dasl/matlab/toolbox/eml/lib/matlab/iofun/fprintf.m" // pName
-  };
+  static rtRunTimeErrorInfo
+      qc_emlrtRTEI{
+          48,        // lineNo
+          5,         // colNo
+          "fprintf", // fName
+          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/"
+          "fprintf.m" // pName
+      };
+  static rtRunTimeErrorInfo
+      rc_emlrtRTEI{
+          125,        // lineNo
+          17,         // colNo
+          "cfprintf", // fName
+          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/"
+          "fprintf.m" // pName
+      };
   std::FILE *f;
   coder::b_anonymous_function theFunc;
   coder::sparse Wq;

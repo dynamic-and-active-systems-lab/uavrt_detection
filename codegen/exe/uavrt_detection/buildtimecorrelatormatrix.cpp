@@ -5,7 +5,7 @@
 // File: buildtimecorrelatormatrix.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 27-Jun-2023 14:21:03
+// C/C++ source code generated on  : 31-Jul-2023 09:40:06
 //
 
 // Include Files
@@ -79,8 +79,10 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       23,                              // colNo
       "pulse_position_value",          // aName
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      0 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      0         // checkKind
   };
   static rtBoundsCheckInfo bb_emlrtBCI{
       -1,                              // iFirst
@@ -89,8 +91,10 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       42,                              // colNo
       "PRI_mean_value",                // aName
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      0 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      0         // checkKind
   };
   static rtBoundsCheckInfo cb_emlrtBCI{
       -1,                              // iFirst
@@ -99,8 +103,10 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       69,                              // colNo
       "PRI_jitter_value",              // aName
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      0 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      0         // checkKind
   };
   static rtBoundsCheckInfo db_emlrtBCI{
       -1,                              // iFirst
@@ -109,8 +115,10 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       35,                              // colNo
       "pulse_position_value",          // aName
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      0 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      0         // checkKind
   };
   static rtBoundsCheckInfo eb_emlrtBCI{
       -1,                              // iFirst
@@ -119,8 +127,10 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       38,                              // colNo
       "pulse_position_value",          // aName
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      0 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      0         // checkKind
   };
   static rtBoundsCheckInfo fb_emlrtBCI{
       -1,                              // iFirst
@@ -129,8 +139,10 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       48,                              // colNo
       "pulse_position_value",          // aName
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      0 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      0         // checkKind
   };
   static rtBoundsCheckInfo gb_emlrtBCI{
       -1,                              // iFirst
@@ -139,48 +151,54 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       75,                              // colNo
       "pulse_position_value",          // aName
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      0 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      0         // checkKind
   };
   static rtBoundsCheckInfo hb_emlrtBCI{
-      -1,                                                       // iFirst
-      -1,                                                       // iLast
-      31,                                                       // lineNo
-      32,                                                       // colNo
-      "C",                                                      // aName
-      "cartesian_prod_func",                                    // fName
-      "/home/dasl/repos/uavrt_detection/cartesian_prod_func.m", // pName
-      0                                                         // checkKind
+      -1,                    // iFirst
+      -1,                    // iLast
+      31,                    // lineNo
+      32,                    // colNo
+      "C",                   // aName
+      "cartesian_prod_func", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/cartesian_prod_func.m", // pName
+      0                                                        // checkKind
   };
   static rtBoundsCheckInfo ib_emlrtBCI{
-      -1,                                                       // iFirst
-      -1,                                                       // iLast
-      31,                                                       // lineNo
-      9,                                                        // colNo
-      "A",                                                      // aName
-      "cartesian_prod_func",                                    // fName
-      "/home/dasl/repos/uavrt_detection/cartesian_prod_func.m", // pName
-      0                                                         // checkKind
+      -1,                    // iFirst
+      -1,                    // iLast
+      31,                    // lineNo
+      9,                     // colNo
+      "A",                   // aName
+      "cartesian_prod_func", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/cartesian_prod_func.m", // pName
+      0                                                        // checkKind
   };
   static rtBoundsCheckInfo jb_emlrtBCI{
-      -1,                                                       // iFirst
-      -1,                                                       // iLast
-      31,                                                       // lineNo
-      12,                                                       // colNo
-      "C",                                                      // aName
-      "cartesian_prod_func",                                    // fName
-      "/home/dasl/repos/uavrt_detection/cartesian_prod_func.m", // pName
-      0                                                         // checkKind
+      -1,                    // iFirst
+      -1,                    // iLast
+      31,                    // lineNo
+      12,                    // colNo
+      "C",                   // aName
+      "cartesian_prod_func", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/cartesian_prod_func.m", // pName
+      0                                                        // checkKind
   };
   static rtBoundsCheckInfo kb_emlrtBCI{
-      -1,                                                       // iFirst
-      -1,                                                       // iLast
-      31,                                                       // lineNo
-      17,                                                       // colNo
-      "C",                                                      // aName
-      "cartesian_prod_func",                                    // fName
-      "/home/dasl/repos/uavrt_detection/cartesian_prod_func.m", // pName
-      0                                                         // checkKind
+      -1,                    // iFirst
+      -1,                    // iLast
+      31,                    // lineNo
+      17,                    // colNo
+      "C",                   // aName
+      "cartesian_prod_func", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/cartesian_prod_func.m", // pName
+      0                                                        // checkKind
   };
   static rtBoundsCheckInfo lb_emlrtBCI{
       -1,                              // iFirst
@@ -189,8 +207,10 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       30,                              // colNo
       "pulse_position_matrix",         // aName
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      0 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      0         // checkKind
   };
   static rtBoundsCheckInfo mb_emlrtBCI{
       -1,                              // iFirst
@@ -199,8 +219,10 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       55,                              // colNo
       "pulse_position_matrix",         // aName
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      0 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      0         // checkKind
   };
   static rtBoundsCheckInfo y_emlrtBCI{
       -1,                              // iFirst
@@ -209,217 +231,271 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       27,                              // colNo
       "pulse_position_matrix",         // aName
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      0 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      0         // checkKind
   };
   static rtDoubleCheckInfo ab_emlrtDCI{
       31,                              // lineNo
       39,                              // colNo
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      1 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      1         // checkKind
   };
   static rtDoubleCheckInfo bb_emlrtDCI{
       35,                              // lineNo
       31,                              // colNo
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      1 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      1         // checkKind
   };
   static rtDoubleCheckInfo cb_emlrtDCI{
       35,                              // lineNo
       1,                               // colNo
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      1 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      1         // checkKind
   };
   static rtDoubleCheckInfo db_emlrtDCI{
       59,                              // lineNo
       32,                              // colNo
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      4 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      4         // checkKind
   };
   static rtDoubleCheckInfo eb_emlrtDCI{
       59,                              // lineNo
       32,                              // colNo
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      1 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      1         // checkKind
   };
   static rtDoubleCheckInfo fb_emlrtDCI{
       59,                              // lineNo
       55,                              // colNo
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      4 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      4         // checkKind
   };
   static rtDoubleCheckInfo gb_emlrtDCI{
-      5,                                               // lineNo
-      1,                                               // colNo
-      "assembleWq",                                    // fName
-      "/home/dasl/repos/uavrt_detection/assembleWq.m", // pName
-      1                                                // checkKind
+      5,            // lineNo
+      1,            // colNo
+      "assembleWq", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/assembleWq.m", // pName
+      1                                               // checkKind
   };
   static rtDoubleCheckInfo hb_emlrtDCI{
-      13,                                                       // lineNo
-      12,                                                       // colNo
-      "cartesian_prod_func",                                    // fName
-      "/home/dasl/repos/uavrt_detection/cartesian_prod_func.m", // pName
-      1                                                         // checkKind
+      13,                    // lineNo
+      12,                    // colNo
+      "cartesian_prod_func", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/cartesian_prod_func.m", // pName
+      1                                                        // checkKind
   };
   static rtDoubleCheckInfo ib_emlrtDCI{
       71,                              // lineNo
       5,                               // colNo
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      1 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      1         // checkKind
   };
   static rtDoubleCheckInfo jb_emlrtDCI{
-      31,                                                       // lineNo
-      12,                                                       // colNo
-      "cartesian_prod_func",                                    // fName
-      "/home/dasl/repos/uavrt_detection/cartesian_prod_func.m", // pName
-      1                                                         // checkKind
+      31,                    // lineNo
+      12,                    // colNo
+      "cartesian_prod_func", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/cartesian_prod_func.m", // pName
+      1                                                        // checkKind
   };
   static rtDoubleCheckInfo kb_emlrtDCI{
-      31,                                                       // lineNo
-      17,                                                       // colNo
-      "cartesian_prod_func",                                    // fName
-      "/home/dasl/repos/uavrt_detection/cartesian_prod_func.m", // pName
-      1                                                         // checkKind
+      31,                    // lineNo
+      17,                    // colNo
+      "cartesian_prod_func", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/cartesian_prod_func.m", // pName
+      1                                                        // checkKind
   };
   static rtDoubleCheckInfo lb_emlrtDCI{
       72,                              // lineNo
       30,                              // colNo
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      1 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      1         // checkKind
   };
   static rtDoubleCheckInfo mb_emlrtDCI{
       72,                              // lineNo
       55,                              // colNo
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      1 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      1         // checkKind
   };
   static rtDoubleCheckInfo nb_emlrtDCI{
       75,                              // lineNo
       20,                              // colNo
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      1 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      1         // checkKind
   };
-  static rtDoubleCheckInfo q_emlrtDCI{
-      31,                                                        // lineNo
-      14,                                                        // colNo
-      "repmat",                                                  // fName
-      "/home/dasl/matlab/toolbox/eml/lib/matlab/elmat/repmat.m", // pName
-      4                                                          // checkKind
-  };
+  static rtDoubleCheckInfo
+      q_emlrtDCI{
+          31,       // lineNo
+          14,       // colNo
+          "repmat", // fName
+          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/elmat/"
+          "repmat.m", // pName
+          4           // checkKind
+      };
   static rtDoubleCheckInfo r_emlrtDCI{
-      15,                                                             // lineNo
-      24,                                                             // colNo
-      "buildtimecorrelatormatrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/buildtimecorrelatormatrix.m", // pName
-      4 // checkKind
+      15,                          // lineNo
+      24,                          // colNo
+      "buildtimecorrelatormatrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/buildtimecorrelatormatrix"
+      ".m", // pName
+      4     // checkKind
   };
   static rtDoubleCheckInfo s_emlrtDCI{
-      15,                                                             // lineNo
-      24,                                                             // colNo
-      "buildtimecorrelatormatrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/buildtimecorrelatormatrix.m", // pName
-      1 // checkKind
+      15,                          // lineNo
+      24,                          // colNo
+      "buildtimecorrelatormatrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/buildtimecorrelatormatrix"
+      ".m", // pName
+      1     // checkKind
   };
   static rtDoubleCheckInfo t_emlrtDCI{
-      16,                                                             // lineNo
-      24,                                                             // colNo
-      "buildtimecorrelatormatrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/buildtimecorrelatormatrix.m", // pName
-      4 // checkKind
+      16,                          // lineNo
+      24,                          // colNo
+      "buildtimecorrelatormatrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/buildtimecorrelatormatrix"
+      ".m", // pName
+      4     // checkKind
   };
   static rtDoubleCheckInfo u_emlrtDCI{
-      16,                                                             // lineNo
-      24,                                                             // colNo
-      "buildtimecorrelatormatrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/buildtimecorrelatormatrix.m", // pName
-      1 // checkKind
+      16,                          // lineNo
+      24,                          // colNo
+      "buildtimecorrelatormatrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/buildtimecorrelatormatrix"
+      ".m", // pName
+      1     // checkKind
   };
   static rtDoubleCheckInfo v_emlrtDCI{
       29,                              // lineNo
       32,                              // colNo
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      4 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      4         // checkKind
   };
   static rtDoubleCheckInfo w_emlrtDCI{
       29,                              // lineNo
       32,                              // colNo
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      1 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      1         // checkKind
   };
   static rtDoubleCheckInfo x_emlrtDCI{
       29,                              // lineNo
       50,                              // colNo
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      4 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      4         // checkKind
   };
   static rtDoubleCheckInfo y_emlrtDCI{
       29,                              // lineNo
       50,                              // colNo
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m", // pName
-      1 // checkKind
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      1         // checkKind
   };
   static rtEqualityCheckInfo g_emlrtECI{
-      -1,                                                            // nDims
-      24,                                                            // lineNo
-      5,                                                             // colNo
-      "buildtimecorrelatormatrix",                                   // fName
-      "/home/dasl/repos/uavrt_detection/buildtimecorrelatormatrix.m" // pName
+      -1,                          // nDims
+      24,                          // lineNo
+      5,                           // colNo
+      "buildtimecorrelatormatrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/buildtimecorrelatormatrix"
+      ".m" // pName
   };
   static rtEqualityCheckInfo h_emlrtECI{
-      -1,                                                            // nDims
-      25,                                                            // lineNo
-      5,                                                             // colNo
-      "buildtimecorrelatormatrix",                                   // fName
-      "/home/dasl/repos/uavrt_detection/buildtimecorrelatormatrix.m" // pName
+      -1,                          // nDims
+      25,                          // lineNo
+      5,                           // colNo
+      "buildtimecorrelatormatrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/buildtimecorrelatormatrix"
+      ".m" // pName
   };
   static rtEqualityCheckInfo i_emlrtECI{
       -1,                              // nDims
       31,                              // lineNo
       1,                               // colNo
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m" // pName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m" // pName
   };
   static rtEqualityCheckInfo j_emlrtECI{
       -1,                              // nDims
       72,                              // lineNo
       5,                               // colNo
       "generate_pulse_positions_func", // fName
-      "/home/dasl/repos/uavrt_detection/generate_pulse_positions_func.m" // pName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m" // pName
   };
   static rtEqualityCheckInfo k_emlrtECI{
-      1,                                              // nDims
-      55,                                             // lineNo
-      15,                                             // colNo
-      "assembleWq",                                   // fName
-      "/home/dasl/repos/uavrt_detection/assembleWq.m" // pName
+      1,            // nDims
+      55,           // lineNo
+      15,           // colNo
+      "assembleWq", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/assembleWq.m" // pName
   };
   static rtEqualityCheckInfo l_emlrtECI{
-      2,                                              // nDims
-      55,                                             // lineNo
-      15,                                             // colNo
-      "assembleWq",                                   // fName
-      "/home/dasl/repos/uavrt_detection/assembleWq.m" // pName
+      2,            // nDims
+      55,           // lineNo
+      15,           // colNo
+      "assembleWq", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/assembleWq.m" // pName
   };
   static rtRunTimeErrorInfo qc_emlrtRTEI{
-      82,                                                    // lineNo
-      5,                                                     // colNo
-      "fltpower",                                            // fName
-      "/home/dasl/matlab/toolbox/eml/lib/matlab/ops/power.m" // pName
+      82,         // lineNo
+      5,          // colNo
+      "fltpower", // fName
+      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/ops/power.m" // pName
   };
   coder::array<double, 3U> pulse_position_value;
   coder::array<double, 2U> WqRowInds;
