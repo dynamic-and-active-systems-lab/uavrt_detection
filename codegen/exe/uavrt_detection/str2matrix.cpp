@@ -5,7 +5,7 @@
 // File: str2matrix.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 27-Jun-2023 14:21:03
+// C/C++ source code generated on  : 31-Jul-2023 09:40:06
 //
 
 // Include Files
@@ -90,289 +90,320 @@ void str2matrix(coder::array<char, 2U> &inputStr,
                 coder::array<creal_T, 2U> &outMat)
 {
   static rtBoundsCheckInfo ab_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      26,                                              // lineNo
-      49,                                              // colNo
-      "inputStr",                                      // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,           // iFirst
+      -1,           // iLast
+      26,           // lineNo
+      49,           // colNo
+      "inputStr",   // aName
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo bb_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      26,                                              // lineNo
-      25,                                              // colNo
-      "inputStr",                                      // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,           // iFirst
+      -1,           // iLast
+      26,           // lineNo
+      25,           // colNo
+      "inputStr",   // aName
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo cb_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      41,                                              // lineNo
-      17,                                              // colNo
-      "inputStr",                                      // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,           // iFirst
+      -1,           // iLast
+      41,           // lineNo
+      17,           // colNo
+      "inputStr",   // aName
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo db_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      41,                                              // lineNo
-      45,                                              // colNo
-      "inputStr",                                      // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,           // iFirst
+      -1,           // iLast
+      41,           // lineNo
+      45,           // colNo
+      "inputStr",   // aName
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo eb_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      46,                                              // lineNo
-      46,                                              // colNo
-      "inputStr",                                      // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,           // iFirst
+      -1,           // iLast
+      46,           // lineNo
+      46,           // colNo
+      "inputStr",   // aName
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo fb_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      51,                                              // lineNo
-      49,                                              // colNo
-      "inputStr",                                      // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,           // iFirst
+      -1,           // iLast
+      51,           // lineNo
+      49,           // colNo
+      "inputStr",   // aName
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo gb_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      68,                                              // lineNo
-      17,                                              // colNo
-      "inputStr",                                      // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,           // iFirst
+      -1,           // iLast
+      68,           // lineNo
+      17,           // colNo
+      "inputStr",   // aName
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo hb_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      68,                                              // lineNo
-      45,                                              // colNo
-      "inputStr",                                      // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,           // iFirst
+      -1,           // iLast
+      68,           // lineNo
+      45,           // colNo
+      "inputStr",   // aName
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo ib_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      73,                                              // lineNo
-      46,                                              // colNo
-      "inputStr",                                      // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,           // iFirst
+      -1,           // iLast
+      73,           // lineNo
+      46,           // colNo
+      "inputStr",   // aName
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo jb_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      78,                                              // lineNo
-      49,                                              // colNo
-      "inputStr",                                      // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,           // iFirst
+      -1,           // iLast
+      78,           // lineNo
+      49,           // colNo
+      "inputStr",   // aName
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo kb_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      88,                                              // lineNo
-      10,                                              // colNo
-      "inputStr",                                      // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,           // iFirst
+      -1,           // iLast
+      88,           // lineNo
+      10,           // colNo
+      "inputStr",   // aName
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo lb_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      104,                                             // lineNo
-      28,                                              // colNo
-      "rowDividerLocs",                                // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,               // iFirst
+      -1,               // iLast
+      104,              // lineNo
+      28,               // colNo
+      "rowDividerLocs", // aName
+      "str2matrix",     // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo mb_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      105,                                             // lineNo
-      28,                                              // colNo
-      "commaLocs",                                     // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,           // iFirst
+      -1,           // iLast
+      105,          // lineNo
+      28,           // colNo
+      "commaLocs",  // aName
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo nb_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      112,                                             // lineNo
-      32,                                              // colNo
-      "rowDividerLocs",                                // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,               // iFirst
+      -1,               // iLast
+      112,              // lineNo
+      32,               // colNo
+      "rowDividerLocs", // aName
+      "str2matrix",     // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo ob_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      113,                                             // lineNo
-      32,                                              // colNo
-      "rowDividerLocs",                                // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,               // iFirst
+      -1,               // iLast
+      113,              // lineNo
+      32,               // colNo
+      "rowDividerLocs", // aName
+      "str2matrix",     // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo pb_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      114,                                             // lineNo
-      32,                                              // colNo
-      "commaLocs",                                     // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,           // iFirst
+      -1,           // iLast
+      114,          // lineNo
+      32,           // colNo
+      "commaLocs",  // aName
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo qb_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      127,                                             // lineNo
-      54,                                              // colNo
-      "colDividerLocs",                                // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,               // iFirst
+      -1,               // iLast
+      127,              // lineNo
+      54,               // colNo
+      "colDividerLocs", // aName
+      "str2matrix",     // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo rb_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      127,                                             // lineNo
-      74,                                              // colNo
-      "colDividerLocs",                                // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,               // iFirst
+      -1,               // iLast
+      127,              // lineNo
+      74,               // colNo
+      "colDividerLocs", // aName
+      "str2matrix",     // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo sb_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      128,                                             // lineNo
-      17,                                              // colNo
-      "tempRow",                                       // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,           // iFirst
+      -1,           // iLast
+      128,          // lineNo
+      17,           // colNo
+      "tempRow",    // aName
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo tb_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      127,                                             // lineNo
-      39,                                              // colNo
-      "inputStr",                                      // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,           // iFirst
+      -1,           // iLast
+      127,          // lineNo
+      39,           // colNo
+      "inputStr",   // aName
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo ub_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      127,                                             // lineNo
-      59,                                              // colNo
-      "inputStr",                                      // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,           // iFirst
+      -1,           // iLast
+      127,          // lineNo
+      59,           // colNo
+      "inputStr",   // aName
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo vb_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      130,                                             // lineNo
-      12,                                              // colNo
-      "outMat",                                        // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,           // iFirst
+      -1,           // iLast
+      130,          // lineNo
+      12,           // colNo
+      "outMat",     // aName
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtBoundsCheckInfo y_emlrtBCI{
-      -1,                                              // iFirst
-      -1,                                              // iLast
-      103,                                             // lineNo
-      28,                                              // colNo
-      "rowDividerLocs",                                // aName
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      0                                                // checkKind
+      -1,               // iFirst
+      -1,               // iLast
+      103,              // lineNo
+      28,               // colNo
+      "rowDividerLocs", // aName
+      "str2matrix",     // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      0                                               // checkKind
   };
   static rtDoubleCheckInfo q_emlrtDCI{
-      108,                                             // lineNo
-      24,                                              // colNo
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      4                                                // checkKind
+      108,          // lineNo
+      24,           // colNo
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      4                                               // checkKind
   };
   static rtDoubleCheckInfo r_emlrtDCI{
-      108,                                             // lineNo
-      34,                                              // colNo
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      1                                                // checkKind
+      108,          // lineNo
+      34,           // colNo
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      1                                               // checkKind
   };
   static rtDoubleCheckInfo s_emlrtDCI{
-      108,                                             // lineNo
-      1,                                               // colNo
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      1                                                // checkKind
+      108,          // lineNo
+      1,            // colNo
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      1                                               // checkKind
   };
   static rtDoubleCheckInfo t_emlrtDCI{
-      124,                                             // lineNo
-      31,                                              // colNo
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      1                                                // checkKind
+      124,          // lineNo
+      31,           // colNo
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      1                                               // checkKind
   };
   static rtDoubleCheckInfo u_emlrtDCI{
-      124,                                             // lineNo
-      5,                                               // colNo
-      "str2matrix",                                    // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m", // pName
-      1                                                // checkKind
+      124,          // lineNo
+      5,            // colNo
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
+      1                                               // checkKind
   };
   static rtEqualityCheckInfo g_emlrtECI{
-      2,                                              // nDims
-      114,                                            // lineNo
-      32,                                             // colNo
-      "str2matrix",                                   // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m" // pName
+      2,            // nDims
+      114,          // lineNo
+      32,           // colNo
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m" // pName
   };
   static rtEqualityCheckInfo h_emlrtECI{
-      -1,                                             // nDims
-      130,                                            // lineNo
-      5,                                              // colNo
-      "str2matrix",                                   // fName
-      "/home/dasl/repos/uavrt_detection/str2matrix.m" // pName
+      -1,           // nDims
+      130,          // lineNo
+      5,            // colNo
+      "str2matrix", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m" // pName
   };
   static rtRunTimeErrorInfo qc_emlrtRTEI{
       85,                // lineNo
       27,                // colNo
       "validate_inputs", // fName
-      "/home/dasl/matlab/toolbox/eml/eml/+coder/+internal/nullAssignment.m" // pName
+      "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+      "nullAssignment.m" // pName
   };
   coder::array<creal_T, 2U> tempRow;
   coder::array<double, 2U> rightBracketLoc;
@@ -395,8 +426,8 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   char xtmp;
   boolean_T b;
   boolean_T done;
-  boolean_T guard1;
-  boolean_T guard2;
+  boolean_T guard1{false};
+  boolean_T guard2{false};
   // Strip redundant white space
   done = false;
   i = 1U;

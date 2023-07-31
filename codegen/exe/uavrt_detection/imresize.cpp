@@ -5,7 +5,7 @@
 // File: imresize.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 27-Jun-2023 14:21:03
+// C/C++ source code generated on  : 31-Jul-2023 09:40:06
 //
 
 // Include Files
@@ -487,12 +487,14 @@ namespace coder {
 void imresize(const ::coder::array<double, 2U> &Ain, const double varargin_1[2],
               ::coder::array<double, 2U> &Bout)
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
-      319,                                                         // lineNo
-      5,                                                           // colNo
-      "imresize",                                                  // fName
-      "/home/dasl/matlab/toolbox/eml/lib/matlab/images/imresize.m" // pName
-  };
+  static rtRunTimeErrorInfo
+      qc_emlrtRTEI{
+          319,        // lineNo
+          5,          // colNo
+          "imresize", // fName
+          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/images/"
+          "imresize.m" // pName
+      };
   array<double, 2U> out;
   array<double, 2U> weights;
   array<int, 2U> indices;

@@ -5,7 +5,7 @@
 // File: colon.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 27-Jun-2023 14:21:03
+// C/C++ source code generated on  : 31-Jul-2023 09:40:06
 //
 
 // Include Files
@@ -28,10 +28,10 @@ namespace coder {
 void eml_float_colon(double a, double b, ::coder::array<double, 2U> &y)
 {
   static rtRunTimeErrorInfo qc_emlrtRTEI{
-      419,                                                   // lineNo
-      15,                                                    // colNo
-      "assert_pmaxsize",                                     // fName
-      "/home/dasl/matlab/toolbox/eml/lib/matlab/ops/colon.m" // pName
+      419,               // lineNo
+      15,                // colNo
+      "assert_pmaxsize", // fName
+      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/ops/colon.m" // pName
   };
   double apnd;
   double cdiff;
@@ -121,10 +121,10 @@ void eml_integer_colon_dispatcher(int a, ::coder::array<int, 2U> &y)
 void eml_integer_colon_dispatcher(int a, int b, ::coder::array<int, 2U> &y)
 {
   static rtRunTimeErrorInfo qc_emlrtRTEI{
-      291,                                                   // lineNo
-      9,                                                     // colNo
-      "integer_colon_length_nonnegd",                        // fName
-      "/home/dasl/matlab/toolbox/eml/lib/matlab/ops/colon.m" // pName
+      291,                            // lineNo
+      9,                              // colNo
+      "integer_colon_length_nonnegd", // fName
+      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/ops/colon.m" // pName
   };
   int bma;
   if (b < a) {

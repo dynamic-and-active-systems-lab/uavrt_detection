@@ -606,38 +606,6 @@ previousToc = toc;
                             fprintf("Transmitting pulse messages");
                             for j = 1:nPulseList
                                 
-                                % %% Build out pulseOut structure parameters for sending
-                                % pulseOut.tag_id                     = uint32(Config.ID);
-                                % pulseOut.detector_dir               = currDir;%ID is a string
-                                % pulseOut.frequency                  = Config.channelCenterFreqMHz + (X.ps_pos.pl(j).fp)*1e-6;
-                                %     t_0     = X.ps_pos.pl(j).t_0;
-                                %     t_f     = X.ps_pos.pl(j).t_f;
-                                %     t_nxt_0 = X.ps_pos.pl(j).t_next(1);
-                                %     t_nxt_f = X.ps_pos.pl(j).t_next(2);
-                                % pulseOut.start_time.sec             = int32(floor(t_0));
-                                % pulseOut.start_time.nanosec         = uint32(mod(t_0,floor(t_0))*1e9);
-                                % pulseOut.end_time.sec               = int32(floor(t_f));
-                                % pulseOut.end_time.nanosec           = uint32(mod(t_f,floor(t_f))*1e9);
-                                % pulseOut.predict_next_start.sec     = int32(floor(t_nxt_0));
-                                % pulseOut.predict_next_start.nanosec = uint32(mod(t_nxt_0,floor(t_nxt_0))*1e9);
-                                % pulseOut.predict_next_end.sec       = int32(floor(t_nxt_f));
-                                % pulseOut.predict_next_end.nanosec   = uint32(mod(t_nxt_f,round(t_nxt_f))*1e9);
-                                % pulseOut.snr                        = X.ps_pos.pl(j).SNR;
-                                % pulseOut.stft_score                 = real(X.ps_pos.pl(j).yw);
-                                % pulseOut.group_ind                  = uint16(j);
-                                % groupSNRList                        = 10.^([X.ps_pos.pl(:).SNR]/10);%Average SNR in dB
-                                % groupSNRMeanLinear                  = mean(groupSNRList,'all');
-                                % if groupSNRMeanLinear<0
-                                %     groupSNRMeanDB                  = -Inf;
-                                % else
-                                %     groupSNRMeanDB                  = 10*log10(groupSNRMeanLinear);
-                                % end
-                                % %10log10 can produce complex results and group_snr required a real value. Otherwise coder will
-                                % %generate type errors
-                                % pulseOut.group_snr          = double(groupSNRMeanDB);%10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average SNR in dB
-                                % pulseOut.detection_status   = X.ps_pos.pl(j).det_dec;
-                                % pulseOut.confirmed_status   = X.ps_pos.pl(j).con_dec;
-
                                 groupSNRList                        = 10.^([X.ps_pos.pl(:).SNR]/10);%Average SNR in dB
                                 groupSNRMeanLinear                  = mean(groupSNRList,'all');
                                 if groupSNRMeanLinear<0
@@ -662,6 +630,9 @@ previousToc = toc;
                                 pulseInfoStruct.group_snr                   = groupSNR;
                                 pulseInfoStruct.detection_status            = uint8(detectorPulse.det_dec);
                                 pulseInfoStruct.confirmed_status            = uint8(detectorPulse.con_dec);
+                                dt                                          = X.stft.dt;
+                                T                                           = X.stft.T;
+                                pulseInfoStruct.noise_psd                   = real(detectorPulse.yw )* dt^2 / T * (1 + 10^(detectorPulse.SNR/10))^(-1); %See Notebook Entry 2023-07-07 for derivation
 
                                 if ~pulsesToSkip(j)
                                     % UDP Send
@@ -673,47 +644,7 @@ previousToc = toc;
                                     pulseCount = pulseCount+1;
                                 end
 
-                                % %s pulseMsg.detector_dir
-                                % %s pulseMsg.tag_id
-                                % %.6f pulseMsg.frequency
-                                % %d pulseMsg.start_time.sec
-                                % %u pulseMsg.start_time.nanosec
-                                % %d pulseMsg.end_time.sec
-                                % %u pulseMsg.end_time.nanosec
-                                % %d pulseMsg.predict_next_start.sec
-                                % %u pulseMsg.predict_next_start.nanosec
-                                % %d pulseMsg.predict_next_end.sec
-                                % %u pulseMsg.predict_next_end.nanosec
-                                % %.2f pulseMsg.snr
-                                % %.3e pulseMsg.dft_real
-                                % %.3e pulseMsg.dft_imag
-                                % %u pulseMsg.group_ind
-                                % %.2e pulseMsg.group_snr
-                                % logicalStr = {'0','1'}
-                                % %u logicalStr{int8(pulseMsg.detection_status)+1}
-                                % %u logicalStr{int8(pulseMsg.confirmed_status)+1}
-                                %
-                                %                                         logicalStr = {'0','1'};
-                                %                                         formatSpecPulseMsg = ['%.6f',',','%d',',','%u','%d',',','%u',',','%d',',','%u',',','%d',',','%u',',',...
-                                %                                                               '%.2f',',','%.3e',',','%.3e',',','%u',',','%.2e',',','%c',',','%c','\n'];
-                                %
-                                %                                         fprintf(pulseWriterFileID,formatSpecPulseMsg,...
-                                %                                             pulseMsg.frequency,...
-                                %                                             pulseMsg.start_time.sec,...
-                                %                                             pulseMsg.start_time.nanosec,...
-                                %                                             pulseMsg.end_time.sec,...
-                                %                                             pulseMsg.end_time.nanosec,...
-                                %                                             pulseMsg.predict_next_start.sec,...
-                                %                                             pulseMsg.predict_next_start.nanosec,...
-                                %                                             pulseMsg.predict_next_end.sec,...
-                                %                                             pulseMsg.predict_next_end.nanosec,...
-                                %                                             pulseMsg.snr,...
-                                %                                             pulseMsg.dft_real,...
-                                %                                             pulseMsg.dft_imag,...
-                                %                                             pulseMsg.group_ind,...
-                                %                                             pulseMsg.group_snr,...
-                                %                                             logicalStr{int8(pulseMsg.detection_status)+1},...
-                                %                                             logicalStr{int8(pulseMsg.confirmed_status)+1});
+
 
                                 fprintf(".");
                                 %                                    end
@@ -748,36 +679,37 @@ previousToc = toc;
     end
 end
 
-    function [mavlinkTunnelMsgUint8] = formatPulseForTunnel(target_system_in, target_component_in, payload_type_in, pulseStructIn)
-         %% Build PulsePose Mavlink Tunnel Message Payload
-         %Typecast maintains little-endian, in line
-         %with the mavlink serialization standard: https://mavlink.io/en/guide/serialization.html
-         target_system        = dec2hex(typecast(uint8(target_system_in),'uint8'), 2);                %uint8
-         target_component     = dec2hex(typecast(uint8(target_component_in),'uint8'), 2);                  %uint8
-         payload_type         = dec2hex(typecast(uint16(payload_type_in),'uint8'), 2);                 %uint16
-         %payload_length      = dec2hex(typecast(uint8(0),'uint8'), 2);                  %uint8
-         id                   = dec2hex(typecast(uint32(pulseStructIn.tag_id),'uint8'), 2);   %uint32
-         freq                 = dec2hex(typecast(double(pulseStructIn.frequency),'uint8'), 2);                    %uint32
-         start_time_sec       = dec2hex(typecast(int32(pulseStructIn.start_time.sec),'uint8'), 2);                %int32
-         start_time_nanosec   = dec2hex(typecast(uint32(pulseStructIn.start_time.nanosec),'uint8'), 2);           %uint32
-         predict_next_sec     = dec2hex(typecast(int32(pulseStructIn.predict_next_start.sec),'uint8'), 2);        %int32
-         predict_next_nanosec = dec2hex(typecast(uint32(pulseStructIn.predict_next_start.nanosec),'uint8'), 2);   %uint32
-         snr                  = dec2hex(typecast(double(pulseStructIn.snr),'uint8'), 2);          %double
-         stft_score           = dec2hex(typecast(double(pulseStructIn.stft_score),'uint8'), 2);   %double
-         group_ind            = dec2hex(typecast(uint16(pulseStructIn.group_ind),'uint8'), 2);    %uint16
-         detection_status     = dec2hex(typecast(uint8(pulseStructIn.detection_status),'uint8'), 2);    %uint8
-         confirmed_status     = dec2hex(typecast(uint8(pulseStructIn.confirmed_status),'uint8'), 2);    %uint8
-
-         payload_hex = [id; freq; start_time_sec; start_time_nanosec; ...
-                    predict_next_sec; predict_next_nanosec; snr; ...
-                    stft_score; group_ind; detection_status; ...
-                    confirmed_status];
-         payload_length = dec2hex(typecast(uint8(size(payload_hex,1)),'uint8'),2);
-         mavlinkTunnelMsgHex = [target_system; target_component; ...
-                                payload_type; payload_length;...
-                                payload_hex];
-         mavlinkTunnelMsgUint8 = uint8( hex2dec( mavlinkTunnelMsgHex ) );
-    end
+    % function [mavlinkTunnelMsgUint8] = formatPulseForTunnel(target_system_in, target_component_in, payload_type_in, pulseStructIn)
+    %      %% Build PulsePose Mavlink Tunnel Message Payload
+    %      %Typecast maintains little-endian, in line
+    %      %with the mavlink serialization standard: https://mavlink.io/en/guide/serialization.html
+    %      target_system        = dec2hex(typecast(uint8(target_system_in),'uint8'), 2);                %uint8
+    %      target_component     = dec2hex(typecast(uint8(target_component_in),'uint8'), 2);                  %uint8
+    %      payload_type         = dec2hex(typecast(uint16(payload_type_in),'uint8'), 2);                 %uint16
+    %      %payload_length      = dec2hex(typecast(uint8(0),'uint8'), 2);                  %uint8
+    %      id                   = dec2hex(typecast(uint32(pulseStructIn.tag_id),'uint8'), 2);   %uint32
+    %      freq                 = dec2hex(typecast(double(pulseStructIn.frequency),'uint8'), 2);                    %uint32
+    %      start_time_sec       = dec2hex(typecast(int32(pulseStructIn.start_time.sec),'uint8'), 2);                %int32
+    %      start_time_nanosec   = dec2hex(typecast(uint32(pulseStructIn.start_time.nanosec),'uint8'), 2);           %uint32
+    %      predict_next_sec     = dec2hex(typecast(int32(pulseStructIn.predict_next_start.sec),'uint8'), 2);        %int32
+    %      predict_next_nanosec = dec2hex(typecast(uint32(pulseStructIn.predict_next_start.nanosec),'uint8'), 2);   %uint32
+    %      snr                  = dec2hex(typecast(double(pulseStructIn.snr),'uint8'), 2);          %double
+    %      stft_score           = dec2hex(typecast(double(pulseStructIn.stft_score),'uint8'), 2);   %double
+    %      group_ind            = dec2hex(typecast(uint16(pulseStructIn.group_ind),'uint8'), 2);    %uint16
+    %      detection_status     = dec2hex(typecast(uint8(pulseStructIn.detection_status),'uint8'), 2);    %uint8
+    %      confirmed_status     = dec2hex(typecast(uint8(pulseStructIn.confirmed_status),'uint8'), 2);    %uint8
+    %      noise_psd            = dec2hex(typecast(double(pulseStructIn.noise_psd),'uint8'), 2);          %double
+    % 
+    %      payload_hex = [id; freq; start_time_sec; start_time_nanosec; ...
+    %                 predict_next_sec; predict_next_nanosec; snr; ...
+    %                 stft_score; group_ind; detection_status; ...
+    %                 confirmed_status; noise_psd];
+    %      payload_length = dec2hex(typecast(uint8(size(payload_hex,1)),'uint8'),2);
+    %      mavlinkTunnelMsgHex = [target_system; target_component; ...
+    %                             payload_type; payload_length;...
+    %                             payload_hex];
+    %      mavlinkTunnelMsgUint8 = uint8( hex2dec( mavlinkTunnelMsgHex ) );
+    % end
 
 
     function [interleaveDataOut] = interleaveComplexVector(complexDataIn)

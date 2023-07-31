@@ -5,7 +5,7 @@
 // File: wgn.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 27-Jun-2023 14:21:03
+// C/C++ source code generated on  : 31-Jul-2023 09:40:06
 //
 
 // Include Files
@@ -143,10 +143,10 @@ void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
          ::coder::array<creal_T, 2U> &y)
 {
   static rtRunTimeErrorInfo qc_emlrtRTEI{
-      180,                                        // lineNo
-      1,                                          // colNo
-      "wgn",                                      // fName
-      "/home/dasl/matlab/toolbox/comm/comm/wgn.m" // pName
+      180,                                                      // lineNo
+      1,                                                        // colNo
+      "wgn",                                                    // fName
+      "/Applications/MATLAB_R2023a.app/toolbox/comm/comm/wgn.m" // pName
   };
   static const char b_cv1[7]{'c', 'o', 'm', 'p', 'l', 'e', 'x'};
   static const char b[6]{'l', 'i', 'n', 'e', 'a', 'r'};

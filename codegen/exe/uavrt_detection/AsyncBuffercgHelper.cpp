@@ -5,7 +5,7 @@
 // File: AsyncBuffercgHelper.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 27-Jun-2023 14:21:03
+// C/C++ source code generated on  : 31-Jul-2023 09:40:06
 //
 
 // Include Files
@@ -23,7 +23,8 @@ static rtRunTimeErrorInfo s_emlrtRTEI{
     473,                                         // lineNo
     13,                                          // colNo
     "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-    "/home/dasl/matlab/toolbox/dsp/dsp/+dsp/+internal/AsyncBuffercgHelper.m" // pName
+    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "AsyncBuffercgHelper.m" // pName
 };
 
 static rtEqualityCheckInfo b_emlrtECI{
@@ -31,111 +32,105 @@ static rtEqualityCheckInfo b_emlrtECI{
     462,                                         // lineNo
     17,                                          // colNo
     "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-    "/home/dasl/matlab/toolbox/dsp/dsp/+dsp/+internal/AsyncBuffercgHelper.m" // pName
+    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "AsyncBuffercgHelper.m" // pName
 };
 
-static rtBoundsCheckInfo
-    b_emlrtBCI{
-        -1,                                          // iFirst
-        -1,                                          // iLast
-        462,                                         // lineNo
-        50,                                          // colNo
-        "",                                          // aName
-        "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-        "/home/dasl/matlab/toolbox/dsp/dsp/+dsp/+internal/"
-        "AsyncBuffercgHelper.m", // pName
-        0                        // checkKind
-    };
+static rtBoundsCheckInfo b_emlrtBCI{
+    -1,                                          // iFirst
+    -1,                                          // iLast
+    462,                                         // lineNo
+    50,                                          // colNo
+    "",                                          // aName
+    "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "AsyncBuffercgHelper.m", // pName
+    0                        // checkKind
+};
 
-static rtBoundsCheckInfo
-    c_emlrtBCI{
-        -1,                                          // iFirst
-        -1,                                          // iLast
-        462,                                         // lineNo
-        21,                                          // colNo
-        "",                                          // aName
-        "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-        "/home/dasl/matlab/toolbox/dsp/dsp/+dsp/+internal/"
-        "AsyncBuffercgHelper.m", // pName
-        0                        // checkKind
-    };
+static rtBoundsCheckInfo c_emlrtBCI{
+    -1,                                          // iFirst
+    -1,                                          // iLast
+    462,                                         // lineNo
+    21,                                          // colNo
+    "",                                          // aName
+    "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "AsyncBuffercgHelper.m", // pName
+    0                        // checkKind
+};
 
-static rtDoubleCheckInfo
-    emlrtDCI{
-        463,                                         // lineNo
-        27,                                          // colNo
-        "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-        "/home/dasl/matlab/toolbox/dsp/dsp/+dsp/+internal/"
-        "AsyncBuffercgHelper.m", // pName
-        4                        // checkKind
-    };
+static rtDoubleCheckInfo emlrtDCI{
+    463,                                         // lineNo
+    27,                                          // colNo
+    "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "AsyncBuffercgHelper.m", // pName
+    4                        // checkKind
+};
 
-static rtBoundsCheckInfo
-    s_emlrtBCI{
-        1,                                           // iFirst
-        5800321,                                     // iLast
-        457,                                         // lineNo
-        29,                                          // colNo
-        "",                                          // aName
-        "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-        "/home/dasl/matlab/toolbox/dsp/dsp/+dsp/+internal/"
-        "AsyncBuffercgHelper.m", // pName
-        0                        // checkKind
-    };
+static rtBoundsCheckInfo s_emlrtBCI{
+    1,                                           // iFirst
+    5800321,                                     // iLast
+    457,                                         // lineNo
+    29,                                          // colNo
+    "",                                          // aName
+    "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "AsyncBuffercgHelper.m", // pName
+    0                        // checkKind
+};
 
 static rtEqualityCheckInfo f_emlrtECI{
     -1,                                          // nDims
     469,                                         // lineNo
     21,                                          // colNo
     "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-    "/home/dasl/matlab/toolbox/dsp/dsp/+dsp/+internal/AsyncBuffercgHelper.m" // pName
+    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "AsyncBuffercgHelper.m" // pName
 };
 
-static rtBoundsCheckInfo
-    t_emlrtBCI{
-        -1,                                          // iFirst
-        -1,                                          // iLast
-        469,                                         // lineNo
-        33,                                          // colNo
-        "",                                          // aName
-        "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-        "/home/dasl/matlab/toolbox/dsp/dsp/+dsp/+internal/"
-        "AsyncBuffercgHelper.m", // pName
-        0                        // checkKind
-    };
+static rtBoundsCheckInfo t_emlrtBCI{
+    -1,                                          // iFirst
+    -1,                                          // iLast
+    469,                                         // lineNo
+    33,                                          // colNo
+    "",                                          // aName
+    "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "AsyncBuffercgHelper.m", // pName
+    0                        // checkKind
+};
 
-static rtBoundsCheckInfo
-    u_emlrtBCI{
-        -1,                                          // iFirst
-        -1,                                          // iLast
-        469,                                         // lineNo
-        25,                                          // colNo
-        "",                                          // aName
-        "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-        "/home/dasl/matlab/toolbox/dsp/dsp/+dsp/+internal/"
-        "AsyncBuffercgHelper.m", // pName
-        0                        // checkKind
-    };
+static rtBoundsCheckInfo u_emlrtBCI{
+    -1,                                          // iFirst
+    -1,                                          // iLast
+    469,                                         // lineNo
+    25,                                          // colNo
+    "",                                          // aName
+    "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "AsyncBuffercgHelper.m", // pName
+    0                        // checkKind
+};
 
-static rtDoubleCheckInfo
-    k_emlrtDCI{
-        470,                                         // lineNo
-        31,                                          // colNo
-        "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-        "/home/dasl/matlab/toolbox/dsp/dsp/+dsp/+internal/"
-        "AsyncBuffercgHelper.m", // pName
-        4                        // checkKind
-    };
+static rtDoubleCheckInfo k_emlrtDCI{
+    470,                                         // lineNo
+    31,                                          // colNo
+    "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "AsyncBuffercgHelper.m", // pName
+    4                        // checkKind
+};
 
-static rtDoubleCheckInfo
-    l_emlrtDCI{
-        467,                                         // lineNo
-        21,                                          // colNo
-        "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-        "/home/dasl/matlab/toolbox/dsp/dsp/+dsp/+internal/"
-        "AsyncBuffercgHelper.m", // pName
-        4                        // checkKind
-    };
+static rtDoubleCheckInfo l_emlrtDCI{
+    467,                                         // lineNo
+    21,                                          // colNo
+    "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "AsyncBuffercgHelper.m", // pName
+    4                        // checkKind
+};
 
 // Function Definitions
 //
@@ -152,18 +147,17 @@ int c_AsyncBuffercgHelper::ReadSamplesFromBuffer(
     const c_AsyncBuffercgHelper *obj, int numRowsCast,
     ::coder::array<creal32_T, 1U> &out, int &c)
 {
-  static rtBoundsCheckInfo
-      y_emlrtBCI{
-          1,                                           // iFirst
-          600651,                                      // iLast
-          457,                                         // lineNo
-          29,                                          // colNo
-          "",                                          // aName
-          "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-          "/home/dasl/matlab/toolbox/dsp/dsp/+dsp/+internal/"
-          "AsyncBuffercgHelper.m", // pName
-          0                        // checkKind
-      };
+  static rtBoundsCheckInfo y_emlrtBCI{
+      1,                                           // iFirst
+      600651,                                      // iLast
+      457,                                         // lineNo
+      29,                                          // colNo
+      "",                                          // aName
+      "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
+      "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+      "AsyncBuffercgHelper.m", // pName
+      0                        // checkKind
+  };
   array<int, 2U> b_y;
   array<int, 2U> c_y;
   array<int, 2U> y;
@@ -523,7 +517,7 @@ int b_AsyncBuffercgHelper::ReadSamplesFromBuffer(
 // Arguments    : void
 // Return Type  : void
 //
-void AsyncBuffercgHelper::SystemCore_delete()
+void c_AsyncBuffercgHelper::SystemCore_delete()
 {
   release();
 }
@@ -541,7 +535,7 @@ void b_AsyncBuffercgHelper::SystemCore_delete()
 // Arguments    : void
 // Return Type  : void
 //
-void c_AsyncBuffercgHelper::SystemCore_delete()
+void AsyncBuffercgHelper::SystemCore_delete()
 {
   release();
 }
@@ -550,7 +544,7 @@ void c_AsyncBuffercgHelper::SystemCore_delete()
 // Arguments    : void
 // Return Type  : void
 //
-void AsyncBuffercgHelper::matlabCodegenDestructor()
+void c_AsyncBuffercgHelper::matlabCodegenDestructor()
 {
   if (!matlabCodegenIsDeleted) {
     matlabCodegenIsDeleted = true;
@@ -574,7 +568,7 @@ void b_AsyncBuffercgHelper::matlabCodegenDestructor()
 // Arguments    : void
 // Return Type  : void
 //
-void c_AsyncBuffercgHelper::matlabCodegenDestructor()
+void AsyncBuffercgHelper::matlabCodegenDestructor()
 {
   if (!matlabCodegenIsDeleted) {
     matlabCodegenIsDeleted = true;
@@ -598,18 +592,6 @@ void c_AsyncBuffercgHelper::release()
 // Arguments    : void
 // Return Type  : void
 //
-void AsyncBuffercgHelper::release()
-{
-  if (isInitialized == 1) {
-    isInitialized = 2;
-    releaseWrapper();
-  }
-}
-
-//
-// Arguments    : void
-// Return Type  : void
-//
 void b_AsyncBuffercgHelper::release()
 {
   if (isInitialized == 1) {
@@ -622,21 +604,19 @@ void b_AsyncBuffercgHelper::release()
 // Arguments    : void
 // Return Type  : void
 //
-void c_AsyncBuffercgHelper::releaseImpl()
+void AsyncBuffercgHelper::release()
 {
-  ReadPointer = 1;
-  WritePointer = 2;
-  CumulativeOverrun = 0;
-  CumulativeUnderrun = 0;
-  AsyncBuffercgHelper_isInitialized = false;
-  NumChannels = -1;
+  if (isInitialized == 1) {
+    isInitialized = 2;
+    releaseWrapper();
+  }
 }
 
 //
 // Arguments    : void
 // Return Type  : void
 //
-void AsyncBuffercgHelper::releaseImpl()
+void c_AsyncBuffercgHelper::releaseImpl()
 {
   ReadPointer = 1;
   WritePointer = 2;
@@ -664,7 +644,32 @@ void b_AsyncBuffercgHelper::releaseImpl()
 // Arguments    : void
 // Return Type  : void
 //
+void AsyncBuffercgHelper::releaseImpl()
+{
+  ReadPointer = 1;
+  WritePointer = 2;
+  CumulativeOverrun = 0;
+  CumulativeUnderrun = 0;
+  AsyncBuffercgHelper_isInitialized = false;
+  NumChannels = -1;
+}
+
+//
+// Arguments    : void
+// Return Type  : void
+//
 void c_AsyncBuffercgHelper::releaseWrapper()
+{
+  if (isSetupComplete) {
+    releaseImpl();
+  }
+}
+
+//
+// Arguments    : void
+// Return Type  : void
+//
+void b_AsyncBuffercgHelper::releaseWrapper()
 {
   if (isSetupComplete) {
     releaseImpl();
@@ -683,14 +688,247 @@ void AsyncBuffercgHelper::releaseWrapper()
 }
 
 //
-// Arguments    : void
-// Return Type  : void
+// Arguments    : const AsyncBuffercgHelper &obj
+//                int numRowsCast
+//                int overlapCast
+//                ::coder::array<creal32_T, 1U> &out
+//                int &overlapUnderrun
+//                int &c
+// Return Type  : int
 //
-void b_AsyncBuffercgHelper::releaseWrapper()
+int AsyncBuffercgHelper::ReadSamplesFromBuffer(
+    const AsyncBuffercgHelper &obj, int numRowsCast, int overlapCast,
+    ::coder::array<creal32_T, 1U> &out, int &overlapUnderrun, int &c)
 {
-  if (isSetupComplete) {
-    releaseImpl();
+  array<int, 2U> b_y;
+  array<int, 2U> readIdx;
+  array<int, 2U> y;
+  int n;
+  int qY;
+  int rPtr;
+  int underrun;
+  int wPtr;
+  int yk;
+  wPtr = obj.WritePointer;
+  underrun = 0;
+  overlapUnderrun = 0;
+  n = obj.ReadPointer;
+  if (n > 2147483646) {
+    rPtr = MAX_int32_T;
+  } else {
+    rPtr = n + 1;
   }
+  if (rPtr > 5800321) {
+    rPtr = 1;
+  }
+  if ((wPtr < 1) || (wPtr > 5800321) || (rPtr < 1) || (numRowsCast > 5800321)) {
+    rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
+  }
+  if (overlapCast == 0) {
+    c = (rPtr + numRowsCast) - 1;
+    if (c > 5800321) {
+      c -= 5800321;
+      eml_integer_colon_dispatcher(rPtr, y);
+      b_y.set_size(1, c);
+      b_y[0] = 1;
+      yk = 1;
+      for (int k{2}; k <= c; k++) {
+        yk++;
+        b_y[k - 1] = yk;
+      }
+      readIdx.set_size(1, y.size(1) + b_y.size(1));
+      n = y.size(1);
+      for (yk = 0; yk < n; yk++) {
+        readIdx[yk] = y[yk];
+      }
+      n = b_y.size(1);
+      for (yk = 0; yk < n; yk++) {
+        readIdx[yk + y.size(1)] = b_y[yk];
+      }
+      if (rPtr <= wPtr) {
+        underrun = (c - wPtr) + 5800322;
+      } else if (wPtr <= c) {
+        underrun = (c - wPtr) + 1;
+      }
+    } else {
+      eml_integer_colon_dispatcher(rPtr, c, readIdx);
+      if ((rPtr <= wPtr) && (wPtr <= c)) {
+        underrun = (c - wPtr) + 1;
+      }
+    }
+  } else {
+    int b_qY;
+    if (overlapCast < rPtr - MAX_int32_T) {
+      qY = MAX_int32_T;
+      b_qY = MAX_int32_T;
+    } else {
+      qY = rPtr - overlapCast;
+      b_qY = rPtr - overlapCast;
+    }
+    if ((b_qY < 0) && (numRowsCast < MIN_int32_T - b_qY)) {
+      b_qY = MIN_int32_T;
+    } else if ((b_qY > 0) && (numRowsCast > MAX_int32_T - b_qY)) {
+      b_qY = MAX_int32_T;
+    } else {
+      b_qY += numRowsCast;
+    }
+    if (b_qY < -2147483647) {
+      b_qY = MIN_int32_T;
+    } else {
+      b_qY--;
+    }
+    c = b_qY;
+    if (qY < 1) {
+      eml_integer_colon_dispatcher(qY + 5800321, y);
+      if (b_qY < 1) {
+        n = 0;
+      } else {
+        n = b_qY;
+      }
+      b_y.set_size(1, n);
+      if (n > 0) {
+        b_y[0] = 1;
+        yk = 1;
+        for (int k{2}; k <= n; k++) {
+          yk++;
+          b_y[k - 1] = yk;
+        }
+      }
+      readIdx.set_size(1, y.size(1) + b_y.size(1));
+      n = y.size(1);
+      for (yk = 0; yk < n; yk++) {
+        readIdx[yk] = y[yk];
+      }
+      n = b_y.size(1);
+      for (yk = 0; yk < n; yk++) {
+        readIdx[yk + y.size(1)] = b_y[yk];
+      }
+      if ((rPtr <= wPtr) && (wPtr <= b_qY)) {
+        underrun = (b_qY - wPtr) + 1;
+      } else if (wPtr < rPtr) {
+        if ((1 - qY < 0) && (wPtr < qY + MAX_int32_T)) {
+          overlapUnderrun = MIN_int32_T;
+        } else if ((1 - qY > 0) && (wPtr > qY + 2147483646)) {
+          overlapUnderrun = MAX_int32_T;
+        } else {
+          overlapUnderrun = (wPtr - qY) + 1;
+        }
+      } else if (wPtr > qY + 5800321) {
+        overlapUnderrun = (wPtr - qY) - 5800320;
+      }
+    } else if (b_qY > 5800321) {
+      n = b_qY - 5800321;
+      c = b_qY - 5800321;
+      eml_integer_colon_dispatcher(qY, y);
+      b_y.set_size(1, n);
+      b_y[0] = 1;
+      yk = 1;
+      for (int k{2}; k <= n; k++) {
+        yk++;
+        b_y[k - 1] = yk;
+      }
+      readIdx.set_size(1, y.size(1) + b_y.size(1));
+      n = y.size(1);
+      for (yk = 0; yk < n; yk++) {
+        readIdx[yk] = y[yk];
+      }
+      n = b_y.size(1);
+      for (yk = 0; yk < n; yk++) {
+        readIdx[yk + y.size(1)] = b_y[yk];
+      }
+      if (rPtr <= wPtr) {
+        underrun = (b_qY - wPtr) + 1;
+      } else if (wPtr <= b_qY - 5800321) {
+        underrun = (b_qY - wPtr) - 5800320;
+      } else if ((qY < wPtr) && (wPtr < rPtr)) {
+        overlapUnderrun = (wPtr - qY) + 1;
+      }
+    } else {
+      eml_integer_colon_dispatcher(qY, b_qY, readIdx);
+      if ((rPtr <= wPtr) && (wPtr <= b_qY)) {
+        underrun = (b_qY - wPtr) + 1;
+      } else if ((qY <= wPtr) && (wPtr < rPtr)) {
+        overlapUnderrun = (wPtr - qY) + 1;
+      }
+    }
+  }
+  out.set_size(readIdx.size(1));
+  n = readIdx.size(1);
+  for (yk = 0; yk < n; yk++) {
+    boolean_T b;
+    b = ((readIdx[yk] < 1) || (readIdx[yk] > 5800321));
+    if (b) {
+      rtDynamicBoundsError(readIdx[yk], 1, 5800321, s_emlrtBCI);
+    }
+    out[yk].re = obj.Cache[readIdx[yk] - 1].re;
+    out[yk].im = obj.Cache[readIdx[yk] - 1].im;
+  }
+  if (underrun != 0) {
+    if ((numRowsCast >= 0) && (underrun < numRowsCast - MAX_int32_T)) {
+      qY = MAX_int32_T;
+    } else if ((numRowsCast < 0) && (underrun > numRowsCast - MIN_int32_T)) {
+      qY = MIN_int32_T;
+    } else {
+      qY = numRowsCast - underrun;
+    }
+    if (qY + 1 > numRowsCast) {
+      qY = 0;
+      yk = 0;
+    } else {
+      if ((qY + 1 < 1) || (qY + 1 > readIdx.size(1))) {
+        rtDynamicBoundsError(qY + 1, 1, readIdx.size(1), c_emlrtBCI);
+      }
+      if ((numRowsCast < 1) || (numRowsCast > readIdx.size(1))) {
+        rtDynamicBoundsError(numRowsCast, 1, readIdx.size(1), b_emlrtBCI);
+      }
+      yk = numRowsCast;
+    }
+    if (underrun < 0) {
+      rtNonNegativeError(static_cast<double>(underrun), emlrtDCI);
+    }
+    yk -= qY;
+    rtSubAssignSizeCheck(&yk, 1, &underrun, 1, b_emlrtECI);
+    for (yk = 0; yk < underrun; yk++) {
+      n = qY + yk;
+      out[n].re = 0.0F;
+      out[n].im = 0.0F;
+    }
+  } else if (overlapUnderrun != 0) {
+    if (overlapUnderrun == numRowsCast) {
+      if (overlapUnderrun < 0) {
+        rtNonNegativeError(static_cast<double>(overlapUnderrun), l_emlrtDCI);
+      }
+      out.set_size(overlapUnderrun);
+      for (yk = 0; yk < overlapUnderrun; yk++) {
+        out[yk].re = 0.0F;
+        out[yk].im = 0.0F;
+      }
+    } else {
+      if (overlapUnderrun < 1) {
+        yk = 0;
+      } else {
+        if (readIdx.size(1) < 1) {
+          rtDynamicBoundsError(1, 1, readIdx.size(1), u_emlrtBCI);
+        }
+        if (overlapUnderrun > readIdx.size(1)) {
+          rtDynamicBoundsError(overlapUnderrun, 1, readIdx.size(1), t_emlrtBCI);
+        }
+        yk = overlapUnderrun;
+      }
+      if (overlapUnderrun < 0) {
+        rtNonNegativeError(static_cast<double>(overlapUnderrun), k_emlrtDCI);
+      }
+      rtSubAssignSizeCheck(&yk, 1, &overlapUnderrun, 1, f_emlrtECI);
+      for (yk = 0; yk < overlapUnderrun; yk++) {
+        out[yk].re = 0.0F;
+        out[yk].im = 0.0F;
+      }
+    }
+  }
+  if (out.size(0) != numRowsCast) {
+    i_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
+  }
+  return underrun;
 }
 
 //
@@ -978,250 +1216,6 @@ int b_AsyncBuffercgHelper::ReadSamplesFromBuffer(
 }
 
 //
-// Arguments    : const AsyncBuffercgHelper &obj
-//                int numRowsCast
-//                int overlapCast
-//                ::coder::array<creal32_T, 1U> &out
-//                int &overlapUnderrun
-//                int &c
-// Return Type  : int
-//
-int AsyncBuffercgHelper::ReadSamplesFromBuffer(
-    const AsyncBuffercgHelper &obj, int numRowsCast, int overlapCast,
-    ::coder::array<creal32_T, 1U> &out, int &overlapUnderrun, int &c)
-{
-  array<int, 2U> b_y;
-  array<int, 2U> readIdx;
-  array<int, 2U> y;
-  int n;
-  int qY;
-  int rPtr;
-  int underrun;
-  int wPtr;
-  int yk;
-  wPtr = obj.WritePointer;
-  underrun = 0;
-  overlapUnderrun = 0;
-  n = obj.ReadPointer;
-  if (n > 2147483646) {
-    rPtr = MAX_int32_T;
-  } else {
-    rPtr = n + 1;
-  }
-  if (rPtr > 5800321) {
-    rPtr = 1;
-  }
-  if ((wPtr < 1) || (wPtr > 5800321) || (rPtr < 1) || (numRowsCast > 5800321)) {
-    rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
-  }
-  if (overlapCast == 0) {
-    c = (rPtr + numRowsCast) - 1;
-    if (c > 5800321) {
-      c -= 5800321;
-      eml_integer_colon_dispatcher(rPtr, y);
-      b_y.set_size(1, c);
-      b_y[0] = 1;
-      yk = 1;
-      for (int k{2}; k <= c; k++) {
-        yk++;
-        b_y[k - 1] = yk;
-      }
-      readIdx.set_size(1, y.size(1) + b_y.size(1));
-      n = y.size(1);
-      for (yk = 0; yk < n; yk++) {
-        readIdx[yk] = y[yk];
-      }
-      n = b_y.size(1);
-      for (yk = 0; yk < n; yk++) {
-        readIdx[yk + y.size(1)] = b_y[yk];
-      }
-      if (rPtr <= wPtr) {
-        underrun = (c - wPtr) + 5800322;
-      } else if (wPtr <= c) {
-        underrun = (c - wPtr) + 1;
-      }
-    } else {
-      eml_integer_colon_dispatcher(rPtr, c, readIdx);
-      if ((rPtr <= wPtr) && (wPtr <= c)) {
-        underrun = (c - wPtr) + 1;
-      }
-    }
-  } else {
-    int b_qY;
-    if (overlapCast < rPtr - MAX_int32_T) {
-      qY = MAX_int32_T;
-      b_qY = MAX_int32_T;
-    } else {
-      qY = rPtr - overlapCast;
-      b_qY = rPtr - overlapCast;
-    }
-    if ((b_qY < 0) && (numRowsCast < MIN_int32_T - b_qY)) {
-      b_qY = MIN_int32_T;
-    } else if ((b_qY > 0) && (numRowsCast > MAX_int32_T - b_qY)) {
-      b_qY = MAX_int32_T;
-    } else {
-      b_qY += numRowsCast;
-    }
-    if (b_qY < -2147483647) {
-      b_qY = MIN_int32_T;
-    } else {
-      b_qY--;
-    }
-    c = b_qY;
-    if (qY < 1) {
-      eml_integer_colon_dispatcher(qY + 5800321, y);
-      if (b_qY < 1) {
-        n = 0;
-      } else {
-        n = b_qY;
-      }
-      b_y.set_size(1, n);
-      if (n > 0) {
-        b_y[0] = 1;
-        yk = 1;
-        for (int k{2}; k <= n; k++) {
-          yk++;
-          b_y[k - 1] = yk;
-        }
-      }
-      readIdx.set_size(1, y.size(1) + b_y.size(1));
-      n = y.size(1);
-      for (yk = 0; yk < n; yk++) {
-        readIdx[yk] = y[yk];
-      }
-      n = b_y.size(1);
-      for (yk = 0; yk < n; yk++) {
-        readIdx[yk + y.size(1)] = b_y[yk];
-      }
-      if ((rPtr <= wPtr) && (wPtr <= b_qY)) {
-        underrun = (b_qY - wPtr) + 1;
-      } else if (wPtr < rPtr) {
-        if ((1 - qY < 0) && (wPtr < qY + MAX_int32_T)) {
-          overlapUnderrun = MIN_int32_T;
-        } else if ((1 - qY > 0) && (wPtr > qY + 2147483646)) {
-          overlapUnderrun = MAX_int32_T;
-        } else {
-          overlapUnderrun = (wPtr - qY) + 1;
-        }
-      } else if (wPtr > qY + 5800321) {
-        overlapUnderrun = (wPtr - qY) - 5800320;
-      }
-    } else if (b_qY > 5800321) {
-      n = b_qY - 5800321;
-      c = b_qY - 5800321;
-      eml_integer_colon_dispatcher(qY, y);
-      b_y.set_size(1, n);
-      b_y[0] = 1;
-      yk = 1;
-      for (int k{2}; k <= n; k++) {
-        yk++;
-        b_y[k - 1] = yk;
-      }
-      readIdx.set_size(1, y.size(1) + b_y.size(1));
-      n = y.size(1);
-      for (yk = 0; yk < n; yk++) {
-        readIdx[yk] = y[yk];
-      }
-      n = b_y.size(1);
-      for (yk = 0; yk < n; yk++) {
-        readIdx[yk + y.size(1)] = b_y[yk];
-      }
-      if (rPtr <= wPtr) {
-        underrun = (b_qY - wPtr) + 1;
-      } else if (wPtr <= b_qY - 5800321) {
-        underrun = (b_qY - wPtr) - 5800320;
-      } else if ((qY < wPtr) && (wPtr < rPtr)) {
-        overlapUnderrun = (wPtr - qY) + 1;
-      }
-    } else {
-      eml_integer_colon_dispatcher(qY, b_qY, readIdx);
-      if ((rPtr <= wPtr) && (wPtr <= b_qY)) {
-        underrun = (b_qY - wPtr) + 1;
-      } else if ((qY <= wPtr) && (wPtr < rPtr)) {
-        overlapUnderrun = (wPtr - qY) + 1;
-      }
-    }
-  }
-  out.set_size(readIdx.size(1));
-  n = readIdx.size(1);
-  for (yk = 0; yk < n; yk++) {
-    boolean_T b;
-    b = ((readIdx[yk] < 1) || (readIdx[yk] > 5800321));
-    if (b) {
-      rtDynamicBoundsError(readIdx[yk], 1, 5800321, s_emlrtBCI);
-    }
-    out[yk].re = obj.Cache[readIdx[yk] - 1].re;
-    out[yk].im = obj.Cache[readIdx[yk] - 1].im;
-  }
-  if (underrun != 0) {
-    if ((numRowsCast >= 0) && (underrun < numRowsCast - MAX_int32_T)) {
-      qY = MAX_int32_T;
-    } else if ((numRowsCast < 0) && (underrun > numRowsCast - MIN_int32_T)) {
-      qY = MIN_int32_T;
-    } else {
-      qY = numRowsCast - underrun;
-    }
-    if (qY + 1 > numRowsCast) {
-      qY = 0;
-      yk = 0;
-    } else {
-      if ((qY + 1 < 1) || (qY + 1 > readIdx.size(1))) {
-        rtDynamicBoundsError(qY + 1, 1, readIdx.size(1), c_emlrtBCI);
-      }
-      if ((numRowsCast < 1) || (numRowsCast > readIdx.size(1))) {
-        rtDynamicBoundsError(numRowsCast, 1, readIdx.size(1), b_emlrtBCI);
-      }
-      yk = numRowsCast;
-    }
-    if (underrun < 0) {
-      rtNonNegativeError(static_cast<double>(underrun), emlrtDCI);
-    }
-    yk -= qY;
-    rtSubAssignSizeCheck(&yk, 1, &underrun, 1, b_emlrtECI);
-    for (yk = 0; yk < underrun; yk++) {
-      n = qY + yk;
-      out[n].re = 0.0F;
-      out[n].im = 0.0F;
-    }
-  } else if (overlapUnderrun != 0) {
-    if (overlapUnderrun == numRowsCast) {
-      if (overlapUnderrun < 0) {
-        rtNonNegativeError(static_cast<double>(overlapUnderrun), l_emlrtDCI);
-      }
-      out.set_size(overlapUnderrun);
-      for (yk = 0; yk < overlapUnderrun; yk++) {
-        out[yk].re = 0.0F;
-        out[yk].im = 0.0F;
-      }
-    } else {
-      if (overlapUnderrun < 1) {
-        yk = 0;
-      } else {
-        if (readIdx.size(1) < 1) {
-          rtDynamicBoundsError(1, 1, readIdx.size(1), u_emlrtBCI);
-        }
-        if (overlapUnderrun > readIdx.size(1)) {
-          rtDynamicBoundsError(overlapUnderrun, 1, readIdx.size(1), t_emlrtBCI);
-        }
-        yk = overlapUnderrun;
-      }
-      if (overlapUnderrun < 0) {
-        rtNonNegativeError(static_cast<double>(overlapUnderrun), k_emlrtDCI);
-      }
-      rtSubAssignSizeCheck(&yk, 1, &overlapUnderrun, 1, f_emlrtECI);
-      for (yk = 0; yk < overlapUnderrun; yk++) {
-        out[yk].re = 0.0F;
-        out[yk].im = 0.0F;
-      }
-    }
-  }
-  if (out.size(0) != numRowsCast) {
-    i_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
-  }
-  return underrun;
-}
-
-//
 // Arguments    : void
 // Return Type  : c_AsyncBuffercgHelper
 //
@@ -1252,6 +1246,15 @@ AsyncBuffercgHelper::AsyncBuffercgHelper()
 // Arguments    : void
 // Return Type  : void
 //
+c_AsyncBuffercgHelper::~c_AsyncBuffercgHelper()
+{
+  matlabCodegenDestructor();
+}
+
+//
+// Arguments    : void
+// Return Type  : void
+//
 b_AsyncBuffercgHelper::~b_AsyncBuffercgHelper()
 {
   matlabCodegenDestructor();
@@ -1267,22 +1270,13 @@ AsyncBuffercgHelper::~AsyncBuffercgHelper()
 }
 
 //
-// Arguments    : void
-// Return Type  : void
-//
-c_AsyncBuffercgHelper::~c_AsyncBuffercgHelper()
-{
-  matlabCodegenDestructor();
-}
-
-//
 // Arguments    : int numRows
-//                ::coder::array<double, 1U> &out
+//                ::coder::array<creal32_T, 1U> &out
 // Return Type  : int
 //
-int b_AsyncBuffercgHelper::read(int numRows, ::coder::array<double, 1U> &out)
+int c_AsyncBuffercgHelper::read(int numRows, ::coder::array<creal32_T, 1U> &out)
 {
-  array<double, 1U> b_out;
+  array<creal32_T, 1U> b_out;
   int c;
   int loop_ub;
   int underrun;
@@ -1290,7 +1284,7 @@ int b_AsyncBuffercgHelper::read(int numRows, ::coder::array<double, 1U> &out)
     q_rtErrorWithMessageID(r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
   }
   underrun =
-      b_AsyncBuffercgHelper::ReadSamplesFromBuffer(this, numRows, b_out, c);
+      c_AsyncBuffercgHelper::ReadSamplesFromBuffer(this, numRows, b_out, c);
   out.set_size(b_out.size(0));
   loop_ub = b_out.size(0);
   for (int i{0}; i < loop_ub; i++) {
@@ -1365,12 +1359,12 @@ int AsyncBuffercgHelper::read(int numRows, ::coder::array<creal32_T, 1U> &out)
 
 //
 // Arguments    : int numRows
-//                ::coder::array<creal32_T, 1U> &out
+//                ::coder::array<double, 1U> &out
 // Return Type  : int
 //
-int c_AsyncBuffercgHelper::read(int numRows, ::coder::array<creal32_T, 1U> &out)
+int b_AsyncBuffercgHelper::read(int numRows, ::coder::array<double, 1U> &out)
 {
-  array<creal32_T, 1U> b_out;
+  array<double, 1U> b_out;
   int c;
   int loop_ub;
   int underrun;
@@ -1378,7 +1372,7 @@ int c_AsyncBuffercgHelper::read(int numRows, ::coder::array<creal32_T, 1U> &out)
     q_rtErrorWithMessageID(r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
   }
   underrun =
-      c_AsyncBuffercgHelper::ReadSamplesFromBuffer(this, numRows, b_out, c);
+      b_AsyncBuffercgHelper::ReadSamplesFromBuffer(this, numRows, b_out, c);
   out.set_size(b_out.size(0));
   loop_ub = b_out.size(0);
   for (int i{0}; i < loop_ub; i++) {

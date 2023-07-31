@@ -5,7 +5,7 @@
 // File: uavrt_detection_rtwutil.h
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 27-Jun-2023 14:21:03
+// C/C++ source code generated on  : 31-Jul-2023 09:40:06
 //
 
 #ifndef UAVRT_DETECTION_RTWUTIL_H
@@ -61,10 +61,10 @@ extern void i_rtErrorWithMessageID(const char *r, const char *aFcnName,
 
 extern void ib_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
+extern void j_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
 extern void j_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum);
-
-extern void j_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void jb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
@@ -87,13 +87,13 @@ extern void rtDivisionByZeroErrorN();
 extern void rtDynamicBoundsError(int aIndexValue, int aLoBound, int aHiBound,
                                  const rtBoundsCheckInfo &aInfo);
 
-extern void rtErrorWithMessageID(const std::string r, const int i,
-                                 const char *aFcnName, int aLineNum);
-
 extern void rtErrorWithMessageID(const char *r, const char *aFcnName,
                                  int aLineNum);
 
 extern void rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+extern void rtErrorWithMessageID(const std::string r, const int i,
+                                 const char *aFcnName, int aLineNum);
 
 extern std::string rtGenSizeString(const int aNDims, const int *aDims);
 

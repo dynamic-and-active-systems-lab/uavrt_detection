@@ -5,7 +5,7 @@
 // File: quickselect.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 27-Jun-2023 14:21:03
+// C/C++ source code generated on  : 31-Jul-2023 09:40:06
 //
 
 // Include Files
@@ -159,7 +159,7 @@ double quickselect(::coder::array<double, 1U> &v, int n, int vlen, int &nfirst,
     exitg1 = false;
     while ((!exitg1) && (ia + 1 < ib + 1)) {
       double vref;
-      boolean_T guard1;
+      boolean_T guard1{false};
       vref = v[ipiv - 1];
       v[ipiv - 1] = v[ib];
       v[ib] = vref;

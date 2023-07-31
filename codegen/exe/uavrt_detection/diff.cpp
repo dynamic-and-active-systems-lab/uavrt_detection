@@ -5,7 +5,7 @@
 // File: diff.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 27-Jun-2023 14:21:03
+// C/C++ source code generated on  : 31-Jul-2023 09:40:06
 //
 
 // Include Files
@@ -18,10 +18,10 @@
 
 // Variable Definitions
 static rtRunTimeErrorInfo qb_emlrtRTEI{
-    51,                                                       // lineNo
-    19,                                                       // colNo
-    "diff",                                                   // fName
-    "/home/dasl/matlab/toolbox/eml/lib/matlab/datafun/diff.m" // pName
+    51,     // lineNo
+    19,     // colNo
+    "diff", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/datafun/diff.m" // pName
 };
 
 // Function Definitions
