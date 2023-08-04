@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 31-Jul-2023 09:40:06
+// C/C++ source code generated on  : 04-Aug-2023 15:45:46
 //
 
 // Include Files
@@ -2511,7 +2511,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         //  % self.detection_status ...
         //  % self.confirmed_status ...
         //  % self.noise_psd ...
-        udpSenderSendDoubles(val, &doublesBuffer[0], 11U);
+        udpSenderSendDoubles(val, &doublesBuffer[0], 12U);
         std::printf("Finding pulses...");
         std::fflush(stdout);
         b_X.process(mode, Config.contents.excldFreqs);
@@ -2821,7 +2821,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
               doublesBuffer[11] =
                   detectorPulse.yw * (t9_yw * t9_yw) / T *
                   (1.0 / (rt_powd_snf(10.0, detectorPulse.SNR / 10.0) + 1.0));
-              udpSenderSendDoubles(val, &doublesBuffer[0], 11U);
+              udpSenderSendDoubles(val, &doublesBuffer[0], 12U);
               //  ROS send
               std::printf("Skipping ROS2 Pulse send...");
               std::fflush(stdout);

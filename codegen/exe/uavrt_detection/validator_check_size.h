@@ -5,7 +5,7 @@
 // File: validator_check_size.h
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 31-Jul-2023 09:40:06
+// C/C++ source code generated on  : 04-Aug-2023 15:45:46
 //
 
 #ifndef VALIDATOR_CHECK_SIZE_H
