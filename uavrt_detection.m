@@ -632,7 +632,7 @@ previousToc = toc;
                                 pulseInfoStruct.confirmed_status            = uint8(detectorPulse.con_dec);
                                 dt                                          = X.stft.dt;
                                 T                                           = X.stft.T;
-                                pulseInfoStruct.noise_psd                   = real(detectorPulse.yw )* dt^2 / T * (1 + 10^(detectorPulse.SNR/10))^(-1); %See Notebook Entry 2023-07-07 for derivation
+                                pulseInfoStruct.noise_psd                   = real(detectorPulse.yw ) * dt^2 / T * (1 + 10^(detectorPulse.SNR/10))^(-1); %See Notebook Entry 2023-07-07 for derivation
 
                                 if ~pulsesToSkip(j)
                                     % UDP Send
