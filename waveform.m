@@ -827,8 +827,7 @@ fprintf('\t Running Peeling Algorithm  ...\n')
             %detections as the zeta steps, but use the S matrix for PSD
             %estimates so there is a size mismatch that necessitates the
             %code below. 
-step = 1;
-fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
+
             %In cases when there are K+1 pulses in a waveform, the
             %detection method will pull the first K, but an extra pulse
             %will be in the S matrix and needs to be excluded from the
@@ -872,7 +871,7 @@ fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
             noisePSDAtZetas(noisePSDAtZetas<0) = 0;
             fBinWidthZetas = obj.stft.f(2)-obj.stft.f(1);%Not the delta f of the Wf vector, because the frequency bins are the same width, just with half bin steps %
             %noisePowers = noisePSDAtZetas*fBinWidthZetas;
-fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
+
             %Calculate the power at each of the S locations that were
             %selected by the incohsum function. Scores are the mag squared
             %S values. Mult by dt^2/T to get psd, then mult by the width of
@@ -902,7 +901,7 @@ fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
             
             SNRdB(SNRdB==Inf) = NaN;
             %SNRdBPulseGroup(SNRdBPulseGroup==Inf) = NaN;
-fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
+
             %Calculate the first and second frequency derivatives of the 
             %scores. We'll use these for slope and curvature assessments.
             %These aren't truely the frequency derivatives because we don't
@@ -942,7 +941,7 @@ fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
             %boundaries. 
             slope_peak = slope_peak|...
                          (score_left_bndry&slope_neg)|(score_right_bndry&slope_pos);
-fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
+
             %How many time windows difference do we considered the found
             %pulse to be the same as one found at a different frequency?
             %We'll say that if they are within two pulse time width of 
@@ -983,32 +982,25 @@ fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
             %was lower, but exceeded it's local threshold. 
             peak_masked_curr_scores = peak_masked_curr_scores.*(peak_masked_curr_scores>=thresh);
 
-for i = 1:numel(peak_masked_curr_scores)
-    fprintf('\tDEBUGGING: PEAK_MASKED_SCORES %u = %f \t %f = THRESH\n',uint8(i), peak_masked_curr_scores(i), thresh(i));
-end
-fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;   
             %%------------------------------------------------
             %thresh_hold = thresh;thresh = interp1(obj.stft.f,thresh,Wf);
             if ~any(peak_masked_curr_scores >= thresh, 'all') %all(peak_masked_curr_scores < thresh, 'all')%
                 %peak_ind = [];
-fprintf('\t No peaks found to exceed threshold. Setting peak_ind and peak value to NaN \n');   
-
                 peak_ind = NaN(1,1);
                 peak     = NaN(1,1);%[];
             end
-fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;        
+
             %Keep doing this loop below while there are scores that exceed
             %the threshold which aren't masked as a valley, +slope, -slope,
             %or previously identified peak/sideband. 
             %figure; plot3([1:160],ones(160,1)*0,curr_scores)
             while any(peak_masked_curr_scores >= thresh, 'all')
-fprintf('\t Peaks found to exceed threshold. Working on peak: %u \n',uint8(p));   
 
              %   hold on; plot3([1:160],ones(160,1)*p,curr_scores)
                 %Identify the highest scoring peak of the currently
                 %identifed scores. 
                 [peak(p), peak_ind(p)] = max(peak_masked_curr_scores);
-fprintf('\t Peaks %u has value %e and is at position %u. \n',uint8(p),peak(p),uint8( peak_ind(p)));   
+
                 %Build a mask that highlights all the elements whose time
                 %windows share (or are close) to any of the time windows
                 %of the pulses associated with the current peak.
@@ -1209,7 +1201,6 @@ fprintf('\t Peaks %u has value %e and is at position %u. \n',uint8(p),peak(p),ui
                 %peak_masked_curr_scores = curr_scores.*slope_peak.*independent_super_thresh_msk;
                 p = p+1;
             end
-fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;  
             %Clean up the msk and indiv_mask so their columns align with
             %n_pulsegroup_found. 
             n_pulsegroups_found = p-1;
@@ -1217,14 +1208,11 @@ fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
             msk       = msk(:,1:n_pulsegroups_found);
             indiv_msk = indiv_msk(:,1:n_pulsegroups_found);
 
-fprintf('\t Number of pulse groups found: %u \n',uint8(n_pulsegroups_found));   
-fprintf('\t peak_ind vector has this many elements: %u \n',uint8(numel(peak_ind)));   
-fprintf('\t peak_ind vector first element has a value of: %f\n', peak_ind (1));   
             if ~isnan(peak_ind(1)) & n_pulsegroups_found>0
                 %Only update from NaN if there were some found. 
                 peak_ind  = peak_ind(1:n_pulsegroups_found);
             end
-fprintf('\t peak_ind vector first element has a value of: %f\n', peak_ind (1));   
+
             %Each row of msk is a mask that isolates the elements of the
             %yw_max_all_freq vector associated with that column's peak and all
             %higher power peaks. For exampl msk(:,2) provides a mask that
@@ -1259,7 +1247,6 @@ fprintf('\t peak_ind vector first element has a value of: %f\n', peak_ind (1));
             t_found    = NaN(n_freqs,n_pls);
             %t_found    = obj.stft.t(S_cols)-obj.stft.t(1)+obj.t_0;%Don't forget the add the t_0 of this waveform
 
-fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
            %The lines below effectively do the following operation:
            %    t_found(freq_mask,:)    = obj.stft.t(S_cols(freq_mask,:))-obj.stft.t(1)+obj.t_0;
            %but in a way that doesn't generate errors in the C++ generated
@@ -1280,7 +1267,6 @@ fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
             f_bands    = [obj.Wf-(obj.Wf(2)-obj.Wf(1))/2,...
                           obj.Wf+(obj.Wf(2)-obj.Wf(1))/2];
             
-fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
             %Build out the pulse object for each one found
             for i = 1:n_pls
                 for j = 1:n_freqs
@@ -1296,7 +1282,6 @@ fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
                         f_bands(j,2));
                     cur_pl(j,i).con_dec = false;    %Confirmation status
                     if scores(j)>=thresh(j)%scores(j)>=thresh
-fprintf('DEBUGGING: ROW %u CONTAINS THRESHOLD EXCEEDING SCORE\n',uint16(j));
                         cur_pl(j,i).det_dec = true;
                     end
                 end
@@ -1304,7 +1289,6 @@ fprintf('DEBUGGING: ROW %u CONTAINS THRESHOLD EXCEEDING SCORE\n',uint16(j));
             
             pl_out   = cur_pl;
 
-fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
 
 % if isnan(peak_ind(1))
 %     fprintf('DEBUGGING: NO PEAKS EXCEEDED THRESHOLD \n');
@@ -1744,7 +1728,6 @@ fprintf('DETECTING IN SEARCH MODE.\n')
 
                 % Detection?
                 if ~isnan(pk_ind)   %Dection was made
-fprintf('I FOUND PULSES THAT EXCEED THE ENERGY THRESHOLD.\n')
                     %True ->
                     %Update confirmation property for each pulse. False 
                     %recorded for confirmation property since we are 
@@ -1766,7 +1749,6 @@ fprintf('I FOUND PULSES THAT EXCEED THE ENERGY THRESHOLD.\n')
                     %   Update Mode Recommendation -> Confirmation
                     obj.ps_pos.mode = 'C';
                 else    %Dection was not made
-fprintf('I DID NOT PULSES THAT EXCEED THE ENERGY THRESHOLD.\n')
                     %False ->
                     %Just update the mode recommendation to 'S' (search) 
                     %so we keep an open search
@@ -1801,22 +1783,17 @@ fprintf('DETECTING IN CONFIRMATION MODE.\n')
 
                 %At least one pulse group met the threshold
                 if ~isnan(pk_ind)
-fprintf('I FOUND PULSES THAT EXCEED THE ENERGY THRESHOLD.\n')
                     %Record the detection pulses
                     %We only use the highest power pulse group for now
                     %because if we are in confirmation mode, we only allow
                     %for the selection mode to be 'most'
                     obj.ps_pos.pl = candidatelist(pk_ind(1),:);
                 else
-fprintf('I DID NOT FIND PULSES THAT EXCEED THE ENERGY THRESHOLD.\n')
                     %If nothing above threshold was found, fill with empty 
                     %pulse object
                     obj.ps_pos.pl = makepulsestruc();
                 end
-for i = 1:numel(obj.ps_pos.pl)
-    fprintf('\t pulse %u det status: %u \n',uint8(i),uint8(obj.ps_pos.pl(i).det_dec))
-    fprintf('\t pulse %u con status: %u \n',uint8(i),uint8(obj.ps_pos.pl(i).con_dec))
-end
+
                 %Record all candidates for posterity
                 obj.ps_pos.clst = candidatelist;
                 obj.ps_pos.cmsk = msk;
@@ -1826,12 +1803,9 @@ end
                 % Detection?
                 if ~isnan(pk_ind)%~isempty(pulselist)%obj.decide(pulselist,PF,decision_table) %Decision on IDed pulses
                     %True ->
-fprintf('\t CHECKING FOR CONFIRMATION OF DETECTED PULSES.\n')
               
                     conflog = confirmpulses(obj);
-for i = 1:numel(conflog)
-    fprintf('\t pulse %u confirmation function output: %u \n',uint8(i),uint8(conflog(i)))
-end
+
 
                     %[minstartlog', maxstartlog', freqInBand', conflog']
                     if any(conflog,'all')
@@ -1873,10 +1847,7 @@ end
                     obj.ps_pos.mode = 'S';
                     %obj.ps_pos.updateposteriori(obj.ps_pre,[]); %No pulses to update the posteriori
                 end
-for i = 1:numel(obj.ps_pos.pl)
-    fprintf('\t pulse %u det status: %u \n',uint8(i),uint8(obj.ps_pos.pl(i).det_dec))
-    fprintf('\t pulse %u con status: %u \n',uint8(i),uint8(obj.ps_pos.pl(i).con_dec))
-end
+
                 %Set the mode in the pulse and candidate listing for 
                 %records. This records the mode that was used in the 
                 %detection of the record pulses. This is useful for 
@@ -1901,50 +1872,30 @@ fprintf('DETECTING IN TRACKING MODE.\n')
                     end
                 end
 
-fprintf('COMPLETED FIND PULSE OPERATION \n');
-for i = 1:numel(pk_ind)
-    fprintf('Value of pk_ind(%u): %e \n', uint8(i), pk_ind(i));
-end
+
 
                 %At least one pulse group met the threshold
                 if ~isnan(pk_ind)
-fprintf('I FOUND PULSES THAT EXCEED THE ENERGY THRESHOLD.\n')
 
-fprintf('Number of elements in pk_ind: %u \n',uint8(numel(pk_ind)));
-fprintf('Value of pk_ind(1): %f \n', pk_ind(1));
                     %Record the detection pulses
                     %We only use the highest power pulse group for now
                     %because if we are in confirmation mode, we only allow
                     %for the selection mode to be 'most'
                     obj.ps_pos.pl = candidatelist(pk_ind(1),:);
-fprintf('BLAH.\n')
+
                 else %Nothing met the threshold for detection
-fprintf('I DID NOT FIND PULSES THAT EXCEED THE ENERGY THRESHOLD.\n')
+
                     obj.ps_pos.pl = makepulsestruc();
                 end
                 obj.ps_pos.clst = candidatelist;
                 obj.ps_pos.cmsk = msk;
                 obj.ps_pos.cpki = pk_ind;
 
-fprintf('BLAH BLAH.\n')
-for i = 1:numel(obj.ps_pos.pl)
-    fprintf('BLAH BLAH BLAH.\n')
-    fprintf('\t pulse %u det status: %u \n',uint8(i),uint8(obj.ps_pos.pl(i).det_dec))
-    fprintf('BLAH BLAH BLAH BLAH.\n')
-    fprintf('\t pulse %u con status: %u \n',uint8(i),uint8(obj.ps_pos.pl(i).con_dec))
-end
-
-
                 % Detection?
                 if ~isnan(pk_ind)%~isempty(pulselist)%obj.decide(pulselist,PF,decision_table) %Decision on IDed pulses
                     %True ->
-fprintf('\t CHECKING FOR CONFIRMATION OF DETECTED PULSES.\n')
 
                     conflog = confirmpulses(obj);
-
-for i = 1:numel(conflog)
-    fprintf('\t pulse %u confirmation function output: %u \n',uint8(i),uint8(conflog(i)))
-end
 
                     %[minstartlog', maxstartlog', freqInBand', conflog']
                     if any(conflog,'all')
@@ -1970,10 +1921,7 @@ end
                     %Set confirmation = False
                     conf = false;
                 end
-for i = 1:numel(obj.ps_pos.pl)
-    fprintf('\t pulse %u det status: %u \n',uint8(i),uint8(obj.ps_pos.pl(i).det_dec))
-    fprintf('\t pulse %u con status: %u \n',uint8(i),uint8(obj.ps_pos.pl(i).con_dec))
-end
+
                 % Handle not confirmed
                 if ~conf
                     %False ->
