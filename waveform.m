@@ -1673,11 +1673,17 @@ previousToc = toc;
                 runmode          = 'search';
         end
 
+fprintf('================ RUNNING DETECTION ================\n')
+fprintf('FREQ SEARCH MODE: %s \n', freq_search_type);
+fprintf('TIME SEARCH MODE: %s \n', time_search_type);
+
 
         switch runmode
             %% SEARCH RUN MODE
             case 'search'
                 
+fprintf('DETECTING IN SEARCH MODE.\n')
+
                 %Find all the potential pulses in the dataset
                 [candidatelist,msk,pk_ind] = obj.findpulse(time_search_type,freq_search_type,excluded_freq_bands);
                 if  any([candidatelist.det_dec],'all') & any(isnan(pk_ind),'all') %'all' input required by coder
@@ -1709,6 +1715,7 @@ previousToc = toc;
 
                 % Detection?
                 if ~isnan(pk_ind)   %Dection was made
+fprintf('I FOUND PULSES THAT EXCEED THE ENERGY THRESHOLD.\n')
                     %True ->
                     %Update confirmation property for each pulse. False 
                     %recorded for confirmation property since we are 
@@ -1730,6 +1737,7 @@ previousToc = toc;
                     %   Update Mode Recommendation -> Confirmation
                     obj.ps_pos.mode = 'C';
                 else    %Dection was not made
+fprintf('I DID NOT PULSES THAT EXCEED THE ENERGY THRESHOLD.\n')
                     %False ->
                     %Just update the mode recommendation to 'S' (search) 
                     %so we keep an open search
@@ -1751,7 +1759,9 @@ previousToc = toc;
                 
             %% CONFIRMATION MODE
             case 'confirm'
-                
+
+fprintf('DETECTING IN CONFIRMATION MODE.\n')
+
                 %Find all the potential pulses in the dataset
                 [candidatelist,msk,pk_ind] = obj.findpulse(time_search_type,freq_search_type,excluded_freq_bands);
                 if any([candidatelist.det_dec],'all') & any(isnan(pk_ind),'all') %'all' input required by coder
@@ -1762,16 +1772,22 @@ previousToc = toc;
 
                 %At least one pulse group met the threshold
                 if ~isnan(pk_ind)
+fprintf('I FOUND PULSES THAT EXCEED THE ENERGY THRESHOLD.\n')
                     %Record the detection pulses
                     %We only use the highest power pulse group for now
                     %because if we are in confirmation mode, we only allow
                     %for the selection mode to be 'most'
                     obj.ps_pos.pl = candidatelist(pk_ind(1),:);
                 else
+fprintf('I DID NOT FIND PULSES THAT EXCEED THE ENERGY THRESHOLD.\n')
                     %If nothing above threshold was found, fill with empty 
                     %pulse object
                     obj.ps_pos.pl = makepulsestruc();
                 end
+for i = 1:numel(obj.ps_pos.pl)
+    fprintf('\t pulse %u det status: %u \n',uint8(i),uint8(obj.ps_pos.pl(i).det_dec))
+    fprintf('\t pulse %u con status: %u \n',uint8(i),uint8(obj.ps_pos.pl(i).con_dec))
+end
                 %Record all candidates for posterity
                 obj.ps_pos.clst = candidatelist;
                 obj.ps_pos.cmsk = msk;
@@ -1781,8 +1797,12 @@ previousToc = toc;
                 % Detection?
                 if ~isnan(pk_ind)%~isempty(pulselist)%obj.decide(pulselist,PF,decision_table) %Decision on IDed pulses
                     %True ->
-                 
+fprintf('\t CHECKING FOR CONFIRMATION OF DETECTED PULSES.\n')
+              
                     conflog = confirmpulses(obj);
+for i = 1:numel(conflog)
+    fprintf('\t pulse %u confirmation function output: %u \n',uint8(i),uint8(conflog(i)))
+end
 
                     %[minstartlog', maxstartlog', freqInBand', conflog']
                     if any(conflog,'all')
@@ -1824,6 +1844,10 @@ previousToc = toc;
                     obj.ps_pos.mode = 'S';
                     %obj.ps_pos.updateposteriori(obj.ps_pre,[]); %No pulses to update the posteriori
                 end
+for i = 1:numel(obj.ps_pos.pl)
+    fprintf('\t pulse %u det status: %u \n',uint8(i),uint8(obj.ps_pos.pl(i).det_dec))
+    fprintf('\t pulse %u con status: %u \n',uint8(i),uint8(obj.ps_pos.pl(i).con_dec))
+end
                 %Set the mode in the pulse and candidate listing for 
                 %records. This records the mode that was used in the 
                 %detection of the record pulses. This is useful for 
@@ -1837,6 +1861,8 @@ previousToc = toc;
 
             case 'track'
                 %% TRACKING MODE
+
+fprintf('DETECTING IN TRACKING MODE.\n')
              
                 %Find all the potential pulses in the dataset
                 [candidatelist,msk,pk_ind] = obj.findpulse(time_search_type,freq_search_type,excluded_freq_bands); 
@@ -1848,23 +1874,36 @@ previousToc = toc;
 
                 %At least one pulse group met the threshold
                 if ~isnan(pk_ind)
+fprintf('I FOUND PULSES THAT EXCEED THE ENERGY THRESHOLD.\n')
                     %Record the detection pulses
                     %We only use the highest power pulse group for now
                     %because if we are in confirmation mode, we only allow
                     %for the selection mode to be 'most'
                     obj.ps_pos.pl = candidatelist(pk_ind(1),:);
                 else %Nothing met the threshold for detection
+fprintf('I DID NOT FIND PULSES THAT EXCEED THE ENERGY THRESHOLD.\n')
                     obj.ps_pos.pl = makepulsestruc();
                 end
                 obj.ps_pos.clst = candidatelist;
                 obj.ps_pos.cmsk = msk;
                 obj.ps_pos.cpki = pk_ind;
 
+for i = 1:numel(obj.ps_pos.pl)
+    fprintf('\t pulse %u det status: %u \n',uint8(i),uint8(obj.ps_pos.pl(i).det_dec))
+    fprintf('\t pulse %u con status: %u \n',uint8(i),uint8(obj.ps_pos.pl(i).con_dec))
+end
+
 
                 % Detection?
                 if ~isnan(pk_ind)%~isempty(pulselist)%obj.decide(pulselist,PF,decision_table) %Decision on IDed pulses
                     %True ->
+fprintf('\t CHECKING FOR CONFIRMATION OF DETECTED PULSES.\n')
+
                     conflog = confirmpulses(obj);
+
+for i = 1:numel(conflog)
+    fprintf('\t pulse %u confirmation function output: %u \n',uint8(i),uint8(conflog(i)))
+end
 
                     %[minstartlog', maxstartlog', freqInBand', conflog']
                     if any(conflog,'all')
@@ -1890,6 +1929,10 @@ previousToc = toc;
                     %Set confirmation = False
                     conf = false;
                 end
+for i = 1:numel(obj.ps_pos.pl)
+    fprintf('\t pulse %u det status: %u \n',uint8(i),uint8(obj.ps_pos.pl(i).det_dec))
+    fprintf('\t pulse %u con status: %u \n',uint8(i),uint8(obj.ps_pos.pl(i).con_dec))
+end
                 % Handle not confirmed
                 if ~conf
                     %False ->
