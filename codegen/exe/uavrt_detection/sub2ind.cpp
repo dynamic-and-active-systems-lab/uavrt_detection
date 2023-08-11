@@ -5,7 +5,7 @@
 // File: sub2ind.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 11-Aug-2023 11:20:42
+// C/C++ source code generated on  : 11-Aug-2023 11:48:47
 //
 
 // Include Files

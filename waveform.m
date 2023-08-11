@@ -988,6 +988,8 @@ fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
             %thresh_hold = thresh;thresh = interp1(obj.stft.f,thresh,Wf);
             if all(peak_masked_curr_scores < thresh, 'all')%~any(peak_masked_curr_scores >= thresh, 'all')
                 %peak_ind = [];
+fprintf('\t No peaks found to exceed threshold. Setting peak_ind and peak value to NaN \n');   
+
                 peak_ind = NaN(1,1);
                 peak     = NaN(1,1);%[];
             end
@@ -997,10 +999,13 @@ fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
             %or previously identified peak/sideband. 
             %figure; plot3([1:160],ones(160,1)*0,curr_scores)
             while any(peak_masked_curr_scores >= thresh, 'all')
+fprintf('\t Peaks found to exceed threshold. Working on peak: %u \n',uint8(p));   
+
              %   hold on; plot3([1:160],ones(160,1)*p,curr_scores)
                 %Identify the highest scoring peak of the currently
                 %identifed scores. 
                 [peak(p), peak_ind(p)] = max(peak_masked_curr_scores);
+fprintf('\t Peaks %u has value %e and is at position %u. \n',uint8(p),peak(p),uint8( peak_ind(p)));   
                 %Build a mask that highlights all the elements whose time
                 %windows share (or are close) to any of the time windows
                 %of the pulses associated with the current peak.
@@ -1208,10 +1213,15 @@ fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
             msk       = circshift(msk,-1,2);
             msk       = msk(:,1:n_pulsegroups_found);
             indiv_msk = indiv_msk(:,1:n_pulsegroups_found);
-            if n_pulsegroups_found>0
+
+fprintf('\t Number of pulse groups found: %u \n',uint8(n_pulsegroups_found));   
+fprintf('\t peak_ind vector has this many elements: %u \n',uint8(numel(peak_ind)));   
+fprintf('\t peak_ind vector first element has a value of: %f\n', peak_ind (1));   
+            if ~isnan(peak_ind(1)) & n_pulsegroups_found>0
                 %Only update from NaN if there were some found. 
                 peak_ind  = peak_ind(1:n_pulsegroups_found);
             end
+fprintf('\t peak_ind vector first element has a value of: %f\n', peak_ind (1));   
             %Each row of msk is a mask that isolates the elements of the
             %yw_max_all_freq vector associated with that column's peak and all
             %higher power peaks. For exampl msk(:,2) provides a mask that
@@ -1890,7 +1900,7 @@ fprintf('DETECTING IN TRACKING MODE.\n')
 
 fprintf('COMPLETED FIND PULSE OPERATION \n');
 for i = 1:numel(pk_ind)
-    fprintf('Value of pk_ind(%u): %f \n', uint8(i), pk_ind(i));
+    fprintf('Value of pk_ind(%u): %e \n', uint8(i), pk_ind(i));
 end
 
                 %At least one pulse group met the threshold
