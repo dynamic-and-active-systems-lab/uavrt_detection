@@ -794,7 +794,7 @@ previousToc = toc;
             %%PAPER EQUATION 29
             %z       = sum(gamma.^2);
 
-fprintf('\t Running Peeling Algorithm  ...')
+fprintf('\t Running Peeling Algorithm  ...\n')
             
             %% PEELING ALGORITHM
             % The following algorithm is used to help tease out the central
@@ -827,7 +827,8 @@ fprintf('\t Running Peeling Algorithm  ...')
             %detections as the zeta steps, but use the S matrix for PSD
             %estimates so there is a size mismatch that necessitates the
             %code below. 
-            
+step = 1;
+fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
             %In cases when there are K+1 pulses in a waveform, the
             %detection method will pull the first K, but an extra pulse
             %will be in the S matrix and needs to be excluded from the
@@ -871,7 +872,7 @@ fprintf('\t Running Peeling Algorithm  ...')
             noisePSDAtZetas(noisePSDAtZetas<0) = 0;
             fBinWidthZetas = obj.stft.f(2)-obj.stft.f(1);%Not the delta f of the Wf vector, because the frequency bins are the same width, just with half bin steps %
             %noisePowers = noisePSDAtZetas*fBinWidthZetas;
-            
+fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
             %Calculate the power at each of the S locations that were
             %selected by the incohsum function. Scores are the mag squared
             %S values. Mult by dt^2/T to get psd, then mult by the width of
@@ -901,7 +902,7 @@ fprintf('\t Running Peeling Algorithm  ...')
             
             SNRdB(SNRdB==Inf) = NaN;
             %SNRdBPulseGroup(SNRdBPulseGroup==Inf) = NaN;
-
+fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
             %Calculate the first and second frequency derivatives of the 
             %scores. We'll use these for slope and curvature assessments.
             %These aren't truely the frequency derivatives because we don't
@@ -941,7 +942,7 @@ fprintf('\t Running Peeling Algorithm  ...')
             %boundaries. 
             slope_peak = slope_peak|...
                          (score_left_bndry&slope_neg)|(score_right_bndry&slope_pos);
-            
+fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
             %How many time windows difference do we considered the found
             %pulse to be the same as one found at a different frequency?
             %We'll say that if they are within two pulse time width of 
@@ -982,15 +983,15 @@ fprintf('\t Running Peeling Algorithm  ...')
             %was lower, but exceeded it's local threshold. 
             peak_masked_curr_scores = peak_masked_curr_scores.*(peak_masked_curr_scores>=thresh);
            
-            
+fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;   
             %%------------------------------------------------
             %thresh_hold = thresh;thresh = interp1(obj.stft.f,thresh,Wf);
-            if ~any(peak_masked_curr_scores >= thresh, 'all')
+            if all(peak_masked_curr_scores < thresh, 'all')%~any(peak_masked_curr_scores >= thresh, 'all')
                 %peak_ind = [];
                 peak_ind = NaN(1,1);
                 peak     = NaN(1,1);%[];
             end
-            
+fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;        
             %Keep doing this loop below while there are scores that exceed
             %the threshold which aren't masked as a valley, +slope, -slope,
             %or previously identified peak/sideband. 
@@ -1200,7 +1201,7 @@ fprintf('\t Running Peeling Algorithm  ...')
                 %peak_masked_curr_scores = curr_scores.*slope_peak.*independent_super_thresh_msk;
                 p = p+1;
             end
-            
+fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;  
             %Clean up the msk and indiv_mask so their columns align with
             %n_pulsegroup_found. 
             n_pulsegroups_found = p-1;
@@ -1245,7 +1246,7 @@ fprintf('\t Running Peeling Algorithm  ...')
             t_found    = NaN(n_freqs,n_pls);
             %t_found    = obj.stft.t(S_cols)-obj.stft.t(1)+obj.t_0;%Don't forget the add the t_0 of this waveform
 
-
+fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
            %The lines below effectively do the following operation:
            %    t_found(freq_mask,:)    = obj.stft.t(S_cols(freq_mask,:))-obj.stft.t(1)+obj.t_0;
            %but in a way that doesn't generate errors in the C++ generated
@@ -1266,7 +1267,7 @@ fprintf('\t Running Peeling Algorithm  ...')
             f_bands    = [obj.Wf-(obj.Wf(2)-obj.Wf(1))/2,...
                           obj.Wf+(obj.Wf(2)-obj.Wf(1))/2];
             
-
+fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
             %Build out the pulse object for each one found
             for i = 1:n_pls
                 for j = 1:n_freqs
@@ -1282,13 +1283,15 @@ fprintf('\t Running Peeling Algorithm  ...')
                         f_bands(j,2));
                     cur_pl(j,i).con_dec = false;    %Confirmation status
                     if scores(j)>=thresh(j)%scores(j)>=thresh
-fprintf('DEBUGGING: ROW %u CONTAINS THRESHOLD EXCEEDING SCORE',uint16(j));
+fprintf('DEBUGGING: ROW %u CONTAINS THRESHOLD EXCEEDING SCORE\n',uint16(j));
                         cur_pl(j,i).det_dec = true;
                     end
                 end
             end
             
             pl_out   = cur_pl;
+
+fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
 
 for i =1:numel(peak_ind)
     fprintf('DEBUGGING: PK_IND %u IS ROW %u WITH SCORE = %f \t %f = THRESH \n',uint16(i),uint16(peak_ind(i)),scores(peak_ind(i)),thresh(peak_ind(i)));
