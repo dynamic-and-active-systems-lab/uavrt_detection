@@ -655,8 +655,8 @@ printpulseinfostruc(pulseInfoStruct);
 fprintf('CURRENT STFT DT   VALUE: %f \n', X.stft.dt);
 fprintf('CURRENT STFT T    VALUE: %f \n', X.stft.T);
 fprintf('CURRENT REAL YW   VALUE: %f \n', real(detectorPulse.yw));
-fprintf('CURRENT STFT T    VALUE: %f \n', detectorPulse.SNR);
-fprintf('CURRENT NOISE_PSD VALUE: %f \n', pulseInfoStruct.noise_psd);
+fprintf('CURRENT SNR_dB    VALUE: %f \n', detectorPulse.SNR);
+fprintf('CURRENT NOISE_PSD VALUE: %e \n', pulseInfoStruct.noise_psd);
 
                                 fprintf(".");
                                 %                                    end

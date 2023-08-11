@@ -1293,16 +1293,16 @@ fprintf('DEBUGGING: ROW %u CONTAINS THRESHOLD EXCEEDING SCORE\n',uint16(j));
 
 fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
 
-if isnan(peak_ind(1))
-    fprintf('DEBUGGING: NO PEAKS EXCEEDED THRESHOLD \n');
-else
-    for i =1:numel(peak_ind)
-        fprintf('DEBUGGING: PK_IND %u IS ROW %u WITH SCORE = %f \t %f = THRESH \n',uint16(i),uint16(peak_ind(i)),scores(peak_ind(i)),thresh(peak_ind(i)));
-    end
-end
-    for i = 1:numel(scores)
-        fprintf('\tDEBUGGING: SCORE %u = %f \t %f = THRESH\n',uint8(i), scores(i), thresh(i));
-    end
+% if isnan(peak_ind(1))
+%     fprintf('DEBUGGING: NO PEAKS EXCEEDED THRESHOLD \n');
+% else
+%     for i =1:numel(peak_ind)
+%         fprintf('DEBUGGING: PK_IND %u IS ROW %u WITH SCORE = %f \t %f = THRESH \n',uint16(i),uint16(peak_ind(i)),scores(peak_ind(i)),thresh(peak_ind(i)));
+%     end
+% end
+%     for i = 1:numel(scores)
+%         fprintf('\tDEBUGGING: SCORE %u = %f \t %f = THRESH\n',uint8(i), scores(i), thresh(i));
+%     end
 
 
 fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
