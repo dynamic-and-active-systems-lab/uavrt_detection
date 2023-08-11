@@ -5,7 +5,7 @@
 // File: waveform.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 11-Aug-2023 10:56:49
+// C/C++ source code generated on  : 11-Aug-2023 11:20:42
 //
 
 // Include Files
@@ -6560,6 +6560,46 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo ac_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
+    1721,                              // lineNo
+    58,                                // colNo
+    "pk_ind",                          // aName
+    "waveform/process",                // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo bb_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1893,                              // lineNo
+    60,                                // colNo
+    "pk_ind",                          // aName
+    "waveform/process",                // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo bc_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1721,                              // lineNo
+    51,                                // colNo
+    "candidatelist",                   // aName
+    "waveform/process",                // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo cb_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1901,                              // lineNo
+    45,                                // colNo
+    "pk_ind",                          // aName
+    "waveform/process",                // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo cc_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
     1741,                              // lineNo
     39,                                // colNo
     "obj.ps_pos.pl(ip)",               // aName
@@ -6568,9 +6608,9 @@ void waveform::process(char mode, const coder::array<double, 2U>
     0                                  // checkKind
   };
 
-  static rtBoundsCheckInfo bb_emlrtBCI{ -1,// iFirst
+  static rtBoundsCheckInfo db_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1898,                              // lineNo
+    1906,                              // lineNo
     58,                                // colNo
     "pk_ind",                          // aName
     "waveform/process",                // fName
@@ -6578,7 +6618,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     0                                  // checkKind
   };
 
-  static rtBoundsCheckInfo bc_emlrtBCI{ -1,// iFirst
+  static rtBoundsCheckInfo dc_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     1769,                              // lineNo
     35,                                // colNo
@@ -6588,9 +6628,9 @@ void waveform::process(char mode, const coder::array<double, 2U>
     0                                  // checkKind
   };
 
-  static rtBoundsCheckInfo cb_emlrtBCI{ -1,// iFirst
+  static rtBoundsCheckInfo eb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1898,                              // lineNo
+    1906,                              // lineNo
     51,                                // colNo
     "candidatelist",                   // aName
     "waveform/process",                // fName
@@ -6598,7 +6638,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     0                                  // checkKind
   };
 
-  static rtBoundsCheckInfo cc_emlrtBCI{ -1,// iFirst
+  static rtBoundsCheckInfo ec_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     1772,                              // lineNo
     37,                                // colNo
@@ -6608,31 +6648,11 @@ void waveform::process(char mode, const coder::array<double, 2U>
     0                                  // checkKind
   };
 
-  static rtBoundsCheckInfo db_emlrtBCI{ -1,// iFirst
-    -1,                                // iLast
-    1908,                              // lineNo
-    74,                                // colNo
-    "obj.ps_pos.pl",                   // aName
-    "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
-    0                                  // checkKind
-  };
-
-  static rtBoundsCheckInfo eb_emlrtBCI{ -1,// iFirst
-    -1,                                // iLast
-    1909,                              // lineNo
-    74,                                // colNo
-    "obj.ps_pos.pl",                   // aName
-    "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
-    0                                  // checkKind
-  };
-
   static rtBoundsCheckInfo fb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1921,                              // lineNo
-    86,                                // colNo
-    "conflog",                         // aName
+    1919,                              // lineNo
+    74,                                // colNo
+    "obj.ps_pos.pl",                   // aName
     "waveform/process",                // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -6640,9 +6660,9 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo gb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1933,                              // lineNo
-    65,                                // colNo
-    "conflog",                         // aName
+    1921,                              // lineNo
+    74,                                // colNo
+    "obj.ps_pos.pl",                   // aName
     "waveform/process",                // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -6651,8 +6671,8 @@ void waveform::process(char mode, const coder::array<double, 2U>
   static rtBoundsCheckInfo hb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     1933,                              // lineNo
-    43,                                // colNo
-    "obj.ps_pos.pl(ip)",               // aName
+    86,                                // colNo
+    "conflog",                         // aName
     "waveform/process",                // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -6660,9 +6680,9 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo ib_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1949,                              // lineNo
-    74,                                // colNo
-    "obj.ps_pos.pl",                   // aName
+    1945,                              // lineNo
+    65,                                // colNo
+    "conflog",                         // aName
     "waveform/process",                // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -6670,9 +6690,9 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo jb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1950,                              // lineNo
-    74,                                // colNo
-    "obj.ps_pos.pl",                   // aName
+    1945,                              // lineNo
+    43,                                // colNo
+    "obj.ps_pos.pl(ip)",               // aName
     "waveform/process",                // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -6680,9 +6700,9 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo kb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1970,                              // lineNo
-    35,                                // colNo
-    "obj.ps_pos.pl(tick)",             // aName
+    1961,                              // lineNo
+    74,                                // colNo
+    "obj.ps_pos.pl",                   // aName
     "waveform/process",                // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -6690,7 +6710,27 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo lb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1973,                              // lineNo
+    1962,                              // lineNo
+    74,                                // colNo
+    "obj.ps_pos.pl",                   // aName
+    "waveform/process",                // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo mb_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1982,                              // lineNo
+    35,                                // colNo
+    "obj.ps_pos.pl(tick)",             // aName
+    "waveform/process",                // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo nb_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1985,                              // lineNo
     37,                                // colNo
     "obj.ps_pos.clst(tick)",           // aName
     "waveform/process",                // fName
@@ -6698,7 +6738,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     0                                  // checkKind
   };
 
-  static rtBoundsCheckInfo mb_emlrtBCI{ -1,// iFirst
+  static rtBoundsCheckInfo ob_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     1796,                              // lineNo
     58,                                // colNo
@@ -6708,7 +6748,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     0                                  // checkKind
   };
 
-  static rtBoundsCheckInfo nb_emlrtBCI{ -1,// iFirst
+  static rtBoundsCheckInfo pb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     1796,                              // lineNo
     51,                                // colNo
@@ -6718,7 +6758,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     0                                  // checkKind
   };
 
-  static rtBoundsCheckInfo ob_emlrtBCI{ -1,// iFirst
+  static rtBoundsCheckInfo qb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     1804,                              // lineNo
     74,                                // colNo
@@ -6728,7 +6768,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     0                                  // checkKind
   };
 
-  static rtBoundsCheckInfo pb_emlrtBCI{ -1,// iFirst
+  static rtBoundsCheckInfo rb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     1805,                              // lineNo
     74,                                // colNo
@@ -6738,7 +6778,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     0                                  // checkKind
   };
 
-  static rtBoundsCheckInfo qb_emlrtBCI{ -1,// iFirst
+  static rtBoundsCheckInfo sb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     1820,                              // lineNo
     86,                                // colNo
@@ -6748,7 +6788,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     0                                  // checkKind
   };
 
-  static rtBoundsCheckInfo rb_emlrtBCI{ -1,// iFirst
+  static rtBoundsCheckInfo tb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     1843,                              // lineNo
     61,                                // colNo
@@ -6758,7 +6798,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     0                                  // checkKind
   };
 
-  static rtBoundsCheckInfo sb_emlrtBCI{ -1,// iFirst
+  static rtBoundsCheckInfo ub_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     1843,                              // lineNo
     39,                                // colNo
@@ -6768,7 +6808,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     0                                  // checkKind
   };
 
-  static rtBoundsCheckInfo tb_emlrtBCI{ -1,// iFirst
+  static rtBoundsCheckInfo vb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     1864,                              // lineNo
     74,                                // colNo
@@ -6778,7 +6818,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
     0                                  // checkKind
   };
 
-  static rtBoundsCheckInfo ub_emlrtBCI{ -1,// iFirst
+  static rtBoundsCheckInfo wb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     1865,                              // lineNo
     74,                                // colNo
@@ -6788,31 +6828,11 @@ void waveform::process(char mode, const coder::array<double, 2U>
     0                                  // checkKind
   };
 
-  static rtBoundsCheckInfo vb_emlrtBCI{ -1,// iFirst
+  static rtBoundsCheckInfo xb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     1872,                              // lineNo
     35,                                // colNo
     "obj.ps_pos.pl(tick)",             // aName
-    "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
-    0                                  // checkKind
-  };
-
-  static rtBoundsCheckInfo wb_emlrtBCI{ -1,// iFirst
-    -1,                                // iLast
-    1875,                              // lineNo
-    37,                                // colNo
-    "obj.ps_pos.clst(tick)",           // aName
-    "waveform/process",                // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
-    0                                  // checkKind
-  };
-
-  static rtBoundsCheckInfo xb_emlrtBCI{ -1,// iFirst
-    -1,                                // iLast
-    1721,                              // lineNo
-    58,                                // colNo
-    "pk_ind",                          // aName
     "waveform/process",                // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -6830,15 +6850,15 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo yb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1721,                              // lineNo
-    51,                                // colNo
-    "candidatelist",                   // aName
+    1875,                              // lineNo
+    37,                                // colNo
+    "obj.ps_pos.clst(tick)",           // aName
     "waveform/process",                // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
-  static rtDoubleCheckInfo q_emlrtDCI{ 1898,// lineNo
+  static rtDoubleCheckInfo q_emlrtDCI{ 1906,// lineNo
     51,                                // colNo
     "waveform/process",                // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
@@ -7253,7 +7273,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
       // Set the pulselist property in the ps_pos based on the
       // downselection of pulses
       if (pk_ind.size(0) < 1) {
-        rtDynamicBoundsError(1, 1, pk_ind.size(0), xb_emlrtBCI);
+        rtDynamicBoundsError(1, 1, pk_ind.size(0), ac_emlrtBCI);
       }
 
       obj = ps_pos;
@@ -7265,7 +7285,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
       if ((static_cast<int>(pk_ind[0]) < 1) || (static_cast<int>(pk_ind[0]) >
            candidatelist.size(0))) {
         rtDynamicBoundsError(static_cast<int>(pk_ind[0]), 1, candidatelist.size
-                             (0), yb_emlrtBCI);
+                             (0), bc_emlrtBCI);
       }
 
       obj->pl.set_size(1, candidatelist.size(1));
@@ -7331,7 +7351,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
         }
 
         if (b_i + 1 > b__in.size(1)) {
-          rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), ac_emlrtBCI);
+          rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), cc_emlrtBCI);
         }
 
         b__in[b_i].con_dec = false;
@@ -7382,19 +7402,19 @@ void waveform::process(char mode, const coder::array<double, 2U>
       }
 
       if (b_i + 1 > b__in.size(1)) {
-        rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), bc_emlrtBCI);
+        rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), dc_emlrtBCI);
       }
 
       b__in[b__in.size(0) * b_i].mode.set_size(1, b__in[b__in.size(0) * b_i].
         mode.size(1));
       if (b_i + 1 > b__in.size(1)) {
-        rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), bc_emlrtBCI);
+        rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), dc_emlrtBCI);
       }
 
       b__in[b__in.size(0) * b_i].mode.set_size(b__in[b__in.size(0) * b_i].
         mode.size(0), 1);
       if (b_i + 1 > b__in.size(1)) {
-        rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), bc_emlrtBCI);
+        rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), dc_emlrtBCI);
       }
 
       b__in[b_i].mode[0] = mode;
@@ -7420,7 +7440,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
       if ((static_cast<int>(static_cast<unsigned int>(b_i) + 1U) < 1) || (
            static_cast<int>(static_cast<unsigned int>(b_i) + 1U) > b_index)) {
         rtDynamicBoundsError(static_cast<int>(static_cast<unsigned int>(b_i) +
-          1U), 1, b_index, cc_emlrtBCI);
+          1U), 1, b_index, ec_emlrtBCI);
       }
 
       candidatelist[b_i].mode.set_size(1, candidatelist[b_i].mode.size(1));
@@ -7495,7 +7515,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
         // because if we are in confirmation mode, we only allow
         // for the selection mode to be 'most'
         if (pk_ind.size(0) < 1) {
-          rtDynamicBoundsError(1, 1, pk_ind.size(0), mb_emlrtBCI);
+          rtDynamicBoundsError(1, 1, pk_ind.size(0), ob_emlrtBCI);
         }
 
         obj = ps_pos;
@@ -7506,7 +7526,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
         if ((static_cast<int>(pk_ind[0]) < 1) || (static_cast<int>(pk_ind[0]) >
              candidatelist.size(0))) {
           rtDynamicBoundsError(static_cast<int>(pk_ind[0]), 1,
-                               candidatelist.size(0), nb_emlrtBCI);
+                               candidatelist.size(0), pb_emlrtBCI);
         }
 
         obj->pl.set_size(1, candidatelist.size(1));
@@ -7533,7 +7553,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
       for (int b_i{0}; b_i <= i; b_i++) {
         i1 = ps_pos->pl.size(1);
         if (b_i + 1 > i1) {
-          rtDynamicBoundsError(b_i + 1, 1, i1, ob_emlrtBCI);
+          rtDynamicBoundsError(b_i + 1, 1, i1, qb_emlrtBCI);
         }
 
         i2 = static_cast<signed char>(ps_pos->pl[b_i].det_dec);
@@ -7548,7 +7568,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
         std::fflush(stdout);
         i1 = ps_pos->pl.size(1);
         if (b_i + 1 > i1) {
-          rtDynamicBoundsError(b_i + 1, 1, i1, pb_emlrtBCI);
+          rtDynamicBoundsError(b_i + 1, 1, i1, rb_emlrtBCI);
         }
 
         i2 = static_cast<signed char>(ps_pos->pl[b_i].con_dec);
@@ -7605,7 +7625,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
         i = conflog.size(1);
         for (int b_i{0}; b_i < i; b_i++) {
           if (b_i + 1 > conflog.size(1)) {
-            rtDynamicBoundsError(b_i + 1, 1, conflog.size(1), qb_emlrtBCI);
+            rtDynamicBoundsError(b_i + 1, 1, conflog.size(1), sb_emlrtBCI);
           }
 
           if (static_cast<unsigned int>(b_i) + 1U < 256U) {
@@ -7651,11 +7671,11 @@ void waveform::process(char mode, const coder::array<double, 2U>
           }
 
           if (b_i + 1 > conflog.size(1)) {
-            rtDynamicBoundsError(b_i + 1, 1, conflog.size(1), rb_emlrtBCI);
+            rtDynamicBoundsError(b_i + 1, 1, conflog.size(1), tb_emlrtBCI);
           }
 
           if (b_i + 1 > b__in.size(1)) {
-            rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), sb_emlrtBCI);
+            rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), ub_emlrtBCI);
           }
 
           b__in[b_i].con_dec = conflog[b_i];
@@ -7691,7 +7711,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
       for (int b_i{0}; b_i <= i; b_i++) {
         i1 = ps_pos->pl.size(1);
         if (b_i + 1 > i1) {
-          rtDynamicBoundsError(b_i + 1, 1, i1, tb_emlrtBCI);
+          rtDynamicBoundsError(b_i + 1, 1, i1, vb_emlrtBCI);
         }
 
         i2 = static_cast<signed char>(ps_pos->pl[b_i].det_dec);
@@ -7706,7 +7726,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
         std::fflush(stdout);
         i1 = ps_pos->pl.size(1);
         if (b_i + 1 > i1) {
-          rtDynamicBoundsError(b_i + 1, 1, i1, ub_emlrtBCI);
+          rtDynamicBoundsError(b_i + 1, 1, i1, wb_emlrtBCI);
         }
 
         i2 = static_cast<signed char>(ps_pos->pl[b_i].con_dec);
@@ -7734,19 +7754,19 @@ void waveform::process(char mode, const coder::array<double, 2U>
         }
 
         if (b_i + 1 > b__in.size(1)) {
-          rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), vb_emlrtBCI);
+          rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), xb_emlrtBCI);
         }
 
         b__in[b__in.size(0) * b_i].mode.set_size(1, b__in[b__in.size(0) * b_i].
           mode.size(1));
         if (b_i + 1 > b__in.size(1)) {
-          rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), vb_emlrtBCI);
+          rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), xb_emlrtBCI);
         }
 
         b__in[b__in.size(0) * b_i].mode.set_size(b__in[b__in.size(0) * b_i].
           mode.size(0), 1);
         if (b_i + 1 > b__in.size(1)) {
-          rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), vb_emlrtBCI);
+          rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), xb_emlrtBCI);
         }
 
         b__in[b_i].mode[0] = mode;
@@ -7772,7 +7792,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
         if ((static_cast<int>(static_cast<unsigned int>(b_i) + 1U) < 1) || (
              static_cast<int>(static_cast<unsigned int>(b_i) + 1U) > b_index)) {
           rtDynamicBoundsError(static_cast<int>(static_cast<unsigned int>(b_i) +
-            1U), 1, b_index, wb_emlrtBCI);
+            1U), 1, b_index, yb_emlrtBCI);
         }
 
         candidatelist[b_i].mode.set_size(1, candidatelist[b_i].mode.size(1));
@@ -7829,10 +7849,27 @@ void waveform::process(char mode, const coder::array<double, 2U>
         }
 
         coder::internal::allOrAny_anonFcn1(r);
-      } else {
-        // At least one pulse group met the threshold
       }
 
+      std::printf("COMPLETED FIND PULSE OPERATION \n");
+      std::fflush(stdout);
+      i = pk_ind.size(0);
+      for (int b_i{0}; b_i < i; b_i++) {
+        if (b_i + 1 > pk_ind.size(0)) {
+          rtDynamicBoundsError(b_i + 1, 1, pk_ind.size(0), bb_emlrtBCI);
+        }
+
+        if (static_cast<unsigned int>(b_i) + 1U < 256U) {
+          u = static_cast<unsigned char>(static_cast<double>(b_i) + 1.0);
+        } else {
+          u = MAX_uint8_T;
+        }
+
+        std::printf("Value of pk_ind(%u): %f \n", u, pk_ind[b_i]);
+        std::fflush(stdout);
+      }
+
+      // At least one pulse group met the threshold
       r.set_size(pk_ind.size(0));
       b_index = pk_ind.size(0);
       for (i = 0; i < b_index; i++) {
@@ -7842,13 +7879,27 @@ void waveform::process(char mode, const coder::array<double, 2U>
       if (coder::internal::ifWhileCond(r)) {
         std::printf("I FOUND PULSES THAT EXCEED THE ENERGY THRESHOLD.\n");
         std::fflush(stdout);
+        i = pk_ind.size(0);
+        if (pk_ind.size(0) > 255) {
+          i = 255;
+        }
+
+        std::printf("Number of elements in pk_ind: %u \n", static_cast<unsigned
+                    char>(i));
+        std::fflush(stdout);
+        if (pk_ind.size(0) < 1) {
+          rtDynamicBoundsError(1, 1, pk_ind.size(0), cb_emlrtBCI);
+        }
+
+        std::printf("Value of pk_ind(1): %f \n", pk_ind[0]);
+        std::fflush(stdout);
 
         // Record the detection pulses
         // We only use the highest power pulse group for now
         // because if we are in confirmation mode, we only allow
         // for the selection mode to be 'most'
         if (pk_ind.size(0) < 1) {
-          rtDynamicBoundsError(1, 1, pk_ind.size(0), bb_emlrtBCI);
+          rtDynamicBoundsError(1, 1, pk_ind.size(0), db_emlrtBCI);
         }
 
         obj = ps_pos;
@@ -7859,7 +7910,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
         if ((static_cast<int>(pk_ind[0]) < 1) || (static_cast<int>(pk_ind[0]) >
              candidatelist.size(0))) {
           rtDynamicBoundsError(static_cast<int>(pk_ind[0]), 1,
-                               candidatelist.size(0), cb_emlrtBCI);
+                               candidatelist.size(0), eb_emlrtBCI);
         }
 
         obj->pl.set_size(1, candidatelist.size(1));
@@ -7868,6 +7919,9 @@ void waveform::process(char mode, const coder::array<double, 2U>
           obj->pl[i] = candidatelist[(static_cast<int>(pk_ind[0]) +
             candidatelist.size(0) * i) - 1];
         }
+
+        std::printf("BLAH.\n");
+        std::fflush(stdout);
       } else {
         // Nothing met the threshold for detection
         std::printf("I DID NOT FIND PULSES THAT EXCEED THE ENERGY THRESHOLD.\n");
@@ -7901,11 +7955,15 @@ void waveform::process(char mode, const coder::array<double, 2U>
         obj->cpki[i] = pk_ind[i];
       }
 
+      std::printf("BLAH BLAH.\n");
+      std::fflush(stdout);
       i = ps_pos->pl.size(1) - 1;
       for (int b_i{0}; b_i <= i; b_i++) {
+        std::printf("BLAH BLAH BLAH.\n");
+        std::fflush(stdout);
         i1 = ps_pos->pl.size(1);
         if (b_i + 1 > i1) {
-          rtDynamicBoundsError(b_i + 1, 1, i1, db_emlrtBCI);
+          rtDynamicBoundsError(b_i + 1, 1, i1, fb_emlrtBCI);
         }
 
         i2 = static_cast<signed char>(ps_pos->pl[b_i].det_dec);
@@ -7918,9 +7976,11 @@ void waveform::process(char mode, const coder::array<double, 2U>
         std::printf("\t pulse %u det status: %u \n", u, static_cast<unsigned
                     char>(i2));
         std::fflush(stdout);
+        std::printf("BLAH BLAH BLAH BLAH.\n");
+        std::fflush(stdout);
         i1 = ps_pos->pl.size(1);
         if (b_i + 1 > i1) {
-          rtDynamicBoundsError(b_i + 1, 1, i1, eb_emlrtBCI);
+          rtDynamicBoundsError(b_i + 1, 1, i1, gb_emlrtBCI);
         }
 
         i2 = static_cast<signed char>(ps_pos->pl[b_i].con_dec);
@@ -7951,7 +8011,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
         i = conflog.size(1);
         for (int b_i{0}; b_i < i; b_i++) {
           if (b_i + 1 > conflog.size(1)) {
-            rtDynamicBoundsError(b_i + 1, 1, conflog.size(1), fb_emlrtBCI);
+            rtDynamicBoundsError(b_i + 1, 1, conflog.size(1), hb_emlrtBCI);
           }
 
           if (static_cast<unsigned int>(b_i) + 1U < 256U) {
@@ -7985,11 +8045,11 @@ void waveform::process(char mode, const coder::array<double, 2U>
             }
 
             if (b_i + 1 > conflog.size(1)) {
-              rtDynamicBoundsError(b_i + 1, 1, conflog.size(1), gb_emlrtBCI);
+              rtDynamicBoundsError(b_i + 1, 1, conflog.size(1), ib_emlrtBCI);
             }
 
             if (b_i + 1 > b__in.size(1)) {
-              rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), hb_emlrtBCI);
+              rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), jb_emlrtBCI);
             }
 
             b__in[b_i].con_dec = conflog[b_i];
@@ -8021,7 +8081,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
       for (int b_i{0}; b_i <= i; b_i++) {
         i1 = ps_pos->pl.size(1);
         if (b_i + 1 > i1) {
-          rtDynamicBoundsError(b_i + 1, 1, i1, ib_emlrtBCI);
+          rtDynamicBoundsError(b_i + 1, 1, i1, kb_emlrtBCI);
         }
 
         i2 = static_cast<signed char>(ps_pos->pl[b_i].det_dec);
@@ -8036,7 +8096,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
         std::fflush(stdout);
         i1 = ps_pos->pl.size(1);
         if (b_i + 1 > i1) {
-          rtDynamicBoundsError(b_i + 1, 1, i1, jb_emlrtBCI);
+          rtDynamicBoundsError(b_i + 1, 1, i1, lb_emlrtBCI);
         }
 
         i2 = static_cast<signed char>(ps_pos->pl[b_i].con_dec);
@@ -8079,19 +8139,19 @@ void waveform::process(char mode, const coder::array<double, 2U>
         }
 
         if (b_i + 1 > b__in.size(1)) {
-          rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), kb_emlrtBCI);
+          rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), mb_emlrtBCI);
         }
 
         b__in[b__in.size(0) * b_i].mode.set_size(1, b__in[b__in.size(0) * b_i].
           mode.size(1));
         if (b_i + 1 > b__in.size(1)) {
-          rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), kb_emlrtBCI);
+          rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), mb_emlrtBCI);
         }
 
         b__in[b__in.size(0) * b_i].mode.set_size(b__in[b__in.size(0) * b_i].
           mode.size(0), 1);
         if (b_i + 1 > b__in.size(1)) {
-          rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), kb_emlrtBCI);
+          rtDynamicBoundsError(b_i + 1, 1, b__in.size(1), mb_emlrtBCI);
         }
 
         b__in[b_i].mode[0] = mode;
@@ -8117,7 +8177,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
         if ((static_cast<int>(static_cast<unsigned int>(b_i) + 1U) < 1) || (
              static_cast<int>(static_cast<unsigned int>(b_i) + 1U) > b_index)) {
           rtDynamicBoundsError(static_cast<int>(static_cast<unsigned int>(b_i) +
-            1U), 1, b_index, lb_emlrtBCI);
+            1U), 1, b_index, nb_emlrtBCI);
         }
 
         candidatelist[b_i].mode.set_size(1, candidatelist[b_i].mode.size(1));

@@ -1888,14 +1888,23 @@ fprintf('DETECTING IN TRACKING MODE.\n')
                     end
                 end
 
+fprintf('COMPLETED FIND PULSE OPERATION \n');
+for i = 1:numel(pk_ind)
+    fprintf('Value of pk_ind(%u): %f \n', uint8(i), pk_ind(i));
+end
+
                 %At least one pulse group met the threshold
                 if ~isnan(pk_ind)
 fprintf('I FOUND PULSES THAT EXCEED THE ENERGY THRESHOLD.\n')
+
+fprintf('Number of elements in pk_ind: %u \n',uint8(numel(pk_ind)));
+fprintf('Value of pk_ind(1): %f \n', pk_ind(1));
                     %Record the detection pulses
                     %We only use the highest power pulse group for now
                     %because if we are in confirmation mode, we only allow
                     %for the selection mode to be 'most'
                     obj.ps_pos.pl = candidatelist(pk_ind(1),:);
+fprintf('BLAH.\n')
                 else %Nothing met the threshold for detection
 fprintf('I DID NOT FIND PULSES THAT EXCEED THE ENERGY THRESHOLD.\n')
                     obj.ps_pos.pl = makepulsestruc();
@@ -1904,8 +1913,11 @@ fprintf('I DID NOT FIND PULSES THAT EXCEED THE ENERGY THRESHOLD.\n')
                 obj.ps_pos.cmsk = msk;
                 obj.ps_pos.cpki = pk_ind;
 
+fprintf('BLAH BLAH.\n')
 for i = 1:numel(obj.ps_pos.pl)
+    fprintf('BLAH BLAH BLAH.\n')
     fprintf('\t pulse %u det status: %u \n',uint8(i),uint8(obj.ps_pos.pl(i).det_dec))
+    fprintf('BLAH BLAH BLAH BLAH.\n')
     fprintf('\t pulse %u con status: %u \n',uint8(i),uint8(obj.ps_pos.pl(i).con_dec))
 end
 
