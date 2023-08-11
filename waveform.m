@@ -982,11 +982,14 @@ fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;
             %has a higher score than a score at a different frequency that
             %was lower, but exceeded it's local threshold. 
             peak_masked_curr_scores = peak_masked_curr_scores.*(peak_masked_curr_scores>=thresh);
-           
+
+for i = 1:numel(peak_masked_curr_scores)
+    fprintf('\tDEBUGGING: PEAK_MASKED_SCORES %u = %f \t %f = THRESH\n',uint8(i), peak_masked_curr_scores(i), thresh(i));
+end
 fprintf('\t Peeling phase %u complet ...\n',uint8(step));step = step+1;   
             %%------------------------------------------------
             %thresh_hold = thresh;thresh = interp1(obj.stft.f,thresh,Wf);
-            if all(peak_masked_curr_scores < thresh, 'all')%~any(peak_masked_curr_scores >= thresh, 'all')
+            if ~any(peak_masked_curr_scores >= thresh, 'all') %all(peak_masked_curr_scores < thresh, 'all')%
                 %peak_ind = [];
 fprintf('\t No peaks found to exceed threshold. Setting peak_ind and peak value to NaN \n');   
 

@@ -5,7 +5,7 @@
 // File: all.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 11-Aug-2023 11:48:47
+// C/C++ source code generated on  : 11-Aug-2023 12:07:41
 //
 
 // Include Files
@@ -104,32 +104,6 @@ void all(const ::coder::array<boolean_T, 2U> &x,
       }
     }
   }
-}
-
-//
-// Arguments    : const ::coder::array<boolean_T, 1U> &x
-// Return Type  : boolean_T
-//
-boolean_T b_all(const ::coder::array<boolean_T, 1U> &x)
-{
-  int ix;
-  boolean_T exitg1;
-  boolean_T y;
-  y = true;
-  if (x.size(0) > 2147483646) {
-    check_forloop_overflow_error();
-  }
-  ix = 1;
-  exitg1 = false;
-  while ((!exitg1) && (ix <= x.size(0))) {
-    if (!x[ix - 1]) {
-      y = false;
-      exitg1 = true;
-    } else {
-      ix++;
-    }
-  }
-  return y;
 }
 
 } // namespace coder

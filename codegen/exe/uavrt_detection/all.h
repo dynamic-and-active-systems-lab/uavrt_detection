@@ -5,7 +5,7 @@
 // File: all.h
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 11-Aug-2023 11:48:47
+// C/C++ source code generated on  : 11-Aug-2023 12:07:41
 //
 
 #ifndef ALL_H
@@ -22,9 +22,7 @@ namespace coder {
 void all(const ::coder::array<boolean_T, 2U> &x,
          ::coder::array<boolean_T, 1U> &y);
 
-boolean_T b_all(const ::coder::array<boolean_T, 1U> &x);
-
-} // namespace coder
+}
 
 #endif
 //
