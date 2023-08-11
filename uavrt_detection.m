@@ -213,7 +213,7 @@ previousPulseTime = 0;
 repeatedDetectionFlag = false;
 missingSamples    = 0;
 iqDataToWrite     = single(complex([]));
-groupSeqCounter   = uint16(0);
+groupSeqCounter   = 0;
 
 fprintf('Startup set 8 complete. Starting processing... \n')
 
@@ -374,7 +374,8 @@ while true %i <= maxInd
 
                 %% Process data if there is enough in the buffers
                 if asyncDataBuff.NumUnreadSamples >= sampsForKPulses + overlapSamples
-                    fprintf('Buffer Full|| sampsForKPulses: %u, overlapSamples: %u,\n',uint32(sampsForKPulses),uint32(overlapSamples))
+fprintf('++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n')
+                    fprintf('Buffer Full || sampsForKPulses: %u, overlapSamples: %u,\n',uint32(sampsForKPulses),uint32(overlapSamples))
                     fprintf('Running...Buffer full with %d samples. Processing. \n', asyncDataBuff.NumUnreadSamples)
                     
 previousToc = toc;
@@ -504,8 +505,11 @@ previousToc = toc;
                         pulseInfoStruct.sendHeartbeatOverUDP(uint32(Config.ID));
 
                         fprintf('Finding pulses...')
+fprintf('PROCESSING IN %s MODE \n', mode)
+                        fprintf('====================================\n')
                         X.process(mode, 'most', Config.excldFreqs)
                         fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+
                         processingTime = toc - processingStartToc;
                         fprintf('TOTAL PULSE PROCESSING TIME: %f seconds \n', processingTime)
 
@@ -625,15 +629,15 @@ previousToc = toc;
                                 pulseInfoStruct.predict_next_start_seconds  = detectorPulse.t_next(1);
                                 pulseInfoStruct.snr                         = detectorPulse.SNR;
                                 pulseInfoStruct.stft_score                  = real(detectorPulse.yw);
-                                pulseInfoStruct.group_seq_counter           = groupSeqCounter;
+                                pulseInfoStruct.group_seq_counter           = uint16(groupSeqCounter);
                                 pulseInfoStruct.group_ind                   = uint16(j);
                                 pulseInfoStruct.group_snr                   = groupSNR;
-                                pulseInfoStruct.detection_status            = uint8(detectorPulse.det_dec);
-                                pulseInfoStruct.confirmed_status            = uint8(detectorPulse.con_dec);
                                 dt                                          = X.stft.dt;
                                 T                                           = X.stft.T;
-                                pulseInfoStruct.noise_psd                   = real(detectorPulse.yw )* dt^2 / T * (1 + 10^(detectorPulse.SNR/10))^(-1); %See Notebook Entry 2023-07-07 for derivation
-
+                                pulseInfoStruct.noise_psd                   = real(detectorPulse.yw ) * dt^2 / T * (1 + 10^(detectorPulse.SNR/10))^(-1); %See Notebook Entry 2023-07-07 for derivation
+                                pulseInfoStruct.detection_status            = uint8(detectorPulse.det_dec);
+                                pulseInfoStruct.confirmed_status            = uint8(detectorPulse.con_dec);
+                                
                                 if ~pulsesToSkip(j)
                                     % UDP Send
                                     pulseInfoStruct.sendOverUDP();
@@ -643,10 +647,10 @@ previousToc = toc;
 
                                     pulseCount = pulseCount+1;
                                 end
+fprintf('EXPECTED GCS ENTRY:')
+printpulseinfostruc(pulseInfoStruct);
 
-
-
-                                fprintf(".");
+                                
                                 %                                    end
                             end
                             groupSeqCounter = groupSeqCounter + 1;
@@ -654,8 +658,7 @@ previousToc = toc;
                         else
                             fprintf("\n");
                         end
-                        fprintf('Current Mode: %s\n', ps_pre_struc.mode)
-                        fprintf('====================================\n')
+                     
                     end
                     
                     elapsedTimeClock = round(posixtime(datetime('now'))*1000000)/1000000 - startTime;

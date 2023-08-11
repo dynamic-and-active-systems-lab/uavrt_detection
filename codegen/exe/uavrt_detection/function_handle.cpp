@@ -5,7 +5,7 @@
 // File: function_handle.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 04-Aug-2023 15:45:46
+// C/C++ source code generated on  : 11-Aug-2023 12:59:41
 //
 
 // Include Files
@@ -47,7 +47,7 @@ boolean_T binary_expand_op(const coder::array<double, 1U> &in1,
   }
   for (i = 0; i < loop_ub; i++) {
     b_in1[i] =
-        (in1[i * stride_0_0] > in2->thresh.threshVecFine[i * stride_1_0]);
+        (in1[i * stride_0_0] >= in2->thresh.threshVecFine[i * stride_1_0]);
   }
   out1 = false;
   if (b_in1.size(0) > 2147483646) {
