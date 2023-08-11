@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 11-Aug-2023 12:36:11
+// C/C++ source code generated on  : 11-Aug-2023 12:59:41
 //
 
 // Include Files
@@ -1436,8 +1436,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo bb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      513,               // lineNo
-      72,                // colNo
+      585,               // lineNo
+      61,                // colNo
       "X.ps_pos.pl",     // aName
       "uavrt_detection", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -1447,9 +1447,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo cb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      514,               // lineNo
-      72,                // colNo
-      "X.ps_pos.pl",     // aName
+      590,               // lineNo
+      79,                // colNo
+      "ps_pre_struc.pl", // aName
       "uavrt_detection", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
@@ -1458,9 +1458,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo db_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      588,               // lineNo
-      61,                // colNo
-      "X.ps_pos.pl",     // aName
+      596,               // lineNo
+      50,                // colNo
+      "pulsesToSkip",    // aName
       "uavrt_detection", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
@@ -1469,9 +1469,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo eb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      593,               // lineNo
-      79,                // colNo
-      "ps_pre_struc.pl", // aName
+      625,               // lineNo
+      91,                // colNo
+      "X.ps_pos.pl",     // aName
       "uavrt_detection", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
@@ -1480,29 +1480,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo fb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      599,               // lineNo
-      50,                // colNo
-      "pulsesToSkip",    // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
-  };
-  static rtBoundsCheckInfo gb_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      628,               // lineNo
-      91,                // colNo
-      "X.ps_pos.pl",     // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
-  };
-  static rtBoundsCheckInfo hb_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      644,               // lineNo
+      641,               // lineNo
       50,                // colNo
       "pulsesToSkip",    // aName
       "uavrt_detection", // fName
@@ -1631,9 +1609,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   int currDir_size[2];
   int i;
   int loop_ub;
-  unsigned int u2;
+  unsigned int u1;
   int val;
-  unsigned short u3;
+  unsigned short u2;
   char currDir_data[200];
   char untokenizedDir[200];
   signed char fileid;
@@ -2552,37 +2530,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         timeDiff = coder::toc() - timeDiff;
         std::printf("complete. Elapsed time: %f seconds \n", timeDiff);
         std::fflush(stdout);
-        i = b_X.ps_pos->pl.size(1) - 1;
-        for (loop_ub = 0; loop_ub <= i; loop_ub++) {
-          signed char i1;
-          unsigned char u1;
-          n = b_X.ps_pos->pl.size(1);
-          if (loop_ub + 1 > n) {
-            rtDynamicBoundsError(loop_ub + 1, 1, n, bb_emlrtBCI);
-          }
-          i1 = static_cast<signed char>(b_X.ps_pos->pl[loop_ub].det_dec);
-          if (static_cast<unsigned int>(loop_ub) + 1U < 256U) {
-            u1 = static_cast<unsigned char>(static_cast<double>(loop_ub) + 1.0);
-          } else {
-            u1 = MAX_uint8_T;
-          }
-          std::printf("\t pulse %u det status: %u \n", u1,
-                      static_cast<unsigned char>(i1));
-          std::fflush(stdout);
-          n = b_X.ps_pos->pl.size(1);
-          if (loop_ub + 1 > n) {
-            rtDynamicBoundsError(loop_ub + 1, 1, n, cb_emlrtBCI);
-          }
-          i1 = static_cast<signed char>(b_X.ps_pos->pl[loop_ub].con_dec);
-          if (static_cast<unsigned int>(loop_ub) + 1U < 256U) {
-            u1 = static_cast<unsigned char>(static_cast<double>(loop_ub) + 1.0);
-          } else {
-            u1 = MAX_uint8_T;
-          }
-          std::printf("\t pulse %u con status: %u \n", u1,
-                      static_cast<unsigned char>(i1));
-          std::fflush(stdout);
-        }
         timeDiff = coder::toc() - processingStartToc;
         std::printf("TOTAL PULSE PROCESSING TIME: %f seconds \n", timeDiff);
         std::fflush(stdout);
@@ -2739,12 +2686,12 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           for (int j{0}; j < nPulseList; j++) {
             i = b_X.ps_pos->pl.size(1);
             if (j + 1 > i) {
-              rtDynamicBoundsError(j + 1, 1, i, db_emlrtBCI);
+              rtDynamicBoundsError(j + 1, 1, i, bb_emlrtBCI);
             }
             timeDiff = b_X.ps_pos->pl[j].t_0;
             if (j + 1 > ps_pre_struc_pl.size(1)) {
               rtDynamicBoundsError(j + 1, 1, ps_pre_struc_pl.size(1),
-                                   eb_emlrtBCI);
+                                   cb_emlrtBCI);
             }
             std::printf("Pulse at %f Hz detected. SNR: %f \n \t Confirmation "
                         "status: %u \n\t Interpulse time    : %f \n",
@@ -2761,7 +2708,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
               std::fflush(stdout);
               if (j + 1 > pulsesToSkip.size(1)) {
                 rtDynamicBoundsError(j + 1, 1, pulsesToSkip.size(1),
-                                     fb_emlrtBCI);
+                                     db_emlrtBCI);
               }
               pulsesToSkip[j] = true;
             } else {
@@ -2789,23 +2736,23 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           if (nPulseList - 1 >= 0) {
             if (t9_fp < 4.294967296E+9) {
               if (t9_fp >= 0.0) {
-                u2 = static_cast<unsigned int>(t9_fp);
+                u1 = static_cast<unsigned int>(t9_fp);
               } else {
-                u2 = 0U;
+                u1 = 0U;
               }
             } else if (t9_fp >= 4.294967296E+9) {
-              u2 = MAX_uint32_T;
+              u1 = MAX_uint32_T;
             } else {
-              u2 = 0U;
+              u1 = 0U;
             }
             if (groupSeqCounter < 65536.0) {
-              u3 = static_cast<unsigned short>(groupSeqCounter);
+              u2 = static_cast<unsigned short>(groupSeqCounter);
             } else {
-              u3 = MAX_uint16_T;
+              u2 = MAX_uint16_T;
             }
           }
           for (int j{0}; j < nPulseList; j++) {
-            unsigned short u4;
+            unsigned short u3;
             n = b_X.ps_pos->pl.size(1);
             c_X.set_size(n);
             loop_ub = n - 1;
@@ -2849,7 +2796,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             //  Publish pulses to UDP
             i = b_X.ps_pos->pl.size(1);
             if (j + 1 > i) {
-              rtDynamicBoundsError(j + 1, 1, i, gb_emlrtBCI);
+              rtDynamicBoundsError(j + 1, 1, i, eb_emlrtBCI);
             }
             detectorPulse = b_X.ps_pos->pl[j];
             t9_yw = b_X.stft->dt;
@@ -2857,7 +2804,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             t9_t_f = rt_powd_snf(10.0, detectorPulse.SNR / 10.0);
             // See Notebook Entry 2023-07-07 for derivation
             if (j + 1 > pulsesToSkip.size(1)) {
-              rtDynamicBoundsError(j + 1, 1, pulsesToSkip.size(1), hb_emlrtBCI);
+              rtDynamicBoundsError(j + 1, 1, pulsesToSkip.size(1), fb_emlrtBCI);
             }
             if (!pulsesToSkip[j]) {
               //  UDP Send
@@ -2893,17 +2840,17 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
               doublesBuffer[4] = detectorPulse.SNR;
               doublesBuffer[5] = detectorPulse.yw;
               if (groupSeqCounter < 65536.0) {
-                u4 = static_cast<unsigned short>(groupSeqCounter);
+                u3 = static_cast<unsigned short>(groupSeqCounter);
               } else {
-                u4 = MAX_uint16_T;
+                u3 = MAX_uint16_T;
               }
-              doublesBuffer[6] = u4;
+              doublesBuffer[6] = u3;
               if (static_cast<unsigned int>(j) + 1U < 65536U) {
-                u4 = static_cast<unsigned short>(static_cast<double>(j) + 1.0);
+                u3 = static_cast<unsigned short>(static_cast<double>(j) + 1.0);
               } else {
-                u4 = MAX_uint16_T;
+                u3 = MAX_uint16_T;
               }
-              doublesBuffer[7] = u4;
+              doublesBuffer[7] = u3;
               doublesBuffer[8] = 10.0 * t9_SNR;
               doublesBuffer[9] = detectorPulse.det_dec;
               doublesBuffer[10] = detectorPulse.con_dec;
@@ -2948,14 +2895,14 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
               timeStampSec = 0U;
             }
             if (static_cast<unsigned int>(j) + 1U < 65536U) {
-              u4 = static_cast<unsigned short>(static_cast<double>(j) + 1.0);
+              u3 = static_cast<unsigned short>(static_cast<double>(j) + 1.0);
             } else {
-              u4 = MAX_uint16_T;
+              u3 = MAX_uint16_T;
             }
             std::printf(
-                "%u, %u, %f, %f, %f, %f, %u, %u, %f, %f, %u, %u\n", u2,
+                "%u, %u, %f, %f, %f, %f, %u, %u, %f, %f, %u, %u\n", u1,
                 timeStampSec, detectorPulse.t_0, detectorPulse.t_next[0],
-                detectorPulse.SNR, detectorPulse.yw, u3, u4, 10.0 * t9_SNR,
+                detectorPulse.SNR, detectorPulse.yw, u2, u3, 10.0 * t9_SNR,
                 detectorPulse.yw * (t9_yw * t9_yw) / T * (1.0 / (t9_t_f + 1.0)),
                 static_cast<unsigned char>(detectorPulse.det_dec),
                 static_cast<unsigned char>(detectorPulse.con_dec));

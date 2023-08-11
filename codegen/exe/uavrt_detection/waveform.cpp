@@ -5,7 +5,7 @@
 // File: waveform.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 11-Aug-2023 12:36:11
+// C/C++ source code generated on  : 11-Aug-2023 12:59:41
 //
 
 // Include Files
@@ -1890,7 +1890,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   boolean_T empty_non_axis_sizes;
   boolean_T y;
   previousToc = coder::toc();
-  std::printf(" \n \t Setting up parameter for finding pulses  ...");
+  std::printf("\t Setting up parameter for finding pulses  ...");
   std::fflush(stdout);
   if (excluded_freq_bands_in.size(0) == 0) {
     excluded_freq_bands.set_size(1, 2);

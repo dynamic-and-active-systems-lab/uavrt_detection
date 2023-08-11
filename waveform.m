@@ -527,7 +527,7 @@ classdef waveform < handle
             %
             %%
 previousToc = toc;
-fprintf(' \n \t Setting up parameter for finding pulses  ...')
+fprintf('\t Setting up parameter for finding pulses  ...')
 
             if (size(excluded_freq_bands_in,2)~=2) && (~isempty(excluded_freq_bands_in))
                 error('Excluded frequency band listing must be a nx2 matrix or empty.')

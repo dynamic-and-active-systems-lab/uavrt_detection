@@ -509,10 +509,7 @@ fprintf('PROCESSING IN %s MODE \n', mode)
                         fprintf('====================================\n')
                         X.process(mode, 'most', Config.excldFreqs)
                         fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
-for i = 1:numel(X.ps_pos.pl)
-    fprintf('\t pulse %u det status: %u \n',uint8(i),uint8(X.ps_pos.pl(i).det_dec))
-    fprintf('\t pulse %u con status: %u \n',uint8(i),uint8(X.ps_pos.pl(i).con_dec))
-end
+
                         processingTime = toc - processingStartToc;
                         fprintf('TOTAL PULSE PROCESSING TIME: %f seconds \n', processingTime)
 
