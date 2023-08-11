@@ -985,7 +985,7 @@ fprintf('\t Running Peeling Algorithm  ...')
             
             %%------------------------------------------------
             %thresh_hold = thresh;thresh = interp1(obj.stft.f,thresh,Wf);
-            if ~any(peak_masked_curr_scores>thresh, 'all')
+            if ~any(peak_masked_curr_scores >= thresh, 'all')
                 %peak_ind = [];
                 peak_ind = NaN(1,1);
                 peak     = NaN(1,1);%[];
@@ -995,7 +995,7 @@ fprintf('\t Running Peeling Algorithm  ...')
             %the threshold which aren't masked as a valley, +slope, -slope,
             %or previously identified peak/sideband. 
             %figure; plot3([1:160],ones(160,1)*0,curr_scores)
-            while any(peak_masked_curr_scores>thresh, 'all')
+            while any(peak_masked_curr_scores >= thresh, 'all')
              %   hold on; plot3([1:160],ones(160,1)*p,curr_scores)
                 %Identify the highest scoring peak of the currently
                 %identifed scores. 
@@ -1281,13 +1281,21 @@ fprintf('\t Running Peeling Algorithm  ...')
                         f_bands(j,1),...
                         f_bands(j,2));
                     cur_pl(j,i).con_dec = false;    %Confirmation status
-                    if scores(j)>=thresh%scores(j)>=thresh(j)
+                    if scores(j)>=thresh(j)%scores(j)>=thresh
+fprintf('DEBUGGING: ROW %u CONTAINS THRESHOLD EXCEEDING SCORE',uint16(j));
                         cur_pl(j,i).det_dec = true;
                     end
                 end
             end
             
             pl_out   = cur_pl;
+
+for i =1:numel(peak_ind)
+    fprintf('DEBUGGING: PK_IND %u IS ROW %u WITH SCORE = %f \t %f = THRESH \n',uint16(i),uint16(peak_ind(i)),scores(peak_ind(i)),thresh(peak_ind(i)));
+end
+for i = 1:numel(scores)
+    fprintf('\tDEBUGGING: SCORE %u = %f \t %f = THRESH\n',uint8(i), scores(i), thresh(i));
+end
 
 fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
 previousToc = toc;

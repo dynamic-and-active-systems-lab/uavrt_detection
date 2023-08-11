@@ -5,7 +5,7 @@
 // File: waveform.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 11-Aug-2023 08:04:26
+// C/C++ source code generated on  : 11-Aug-2023 09:25:46
 //
 
 // Include Files
@@ -246,9 +246,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo af_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    598,                               // lineNo
-    42,                                // colNo
-    "obj.stft.t",                      // aName
+    932,                               // lineNo
+    76,                                // colNo
+    "scores",                          // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -296,9 +296,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo bf_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    598,                               // lineNo
+    921,                               // lineNo
     57,                                // colNo
-    "obj.stft.t",                      // aName
+    "scores",                          // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -346,9 +346,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo cf_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    603,                               // lineNo
-    44,                                // colNo
-    "obj.stft.t",                      // aName
+    921,                               // lineNo
+    59,                                // colNo
+    "scores",                          // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -396,9 +396,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo df_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    630,                               // lineNo
-    49,                                // colNo
-    "obj.stft.t",                      // aName
+    726,                               // lineNo
+    27,                                // colNo
+    "freq_mask",                       // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -444,6 +444,16 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     0                                  // checkKind
   };
 
+  static rtBoundsCheckInfo ef_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    726,                               // lineNo
+    43,                                // colNo
+    "freq_mask",                       // aName
+    "waveform/findpulse",              // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
   static rtBoundsCheckInfo fb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     682,                               // lineNo
@@ -479,6 +489,16 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     1283,                              // lineNo
     30,                                // colNo
     "cur_pl",                          // aName
+    "waveform/findpulse",              // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo ff_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    569,                               // lineNo
+    80,                                // colNo
+    "obj.ps_pre.pl",                   // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -524,6 +544,16 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     0                                  // checkKind
   };
 
+  static rtBoundsCheckInfo gf_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    593,                               // lineNo
+    45,                                // colNo
+    "obj.ps_pre.pl",                   // aName
+    "waveform/findpulse",              // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
   static rtBoundsCheckInfo hb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
     726,                               // lineNo
@@ -556,9 +586,19 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo he_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1285,                              // lineNo
-    32,                                // colNo
-    "cur_pl",                          // aName
+    1284,                              // lineNo
+    42,                                // colNo
+    "thresh",                          // aName
+    "waveform/findpulse",              // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo hf_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    598,                               // lineNo
+    42,                                // colNo
+    "obj.stft.t",                      // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -596,9 +636,19 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo ie_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1285,                              // lineNo
-    34,                                // colNo
+    1286,                              // lineNo
+    32,                                // colNo
     "cur_pl",                          // aName
+    "waveform/findpulse",              // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo if_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    598,                               // lineNo
+    57,                                // colNo
+    "obj.stft.t",                      // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -636,9 +686,19 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo je_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1209,                              // lineNo
-    37,                                // colNo
-    "indiv_msk",                       // aName
+    1286,                              // lineNo
+    34,                                // colNo
+    "cur_pl",                          // aName
+    "waveform/findpulse",              // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo jf_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    603,                               // lineNo
+    44,                                // colNo
+    "obj.stft.t",                      // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -676,9 +736,19 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo ke_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1209,                              // lineNo
-    39,                                // colNo
-    "indiv_msk",                       // aName
+    1294,                              // lineNo
+    106,                               // colNo
+    "peak_ind",                        // aName
+    "waveform/findpulse",              // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo kf_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    630,                               // lineNo
+    49,                                // colNo
+    "obj.stft.t",                      // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -716,9 +786,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo le_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1075,                              // lineNo
-    62,                                // colNo
-    "slope_val",                       // aName
+    1294,                              // lineNo
+    117,                               // colNo
+    "scores",                          // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -756,9 +826,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo me_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1075,                              // lineNo
-    76,                                // colNo
-    "slope_val",                       // aName
+    1294,                              // lineNo
+    146,                               // colNo
+    "peak_ind",                        // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -796,9 +866,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo ne_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1074,                              // lineNo
-    62,                                // colNo
-    "slope_val",                       // aName
+    1294,                              // lineNo
+    137,                               // colNo
+    "thresh",                          // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -836,9 +906,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo oe_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1074,                              // lineNo
-    79,                                // colNo
-    "slope_val",                       // aName
+    1297,                              // lineNo
+    76,                                // colNo
+    "scores",                          // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -876,9 +946,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo pe_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    933,                               // lineNo
-    48,                                // colNo
-    "scores",                          // aName
+    1297,                              // lineNo
+    87,                                // colNo
+    "thresh",                          // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -916,9 +986,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo qe_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    933,                               // lineNo
-    50,                                // colNo
-    "scores",                          // aName
+    1209,                              // lineNo
+    37,                                // colNo
+    "indiv_msk",                       // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -956,9 +1026,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo re_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    932,                               // lineNo
-    74,                                // colNo
-    "scores",                          // aName
+    1209,                              // lineNo
+    39,                                // colNo
+    "indiv_msk",                       // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -996,9 +1066,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo se_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    932,                               // lineNo
-    76,                                // colNo
-    "scores",                          // aName
+    1075,                              // lineNo
+    62,                                // colNo
+    "slope_val",                       // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -1036,9 +1106,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo te_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    921,                               // lineNo
-    57,                                // colNo
-    "scores",                          // aName
+    1075,                              // lineNo
+    76,                                // colNo
+    "slope_val",                       // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -1076,9 +1146,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo ue_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    921,                               // lineNo
-    59,                                // colNo
-    "scores",                          // aName
+    1074,                              // lineNo
+    62,                                // colNo
+    "slope_val",                       // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -1116,9 +1186,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo ve_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    726,                               // lineNo
-    27,                                // colNo
-    "freq_mask",                       // aName
+    1074,                              // lineNo
+    79,                                // colNo
+    "slope_val",                       // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -1156,9 +1226,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo we_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    726,                               // lineNo
-    43,                                // colNo
-    "freq_mask",                       // aName
+    933,                               // lineNo
+    48,                                // colNo
+    "scores",                          // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -1196,9 +1266,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo xe_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    569,                               // lineNo
-    80,                                // colNo
-    "obj.ps_pre.pl",                   // aName
+    933,                               // lineNo
+    50,                                // colNo
+    "scores",                          // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -1246,9 +1316,9 @@ void waveform::findpulse(const char time_searchtype_data[], const int
 
   static rtBoundsCheckInfo ye_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    593,                               // lineNo
-    45,                                // colNo
-    "obj.ps_pre.pl",                   // aName
+    932,                               // lineNo
+    74,                                // colNo
+    "scores",                          // aName
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -1373,8 +1443,8 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     4                                  // checkKind
   };
 
-  static rtDoubleCheckInfo qb_emlrtDCI{ 1075,// lineNo
-    62,                                // colNo
+  static rtDoubleCheckInfo qb_emlrtDCI{ 1294,// lineNo
+    117,                               // colNo
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
@@ -1387,8 +1457,8 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     1                                  // checkKind
   };
 
-  static rtDoubleCheckInfo rb_emlrtDCI{ 1074,// lineNo
-    62,                                // colNo
+  static rtDoubleCheckInfo rb_emlrtDCI{ 1294,// lineNo
+    137,                               // colNo
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
@@ -1401,8 +1471,22 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     4                                  // checkKind
   };
 
+  static rtDoubleCheckInfo sb_emlrtDCI{ 1075,// lineNo
+    62,                                // colNo
+    "waveform/findpulse",              // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    1                                  // checkKind
+  };
+
   static rtDoubleCheckInfo t_emlrtDCI{ 669,// lineNo
     13,                                // colNo
+    "waveform/findpulse",              // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    1                                  // checkKind
+  };
+
+  static rtDoubleCheckInfo tb_emlrtDCI{ 1074,// lineNo
+    62,                                // colNo
     "waveform/findpulse",              // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
@@ -1867,6 +1951,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   unsigned int p;
   int wind_end_size;
   int wind_start_size;
+  unsigned short u1;
   boolean_T empty_non_axis_sizes;
   boolean_T y;
   previousToc = coder::toc();
@@ -1912,7 +1997,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     if (coder::internal::f_strcmp(time_searchtype_data, time_searchtype_size)) {
       i = ps_pre->pl.size(1);
       if (i < 1) {
-        rtDynamicBoundsError(1, 1, i, xe_emlrtBCI);
+        rtDynamicBoundsError(1, 1, i, ff_emlrtBCI);
       }
     }
 
@@ -1934,7 +2019,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     i = ps_pre->pl.size(1);
     i1 = ps_pre->pl.size(1);
     if ((i1 < 1) || (i1 > i)) {
-      rtDynamicBoundsError(i1, 1, i, ye_emlrtBCI);
+      rtDynamicBoundsError(i1, 1, i, gf_emlrtBCI);
     }
 
     t_lastknown = ps_pre->pl[i1 - 1].t_0;
@@ -1945,12 +2030,12 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     // Time steps in the STFT windows:
     i = stft->t.size(0);
     if (i < 2) {
-      rtDynamicBoundsError(2, 1, i, af_emlrtBCI);
+      rtDynamicBoundsError(2, 1, i, hf_emlrtBCI);
     }
 
     i = stft->t.size(0);
     if (i < 1) {
-      rtDynamicBoundsError(1, 1, i, bf_emlrtBCI);
+      rtDynamicBoundsError(1, 1, i, if_emlrtBCI);
     }
 
     stft_dt = stft->t[1] - stft->t[0];
@@ -1960,7 +2045,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     timetol = n_ws / Fs;
     i = stft->t.size(0);
     if (i < 1) {
-      rtDynamicBoundsError(1, 1, i, cf_emlrtBCI);
+      rtDynamicBoundsError(1, 1, i, jf_emlrtBCI);
     }
 
     if (t_lastknown >= stft->t[0] - stft_dt / 2.0) {
@@ -2049,7 +2134,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
       t_srch_rng[1] = a + tp_temp;
       i = stft->t.size(0);
       if (i < 1) {
-        rtDynamicBoundsError(1, 1, i, df_emlrtBCI);
+        rtDynamicBoundsError(1, 1, i, kf_emlrtBCI);
       }
 
       if (t_srch_rng[0] < stft->t[0] - stft_dt / 2.0) {
@@ -2551,14 +2636,14 @@ void waveform::findpulse(const char time_searchtype_data[], const int
       if ((static_cast<int>(freq_ind_rng_data[0]) < 1) || (static_cast<int>
            (freq_ind_rng_data[0]) > loop_ub_tmp)) {
         rtDynamicBoundsError(static_cast<int>(freq_ind_rng_data[0]), 1,
-                             static_cast<int>(t_srch_rng[0]), ve_emlrtBCI);
+                             static_cast<int>(t_srch_rng[0]), df_emlrtBCI);
       }
 
       i = static_cast<int>(freq_ind_rng_data[0]) - 1;
       if ((static_cast<int>(freq_ind_rng_data[1]) < 1) || (static_cast<int>
            (freq_ind_rng_data[1]) > loop_ub_tmp)) {
         rtDynamicBoundsError(static_cast<int>(freq_ind_rng_data[1]), 1,
-                             static_cast<int>(t_srch_rng[0]), we_emlrtBCI);
+                             static_cast<int>(t_srch_rng[0]), ef_emlrtBCI);
       }
 
       i1 = static_cast<int>(freq_ind_rng_data[1]);
@@ -3346,11 +3431,11 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     b_loop_ub = 0;
   } else {
     if (scores.size(0) < 1) {
-      rtDynamicBoundsError(1, 1, scores.size(0), te_emlrtBCI);
+      rtDynamicBoundsError(1, 1, scores.size(0), bf_emlrtBCI);
     }
 
     if ((scores.size(0) - 1 < 1) || (scores.size(0) - 1 > scores.size(0))) {
-      rtDynamicBoundsError(scores.size(0) - 1, 1, scores.size(0), ue_emlrtBCI);
+      rtDynamicBoundsError(scores.size(0) - 1, 1, scores.size(0), cf_emlrtBCI);
     }
 
     b_loop_ub = scores.size(0) - 1;
@@ -3473,11 +3558,11 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     loop_ub = 0;
   } else {
     if (scores.size(0) < 1) {
-      rtDynamicBoundsError(1, 1, scores.size(0), re_emlrtBCI);
+      rtDynamicBoundsError(1, 1, scores.size(0), ye_emlrtBCI);
     }
 
     if ((scores.size(0) - 1 < 1) || (scores.size(0) - 1 > scores.size(0))) {
-      rtDynamicBoundsError(scores.size(0) - 1, 1, scores.size(0), se_emlrtBCI);
+      rtDynamicBoundsError(scores.size(0) - 1, 1, scores.size(0), af_emlrtBCI);
     }
 
     loop_ub = scores.size(0) - 1;
@@ -3516,11 +3601,11 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     loop_ub = 0;
   } else {
     if (scores.size(0) < 1) {
-      rtDynamicBoundsError(1, 1, scores.size(0), pe_emlrtBCI);
+      rtDynamicBoundsError(1, 1, scores.size(0), we_emlrtBCI);
     }
 
     if ((scores.size(0) - 1 < 1) || (scores.size(0) - 1 > scores.size(0))) {
-      rtDynamicBoundsError(scores.size(0) - 1, 1, scores.size(0), qe_emlrtBCI);
+      rtDynamicBoundsError(scores.size(0) - 1, 1, scores.size(0), xe_emlrtBCI);
     }
 
     loop_ub = scores.size(0) - 1;
@@ -3743,7 +3828,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     score_right_bndry.set_size(timeBlinderVec.size(0));
     loop_ub = timeBlinderVec.size(0);
     for (i = 0; i < loop_ub; i++) {
-      score_right_bndry[i] = (timeBlinderVec[i] > thresh.threshVecFine[i]);
+      score_right_bndry[i] = (timeBlinderVec[i] >= thresh.threshVecFine[i]);
     }
 
     y = coder::internal::allOrAny_anonFcn1(score_right_bndry);
@@ -3777,7 +3862,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
       score_right_bndry.set_size(timeBlinderVec.size(0));
       loop_ub = timeBlinderVec.size(0);
       for (i = 0; i < loop_ub; i++) {
-        score_right_bndry[i] = (timeBlinderVec[i] > thresh.threshVecFine[i]);
+        score_right_bndry[i] = (timeBlinderVec[i] >= thresh.threshVecFine[i]);
       }
 
       y = coder::internal::allOrAny_anonFcn1(score_right_bndry);
@@ -3816,19 +3901,19 @@ void waveform::findpulse(const char time_searchtype_data[], const int
           i5 = -1;
         } else {
           if (a - 1.0 != static_cast<int>(std::floor(a - 1.0))) {
-            rtIntegerError(a - 1.0, rb_emlrtDCI);
+            rtIntegerError(a - 1.0, tb_emlrtDCI);
           }
 
           if ((static_cast<int>(a - 1.0) < 1) || (static_cast<int>(a - 1.0) >
                slope_val.size(0))) {
             rtDynamicBoundsError(static_cast<int>(a - 1.0), 1, slope_val.size(0),
-                                 ne_emlrtBCI);
+                                 ue_emlrtBCI);
           }
 
           i3 = static_cast<int>(a - 1.0) - 1;
           i4 = -1;
           if (slope_val.size(0) < 1) {
-            rtDynamicBoundsError(1, 1, slope_val.size(0), oe_emlrtBCI);
+            rtDynamicBoundsError(1, 1, slope_val.size(0), ve_emlrtBCI);
           }
 
           i5 = 0;
@@ -3840,19 +3925,19 @@ void waveform::findpulse(const char time_searchtype_data[], const int
           i7 = 0;
         } else {
           if (a + 1.0 != static_cast<int>(std::floor(a + 1.0))) {
-            rtIntegerError(a + 1.0, qb_emlrtDCI);
+            rtIntegerError(a + 1.0, sb_emlrtDCI);
           }
 
           if ((static_cast<int>(a + 1.0) < 1) || (static_cast<int>(a + 1.0) >
                slope_val.size(0))) {
             rtDynamicBoundsError(static_cast<int>(a + 1.0), 1, slope_val.size(0),
-                                 le_emlrtBCI);
+                                 se_emlrtBCI);
           }
 
           i6 = static_cast<int>(a + 1.0) - 1;
           if (slope_val.size(0) < 1) {
             rtDynamicBoundsError(slope_val.size(0), 1, slope_val.size(0),
-                                 me_emlrtBCI);
+                                 te_emlrtBCI);
           }
 
           i7 = slope_val.size(0);
@@ -4799,13 +4884,13 @@ void waveform::findpulse(const char time_searchtype_data[], const int
     loop_ub = 0;
   } else {
     if (indiv_msk.size(1) < 1) {
-      rtDynamicBoundsError(1, 1, indiv_msk.size(1), je_emlrtBCI);
+      rtDynamicBoundsError(1, 1, indiv_msk.size(1), qe_emlrtBCI);
     }
 
     if ((static_cast<int>(p - 1U) < 1) || (static_cast<int>(p - 1U) >
          indiv_msk.size(1))) {
       rtDynamicBoundsError(static_cast<int>(p - 1U), 1, indiv_msk.size(1),
-                           ke_emlrtBCI);
+                           re_emlrtBCI);
     }
 
     loop_ub = static_cast<int>(p - 1U);
@@ -5174,25 +5259,111 @@ void waveform::findpulse(const char time_searchtype_data[], const int
         rtDynamicBoundsError(nx + 1, 1, scores.size(0), ge_emlrtBCI);
       }
 
-      loop_ub = thresh.threshVecFine.size(0);
-      score_right_bndry.set_size(loop_ub);
-      for (i1 = 0; i1 < loop_ub; i1++) {
-        score_right_bndry[i1] = (scores[nx] >= thresh.threshVecFine[i1]);
+      i1 = thresh.threshVecFine.size(0);
+      if (nx + 1 > i1) {
+        rtDynamicBoundsError(nx + 1, 1, i1, he_emlrtBCI);
       }
 
-      if (coder::internal::ifWhileCond(score_right_bndry)) {
-        // scores(j)>=thresh(j)
+      if (scores[nx] >= thresh.threshVecFine[nx]) {
+        // scores(j)>=thresh
+        if (static_cast<unsigned int>(nx) + 1U < 65536U) {
+          u1 = static_cast<unsigned short>(static_cast<double>(nx) + 1.0);
+        } else {
+          u1 = MAX_uint16_T;
+        }
+
+        std::printf("DEBUGGING: ROW %u CONTAINS THRESHOLD EXCEEDING SCORE", u1);
+        std::fflush(stdout);
         if (nx + 1 > pl_out.size(0)) {
-          rtDynamicBoundsError(nx + 1, 1, pl_out.size(0), he_emlrtBCI);
+          rtDynamicBoundsError(nx + 1, 1, pl_out.size(0), ie_emlrtBCI);
         }
 
         if (b_i + 1 > pl_out.size(1)) {
-          rtDynamicBoundsError(b_i + 1, 1, pl_out.size(1), ie_emlrtBCI);
+          rtDynamicBoundsError(b_i + 1, 1, pl_out.size(1), je_emlrtBCI);
         }
 
         pl_out[nx + pl_out.size(0) * b_i].det_dec = true;
       }
     }
+  }
+
+  i = peak_ind.size(0);
+  for (b_i = 0; b_i < i; b_i++) {
+    unsigned short u2;
+    if (b_i + 1 > peak_ind.size(0)) {
+      rtDynamicBoundsError(b_i + 1, 1, peak_ind.size(0), ke_emlrtBCI);
+    }
+
+    a = peak_ind[b_i];
+    i1 = static_cast<int>(std::floor(a));
+    if (a != i1) {
+      rtIntegerError(a, qb_emlrtDCI);
+    }
+
+    i2 = static_cast<int>(a);
+    if ((a < 1.0) || (i2 > scores.size(0))) {
+      rtDynamicBoundsError(static_cast<int>(a), 1, scores.size(0), le_emlrtBCI);
+    }
+
+    if (b_i + 1 > peak_ind.size(0)) {
+      rtDynamicBoundsError(b_i + 1, 1, peak_ind.size(0), me_emlrtBCI);
+    }
+
+    if (i2 != i1) {
+      rtIntegerError(a, rb_emlrtDCI);
+    }
+
+    i1 = thresh.threshVecFine.size(0);
+    if (i2 > i1) {
+      rtDynamicBoundsError(static_cast<int>(a), 1, i1, ne_emlrtBCI);
+    }
+
+    if (static_cast<unsigned int>(b_i) + 1U < 65536U) {
+      u1 = static_cast<unsigned short>(static_cast<double>(b_i) + 1.0);
+    } else {
+      u1 = MAX_uint16_T;
+    }
+
+    a = std::round(peak_ind[b_i]);
+    if (a < 65536.0) {
+      if (a >= 0.0) {
+        u2 = static_cast<unsigned short>(a);
+      } else {
+        u2 = 0U;
+      }
+    } else if (a >= 65536.0) {
+      u2 = MAX_uint16_T;
+    } else {
+      u2 = 0U;
+    }
+
+    i1 = static_cast<int>(peak_ind[b_i]) - 1;
+    std::printf("DEBUGGING: PK_IND %u IS ROW %u WITH SCORE = %f \t %f = THRESH \n",
+                u1, u2, scores[i1], thresh.threshVecFine[i1]);
+    std::fflush(stdout);
+  }
+
+  i = scores.size(0);
+  for (b_i = 0; b_i < i; b_i++) {
+    unsigned char u;
+    if (b_i + 1 > scores.size(0)) {
+      rtDynamicBoundsError(b_i + 1, 1, scores.size(0), oe_emlrtBCI);
+    }
+
+    i1 = thresh.threshVecFine.size(0);
+    if (b_i + 1 > i1) {
+      rtDynamicBoundsError(b_i + 1, 1, i1, pe_emlrtBCI);
+    }
+
+    if (static_cast<unsigned int>(b_i) + 1U < 256U) {
+      u = static_cast<unsigned char>(static_cast<double>(b_i) + 1.0);
+    } else {
+      u = MAX_uint8_T;
+    }
+
+    std::printf("\tDEBUGGING: SCORE %u = %f \t %f = THRESH\n", u, scores[b_i],
+                thresh.threshVecFine[b_i]);
+    std::fflush(stdout);
   }
 
   tp_temp = coder::toc() - previousToc;
@@ -6482,7 +6653,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 {
   static rtBoundsCheckInfo ab_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1618,                              // lineNo
+    1626,                              // lineNo
     56,                                // colNo
     "obj.ps_pre.pl",                   // aName
     "waveform/process",                // fName
@@ -6492,7 +6663,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo ac_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1725,                              // lineNo
+    1733,                              // lineNo
     39,                                // colNo
     "obj.ps_pos.pl(ip)",               // aName
     "waveform/process",                // fName
@@ -6502,7 +6673,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo bb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1882,                              // lineNo
+    1890,                              // lineNo
     58,                                // colNo
     "pk_ind",                          // aName
     "waveform/process",                // fName
@@ -6512,7 +6683,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo bc_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1753,                              // lineNo
+    1761,                              // lineNo
     35,                                // colNo
     "obj.ps_pos.pl(tick)",             // aName
     "waveform/process",                // fName
@@ -6522,7 +6693,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo cb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1882,                              // lineNo
+    1890,                              // lineNo
     51,                                // colNo
     "candidatelist",                   // aName
     "waveform/process",                // fName
@@ -6532,7 +6703,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo cc_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1756,                              // lineNo
+    1764,                              // lineNo
     37,                                // colNo
     "obj.ps_pos.clst(tick)",           // aName
     "waveform/process",                // fName
@@ -6542,7 +6713,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo db_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1892,                              // lineNo
+    1900,                              // lineNo
     74,                                // colNo
     "obj.ps_pos.pl",                   // aName
     "waveform/process",                // fName
@@ -6552,7 +6723,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo eb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1893,                              // lineNo
+    1901,                              // lineNo
     74,                                // colNo
     "obj.ps_pos.pl",                   // aName
     "waveform/process",                // fName
@@ -6562,7 +6733,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo fb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1905,                              // lineNo
+    1913,                              // lineNo
     86,                                // colNo
     "conflog",                         // aName
     "waveform/process",                // fName
@@ -6572,7 +6743,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo gb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1917,                              // lineNo
+    1925,                              // lineNo
     65,                                // colNo
     "conflog",                         // aName
     "waveform/process",                // fName
@@ -6582,7 +6753,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo hb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1917,                              // lineNo
+    1925,                              // lineNo
     43,                                // colNo
     "obj.ps_pos.pl(ip)",               // aName
     "waveform/process",                // fName
@@ -6592,7 +6763,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo ib_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1933,                              // lineNo
+    1941,                              // lineNo
     74,                                // colNo
     "obj.ps_pos.pl",                   // aName
     "waveform/process",                // fName
@@ -6602,7 +6773,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo jb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1934,                              // lineNo
+    1942,                              // lineNo
     74,                                // colNo
     "obj.ps_pos.pl",                   // aName
     "waveform/process",                // fName
@@ -6612,7 +6783,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo kb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1954,                              // lineNo
+    1962,                              // lineNo
     35,                                // colNo
     "obj.ps_pos.pl(tick)",             // aName
     "waveform/process",                // fName
@@ -6622,7 +6793,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo lb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1957,                              // lineNo
+    1965,                              // lineNo
     37,                                // colNo
     "obj.ps_pos.clst(tick)",           // aName
     "waveform/process",                // fName
@@ -6632,7 +6803,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo mb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1780,                              // lineNo
+    1788,                              // lineNo
     58,                                // colNo
     "pk_ind",                          // aName
     "waveform/process",                // fName
@@ -6642,7 +6813,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo nb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1780,                              // lineNo
+    1788,                              // lineNo
     51,                                // colNo
     "candidatelist",                   // aName
     "waveform/process",                // fName
@@ -6652,7 +6823,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo ob_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1788,                              // lineNo
+    1796,                              // lineNo
     74,                                // colNo
     "obj.ps_pos.pl",                   // aName
     "waveform/process",                // fName
@@ -6662,7 +6833,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo pb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1789,                              // lineNo
+    1797,                              // lineNo
     74,                                // colNo
     "obj.ps_pos.pl",                   // aName
     "waveform/process",                // fName
@@ -6672,7 +6843,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo qb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1804,                              // lineNo
+    1812,                              // lineNo
     86,                                // colNo
     "conflog",                         // aName
     "waveform/process",                // fName
@@ -6682,7 +6853,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo rb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1827,                              // lineNo
+    1835,                              // lineNo
     61,                                // colNo
     "conflog",                         // aName
     "waveform/process",                // fName
@@ -6692,7 +6863,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo sb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1827,                              // lineNo
+    1835,                              // lineNo
     39,                                // colNo
     "obj.ps_pos.pl(ip)",               // aName
     "waveform/process",                // fName
@@ -6702,7 +6873,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo tb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1848,                              // lineNo
+    1856,                              // lineNo
     74,                                // colNo
     "obj.ps_pos.pl",                   // aName
     "waveform/process",                // fName
@@ -6712,7 +6883,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo ub_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1849,                              // lineNo
+    1857,                              // lineNo
     74,                                // colNo
     "obj.ps_pos.pl",                   // aName
     "waveform/process",                // fName
@@ -6722,7 +6893,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo vb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1856,                              // lineNo
+    1864,                              // lineNo
     35,                                // colNo
     "obj.ps_pos.pl(tick)",             // aName
     "waveform/process",                // fName
@@ -6732,7 +6903,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo wb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1859,                              // lineNo
+    1867,                              // lineNo
     37,                                // colNo
     "obj.ps_pos.clst(tick)",           // aName
     "waveform/process",                // fName
@@ -6742,7 +6913,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo xb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1705,                              // lineNo
+    1713,                              // lineNo
     58,                                // colNo
     "pk_ind",                          // aName
     "waveform/process",                // fName
@@ -6752,7 +6923,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo y_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1613,                              // lineNo
+    1621,                              // lineNo
     56,                                // colNo
     "obj.ps_pre.pl",                   // aName
     "waveform/process",                // fName
@@ -6762,7 +6933,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static rtBoundsCheckInfo yb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1705,                              // lineNo
+    1713,                              // lineNo
     51,                                // colNo
     "candidatelist",                   // aName
     "waveform/process",                // fName
@@ -6770,21 +6941,21 @@ void waveform::process(char mode, const coder::array<double, 2U>
     0                                  // checkKind
   };
 
-  static rtDoubleCheckInfo q_emlrtDCI{ 1882,// lineNo
+  static rtDoubleCheckInfo q_emlrtDCI{ 1890,// lineNo
     51,                                // colNo
     "waveform/process",                // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
-  static rtDoubleCheckInfo r_emlrtDCI{ 1780,// lineNo
+  static rtDoubleCheckInfo r_emlrtDCI{ 1788,// lineNo
     51,                                // colNo
     "waveform/process",                // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
-  static rtDoubleCheckInfo s_emlrtDCI{ 1705,// lineNo
+  static rtDoubleCheckInfo s_emlrtDCI{ 1713,// lineNo
     51,                                // colNo
     "waveform/process",                // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
