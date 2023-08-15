@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 11-Aug-2023 12:59:41
+// C/C++ source code generated on  : 15-Aug-2023 14:57:30
 //
 
 // Include Files
@@ -2862,7 +2862,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
               std::fflush(stdout);
               pulseCount++;
             }
-            std::printf("EXPECTED GCS ENTRY:");
+            std::printf("EXPECTED GCS ENTRY:\n");
             std::fflush(stdout);
             // UNTITLED6 Summary of this function goes here
             //    Detailed explanation goes here
@@ -2900,7 +2900,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
               u3 = MAX_uint16_T;
             }
             std::printf(
-                "%u, %u, %f, %f, %f, %f, %u, %u, %f, %f, %u, %u\n", u1,
+                "%u, %u, %g, %g, %g, %g, %u, %u, %g, %g, %u, %u\n", u1,
                 timeStampSec, detectorPulse.t_0, detectorPulse.t_next[0],
                 detectorPulse.SNR, detectorPulse.yw, u2, u3, 10.0 * t9_SNR,
                 detectorPulse.yw * (t9_yw * t9_yw) / T * (1.0 / (t9_t_f + 1.0)),

@@ -647,7 +647,7 @@ previousToc = toc;
 
                                     pulseCount = pulseCount+1;
                                 end
-fprintf('EXPECTED GCS ENTRY:')
+fprintf('EXPECTED GCS ENTRY:\n')
 printpulseinfostruc(pulseInfoStruct);
 
                                 

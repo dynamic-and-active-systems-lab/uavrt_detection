@@ -5,14 +5,14 @@ function [] = printpulseinfostruc(pulseInfoStruct)
 
 tag_id_fspec            = '%u'; %uint32(Config.ID);
 freq_Hz_fspec           = '%u'; % uint32((Config.channelCenterFreqMHz * 1e6) + detectorPulse.fp);
-start_time_fspec        = '%f';% detectorPulse.t_0;
-next_time_fspec         = '%f';%detectorPulse.t_next(1);
-snr_fspec               = '%f';% detectorPulse.SNR;
-stft_score_fspec        = '%f';%real(detectorPulse.yw);
+start_time_fspec        = '%g';% detectorPulse.t_0;
+next_time_fspec         = '%g';%detectorPulse.t_next(1);
+snr_fspec               = '%g';% detectorPulse.SNR;
+stft_score_fspec        = '%g';%real(detectorPulse.yw);
 group_seq_count_fspec   = '%u';%groupSeqCounter;
 group_ind_fspec         = '%u';%uint16(j);
-group_snr_fspec         = '%f';%groupSNR;
-noise_psd_fspec         = '%f';%real(detectorPulse.yw ) * dt^2 / T * (1 + 10^(detectorPulse.SNR/10))^(-1); %See Notebook Entry 2023-07-07 for derivation
+group_snr_fspec         = '%g';%groupSNR;
+noise_psd_fspec         = '%g';%real(detectorPulse.yw ) * dt^2 / T * (1 + 10^(detectorPulse.SNR/10))^(-1); %See Notebook Entry 2023-07-07 for derivation
 det_status_fspec        = '%u';% uint8(detectorPulse.det_dec);
 con_status_fspec        = '%u';%uint8(detectorPulse.con_dec);
 
