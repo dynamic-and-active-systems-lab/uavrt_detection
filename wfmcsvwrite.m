@@ -19,6 +19,10 @@ fprintf(fid, '%s\n','Pulse Listing:');
     for i = 1:numel(X.ps_pos.pl)
         fprintf(fid, '%f,', X.ps_pos.pl(i).SNR);
     end
+    fprintf(fid, '\n');
+    for i = 1:numel(X.ps_pos.pl)
+        fprintf(fid, '%u,', uint8(X.ps_pos.pl(i).con_dec));
+    end
 
 fprintf(fid, '\n%s\n','----------------------------------------');
 fprintf(fid, '%s\n','Spectrogram Frequencies (MHz):');
@@ -36,6 +40,7 @@ for i = 1:numel(X.stft.S)
     fprintf(fid, '%f,', abs(X.stft.S(i)));
 end
 
+fclose(fid);
 
 % for i = 1:numel(X.x)
 %     fprintf(fid,'%f,', real(X.x(i)));

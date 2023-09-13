@@ -5,7 +5,7 @@
 // File: wfmcsvwrite.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 13-Sep-2023 10:17:59
+// C/C++ source code generated on  : 13-Sep-2023 13:30:23
 //
 
 // Include Files
@@ -60,9 +60,9 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
   static rtBoundsCheckInfo cb_emlrtBCI{
       -1,            // iFirst
       -1,            // iLast
-      26,            // lineNo
-      34,            // colNo
-      "X.stft.f",    // aName
+      24,            // lineNo
+      47,            // colNo
+      "X.ps_pos.pl", // aName
       "wfmcsvwrite", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/wfmcsvwrite.m", // pName
@@ -71,9 +71,9 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
   static rtBoundsCheckInfo db_emlrtBCI{
       -1,            // iFirst
       -1,            // iLast
-      31,            // lineNo
+      30,            // lineNo
       34,            // colNo
-      "X.stft.t",    // aName
+      "X.stft.f",    // aName
       "wfmcsvwrite", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/wfmcsvwrite.m", // pName
@@ -82,7 +82,18 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
   static rtBoundsCheckInfo eb_emlrtBCI{
       -1,            // iFirst
       -1,            // iLast
-      36,            // lineNo
+      35,            // lineNo
+      34,            // colNo
+      "X.stft.t",    // aName
+      "wfmcsvwrite", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/wfmcsvwrite.m", // pName
+      0                                                // checkKind
+  };
+  static rtBoundsCheckInfo fb_emlrtBCI{
+      -1,            // iFirst
+      -1,            // iLast
+      40,            // lineNo
       38,            // colNo
       "X.stft.S",    // aName
       "wfmcsvwrite", // fName
@@ -260,6 +271,41 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
   if (f == nullptr) {
     c_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
   } else {
+    std::fprintf(f, "\n");
+    if (autoflush) {
+      std::fflush(f);
+    }
+  }
+  i = X.ps_pos->pl.size(1) - 1;
+  for (int b_i{0}; b_i <= i; b_i++) {
+    signed char b_validatedHoleFilling_idx_0;
+    i1 = X.ps_pos->pl.size(1);
+    if (b_i + 1 > i1) {
+      rtDynamicBoundsError(b_i + 1, 1, i1, cb_emlrtBCI);
+    }
+    b_validatedHoleFilling_idx_0 =
+        static_cast<signed char>(X.ps_pos->pl[b_i].con_dec);
+    if (fileid == 0) {
+      g_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+    }
+    f = coder::internal::getfilestar(static_cast<double>(fileid), autoflush);
+    if (f == nullptr) {
+      c_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+    } else {
+      std::fprintf(f, "%u,",
+                   static_cast<unsigned char>(b_validatedHoleFilling_idx_0));
+      if (autoflush) {
+        std::fflush(f);
+      }
+    }
+  }
+  if (fileid == 0) {
+    g_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+  }
+  f = coder::internal::getfilestar(static_cast<double>(fileid), autoflush);
+  if (f == nullptr) {
+    c_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+  } else {
     std::fprintf(f, "\n%s\n", "----------------------------------------");
     if (autoflush) {
       std::fflush(f);
@@ -281,7 +327,7 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
   for (int b_i{0}; b_i <= i; b_i++) {
     i1 = X.stft->f.size(0);
     if (b_i + 1 > i1) {
-      rtDynamicBoundsError(b_i + 1, 1, i1, cb_emlrtBCI);
+      rtDynamicBoundsError(b_i + 1, 1, i1, db_emlrtBCI);
     }
     validatedHoleFilling_idx_0 = X.stft->f[b_i] / 1.0E+6 + radioFcMHz;
     if (fileid == 0) {
@@ -325,7 +371,7 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
   for (int b_i{0}; b_i <= i; b_i++) {
     i1 = X.stft->t.size(0);
     if (b_i + 1 > i1) {
-      rtDynamicBoundsError(b_i + 1, 1, i1, db_emlrtBCI);
+      rtDynamicBoundsError(b_i + 1, 1, i1, eb_emlrtBCI);
     }
     validatedHoleFilling_idx_0 = X.stft->t[b_i];
     if (fileid == 0) {
@@ -373,7 +419,7 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
         (static_cast<int>(static_cast<unsigned int>(b_i) + 1U) > i1)) {
       rtDynamicBoundsError(
           static_cast<int>(static_cast<unsigned int>(b_i) + 1U), 1, i1,
-          eb_emlrtBCI);
+          fb_emlrtBCI);
     }
     validatedHoleFilling_idx_0 = X.stft->S[b_i].re;
     i1 = X.stft->S.size(0) * X.stft->S.size(1);
@@ -381,7 +427,7 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
         (static_cast<int>(static_cast<unsigned int>(b_i) + 1U) > i1)) {
       rtDynamicBoundsError(
           static_cast<int>(static_cast<unsigned int>(b_i) + 1U), 1, i1,
-          eb_emlrtBCI);
+          fb_emlrtBCI);
     }
     x_im = X.stft->S[b_i].im;
     if (fileid == 0) {
@@ -397,6 +443,7 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
       }
     }
   }
+  coder::internal::cfclose(static_cast<double>(fileid));
   //  for i = 1:numel(X.x)
   //      fprintf(fid,'%f,', real(X.x(i)));
   //  end
