@@ -5,7 +5,7 @@
 // File: uavrt_detection_rtwutil.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 13-Sep-2023 10:17:59
 //
 
 // Include Files
@@ -840,6 +840,40 @@ void rtSizeEq1DError(const int aDim1, const int aDim2,
     std::abort();
   } else {
     throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const int *aDims1
+//                const int *aDims2
+//                const rtEqualityCheckInfo &aInfo
+// Return Type  : void
+//
+void rtSizeEqNDCheck(const int *aDims1, const int *aDims2,
+                     const rtEqualityCheckInfo &aInfo)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  for (int i{0}; i < aInfo.nDims; i++) {
+    if (aDims1[i] != aDims2[i]) {
+      std::string dims1Str;
+      std::string dims2Str;
+      dims1Str = rtGenSizeString(aInfo.nDims, aDims1);
+      dims2Str = rtGenSizeString(aInfo.nDims, aDims2);
+      ((((outStream << "Sizes mismatch: ") << dims1Str) << " ~= ") << dims2Str)
+          << ".";
+      outStream << "\n";
+      ((((outStream << "Error in ") << aInfo.fName) << " (line ")
+       << aInfo.lineNo)
+          << ")";
+      if (omp_in_parallel()) {
+        errMsg = outStream.str();
+        std::fprintf(stderr, "%s", errMsg.c_str());
+        std::abort();
+      } else {
+        throw std::runtime_error(outStream.str());
+      }
+    }
   }
 }
 

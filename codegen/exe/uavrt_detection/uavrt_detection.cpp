@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 13-Sep-2023 10:17:59
 //
 
 // Include Files
@@ -31,6 +31,7 @@
 #include "pulsestats.h"
 #include "ref.h"
 #include "rt_nonfinite.h"
+#include "sprintf.h"
 #include "str2double.h"
 #include "str2matrix.h"
 #include "strcmp.h"
@@ -48,6 +49,7 @@
 #include "validator_check_size.h"
 #include "waveform.h"
 #include "waveformcopy.h"
+#include "wfmcsvwrite.h"
 #include "wfmstft.h"
 #include "wgn.h"
 #include "coder_array.h"
@@ -252,7 +254,7 @@ interleaveComplexVector(const coder::array<creal32_T, 1U> &complexDataIn,
     varargin_2[i] = complexDataIn[i].im;
   }
   if (varargin_2.size(0) != varargin_1.size(0)) {
-    cb_rtErrorWithMessageID(ob_emlrtRTEI.fName, ob_emlrtRTEI.lineNo);
+    cb_rtErrorWithMessageID(pb_emlrtRTEI.fName, pb_emlrtRTEI.lineNo);
   }
   dataMatrix.set_size(2, varargin_1.size(0));
   loop_ub = varargin_1.size(0);
@@ -935,27 +937,27 @@ static void updateconfig(coder::b_captured_var &Config,
       "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
       0                                                   // checkKind
   };
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       37,      // lineNo
       9,       // colNo
       "fopen", // fName
       "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/fopen.m" // pName
   };
-  static rtRunTimeErrorInfo rc_emlrtRTEI{
+  static rtRunTimeErrorInfo uc_emlrtRTEI{
       12,               // lineNo
       23,               // colNo
       "mustBePositive", // fName
       "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/validators/"
       "mustBePositive.m" // pName
   };
-  static rtRunTimeErrorInfo sc_emlrtRTEI{
+  static rtRunTimeErrorInfo vc_emlrtRTEI{
       11,                  // lineNo
       24,                  // colNo
       "mustBeNonnegative", // fName
       "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/validators/"
       "mustBeNonnegative.m" // pName
   };
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       18,                     // lineNo
       5,                      // colNo
       "binaryRelopValidator", // fName
@@ -1013,7 +1015,7 @@ static void updateconfig(coder::b_captured_var &Config,
   //    none (method modifies the properties of the instance)
   //
   if (coder::internal::b_strcmp(lineStr)) {
-    b_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   } else {
     signed char fileid;
     fileid = coder::internal::cfopen(lineStr, "rb");
@@ -1214,13 +1216,13 @@ static void updateconfig(coder::b_captured_var &Config,
           }
           r.ID = in_tmp;
           if (u <= 0U) {
-            d_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+            d_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
           }
         } else if (coder::internal::c_strcmp(configType)) {
           creal_T x;
           x = coder::internal::str2double(configValStr);
           if (!(x.re >= 0.0)) {
-            e_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+            e_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
           }
           r.channelCenterFreqMHz = x.re;
         } else if (!coder::internal::d_strcmp(configType)) {
@@ -1247,13 +1249,13 @@ static void updateconfig(coder::b_captured_var &Config,
             }
             r.portData = b_in_tmp;
             if (u1 <= 0) {
-              d_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+              d_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
             }
           } else if (coder::internal::f_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re > 0.0)) {
-              d_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+              d_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
             }
             r.Fs = x.re;
           } else if (coder::internal::g_strcmp(configType)) {
@@ -1264,28 +1266,28 @@ static void updateconfig(coder::b_captured_var &Config,
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re > 0.0)) {
-              d_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+              d_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
             }
             r.tp = x.re;
           } else if (coder::internal::i_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re > 0.0)) {
-              d_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+              d_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
             }
             r.tip = x.re;
           } else if (coder::internal::j_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re >= 0.0)) {
-              e_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+              e_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
             }
             r.tipu = x.re;
           } else if (coder::internal::k_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re >= 0.0)) {
-              e_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+              e_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
             }
             r.tipj = x.re;
           } else {
@@ -1316,7 +1318,7 @@ static void updateconfig(coder::b_captured_var &Config,
               }
               r.K = c_in_tmp;
               if (u2 <= 0) {
-                d_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+                d_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
               }
             } else if (coder::internal::l_strcmp(configType)) {
               r.opMode.Value.set_size(1, match_idx);
@@ -1335,11 +1337,11 @@ static void updateconfig(coder::b_captured_var &Config,
               creal_T x;
               x = coder::internal::str2double(configValStr);
               if (!(x.re > 0.0)) {
-                d_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+                d_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
               }
               if (!(x.re < 1.0)) {
-                b_rtErrorWithMessageID("1", tc_emlrtRTEI.fName,
-                                       tc_emlrtRTEI.lineNo);
+                b_rtErrorWithMessageID("1", wc_emlrtRTEI.fName,
+                                       wc_emlrtRTEI.lineNo);
               }
               r.falseAlarmProb = x.re;
             } else if (coder::internal::o_strcmp(configType)) {
@@ -1488,6 +1490,28 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
       0                                                    // checkKind
   };
+  static rtBoundsCheckInfo gb_emlrtBCI{
+      -1,                   // iFirst
+      -1,                   // iLast
+      662,                  // lineNo
+      89,                   // colNo
+      "dataRecordPathChar", // aName
+      "uavrt_detection",    // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
+      0                                                    // checkKind
+  };
+  static rtBoundsCheckInfo hb_emlrtBCI{
+      -1,                   // iFirst
+      -1,                   // iLast
+      662,                  // lineNo
+      91,                   // colNo
+      "dataRecordPathChar", // aName
+      "uavrt_detection",    // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
+      0                                                    // checkKind
+  };
   static rtBoundsCheckInfo y_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
@@ -1499,7 +1523,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
       0                                                    // checkKind
   };
-  static rtDoubleCheckInfo q_emlrtDCI{
+  static rtDoubleCheckInfo r_emlrtDCI{
       285,               // lineNo
       50,                // colNo
       "uavrt_detection", // fName
@@ -1507,7 +1531,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
       4                                                    // checkKind
   };
-  static rtDoubleCheckInfo r_emlrtDCI{
+  static rtDoubleCheckInfo s_emlrtDCI{
       285,               // lineNo
       50,                // colNo
       "uavrt_detection", // fName
@@ -1566,16 +1590,17 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   coder::array<double, 2U> groupSNRList;
   coder::array<double, 2U> ps_pre_struc_cpki;
   coder::array<double, 1U> b_groupSNRList;
-  coder::array<double, 1U> r2;
+  coder::array<double, 1U> b_timeVector;
   coder::array<double, 1U> t;
   coder::array<double, 1U> timeVector;
   coder::array<float, 1U> r1;
   coder::array<char, 2U> varargin_1;
+  coder::array<char, 2U> waveformRecordPath;
   coder::array<boolean_T, 2U> ps_pre_struc_cmsk;
   coder::array<boolean_T, 2U> pulsesToSkip;
-  coder::array<boolean_T, 2U> r4;
+  coder::array<boolean_T, 2U> r3;
   coder::array<boolean_T, 1U> b_tmp_data;
-  coder::array<boolean_T, 1U> r3;
+  coder::array<boolean_T, 1U> r2;
   c_struct_T detectorPulse;
   c_struct_T expl_temp;
   creal_T dcv[1000];
@@ -1961,10 +1986,10 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             "Missing samples detected. Filling with zeros for %lu samples.", u);
         std::fflush(stdout);
         if (!(timeDiff >= 0.0)) {
-          rtNonNegativeError(timeDiff, q_emlrtDCI);
+          rtNonNegativeError(timeDiff, r_emlrtDCI);
         }
         if (timeDiff != static_cast<int>(timeDiff)) {
-          rtIntegerError(timeDiff, r_emlrtDCI);
+          rtIntegerError(timeDiff, s_emlrtDCI);
         }
         loop_ub = static_cast<int>(timeDiff);
         r.set_size(static_cast<int>(timeDiff));
@@ -2285,12 +2310,13 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       // by more than the interpulse uncertainty, then the
       // detection will likely fail or produces bad results. In
       // this case. Skip the processing and clear the buffer.
-      coder::diff(t, r2);
-      loop_ub = r2.size(0);
+      coder::diff(t, timeVector);
+      b_timeVector.set_size(timeVector.size(0));
+      loop_ub = timeVector.size(0);
       for (i = 0; i < loop_ub; i++) {
-        r2[i] = r2[i] - timeDiff;
+        b_timeVector[i] = timeVector[i] - timeDiff;
       }
-      timeDiff = coder::blockedSummation(r2, r2.size(0));
+      timeDiff = coder::blockedSummation(b_timeVector, b_timeVector.size(0));
       if ((Config.contents.K > 1.0) &&
           (timeDiff > Config.contents.tipu + Config.contents.tipj)) {
         std::printf("Significant time differences found in timestamp record. "
@@ -2555,8 +2581,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         for (loop_ub = 0; loop_ub < n; loop_ub++) {
           pulsesToSkip[loop_ub] = ps_pre_struc_pl[loop_ub].con_dec;
         }
-        coder::all(pulsesToSkip, r3);
-        if (coder::internal::ifWhileCond(r3)) {
+        coder::all(pulsesToSkip, r2);
+        if (coder::internal::ifWhileCond(r2)) {
           // Check if all were confirmed
           fLock = true;
         }
@@ -2564,10 +2590,10 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         // only do so in that case if we are no longer confirming
         // pulses.
         if (coder::internal::c_strcmp(Config.contents.opMode)) {
-          n = r3.size(0);
-          loop_ub = r3.size(0);
+          n = r2.size(0);
+          loop_ub = r2.size(0);
           for (i = 0; i < loop_ub; i++) {
-            tmp_data = !r3[i];
+            tmp_data = !r2[i];
           }
           b_tmp_data.set(&tmp_data, n);
           if (coder::internal::ifWhileCond(b_tmp_data)) {
@@ -2576,7 +2602,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         }
         // Decide when/how the priori is updated for the next
         // segment's processing.
-        if (coder::internal::ifWhileCond(r3) &&
+        if (coder::internal::ifWhileCond(r2) &&
             ((mode == 'C') || (mode == 'T'))) {
           ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
           loop_ub = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
@@ -2677,12 +2703,12 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         for (i = 0; i < loop_ub; i++) {
           b_x[i] = b_X.ps_pos->cpki[i];
         }
-        r4.set_size(b_x.size(0), b_x.size(1));
+        r3.set_size(b_x.size(0), b_x.size(1));
         loop_ub = b_x.size(0) * b_x.size(1);
         for (i = 0; i < loop_ub; i++) {
-          r4[i] = !std::isnan(b_x[i]);
+          r3[i] = !std::isnan(b_x[i]);
         }
-        if (coder::internal::b_ifWhileCond(r4)) {
+        if (coder::internal::b_ifWhileCond(r3)) {
           for (int j{0}; j < nPulseList; j++) {
             i = b_X.ps_pos->pl.size(1);
             if (j + 1 > i) {
@@ -2725,12 +2751,12 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         for (i = 0; i < loop_ub; i++) {
           b_x[i] = b_X.ps_pos->cpki[i];
         }
-        r4.set_size(b_x.size(0), b_x.size(1));
+        r3.set_size(b_x.size(0), b_x.size(1));
         loop_ub = b_x.size(0) * b_x.size(1);
         for (i = 0; i < loop_ub; i++) {
-          r4[i] = !std::isnan(b_x[i]);
+          r3[i] = !std::isnan(b_x[i]);
         }
-        if (coder::internal::b_ifWhileCond(r4)) {
+        if (coder::internal::b_ifWhileCond(r3)) {
           std::printf("Transmitting pulse messages");
           std::fflush(stdout);
           if (nPulseList - 1 >= 0) {
@@ -2917,6 +2943,40 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           std::printf("\n");
           std::fflush(stdout);
         }
+        if (Config.contents.dataRecordPath.Value.size(1) - 4 < 1) {
+          loop_ub = 0;
+        } else {
+          if (Config.contents.dataRecordPath.Value.size(1) < 1) {
+            rtDynamicBoundsError(1, 1,
+                                 Config.contents.dataRecordPath.Value.size(1),
+                                 gb_emlrtBCI);
+          }
+          if ((Config.contents.dataRecordPath.Value.size(1) - 4 < 1) ||
+              (Config.contents.dataRecordPath.Value.size(1) - 4 >
+               Config.contents.dataRecordPath.Value.size(1))) {
+            rtDynamicBoundsError(
+                Config.contents.dataRecordPath.Value.size(1) - 4, 1,
+                Config.contents.dataRecordPath.Value.size(1), hb_emlrtBCI);
+          }
+          loop_ub = Config.contents.dataRecordPath.Value.size(1) - 4;
+        }
+        varargin_1.set_size(1, loop_ub);
+        for (i = 0; i < loop_ub; i++) {
+          varargin_1[i] = Config.contents.dataRecordPath.Value[i];
+        }
+        coder::b_sprintf(varargin_1, startTime, b_X.t_0, waveformRecordPath);
+        varargin_1.set_size(1, waveformRecordPath.size(1) + 1);
+        loop_ub = waveformRecordPath.size(1);
+        for (i = 0; i < loop_ub; i++) {
+          varargin_1[i] = waveformRecordPath[i];
+        }
+        varargin_1[waveformRecordPath.size(1)] = '\x00';
+        std::printf("Writing waveform record csv file: %s\n", &varargin_1[0]);
+        std::fflush(stdout);
+        wfmcsvwrite(b_X, Config.contents.channelCenterFreqMHz,
+                    waveformRecordPath);
+        std::printf("...complete.\n");
+        std::fflush(stdout);
       }
       b_this.init();
       timeDiff = coder::toc();

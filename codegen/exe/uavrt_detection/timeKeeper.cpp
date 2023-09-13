@@ -5,7 +5,7 @@
 // File: timeKeeper.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 13-Sep-2023 10:17:59
 //
 
 // Include Files
@@ -72,13 +72,13 @@ void timeKeeper(double newTime_tv_sec, double newTime_tv_nsec)
       status = coderInitTimeFunctions(&freq);
       if (status != 0) {
         rtErrorWithMessageID(std::string(&cv1[0], 22), status,
-                             kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
+                             lb_emlrtRTEI.fName, lb_emlrtRTEI.lineNo);
       }
     }
     status = coderTimeClockGettimeMonotonic(&b_timespec, freq);
     if (status != 0) {
-      rtErrorWithMessageID(std::string(&cv2[0], 30), status, kb_emlrtRTEI.fName,
-                           kb_emlrtRTEI.lineNo);
+      rtErrorWithMessageID(std::string(&cv2[0], 30), status, lb_emlrtRTEI.fName,
+                           lb_emlrtRTEI.lineNo);
     }
     savedTime_not_empty = true;
   }
@@ -92,7 +92,7 @@ void timeKeeper(double newTime_tv_sec, double newTime_tv_nsec)
 //
 double timeKeeper(double &outTime_tv_nsec)
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       11,           // lineNo
       9,            // colNo
       "timeKeeper", // fName
@@ -101,7 +101,7 @@ double timeKeeper(double &outTime_tv_nsec)
   };
   double outTime_tv_sec;
   if (!savedTime_not_empty) {
-    db_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+    db_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   outTime_tv_sec = savedTime.tv_sec;
   outTime_tv_nsec = savedTime.tv_nsec;

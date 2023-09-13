@@ -5,12 +5,13 @@
 // File: imresize.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 13-Sep-2023 10:17:59
 //
 
 // Include Files
 #include "imresize.h"
 #include "eml_int_forloop_overflow_check.h"
+#include "mod.h"
 #include "rt_nonfinite.h"
 #include "sub2ind.h"
 #include "sum.h"
@@ -80,10 +81,10 @@ static void b_resizeAlongDim2D(const ::coder::array<double, 2U> &in,
 
   for (int inRInd = 0; inRInd <= ub_loop; inRInd++) {
     if (inRInd + 1 > in.size(0)) {
-      cc_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
+      cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
     }
     if (in.size(1) < 1) {
-      cc_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
+      cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
     }
     i = static_cast<int>(out_length);
     for (outCInd = 0; outCInd < i; outCInd++) {
@@ -211,7 +212,7 @@ static void contributions(int in_length, double out_length, double scale,
   } else if (u.size(0) == absx.size(0)) {
     csz_idx_0 = u.size(0);
   } else {
-    s_rtErrorWithMessageID(y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
+    s_rtErrorWithMessageID(ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
   }
   b_x.set_size(csz_idx_0, absx.size(1));
   if (csz_idx_0 != 0) {
@@ -287,7 +288,7 @@ static void contributions(int in_length, double out_length, double scale,
   }
   nx = weights.size(1);
   if (!iscompatible) {
-    s_rtErrorWithMessageID(y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
+    s_rtErrorWithMessageID(ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
   }
   weights.set_size(csz_idx_0, nx);
   if (csz_idx_0 != 0) {
@@ -317,24 +318,8 @@ static void contributions(int in_length, double out_length, double scale,
   }
   //  Mirror the out-of-bounds indices using mod:
   for (b_i = 0; b_i < loop_ub_tmp; b_i++) {
-    double c_k;
-    b_kernel_width = static_cast<double>(indices[b_i]) - 1.0;
-    c_k = b_kernel_width;
-    if (nx == 0) {
-      if (b_kernel_width == 0.0) {
-        c_k = 0.0;
-      }
-    } else if (b_kernel_width == 0.0) {
-      c_k = 0.0;
-    } else {
-      c_k = std::fmod(b_kernel_width, static_cast<double>(nx));
-      if (c_k == 0.0) {
-        c_k = 0.0;
-      } else if (b_kernel_width < 0.0) {
-        c_k += static_cast<double>(nx);
-      }
-    }
-    indices[b_i] = aux[static_cast<int>(c_k)];
+    indices[b_i] = aux[static_cast<int>(internal::scalar::b_mod(
+        static_cast<double>(indices[b_i]) - 1.0, static_cast<double>(nx)))];
   }
   copyCols.set_size(1, weights.size(1));
   yk = weights.size(1);
@@ -488,7 +473,7 @@ void imresize(const ::coder::array<double, 2U> &Ain, const double varargin_1[2],
               ::coder::array<double, 2U> &Bout)
 {
   static rtRunTimeErrorInfo
-      qc_emlrtRTEI{
+      tc_emlrtRTEI{
           319,        // lineNo
           5,          // colNo
           "imresize", // fName
@@ -507,8 +492,8 @@ void imresize(const ::coder::array<double, 2U> &Ain, const double varargin_1[2],
   boolean_T exitg1;
   boolean_T y;
   if ((Ain.size(0) == 0) || (Ain.size(1) == 0)) {
-    g_rtErrorWithMessageID("input number 1, A,", v_emlrtRTEI.fName,
-                           v_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID("input number 1, A,", w_emlrtRTEI.fName,
+                           w_emlrtRTEI.lineNo);
   }
   x[0] = (varargin_1[0] <= 0.0);
   x[1] = (varargin_1[1] <= 0.0);
@@ -524,7 +509,7 @@ void imresize(const ::coder::array<double, 2U> &Ain, const double varargin_1[2],
     }
   }
   if (y) {
-    ic_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+    ic_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   if (std::isnan(varargin_1[0])) {
     outputSize_idx_0 =

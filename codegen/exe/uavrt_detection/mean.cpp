@@ -5,7 +5,7 @@
 // File: mean.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 13-Sep-2023 10:17:59
 //
 
 // Include Files
@@ -132,7 +132,7 @@ void mean(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y)
     bsum[xblockoffset] = counts[xblockoffset];
   }
   if ((y.size(0) != 1) && (bsum.size(0) != 1) && (y.size(0) != bsum.size(0))) {
-    y_rtErrorWithMessageID(jb_emlrtRTEI.fName, jb_emlrtRTEI.lineNo);
+    y_rtErrorWithMessageID(kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
   }
   if (y.size(0) == bsum.size(0)) {
     firstBlockLength = y.size(0);

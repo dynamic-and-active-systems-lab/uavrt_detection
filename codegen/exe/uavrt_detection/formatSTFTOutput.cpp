@@ -5,7 +5,7 @@
 // File: formatSTFTOutput.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 13-Sep-2023 10:17:59
 //
 
 // Include Files
@@ -26,7 +26,7 @@
 
 // Variable Definitions
 static rtRunTimeErrorInfo
-    mc_emlrtRTEI{
+    yb_emlrtRTEI{
         38,          // lineNo
         48,          // colNo
         "circshift", // fName
@@ -46,7 +46,7 @@ static rtBoundsCheckInfo w_emlrtBCI{
     0                         // checkKind
 };
 
-static rtDoubleCheckInfo n_emlrtDCI{
+static rtDoubleCheckInfo o_emlrtDCI{
     16,           // lineNo
     13,           // colNo
     "centerfreq", // fName
@@ -67,7 +67,7 @@ static rtBoundsCheckInfo x_emlrtBCI{
     0                         // checkKind
 };
 
-static rtDoubleCheckInfo o_emlrtDCI{
+static rtDoubleCheckInfo p_emlrtDCI{
     13,           // lineNo
     13,           // colNo
     "centerfreq", // fName
@@ -76,7 +76,7 @@ static rtDoubleCheckInfo o_emlrtDCI{
     1                         // checkKind
 };
 
-static rtRunTimeErrorInfo pc_emlrtRTEI{
+static rtRunTimeErrorInfo sc_emlrtRTEI{
     41,    // lineNo
     9,     // colNo
     "rem", // fName
@@ -168,8 +168,8 @@ void formatSTFTOutput(::coder::array<creal32_T, 2U> &S,
       vspread = 0;
     }
     if (static_cast<int>(p) != p) {
-      rtErrorWithMessageID("int32", "int32", mc_emlrtRTEI.fName,
-                           mc_emlrtRTEI.lineNo);
+      rtErrorWithMessageID("int32", "int32", yb_emlrtRTEI.fName,
+                           yb_emlrtRTEI.lineNo);
     }
     if ((S.size(0) != 0) && (S.size(1) != 0) &&
         ((S.size(0) != 1) || (S.size(1) != 1))) {
@@ -193,7 +193,7 @@ void formatSTFTOutput(::coder::array<creal32_T, 2U> &S,
           unsigned int u;
           u = static_cast<unsigned int>(S.size(vspread));
           if (u == 0U) {
-            rtDivisionByZeroError(pc_emlrtRTEI);
+            rtDivisionByZeroError(sc_emlrtRTEI);
           } else {
             b_i = static_cast<int>(static_cast<unsigned int>(ns) / u);
           }
@@ -335,7 +335,7 @@ void formatSTFTOutput(::coder::array<creal32_T, 2U> &S,
   if (signalwavelet::internal::iseven(static_cast<double>(F.size(0)))) {
     p = static_cast<double>(F.size(0)) / 2.0;
     if (p != std::floor(p)) {
-      rtIntegerError(p, o_emlrtDCI);
+      rtIntegerError(p, p_emlrtDCI);
     }
     if ((static_cast<int>(p) < 1) || (static_cast<int>(p) > F.size(0))) {
       rtDynamicBoundsError(static_cast<int>(p), 1, F.size(0), x_emlrtBCI);
@@ -349,7 +349,7 @@ void formatSTFTOutput(::coder::array<creal32_T, 2U> &S,
   } else {
     p = (static_cast<double>(F.size(0)) + 1.0) / 2.0;
     if (p != std::floor(p)) {
-      rtIntegerError(p, n_emlrtDCI);
+      rtIntegerError(p, o_emlrtDCI);
     }
     if ((static_cast<int>(p) < 1) || (static_cast<int>(p) > F.size(0))) {
       rtDynamicBoundsError(static_cast<int>(p), 1, F.size(0), w_emlrtBCI);
@@ -387,8 +387,8 @@ void formatSTFTOutput(::coder::array<creal_T, 3U> &S,
       vlend2 = 2;
     }
     if (static_cast<int>(xtmp_re) != xtmp_re) {
-      rtErrorWithMessageID("int32", "int32", mc_emlrtRTEI.fName,
-                           mc_emlrtRTEI.lineNo);
+      rtErrorWithMessageID("int32", "int32", yb_emlrtRTEI.fName,
+                           yb_emlrtRTEI.lineNo);
     }
     if ((S.size(0) != 0) && (S.size(1) != 0) && (S.size(2) != 0) &&
         ((S.size(0) != 1) || (S.size(1) != 1) || (S.size(2) != 1))) {
@@ -412,7 +412,7 @@ void formatSTFTOutput(::coder::array<creal_T, 3U> &S,
           unsigned int u;
           u = static_cast<unsigned int>(S.size(vlend2));
           if (u == 0U) {
-            rtDivisionByZeroError(pc_emlrtRTEI);
+            rtDivisionByZeroError(sc_emlrtRTEI);
           } else {
             b_i = static_cast<int>(static_cast<unsigned int>(ns) / u);
           }
@@ -550,7 +550,7 @@ void formatSTFTOutput(::coder::array<creal_T, 3U> &S,
   if (signalwavelet::internal::iseven(static_cast<double>(F.size(0)))) {
     xtmp_re = static_cast<double>(F.size(0)) / 2.0;
     if (xtmp_re != std::floor(xtmp_re)) {
-      rtIntegerError(xtmp_re, o_emlrtDCI);
+      rtIntegerError(xtmp_re, p_emlrtDCI);
     }
     if ((static_cast<int>(xtmp_re) < 1) ||
         (static_cast<int>(xtmp_re) > F.size(0))) {
@@ -565,7 +565,7 @@ void formatSTFTOutput(::coder::array<creal_T, 3U> &S,
   } else {
     xtmp_re = (static_cast<double>(F.size(0)) + 1.0) / 2.0;
     if (xtmp_re != std::floor(xtmp_re)) {
-      rtIntegerError(xtmp_re, n_emlrtDCI);
+      rtIntegerError(xtmp_re, o_emlrtDCI);
     }
     if ((static_cast<int>(xtmp_re) < 1) ||
         (static_cast<int>(xtmp_re) > F.size(0))) {

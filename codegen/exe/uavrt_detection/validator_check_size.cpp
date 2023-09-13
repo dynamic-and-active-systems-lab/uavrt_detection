@@ -5,7 +5,7 @@
 // File: validator_check_size.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 13-Sep-2023 10:17:59
 //
 
 // Include Files
@@ -92,7 +92,7 @@ namespace internal {
 void validator_check_size(const ::coder::array<double, 2U> &in,
                           ::coder::array<double, 2U> &out)
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       158,               // lineNo
       31,                // colNo
       "expandOrReshape", // fName
@@ -101,8 +101,8 @@ void validator_check_size(const ::coder::array<double, 2U> &in,
   };
   if ((in.size(0) != 1) || (in.size(1) != 1)) {
     if (in.size(1) != 2) {
-      b_rtErrorWithMessageID(static_cast<long>(in.size(1)), qc_emlrtRTEI.fName,
-                             qc_emlrtRTEI.lineNo);
+      b_rtErrorWithMessageID(static_cast<long>(in.size(1)), tc_emlrtRTEI.fName,
+                             tc_emlrtRTEI.lineNo);
     }
     if (in.size(0) == 0) {
       out.set_size(0, 2);
@@ -118,14 +118,14 @@ void validator_check_size(const ::coder::array<double, 2U> &in,
         maxdimlen = nx;
       }
       if (in.size(0) > maxdimlen) {
-        k_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
+        k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
       }
       if (maxdimlen < 2) {
-        k_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
+        k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
       }
       maxdimlen = in.size(0) << 1;
       if (maxdimlen != nx) {
-        l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+        l_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
       }
       out.set_size(in.size(0), 2);
       for (nx = 0; nx < maxdimlen; nx++) {
@@ -141,7 +141,7 @@ void validator_check_size(const ::coder::array<double, 2U> &in,
       u = static_cast<unsigned int>(in.size(0));
     }
     if ((u << 1) > 2147483647U) {
-      m_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
+      m_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
     }
     out.set_size(in.size(0), 2);
     maxdimlen = in.size(0) << 1;
@@ -159,7 +159,7 @@ void validator_check_size(const ::coder::array<double, 2U> &in,
 void validator_check_size(const ::coder::array<c_struct_T, 2U> &in,
                           ::coder::array<c_struct_T, 2U> &out)
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       218,               // lineNo
       32,                // colNo
       "expandOrReshape", // fName
@@ -178,7 +178,7 @@ void validator_check_size(const ::coder::array<c_struct_T, 2U> &in,
     }
   } else if (in.size(1) == 0) {
     if (inVectorLength != 0) {
-      n_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+      n_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
     }
     out.set_size(1, 0);
   } else {
@@ -193,10 +193,10 @@ void validator_check_size(const ::coder::array<c_struct_T, 2U> &in,
       u1 = u0;
     }
     if (inVectorLength > u1) {
-      k_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
+      k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
     if (inVectorLength != in.size(1)) {
-      l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+      l_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
     }
     out.set_size(1, inVectorLength);
     for (u1 = 0; u1 < inVectorLength; u1++) {

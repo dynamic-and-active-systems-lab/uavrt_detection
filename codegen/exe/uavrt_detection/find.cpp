@@ -5,7 +5,7 @@
 // File: find.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 13-Sep-2023 10:17:59
 //
 
 // Include Files
@@ -212,7 +212,7 @@ int c_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[])
 //
 int d_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[])
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       447,                 // lineNo
       1,                   // colNo
       "find_last_indices", // fName
@@ -239,7 +239,7 @@ int d_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[])
     }
   }
   if (idx > i_size) {
-    i_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   if (i_size == 1) {
     if (idx == 0) {
@@ -264,14 +264,14 @@ int d_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[])
 void e_eml_find(const sparse &x, ::coder::array<int, 1U> &i,
                 ::coder::array<int, 1U> &j)
 {
-  static rtDoubleCheckInfo q_emlrtDCI{
+  static rtDoubleCheckInfo r_emlrtDCI{
       195,                           // lineNo
       30,                            // colNo
       "find_first_nonempty_triples", // fName
       "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/elmat/find.m", // pName
       4 // checkKind
   };
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       239,                           // lineNo
       1,                             // colNo
       "find_first_nonempty_triples", // fName
@@ -288,7 +288,7 @@ void e_eml_find(const sparse &x, ::coder::array<int, 1U> &i,
   } else {
     int idx;
     if (nx_tmp - 1 < 0) {
-      rtNonNegativeError(static_cast<double>(nx_tmp - 1), q_emlrtDCI);
+      rtNonNegativeError(static_cast<double>(nx_tmp - 1), r_emlrtDCI);
     }
     i.set_size(nx_tmp - 1);
     j.set_size(nx_tmp - 1);
@@ -316,7 +316,7 @@ void e_eml_find(const sparse &x, ::coder::array<int, 1U> &i,
       }
     }
     if (idx > nx_tmp - 1) {
-      i_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+      i_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
     }
     if (nx_tmp - 1 == 1) {
       if (idx == 0) {

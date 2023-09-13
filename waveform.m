@@ -703,7 +703,10 @@ fprintf('\t Setting up parameter for finding pulses  ...')
                 %search. Freq_mask variable is a logicial vector of the
                 %same size as Wf indicating which frequencies to look at.
                 %IF FREQS ARE UNAVILABLE, USE NAIVE
-                if (f_lo<min(obj.Wf,[],'all')) || (f_hi>max(obj.Wf,[],'all'))%isnan(obj.ps_pre.fc) %Naive
+                %Updated to check center of frequencies rather than
+                %extremes since pulses might be detected near the edge of
+                %the channel BW.
+                if (mean([f_lo, f_hi])<min(obj.Wf,[],'all')) || (mean([f_lo, f_hi])>max(obj.Wf,[],'all'))%(f_lo<min(obj.Wf,[],'all')) || (f_hi>max(obj.Wf,[],'all'))%isnan(obj.ps_pre.fc) %Naive
                     if coder.target('MATLAB')
                         warning('UAVRT:searchtype',...
                                 ['Requested informed search, but previous '...
@@ -760,7 +763,16 @@ fprintf('\t Building Time Correlation Matrix  ...')
 fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
 previousToc = toc;
 fprintf('\t Conducting incoherent summation step  ...')
-            [yw_max_all_freq,S_cols] = incohsumtoeplitz(freq_mask,obj.W',obj.stft.S,timeBlinderVec, Wq);%obj.TimeCorr.Wq(obj.K));
+
+%[serialRejectionMatrix] = repetitionrejector(obj.stft.t,[1, 2, 3, 5, 10]);
+
+% if obj.t_0>93
+%     pause(1);
+% end
+[serialRejectionMatrix] = repetitionrejector(obj.stft.t, [2 3 5 10]);
+%[serialRejectionMatrix] = repetitionrejector(obj.stft.t, 0);%Outputs Identity for testing purposes
+
+            [yw_max_all_freq,S_cols] = incohsumtoeplitz(freq_mask,obj.W',obj.stft.S,serialRejectionMatrix,timeBlinderVec, Wq);%obj.TimeCorr.Wq(obj.K));
 fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
 previousToc = toc;
 

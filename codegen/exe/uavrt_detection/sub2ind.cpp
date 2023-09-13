@@ -5,7 +5,7 @@
 // File: sub2ind.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 13-Sep-2023 10:17:59
 //
 
 // Include Files
@@ -24,7 +24,7 @@
 
 // Variable Definitions
 static rtRunTimeErrorInfo
-    hc_emlrtRTEI{
+    jc_emlrtRTEI{
         18,        // lineNo
         23,        // colNo
         "sub2ind", // fName
@@ -116,7 +116,7 @@ void b_sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
   boolean_T exitg1;
   boolean_T p;
   if (!allinrange(varargin_1, siz[0])) {
-    cc_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
+    cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
   }
   b_varargin_1[0] = static_cast<unsigned int>(varargin_1.size(0));
   b_varargin_2[0] = static_cast<unsigned int>(varargin_2.size(0));
@@ -135,10 +135,10 @@ void b_sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
     }
   }
   if (!p) {
-    dc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+    dc_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
   }
   if (!allinrange(varargin_2, siz[1])) {
-    cc_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
+    cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
   }
   idx.set_size(varargin_1.size(0), varargin_1.size(1));
   k = varargin_1.size(0) * varargin_1.size(1);
@@ -171,7 +171,7 @@ void sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
     if ((varargin_1[k] >= 1.0) && (varargin_1[k] <= siz[0])) {
       k++;
     } else {
-      cc_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
+      cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
     }
   }
   b_varargin_1[0] = 1U;
@@ -191,7 +191,7 @@ void sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
     }
   }
   if (!p) {
-    dc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+    dc_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
   }
   hi = siz[1];
   k = 0;
@@ -200,7 +200,7 @@ void sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
     if ((varargin_2[k] >= 1.0) && (varargin_2[k] <= hi)) {
       k++;
     } else {
-      cc_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
+      cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
     }
   }
   idx.set_size(1, varargin_1.size(1));
@@ -234,7 +234,7 @@ void sub2ind(const int siz[2], const ::coder::array<double, 1U> &varargin_1,
     if ((varargin_1[k] >= 1.0) && (varargin_1[k] <= siz[0])) {
       k++;
     } else {
-      cc_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
+      cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
     }
   }
   b_varargin_1[0] = static_cast<unsigned int>(varargin_1.size(0));
@@ -254,7 +254,7 @@ void sub2ind(const int siz[2], const ::coder::array<double, 1U> &varargin_1,
     }
   }
   if (!p) {
-    dc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+    dc_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
   }
   hi = siz[1];
   k = 0;
@@ -263,7 +263,7 @@ void sub2ind(const int siz[2], const ::coder::array<double, 1U> &varargin_1,
     if ((varargin_2[k] >= 1.0) && (varargin_2[k] <= hi)) {
       k++;
     } else {
-      cc_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
+      cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
     }
   }
   idx.set_size(varargin_1.size(0));
@@ -282,10 +282,10 @@ void sub2ind(const int siz[2], const ::coder::array<double, 1U> &varargin_1,
 int sub2ind(const int siz[2], double varargin_2)
 {
   if (siz[0] < 1) {
-    cc_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
+    cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
   }
   if (!(varargin_2 <= siz[1])) {
-    cc_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
+    cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
   }
   return siz[0] * (static_cast<int>(varargin_2) - 1) + 1;
 }

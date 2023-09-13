@@ -5,7 +5,7 @@
 // File: stft.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 13-Sep-2023 10:17:59
 //
 
 // Include Files
@@ -95,7 +95,7 @@ static rtDoubleCheckInfo c_emlrtDCI{
     1                         // checkKind
 };
 
-static rtRunTimeErrorInfo ab_emlrtRTEI{
+static rtRunTimeErrorInfo bb_emlrtRTEI{
     336,                 // lineNo
     5,                   // colNo
     "verifyDataAndTime", // fName
@@ -103,7 +103,7 @@ static rtRunTimeErrorInfo ab_emlrtRTEI{
     "+stft/stftParser.m" // pName
 };
 
-static rtRunTimeErrorInfo bb_emlrtRTEI{
+static rtRunTimeErrorInfo cb_emlrtRTEI{
     318,                 // lineNo
     5,                   // colNo
     "verifyDataAndTime", // fName
@@ -182,7 +182,7 @@ static rtDoubleCheckInfo f_emlrtDCI{
     1                         // checkKind
 };
 
-static rtRunTimeErrorInfo db_emlrtRTEI{
+static rtRunTimeErrorInfo eb_emlrtRTEI{
     14,                 // lineNo
     37,                 // colNo
     "validatepositive", // fName
@@ -324,7 +324,7 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
     }
   }
   if (!p) {
-    i_rtErrorWithMessageID("X", x_emlrtRTEI.fName, x_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID("X", y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
   }
   p = true;
   k = 0;
@@ -338,25 +338,25 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
     }
   }
   if (!p) {
-    h_rtErrorWithMessageID("X", w_emlrtRTEI.fName, w_emlrtRTEI.lineNo);
+    h_rtErrorWithMessageID("X", x_emlrtRTEI.fName, x_emlrtRTEI.lineNo);
   }
   if (x.size(1) == 0) {
-    g_rtErrorWithMessageID("X", v_emlrtRTEI.fName, v_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID("X", w_emlrtRTEI.fName, w_emlrtRTEI.lineNo);
   }
   if (x.size(1) < 2) {
-    t_rtErrorWithMessageID(bb_emlrtRTEI.fName, bb_emlrtRTEI.lineNo);
+    t_rtErrorWithMessageID(cb_emlrtRTEI.fName, cb_emlrtRTEI.lineNo);
   }
   if (varargin_3.size(0) > x.size(1)) {
     rtErrorWithMessageID(static_cast<long>(varargin_3.size(0)),
-                         ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
+                         bb_emlrtRTEI.fName, bb_emlrtRTEI.lineNo);
   }
   if (std::isinf(varargin_1) || std::isnan(varargin_1)) {
-    i_rtErrorWithMessageID("sample rate", x_emlrtRTEI.fName,
-                           x_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID("sample rate", y_emlrtRTEI.fName,
+                           y_emlrtRTEI.lineNo);
   }
   if (varargin_1 <= 0.0) {
-    k_rtErrorWithMessageID("sample rate", db_emlrtRTEI.fName,
-                           db_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID("sample rate", eb_emlrtRTEI.fName,
+                           eb_emlrtRTEI.lineNo);
   }
   obj.value.set_size(varargin_3.size(0));
   bcoef = varargin_3.size(0);
@@ -439,7 +439,7 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
   } else if (obj.value.size(0) == xin.size(0)) {
     csz_idx_0 = obj.value.size(0);
   } else {
-    s_rtErrorWithMessageID(y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
+    s_rtErrorWithMessageID(ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
   }
   c.set_size(csz_idx_0, xin.size(1));
   if ((csz_idx_0 != 0) && (xin.size(1) != 0)) {
@@ -563,7 +563,7 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
     }
   }
   if (!useRadix2) {
-    i_rtErrorWithMessageID("X", x_emlrtRTEI.fName, x_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID("X", y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
   }
   useRadix2 = true;
   k = 0;
@@ -577,10 +577,10 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
     }
   }
   if (!useRadix2) {
-    h_rtErrorWithMessageID("X", w_emlrtRTEI.fName, w_emlrtRTEI.lineNo);
+    h_rtErrorWithMessageID("X", x_emlrtRTEI.fName, x_emlrtRTEI.lineNo);
   }
   if ((x.size(0) == 0) || (x.size(1) == 0)) {
-    g_rtErrorWithMessageID("X", v_emlrtRTEI.fName, v_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID("X", w_emlrtRTEI.fName, w_emlrtRTEI.lineNo);
   }
   if (x.size(0) == 1) {
     wrappedData.set_size(x.size(1), 1);
@@ -595,19 +595,19 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
     }
   }
   if (wrappedData.size(0) < 2) {
-    t_rtErrorWithMessageID(bb_emlrtRTEI.fName, bb_emlrtRTEI.lineNo);
+    t_rtErrorWithMessageID(cb_emlrtRTEI.fName, cb_emlrtRTEI.lineNo);
   }
   if (varargin_3.size(0) > wrappedData.size(0)) {
     rtErrorWithMessageID(static_cast<long>(varargin_3.size(0)),
-                         ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
+                         bb_emlrtRTEI.fName, bb_emlrtRTEI.lineNo);
   }
   if (std::isinf(varargin_1) || std::isnan(varargin_1)) {
-    i_rtErrorWithMessageID("sample rate", x_emlrtRTEI.fName,
-                           x_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID("sample rate", y_emlrtRTEI.fName,
+                           y_emlrtRTEI.lineNo);
   }
   if (varargin_1 <= 0.0) {
-    k_rtErrorWithMessageID("sample rate", db_emlrtRTEI.fName,
-                           db_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID("sample rate", eb_emlrtRTEI.fName,
+                           eb_emlrtRTEI.lineNo);
   }
   hopSize = static_cast<double>(varargin_3.size(0)) - varargin_5;
   nCol = std::trunc((static_cast<double>(wrappedData.size(0)) - varargin_5) /
@@ -708,7 +708,7 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
   } else if (varargin_3.size(0) == xin.size(0)) {
     csz_idx_0 = varargin_3.size(0);
   } else {
-    s_rtErrorWithMessageID(y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
+    s_rtErrorWithMessageID(ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
   }
   b_c.set_size(csz_idx_0, xin.size(1), xin.size(2));
   if ((csz_idx_0 != 0) && (xin.size(1) != 0)) {
@@ -772,7 +772,7 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
         b_x[i1] = b_c[i1 + c[0] * iCol];
       }
       if (!(varargin_7 >= 1.0)) {
-        b_rtErrorWithMessageID(1, eb_emlrtRTEI.fName, eb_emlrtRTEI.lineNo);
+        b_rtErrorWithMessageID(1, fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
       }
       if (b_c.size(0) == 1) {
         wrappedData.set_size(1, csz_idx_0);
@@ -862,7 +862,7 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
     }
   }
   if (xin.size(0) == 1) {
-    u_rtErrorWithMessageID(fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
+    u_rtErrorWithMessageID(gb_emlrtRTEI.fName, gb_emlrtRTEI.lineNo);
   }
   if ((xin.size(0) == 0) || (xin.size(1) == 0) || (varargin_7 == 0.0)) {
     varargout_1.set_size(csz_idx_0, xin.size(1), xin.size(2));

@@ -658,6 +658,11 @@ printpulseinfostruc(pulseInfoStruct);
                         else
                             fprintf("\n");
                         end
+                        dataRecordPathChar = char(Config.dataRecordPath);
+                        waveformRecordPath = sprintf('%s_%f_%f_.csv',dataRecordPathChar(1:end-4),startTime,X.t_0);
+                        fprintf("Writing waveform record csv file: %s\n",waveformRecordPath)
+                        wfmcsvwrite(X,Config.channelCenterFreqMHz, waveformRecordPath);
+                        fprintf("...complete.\n");
                      
                     end
                     

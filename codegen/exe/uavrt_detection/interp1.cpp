@@ -5,7 +5,7 @@
 // File: interp1.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 13-Sep-2023 10:17:59
 //
 
 // Include Files
@@ -172,7 +172,7 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
              ::coder::array<double, 1U> &Vq)
 {
   static rtRunTimeErrorInfo
-      qc_emlrtRTEI{
+      tc_emlrtRTEI{
           155,            // lineNo
           15,             // colNo
           "interp1_work", // fName
@@ -180,7 +180,7 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
           "interp1.m" // pName
       };
   static rtRunTimeErrorInfo
-      rc_emlrtRTEI{
+      uc_emlrtRTEI{
           139,            // lineNo
           23,             // colNo
           "interp1_work", // fName
@@ -204,10 +204,10 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
   }
   nx = varargin_1.size(0);
   if (varargin_1.size(0) != varargin_2.size(0)) {
-    ub_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+    ub_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   }
   if (varargin_1.size(0) <= 1) {
-    vb_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+    vb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   Vq.set_size(varargin_3.size(0));
   n = varargin_3.size(0);
@@ -225,7 +225,7 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
       exitg1 = 0;
       if (k <= nx - 1) {
         if (std::isnan(varargin_1[k])) {
-          gb_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
+          gb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
         } else {
           k++;
         }
@@ -253,7 +253,7 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
         }
         for (k = 2; k <= nx; k++) {
           if (x[k - 1] <= x[k - 2]) {
-            fb_rtErrorWithMessageID(sb_emlrtRTEI.fName, sb_emlrtRTEI.lineNo);
+            fb_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
           }
         }
         interp1Linear(y, varargin_2.size(0), varargin_3, Vq, x);

@@ -5,7 +5,7 @@
 // File: sparse1.h
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 13-Sep-2023 10:17:59
 //
 
 #ifndef SPARSE1_H
@@ -37,9 +37,9 @@ class sparse {
 public:
   static void assertValidIndexArg(const ::coder::array<double, 1U> &s,
                                   ::coder::array<int, 1U> &sint);
+  static void eyeLike(int ndiag, int b_m, int b_n, sparse &b_I);
   void mtimes(const ::coder::array<double, 2U> &a,
               ::coder::array<double, 2U> &c) const;
-  static void eyeLike(int ndiag, int b_m, int b_n, sparse &b_I);
   void logical(f_sparse &y) const;
   void parenReference(g_sparse &s) const;
   void parenReference(const ::coder::array<double, 1U> &varargin_2,

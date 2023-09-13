@@ -5,7 +5,7 @@
 // File: psdfreqvec.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 13-Sep-2023 10:17:59
 //
 
 // Include Files
@@ -98,14 +98,14 @@ void psdfreqvec(double varargin_2, double varargin_4,
       "/Applications/MATLAB_R2023a.app/toolbox/shared/siglib/psdfreqvec.m", // pName
       0 // checkKind
   };
-  static rtDoubleCheckInfo q_emlrtDCI{
+  static rtDoubleCheckInfo r_emlrtDCI{
       74,              // lineNo
       8,               // colNo
       "frequencygrid", // fName
       "/Applications/MATLAB_R2023a.app/toolbox/shared/siglib/psdfreqvec.m", // pName
       1 // checkKind
   };
-  static rtDoubleCheckInfo r_emlrtDCI{
+  static rtDoubleCheckInfo s_emlrtDCI{
       78,              // lineNo
       8,               // colNo
       "frequencygrid", // fName
@@ -147,7 +147,7 @@ void psdfreqvec(double varargin_2, double varargin_4,
   half_res = freq_res / 2.0;
   x = rt_remd_snf(varargin_2, 2.0);
   if (std::isnan(x)) {
-    v_rtErrorWithMessageID(gb_emlrtRTEI.fName, gb_emlrtRTEI.lineNo);
+    v_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
   }
   isNPTSodd = (x != 0.0);
   if (isNPTSodd) {
@@ -156,11 +156,11 @@ void psdfreqvec(double varargin_2, double varargin_4,
     x = varargin_2 / 2.0 + 1.0;
   }
   if (std::isnan(rt_remd_snf(x, 2.0))) {
-    v_rtErrorWithMessageID(gb_emlrtRTEI.fName, gb_emlrtRTEI.lineNo);
+    v_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
   }
   if (isNPTSodd) {
     if (x != static_cast<int>(std::floor(x))) {
-      rtIntegerError(x, q_emlrtDCI);
+      rtIntegerError(x, r_emlrtDCI);
     }
     if ((static_cast<int>(x) < 1) || (static_cast<int>(x) > w1.size(1))) {
       rtDynamicBoundsError(static_cast<int>(x), 1, w1.size(1), y_emlrtBCI);
@@ -174,7 +174,7 @@ void psdfreqvec(double varargin_2, double varargin_4,
     w1[static_cast<int>(static_cast<unsigned int>(x))] = Nyq + half_res;
   } else {
     if (x != static_cast<int>(std::floor(x))) {
-      rtIntegerError(x, r_emlrtDCI);
+      rtIntegerError(x, s_emlrtDCI);
     }
     if ((static_cast<int>(x) < 1) || (static_cast<int>(x) > w1.size(1))) {
       rtDynamicBoundsError(static_cast<int>(x), 1, w1.size(1), cb_emlrtBCI);

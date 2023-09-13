@@ -5,7 +5,7 @@
 // File: confirmpulses.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 13-Sep-2023 10:17:59
 //
 
 // Include Files
@@ -265,7 +265,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
       0                                                  // checkKind
   };
-  static rtDoubleCheckInfo q_emlrtDCI{
+  static rtDoubleCheckInfo r_emlrtDCI{
       12,              // lineNo
       76,              // colNo
       "confirmpulses", // fName
@@ -273,16 +273,8 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
       4                                                  // checkKind
   };
-  static rtDoubleCheckInfo r_emlrtDCI{
-      12,              // lineNo
-      76,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      1                                                  // checkKind
-  };
   static rtDoubleCheckInfo s_emlrtDCI{
-      13,              // lineNo
+      12,              // lineNo
       76,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -290,12 +282,12 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       1                                                  // checkKind
   };
   static rtDoubleCheckInfo t_emlrtDCI{
-      15,              // lineNo
-      74,              // colNo
+      13,              // lineNo
+      76,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      4                                                  // checkKind
+      1                                                  // checkKind
   };
   static rtDoubleCheckInfo u_emlrtDCI{
       15,              // lineNo
@@ -303,9 +295,17 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      1                                                  // checkKind
+      4                                                  // checkKind
   };
   static rtDoubleCheckInfo v_emlrtDCI{
+      15,              // lineNo
+      74,              // colNo
+      "confirmpulses", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
+      1                                                  // checkKind
+  };
+  static rtDoubleCheckInfo w_emlrtDCI{
       16,              // lineNo
       74,              // colNo
       "confirmpulses", // fName
@@ -437,11 +437,11 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
     }
     b_b = !(X->K >= 0.0);
     if (b_b) {
-      rtNonNegativeError(X->K, q_emlrtDCI);
+      rtNonNegativeError(X->K, r_emlrtDCI);
     }
     i = static_cast<int>(std::floor(X->K));
     if (X->K != i) {
-      rtIntegerError(X->K, r_emlrtDCI);
+      rtIntegerError(X->K, s_emlrtDCI);
     }
     b_i = static_cast<int>(X->K);
     b_b = ((pulsestarttimes_withuncert.size(1) != b_i) &&
@@ -468,7 +468,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       pulseendtimes_withuncert[i1] = b * pulseendtimes_withuncert[i1];
     }
     if (X->K != i) {
-      rtIntegerError(X->K, s_emlrtDCI);
+      rtIntegerError(X->K, t_emlrtDCI);
     }
     if (b_b) {
       emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1), b_i,
@@ -509,11 +509,11 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
     }
     b_b = !(X->K >= 0.0);
     if (b_b) {
-      rtNonNegativeError(X->K, t_emlrtDCI);
+      rtNonNegativeError(X->K, u_emlrtDCI);
     }
     i = static_cast<int>(std::floor(X->K));
     if (X->K != i) {
-      rtIntegerError(X->K, u_emlrtDCI);
+      rtIntegerError(X->K, v_emlrtDCI);
     }
     b_i = static_cast<int>(X->K);
     b_b = ((pulsestarttimes_withuncert.size(1) != b_i) &&
@@ -540,7 +540,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       pulseendtimes_withuncert[i1] = b * pulseendtimes_withuncert[i1];
     }
     if (X->K != i) {
-      rtIntegerError(X->K, v_emlrtDCI);
+      rtIntegerError(X->K, w_emlrtDCI);
     }
     if (b_b) {
       emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1), b_i,

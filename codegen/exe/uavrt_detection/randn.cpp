@@ -5,7 +5,7 @@
 // File: randn.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 13-Sep-2023 10:17:59
 //
 
 // Include Files
@@ -62,7 +62,7 @@ void complexLike(creal_T r[1000])
 void complexLike(double varargin_1, unsigned int varargin_2,
                  ::coder::array<creal_T, 2U> &r)
 {
-  static rtDoubleCheckInfo q_emlrtDCI{
+  static rtDoubleCheckInfo r_emlrtDCI{
       29,                            // lineNo
       34,                            // colNo
       "eml_rand_mt19937ar_stateful", // fName
@@ -75,12 +75,12 @@ void complexLike(double varargin_1, unsigned int varargin_2,
   int loop_ub;
   if ((varargin_1 != std::floor(varargin_1)) || std::isinf(varargin_1) ||
       (varargin_1 < -2.147483648E+9) || (varargin_1 > 2.147483647E+9)) {
-    b_rtErrorWithMessageID(MIN_int32_T, ib_emlrtRTEI.fName,
-                           ib_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(MIN_int32_T, jb_emlrtRTEI.fName,
+                           jb_emlrtRTEI.lineNo);
   }
   if (varargin_2 > 2147483647U) {
-    b_rtErrorWithMessageID(MIN_int32_T, ib_emlrtRTEI.fName,
-                           ib_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(MIN_int32_T, jb_emlrtRTEI.fName,
+                           jb_emlrtRTEI.lineNo);
   }
   if (varargin_1 <= 0.0) {
     re = 0.0;
@@ -93,10 +93,10 @@ void complexLike(double varargin_1, unsigned int varargin_2,
     re *= static_cast<double>(varargin_2);
   }
   if (!(re <= 2.147483647E+9)) {
-    m_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
+    m_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
   }
   if (!(varargin_1 >= 0.0)) {
-    rtNonNegativeError(varargin_1, q_emlrtDCI);
+    rtNonNegativeError(varargin_1, r_emlrtDCI);
   }
   r.set_size(static_cast<int>(varargin_1), static_cast<int>(varargin_2));
   loop_ub = static_cast<int>(varargin_1) * static_cast<int>(varargin_2);
@@ -145,7 +145,7 @@ void randn(double r[1000])
 void randn(double varargin_1, unsigned int varargin_2,
            ::coder::array<double, 2U> &r)
 {
-  static rtDoubleCheckInfo q_emlrtDCI{
+  static rtDoubleCheckInfo r_emlrtDCI{
       37,                            // lineNo
       34,                            // colNo
       "eml_rand_mt19937ar_stateful", // fName
@@ -155,7 +155,7 @@ void randn(double varargin_1, unsigned int varargin_2,
   };
   int i;
   if (!(varargin_1 >= 0.0)) {
-    rtNonNegativeError(varargin_1, q_emlrtDCI);
+    rtNonNegativeError(varargin_1, r_emlrtDCI);
   }
   r.set_size(static_cast<int>(varargin_1), static_cast<int>(varargin_2));
   i = static_cast<int>(varargin_1) * static_cast<int>(varargin_2);

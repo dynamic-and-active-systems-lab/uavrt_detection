@@ -162,12 +162,13 @@ classdef wfmstft < handle
             obj.psd = obj.dt^2/obj.T*mean(magSqrd,2,'omitnan');%use median to exclude outliers from short pulses
         end
         
-        function [] = displaystft(obj)
+        function [figHand] = displaystft(obj)
             %This function will plot the STFT as a filled contour plot. It
             %has no functionality when deployed outside of Matlab. 
             if coder.target('MATLAB')
-                figure
-                contourf(obj.t-obj.t(1),obj.f,abs(obj.S),'EdgeColor','none')
+                figHand = figure;
+                %contourf(obj.t-obj.t(1),obj.f,abs(obj.S),'EdgeColor','none')
+                contourf(obj.t,obj.f,abs(obj.S),'EdgeColor','none')
                 xlabel('Time (s)');
                 ylabel('Frequency (Hz)')
                 title('Spectrogram')

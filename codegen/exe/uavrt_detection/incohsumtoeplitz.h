@@ -5,7 +5,7 @@
 // File: incohsumtoeplitz.h
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 13-Sep-2023 10:17:59
 //
 
 #ifndef INCOHSUMTOEPLITZ_H
@@ -27,6 +27,7 @@ class sparse;
 void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
                       const coder::array<creal_T, 2U> &Wfherm,
                       const coder::array<creal_T, 2U> &S,
+                      const coder::sparse &IR,
                       const coder::array<double, 1U> &Tb,
                       const coder::sparse &Wq,
                       coder::array<double, 2U> &Sscores,

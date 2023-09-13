@@ -1,4 +1,4 @@
-function [Sscores,Scols] = incohsumtoeplitz(Fb,Wfherm,S,Tb,Wq)
+function [Sscores,Scols] = incohsumtoeplitz(Fb,Wfherm,S,IR,Tb,Wq)
 %INCOHSUMTOEPLITZ Performs the incoherent summation of time windows of an
 %input matrix S per the elements in the time selection matrix Wq.
 %   This function performs the incoherent summation of time elements within
@@ -180,7 +180,7 @@ end
 SnumRows   = Ssz(1);
 %S          = abs(S).^2;
 K          = full(sum(Wq(:,1)));
-allScores  = abs(Wfherm*S).^2;
+allScores  = abs(Wfherm*S).^2 * IR;
 selectedCombinedScores  = FbSparseMat*allScores*TbSparseMat*Wq;
 [~,I]      = max(selectedCombinedScores, [], 2);     %Check max on each row (frequency). This gives the columns of the resulting matrix output with the max for each frequency bin
 %This and the next line gets the column numbers (time windows) of the S matrix where the highest K-summed entries exist for each row (frequency bin)
