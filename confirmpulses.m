@@ -26,6 +26,18 @@ maxstartlog = [X.ps_pos.pl(:).t_0]<=pulseendtimes_withuncert;
 freqInBand = [X.ps_pos.pl.fp] >= [X.ps_pre.pl.fp]-100 &...
              [X.ps_pos.pl.fp] <= [X.ps_pre.pl.fp]+100;
 
-confLog = maxstartlog & minstartlog & freqInBand;
+%confLog = maxstartlog & minstartlog & freqInBand;
+
+%2023-09-14
+%The method above has increasing uncertainty bounds for the Kth pulse that
+%allows for the entire group to be shifted in time and only the last K
+%pulse gets confirmed. We really need to only check that the first pulse in
+%the group is in the correct position. If it is, then the others are
+%confirmed by default. 
+
+indivConfLog = maxstartlog & minstartlog & freqInBand; 
+confLog = false(numel(X.ps_pos.pl),1);
+confLog(:) = indivConfLog(1);
+
 
 end

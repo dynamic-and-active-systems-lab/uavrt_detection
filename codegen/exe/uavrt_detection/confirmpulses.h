@@ -5,7 +5,7 @@
 // File: confirmpulses.h
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 13-Sep-2023 13:30:23
+// C/C++ source code generated on  : 14-Sep-2023 07:49:36
 //
 
 #ifndef CONFIRMPULSES_H
@@ -21,7 +21,7 @@
 class waveform;
 
 // Function Declarations
-void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog);
+void confirmpulses(const waveform *X, coder::array<boolean_T, 1U> &confLog);
 
 #endif
 //

@@ -5,7 +5,7 @@
 // File: waveform.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 13-Sep-2023 13:30:23
+// C/C++ source code generated on  : 14-Sep-2023 07:49:36
 //
 
 // Include Files
@@ -6760,9 +6760,10 @@ void waveform::process(char mode, const coder::array<double, 2U>
   coder::array<c_struct_T, 2U> candidatelist;
   coder::array<double, 1U> pk_ind;
   coder::array<char, 2U> varargin_1;
-  coder::array<boolean_T, 2U> conflog;
+  coder::array<boolean_T, 2U> b_varargin_1;
   coder::array<boolean_T, 2U> msk;
-  coder::array<boolean_T, 1U> b_conflog;
+  coder::array<boolean_T, 1U> c_varargin_1;
+  coder::array<boolean_T, 1U> conflog;
   coder::array<boolean_T, 1U> r;
   c_struct_T _in;
   double b_x;
@@ -7104,18 +7105,18 @@ void waveform::process(char mode, const coder::array<double, 2U>
       i = b_index;
     }
 
-    conflog.set_size(1, i);
+    b_varargin_1.set_size(1, i);
     if (b_index > 2147483646) {
       coder::check_forloop_overflow_error();
     }
 
     for (int b_i{0}; b_i < b_index; b_i++) {
-      conflog[b_i] = candidatelist[b_i].det_dec;
+      b_varargin_1[b_i] = candidatelist[b_i].det_dec;
     }
 
-    b_index = conflog.size(1);
-    b_conflog = conflog.reshape(b_index);
-    have_priori_freq_band = coder::internal::allOrAny_anonFcn1(b_conflog);
+    b_index = b_varargin_1.size(1);
+    c_varargin_1 = b_varargin_1.reshape(b_index);
+    have_priori_freq_band = coder::internal::allOrAny_anonFcn1(c_varargin_1);
     if (have_priori_freq_band) {
       r.set_size(pk_ind.size(0));
       b_index = pk_ind.size(0);
@@ -7333,18 +7334,18 @@ void waveform::process(char mode, const coder::array<double, 2U>
       i = b_index;
     }
 
-    conflog.set_size(1, i);
+    b_varargin_1.set_size(1, i);
     if (b_index > 2147483646) {
       coder::check_forloop_overflow_error();
     }
 
     for (int b_i{0}; b_i < b_index; b_i++) {
-      conflog[b_i] = candidatelist[b_i].det_dec;
+      b_varargin_1[b_i] = candidatelist[b_i].det_dec;
     }
 
-    b_index = conflog.size(1);
-    b_conflog = conflog.reshape(b_index);
-    have_priori_freq_band = coder::internal::allOrAny_anonFcn1(b_conflog);
+    b_index = b_varargin_1.size(1);
+    c_varargin_1 = b_varargin_1.reshape(b_index);
+    have_priori_freq_band = coder::internal::allOrAny_anonFcn1(c_varargin_1);
     if (have_priori_freq_band) {
       r.set_size(pk_ind.size(0));
       b_index = pk_ind.size(0);
@@ -7421,7 +7422,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
       obj->cpki[i] = pk_ind[i];
     }
 
-    conflog.set_size(1, 1);
+    conflog.set_size(1);
     conflog[0] = false;
 
     // Set to all false. Needed
@@ -7438,9 +7439,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
       confirmpulses(this, conflog);
 
       // [minstartlog', maxstartlog', freqInBand', conflog']
-      b_index = conflog.size(1);
-      b_conflog = conflog.reshape(b_index);
-      have_priori_freq_band = coder::internal::allOrAny_anonFcn1(b_conflog);
+      have_priori_freq_band = coder::internal::allOrAny_anonFcn1(conflog);
       if (have_priori_freq_band) {
         //  	Confirmed?
         //  		True -> Confirmation = True
@@ -7468,8 +7467,8 @@ void waveform::process(char mode, const coder::array<double, 2U>
           b__in[i1] = ps_pos->pl[i1];
         }
 
-        if (b_i + 1 > conflog.size(1)) {
-          rtDynamicBoundsError(b_i + 1, 1, conflog.size(1), jb_emlrtBCI);
+        if (b_i + 1 > conflog.size(0)) {
+          rtDynamicBoundsError(b_i + 1, 1, conflog.size(0), jb_emlrtBCI);
         }
 
         if (b_i + 1 > b__in.size(1)) {
@@ -7588,18 +7587,18 @@ void waveform::process(char mode, const coder::array<double, 2U>
       i = b_index;
     }
 
-    conflog.set_size(1, i);
+    b_varargin_1.set_size(1, i);
     if (b_index > 2147483646) {
       coder::check_forloop_overflow_error();
     }
 
     for (int b_i{0}; b_i < b_index; b_i++) {
-      conflog[b_i] = candidatelist[b_i].det_dec;
+      b_varargin_1[b_i] = candidatelist[b_i].det_dec;
     }
 
-    b_index = conflog.size(1);
-    b_conflog = conflog.reshape(b_index);
-    have_priori_freq_band = coder::internal::allOrAny_anonFcn1(b_conflog);
+    b_index = b_varargin_1.size(1);
+    c_varargin_1 = b_varargin_1.reshape(b_index);
+    have_priori_freq_band = coder::internal::allOrAny_anonFcn1(c_varargin_1);
     if (have_priori_freq_band) {
       r.set_size(pk_ind.size(0));
       b_index = pk_ind.size(0);
@@ -7687,9 +7686,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
       confirmpulses(this, conflog);
 
       // [minstartlog', maxstartlog', freqInBand', conflog']
-      b_index = conflog.size(1);
-      b_conflog = conflog.reshape(b_index);
-      have_priori_freq_band = coder::internal::allOrAny_anonFcn1(b_conflog);
+      have_priori_freq_band = coder::internal::allOrAny_anonFcn1(conflog);
       if (have_priori_freq_band) {
         //  	Confirmed?
         //  		True -> Confirmation = True
@@ -7705,8 +7702,8 @@ void waveform::process(char mode, const coder::array<double, 2U>
             b__in[i1] = ps_pos->pl[i1];
           }
 
-          if (b_i + 1 > conflog.size(1)) {
-            rtDynamicBoundsError(b_i + 1, 1, conflog.size(1), db_emlrtBCI);
+          if (b_i + 1 > conflog.size(0)) {
+            rtDynamicBoundsError(b_i + 1, 1, conflog.size(0), db_emlrtBCI);
           }
 
           if (b_i + 1 > b__in.size(1)) {

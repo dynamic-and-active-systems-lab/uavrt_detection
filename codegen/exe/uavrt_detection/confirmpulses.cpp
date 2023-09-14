@@ -5,7 +5,7 @@
 // File: confirmpulses.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 13-Sep-2023 13:30:23
+// C/C++ source code generated on  : 14-Sep-2023 07:49:36
 //
 
 // Include Files
@@ -249,11 +249,22 @@ static void l_binary_expand_op(coder::array<double, 2U> &in1, double in2,
 // the last pulse of the X.ps_pre and its pulse timing parameter.
 //
 // Arguments    : const waveform *X
-//                coder::array<boolean_T, 2U> &confLog
+//                coder::array<boolean_T, 1U> &confLog
 // Return Type  : void
 //
-void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
+void confirmpulses(const waveform *X, coder::array<boolean_T, 1U> &confLog)
 {
+  static rtBoundsCheckInfo ab_emlrtBCI{
+      -1,              // iFirst
+      -1,              // iLast
+      40,              // lineNo
+      27,              // colNo
+      "indivConfLog",  // aName
+      "confirmpulses", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
+      0                                                  // checkKind
+  };
   static rtBoundsCheckInfo y_emlrtBCI{
       -1,              // iFirst
       -1,              // iLast
@@ -363,8 +374,8 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   };
   static rtEqualityCheckInfo m_emlrtECI{
       2,               // nDims
-      29,              // lineNo
-      11,              // colNo
+      38,              // lineNo
+      16,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
@@ -392,6 +403,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   coder::array<double, 2U> r;
   coder::array<double, 2U> r1;
   coder::array<boolean_T, 2U> freqInBand;
+  coder::array<boolean_T, 2U> maxstartlog;
   coder::array<boolean_T, 2U> minstartlog;
   coder::array<boolean_T, 2U> r2;
   double tip;
@@ -608,13 +620,13 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
                                 j_emlrtECI);
   }
   if (r.size(1) == pulseendtimes_withuncert.size(1)) {
-    confLog.set_size(1, r.size(1));
+    maxstartlog.set_size(1, r.size(1));
     n = r.size(1);
     for (i = 0; i < n; i++) {
-      confLog[i] = (r[i] <= pulseendtimes_withuncert[i]);
+      maxstartlog[i] = (r[i] <= pulseendtimes_withuncert[i]);
     }
   } else {
-    b_le(confLog, r, pulseendtimes_withuncert);
+    b_le(maxstartlog, r, pulseendtimes_withuncert);
   }
   // Frequency check. Within +/- 100 Hz of previously
   // detected pulses?
@@ -715,33 +727,49 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   } else {
     d_and(freqInBand, r2);
   }
-  if ((confLog.size(1) != minstartlog.size(1)) &&
-      ((confLog.size(1) != 1) && (minstartlog.size(1) != 1))) {
-    emlrtDimSizeImpxCheckR2021b(confLog.size(1), minstartlog.size(1),
+  // confLog = maxstartlog & minstartlog & freqInBand;
+  // 2023-09-14
+  // The method above has increasing uncertainty bounds for the Kth pulse that
+  // allows for the entire group to be shifted in time and only the last K
+  // pulse gets confirmed. We really need to only check that the first pulse in
+  // the group is in the correct position. If it is, then the others are
+  // confirmed by default.
+  if ((maxstartlog.size(1) != minstartlog.size(1)) &&
+      ((maxstartlog.size(1) != 1) && (minstartlog.size(1) != 1))) {
+    emlrtDimSizeImpxCheckR2021b(maxstartlog.size(1), minstartlog.size(1),
                                 m_emlrtECI);
   }
-  if (confLog.size(1) == minstartlog.size(1)) {
-    n = confLog.size(1) - 1;
-    confLog.set_size(1, confLog.size(1));
+  if (maxstartlog.size(1) == minstartlog.size(1)) {
+    n = maxstartlog.size(1) - 1;
+    maxstartlog.set_size(1, maxstartlog.size(1));
     for (i = 0; i <= n; i++) {
-      confLog[i] = (confLog[i] && minstartlog[i]);
+      maxstartlog[i] = (maxstartlog[i] && minstartlog[i]);
     }
   } else {
-    d_and(confLog, minstartlog);
+    d_and(maxstartlog, minstartlog);
   }
-  if ((confLog.size(1) != freqInBand.size(1)) &&
-      ((confLog.size(1) != 1) && (freqInBand.size(1) != 1))) {
-    emlrtDimSizeImpxCheckR2021b(confLog.size(1), freqInBand.size(1),
+  if ((maxstartlog.size(1) != freqInBand.size(1)) &&
+      ((maxstartlog.size(1) != 1) && (freqInBand.size(1) != 1))) {
+    emlrtDimSizeImpxCheckR2021b(maxstartlog.size(1), freqInBand.size(1),
                                 m_emlrtECI);
   }
-  if (confLog.size(1) == freqInBand.size(1)) {
-    n = confLog.size(1) - 1;
-    confLog.set_size(1, confLog.size(1));
+  if (maxstartlog.size(1) == freqInBand.size(1)) {
+    n = maxstartlog.size(1) - 1;
+    maxstartlog.set_size(1, maxstartlog.size(1));
     for (i = 0; i <= n; i++) {
-      confLog[i] = (confLog[i] && freqInBand[i]);
+      maxstartlog[i] = (maxstartlog[i] && freqInBand[i]);
     }
   } else {
-    d_and(confLog, freqInBand);
+    d_and(maxstartlog, freqInBand);
+  }
+  confLog.set_size(X->ps_pos->pl.size(1));
+  if (maxstartlog.size(1) < 1) {
+    rtDynamicBoundsError(1, 1, maxstartlog.size(1), ab_emlrtBCI);
+  }
+  n = confLog.size(0);
+  confLog.set_size(n);
+  for (i = 0; i < n; i++) {
+    confLog[i] = maxstartlog[0];
   }
 }
 
