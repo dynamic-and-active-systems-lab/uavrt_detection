@@ -5,7 +5,7 @@
 // File: threshold.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Sep-2023 11:38:47
+// C/C++ source code generated on  : 15-Sep-2023 12:46:31
 //
 
 // Include Files
@@ -91,9 +91,9 @@ void threshold::makenewthreshold(const waveform &Wfm)
   static rtBoundsCheckInfo cb_emlrtBCI{
       -1,                         // iFirst
       -1,                         // iLast
-      297,                        // lineNo
-      44,                         // colNo
-      "newThresh",                // aName
+      283,                        // lineNo
+      63,                         // colNo
+      "Wfm.stft.f",               // aName
       "threshold/setthreshprops", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
@@ -124,9 +124,9 @@ void threshold::makenewthreshold(const waveform &Wfm)
   static rtBoundsCheckInfo fb_emlrtBCI{
       -1,                         // iFirst
       -1,                         // iLast
-      283,                        // lineNo
-      63,                         // colNo
-      "Wfm.stft.f",               // aName
+      297,                        // lineNo
+      44,                         // colNo
+      "newThresh",                // aName
       "threshold/setthreshprops", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
@@ -716,7 +716,7 @@ void threshold::makenewthreshold(const waveform &Wfm)
   }
   i = Wfm.stft->f.size(0);
   if (i < 1) {
-    rtDynamicBoundsError(1, 1, i, fb_emlrtBCI);
+    rtDynamicBoundsError(1, 1, i, cb_emlrtBCI);
   }
   nSamps = Wfm.stft->f[1] - Wfm.stft->f[0];
   // PSD (W/Hz) times bin width (Hz/bin) gives bin total power in (W/bin)
@@ -752,7 +752,7 @@ void threshold::makenewthreshold(const waveform &Wfm)
   inner = coder::d_eml_find(x_tmp, (int *)&ii_data);
   for (i = 0; i < numRead; i++) {
     if ((nbytes < 1) || (nbytes > scores.size(0))) {
-      rtDynamicBoundsError(nbytes, 1, scores.size(0), cb_emlrtBCI);
+      rtDynamicBoundsError(nbytes, 1, scores.size(0), fb_emlrtBCI);
     }
   }
   for (i = 0; i < inner; i++) {

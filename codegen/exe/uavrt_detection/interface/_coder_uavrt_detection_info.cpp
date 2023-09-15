@@ -5,7 +5,7 @@
 // File: _coder_uavrt_detection_info.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Sep-2023 11:38:47
+// C/C++ source code generated on  : 15-Sep-2023 12:46:31
 //
 
 // Include Files
@@ -205,7 +205,7 @@ mxArray *emlrtMexFcnProperties()
                           "OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/"
                           "uavrt_detection/uavrt_detection.m"));
   emlrtSetField(xEntryPoints, 0, "TimeStamp",
-                emlrtMxCreateDoubleScalar(739144.4852430555));
+                emlrtMxCreateDoubleScalar(739144.53157407406));
   xResult =
       emlrtCreateStructMatrix(1, 1, 7, (const char_T **)&propFieldName[0]);
   emlrtSetField(xResult, 0, "Version",

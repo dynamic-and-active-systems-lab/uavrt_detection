@@ -5,7 +5,7 @@
 // File: DetectorConfig.h
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Sep-2023 11:38:47
+// C/C++ source code generated on  : 15-Sep-2023 12:46:31
 //
 
 #ifndef DETECTORCONFIG_H
@@ -32,7 +32,6 @@ public:
   double tipu;
   double tipj;
   double K;
-  coder::rtString opMode;
   coder::array<double, 2U> excldFreqs;
   double falseAlarmProb;
   coder::rtString dataRecordPath;

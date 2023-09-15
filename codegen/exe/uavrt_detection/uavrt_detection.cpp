@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Sep-2023 11:38:47
+// C/C++ source code generated on  : 15-Sep-2023 12:46:31
 //
 
 // Include Files
@@ -1071,34 +1071,32 @@ static void updateconfig(coder::b_captured_var &Config,
               if (u2 <= 0) {
                 d_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
               }
-            } else if (coder::internal::l_strcmp(configType)) {
-              r.opMode.Value.set_size(1, match_idx);
-              for (text_len = 0; text_len < match_idx; text_len++) {
-                r.opMode.Value[text_len] = lineStr[i + text_len];
-              }
-            } else if (coder::internal::m_strcmp(configType)) {
-              str2matrix(configValStr, r1);
-              val.set_size(r1.size(0), r1.size(1));
-              loop_ub = r1.size(0) * r1.size(1);
-              for (i = 0; i < loop_ub; i++) {
-                val[i] = r1[i].re;
-              }
-              coder::internal::validator_check_size(val, r.excldFreqs);
-            } else if (coder::internal::n_strcmp(configType)) {
-              creal_T x;
-              x = coder::internal::str2double(configValStr);
-              if (!(x.re > 0.0)) {
-                d_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
-              }
-              if (!(x.re < 1.0)) {
-                b_rtErrorWithMessageID("1", wc_emlrtRTEI.fName,
-                                       wc_emlrtRTEI.lineNo);
-              }
-              r.falseAlarmProb = x.re;
-            } else if (coder::internal::o_strcmp(configType)) {
-              r.dataRecordPath.Value.set_size(1, match_idx);
-              for (text_len = 0; text_len < match_idx; text_len++) {
-                r.dataRecordPath.Value[text_len] = lineStr[i + text_len];
+            } else if (!coder::internal::l_strcmp(configType)) {
+              if (coder::internal::m_strcmp(configType)) {
+                str2matrix(configValStr, r1);
+                val.set_size(r1.size(0), r1.size(1));
+                loop_ub = r1.size(0) * r1.size(1);
+                for (i = 0; i < loop_ub; i++) {
+                  val[i] = r1[i].re;
+                }
+                coder::internal::validator_check_size(val, r.excldFreqs);
+              } else if (coder::internal::n_strcmp(configType)) {
+                creal_T x;
+                x = coder::internal::str2double(configValStr);
+                if (!(x.re > 0.0)) {
+                  d_rtErrorWithMessageID(uc_emlrtRTEI.fName,
+                                         uc_emlrtRTEI.lineNo);
+                }
+                if (!(x.re < 1.0)) {
+                  b_rtErrorWithMessageID("1", wc_emlrtRTEI.fName,
+                                         wc_emlrtRTEI.lineNo);
+                }
+                r.falseAlarmProb = x.re;
+              } else if (coder::internal::o_strcmp(configType)) {
+                r.dataRecordPath.Value.set_size(1, match_idx);
+                for (text_len = 0; text_len < match_idx; text_len++) {
+                  r.dataRecordPath.Value[text_len] = lineStr[i + text_len];
+                }
               }
             }
           }
@@ -1189,7 +1187,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo bb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      518,               // lineNo
+      519,               // lineNo
       26,                // colNo
       "X.x",             // aName
       "uavrt_detection", // fName
@@ -1200,7 +1198,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo cb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      523,               // lineNo
+      524,               // lineNo
       26,                // colNo
       "X.x",             // aName
       "uavrt_detection", // fName
@@ -1211,7 +1209,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo db_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      529,               // lineNo
+      530,               // lineNo
       26,                // colNo
       "X.x",             // aName
       "uavrt_detection", // fName
@@ -1222,7 +1220,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo eb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      534,               // lineNo
+      535,               // lineNo
       26,                // colNo
       "X.x",             // aName
       "uavrt_detection", // fName
@@ -1233,7 +1231,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo fb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      637,               // lineNo
+      643,               // lineNo
       61,                // colNo
       "X.ps_pos.pl",     // aName
       "uavrt_detection", // fName
@@ -1244,7 +1242,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo gb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      642,               // lineNo
+      648,               // lineNo
       79,                // colNo
       "ps_pre_struc.pl", // aName
       "uavrt_detection", // fName
@@ -1255,7 +1253,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo hb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      648,               // lineNo
+      654,               // lineNo
       50,                // colNo
       "pulsesToSkip",    // aName
       "uavrt_detection", // fName
@@ -1266,7 +1264,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo ib_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      677,               // lineNo
+      683,               // lineNo
       91,                // colNo
       "X.ps_pos.pl",     // aName
       "uavrt_detection", // fName
@@ -1277,7 +1275,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo jb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      693,               // lineNo
+      699,               // lineNo
       50,                // colNo
       "pulsesToSkip",    // aName
       "uavrt_detection", // fName
@@ -1288,7 +1286,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo kb_emlrtBCI{
       -1,                   // iFirst
       -1,                   // iLast
-      714,                  // lineNo
+      720,                  // lineNo
       89,                   // colNo
       "dataRecordPathChar", // aName
       "uavrt_detection",    // fName
@@ -1299,7 +1297,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo lb_emlrtBCI{
       -1,                   // iFirst
       -1,                   // iLast
-      714,                  // lineNo
+      720,                  // lineNo
       91,                   // colNo
       "dataRecordPathChar", // aName
       "uavrt_detection",    // fName
@@ -1358,7 +1356,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   coder::datetime b_this;
   pulsestats lobj_12[4];
   pulsestats lobj_21[2];
-  pulsestats lobj_16;
+  pulsestats lobj_14;
   pulsestats lobj_17;
   pulsestats lobj_18;
   pulsestats *pulseStatsPriori;
@@ -1370,8 +1368,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   waveform *Xhold;
   wfmstft lobj_19[3];
   wfmstft lobj_11;
-  wfmstft lobj_14;
   wfmstft lobj_15;
+  wfmstft lobj_16;
   coder::array<c_struct_T, 2U> ps_pre_struc_clst;
   coder::array<c_struct_T, 2U> ps_pre_struc_pl;
   coder::array<c_struct_T, 1U> c_X;
@@ -1394,7 +1392,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   coder::array<boolean_T, 2U> ps_pre_struc_cmsk;
   coder::array<boolean_T, 2U> pulsesToSkip;
   coder::array<boolean_T, 2U> r3;
-  coder::array<boolean_T, 1U> b_tmp_data;
   coder::array<boolean_T, 1U> r2;
   c_struct_T detectorPulse;
   c_struct_T expl_temp;
@@ -1444,7 +1441,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   boolean_T staleDataFlag;
   boolean_T t9_con_dec;
   boolean_T t9_det_dec;
-  boolean_T tmp_data;
   if (!isInitialized_uavrt_detection) {
     uavrt_detection_initialize();
   }
@@ -2135,34 +2131,19 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         // Set the priori info
         if (configUpdatedFlag) {
           // Initialize states for operational modes
-          if (Config.contents.opMode.eq()) {
-            n = 0;
-          } else if (Config.contents.opMode.b_eq()) {
-            n = 1;
-          } else if (Config.contents.opMode.c_eq()) {
-            n = 2;
-          } else if (Config.contents.opMode.d_eq()) {
-            n = 3;
-          } else {
-            n = -1;
-          }
-          switch (n) {
-          case 0:
-            fLock = false;
-            break;
-          case 1:
-            fLock = true;
-            break;
-          case 2:
-            fLock = false;
-            break;
-          case 3:
-            fLock = false;
-            break;
-          default:
-            fLock = false;
-            break;
-          }
+          fLock = false;
+          //  switch Config.opMode
+          //      case 'freqSearchHardLock'
+          //          fLock = false;
+          //      case 'freqKnownHardLock'
+          //          fLock = true;
+          //      case 'freqSearchSoftLock'
+          //          fLock = false;
+          //      case 'freqAllNoLock'
+          //          fLock = false;
+          //      otherwise
+          //          fLock = false;
+          //  end
           prioriRelativeFreqHz =
               1.0E-5 * std::abs(Config.contents.tagFreqMHz -
                                 Config.contents.channelCenterFreqMHz);
@@ -2186,7 +2167,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           expl_temp.P = timeDiff;
           expl_temp.A = missingSamples;
           missingSamples = std::ceil(Config.contents.Fs / 2.0);
-          pulseStatsPriori = lobj_17.init(
+          pulseStatsPriori = lobj_14.init(
               Config.contents.tp, Config.contents.tip, Config.contents.tipu,
               Config.contents.tipj, prioriRelativeFreqHz,
               prioriRelativeFreqHz - missingSamples,
@@ -2209,7 +2190,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         //                         %% PRIMARY PROCESSING BLOCK
         // Prep waveform for processing/detection
         b_X.init(x, Config.contents.Fs, t[0], pulseStatsPriori, Xhold_tmp,
-                 lobj_16, lobj_15);
+                 lobj_17, lobj_16);
         b_X.K = Config.contents.K;
         t9_fp = std::round(b_X.N);
         if (t9_fp < 4.294967296E+9) {
@@ -2260,7 +2241,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         missingSamples = coder::toc();
         std::printf("Computing STFT...");
         std::fflush(stdout);
-        b_X.spectro(lobj_14);
+        b_X.spectro(lobj_15);
         t9_yw = coder::toc() - missingSamples;
         std::printf("complete. Elapsed time: %f seconds \n", t9_yw);
         std::fflush(stdout);
@@ -2302,9 +2283,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           mode = 'D';
           break;
         }
-        if (coder::internal::b_strcmp(Config.contents.opMode)) {
-          mode = 'D';
-        }
+        //  if strcmp(Config.opMode, 'freqAllNeverLock')
+        //      mode = 'D';
+        //  end
         missingSamples = coder::toc();
         if (segmentsProcessed == 0.0) {
           std::printf("Building thresholds  ...");
@@ -2487,23 +2468,20 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           pulsesToSkip[b_i] = ps_pre_struc_pl[b_i].con_dec;
         }
         coder::all(pulsesToSkip, r2);
+        //  if pulsesConfirmed%Check if all were confirmed
+        //      fLock = true;
+        //  end
+        //  %We only ever release if we are in softlock mode and
+        //  %only do so in that case if we are no longer confirming
+        //  %pulses.
+        //  if strcmp(Config.opMode, 'freqSearchSoftLock') & ~pulsesConfirmed
+        //      fLock = false;
+        //  end
         if (coder::internal::ifWhileCond(r2)) {
           // Check if all were confirmed
           fLock = true;
-        }
-        // We only ever release if we are in softlock mode and
-        // only do so in that case if we are no longer confirming
-        // pulses.
-        if (coder::internal::c_strcmp(Config.contents.opMode)) {
-          n = r2.size(0);
-          loop_ub = r2.size(0);
-          for (i = 0; i < loop_ub; i++) {
-            tmp_data = !r2[i];
-          }
-          b_tmp_data.set(&tmp_data, n);
-          if (coder::internal::ifWhileCond(b_tmp_data)) {
-            fLock = false;
-          }
+        } else {
+          fLock = false;
         }
         // Decide when/how the priori is updated for the next
         // segment's processing.

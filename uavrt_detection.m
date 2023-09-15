@@ -418,18 +418,19 @@ fprintf('Sample elapsed seconds: %f \t Posix elapsed seconds: %f \n', timeVector
                         %Set the priori info
                         if configUpdatedFlag
                             %Initialize states for operational modes
-                            switch Config.opMode
-                                case 'freqSearchHardLock'
-                                    fLock = false;
-                                case 'freqKnownHardLock'
-                                    fLock = true;
-                                case 'freqSearchSoftLock'
-                                    fLock = false;
-                                case 'freqAllNoLock'
-                                    fLock = false;
-                                otherwise
-                                    fLock = false;
-                            end
+                            fLock = false;
+                            % switch Config.opMode
+                            %     case 'freqSearchHardLock'
+                            %         fLock = false;
+                            %     case 'freqKnownHardLock'
+                            %         fLock = true;
+                            %     case 'freqSearchSoftLock'
+                            %         fLock = false;
+                            %     case 'freqAllNoLock'
+                            %         fLock = false;
+                            %     otherwise
+                            %         fLock = false;
+                            % end
                             prioriRelativeFreqHz = 10e-6 * abs(Config.tagFreqMHz - Config.channelCenterFreqMHz);
                             ps_pre = pulsestats(Config.tp, Config.tip, Config.tipu,...
                                                 Config.tipj, prioriRelativeFreqHz ,...
@@ -490,9 +491,9 @@ previousToc = toc;
                                 mode = 'D';
                         end
 
-                        if strcmp(Config.opMode, 'freqAllNeverLock')
-                            mode = 'D';
-                        end
+                        % if strcmp(Config.opMode, 'freqAllNeverLock')
+                        %     mode = 'D';
+                        % end
 previousToc = toc;
                         
                         if segmentsProcessed==0
@@ -562,13 +563,18 @@ fprintf('\nPS_POS.FSTART AND FEND after PROCESS step : \t %f \t to \t %f.',...
                         %suggested mode
                         suggestedMode = X.ps_pos.mode;
                         pulsesConfirmed = all([X.ps_pos.pl.con_dec],2);
+                        % if pulsesConfirmed%Check if all were confirmed
+                        %     fLock = true;
+                        % end
+                        % %We only ever release if we are in softlock mode and
+                        % %only do so in that case if we are no longer confirming
+                        % %pulses.
+                        % if strcmp(Config.opMode, 'freqSearchSoftLock') & ~pulsesConfirmed
+                        %     fLock = false;
+                        % end
                         if pulsesConfirmed%Check if all were confirmed
                             fLock = true;
-                        end
-                        %We only ever release if we are in softlock mode and
-                        %only do so in that case if we are no longer confirming
-                        %pulses.
-                        if strcmp(Config.opMode, 'freqSearchSoftLock') & ~pulsesConfirmed
+                        else
                             fLock = false;
                         end
 

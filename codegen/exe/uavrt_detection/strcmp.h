@@ -5,7 +5,7 @@
 // File: strcmp.h
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Sep-2023 11:38:47
+// C/C++ source code generated on  : 15-Sep-2023 12:46:31
 //
 
 #ifndef STRCMP_H
@@ -17,22 +17,12 @@
 #include <cstddef>
 #include <cstdlib>
 
-// Type Declarations
-namespace coder {
-class rtString;
-
-}
-
 // Function Declarations
 namespace coder {
 namespace internal {
-boolean_T b_strcmp(const rtString &a);
-
 boolean_T b_strcmp(const ::coder::array<char, 2U> &a);
 
 boolean_T b_strcmp(const char a_data[], const int a_size[2]);
-
-boolean_T c_strcmp(const rtString &a);
 
 boolean_T c_strcmp(const ::coder::array<char, 2U> &a);
 

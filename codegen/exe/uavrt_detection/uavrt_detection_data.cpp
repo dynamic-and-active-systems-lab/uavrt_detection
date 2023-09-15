@@ -5,7 +5,7 @@
 // File: uavrt_detection_data.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Sep-2023 11:38:47
+// C/C++ source code generated on  : 15-Sep-2023 12:46:31
 //
 
 // Include Files
@@ -456,9 +456,6 @@ const char cv1[22]{'c', 'o', 'd', 'e', 'r', 'I', 'n', 'i', 't', 'T', 'i',
 const char cv2[30]{'c', 'o', 'd', 'e', 'r', 'T', 'i', 'm', 'e', 'C',
                    'l', 'o', 'c', 'k', 'G', 'e', 't', 't', 'i', 'm',
                    'e', 'M', 'o', 'n', 'o', 't', 'o', 'n', 'i', 'c'};
-
-const char cv4[18]{'f', 'r', 'e', 'q', 'S', 'e', 'a', 'r', 'c',
-                   'h', 'S', 'o', 'f', 't', 'L', 'o', 'c', 'k'};
 
 boolean_T isInitialized_uavrt_detection{false};
 

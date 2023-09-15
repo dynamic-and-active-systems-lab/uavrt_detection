@@ -5,7 +5,7 @@
 // File: string1.h
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Sep-2023 11:38:47
+// C/C++ source code generated on  : 15-Sep-2023 12:46:31
 //
 
 #ifndef STRING1_H
@@ -21,11 +21,6 @@
 namespace coder {
 class rtString {
 public:
-  boolean_T eq() const;
-  boolean_T b_eq() const;
-  boolean_T c_eq() const;
-  boolean_T d_eq() const;
-  void init();
   array<char, 2U> Value;
 };
 

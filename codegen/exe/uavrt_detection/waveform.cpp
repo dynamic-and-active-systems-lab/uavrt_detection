@@ -5,7 +5,7 @@
 // File: waveform.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Sep-2023 11:38:47
+// C/C++ source code generated on  : 15-Sep-2023 12:46:31
 //
 
 // Include Files
@@ -6788,13 +6788,13 @@ void waveform::process(char mode, const coder::array<double, 2U>
 
   static const char b_cv[8]{ 'i', 'n', 'f', 'o', 'r', 'm', 'e', 'd' };
 
-  static const char b_cv3[7]{ 'c', 'o', 'n', 'f', 'i', 'r', 'm' };
+  static const char cv3[7]{ 'c', 'o', 'n', 'f', 'i', 'r', 'm' };
 
   static const char b_cv2[6]{ 's', 'e', 'a', 'r', 'c', 'h' };
 
   static const char b_cv1[5]{ 'n', 'a', 'i', 'v', 'e' };
 
-  static const char b_cv4[5]{ 't', 'r', 'a', 'c', 'k' };
+  static const char cv4[5]{ 't', 'r', 'a', 'c', 'k' };
 
   pulsestats *obj;
   coder::array<c_struct_T, 2U> b__in;
@@ -7067,7 +7067,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
       runmode_size[0] = 1;
       runmode_size[1] = 7;
       for (i = 0; i < 7; i++) {
-        runmode_data[i] = b_cv3[i];
+        runmode_data[i] = cv3[i];
       }
     }
     break;
@@ -7088,7 +7088,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
       runmode_size[0] = 1;
       runmode_size[1] = 5;
       for (i = 0; i < 5; i++) {
-        runmode_data[i] = b_cv4[i];
+        runmode_data[i] = cv4[i];
       }
     }
     break;
@@ -8136,16 +8136,16 @@ void waveform::setweightingmatrix()
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/weightingmatrix.m"// pName
   };
 
-  static rtEqualityCheckInfo h_emlrtECI{ 1,// nDims
-    146,                               // lineNo
-    19,                                // colNo
+  static rtEqualityCheckInfo h_emlrtECI{ -1,// nDims
+    159,                               // lineNo
+    5,                                 // colNo
     "weightingmatrix",                 // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/weightingmatrix.m"// pName
   };
 
-  static rtEqualityCheckInfo i_emlrtECI{ -1,// nDims
-    159,                               // lineNo
-    5,                                 // colNo
+  static rtEqualityCheckInfo i_emlrtECI{ 1,// nDims
+    146,                               // lineNo
+    19,                                // colNo
     "weightingmatrix",                 // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/weightingmatrix.m"// pName
   };
@@ -8490,7 +8490,7 @@ void waveform::setweightingmatrix()
 
     if ((s.size(0) != x_of_n.size(0)) && ((s.size(0) != 1) && (x_of_n.size(0) !=
           1))) {
-      emlrtDimSizeImpxCheckR2021b(s.size(0), x_of_n.size(0), h_emlrtECI);
+      emlrtDimSizeImpxCheckR2021b(s.size(0), x_of_n.size(0), i_emlrtECI);
     }
 
     if (s.size(0) == x_of_n.size(0)) {
@@ -8722,7 +8722,7 @@ void waveform::setweightingmatrix()
 
     b_w_time_domain[0] = i3 - i2;
     b_w_time_domain[1] = stackedToeplitzMatrices.size(1);
-    rtSubAssignSizeCheck(&b_w_time_domain[0], 2, _in.size(), 2, i_emlrtECI);
+    rtSubAssignSizeCheck(&b_w_time_domain[0], 2, _in.size(), 2, h_emlrtECI);
     loop_ub = _in.size(1);
     for (i3 = 0; i3 < loop_ub; i3++) {
       nx = _in.size(0);
