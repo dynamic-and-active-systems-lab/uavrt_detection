@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Sep-2023 09:39:56
+// C/C++ source code generated on  : 15-Sep-2023 11:38:47
 //
 
 // Include Files
@@ -1189,8 +1189,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo bb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      512,               // lineNo
-      24,                // colNo
+      518,               // lineNo
+      26,                // colNo
       "X.x",             // aName
       "uavrt_detection", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -1200,8 +1200,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo cb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      517,               // lineNo
-      24,                // colNo
+      523,               // lineNo
+      26,                // colNo
       "X.x",             // aName
       "uavrt_detection", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -1211,8 +1211,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo db_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      523,               // lineNo
-      24,                // colNo
+      529,               // lineNo
+      26,                // colNo
       "X.x",             // aName
       "uavrt_detection", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -1222,8 +1222,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo eb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      528,               // lineNo
-      24,                // colNo
+      534,               // lineNo
+      26,                // colNo
       "X.x",             // aName
       "uavrt_detection", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -1233,7 +1233,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo fb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      607,               // lineNo
+      637,               // lineNo
       61,                // colNo
       "X.ps_pos.pl",     // aName
       "uavrt_detection", // fName
@@ -1244,7 +1244,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo gb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      612,               // lineNo
+      642,               // lineNo
       79,                // colNo
       "ps_pre_struc.pl", // aName
       "uavrt_detection", // fName
@@ -1255,7 +1255,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo hb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      618,               // lineNo
+      648,               // lineNo
       50,                // colNo
       "pulsesToSkip",    // aName
       "uavrt_detection", // fName
@@ -1266,7 +1266,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo ib_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      647,               // lineNo
+      677,               // lineNo
       91,                // colNo
       "X.ps_pos.pl",     // aName
       "uavrt_detection", // fName
@@ -1277,7 +1277,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo jb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      663,               // lineNo
+      693,               // lineNo
       50,                // colNo
       "pulsesToSkip",    // aName
       "uavrt_detection", // fName
@@ -1288,7 +1288,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo kb_emlrtBCI{
       -1,                   // iFirst
       -1,                   // iLast
-      684,                  // lineNo
+      714,                  // lineNo
       89,                   // colNo
       "dataRecordPathChar", // aName
       "uavrt_detection",    // fName
@@ -1299,7 +1299,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo lb_emlrtBCI{
       -1,                   // iFirst
       -1,                   // iLast
-      684,                  // lineNo
+      714,                  // lineNo
       91,                   // colNo
       "dataRecordPathChar", // aName
       "uavrt_detection",    // fName
@@ -1358,7 +1358,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   coder::datetime b_this;
   pulsestats lobj_12[4];
   pulsestats lobj_21[2];
-  pulsestats lobj_15;
+  pulsestats lobj_16;
   pulsestats lobj_17;
   pulsestats lobj_18;
   pulsestats *pulseStatsPriori;
@@ -1371,7 +1371,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   wfmstft lobj_19[3];
   wfmstft lobj_11;
   wfmstft lobj_14;
-  wfmstft lobj_16;
+  wfmstft lobj_15;
   coder::array<c_struct_T, 2U> ps_pre_struc_clst;
   coder::array<c_struct_T, 2U> ps_pre_struc_pl;
   coder::array<c_struct_T, 1U> c_X;
@@ -1409,15 +1409,15 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   double expectedNextTimeStamp;
   double framesReceived;
   double groupSeqCounter;
+  double missingSamples;
   double previousPulseTime;
+  double prioriRelativeFreqHz;
   double ps_pre_struc_fend;
   double ps_pre_struc_fp;
   double ps_pre_struc_fstart;
   double ps_pre_struc_t_ipj;
-  double ps_pre_struc_t_ipu;
   double segmentsProcessed;
   double startTime;
-  double t9_SNR;
   double t9_fend;
   double t9_fp;
   double t9_fstart;
@@ -1509,9 +1509,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       detectorPulse.SNR, detectorPulse.yw, detectorPulse.t_0, detectorPulse.t_f,
       detectorPulse.fp, detectorPulse.fstart, detectorPulse.fend,
       detectorPulse.det_dec, detectorPulse.con_dec);
-  timeDiff = makepulsestruc(expl_temp.t_next, expl_temp.mode, timeStamp, t9_SNR,
-                            t9_yw, T, t9_t_f, t9_fp, t9_fstart, t9_fend,
-                            t9_det_dec, t9_con_dec);
+  missingSamples = makepulsestruc(expl_temp.t_next, expl_temp.mode, timeDiff,
+                                  timeStamp, t9_yw, T, t9_t_f, t9_fp, t9_fstart,
+                                  t9_fend, t9_det_dec, t9_con_dec);
   expl_temp.con_dec = t9_con_dec;
   expl_temp.det_dec = t9_det_dec;
   expl_temp.fend = t9_fend;
@@ -1520,9 +1520,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   expl_temp.t_f = t9_t_f;
   expl_temp.t_0 = T;
   expl_temp.yw = t9_yw;
-  expl_temp.SNR = t9_SNR;
-  expl_temp.P = timeStamp;
-  expl_temp.A = timeDiff;
+  expl_temp.SNR = timeStamp;
+  expl_temp.P = timeDiff;
+  expl_temp.A = missingSamples;
   pulseStatsPriori = lobj_21[1].init(Config.contents.tp, Config.contents.tip,
                                      Config.contents.tipu, Config.contents.tipj,
                                      detectorPulse, expl_temp);
@@ -1605,7 +1605,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   std::fflush(stdout);
   t9_fstart = 0.0;
   t9_fend = 0.0;
-  ps_pre_struc_t_ipu = 0.0;
+  prioriRelativeFreqHz = 0.0;
   ps_pre_struc_t_ipj = 0.0;
   ps_pre_struc_fp = 0.0;
   ps_pre_struc_fstart = 0.0;
@@ -1765,14 +1765,14 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       } else if ((timeDiff >= t9_fp) && (timeDiff < Config.contents.tip)) {
         unsigned long u;
         // missed samples but not a whole lot
-        timeDiff = std::round(timeDiff * Config.contents.Fs);
-        if (timeDiff < 1.8446744073709552E+19) {
-          if (timeDiff >= 0.0) {
-            u = static_cast<unsigned long>(timeDiff);
+        missingSamples = std::round(timeDiff * Config.contents.Fs);
+        if (missingSamples < 1.8446744073709552E+19) {
+          if (missingSamples >= 0.0) {
+            u = static_cast<unsigned long>(missingSamples);
           } else {
             u = 0UL;
           }
-        } else if (timeDiff >= 1.8446744073709552E+19) {
+        } else if (missingSamples >= 1.8446744073709552E+19) {
           u = MAX_uint64_T;
         } else {
           u = 0UL;
@@ -1780,28 +1780,29 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         std::printf(
             "Missing samples detected. Filling with zeros for %lu samples.", u);
         std::fflush(stdout);
-        if (!(timeDiff >= 0.0)) {
-          rtNonNegativeError(timeDiff, r_emlrtDCI);
+        if (!(missingSamples >= 0.0)) {
+          rtNonNegativeError(missingSamples, r_emlrtDCI);
         }
-        if (timeDiff != static_cast<int>(timeDiff)) {
-          rtIntegerError(timeDiff, s_emlrtDCI);
+        if (missingSamples != static_cast<int>(missingSamples)) {
+          rtIntegerError(missingSamples, s_emlrtDCI);
         }
-        loop_ub = static_cast<int>(timeDiff);
-        r.set_size(static_cast<int>(timeDiff));
+        loop_ub = static_cast<int>(missingSamples);
+        r.set_size(static_cast<int>(missingSamples));
         for (i = 0; i < loop_ub; i++) {
           r[i].re = 0U;
           r[i].im = 0U;
         }
-        if (static_cast<int>(timeDiff) != r.size(0)) {
-          rtSizeEq1DError(static_cast<int>(timeDiff), r.size(0), g_emlrtECI);
+        if (static_cast<int>(missingSamples) != r.size(0)) {
+          rtSizeEq1DError(static_cast<int>(missingSamples), r.size(0),
+                          g_emlrtECI);
         }
-        b_iqDataToWrite.set_size(static_cast<int>(timeDiff) + 1023);
+        b_iqDataToWrite.set_size(static_cast<int>(missingSamples) + 1023);
         for (i = 0; i < loop_ub; i++) {
           b_iqDataToWrite[i].re = 0.0F;
           b_iqDataToWrite[i].im = static_cast<signed char>(r[i].im);
         }
         for (i = 0; i < 1023; i++) {
-          b_iqDataToWrite[i + static_cast<int>(timeDiff)] =
+          b_iqDataToWrite[i + static_cast<int>(missingSamples)] =
               dataReceived_data[i + 1];
         }
         iqDataToWrite.set_size(b_iqDataToWrite.size(0), 1);
@@ -1830,13 +1831,13 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         groupSNRList[i] = i;
       }
     }
-    timeDiff = 1.0 / Config.contents.Fs;
+    missingSamples = 1.0 / Config.contents.Fs;
     timeVector.set_size(groupSNRList.size(1));
     loop_ub = groupSNRList.size(1);
     for (i = 0; i < loop_ub; i++) {
-      timeVector[i] = timeStamp + timeDiff * groupSNRList[i];
+      timeVector[i] = timeStamp + missingSamples * groupSNRList[i];
     }
-    expectedNextTimeStamp = timeStamp + timeDiff * 1023.0;
+    expectedNextTimeStamp = timeStamp + missingSamples * 1023.0;
     framesReceived++;
     //                 % Parse the incoming data and sample count.
     //                 % and fill in any missing data with zeros.
@@ -2109,11 +2110,12 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       b_timeVector.set_size(timeVector.size(0));
       loop_ub = timeVector.size(0);
       for (i = 0; i < loop_ub; i++) {
-        b_timeVector[i] = timeVector[i] - timeDiff;
+        b_timeVector[i] = timeVector[i] - missingSamples;
       }
-      timeDiff = coder::blockedSummation(b_timeVector, b_timeVector.size(0));
+      missingSamples =
+          coder::blockedSummation(b_timeVector, b_timeVector.size(0));
       if ((Config.contents.K > 1.0) &&
-          (timeDiff > Config.contents.tipu + Config.contents.tipj)) {
+          (missingSamples > Config.contents.tipu + Config.contents.tipj)) {
         std::printf("Significant time differences found in timestamp record. "
                     "Skipping processing and clearing buffers.\n");
         std::fflush(stdout);
@@ -2161,14 +2163,17 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             fLock = false;
             break;
           }
+          prioriRelativeFreqHz =
+              1.0E-5 * std::abs(Config.contents.tagFreqMHz -
+                                Config.contents.channelCenterFreqMHz);
           detectorPulse.A = makepulsestruc(
               detectorPulse.t_next, detectorPulse.mode, detectorPulse.P,
               detectorPulse.SNR, detectorPulse.yw, detectorPulse.t_0,
               detectorPulse.t_f, detectorPulse.fp, detectorPulse.fstart,
               detectorPulse.fend, detectorPulse.det_dec, detectorPulse.con_dec);
-          timeDiff = makepulsestruc(expl_temp.t_next, expl_temp.mode, timeStamp,
-                                    t9_SNR, t9_yw, T, t9_t_f, t9_fp, t9_fstart,
-                                    t9_fend, t9_det_dec, t9_con_dec);
+          missingSamples = makepulsestruc(
+              expl_temp.t_next, expl_temp.mode, timeDiff, timeStamp, t9_yw, T,
+              t9_t_f, t9_fp, t9_fstart, t9_fend, t9_det_dec, t9_con_dec);
           expl_temp.con_dec = t9_con_dec;
           expl_temp.det_dec = t9_det_dec;
           expl_temp.fend = t9_fend;
@@ -2177,27 +2182,34 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           expl_temp.t_f = t9_t_f;
           expl_temp.t_0 = T;
           expl_temp.yw = t9_yw;
-          expl_temp.SNR = t9_SNR;
-          expl_temp.P = timeStamp;
-          expl_temp.A = timeDiff;
-          pulseStatsPriori = lobj_15.init(
+          expl_temp.SNR = timeStamp;
+          expl_temp.P = timeDiff;
+          expl_temp.A = missingSamples;
+          missingSamples = std::ceil(Config.contents.Fs / 2.0);
+          pulseStatsPriori = lobj_17.init(
               Config.contents.tp, Config.contents.tip, Config.contents.tipu,
-              Config.contents.tipj,
-              1.0E-5 * std::abs(Config.contents.tagFreqMHz -
-                                Config.contents.channelCenterFreqMHz),
-              detectorPulse, expl_temp);
+              Config.contents.tipj, prioriRelativeFreqHz,
+              prioriRelativeFreqHz - missingSamples,
+              prioriRelativeFreqHz + missingSamples, detectorPulse, expl_temp);
           configUpdatedFlag = false;
         } else {
           pulseStatsPriori = lobj_18.c_init(
-              t9_fstart, t9_fend, ps_pre_struc_t_ipu, ps_pre_struc_t_ipj,
+              t9_fstart, t9_fend, prioriRelativeFreqHz, ps_pre_struc_t_ipj,
               ps_pre_struc_fp, ps_pre_struc_fstart, ps_pre_struc_fend,
               ps_pre_struc_tmplt, (char *)&mode, ps_pre_struc_pl,
               ps_pre_struc_clst, ps_pre_struc_cmsk, ps_pre_struc_cpki);
         }
+        t9_yw = pulseStatsPriori->fstart;
+        timeDiff = pulseStatsPriori->fend;
+        std::printf("\nPS_PRE.FSTART AND FEND before MAKING WAVEFORM X step : "
+                    "\t %f \t to \t %f.",
+                    t9_yw, timeDiff);
+        std::fflush(stdout);
+        // (1) is for coder so it knows it is a scalar
         //                         %% PRIMARY PROCESSING BLOCK
         // Prep waveform for processing/detection
         b_X.init(x, Config.contents.Fs, t[0], pulseStatsPriori, Xhold_tmp,
-                 lobj_17, lobj_16);
+                 lobj_16, lobj_15);
         b_X.K = Config.contents.K;
         t9_fp = std::round(b_X.N);
         if (t9_fp < 4.294967296E+9) {
@@ -2245,19 +2257,19 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         timeStampSec = static_cast<unsigned int>(b_X.x.size(1));
         std::printf("Samples in waveform: %u \n", timeStampSec);
         std::fflush(stdout);
-        timeDiff = coder::toc();
+        missingSamples = coder::toc();
         std::printf("Computing STFT...");
         std::fflush(stdout);
         b_X.spectro(lobj_14);
-        timeDiff = coder::toc() - timeDiff;
-        std::printf("complete. Elapsed time: %f seconds \n", timeDiff);
+        t9_yw = coder::toc() - missingSamples;
+        std::printf("complete. Elapsed time: %f seconds \n", t9_yw);
         std::fflush(stdout);
         std::printf("Building weighting matrix ...");
         std::fflush(stdout);
-        timeDiff = coder::toc();
+        missingSamples = coder::toc();
         b_X.setweightingmatrix();
-        timeDiff = coder::toc() - timeDiff;
-        std::printf("complete. Elapsed time: %f seconds \n", timeDiff);
+        t9_yw = coder::toc() - missingSamples;
+        std::printf("complete. Elapsed time: %f seconds \n", t9_yw);
         std::fflush(stdout);
         if (suggestedMode == 'S') {
           n = 0;
@@ -2293,7 +2305,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         if (coder::internal::b_strcmp(Config.contents.opMode)) {
           mode = 'D';
         }
-        timeDiff = coder::toc();
+        missingSamples = coder::toc();
         if (segmentsProcessed == 0.0) {
           std::printf("Building thresholds  ...");
           std::fflush(stdout);
@@ -2307,13 +2319,13 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           _in = Xhold->thresh;
           b_X.thresh = _in;
         }
-        timeDiff = coder::toc() - timeDiff;
-        std::printf("complete. Elapsed time: %f seconds \n", timeDiff);
+        t9_yw = coder::toc() - missingSamples;
+        std::printf("complete. Elapsed time: %f seconds \n", t9_yw);
         std::fflush(stdout);
         timeStampSec = static_cast<unsigned int>(b_X.stft->S.size(1));
         std::printf("Time windows in S: %u \n", timeStampSec);
         std::fflush(stdout);
-        timeDiff = coder::toc();
+        missingSamples = coder::toc();
         t9_fp = std::round(Config.contents.ID);
         if (t9_fp < 4.294967296E+9) {
           if (t9_fp >= 0.0) {
@@ -2357,7 +2369,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             rtDynamicBoundsError(b_i + 1, 1, i, bb_emlrtBCI);
           }
           validatedHoleFilling_idx_0 = b_X.x[b_i].re;
-          std::printf("%f,", validatedHoleFilling_idx_0);
+          std::printf("%.8f,", validatedHoleFilling_idx_0);
           std::fflush(stdout);
         }
         std::printf("\n");
@@ -2371,7 +2383,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             rtDynamicBoundsError(b_i + 1, 1, i, cb_emlrtBCI);
           }
           validatedHoleFilling_idx_0 = b_X.x[b_i].im;
-          std::printf("%f,", validatedHoleFilling_idx_0);
+          std::printf("%.8f,", validatedHoleFilling_idx_0);
           std::fflush(stdout);
         }
         std::printf("\n");
@@ -2389,7 +2401,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             rtDynamicBoundsError(loop_ub, 1, nPulseList, db_emlrtBCI);
           }
           validatedHoleFilling_idx_0 = b_X.x[loop_ub - 1].re;
-          std::printf("%f,", validatedHoleFilling_idx_0);
+          std::printf("%.8f,", validatedHoleFilling_idx_0);
           std::fflush(stdout);
         }
         std::printf("\n");
@@ -2407,17 +2419,50 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             rtDynamicBoundsError(loop_ub, 1, nPulseList, eb_emlrtBCI);
           }
           validatedHoleFilling_idx_0 = b_X.x[loop_ub - 1].im;
-          std::printf("%f,", validatedHoleFilling_idx_0);
+          std::printf("%.8f,", validatedHoleFilling_idx_0);
           std::fflush(stdout);
         }
         std::printf("\n");
         std::fflush(stdout);
-        b_X.process(mode, Config.contents.excldFreqs);
-        timeDiff = coder::toc() - timeDiff;
-        std::printf("complete. Elapsed time: %f seconds \n", timeDiff);
+        //  fprintf(':\n')
+        //  for i = numel(X.x)-5:numel(X.x)
+        //  fprintf('%.8f,',X.ps_pre.fp)
+        //  end
+        t9_yw = b_X.ps_pre->fstart;
+        timeDiff = b_X.ps_pre->fend;
+        std::printf(
+            "\nPS_PRE.FSTART AND FEND before PROCESS step : \t %f \t to \t %f.",
+            t9_yw, timeDiff);
         std::fflush(stdout);
-        timeDiff = coder::toc() - processingStartToc;
-        std::printf("TOTAL PULSE PROCESSING TIME: %f seconds \n", timeDiff);
+        // (1) is for coder so it knows it is a scalar
+        t9_yw = b_X.ps_pos->fstart;
+        timeDiff = b_X.ps_pos->fend;
+        std::printf(
+            "\nPS_POS.FSTART AND FEND before PROCESS step : \t %f \t to \t %f.",
+            t9_yw, timeDiff);
+        std::fflush(stdout);
+        // (1) is for coder so it knows it is a scalar
+        b_X.process(mode, Config.contents.excldFreqs);
+        t9_yw = coder::toc() - missingSamples;
+        std::printf("complete. Elapsed time: %f seconds \n", t9_yw);
+        std::fflush(stdout);
+        t9_yw = b_X.ps_pre->fstart;
+        timeDiff = b_X.ps_pre->fend;
+        std::printf(
+            "\nPS_PRE.FSTART AND FEND after PROCESS step : \t %f \t to \t %f.",
+            t9_yw, timeDiff);
+        std::fflush(stdout);
+        // (1) is for coder so it knows it is a scalar
+        t9_yw = b_X.ps_pos->fstart;
+        timeDiff = b_X.ps_pos->fend;
+        std::printf(
+            "\nPS_POS.FSTART AND FEND after PROCESS step : \t %f \t to \t %f.",
+            t9_yw, timeDiff);
+        std::fflush(stdout);
+        // (1) is for coder so it knows it is a scalar
+        missingSamples = coder::toc() - processingStartToc;
+        std::printf("TOTAL PULSE PROCESSING TIME: %f seconds \n",
+                    missingSamples);
         std::fflush(stdout);
         //                         %% PREP FOR NEXT LOOP
         // Latch/Release the frequency lock and setup the
@@ -2480,13 +2525,28 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             b_X.ps_pos->b_updateposteriori(b_X.ps_pre, ps_pre_struc_pl);
           }
         }
+        t9_yw = b_X.ps_pre->fstart;
+        timeDiff = b_X.ps_pre->fend;
+        std::printf("\nPS_PRE.FSTART AND FEND after PRIORI UPDATE step : \t %f "
+                    "\t to \t %f.",
+                    t9_yw, timeDiff);
+        std::fflush(stdout);
+        // (1) is for coder so it knows it is a scalar
+        t9_yw = b_X.ps_pos->fstart;
+        timeDiff = b_X.ps_pos->fend;
+        std::printf("\nPS_POS.FSTART AND FEND after PRIORI UPDATE step : \t %f "
+                    "\t to \t %f.",
+                    t9_yw, timeDiff);
+        std::fflush(stdout);
+        // (1) is for coder so it knows it is a scalar
         // Check lagging processing
         if ((segmentsProcessed != 0.0) && (Config.contents.K > 1.0) &&
-            (timeDiff > 0.9 * sampsForKPulses.contents / Config.contents.Fs)) {
+            (missingSamples >
+             0.9 * sampsForKPulses.contents / Config.contents.Fs)) {
           // Config.K = Config.K - 1;
-          timeDiff = std::round(Config.contents.K - 1.0);
-          if (timeDiff < 4.294967296E+9) {
-            timeStampSec = static_cast<unsigned int>(timeDiff);
+          missingSamples = std::round(Config.contents.K - 1.0);
+          if (missingSamples < 4.294967296E+9) {
+            timeStampSec = static_cast<unsigned int>(missingSamples);
           } else {
             timeStampSec = MAX_uint32_T;
           }
@@ -2505,13 +2565,13 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         }
         segmentsProcessed++;
         // tic
-        timeDiff = coder::toc();
+        missingSamples = coder::toc();
         // Prepare priori for next segment
         std::printf("Updating priori...\n");
         std::fflush(stdout);
         t9_fstart = b_X.ps_pos->t_p;
         t9_fend = b_X.ps_pos->t_ip;
-        ps_pre_struc_t_ipu = b_X.ps_pos->t_ipu;
+        prioriRelativeFreqHz = b_X.ps_pos->t_ipu;
         ps_pre_struc_t_ipj = b_X.ps_pos->t_ipj;
         ps_pre_struc_fp = b_X.ps_pos->fp;
         ps_pre_struc_fstart = b_X.ps_pos->fstart;
@@ -2544,9 +2604,14 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         }
         updatebufferreadvariables(Config, stftOverlapFraction, overlapSamples,
                                   sampsForKPulses, b_X.ps_pos);
-        timeDiff = coder::toc() - timeDiff;
-        std::printf("complete. Elapsed time: %f seconds \n", timeDiff);
+        t9_yw = coder::toc() - missingSamples;
+        std::printf("complete. Elapsed time: %f seconds \n", t9_yw);
         std::fflush(stdout);
+        std::printf("\nPS_PRE.FSTART AND FEND after PRIORI STRUCT UPDATE step "
+                    ": \t %f \t to \t %f.",
+                    ps_pre_struc_fstart, ps_pre_struc_fend);
+        std::fflush(stdout);
+        // (1) is for coder so it knows it is a scalar
         // Deal with detected pulses
         // Xhold{mod(segmentsProcessed,maxSegments)} = X;%Keep a maxSegments
         // running record of waveforms for debugging in Matlab Xstruct =
@@ -2574,7 +2639,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             if (j + 1 > i) {
               rtDynamicBoundsError(j + 1, 1, i, fb_emlrtBCI);
             }
-            timeDiff = b_X.ps_pos->pl[j].t_0;
+            missingSamples = b_X.ps_pos->pl[j].t_0;
             if (j + 1 > ps_pre_struc_pl.size(1)) {
               rtDynamicBoundsError(j + 1, 1, ps_pre_struc_pl.size(1),
                                    gb_emlrtBCI);
@@ -2585,9 +2650,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
                             ps_pre_struc_pl[j].fp * 1.0E-6,
                         ps_pre_struc_pl[j].SNR,
                         static_cast<unsigned int>(ps_pre_struc_pl[j].con_dec),
-                        timeDiff - previousPulseTime);
+                        missingSamples - previousPulseTime);
             std::fflush(stdout);
-            if (timeDiff - previousPulseTime < 0.1 * b_X.ps_pre->t_ip) {
+            if (missingSamples - previousPulseTime < 0.1 * b_X.ps_pre->t_ip) {
               // Overlap occasionally will redetect the same pulse
               std::printf("(\t ^---This likely a repeat of a previously "
                           "detected pulse. Will not be transmitted. \n");
@@ -2598,7 +2663,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
               }
               pulsesToSkip[j] = true;
             } else {
-              previousPulseTime = timeDiff;
+              previousPulseTime = missingSamples;
             }
           }
         } else {
@@ -2661,20 +2726,20 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             groupSNRList.set_size(1, groupSNRList.size(1));
             loop_ub = groupSNRList.size(1) - 1;
             for (i = 0; i <= loop_ub; i++) {
-              timeDiff = groupSNRList[i] / 10.0;
-              groupSNRList[i] = rt_powd_snf(10.0, timeDiff);
+              missingSamples = groupSNRList[i] / 10.0;
+              groupSNRList[i] = rt_powd_snf(10.0, missingSamples);
             }
             // Average SNR in dB
             n = groupSNRList.size(1);
             b_groupSNRList = groupSNRList.reshape(n);
-            t9_SNR =
+            timeDiff =
                 coder::blockedSummation(b_groupSNRList, groupSNRList.size(1)) /
                 static_cast<double>(groupSNRList.size(1));
-            if (t9_SNR < 0.0) {
+            if (timeDiff < 0.0) {
               rtErrorWithMessageID("log10", b_emlrtRTEI.fName,
                                    b_emlrtRTEI.lineNo);
             }
-            t9_SNR = std::log10(t9_SNR);
+            timeDiff = std::log10(timeDiff);
             // 10log10 can produce complex results and group_snr required a real
             // value. Otherwise coder will generate type errors
             // 10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average
@@ -2706,16 +2771,16 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
                 timeStampSec = 0U;
               }
               doublesBuffer[0] = timeStampSec;
-              timeDiff =
+              missingSamples =
                   std::round(Config.contents.channelCenterFreqMHz * 1.0E+6 +
                              detectorPulse.fp);
-              if (timeDiff < 4.294967296E+9) {
-                if (timeDiff >= 0.0) {
-                  timeStampSec = static_cast<unsigned int>(timeDiff);
+              if (missingSamples < 4.294967296E+9) {
+                if (missingSamples >= 0.0) {
+                  timeStampSec = static_cast<unsigned int>(missingSamples);
                 } else {
                   timeStampSec = 0U;
                 }
-              } else if (timeDiff >= 4.294967296E+9) {
+              } else if (missingSamples >= 4.294967296E+9) {
                 timeStampSec = MAX_uint32_T;
               } else {
                 timeStampSec = 0U;
@@ -2737,7 +2802,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
                 u3 = MAX_uint16_T;
               }
               doublesBuffer[7] = u3;
-              doublesBuffer[8] = 10.0 * t9_SNR;
+              doublesBuffer[8] = 10.0 * timeDiff;
               doublesBuffer[9] = detectorPulse.det_dec;
               doublesBuffer[10] = detectorPulse.con_dec;
               doublesBuffer[11] = detectorPulse.yw * (t9_yw * t9_yw) / T *
@@ -2766,16 +2831,16 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             // for derivation
             //  uint8(detectorPulse.det_dec);
             // uint8(detectorPulse.con_dec);
-            timeDiff =
+            missingSamples =
                 std::round(Config.contents.channelCenterFreqMHz * 1.0E+6 +
                            detectorPulse.fp);
-            if (timeDiff < 4.294967296E+9) {
-              if (timeDiff >= 0.0) {
-                timeStampSec = static_cast<unsigned int>(timeDiff);
+            if (missingSamples < 4.294967296E+9) {
+              if (missingSamples >= 0.0) {
+                timeStampSec = static_cast<unsigned int>(missingSamples);
               } else {
                 timeStampSec = 0U;
               }
-            } else if (timeDiff >= 4.294967296E+9) {
+            } else if (missingSamples >= 4.294967296E+9) {
               timeStampSec = MAX_uint32_T;
             } else {
               timeStampSec = 0U;
@@ -2788,7 +2853,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             std::printf(
                 "%u, %u, %g, %g, %g, %g, %u, %u, %g, %g, %u, %u\n", u1,
                 timeStampSec, detectorPulse.t_0, detectorPulse.t_next[0],
-                detectorPulse.SNR, detectorPulse.yw, u2, u3, 10.0 * t9_SNR,
+                detectorPulse.SNR, detectorPulse.yw, u2, u3, 10.0 * timeDiff,
                 detectorPulse.yw * (t9_yw * t9_yw) / T * (1.0 / (t9_t_f + 1.0)),
                 static_cast<unsigned char>(detectorPulse.det_dec),
                 static_cast<unsigned char>(detectorPulse.con_dec));
@@ -2839,14 +2904,14 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         std::fflush(stdout);
       }
       b_this.init();
-      timeDiff = coder::toc();
+      missingSamples = coder::toc();
       std::printf("tocElapsed - clockElapsed = %0.6f  **************** \n",
-                  timeDiff -
+                  missingSamples -
                       (std::round(b_this.data.re / 1000.0 * 1.0E+6) / 1.0E+6 -
                        startTime));
       std::fflush(stdout);
-      timeDiff = coder::toc() - processingStartToc;
-      std::printf("TOTAL SEGMENT PROCESSING TIME: %f seconds \n", timeDiff);
+      t9_yw = coder::toc() - processingStartToc;
+      std::printf("TOTAL SEGMENT PROCESSING TIME: %f seconds \n", t9_yw);
       std::fflush(stdout);
       //  packetTimeSec = (packetLength-1)*1/Config.Fs;
       //  segmentTimeSec  = 1/Config.Fs * sampsForKPulses;

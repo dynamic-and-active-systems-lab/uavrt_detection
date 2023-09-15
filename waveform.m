@@ -526,6 +526,14 @@ classdef waveform < handle
             %               identified in the ith column of indiv_msk
             %
             %%
+
+
+fprintf('\nPS_PRE.FSTART AND FEND at the end Confirmation search : \t %f \t to \t %f.',...
+            obj.ps_pre.fstart, obj.ps_pre.fend);%(1) is for coder so it knows it is a scalar
+fprintf('\nPS_POS.FSTART AND FEND beginning at the end Confirmation search : \t %f \t to \t %f.',...
+            obj.ps_pos.fstart, obj.ps_pos.fend);%(1) is for coder so it knows it is a scalar
+
+
 previousToc = toc;
 fprintf('\t Setting up parameter for finding pulses  ...')
 
@@ -1352,7 +1360,10 @@ fprintf('\t Running Peeling Algorithm  ...\n')
             end
             
             pl_out   = cur_pl;           
-
+fprintf('Frequencies are:\n')
+for i = 1:numel(obj.Wf)
+fprintf('%.6f,',obj.Wf(i))
+end
 fprintf('Threshold vector is equal to:\n')
 for i = 1:numel(thresh)
 fprintf('%f,',thresh(i))
@@ -1618,7 +1629,14 @@ previousToc = toc;
         %Determine if there is sufficient priori for the operation of each
         %mode. Check to see if they have entries and if they are finite (not Nan or Inf).
         %We just catch that and then set the have_priori flag to false. 
-        
+
+fprintf('\nPS_PRE.FSTART AND FEND beginning of PROCESS: \t %f \t to \t %f.',...
+            obj.ps_pre.fstart, obj.ps_pre.fend);%(1) is for coder so it knows it is a scalar
+fprintf('\nPS_POS.FSTART AND FEND beginning of PROCESS: \t %f \t to \t %f.',...
+            obj.ps_pos.fstart, obj.ps_pos.fend);%(1) is for coder so it knows it is a scalar
+
+
+
         have_priori_freq_band = ~isempty(obj.ps_pre.fstart)&...
                                 ~isempty(obj.ps_pre.fend)&...
                                 isfinite(obj.ps_pre.fstart) &...
@@ -1768,6 +1786,13 @@ fprintf('DETECTING IN SEARCH MODE.\n')
                     obj.ps_pos.clst(tick).mode = mode;% 'D';
                 end
                 
+fprintf('\nPS_PRE.FSTART AND FEND at the end Detection search : \t %f \t to \t %f.',...
+            obj.ps_pre.fstart, obj.ps_pre.fend);%(1) is for coder so it knows it is a scalar
+fprintf('\nPS_POS.FSTART AND FEND beginning at the end Detection search : \t %f \t to \t %f.',...
+            obj.ps_pos.fstart, obj.ps_pos.fend);%(1) is for coder so it knows it is a scalar
+
+
+
                 
             %% CONFIRMATION MODE
             case 'confirm'
@@ -1859,6 +1884,12 @@ fprintf('DETECTING IN CONFIRMATION MODE.\n')
                 for tick = 1:numel(obj.ps_pos.clst)
                     obj.ps_pos.clst(tick).mode = mode;%'C';
                 end
+fprintf('\nPS_PRE.FSTART AND FEND at the end Confirmation search : \t %f \t to \t %f.',...
+            obj.ps_pre.fstart, obj.ps_pre.fend);%(1) is for coder so it knows it is a scalar
+fprintf('\nPS_POS.FSTART AND FEND beginning at the end Confirmation search : \t %f \t to \t %f.',...
+            obj.ps_pos.fstart, obj.ps_pos.fend);%(1) is for coder so it knows it is a scalar
+
+
 
             case 'track'
                 %% TRACKING MODE
@@ -1946,6 +1977,12 @@ fprintf('DETECTING IN TRACKING MODE.\n')
                 for tick = 1:numel(obj.ps_pos.clst)
                     obj.ps_pos.clst(tick).mode  = mode;% 'T';
                 end
+fprintf('\nPS_PRE.FSTART AND FEND at the end Tracking search : \t %f \t to \t %f.',...
+            obj.ps_pre.fstart, obj.ps_pre.fend);%(1) is for coder so it knows it is a scalar
+fprintf('\nPS_POS.FSTART AND FEND beginning at the end Tracking search : \t %f \t to \t %f.',...
+            obj.ps_pos.fstart, obj.ps_pos.fend);%(1) is for coder so it knows it is a scalar
+
+
             otherwise
                 %% SOMETHING BROKE
                 disp('No mode selected')

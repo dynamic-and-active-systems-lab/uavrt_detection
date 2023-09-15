@@ -432,7 +432,10 @@ fprintf('Sample elapsed seconds: %f \t Posix elapsed seconds: %f \n', timeVector
                             end
                             prioriRelativeFreqHz = 10e-6 * abs(Config.tagFreqMHz - Config.channelCenterFreqMHz);
                             ps_pre = pulsestats(Config.tp, Config.tip, Config.tipu,...
-                                                Config.tipj, prioriRelativeFreqHz ,0     ,0   ,[1 1],'D' ,...
+                                                Config.tipj, prioriRelativeFreqHz ,...
+                                                prioriRelativeFreqHz-(ceil(Config.Fs/2)),...
+                                                prioriRelativeFreqHz+(ceil(Config.Fs/2)),...
+                                                [1 1],'D' ,...
                                                 makepulsestruc(),makepulsestruc(),false , NaN);
                             configUpdatedFlag = false;
                         else
@@ -444,6 +447,9 @@ fprintf('Sample elapsed seconds: %f \t Posix elapsed seconds: %f \n', timeVector
                                                 ps_pre_struc.cpki);
                             configUpdatedFlag = false;
                         end
+fprintf('\nPS_PRE.FSTART AND FEND before MAKING WAVEFORM X step : \t %f \t to \t %f.',...
+            ps_pre.fstart, ps_pre.fend);%(1) is for coder so it knows it is a scalar
+                       
 
 
                         %% PRIMARY PROCESSING BLOCK
@@ -509,27 +515,43 @@ fprintf('PROCESSING IN %s MODE \n', mode)
                         fprintf('====================================\n')
 fprintf('First 5 entries of the real data block being processed are:\n')
 for i = 1:5
-fprintf('%f,',real(X.x(i)))
+fprintf('%.8f,',real(X.x(i)))
 end
 fprintf('\n')
 fprintf('First 5 entries of the imaginary data block being processed are:\n')
 for i = 1:5
-fprintf('%f,',imag(X.x(i)))
+fprintf('%.8f,',imag(X.x(i)))
 end
 fprintf('\n')
 
 fprintf('Last 5 entries of the real data block being processed are:\n')
 for i = numel(X.x)-5:numel(X.x)
-fprintf('%f,',real(X.x(i)))
+fprintf('%.8f,',real(X.x(i)))
 end
 fprintf('\n')
 fprintf('Last 5 entries of the imaginary data block being processed are:\n')
 for i = numel(X.x)-5:numel(X.x)
-fprintf('%f,',imag(X.x(i)))
+fprintf('%.8f,',imag(X.x(i)))
 end
 fprintf('\n')
+
+% fprintf(':\n')
+% for i = numel(X.x)-5:numel(X.x)
+% fprintf('%.8f,',X.ps_pre.fp)
+% end
+
+fprintf('\nPS_PRE.FSTART AND FEND before PROCESS step : \t %f \t to \t %f.',...
+            X.ps_pre.fstart, X.ps_pre.fend);%(1) is for coder so it knows it is a scalar
+fprintf('\nPS_POS.FSTART AND FEND before PROCESS step : \t %f \t to \t %f.',...
+            X.ps_pos.fstart, X.ps_pos.fend);%(1) is for coder so it knows it is a scalar
+
                         X.process(mode, 'most', Config.excldFreqs)
                         fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+
+fprintf('\nPS_PRE.FSTART AND FEND after PROCESS step : \t %f \t to \t %f.',...
+            X.ps_pre.fstart, X.ps_pre.fend);%(1) is for coder so it knows it is a scalar
+fprintf('\nPS_POS.FSTART AND FEND after PROCESS step : \t %f \t to \t %f.',...
+            X.ps_pos.fstart, X.ps_pos.fend);%(1) is for coder so it knows it is a scalar
 
                         processingTime = toc - processingStartToc;
                         fprintf('TOTAL PULSE PROCESSING TIME: %f seconds \n', processingTime)
@@ -559,6 +581,10 @@ fprintf('\n')
                                 X.ps_pos.updateposteriori(X.ps_pre, X.ps_pos.pl, 'time')
                             end
                         end
+fprintf('\nPS_PRE.FSTART AND FEND after PRIORI UPDATE step : \t %f \t to \t %f.',...
+            X.ps_pre.fstart, X.ps_pre.fend);%(1) is for coder so it knows it is a scalar
+fprintf('\nPS_POS.FSTART AND FEND after PRIORI UPDATE step : \t %f \t to \t %f.',...
+            X.ps_pos.fstart, X.ps_pos.fend);%(1) is for coder so it knows it is a scalar
 
                         %Check lagging processing
                         if segmentsProcessed ~= 0 && Config.K > 1 && processingTime > 0.9 * sampsForKPulses/Config.Fs
@@ -592,6 +618,10 @@ previousToc = toc;
 
                         updatebufferreadvariables(X.ps_pos);
                         fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+fprintf('\nPS_PRE.FSTART AND FEND after PRIORI STRUCT UPDATE step : \t %f \t to \t %f.',...
+            ps_pre_struc.fstart, ps_pre_struc.fend);%(1) is for coder so it knows it is a scalar
+
+
 
                         %Deal with detected pulses
                         %Xhold{mod(segmentsProcessed,maxSegments)} = X;%Keep a maxSegments running record of waveforms for debugging in Matlab
@@ -706,7 +736,7 @@ printpulseinfostruc(pulseInfoStruct);
                     %     % end
                     % end
                 end
-    end
+            end
 end
 
     % function [mavlinkTunnelMsgUint8] = formatPulseForTunnel(target_system_in, target_component_in, payload_type_in, pulseStructIn)
