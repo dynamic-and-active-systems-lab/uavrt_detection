@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 14-Sep-2023 07:49:36
+// C/C++ source code generated on  : 15-Sep-2023 09:39:56
 //
 
 // Include Files
@@ -382,89 +382,6 @@ updatebufferreadvariables(const coder::b_captured_var &Config,
   // pulse stats like t_ip, etc.
   // INPUTS:  ps_obj  1x1 pulse stats object
   // OUTPUTS:  pulse stats object
-  // WHAT WAS DONE BY THIS METHOD IS NOW DONE BY A METHOD OF THE
-  // PULSESTATS CLASS.
-  //          function [] = update_posteriori(obj,pulselist)
-  //              %UPDATE_POSTERIORI updates the posteriori pulse statistics of
-  //              %this waveform object using the new pulse list (input) and the
-  //              %apriori stats. The pulse contained in the waveform's ps_pos
-  //              %property is not used directly so that the caller can decide
-  //              %which pulses on which to focus the posteriori.
-  //
-  //              t_found    = [pulselist(:).t_0]';
-  //              freq_found = mean([pulselist(:).fp],'omitnan');
-  //
-  //              %Create a vector of bandwidths from the pulselist
-  //              bw_found =
-  //              2*(mean([pulselist.fend],'omitnan')-mean([pulselist.fstart],'omitnan'));
-  //              if isempty(bw_found)
-  //                  bw_found = 100;
-  //                  if coder.target('MATLAB')
-  //                      warning(['UAV-R: No bandwidth could be calculated
-  //                      ',...
-  //                           'from the start and stop frequencies of the ',...
-  //                           'identified pulses. A bandwidth of 100 Hz ',...
-  //                           'will be used for continued informed search.'])
-  //                  end
-  //              end
-  //
-  //              %Here is where we update the stats. These methods of updates
-  //              %could be improved in the future.
-  //              %obj.ps_pre.t_p; %tp doesn't change. We assume it is
-  //              stationary
-  //
-  //              if numel(pulselist)==1% Happens if K=1
-  //                  %We only have one pulse to reference, so we need to check
-  //                  %the prior pulse too.
-  //                  if ~isempty(obj.ps_pre.pl) &&
-  //                  ~isnan(obj.ps_pre.pl(end).t_0)
-  //                      recent_tip = pulselist.t_0-obj.ps_pre.pl(end).t_0;
-  //                      %There could be a case where the last segment and this
-  //                      %segement identified the same pulse. In this case
-  //                      %recent_tip will be very small. In this case, we just
-  //                      %say we learned nothing about t_ip in this segment.
-  //                      if recent_tip < obj.ps_pre.t_ipu + obj.ps_pre.t_ipJ
-  //                          recent_tip = NaN;
-  //                      end
-  //                  else
-  //                      %No new information because we don't know the last
-  //                      %pulse time
-  //                      recent_tip = NaN;
-  //                  end
-  //              else
-  //                  recent_tip = diff(t_found);
-  //              end
-  //              %Do a check here to make sure the new tip isn't a huge change.
-  //              %This could potentially happen if we are in the K = 1 case and
-  //              %the block getting processed contained two pulses, with the
-  //              %latter pulse getting identified/detected. The lines above
-  //              %would look back to the last identified pulse and it might be
-  //              %2*tip back in time, producing a very large recenttip values.
-  //              %If something like this happens, we ignore it so it doesn't
-  //              %affect our new tip estimates.
-  //              if recent_tip > 1.5*obj.ps_pre.t_ip & recent_tip <
-  //              0.5*obj.ps_pre.t_ip
-  //                  recent_tip = NaN;
-  //              end
-  //
-  //              %Only update time parameters if we are in tracking mode. If we
-  //              %aren't, we may have identified somethign that isn't a pulse
-  //              if strcmp(obj.ps_pos.mode,'T') || strcmp(obj.ps_pre.mode,'T')
-  //                  obj.ps_pos.t_ip  =
-  //                  mean([recent_tip;obj.ps_pre.t_ip],'omitnan');
-  //                  obj.ps_pos.t_ipu = obj.ps_pre.t_ipu; %Don't update this
-  //                  because it can get too
-  //                  narrow.%mean([3*std(diff(t_found));obj.ps_pre.t_ipu]);
-  //                  obj.ps_pos.t_ipj = obj.ps_pre.t_ipj;
-  //              end
-  //              fp_pos           =
-  //              freq_found;%nanmean([freq_found;obj.ps_pre.fp]);%Previous fc
-  //              may be nan if unknown obj.ps_pos.fp    = fp_pos;
-  //              obj.ps_pos.fstart = fp_pos-bw_found/2;
-  //              obj.ps_pos.fend   = fp_pos+bw_found/2;
-  //
-  //              obj.ps_pos.psdHist = obj.stft.psd
-  //          end
   // Samples per pulse
   // Number of elements in STFT window
   // Number of elements overlap in STFT window
@@ -513,89 +430,6 @@ updatebufferreadvariables(const coder::b_captured_var &Config,
   // pulse stats like t_ip, etc.
   // INPUTS:  ps_obj  1x1 pulse stats object
   // OUTPUTS:  pulse stats object
-  // WHAT WAS DONE BY THIS METHOD IS NOW DONE BY A METHOD OF THE
-  // PULSESTATS CLASS.
-  //          function [] = update_posteriori(obj,pulselist)
-  //              %UPDATE_POSTERIORI updates the posteriori pulse statistics of
-  //              %this waveform object using the new pulse list (input) and the
-  //              %apriori stats. The pulse contained in the waveform's ps_pos
-  //              %property is not used directly so that the caller can decide
-  //              %which pulses on which to focus the posteriori.
-  //
-  //              t_found    = [pulselist(:).t_0]';
-  //              freq_found = mean([pulselist(:).fp],'omitnan');
-  //
-  //              %Create a vector of bandwidths from the pulselist
-  //              bw_found =
-  //              2*(mean([pulselist.fend],'omitnan')-mean([pulselist.fstart],'omitnan'));
-  //              if isempty(bw_found)
-  //                  bw_found = 100;
-  //                  if coder.target('MATLAB')
-  //                      warning(['UAV-R: No bandwidth could be calculated
-  //                      ',...
-  //                           'from the start and stop frequencies of the ',...
-  //                           'identified pulses. A bandwidth of 100 Hz ',...
-  //                           'will be used for continued informed search.'])
-  //                  end
-  //              end
-  //
-  //              %Here is where we update the stats. These methods of updates
-  //              %could be improved in the future.
-  //              %obj.ps_pre.t_p; %tp doesn't change. We assume it is
-  //              stationary
-  //
-  //              if numel(pulselist)==1% Happens if K=1
-  //                  %We only have one pulse to reference, so we need to check
-  //                  %the prior pulse too.
-  //                  if ~isempty(obj.ps_pre.pl) &&
-  //                  ~isnan(obj.ps_pre.pl(end).t_0)
-  //                      recent_tip = pulselist.t_0-obj.ps_pre.pl(end).t_0;
-  //                      %There could be a case where the last segment and this
-  //                      %segement identified the same pulse. In this case
-  //                      %recent_tip will be very small. In this case, we just
-  //                      %say we learned nothing about t_ip in this segment.
-  //                      if recent_tip < obj.ps_pre.t_ipu + obj.ps_pre.t_ipJ
-  //                          recent_tip = NaN;
-  //                      end
-  //                  else
-  //                      %No new information because we don't know the last
-  //                      %pulse time
-  //                      recent_tip = NaN;
-  //                  end
-  //              else
-  //                  recent_tip = diff(t_found);
-  //              end
-  //              %Do a check here to make sure the new tip isn't a huge change.
-  //              %This could potentially happen if we are in the K = 1 case and
-  //              %the block getting processed contained two pulses, with the
-  //              %latter pulse getting identified/detected. The lines above
-  //              %would look back to the last identified pulse and it might be
-  //              %2*tip back in time, producing a very large recenttip values.
-  //              %If something like this happens, we ignore it so it doesn't
-  //              %affect our new tip estimates.
-  //              if recent_tip > 1.5*obj.ps_pre.t_ip & recent_tip <
-  //              0.5*obj.ps_pre.t_ip
-  //                  recent_tip = NaN;
-  //              end
-  //
-  //              %Only update time parameters if we are in tracking mode. If we
-  //              %aren't, we may have identified somethign that isn't a pulse
-  //              if strcmp(obj.ps_pos.mode,'T') || strcmp(obj.ps_pre.mode,'T')
-  //                  obj.ps_pos.t_ip  =
-  //                  mean([recent_tip;obj.ps_pre.t_ip],'omitnan');
-  //                  obj.ps_pos.t_ipu = obj.ps_pre.t_ipu; %Don't update this
-  //                  because it can get too
-  //                  narrow.%mean([3*std(diff(t_found));obj.ps_pre.t_ipu]);
-  //                  obj.ps_pos.t_ipj = obj.ps_pre.t_ipj;
-  //              end
-  //              fp_pos           =
-  //              freq_found;%nanmean([freq_found;obj.ps_pre.fp]);%Previous fc
-  //              may be nan if unknown obj.ps_pos.fp    = fp_pos;
-  //              obj.ps_pos.fstart = fp_pos-bw_found/2;
-  //              obj.ps_pos.fend   = fp_pos+bw_found/2;
-  //
-  //              obj.ps_pos.psdHist = obj.stft.psd
-  //          end
   // Samples per pulse
   // Number of elements in STFT window
   // Number of elements overlap in STFT window
@@ -631,89 +465,6 @@ updatebufferreadvariables(const coder::b_captured_var &Config,
   // pulse stats like t_ip, etc.
   // INPUTS:  ps_obj  1x1 pulse stats object
   // OUTPUTS:  pulse stats object
-  // WHAT WAS DONE BY THIS METHOD IS NOW DONE BY A METHOD OF THE
-  // PULSESTATS CLASS.
-  //          function [] = update_posteriori(obj,pulselist)
-  //              %UPDATE_POSTERIORI updates the posteriori pulse statistics of
-  //              %this waveform object using the new pulse list (input) and the
-  //              %apriori stats. The pulse contained in the waveform's ps_pos
-  //              %property is not used directly so that the caller can decide
-  //              %which pulses on which to focus the posteriori.
-  //
-  //              t_found    = [pulselist(:).t_0]';
-  //              freq_found = mean([pulselist(:).fp],'omitnan');
-  //
-  //              %Create a vector of bandwidths from the pulselist
-  //              bw_found =
-  //              2*(mean([pulselist.fend],'omitnan')-mean([pulselist.fstart],'omitnan'));
-  //              if isempty(bw_found)
-  //                  bw_found = 100;
-  //                  if coder.target('MATLAB')
-  //                      warning(['UAV-R: No bandwidth could be calculated
-  //                      ',...
-  //                           'from the start and stop frequencies of the ',...
-  //                           'identified pulses. A bandwidth of 100 Hz ',...
-  //                           'will be used for continued informed search.'])
-  //                  end
-  //              end
-  //
-  //              %Here is where we update the stats. These methods of updates
-  //              %could be improved in the future.
-  //              %obj.ps_pre.t_p; %tp doesn't change. We assume it is
-  //              stationary
-  //
-  //              if numel(pulselist)==1% Happens if K=1
-  //                  %We only have one pulse to reference, so we need to check
-  //                  %the prior pulse too.
-  //                  if ~isempty(obj.ps_pre.pl) &&
-  //                  ~isnan(obj.ps_pre.pl(end).t_0)
-  //                      recent_tip = pulselist.t_0-obj.ps_pre.pl(end).t_0;
-  //                      %There could be a case where the last segment and this
-  //                      %segement identified the same pulse. In this case
-  //                      %recent_tip will be very small. In this case, we just
-  //                      %say we learned nothing about t_ip in this segment.
-  //                      if recent_tip < obj.ps_pre.t_ipu + obj.ps_pre.t_ipJ
-  //                          recent_tip = NaN;
-  //                      end
-  //                  else
-  //                      %No new information because we don't know the last
-  //                      %pulse time
-  //                      recent_tip = NaN;
-  //                  end
-  //              else
-  //                  recent_tip = diff(t_found);
-  //              end
-  //              %Do a check here to make sure the new tip isn't a huge change.
-  //              %This could potentially happen if we are in the K = 1 case and
-  //              %the block getting processed contained two pulses, with the
-  //              %latter pulse getting identified/detected. The lines above
-  //              %would look back to the last identified pulse and it might be
-  //              %2*tip back in time, producing a very large recenttip values.
-  //              %If something like this happens, we ignore it so it doesn't
-  //              %affect our new tip estimates.
-  //              if recent_tip > 1.5*obj.ps_pre.t_ip & recent_tip <
-  //              0.5*obj.ps_pre.t_ip
-  //                  recent_tip = NaN;
-  //              end
-  //
-  //              %Only update time parameters if we are in tracking mode. If we
-  //              %aren't, we may have identified somethign that isn't a pulse
-  //              if strcmp(obj.ps_pos.mode,'T') || strcmp(obj.ps_pre.mode,'T')
-  //                  obj.ps_pos.t_ip  =
-  //                  mean([recent_tip;obj.ps_pre.t_ip],'omitnan');
-  //                  obj.ps_pos.t_ipu = obj.ps_pre.t_ipu; %Don't update this
-  //                  because it can get too
-  //                  narrow.%mean([3*std(diff(t_found));obj.ps_pre.t_ipu]);
-  //                  obj.ps_pos.t_ipj = obj.ps_pre.t_ipj;
-  //              end
-  //              fp_pos           =
-  //              freq_found;%nanmean([freq_found;obj.ps_pre.fp]);%Previous fc
-  //              may be nan if unknown obj.ps_pos.fp    = fp_pos;
-  //              obj.ps_pos.fstart = fp_pos-bw_found/2;
-  //              obj.ps_pos.fend   = fp_pos+bw_found/2;
-  //
-  //              obj.ps_pos.psdHist = obj.stft.psd
-  //          end
   a__2 = std::ceil(ps_input->t_p * X0.Fs);
   // Samples per pulse
   // Number of elements in STFT window
@@ -1438,9 +1189,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo bb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      585,               // lineNo
-      61,                // colNo
-      "X.ps_pos.pl",     // aName
+      512,               // lineNo
+      24,                // colNo
+      "X.x",             // aName
       "uavrt_detection", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
@@ -1449,9 +1200,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo cb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      590,               // lineNo
-      79,                // colNo
-      "ps_pre_struc.pl", // aName
+      517,               // lineNo
+      24,                // colNo
+      "X.x",             // aName
       "uavrt_detection", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
@@ -1460,9 +1211,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo db_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      596,               // lineNo
-      50,                // colNo
-      "pulsesToSkip",    // aName
+      523,               // lineNo
+      24,                // colNo
+      "X.x",             // aName
       "uavrt_detection", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
@@ -1471,9 +1222,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo eb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      625,               // lineNo
-      91,                // colNo
-      "X.ps_pos.pl",     // aName
+      528,               // lineNo
+      24,                // colNo
+      "X.x",             // aName
       "uavrt_detection", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
@@ -1482,7 +1233,29 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo fb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      641,               // lineNo
+      607,               // lineNo
+      61,                // colNo
+      "X.ps_pos.pl",     // aName
+      "uavrt_detection", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
+      0                                                    // checkKind
+  };
+  static rtBoundsCheckInfo gb_emlrtBCI{
+      -1,                // iFirst
+      -1,                // iLast
+      612,               // lineNo
+      79,                // colNo
+      "ps_pre_struc.pl", // aName
+      "uavrt_detection", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
+      0                                                    // checkKind
+  };
+  static rtBoundsCheckInfo hb_emlrtBCI{
+      -1,                // iFirst
+      -1,                // iLast
+      618,               // lineNo
       50,                // colNo
       "pulsesToSkip",    // aName
       "uavrt_detection", // fName
@@ -1490,10 +1263,32 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
       0                                                    // checkKind
   };
-  static rtBoundsCheckInfo gb_emlrtBCI{
+  static rtBoundsCheckInfo ib_emlrtBCI{
+      -1,                // iFirst
+      -1,                // iLast
+      647,               // lineNo
+      91,                // colNo
+      "X.ps_pos.pl",     // aName
+      "uavrt_detection", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
+      0                                                    // checkKind
+  };
+  static rtBoundsCheckInfo jb_emlrtBCI{
+      -1,                // iFirst
+      -1,                // iLast
+      663,               // lineNo
+      50,                // colNo
+      "pulsesToSkip",    // aName
+      "uavrt_detection", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
+      0                                                    // checkKind
+  };
+  static rtBoundsCheckInfo kb_emlrtBCI{
       -1,                   // iFirst
       -1,                   // iLast
-      662,                  // lineNo
+      684,                  // lineNo
       89,                   // colNo
       "dataRecordPathChar", // aName
       "uavrt_detection",    // fName
@@ -1501,10 +1296,10 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
       0                                                    // checkKind
   };
-  static rtBoundsCheckInfo hb_emlrtBCI{
+  static rtBoundsCheckInfo lb_emlrtBCI{
       -1,                   // iFirst
       -1,                   // iLast
-      662,                  // lineNo
+      684,                  // lineNo
       91,                   // colNo
       "dataRecordPathChar", // aName
       "uavrt_detection",    // fName
@@ -2325,6 +2120,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         resetBuffersFlag = true;
         staleDataFlag = true;
       } else {
+        float validatedHoleFilling_idx_0;
         unsigned int validatedHoleFilling[3];
         int pulseCount;
         unsigned int varargin_3;
@@ -2552,6 +2348,70 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         std::fflush(stdout);
         std::printf("====================================\n");
         std::fflush(stdout);
+        std::printf(
+            "First 5 entries of the real data block being processed are:\n");
+        std::fflush(stdout);
+        for (int b_i{0}; b_i < 5; b_i++) {
+          i = b_X.x.size(1);
+          if (b_i + 1 > i) {
+            rtDynamicBoundsError(b_i + 1, 1, i, bb_emlrtBCI);
+          }
+          validatedHoleFilling_idx_0 = b_X.x[b_i].re;
+          std::printf("%f,", validatedHoleFilling_idx_0);
+          std::fflush(stdout);
+        }
+        std::printf("\n");
+        std::fflush(stdout);
+        std::printf("First 5 entries of the imaginary data block being "
+                    "processed are:\n");
+        std::fflush(stdout);
+        for (int b_i{0}; b_i < 5; b_i++) {
+          i = b_X.x.size(1);
+          if (b_i + 1 > i) {
+            rtDynamicBoundsError(b_i + 1, 1, i, cb_emlrtBCI);
+          }
+          validatedHoleFilling_idx_0 = b_X.x[b_i].im;
+          std::printf("%f,", validatedHoleFilling_idx_0);
+          std::fflush(stdout);
+        }
+        std::printf("\n");
+        std::fflush(stdout);
+        std::printf(
+            "Last 5 entries of the real data block being processed are:\n");
+        std::fflush(stdout);
+        i = b_X.x.size(1) - 5;
+        n = b_X.x.size(1);
+        n -= i;
+        for (int b_i{0}; b_i <= n; b_i++) {
+          nPulseList = b_X.x.size(1);
+          loop_ub = i + b_i;
+          if ((loop_ub < 1) || (loop_ub > nPulseList)) {
+            rtDynamicBoundsError(loop_ub, 1, nPulseList, db_emlrtBCI);
+          }
+          validatedHoleFilling_idx_0 = b_X.x[loop_ub - 1].re;
+          std::printf("%f,", validatedHoleFilling_idx_0);
+          std::fflush(stdout);
+        }
+        std::printf("\n");
+        std::fflush(stdout);
+        std::printf("Last 5 entries of the imaginary data block being "
+                    "processed are:\n");
+        std::fflush(stdout);
+        i = b_X.x.size(1) - 5;
+        n = b_X.x.size(1);
+        n -= i;
+        for (int b_i{0}; b_i <= n; b_i++) {
+          nPulseList = b_X.x.size(1);
+          loop_ub = i + b_i;
+          if ((loop_ub < 1) || (loop_ub > nPulseList)) {
+            rtDynamicBoundsError(loop_ub, 1, nPulseList, eb_emlrtBCI);
+          }
+          validatedHoleFilling_idx_0 = b_X.x[loop_ub - 1].im;
+          std::printf("%f,", validatedHoleFilling_idx_0);
+          std::fflush(stdout);
+        }
+        std::printf("\n");
+        std::fflush(stdout);
         b_X.process(mode, Config.contents.excldFreqs);
         timeDiff = coder::toc() - timeDiff;
         std::printf("complete. Elapsed time: %f seconds \n", timeDiff);
@@ -2578,8 +2438,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         if (ps_pre_struc_pl.size(1) > 2147483646) {
           coder::check_forloop_overflow_error();
         }
-        for (loop_ub = 0; loop_ub < n; loop_ub++) {
-          pulsesToSkip[loop_ub] = ps_pre_struc_pl[loop_ub].con_dec;
+        for (int b_i{0}; b_i < n; b_i++) {
+          pulsesToSkip[b_i] = ps_pre_struc_pl[b_i].con_dec;
         }
         coder::all(pulsesToSkip, r2);
         if (coder::internal::ifWhileCond(r2)) {
@@ -2712,12 +2572,12 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           for (int j{0}; j < nPulseList; j++) {
             i = b_X.ps_pos->pl.size(1);
             if (j + 1 > i) {
-              rtDynamicBoundsError(j + 1, 1, i, bb_emlrtBCI);
+              rtDynamicBoundsError(j + 1, 1, i, fb_emlrtBCI);
             }
             timeDiff = b_X.ps_pos->pl[j].t_0;
             if (j + 1 > ps_pre_struc_pl.size(1)) {
               rtDynamicBoundsError(j + 1, 1, ps_pre_struc_pl.size(1),
-                                   cb_emlrtBCI);
+                                   gb_emlrtBCI);
             }
             std::printf("Pulse at %f Hz detected. SNR: %f \n \t Confirmation "
                         "status: %u \n\t Interpulse time    : %f \n",
@@ -2734,7 +2594,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
               std::fflush(stdout);
               if (j + 1 > pulsesToSkip.size(1)) {
                 rtDynamicBoundsError(j + 1, 1, pulsesToSkip.size(1),
-                                     db_emlrtBCI);
+                                     hb_emlrtBCI);
               }
               pulsesToSkip[j] = true;
             } else {
@@ -2795,8 +2655,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             if (c_X.size(0) > 2147483646) {
               coder::check_forloop_overflow_error();
             }
-            for (loop_ub = 0; loop_ub < n; loop_ub++) {
-              groupSNRList[loop_ub] = c_X[loop_ub].SNR;
+            for (int b_i{0}; b_i < n; b_i++) {
+              groupSNRList[b_i] = c_X[b_i].SNR;
             }
             groupSNRList.set_size(1, groupSNRList.size(1));
             loop_ub = groupSNRList.size(1) - 1;
@@ -2822,7 +2682,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             //  Publish pulses to UDP
             i = b_X.ps_pos->pl.size(1);
             if (j + 1 > i) {
-              rtDynamicBoundsError(j + 1, 1, i, eb_emlrtBCI);
+              rtDynamicBoundsError(j + 1, 1, i, ib_emlrtBCI);
             }
             detectorPulse = b_X.ps_pos->pl[j];
             t9_yw = b_X.stft->dt;
@@ -2830,7 +2690,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             t9_t_f = rt_powd_snf(10.0, detectorPulse.SNR / 10.0);
             // See Notebook Entry 2023-07-07 for derivation
             if (j + 1 > pulsesToSkip.size(1)) {
-              rtDynamicBoundsError(j + 1, 1, pulsesToSkip.size(1), fb_emlrtBCI);
+              rtDynamicBoundsError(j + 1, 1, pulsesToSkip.size(1), jb_emlrtBCI);
             }
             if (!pulsesToSkip[j]) {
               //  UDP Send
@@ -2949,14 +2809,14 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           if (Config.contents.dataRecordPath.Value.size(1) < 1) {
             rtDynamicBoundsError(1, 1,
                                  Config.contents.dataRecordPath.Value.size(1),
-                                 gb_emlrtBCI);
+                                 kb_emlrtBCI);
           }
           if ((Config.contents.dataRecordPath.Value.size(1) - 4 < 1) ||
               (Config.contents.dataRecordPath.Value.size(1) - 4 >
                Config.contents.dataRecordPath.Value.size(1))) {
             rtDynamicBoundsError(
                 Config.contents.dataRecordPath.Value.size(1) - 4, 1,
-                Config.contents.dataRecordPath.Value.size(1), hb_emlrtBCI);
+                Config.contents.dataRecordPath.Value.size(1), lb_emlrtBCI);
           }
           loop_ub = Config.contents.dataRecordPath.Value.size(1) - 4;
         }

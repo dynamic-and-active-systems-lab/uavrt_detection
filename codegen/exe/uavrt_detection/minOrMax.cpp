@@ -5,7 +5,7 @@
 // File: minOrMax.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 14-Sep-2023 07:49:36
+// C/C++ source code generated on  : 15-Sep-2023 09:39:56
 //
 
 // Include Files
@@ -20,11 +20,26 @@
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<double, 1U> &x
+// Arguments    : const double x[2]
 // Return Type  : double
 //
 namespace coder {
 namespace internal {
+double b_minimum(const double x[2])
+{
+  double ex;
+  if ((x[0] > x[1]) || (std::isnan(x[0]) && (!std::isnan(x[1])))) {
+    ex = x[1];
+  } else {
+    ex = x[0];
+  }
+  return ex;
+}
+
+//
+// Arguments    : const ::coder::array<double, 1U> &x
+// Return Type  : double
+//
 double maximum(const ::coder::array<double, 1U> &x)
 {
   double ex;
@@ -222,16 +237,17 @@ double maximum(const double x[2])
 }
 
 //
-// Arguments    : const double x[2]
+// Arguments    : const double x_data[]
 // Return Type  : double
 //
-double minimum(const double x[2])
+double minimum(const double x_data[])
 {
   double ex;
-  if ((x[0] > x[1]) || (std::isnan(x[0]) && (!std::isnan(x[1])))) {
-    ex = x[1];
+  if ((x_data[0] > x_data[1]) ||
+      (std::isnan(x_data[0]) && (!std::isnan(x_data[1])))) {
+    ex = x_data[1];
   } else {
-    ex = x[0];
+    ex = x_data[0];
   }
   return ex;
 }

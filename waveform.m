@@ -633,7 +633,9 @@ fprintf('\t Setting up parameter for finding pulses  ...')
                         %current waveform start time, use the naive search
                         %range.
                         if coder.target('MATLAB')
-                            warning('Requested informed search, but the last know pulse is more that one interpulse time away from the current segment start time. This means the algorithm would have to project forward by more than one pulse repetition interval. This is not supported. The naive search method will be used.')
+                            warning('Requested informed search, but the last know pulse is more that one interpulse time away from the current segment start time. This means the algorithm would have to project forward by more than one pulse repetition interval. This is not supported. The naive search method will be used.');
+                        else
+                            fprintf('UAV-RT: Requested informed search, but the last know pulse is more that one interpulse time away from the current segment start time. This means the algorithm would have to project forward by more than one pulse repetition interval. This is not supported. The naive search method will be used.');
                         end
                         wind_start = naive_wind_start;
                         wind_end   = naive_wind_end;
@@ -706,36 +708,86 @@ fprintf('\t Setting up parameter for finding pulses  ...')
                 %Updated to check center of frequencies rather than
                 %extremes since pulses might be detected near the edge of
                 %the channel BW.
-                if (mean([f_lo, f_hi])<min(obj.Wf,[],'all')) || (mean([f_lo, f_hi])>max(obj.Wf,[],'all'))%(f_lo<min(obj.Wf,[],'all')) || (f_hi>max(obj.Wf,[],'all'))%isnan(obj.ps_pre.fc) %Naive
+                % if (mean([f_lo, f_hi])<min(obj.Wf,[],'all')) || (mean([f_lo, f_hi])>max(obj.Wf,[],'all'))%(f_lo<min(obj.Wf,[],'all')) || (f_hi>max(obj.Wf,[],'all'))%isnan(obj.ps_pre.fc) %Naive
+                %     if coder.target('MATLAB')
+                %         warning('UAVRT:searchtype',...
+                %                 ['Requested informed search, but previous '...
+                %                  'segment does not contain a start and/or '...
+                %                  'stop frequency, or those values produces'...
+                %                  ' a search range outside the range of '...
+                %                  'frequencies available. Using naive '...
+                %                  'frequency search. Defaulting to naive'...
+                %                  ' frequency search.'])
+                %     else
+                %         fprintf(['UAVRT: ',...
+                %                 'Requested informed search, but previous '...
+                %                  'segment does not contain a start and/or '...
+                %                  'stop frequency, or those values produces'...
+                %                  ' a search range outside the range of '...
+                %                  'frequencies available. Using naive '...
+                %                  'frequency search. Defaulting to naive'...
+                %                  ' frequency search.'])
+                %     end
+                %     freq_start = 1;
+                %     freq_end   = numel(obj.Wf);%size(Sw,1);
+                %IF FREQS ARE AVILABLE, USE INFORMED
+                freqModWarningFlag = false;
+                if ~isempty(obj.ps_pre.fstart)
+                    freq_start = find(obj.Wf>=(obj.ps_pre.fstart),1,'first');
+                    if isempty(freq_start)
+                        freq_start = 1;
+                        freqModWarningFlag = true;
+                    end
+                end
+                if ~isempty(obj.ps_pre.fend)
+                    freq_end   = find(obj.Wf<=(obj.ps_pre.fend),1,'last');
+                    if isempty(freq_end)
+                        freq_end = numel(obj.Wf);
+                        freqModWarningFlag = true;
+                    end
+                end
+
+                if freqModWarningFlag
                     if coder.target('MATLAB')
                         warning('UAVRT:searchtype',...
-                                ['Requested informed search, but previous '...
-                                 'segment does not contain a start and/or '...
-                                 'stop frequency, or those values produces'...
-                                 ' a search range outside the range of '...
-                                 'frequencies available. Using naive '...
-                                 'frequency search. Defaulting to naive'...
-                                 ' frequency search.'])
+                            ['Requested informed search, but previous '...
+                            'segment does not contain a start and/or '...
+                            'stop frequency, or those values produces'...
+                            ' a search range outside the range of '...
+                            'frequencies available. The frequency '...
+                            'search range has been modified.'])
+                    else
+                        fprintf(['UAVRT: ',...
+                            'Requested informed search, but previous '...
+                            'segment does not contain a start and/or '...
+                            'stop frequency, or those values produces'...
+                            ' a search range outside the range of '...
+                            'frequencies available. The frequency '...
+                            'search range has been modified.']);
                     end
-                    freq_start = 1;
-                    freq_end   = numel(obj.Wf);%size(Sw,1);
-                %IF FREQS ARE AVILABLE, USE INFORMED
-                else
-                    freq_start = find(obj.Wf>=(obj.ps_pre.fstart),1,'first');
-                    freq_end   = find(obj.Wf<=(obj.ps_pre.fend),1,'last');
                 end
+
+                fprintf('Frequency Search Range will be \t %f \t to \t %f.',...
+                        obj.Wf(freq_start(1)), obj.Wf(freq_end(1)));%(1) is for coder so it knows it is a scalar
+
                 freq_ind_rng = [freq_start,freq_end];
                 freq_mask    =  false(size(obj.Wf));
                 freq_mask(freq_ind_rng(1):freq_ind_rng(2))=true;
             else %Naive frequency search
                 freq_mask    =  true(size(obj.Wf));
+
+                fprintf('Frequency Search Range will be \t %f \t to \t %f.',...
+                        obj.Wf(1), obj.Wf(end));
             end
             
+
             %If using informed search and excluded frequencies overlap with
             %priori frequencies, warn the user.
             if strcmp(freq_searchtype,'informed') & any(freq_mask & ~excld_msk_vec ,'all')
                 if coder.target('MATLAB')
                     warning('UAV-RT: Using informed frequency search method and excluded frequencies. Some or all of the priori frequency band used for the informed search overlaps with frequencies specified for exclusion from the search and thus will not be included.')
+                else
+                    fprintf('UAV-RT: Using informed frequency search method and excluded frequencies. Some or all of the priori frequency band used for the informed search overlaps with frequencies specified for exclusion from the search and thus will not be included.');
                 end
             end
                         
@@ -772,7 +824,7 @@ fprintf('\t Conducting incoherent summation step  ...')
 [serialRejectionMatrix] = repetitionrejector(obj.stft.t, [2 3 5 10]);
 %[serialRejectionMatrix] = repetitionrejector(obj.stft.t, 0);%Outputs Identity for testing purposes
 
-            [yw_max_all_freq,S_cols] = incohsumtoeplitz(freq_mask,obj.W',obj.stft.S,serialRejectionMatrix,timeBlinderVec, Wq);%obj.TimeCorr.Wq(obj.K));
+               [yw_max_all_freq,S_cols] = incohsumtoeplitz(freq_mask,obj.W',obj.stft.S,serialRejectionMatrix,timeBlinderVec, Wq);%obj.TimeCorr.Wq(obj.K));
 fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
 previousToc = toc;
 
@@ -1287,7 +1339,7 @@ fprintf('\t Running Peeling Algorithm  ...\n')
                         SNRdB(j,i),...
                         t_found(j,i),...
                         t_found(j,i)+obj.ps_pre.t_p,...
-                        [t_found(j,i)+obj.ps_pos.t_ip-obj.ps_pos.t_ipu--obj.ps_pos.t_ipj,...
+                        [t_found(j,i)+obj.ps_pos.t_ip-obj.ps_pos.t_ipu-obj.ps_pos.t_ipj,...
                         t_found(j,i)+obj.ps_pos.t_ip+obj.ps_pos.t_ipu+obj.ps_pos.t_ipj],...
                         freq_found(j),...
                         f_bands(j,1),...
@@ -1299,7 +1351,18 @@ fprintf('\t Running Peeling Algorithm  ...\n')
                 end
             end
             
-            pl_out   = cur_pl;
+            pl_out   = cur_pl;           
+
+fprintf('Threshold vector is equal to:\n')
+for i = 1:numel(thresh)
+fprintf('%f,',thresh(i))
+end
+fprintf('\n')
+fprintf('Scores vector is equal to:\n')
+for i = 1:numel(scores)
+fprintf('%f,',scores(i))
+end
+fprintf('\n')
 
 
 % if isnan(peak_ind(1))
@@ -1318,81 +1381,7 @@ fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
 previousToc = toc;
 
         end    
-        %WHAT WAS DONE BY THIS METHOD IS NOW DONE BY A METHOD OF THE
-        %PULSESTATS CLASS. 
-%         function [] = update_posteriori(obj,pulselist)
-%             %UPDATE_POSTERIORI updates the posteriori pulse statistics of
-%             %this waveform object using the new pulse list (input) and the
-%             %apriori stats. The pulse contained in the waveform's ps_pos
-%             %property is not used directly so that the caller can decide
-%             %which pulses on which to focus the posteriori. 
-%             
-%             t_found    = [pulselist(:).t_0]';
-%             freq_found = mean([pulselist(:).fp],'omitnan');
-%             
-%             %Create a vector of bandwidths from the pulselist
-%             bw_found = 2*(mean([pulselist.fend],'omitnan')-mean([pulselist.fstart],'omitnan'));
-%             if isempty(bw_found)
-%                 bw_found = 100;
-%                 if coder.target('MATLAB')
-%                     warning(['UAV-R: No bandwidth could be calculated ',... 
-%                          'from the start and stop frequencies of the ',...
-%                          'identified pulses. A bandwidth of 100 Hz ',...
-%                          'will be used for continued informed search.'])
-%                 end
-%             end
-%             
-%             %Here is where we update the stats. These methods of updates
-%             %could be improved in the future. 
-%             %obj.ps_pre.t_p; %tp doesn't change. We assume it is stationary
-%             
-%             if numel(pulselist)==1% Happens if K=1
-%                 %We only have one pulse to reference, so we need to check
-%                 %the prior pulse too. 
-%                 if ~isempty(obj.ps_pre.pl) && ~isnan(obj.ps_pre.pl(end).t_0)
-%                     recent_tip = pulselist.t_0-obj.ps_pre.pl(end).t_0;
-%                     %There could be a case where the last segment and this
-%                     %segement identified the same pulse. In this case
-%                     %recent_tip will be very small. In this case, we just
-%                     %say we learned nothing about t_ip in this segment. 
-%                     if recent_tip < obj.ps_pre.t_ipu + obj.ps_pre.t_ipJ
-%                         recent_tip = NaN;
-%                     end
-%                 else
-%                     %No new information because we don't know the last 
-%                     %pulse time
-%                     recent_tip = NaN;
-%                 end
-%             else
-%                 recent_tip = diff(t_found);
-%             end
-%             %Do a check here to make sure the new tip isn't a huge change.
-%             %This could potentially happen if we are in the K = 1 case and
-%             %the block getting processed contained two pulses, with the
-%             %latter pulse getting identified/detected. The lines above
-%             %would look back to the last identified pulse and it might be
-%             %2*tip back in time, producing a very large recenttip values.
-%             %If something like this happens, we ignore it so it doesn't
-%             %affect our new tip estimates. 
-%             if recent_tip > 1.5*obj.ps_pre.t_ip & recent_tip < 0.5*obj.ps_pre.t_ip
-%                 recent_tip = NaN;
-%             end
-%             
-%             %Only update time parameters if we are in tracking mode. If we
-%             %aren't, we may have identified somethign that isn't a pulse
-%             if strcmp(obj.ps_pos.mode,'T') || strcmp(obj.ps_pre.mode,'T')
-%                 obj.ps_pos.t_ip  = mean([recent_tip;obj.ps_pre.t_ip],'omitnan');
-%                 obj.ps_pos.t_ipu = obj.ps_pre.t_ipu; %Don't update this because it can get too narrow.%mean([3*std(diff(t_found));obj.ps_pre.t_ipu]);
-%                 obj.ps_pos.t_ipj = obj.ps_pre.t_ipj;
-%             end
-%             fp_pos           = freq_found;%nanmean([freq_found;obj.ps_pre.fp]);%Previous fc may be nan if unknown
-%             obj.ps_pos.fp    = fp_pos;
-%             obj.ps_pos.fstart = fp_pos-bw_found/2;
-%             obj.ps_pos.fend   = fp_pos+bw_found/2;
-%             
-%             obj.ps_pos.psdHist = obj.stft.psd
-%         end
-        
+       
         function [n_p,n_w,n_ol,n_ws,t_ws,n_ip,N,M,J] = getprioridependentprops(obj,ps_obj)
             %GETPRIORIDEPENDENTVARS returns the properties in the
             %waveform that are dependent on prior pulse data estimates. It
@@ -2091,4 +2080,78 @@ fprintf('DETECTING IN TRACKING MODE.\n')
     end
 end
     
-   
+    %WHAT WAS DONE BY THIS METHOD IS NOW DONE BY A METHOD OF THE
+        %PULSESTATS CLASS. 
+%         function [] = update_posteriori(obj,pulselist)
+%             %UPDATE_POSTERIORI updates the posteriori pulse statistics of
+%             %this waveform object using the new pulse list (input) and the
+%             %apriori stats. The pulse contained in the waveform's ps_pos
+%             %property is not used directly so that the caller can decide
+%             %which pulses on which to focus the posteriori. 
+%             
+%             t_found    = [pulselist(:).t_0]';
+%             freq_found = mean([pulselist(:).fp],'omitnan');
+%             
+%             %Create a vector of bandwidths from the pulselist
+%             bw_found = 2*(mean([pulselist.fend],'omitnan')-mean([pulselist.fstart],'omitnan'));
+%             if isempty(bw_found)
+%                 bw_found = 100;
+%                 if coder.target('MATLAB')
+%                     warning(['UAV-R: No bandwidth could be calculated ',... 
+%                          'from the start and stop frequencies of the ',...
+%                          'identified pulses. A bandwidth of 100 Hz ',...
+%                          'will be used for continued informed search.'])
+%                 end
+%             end
+%             
+%             %Here is where we update the stats. These methods of updates
+%             %could be improved in the future. 
+%             %obj.ps_pre.t_p; %tp doesn't change. We assume it is stationary
+%             
+%             if numel(pulselist)==1% Happens if K=1
+%                 %We only have one pulse to reference, so we need to check
+%                 %the prior pulse too. 
+%                 if ~isempty(obj.ps_pre.pl) && ~isnan(obj.ps_pre.pl(end).t_0)
+%                     recent_tip = pulselist.t_0-obj.ps_pre.pl(end).t_0;
+%                     %There could be a case where the last segment and this
+%                     %segement identified the same pulse. In this case
+%                     %recent_tip will be very small. In this case, we just
+%                     %say we learned nothing about t_ip in this segment. 
+%                     if recent_tip < obj.ps_pre.t_ipu + obj.ps_pre.t_ipJ
+%                         recent_tip = NaN;
+%                     end
+%                 else
+%                     %No new information because we don't know the last 
+%                     %pulse time
+%                     recent_tip = NaN;
+%                 end
+%             else
+%                 recent_tip = diff(t_found);
+%             end
+%             %Do a check here to make sure the new tip isn't a huge change.
+%             %This could potentially happen if we are in the K = 1 case and
+%             %the block getting processed contained two pulses, with the
+%             %latter pulse getting identified/detected. The lines above
+%             %would look back to the last identified pulse and it might be
+%             %2*tip back in time, producing a very large recenttip values.
+%             %If something like this happens, we ignore it so it doesn't
+%             %affect our new tip estimates. 
+%             if recent_tip > 1.5*obj.ps_pre.t_ip & recent_tip < 0.5*obj.ps_pre.t_ip
+%                 recent_tip = NaN;
+%             end
+%             
+%             %Only update time parameters if we are in tracking mode. If we
+%             %aren't, we may have identified somethign that isn't a pulse
+%             if strcmp(obj.ps_pos.mode,'T') || strcmp(obj.ps_pre.mode,'T')
+%                 obj.ps_pos.t_ip  = mean([recent_tip;obj.ps_pre.t_ip],'omitnan');
+%                 obj.ps_pos.t_ipu = obj.ps_pre.t_ipu; %Don't update this because it can get too narrow.%mean([3*std(diff(t_found));obj.ps_pre.t_ipu]);
+%                 obj.ps_pos.t_ipj = obj.ps_pre.t_ipj;
+%             end
+%             fp_pos           = freq_found;%nanmean([freq_found;obj.ps_pre.fp]);%Previous fc may be nan if unknown
+%             obj.ps_pos.fp    = fp_pos;
+%             obj.ps_pos.fstart = fp_pos-bw_found/2;
+%             obj.ps_pos.fend   = fp_pos+bw_found/2;
+%             
+%             obj.ps_pos.psdHist = obj.stft.psd
+%         end
+        

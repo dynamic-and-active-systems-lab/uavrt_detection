@@ -5,7 +5,7 @@
 // File: function_handle.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 14-Sep-2023 07:49:36
+// C/C++ source code generated on  : 15-Sep-2023 09:39:56
 //
 
 // Include Files
@@ -69,15 +69,17 @@ boolean_T binary_expand_op(const coder::array<double, 1U> &in1,
 //
 // Arguments    : const coder::array<boolean_T, 1U> &in1
 //                const coder::array<boolean_T, 1U> &in2
-// Return Type  : void
+// Return Type  : boolean_T
 //
-void h_binary_expand_op(const coder::array<boolean_T, 1U> &in1,
-                        const coder::array<boolean_T, 1U> &in2)
+boolean_T h_binary_expand_op(const coder::array<boolean_T, 1U> &in1,
+                             const coder::array<boolean_T, 1U> &in2)
 {
   coder::array<boolean_T, 1U> b_in1;
   int loop_ub;
   int stride_0_0;
   int stride_1_0;
+  boolean_T exitg1;
+  boolean_T out1;
   if (in2.size(0) == 1) {
     loop_ub = in1.size(0);
   } else {
@@ -89,9 +91,21 @@ void h_binary_expand_op(const coder::array<boolean_T, 1U> &in1,
   for (int i{0}; i < loop_ub; i++) {
     b_in1[i] = (in1[i * stride_0_0] && in2[i * stride_1_0]);
   }
+  out1 = false;
   if (b_in1.size(0) > 2147483646) {
     coder::check_forloop_overflow_error();
   }
+  loop_ub = 1;
+  exitg1 = false;
+  while ((!exitg1) && (loop_ub <= b_in1.size(0))) {
+    if (b_in1[loop_ub - 1]) {
+      out1 = true;
+      exitg1 = true;
+    } else {
+      loop_ub++;
+    }
+  }
+  return out1;
 }
 
 //

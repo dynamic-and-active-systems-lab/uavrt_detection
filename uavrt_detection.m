@@ -507,6 +507,27 @@ previousToc = toc;
                         fprintf('Finding pulses...')
 fprintf('PROCESSING IN %s MODE \n', mode)
                         fprintf('====================================\n')
+fprintf('First 5 entries of the real data block being processed are:\n')
+for i = 1:5
+fprintf('%f,',real(X.x(i)))
+end
+fprintf('\n')
+fprintf('First 5 entries of the imaginary data block being processed are:\n')
+for i = 1:5
+fprintf('%f,',imag(X.x(i)))
+end
+fprintf('\n')
+
+fprintf('Last 5 entries of the real data block being processed are:\n')
+for i = numel(X.x)-5:numel(X.x)
+fprintf('%f,',real(X.x(i)))
+end
+fprintf('\n')
+fprintf('Last 5 entries of the imaginary data block being processed are:\n')
+for i = numel(X.x)-5:numel(X.x)
+fprintf('%f,',imag(X.x(i)))
+end
+fprintf('\n')
                         X.process(mode, 'most', Config.excldFreqs)
                         fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
 
@@ -552,6 +573,7 @@ fprintf('PROCESSING IN %s MODE \n', mode)
 
 %tic
 previousToc = toc;
+
                         %Prepare priori for next segment
                         fprintf('Updating priori...\n')
                         ps_pre_struc.t_p   = X.ps_pos.t_p;
