@@ -5,7 +5,7 @@
 // File: waveform.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Sep-2023 12:46:31
+// C/C++ source code generated on  : 21-Sep-2023 14:06:08
 //
 
 // Include Files
@@ -6802,9 +6802,9 @@ void waveform::process(char mode, const coder::array<double, 2U>
   coder::array<double, 1U> pk_ind;
   coder::array<char, 2U> varargin_1;
   coder::array<boolean_T, 2U> b_varargin_1;
+  coder::array<boolean_T, 2U> conflog;
   coder::array<boolean_T, 2U> msk;
   coder::array<boolean_T, 1U> c_varargin_1;
-  coder::array<boolean_T, 1U> conflog;
   coder::array<boolean_T, 1U> r;
   c_struct_T _in;
   double b_x;
@@ -7493,7 +7493,7 @@ void waveform::process(char mode, const coder::array<double, 2U>
       obj->cpki[i] = pk_ind[i];
     }
 
-    conflog.set_size(1);
+    conflog.set_size(1, 1);
     conflog[0] = false;
 
     // Set to all false. Needed
@@ -7510,7 +7510,9 @@ void waveform::process(char mode, const coder::array<double, 2U>
       confirmpulses(this, conflog);
 
       // [minstartlog', maxstartlog', freqInBand', conflog']
-      have_priori_freq_band = coder::internal::allOrAny_anonFcn1(conflog);
+      b_index = conflog.size(0);
+      c_varargin_1 = conflog.reshape(b_index);
+      have_priori_freq_band = coder::internal::allOrAny_anonFcn1(c_varargin_1);
       if (have_priori_freq_band) {
         //  	Confirmed?
         //  		True -> Confirmation = True
@@ -7772,7 +7774,9 @@ void waveform::process(char mode, const coder::array<double, 2U>
       confirmpulses(this, conflog);
 
       // [minstartlog', maxstartlog', freqInBand', conflog']
-      have_priori_freq_band = coder::internal::allOrAny_anonFcn1(conflog);
+      b_index = conflog.size(0);
+      c_varargin_1 = conflog.reshape(b_index);
+      have_priori_freq_band = coder::internal::allOrAny_anonFcn1(c_varargin_1);
       if (have_priori_freq_band) {
         //  	Confirmed?
         //  		True -> Confirmation = True
