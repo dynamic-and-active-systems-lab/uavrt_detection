@@ -5,7 +5,7 @@
 // File: sum.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 21-Sep-2023 14:06:08
+// C/C++ source code generated on  : 23-Sep-2023 21:32:11
 //
 
 // Include Files
@@ -66,7 +66,7 @@ void sum(const sparse &x, b_sparse &y)
     y.d.set_size(u1);
     y.rowidx.set_size(u1);
     if (x.n + 1 < 0) {
-      rtNonNegativeError(static_cast<double>(x.n + 1), m_emlrtDCI);
+      rtNonNegativeError(static_cast<double>(x.n + 1), n_emlrtDCI);
     }
     y.colidx.set_size(x.n + 1);
     y.colidx[0] = 1;

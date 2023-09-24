@@ -5,7 +5,7 @@
 // File: FFTImplementationCallback.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 21-Sep-2023 14:06:08
+// C/C++ source code generated on  : 23-Sep-2023 21:32:11
 //
 
 // Include Files
@@ -19,7 +19,7 @@
 #include <cmath>
 
 // Variable Definitions
-static rtDoubleCheckInfo j_emlrtDCI{
+static rtDoubleCheckInfo k_emlrtDCI{
     33,                     // lineNo
     28,                     // colNo
     "bluestein_setup_impl", // fName
@@ -303,7 +303,7 @@ void FFTImplementationCallback::dobluesteinfft(
   boolean_T tst;
   nInt2m1 = (nfft + nfft) - 1;
   if (nInt2m1 < 0) {
-    rtNonNegativeError(static_cast<double>(nInt2m1), j_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(nInt2m1), k_emlrtDCI);
   }
   wwc.set_size(nInt2m1);
   rt = 0;
@@ -540,7 +540,7 @@ void FFTImplementationCallback::dobluesteinfft(
   int rt;
   nInt2m1 = (nfft + nfft) - 1;
   if (nInt2m1 < 0) {
-    rtNonNegativeError(static_cast<double>(nInt2m1), j_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(nInt2m1), k_emlrtDCI);
   }
   wwc.set_size(nInt2m1);
   rt = 0;
@@ -687,7 +687,7 @@ void FFTImplementationCallback::dobluesteinfft(
   nChan = x.size(1) * x.size(2);
   nInt2m1 = (nfft + nfft) - 1;
   if (nInt2m1 < 0) {
-    rtNonNegativeError(static_cast<double>(nInt2m1), j_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(nInt2m1), k_emlrtDCI);
   }
   wwc.set_size(nInt2m1);
   rt = 0;

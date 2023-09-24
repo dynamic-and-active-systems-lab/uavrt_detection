@@ -5,7 +5,7 @@
 // File: strcmp.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 21-Sep-2023 14:06:08
+// C/C++ source code generated on  : 23-Sep-2023 21:32:11
 //
 
 // Include Files
@@ -580,6 +580,36 @@ boolean_T o_strcmp(const ::coder::array<char, 2U> &a)
     do {
       exitg1 = 0;
       if (kstr < 14) {
+        if (a[kstr] != b_cv[kstr]) {
+          exitg1 = 1;
+        } else {
+          kstr++;
+        }
+      } else {
+        b_bool = true;
+        exitg1 = 1;
+      }
+    } while (exitg1 == 0);
+  }
+  return b_bool;
+}
+
+//
+// Arguments    : const ::coder::array<char, 2U> &a
+// Return Type  : boolean_T
+//
+boolean_T p_strcmp(const ::coder::array<char, 2U> &a)
+{
+  static const char b_cv[7]{'l', 'o', 'g', 'P', 'a', 't', 'h'};
+  boolean_T b_bool;
+  b_bool = false;
+  if (a.size(1) == 7) {
+    int kstr;
+    kstr = 0;
+    int exitg1;
+    do {
+      exitg1 = 0;
+      if (kstr < 7) {
         if (a[kstr] != b_cv[kstr]) {
           exitg1 = 1;
         } else {

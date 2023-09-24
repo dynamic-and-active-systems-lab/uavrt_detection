@@ -5,7 +5,7 @@
 // File: computeDFT.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 21-Sep-2023 14:06:08
+// C/C++ source code generated on  : 23-Sep-2023 21:32:11
 //
 
 // Include Files
@@ -49,16 +49,16 @@ void computeDFT(const ::coder::array<creal32_T, 2U> &xin, double nfft,
   int offset;
   boolean_T useRadix2;
   if (!(nfft >= 0.0)) {
-    rtNonNegativeError(nfft, h_emlrtDCI);
+    rtNonNegativeError(nfft, i_emlrtDCI);
   }
   i = static_cast<int>(std::floor(nfft));
   if (nfft != i) {
-    rtIntegerError(nfft, i_emlrtDCI);
+    rtIntegerError(nfft, j_emlrtDCI);
   }
   loop_ub_tmp = static_cast<int>(nfft);
   xw.set_size(loop_ub_tmp, xin.size(1));
   if (loop_ub_tmp != i) {
-    rtIntegerError(nfft, g_emlrtDCI);
+    rtIntegerError(nfft, h_emlrtDCI);
   }
   offset = loop_ub_tmp * xin.size(1);
   for (i = 0; i < offset; i++) {

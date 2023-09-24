@@ -5,7 +5,7 @@
 // File: threshold.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 21-Sep-2023 14:06:08
+// C/C++ source code generated on  : 23-Sep-2023 21:32:11
 //
 
 // Include Files
@@ -308,7 +308,7 @@ void threshold::makenewthreshold(const waveform &Wfm)
                          &b_varargin_1[0], varargin_2, varargin_3, varargin_4,
                          varargin_5, trials);
   if (nbytes + 1 < 0) {
-    rtNonNegativeError(static_cast<double>(nbytes + 1), n_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(nbytes + 1), b_emlrtDCI);
   }
   str.set_size(1, nbytes + 1);
   std::snprintf(&str[0], (size_t)(nbytes + 1),
@@ -591,7 +591,7 @@ void threshold::makenewthreshold(const waveform &Wfm)
                            &b_varargin_1[0], varargin_2, varargin_3, varargin_4,
                            varargin_5, trials);
     if (nbytes + 1 < 0) {
-      rtNonNegativeError(static_cast<double>(nbytes + 1), n_emlrtDCI);
+      rtNonNegativeError(static_cast<double>(nbytes + 1), b_emlrtDCI);
     }
     b_str.set_size(1, nbytes + 1);
     std::snprintf(&b_str[0], (size_t)(nbytes + 1),

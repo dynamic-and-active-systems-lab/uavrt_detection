@@ -5,7 +5,7 @@
 // File: uavrt_detection_data.h
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 21-Sep-2023 14:06:08
+// C/C++ source code generated on  : 23-Sep-2023 21:32:11
 //
 
 #ifndef UAVRT_DETECTION_DATA_H
@@ -38,6 +38,7 @@ extern rtRunTimeErrorInfo n_emlrtRTEI;
 extern rtBoundsCheckInfo emlrtBCI;
 extern rtRunTimeErrorInfo r_emlrtRTEI;
 extern rtRunTimeErrorInfo s_emlrtRTEI;
+extern rtDoubleCheckInfo b_emlrtDCI;
 extern rtRunTimeErrorInfo w_emlrtRTEI;
 extern rtRunTimeErrorInfo x_emlrtRTEI;
 extern rtRunTimeErrorInfo y_emlrtRTEI;
@@ -48,9 +49,9 @@ extern rtBoundsCheckInfo l_emlrtBCI;
 extern rtBoundsCheckInfo m_emlrtBCI;
 extern rtBoundsCheckInfo n_emlrtBCI;
 extern rtBoundsCheckInfo o_emlrtBCI;
-extern rtDoubleCheckInfo g_emlrtDCI;
 extern rtDoubleCheckInfo h_emlrtDCI;
 extern rtDoubleCheckInfo i_emlrtDCI;
+extern rtDoubleCheckInfo j_emlrtDCI;
 extern rtRunTimeErrorInfo fb_emlrtRTEI;
 extern rtRunTimeErrorInfo gb_emlrtRTEI;
 extern rtEqualityCheckInfo d_emlrtECI;
@@ -67,11 +68,10 @@ extern rtRunTimeErrorInfo ub_emlrtRTEI;
 extern rtRunTimeErrorInfo vb_emlrtRTEI;
 extern rtRunTimeErrorInfo xb_emlrtRTEI;
 extern rtRunTimeErrorInfo ac_emlrtRTEI;
-extern rtDoubleCheckInfo m_emlrtDCI;
+extern rtDoubleCheckInfo n_emlrtDCI;
 extern rtRunTimeErrorInfo dc_emlrtRTEI;
 extern rtRunTimeErrorInfo ec_emlrtRTEI;
 extern rtRunTimeErrorInfo ic_emlrtRTEI;
-extern rtDoubleCheckInfo n_emlrtDCI;
 extern rtRunTimeErrorInfo nc_emlrtRTEI;
 extern rtRunTimeErrorInfo oc_emlrtRTEI;
 extern const boolean_T bv[128];

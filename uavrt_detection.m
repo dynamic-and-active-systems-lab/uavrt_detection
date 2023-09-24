@@ -96,7 +96,12 @@ dataWriterSamples             = dataWriterPacketsPerInterval*packetLength;
 asyncWriteBuff                = dsp.AsyncBuffer(600650); %600650 is the result of the nominal settings of ceil(150/(1024/4000)*1025.
 asyncWriteBuff.write(single(1+1i));%Write to give Code the type. Read to remove data.
 asyncWriteBuff.read();
-dataWriterFileID    = fopen(Config.dataRecordPath,'w');
+
+dataRecordFilename = sprintf('data_record.%d.%d.bin',int32(Config.ID),int32(Config.startIndex));
+%dataWriterFileID    = fopen(fullfile(Config.logPath,dataRecordFilename),'w');%Use this after upgrade to R2023b that supports full file
+dataWriterFileID    = fopen([char(Config.logPath),'/',char(dataRecordFilename)],'w');
+
+%dataWriterFileID    = fopen(Config.dataRecordPath,'w');
 %dataWriterFileID    = fopen('output/data.bin','w');
 if dataWriterFileID == -1
     fprintf("UAV-RT: Error opening/creating data record file with error:\n")
@@ -716,8 +721,14 @@ printpulseinfostruc(pulseInfoStruct);
                         else
                             fprintf("\n");
                         end
-                        dataRecordPathChar = char(Config.dataRecordPath);
-                        waveformRecordPath = sprintf('%s_%f_%f_.csv',dataRecordPathChar(1:end-4),startTime,X.t_0);
+                        % dataRecordPathChar = char(Config.dataRecordPath);
+                        % waveformRecordPath = sprintf('%s_%f_%f_.csv',dataRecordPathChar(1:end-4),startTime,X.t_0);
+                        % fprintf("Writing waveform record csv file: %s\n",waveformRecordPath)
+                        % wfmcsvwrite(X,Config.channelCenterFreqMHz, waveformRecordPath);
+                        
+                        spectroFileName = sprintf('spectro_segment_%d.%d.%d.csv',int32(groupSeqCounter),int32(Config.ID),int32(Config.startIndex));
+                        %waveformRecordPath =fullfile(Config.logPath,spectroFileName);%Use this after upgrade to R2023b that supports full file
+                        waveformRecordPath =[char(Config.logPath),'/',char(spectroFileName)];
                         fprintf("Writing waveform record csv file: %s\n",waveformRecordPath)
                         wfmcsvwrite(X,Config.channelCenterFreqMHz, waveformRecordPath);
                         fprintf("...complete.\n");

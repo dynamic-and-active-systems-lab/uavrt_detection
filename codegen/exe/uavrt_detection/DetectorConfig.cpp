@@ -5,7 +5,7 @@
 // File: DetectorConfig.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 21-Sep-2023 14:06:08
+// C/C++ source code generated on  : 23-Sep-2023 21:32:11
 //
 
 // Include Files
@@ -35,7 +35,8 @@ void DetectorConfig::init()
   excldFreqs[0] = rtInf;
   excldFreqs[1] = rtMinusInf;
   falseAlarmProb = 0.01;
-  dataRecordPath.Value.set_size(1, 0);
+  logPath.Value.set_size(1, 0);
+  startIndex = 1.0;
 }
 
 //

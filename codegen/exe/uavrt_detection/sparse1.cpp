@@ -5,7 +5,7 @@
 // File: sparse1.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 21-Sep-2023 14:06:08
+// C/C++ source code generated on  : 23-Sep-2023 21:32:11
 //
 
 // Include Files
@@ -726,7 +726,7 @@ void d_sparse::b_not(d_sparse &out) const
   out.d.set_size(nzmax);
   out.rowidx.set_size(nzmax);
   if (n + 1 < 0) {
-    rtNonNegativeError(static_cast<double>(n + 1), m_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(n + 1), n_emlrtDCI);
   }
   out.colidx.set_size(n + 1);
   if (larger < 1) {
@@ -1229,7 +1229,7 @@ void sparse::eyeLike(int ndiag, int b_m, int b_n, sparse &b_I)
   b_I.d.set_size(nzmax);
   b_I.rowidx.set_size(nzmax);
   if (b_n + 1 < 0) {
-    rtNonNegativeError(static_cast<double>(b_n + 1), m_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(b_n + 1), n_emlrtDCI);
   }
   b_I.colidx.set_size(b_n + 1);
   if (ndiag > 2147483646) {
@@ -1967,7 +1967,7 @@ void f_sparse::parenReference(const ::coder::array<double, 2U> &varargin_1,
   s.n = varargin_1.size(1);
   found = (varargin_1.size(1) + 1 < 0);
   if (found) {
-    rtNonNegativeError(static_cast<double>(varargin_1.size(1) + 1), m_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(varargin_1.size(1) + 1), n_emlrtDCI);
   }
   s.d.set_size(0);
   s.rowidx.set_size(0);

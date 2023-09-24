@@ -5,7 +5,7 @@
 // File: AsyncBuffercgHelper.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 21-Sep-2023 14:06:08
+// C/C++ source code generated on  : 23-Sep-2023 21:32:11
 //
 
 // Include Files
@@ -114,7 +114,7 @@ static rtBoundsCheckInfo u_emlrtBCI{
     0                        // checkKind
 };
 
-static rtDoubleCheckInfo k_emlrtDCI{
+static rtDoubleCheckInfo l_emlrtDCI{
     470,                                         // lineNo
     31,                                          // colNo
     "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
@@ -123,7 +123,7 @@ static rtDoubleCheckInfo k_emlrtDCI{
     4                        // checkKind
 };
 
-static rtDoubleCheckInfo l_emlrtDCI{
+static rtDoubleCheckInfo m_emlrtDCI{
     467,                                         // lineNo
     21,                                          // colNo
     "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
@@ -896,7 +896,7 @@ int AsyncBuffercgHelper::ReadSamplesFromBuffer(
   } else if (overlapUnderrun != 0) {
     if (overlapUnderrun == numRowsCast) {
       if (overlapUnderrun < 0) {
-        rtNonNegativeError(static_cast<double>(overlapUnderrun), l_emlrtDCI);
+        rtNonNegativeError(static_cast<double>(overlapUnderrun), m_emlrtDCI);
       }
       out.set_size(overlapUnderrun);
       for (yk = 0; yk < overlapUnderrun; yk++) {
@@ -916,7 +916,7 @@ int AsyncBuffercgHelper::ReadSamplesFromBuffer(
         yk = overlapUnderrun;
       }
       if (overlapUnderrun < 0) {
-        rtNonNegativeError(static_cast<double>(overlapUnderrun), k_emlrtDCI);
+        rtNonNegativeError(static_cast<double>(overlapUnderrun), l_emlrtDCI);
       }
       rtSubAssignSizeCheck(&yk, 1, &overlapUnderrun, 1, f_emlrtECI);
       for (yk = 0; yk < overlapUnderrun; yk++) {
@@ -1182,7 +1182,7 @@ int b_AsyncBuffercgHelper::ReadSamplesFromBuffer(
   } else if (overlapUnderrun != 0) {
     if (overlapUnderrun == numRowsCast) {
       if (overlapUnderrun < 0) {
-        rtNonNegativeError(static_cast<double>(overlapUnderrun), l_emlrtDCI);
+        rtNonNegativeError(static_cast<double>(overlapUnderrun), m_emlrtDCI);
       }
       out.set_size(overlapUnderrun);
       for (n = 0; n < overlapUnderrun; n++) {
@@ -1201,7 +1201,7 @@ int b_AsyncBuffercgHelper::ReadSamplesFromBuffer(
         n = overlapUnderrun;
       }
       if (overlapUnderrun < 0) {
-        rtNonNegativeError(static_cast<double>(overlapUnderrun), k_emlrtDCI);
+        rtNonNegativeError(static_cast<double>(overlapUnderrun), l_emlrtDCI);
       }
       rtSubAssignSizeCheck(&n, 1, &overlapUnderrun, 1, f_emlrtECI);
       for (n = 0; n < overlapUnderrun; n++) {

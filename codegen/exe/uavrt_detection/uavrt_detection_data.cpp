@@ -5,7 +5,7 @@
 // File: uavrt_detection_data.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 21-Sep-2023 14:06:08
+// C/C++ source code generated on  : 23-Sep-2023 21:32:11
 //
 
 // Include Files
@@ -120,6 +120,16 @@ rtRunTimeErrorInfo s_emlrtRTEI{
     "AsyncBuffercgHelper.m" // pName
 };
 
+rtDoubleCheckInfo
+    b_emlrtDCI{
+        12,       // lineNo
+        20,       // colNo
+        "blanks", // fName
+        "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/strfun/"
+        "blanks.m", // pName
+        4           // checkKind
+    };
+
 rtRunTimeErrorInfo w_emlrtRTEI{
     13,                 // lineNo
     37,                 // colNo
@@ -214,7 +224,7 @@ rtBoundsCheckInfo o_emlrtBCI{
     0 // checkKind
 };
 
-rtDoubleCheckInfo g_emlrtDCI{
+rtDoubleCheckInfo h_emlrtDCI{
     81,                 // lineNo
     1,                  // colNo
     "computeDFTviaFFT", // fName
@@ -223,7 +233,7 @@ rtDoubleCheckInfo g_emlrtDCI{
     1               // checkKind
 };
 
-rtDoubleCheckInfo h_emlrtDCI{
+rtDoubleCheckInfo i_emlrtDCI{
     81,                 // lineNo
     12,                 // colNo
     "computeDFTviaFFT", // fName
@@ -232,7 +242,7 @@ rtDoubleCheckInfo h_emlrtDCI{
     4               // checkKind
 };
 
-rtDoubleCheckInfo i_emlrtDCI{
+rtDoubleCheckInfo j_emlrtDCI{
     81,                 // lineNo
     12,                 // colNo
     "computeDFTviaFFT", // fName
@@ -378,7 +388,7 @@ rtRunTimeErrorInfo ac_emlrtRTEI{
     "+internal/@sparse/sparse.m" // pName
 };
 
-rtDoubleCheckInfo m_emlrtDCI{
+rtDoubleCheckInfo n_emlrtDCI{
     1501,                  // lineNo
     44,                    // colNo
     "sparse/nullcopyLike", // fName
@@ -410,16 +420,6 @@ rtRunTimeErrorInfo
         "sub2ind", // fName
         "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
         "sub2ind.m" // pName
-    };
-
-rtDoubleCheckInfo
-    n_emlrtDCI{
-        12,       // lineNo
-        20,       // colNo
-        "blanks", // fName
-        "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/strfun/"
-        "blanks.m", // pName
-        4           // checkKind
     };
 
 rtRunTimeErrorInfo nc_emlrtRTEI{

@@ -5,7 +5,7 @@
 // File: stft.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 21-Sep-2023 14:06:08
+// C/C++ source code generated on  : 23-Sep-2023 21:32:11
 //
 
 // Include Files
@@ -65,7 +65,7 @@ static rtBoundsCheckInfo e_emlrtBCI{
     0                         // checkKind
 };
 
-static rtDoubleCheckInfo b_emlrtDCI{
+static rtDoubleCheckInfo c_emlrtDCI{
     23,               // lineNo
     42,               // colNo
     "getSTFTColumns", // fName
@@ -86,7 +86,7 @@ static rtBoundsCheckInfo f_emlrtBCI{
     0                         // checkKind
 };
 
-static rtDoubleCheckInfo c_emlrtDCI{
+static rtDoubleCheckInfo d_emlrtDCI{
     23,               // lineNo
     23,               // colNo
     "getSTFTColumns", // fName
@@ -155,7 +155,7 @@ static rtBoundsCheckInfo j_emlrtBCI{
     0                                                               // checkKind
 };
 
-static rtDoubleCheckInfo d_emlrtDCI{
+static rtDoubleCheckInfo e_emlrtDCI{
     14,               // lineNo
     30,               // colNo
     "getSTFTColumns", // fName
@@ -164,7 +164,7 @@ static rtDoubleCheckInfo d_emlrtDCI{
     1                         // checkKind
 };
 
-static rtDoubleCheckInfo e_emlrtDCI{
+static rtDoubleCheckInfo f_emlrtDCI{
     14,               // lineNo
     30,               // colNo
     "getSTFTColumns", // fName
@@ -173,7 +173,7 @@ static rtDoubleCheckInfo e_emlrtDCI{
     4                         // checkKind
 };
 
-static rtDoubleCheckInfo f_emlrtDCI{
+static rtDoubleCheckInfo g_emlrtDCI{
     14,               // lineNo
     5,                // colNo
     "getSTFTColumns", // fName
@@ -367,15 +367,15 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
   nCol = std::trunc((static_cast<double>(x.size(1)) - varargin_5) / hopSize);
   xin.set_size(varargin_3.size(0), xin.size(1));
   if (!(nCol >= 0.0)) {
-    rtNonNegativeError(nCol, e_emlrtDCI);
+    rtNonNegativeError(nCol, f_emlrtDCI);
   }
   if (nCol != static_cast<int>(nCol)) {
-    rtIntegerError(nCol, d_emlrtDCI);
+    rtIntegerError(nCol, e_emlrtDCI);
   }
   i = static_cast<int>(nCol);
   xin.set_size(xin.size(0), static_cast<int>(nCol));
   if (nCol != static_cast<int>(nCol)) {
-    rtIntegerError(nCol, f_emlrtDCI);
+    rtIntegerError(nCol, g_emlrtDCI);
   }
   bcoef = varargin_3.size(0) * static_cast<int>(nCol);
   for (i1 = 0; i1 < bcoef; i1++) {
@@ -400,7 +400,7 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
       i2 = 0;
     } else {
       if (nCol + 1.0 != static_cast<int>(std::floor(nCol + 1.0))) {
-        rtIntegerError(nCol + 1.0, c_emlrtDCI);
+        rtIntegerError(nCol + 1.0, d_emlrtDCI);
       }
       if ((static_cast<int>(nCol + 1.0) < 1) ||
           (static_cast<int>(nCol + 1.0) > x.size(1))) {
@@ -409,7 +409,7 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
       }
       i1 = static_cast<int>(nCol + 1.0);
       if (d != static_cast<int>(std::floor(d))) {
-        rtIntegerError(d, b_emlrtDCI);
+        rtIntegerError(d, c_emlrtDCI);
       }
       if ((static_cast<int>(d) < 1) || (static_cast<int>(d) > x.size(1))) {
         rtDynamicBoundsError(static_cast<int>(d), 1, x.size(1), e_emlrtBCI);
@@ -614,15 +614,15 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
                     hopSize);
   xin.set_size(varargin_3.size(0), xin.size(1), xin.size(2));
   if (!(nCol >= 0.0)) {
-    rtNonNegativeError(nCol, e_emlrtDCI);
+    rtNonNegativeError(nCol, f_emlrtDCI);
   }
   if (nCol != static_cast<int>(nCol)) {
-    rtIntegerError(nCol, d_emlrtDCI);
+    rtIntegerError(nCol, e_emlrtDCI);
   }
   i = static_cast<int>(nCol);
   xin.set_size(xin.size(0), static_cast<int>(nCol), wrappedData.size(1));
   if (nCol != static_cast<int>(nCol)) {
-    rtIntegerError(nCol, f_emlrtDCI);
+    rtIntegerError(nCol, g_emlrtDCI);
   }
   loop_ub = varargin_3.size(0) * static_cast<int>(nCol) * wrappedData.size(1);
   for (i1 = 0; i1 < loop_ub; i1++) {
@@ -651,7 +651,7 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
       i2 = 0;
     } else {
       if (nCol + 1.0 != static_cast<int>(std::floor(nCol + 1.0))) {
-        rtIntegerError(nCol + 1.0, c_emlrtDCI);
+        rtIntegerError(nCol + 1.0, d_emlrtDCI);
       }
       if ((static_cast<int>(nCol + 1.0) < 1) ||
           (static_cast<int>(nCol + 1.0) > wrappedData.size(0))) {
@@ -660,7 +660,7 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
       }
       i1 = static_cast<int>(nCol + 1.0) - 1;
       if (d != static_cast<int>(std::floor(d))) {
-        rtIntegerError(d, b_emlrtDCI);
+        rtIntegerError(d, c_emlrtDCI);
       }
       if ((static_cast<int>(d) < 1) ||
           (static_cast<int>(d) > wrappedData.size(0))) {
@@ -738,16 +738,16 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
     }
   }
   if (!(varargin_7 >= 0.0)) {
-    rtNonNegativeError(varargin_7, h_emlrtDCI);
+    rtNonNegativeError(varargin_7, i_emlrtDCI);
   }
   i = static_cast<int>(std::floor(varargin_7));
   if (varargin_7 != i) {
-    rtIntegerError(varargin_7, i_emlrtDCI);
+    rtIntegerError(varargin_7, j_emlrtDCI);
   }
   csz_idx_0 = static_cast<int>(varargin_7);
   xin.set_size(csz_idx_0, b_c.size(1), b_c.size(2));
   if (csz_idx_0 != i) {
-    rtIntegerError(varargin_7, g_emlrtDCI);
+    rtIntegerError(varargin_7, h_emlrtDCI);
   }
   loop_ub = csz_idx_0 * b_c.size(1) * b_c.size(2);
   for (i = 0; i < loop_ub; i++) {
