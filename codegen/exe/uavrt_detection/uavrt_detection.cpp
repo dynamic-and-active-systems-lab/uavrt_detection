@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 11:48:59
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 // Include Files
@@ -1373,9 +1373,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   double trackedCount;
   int currDir_size[2];
   int i;
-  int n;
+  int loop_ub;
+  int nPulseList;
   int nbytes;
-  int pulseCount;
   unsigned int u1;
   int val;
   unsigned short u2;
@@ -1395,8 +1395,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
     uavrt_detection_initialize();
   }
   b_configPath.contents.set_size(1, configPath.size(1));
-  n = configPath.size(1);
-  for (i = 0; i < n; i++) {
+  loop_ub = configPath.size(1);
+  for (i = 0; i < loop_ub; i++) {
     b_configPath.contents[i] = configPath[i];
   }
   //  configPath            - Fully qualified path to detect config file
@@ -1406,8 +1406,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   // Needed for usleep function in generated code
   //  coder.cinclude('stdlib.h')%needed for system call to kill the channelizer
   globalThresholdCachePath.set_size(1, thresholdCachePath.size(1));
-  n = thresholdCachePath.size(1);
-  for (i = 0; i < n; i++) {
+  loop_ub = thresholdCachePath.size(1);
+  for (i = 0; i < loop_ub; i++) {
     globalThresholdCachePath[i] = thresholdCachePath[i];
   }
   Config.contents.init();
@@ -1441,8 +1441,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
     coder::b_strtok(untokenizedDir, currDir_data, currDir_size);
   }
   dataRecordFilename.set_size(1, currDir_size[1] + 1);
-  n = currDir_size[1];
-  for (i = 0; i < n; i++) {
+  loop_ub = currDir_size[1];
+  for (i = 0; i < loop_ub; i++) {
     dataRecordFilename[i] = currDir_data[i];
   }
   dataRecordFilename[currDir_size[1]] = '\x00';
@@ -1533,22 +1533,22 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   d1 = std::round(Config.contents.startIndex);
   if (d1 < 2.147483648E+9) {
     if (d1 >= -2.147483648E+9) {
-      pulseCount = static_cast<int>(d1);
+      nPulseList = static_cast<int>(d1);
     } else {
-      pulseCount = MIN_int32_T;
+      nPulseList = MIN_int32_T;
     }
   } else if (d1 >= 2.147483648E+9) {
-    pulseCount = MAX_int32_T;
+    nPulseList = MAX_int32_T;
   } else {
-    pulseCount = 0;
+    nPulseList = 0;
   }
-  nbytes = std::snprintf(nullptr, 0, "data_record.%d.%d.bin", i, pulseCount);
+  nbytes = std::snprintf(nullptr, 0, "data_record.%d.%d.bin", i, nPulseList);
   if (nbytes + 1 < 0) {
     rtNonNegativeError(static_cast<double>(nbytes + 1), b_emlrtDCI);
   }
   dataRecordFilename.set_size(1, nbytes + 1);
   std::snprintf(&dataRecordFilename[0], (size_t)(nbytes + 1),
-                "data_record.%d.%d.bin", i, pulseCount);
+                "data_record.%d.%d.bin", i, nPulseList);
   if (nbytes < 1) {
     nbytes = 0;
   }
@@ -1559,13 +1559,13 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   waveformRecordPath.set_size(
       1,
       (Config.contents.logPath.Value.size(1) + dataRecordFilename.size(1)) + 1);
-  n = Config.contents.logPath.Value.size(1);
-  for (i = 0; i < n; i++) {
+  loop_ub = Config.contents.logPath.Value.size(1);
+  for (i = 0; i < loop_ub; i++) {
     waveformRecordPath[i] = Config.contents.logPath.Value[i];
   }
   waveformRecordPath[Config.contents.logPath.Value.size(1)] = '/';
-  n = dataRecordFilename.size(1);
-  for (i = 0; i < n; i++) {
+  loop_ub = dataRecordFilename.size(1);
+  for (i = 0; i < loop_ub; i++) {
     waveformRecordPath[(i + Config.contents.logPath.Value.size(1)) + 1] =
         dataRecordFilename[i];
   }
@@ -1754,9 +1754,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         if (missingSamples != static_cast<int>(missingSamples)) {
           rtIntegerError(missingSamples, s_emlrtDCI);
         }
-        n = static_cast<int>(missingSamples);
+        loop_ub = static_cast<int>(missingSamples);
         r.set_size(static_cast<int>(missingSamples));
-        for (i = 0; i < n; i++) {
+        for (i = 0; i < loop_ub; i++) {
           r[i].re = 0U;
           r[i].im = 0U;
         }
@@ -1765,7 +1765,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
                           g_emlrtECI);
         }
         b_iqDataToWrite.set_size(static_cast<int>(missingSamples) + 1023);
-        for (i = 0; i < n; i++) {
+        for (i = 0; i < loop_ub; i++) {
           b_iqDataToWrite[i].re = 0.0F;
           b_iqDataToWrite[i].im = static_cast<signed char>(r[i].im);
         }
@@ -1774,8 +1774,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
               dataReceived_data[i + 1];
         }
         iqDataToWrite.set_size(b_iqDataToWrite.size(0), 1);
-        n = b_iqDataToWrite.size(0);
-        for (i = 0; i < n; i++) {
+        loop_ub = b_iqDataToWrite.size(0);
+        for (i = 0; i < loop_ub; i++) {
           iqDataToWrite[i] = b_iqDataToWrite[i];
         }
       } else if (((timeDiff >= t9_t_f) && (timeDiff >= Config.contents.tip)) ||
@@ -1790,19 +1790,19 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       }
     }
     nbytes = iqDataToWrite.size(0) * iqDataToWrite.size(1);
-    n = nbytes - 1;
+    loop_ub = nbytes - 1;
     if (nbytes - 1 < 0) {
       groupSNRList.set_size(1, 0);
     } else {
       groupSNRList.set_size(1, nbytes);
-      for (i = 0; i <= n; i++) {
+      for (i = 0; i <= loop_ub; i++) {
         groupSNRList[i] = i;
       }
     }
     missingSamples = 1.0 / Config.contents.Fs;
     timeVector.set_size(groupSNRList.size(1));
-    n = groupSNRList.size(1);
-    for (i = 0; i < n; i++) {
+    loop_ub = groupSNRList.size(1);
+    for (i = 0; i < loop_ub; i++) {
       timeVector[i] = timeStamp + missingSamples * groupSNRList[i];
     }
     expectedNextTimeStamp = timeStamp + missingSamples * 1023.0;
@@ -1886,42 +1886,42 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
     if ((asyncWriteBuff.pBuffer.WritePointer >= 0) &&
         (asyncWriteBuff.pBuffer.ReadPointer <
          asyncWriteBuff.pBuffer.WritePointer - MAX_int32_T)) {
-      n = MAX_int32_T;
+      nbytes = MAX_int32_T;
     } else if ((asyncWriteBuff.pBuffer.WritePointer < 0) &&
                (asyncWriteBuff.pBuffer.ReadPointer >
                 asyncWriteBuff.pBuffer.WritePointer - MIN_int32_T)) {
-      n = MIN_int32_T;
+      nbytes = MIN_int32_T;
     } else {
-      n = asyncWriteBuff.pBuffer.WritePointer -
-          asyncWriteBuff.pBuffer.ReadPointer;
+      nbytes = asyncWriteBuff.pBuffer.WritePointer -
+               asyncWriteBuff.pBuffer.ReadPointer;
     }
-    if (n < -2147483647) {
-      n = MIN_int32_T;
+    if (nbytes < -2147483647) {
+      nbytes = MIN_int32_T;
     } else {
-      n--;
+      nbytes--;
     }
     if (asyncWriteBuff.pBuffer.ReadPointer < -2146882997) {
-      nbytes = MAX_int32_T;
+      loop_ub = MAX_int32_T;
     } else {
-      nbytes = 600650 - asyncWriteBuff.pBuffer.ReadPointer;
+      loop_ub = 600650 - asyncWriteBuff.pBuffer.ReadPointer;
     }
-    if ((nbytes < 0) &&
-        (asyncWriteBuff.pBuffer.WritePointer < MIN_int32_T - nbytes)) {
-      nbytes = MIN_int32_T;
-    } else if ((nbytes > 0) &&
-               (asyncWriteBuff.pBuffer.WritePointer > MAX_int32_T - nbytes)) {
-      nbytes = MAX_int32_T;
+    if ((loop_ub < 0) &&
+        (asyncWriteBuff.pBuffer.WritePointer < MIN_int32_T - loop_ub)) {
+      loop_ub = MIN_int32_T;
+    } else if ((loop_ub > 0) &&
+               (asyncWriteBuff.pBuffer.WritePointer > MAX_int32_T - loop_ub)) {
+      loop_ub = MAX_int32_T;
     } else {
-      nbytes += asyncWriteBuff.pBuffer.WritePointer;
+      loop_ub += asyncWriteBuff.pBuffer.WritePointer;
     }
     if (asyncWriteBuff.pBuffer.ReadPointer <
         asyncWriteBuff.pBuffer.WritePointer) {
-      nbytes = n;
+      loop_ub = nbytes;
     } else if (asyncWriteBuff.pBuffer.ReadPointer ==
                asyncWriteBuff.pBuffer.WritePointer) {
-      nbytes = 600650;
+      loop_ub = 600650;
     }
-    if (nbytes >= dataWriterSamples) {
+    if (loop_ub >= dataWriterSamples) {
       asyncWriteBuff.read(dataWriterBuffData);
       if (fileid != -1) {
         interleaveComplexVector(dataWriterBuffData, r1);
@@ -1933,42 +1933,42 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
     if ((asyncDataBuff.pBuffer.WritePointer >= 0) &&
         (asyncDataBuff.pBuffer.ReadPointer <
          asyncDataBuff.pBuffer.WritePointer - MAX_int32_T)) {
-      n = MAX_int32_T;
+      nbytes = MAX_int32_T;
     } else if ((asyncDataBuff.pBuffer.WritePointer < 0) &&
                (asyncDataBuff.pBuffer.ReadPointer >
                 asyncDataBuff.pBuffer.WritePointer - MIN_int32_T)) {
-      n = MIN_int32_T;
+      nbytes = MIN_int32_T;
     } else {
-      n = asyncDataBuff.pBuffer.WritePointer -
-          asyncDataBuff.pBuffer.ReadPointer;
+      nbytes = asyncDataBuff.pBuffer.WritePointer -
+               asyncDataBuff.pBuffer.ReadPointer;
     }
-    if (n < -2147483647) {
-      n = MIN_int32_T;
+    if (nbytes < -2147483647) {
+      nbytes = MIN_int32_T;
     } else {
-      n--;
+      nbytes--;
     }
     if (asyncDataBuff.pBuffer.ReadPointer < -2141683327) {
-      nbytes = MAX_int32_T;
+      loop_ub = MAX_int32_T;
     } else {
-      nbytes = 5800320 - asyncDataBuff.pBuffer.ReadPointer;
+      loop_ub = 5800320 - asyncDataBuff.pBuffer.ReadPointer;
     }
-    if ((nbytes < 0) &&
-        (asyncDataBuff.pBuffer.WritePointer < MIN_int32_T - nbytes)) {
-      nbytes = MIN_int32_T;
-    } else if ((nbytes > 0) &&
-               (asyncDataBuff.pBuffer.WritePointer > MAX_int32_T - nbytes)) {
-      nbytes = MAX_int32_T;
+    if ((loop_ub < 0) &&
+        (asyncDataBuff.pBuffer.WritePointer < MIN_int32_T - loop_ub)) {
+      loop_ub = MIN_int32_T;
+    } else if ((loop_ub > 0) &&
+               (asyncDataBuff.pBuffer.WritePointer > MAX_int32_T - loop_ub)) {
+      loop_ub = MAX_int32_T;
     } else {
-      nbytes += asyncDataBuff.pBuffer.WritePointer;
+      loop_ub += asyncDataBuff.pBuffer.WritePointer;
     }
     if (asyncDataBuff.pBuffer.ReadPointer <
         asyncDataBuff.pBuffer.WritePointer) {
-      nbytes = n;
+      loop_ub = nbytes;
     } else if (asyncDataBuff.pBuffer.ReadPointer ==
                asyncDataBuff.pBuffer.WritePointer) {
-      nbytes = 5800320;
+      loop_ub = 5800320;
     }
-    if (nbytes >= sampsForKPulses.contents + overlapSamples.contents) {
+    if (loop_ub >= sampsForKPulses.contents + overlapSamples.contents) {
       double processingStartToc;
       t9_t_f = std::round(sampsForKPulses.contents);
       if (t9_t_f < 4.294967296E+9) {
@@ -2035,8 +2035,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       // this case. Skip the processing and clear the buffer.
       coder::diff(t, timeVector);
       b_timeVector.set_size(timeVector.size(0));
-      n = timeVector.size(0);
-      for (i = 0; i < n; i++) {
+      loop_ub = timeVector.size(0);
+      for (i = 0; i < loop_ub; i++) {
         b_timeVector[i] = timeVector[i] - missingSamples;
       }
       missingSamples =
@@ -2051,7 +2051,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       } else {
         float validatedHoleFilling_idx_0;
         unsigned int validatedHoleFilling[3];
-        int j;
+        int pulseCount;
         unsigned int varargin_3;
         char varargin_1[2];
         if (t.size(0) < 1) {
@@ -2184,15 +2184,15 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         std::printf("complete. Elapsed time: %f seconds \n", timeStamp);
         std::fflush(stdout);
         if (suggestedMode == 'S') {
-          n = 0;
+          nbytes = 0;
         } else if (suggestedMode == 'C') {
-          n = 1;
+          nbytes = 1;
         } else if (suggestedMode == 'T') {
-          n = 2;
+          nbytes = 2;
         } else {
-          n = -1;
+          nbytes = -1;
         }
-        switch (n) {
+        switch (nbytes) {
         case 0:
           if (fLock) {
             mode = 'I';
@@ -2303,15 +2303,15 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             "Last 5 entries of the real data block being processed are:\n");
         std::fflush(stdout);
         i = b_X.x.size(1) - 5;
-        pulseCount = b_X.x.size(1);
-        pulseCount -= i;
-        for (int b_i{0}; b_i <= pulseCount; b_i++) {
-          j = b_X.x.size(1);
-          n = i + b_i;
-          if ((n < 1) || (n > j)) {
-            rtDynamicBoundsError(n, 1, j, db_emlrtBCI);
+        nPulseList = b_X.x.size(1);
+        nPulseList -= i;
+        for (int b_i{0}; b_i <= nPulseList; b_i++) {
+          nbytes = b_X.x.size(1);
+          loop_ub = i + b_i;
+          if ((loop_ub < 1) || (loop_ub > nbytes)) {
+            rtDynamicBoundsError(loop_ub, 1, nbytes, db_emlrtBCI);
           }
-          validatedHoleFilling_idx_0 = b_X.x[n - 1].re;
+          validatedHoleFilling_idx_0 = b_X.x[loop_ub - 1].re;
           std::printf("%.8f,", validatedHoleFilling_idx_0);
           std::fflush(stdout);
         }
@@ -2321,15 +2321,15 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
                     "processed are:\n");
         std::fflush(stdout);
         i = b_X.x.size(1) - 5;
-        pulseCount = b_X.x.size(1);
-        pulseCount -= i;
-        for (int b_i{0}; b_i <= pulseCount; b_i++) {
-          j = b_X.x.size(1);
-          n = i + b_i;
-          if ((n < 1) || (n > j)) {
-            rtDynamicBoundsError(n, 1, j, eb_emlrtBCI);
+        nPulseList = b_X.x.size(1);
+        nPulseList -= i;
+        for (int b_i{0}; b_i <= nPulseList; b_i++) {
+          nbytes = b_X.x.size(1);
+          loop_ub = i + b_i;
+          if ((loop_ub < 1) || (loop_ub > nbytes)) {
+            rtDynamicBoundsError(loop_ub, 1, nbytes, eb_emlrtBCI);
           }
-          validatedHoleFilling_idx_0 = b_X.x[n - 1].im;
+          validatedHoleFilling_idx_0 = b_X.x[loop_ub - 1].im;
           std::printf("%.8f,", validatedHoleFilling_idx_0);
           std::fflush(stdout);
         }
@@ -2361,11 +2361,11 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         // suggested mode
         suggestedMode = b_X.ps_pos->mode;
         ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
-        n = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
-        for (i = 0; i <= n; i++) {
+        loop_ub = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
+        for (i = 0; i <= loop_ub; i++) {
           ps_pre_struc_pl[i] = b_X.ps_pos->pl[i];
         }
-        n = ps_pre_struc_pl.size(1);
+        nbytes = ps_pre_struc_pl.size(1);
         if (ps_pre_struc_pl.size(1) == 0) {
           i = 0;
         } else {
@@ -2375,7 +2375,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         if (ps_pre_struc_pl.size(1) > 2147483646) {
           coder::check_forloop_overflow_error();
         }
-        for (int b_i{0}; b_i < n; b_i++) {
+        for (int b_i{0}; b_i < nbytes; b_i++) {
           pulsesToSkip[b_i] = ps_pre_struc_pl[b_i].con_dec;
         }
         coder::all(pulsesToSkip, r2);
@@ -2399,16 +2399,16 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         if (coder::internal::ifWhileCond(r2) &&
             ((mode == 'C') || (mode == 'T'))) {
           ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
-          n = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
-          for (i = 0; i <= n; i++) {
+          loop_ub = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
+          for (i = 0; i <= loop_ub; i++) {
             ps_pre_struc_pl[i] = b_X.ps_pos->pl[i];
           }
           b_X.ps_pos->updateposteriori(b_X.ps_pre, ps_pre_struc_pl);
           if (trackedCount > 5.0) {
             trackedCount = 0.0;
             ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
-            n = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
-            for (i = 0; i <= n; i++) {
+            loop_ub = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
+            for (i = 0; i <= loop_ub; i++) {
               ps_pre_struc_pl[i] = b_X.ps_pos->pl[i];
             }
             b_X.ps_pos->b_updateposteriori(b_X.ps_pre, ps_pre_struc_pl);
@@ -2468,26 +2468,26 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         ps_pre_struc_tmplt[1] = b_X.ps_pos->tmplt[1];
         mode = b_X.ps_pos->mode;
         ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
-        n = b_X.ps_pos->pl.size(1);
-        for (i = 0; i < n; i++) {
+        loop_ub = b_X.ps_pos->pl.size(1);
+        for (i = 0; i < loop_ub; i++) {
           ps_pre_struc_pl[i] = b_X.ps_pos->pl[i];
         }
         ps_pre_struc_clst.set_size(b_X.ps_pos->clst.size(0),
                                    b_X.ps_pos->clst.size(1));
-        n = b_X.ps_pos->clst.size(0) * b_X.ps_pos->clst.size(1);
-        for (i = 0; i < n; i++) {
+        loop_ub = b_X.ps_pos->clst.size(0) * b_X.ps_pos->clst.size(1);
+        for (i = 0; i < loop_ub; i++) {
           ps_pre_struc_clst[i] = b_X.ps_pos->clst[i];
         }
         ps_pre_struc_cmsk.set_size(b_X.ps_pos->cmsk.size(0),
                                    b_X.ps_pos->cmsk.size(1));
-        n = b_X.ps_pos->cmsk.size(0) * b_X.ps_pos->cmsk.size(1);
-        for (i = 0; i < n; i++) {
+        loop_ub = b_X.ps_pos->cmsk.size(0) * b_X.ps_pos->cmsk.size(1);
+        for (i = 0; i < loop_ub; i++) {
           ps_pre_struc_cmsk[i] = b_X.ps_pos->cmsk[i];
         }
         ps_pre_struc_cpki.set_size(b_X.ps_pos->cpki.size(0),
                                    b_X.ps_pos->cpki.size(1));
-        n = b_X.ps_pos->cpki.size(0) * b_X.ps_pos->cpki.size(1);
-        for (i = 0; i < n; i++) {
+        loop_ub = b_X.ps_pos->cpki.size(0) * b_X.ps_pos->cpki.size(1);
+        for (i = 0; i < loop_ub; i++) {
           ps_pre_struc_cpki[i] = b_X.ps_pos->cpki[i];
         }
         updatebufferreadvariables(Config, stftOverlapFraction, overlapSamples,
@@ -2500,24 +2500,24 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         // running record of waveforms for debugging in Matlab Xstruct =
         // obj2structrecursive(); Xhold = X;
         Xhold = waveformcopy(b_X, lobj_11, lobj_12[0], lobj_13);
-        nbytes = b_X.ps_pos->pl.size(1);
-        pulsesToSkip.set_size(1, nbytes);
-        for (i = 0; i < nbytes; i++) {
+        nPulseList = b_X.ps_pos->pl.size(1);
+        pulsesToSkip.set_size(1, nPulseList);
+        for (i = 0; i < nPulseList; i++) {
           pulsesToSkip[i] = false;
         }
         // Report pulses and check for repeat detections
         b_x.set_size(b_X.ps_pos->cpki.size(0), b_X.ps_pos->cpki.size(1));
-        n = b_X.ps_pos->cpki.size(0) * b_X.ps_pos->cpki.size(1);
-        for (i = 0; i < n; i++) {
+        loop_ub = b_X.ps_pos->cpki.size(0) * b_X.ps_pos->cpki.size(1);
+        for (i = 0; i < loop_ub; i++) {
           b_x[i] = b_X.ps_pos->cpki[i];
         }
         r3.set_size(b_x.size(0), b_x.size(1));
-        n = b_x.size(0) * b_x.size(1);
-        for (i = 0; i < n; i++) {
+        loop_ub = b_x.size(0) * b_x.size(1);
+        for (i = 0; i < loop_ub; i++) {
           r3[i] = !std::isnan(b_x[i]);
         }
         if (coder::internal::b_ifWhileCond(r3)) {
-          for (j = 0; j < nbytes; j++) {
+          for (int j{0}; j < nPulseList; j++) {
             i = b_X.ps_pos->pl.size(1);
             if (j + 1 > i) {
               rtDynamicBoundsError(j + 1, 1, i, fb_emlrtBCI);
@@ -2555,19 +2555,19 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         }
         pulseCount = 0;
         b_x.set_size(b_X.ps_pos->cpki.size(0), b_X.ps_pos->cpki.size(1));
-        n = b_X.ps_pos->cpki.size(0) * b_X.ps_pos->cpki.size(1);
-        for (i = 0; i < n; i++) {
+        loop_ub = b_X.ps_pos->cpki.size(0) * b_X.ps_pos->cpki.size(1);
+        for (i = 0; i < loop_ub; i++) {
           b_x[i] = b_X.ps_pos->cpki[i];
         }
         r3.set_size(b_x.size(0), b_x.size(1));
-        n = b_x.size(0) * b_x.size(1);
-        for (i = 0; i < n; i++) {
+        loop_ub = b_x.size(0) * b_x.size(1);
+        for (i = 0; i < loop_ub; i++) {
           r3[i] = !std::isnan(b_x[i]);
         }
         if (coder::internal::b_ifWhileCond(r3)) {
           std::printf("Transmitting pulse messages.  ");
           std::fflush(stdout);
-          if (nbytes - 1 >= 0) {
+          if (nPulseList - 1 >= 0) {
             if (d < 4.294967296E+9) {
               if (d >= 0.0) {
                 u1 = static_cast<unsigned int>(d);
@@ -2585,15 +2585,15 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
               u2 = MAX_uint16_T;
             }
           }
-          for (j = 0; j < nbytes; j++) {
+          for (int j{0}; j < nPulseList; j++) {
             unsigned short u3;
-            n = b_X.ps_pos->pl.size(1);
-            c_X.set_size(n);
-            n--;
-            for (i = 0; i <= n; i++) {
+            nbytes = b_X.ps_pos->pl.size(1);
+            c_X.set_size(nbytes);
+            loop_ub = nbytes - 1;
+            for (i = 0; i <= loop_ub; i++) {
               c_X[i] = b_X.ps_pos->pl[i];
             }
-            n = c_X.size(0);
+            nbytes = c_X.size(0);
             if (c_X.size(0) == 0) {
               i = 0;
             } else {
@@ -2603,18 +2603,18 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             if (c_X.size(0) > 2147483646) {
               coder::check_forloop_overflow_error();
             }
-            for (int b_i{0}; b_i < n; b_i++) {
+            for (int b_i{0}; b_i < nbytes; b_i++) {
               groupSNRList[b_i] = c_X[b_i].SNR;
             }
             groupSNRList.set_size(1, groupSNRList.size(1));
-            n = groupSNRList.size(1) - 1;
-            for (i = 0; i <= n; i++) {
+            loop_ub = groupSNRList.size(1) - 1;
+            for (i = 0; i <= loop_ub; i++) {
               missingSamples = groupSNRList[i] / 10.0;
               groupSNRList[i] = rt_powd_snf(10.0, missingSamples);
             }
             // Average SNR in dB
-            n = groupSNRList.size(1);
-            b_groupSNRList = groupSNRList.reshape(n);
+            nbytes = groupSNRList.size(1);
+            b_groupSNRList = groupSNRList.reshape(nbytes);
             missingSamples =
                 coder::blockedSummation(b_groupSNRList, groupSNRList.size(1)) /
                 static_cast<double>(groupSNRList.size(1));
@@ -2755,41 +2755,36 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         //  sprintf('%s_%f_%f_.csv',dataRecordPathChar(1:end-4),startTime,X.t_0);
         //  fprintf("Writing waveform record csv file: %s\n",waveformRecordPath)
         //  wfmcsvwrite(X,Config.channelCenterFreqMHz, waveformRecordPath);
-        if (groupSeqCounter < 2.147483648E+9) {
-          i = static_cast<int>(groupSeqCounter);
-        } else {
-          i = MAX_int32_T;
-        }
         if (d < 2.147483648E+9) {
           if (d >= -2.147483648E+9) {
-            pulseCount = static_cast<int>(d);
+            i = static_cast<int>(d);
           } else {
-            pulseCount = MIN_int32_T;
+            i = MIN_int32_T;
           }
         } else if (d >= 2.147483648E+9) {
-          pulseCount = MAX_int32_T;
+          i = MAX_int32_T;
         } else {
-          pulseCount = 0;
+          i = 0;
         }
         if (d1 < 2.147483648E+9) {
           if (d1 >= -2.147483648E+9) {
-            j = static_cast<int>(d1);
+            nPulseList = static_cast<int>(d1);
           } else {
-            j = MIN_int32_T;
+            nPulseList = MIN_int32_T;
           }
         } else if (d1 >= 2.147483648E+9) {
-          j = MAX_int32_T;
+          nPulseList = MAX_int32_T;
         } else {
-          j = 0;
+          nPulseList = 0;
         }
-        nbytes = std::snprintf(nullptr, 0, "spectro_segment_%d.%d.%d.csv", i,
-                               pulseCount, j);
+        nbytes = std::snprintf(nullptr, 0, "spectro_segment.%d.%d.csv", i,
+                               nPulseList);
         if (nbytes + 1 < 0) {
           rtNonNegativeError(static_cast<double>(nbytes + 1), b_emlrtDCI);
         }
         dataRecordFilename.set_size(1, nbytes + 1);
         std::snprintf(&dataRecordFilename[0], (size_t)(nbytes + 1),
-                      "spectro_segment_%d.%d.%d.csv", i, pulseCount, j);
+                      "spectro_segment.%d.%d.csv", i, nPulseList);
         if (nbytes < 1) {
           nbytes = 0;
         }
@@ -2799,19 +2794,19 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         waveformRecordPath.set_size(1, (Config.contents.logPath.Value.size(1) +
                                         dataRecordFilename.size(1)) +
                                            1);
-        n = Config.contents.logPath.Value.size(1);
-        for (i = 0; i < n; i++) {
+        loop_ub = Config.contents.logPath.Value.size(1);
+        for (i = 0; i < loop_ub; i++) {
           waveformRecordPath[i] = Config.contents.logPath.Value[i];
         }
         waveformRecordPath[Config.contents.logPath.Value.size(1)] = '/';
-        n = dataRecordFilename.size(1);
-        for (i = 0; i < n; i++) {
+        loop_ub = dataRecordFilename.size(1);
+        for (i = 0; i < loop_ub; i++) {
           waveformRecordPath[(i + Config.contents.logPath.Value.size(1)) + 1] =
               dataRecordFilename[i];
         }
         dataRecordFilename.set_size(1, waveformRecordPath.size(1) + 1);
-        n = waveformRecordPath.size(1);
-        for (i = 0; i < n; i++) {
+        loop_ub = waveformRecordPath.size(1);
+        for (i = 0; i < loop_ub; i++) {
           dataRecordFilename[i] = waveformRecordPath[i];
         }
         dataRecordFilename[waveformRecordPath.size(1)] = '\x00';

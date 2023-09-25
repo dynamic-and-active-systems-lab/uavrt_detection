@@ -677,7 +677,7 @@ printpulseinfostruc(pulseInfoStruct);
                         % fprintf("Writing waveform record csv file: %s\n",waveformRecordPath)
                         % wfmcsvwrite(X,Config.channelCenterFreqMHz, waveformRecordPath);
                         
-                        spectroFileName = sprintf('spectro_segment_%d.%d.%d.csv',int32(groupSeqCounter),int32(Config.ID),int32(Config.startIndex));
+                        spectroFileName = sprintf('spectro_segment.%d.%d.csv',int32(Config.ID),int32(Config.startIndex));
                         %waveformRecordPath =fullfile(Config.logPath,spectroFileName);%Use this after upgrade to R2023b that supports full file
                         waveformRecordPath =[char(Config.logPath),'/',char(spectroFileName)];
                         fprintf("Writing waveform record csv file: %s\n",waveformRecordPath)
