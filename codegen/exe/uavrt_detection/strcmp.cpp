@@ -5,21 +5,56 @@
 // File: strcmp.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 10:39:23
+// C/C++ source code generated on  : 25-Sep-2023 11:48:59
 //
 
 // Include Files
 #include "strcmp.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 
 // Function Definitions
 //
 // Arguments    : const ::coder::array<char, 2U> &a
+//                const ::coder::array<char, 2U> &b
 // Return Type  : boolean_T
 //
 namespace coder {
 namespace internal {
+boolean_T b_strcmp(const ::coder::array<char, 2U> &a,
+                   const ::coder::array<char, 2U> &b)
+{
+  boolean_T b_bool;
+  b_bool = false;
+  if (a.size(1) == b.size(1)) {
+    int kstr;
+    if (b.size(1) > 2147483646) {
+      check_forloop_overflow_error();
+    }
+    kstr = 0;
+    int exitg1;
+    do {
+      exitg1 = 0;
+      if (kstr <= b.size(1) - 1) {
+        if (a[kstr] != b[kstr]) {
+          exitg1 = 1;
+        } else {
+          kstr++;
+        }
+      } else {
+        b_bool = true;
+        exitg1 = 1;
+      }
+    } while (exitg1 == 0);
+  }
+  return b_bool;
+}
+
+//
+// Arguments    : const ::coder::array<char, 2U> &a
+// Return Type  : boolean_T
+//
 boolean_T b_strcmp(const ::coder::array<char, 2U> &a)
 {
   static const char b_cv[3]{'a', 'l', 'l'};

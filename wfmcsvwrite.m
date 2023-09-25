@@ -2,7 +2,26 @@ function [] = wfmcsvwrite(X,radioFcMHz, filePath)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
-fid = fopen(filePath,'w');
+persistent fid
+persistent filePathPersistent
+
+if isempty(fid)
+    fprintf('\t Opening new spectro_segment record file.\n.')
+    fid = fopen(filePath,'w');
+    filePathPersistent = filePath;
+elseif ~isempty(fid) & strcmp(filePathPersistent, filePath)
+    fprintf('\t Writing to an already open spectro_segment record file.\n.')
+    %Do nothing, since we want to write to the same file
+elseif ~isempty(fid) & ~strcmp(filePathPersistent, filePath)
+    %Close the previously opened file and open a new one with the updated file name
+    fprintf('\t Closing existing spectro_segment file and opening a new one with an updated file name.\n.')
+    fclose(fid);
+    fid = fopen(filePath,'w');
+    filePathPersistent = filePath;
+end
+
+
+
 fprintf(fid, '%s\n','----------------------------------------');
 fprintf(fid, '%s\n','Record Start Time (s):');
 fprintf(fid, '%f\n', X.t_0);
@@ -39,8 +58,9 @@ fprintf(fid, '%s\n','Spectrogram Values (|STFT|):');
 for i = 1:numel(X.stft.S)
     fprintf(fid, '%f,', abs(X.stft.S(i)));
 end
+fprintf(fid, '\n');
 
-fclose(fid);
+%fclose(fid);
 
 % for i = 1:numel(X.x)
 %     fprintf(fid,'%f,', real(X.x(i)));

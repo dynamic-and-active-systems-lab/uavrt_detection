@@ -5,7 +5,7 @@
 // File: wfmcsvwrite.h
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 10:39:23
+// C/C++ source code generated on  : 25-Sep-2023 11:48:59
 //
 
 #ifndef WFMCSVWRITE_H
@@ -21,6 +21,8 @@
 class waveform;
 
 // Function Declarations
+void fid_not_empty_init();
+
 void wfmcsvwrite(const waveform &X, double radioFcMHz,
                  const coder::array<char, 2U> &filePath);
 
