@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-Sep-2023 21:32:11
+// C/C++ source code generated on  : 24-Sep-2023 17:58:12
 //
 
 // Include Files
@@ -195,55 +195,6 @@ interleaveComplexVector(const coder::array<creal32_T, 1U> &complexDataIn,
   coder::array<float, 1U> varargin_1;
   coder::array<float, 1U> varargin_2;
   int loop_ub;
-  //  function [mavlinkTunnelMsgUint8] = formatPulseForTunnel(target_system_in,
-  //  target_component_in, payload_type_in, pulseStructIn)
-  //       %% Build PulsePose Mavlink Tunnel Message Payload
-  //       %Typecast maintains little-endian, in line
-  //       %with the mavlink serialization standard:
-  //       https://mavlink.io/en/guide/serialization.html target_system        =
-  //       dec2hex(typecast(uint8(target_system_in),'uint8'), 2); %uint8
-  //       target_component     =
-  //       dec2hex(typecast(uint8(target_component_in),'uint8'), 2); %uint8
-  //       payload_type         =
-  //       dec2hex(typecast(uint16(payload_type_in),'uint8'), 2); %uint16
-  //       %payload_length      = dec2hex(typecast(uint8(0),'uint8'), 2); %uint8
-  //       id                   =
-  //       dec2hex(typecast(uint32(pulseStructIn.tag_id),'uint8'), 2);   %uint32
-  //       freq                 =
-  //       dec2hex(typecast(double(pulseStructIn.frequency),'uint8'), 2);
-  //       %uint32 start_time_sec       =
-  //       dec2hex(typecast(int32(pulseStructIn.start_time.sec),'uint8'), 2);
-  //       %int32 start_time_nanosec   =
-  //       dec2hex(typecast(uint32(pulseStructIn.start_time.nanosec),'uint8'),
-  //       2);           %uint32 predict_next_sec     =
-  //       dec2hex(typecast(int32(pulseStructIn.predict_next_start.sec),'uint8'),
-  //       2);        %int32 predict_next_nanosec =
-  //       dec2hex(typecast(uint32(pulseStructIn.predict_next_start.nanosec),'uint8'),
-  //       2);   %uint32 snr                  =
-  //       dec2hex(typecast(double(pulseStructIn.snr),'uint8'), 2); %double
-  //       stft_score           =
-  //       dec2hex(typecast(double(pulseStructIn.stft_score),'uint8'), 2);
-  //       %double group_ind            =
-  //       dec2hex(typecast(uint16(pulseStructIn.group_ind),'uint8'), 2);
-  //       %uint16 detection_status     =
-  //       dec2hex(typecast(uint8(pulseStructIn.detection_status),'uint8'), 2);
-  //       %uint8 confirmed_status     =
-  //       dec2hex(typecast(uint8(pulseStructIn.confirmed_status),'uint8'), 2);
-  //       %uint8 noise_psd            =
-  //       dec2hex(typecast(double(pulseStructIn.noise_psd),'uint8'), 2);
-  //       %double
-  //
-  //       payload_hex = [id; freq; start_time_sec; start_time_nanosec; ...
-  //                  predict_next_sec; predict_next_nanosec; snr; ...
-  //                  stft_score; group_ind; detection_status; ...
-  //                  confirmed_status; noise_psd];
-  //       payload_length =
-  //       dec2hex(typecast(uint8(size(payload_hex,1)),'uint8'),2);
-  //       mavlinkTunnelMsgHex = [target_system; target_component; ...
-  //                              payload_type; payload_length;...
-  //                              payload_hex];
-  //       mavlinkTunnelMsgUint8 = uint8( hex2dec( mavlinkTunnelMsgHex ) );
-  //  end
   // Enforce column vector
   varargin_1.set_size(complexDataIn.size(0));
   loop_ub = complexDataIn.size(0);
@@ -521,7 +472,7 @@ updatebufferreadvariables(const coder::b_captured_var &Config,
   } else {
     u2 = 0U;
   }
-  std::printf("Updating buffer read vars|| N: %u, M: %u, J: %u,\n", u, u1, u2);
+  std::printf("Updated buffer read vars -- N: %u, M: %u, J: %u,\n", u, u1, u2);
   std::fflush(stdout);
   a__2 = std::round(sampsForKPulses.contents);
   if (a__2 < 4.294967296E+9) {
@@ -548,7 +499,7 @@ updatebufferreadvariables(const coder::b_captured_var &Config,
     u1 = 0U;
   }
   std::printf(
-      "Updating buffer read vars|| sampForKPulses: %u,  overlapSamples: %u,\n",
+      "Updated buffer read vars -- sampForKPulses: %u,  overlapSamples: %u,\n",
       u, u1);
   std::fflush(stdout);
 }
@@ -1201,7 +1152,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo ab_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      421,               // lineNo
+      388,               // lineNo
       32,                // colNo
       "t",               // aName
       "uavrt_detection", // fName
@@ -1212,7 +1163,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo bb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      524,               // lineNo
+      490,               // lineNo
       26,                // colNo
       "X.x",             // aName
       "uavrt_detection", // fName
@@ -1223,7 +1174,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo cb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      529,               // lineNo
+      495,               // lineNo
       26,                // colNo
       "X.x",             // aName
       "uavrt_detection", // fName
@@ -1234,7 +1185,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo db_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      535,               // lineNo
+      501,               // lineNo
       26,                // colNo
       "X.x",             // aName
       "uavrt_detection", // fName
@@ -1245,7 +1196,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo eb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      540,               // lineNo
+      506,               // lineNo
       26,                // colNo
       "X.x",             // aName
       "uavrt_detection", // fName
@@ -1256,7 +1207,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo fb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      648,               // lineNo
+      601,               // lineNo
       61,                // colNo
       "X.ps_pos.pl",     // aName
       "uavrt_detection", // fName
@@ -1267,7 +1218,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo gb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      653,               // lineNo
+      606,               // lineNo
       79,                // colNo
       "ps_pre_struc.pl", // aName
       "uavrt_detection", // fName
@@ -1278,7 +1229,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo hb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      659,               // lineNo
+      612,               // lineNo
       50,                // colNo
       "pulsesToSkip",    // aName
       "uavrt_detection", // fName
@@ -1289,7 +1240,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo ib_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      688,               // lineNo
+      641,               // lineNo
       91,                // colNo
       "X.ps_pos.pl",     // aName
       "uavrt_detection", // fName
@@ -1300,7 +1251,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo jb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      704,               // lineNo
+      657,               // lineNo
       50,                // colNo
       "pulsesToSkip",    // aName
       "uavrt_detection", // fName
@@ -1311,7 +1262,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo y_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      405,               // lineNo
+      372,               // lineNo
       82,                // colNo
       "timeVector",      // aName
       "uavrt_detection", // fName
@@ -1320,7 +1271,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       0                                                    // checkKind
   };
   static rtDoubleCheckInfo r_emlrtDCI{
-      290,               // lineNo
+      259,               // lineNo
       50,                // colNo
       "uavrt_detection", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -1328,7 +1279,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       4                                                    // checkKind
   };
   static rtDoubleCheckInfo s_emlrtDCI{
-      290,               // lineNo
+      259,               // lineNo
       50,                // colNo
       "uavrt_detection", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -1337,7 +1288,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   };
   static rtEqualityCheckInfo g_emlrtECI{
       -1,                // nDims
-      290,               // lineNo
+      259,               // lineNo
       37,                // colNo
       "uavrt_detection", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -1504,7 +1455,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   dataRecordFilename[currDir_size[1]] = '\x00';
   std::printf("Curr Directory is: %s\n", &dataRecordFilename[0]);
   std::fflush(stdout);
-  std::printf("ROS2 setup disabled");
+  std::printf("ROS2 setup disabled\n");
   std::fflush(stdout);
   detectorPulse.A = makepulsestruc(
       detectorPulse.t_next, detectorPulse.mode, detectorPulse.P,
@@ -1635,17 +1586,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   }
   std::printf("Startup set 3 complete. \n");
   std::fflush(stdout);
-  // pulseWriterFileID    =
-  // fopen(cat(2,char(Config.processedOuputPath),'PULSE_LOG.txt'),'w');
-  // pulseWriterFileID    = fopen('pulse_log','w');
-  //  pulseWriterFileID    = fopen('/config/data2.bin','w');
-  //  if dataWriterFileID == -1
-  //      fprintf("UAV-RT: Error opening/creating pulse record file with
-  //      error:\n")
-  //  end
-  //
-  std::printf("Startup set 4 complete. \n");
-  std::fflush(stdout);
   // Define a pulsestats structure that isn't an object.
   // This is needed for the loop, as Matlab coder has problems seeing
   // that the pulsestats handle object is set for all execution paths.
@@ -1655,7 +1595,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   // https://www.mathworks.com/help/simulink/ug/how-working-with-matlab-classes-is-different-for-code-generation.html
   mode = 'D';
   // dims 0 if fixed, 1 if variable
-  std::printf("Startup set 5 complete. \n");
+  std::printf("Startup set 4 complete. \n");
   std::fflush(stdout);
   t9_fp = 0.0;
   t9_fstart = 0.0;
@@ -1684,23 +1624,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   ps_pre_struc_cmsk[0] = false;
   ps_pre_struc_cpki.set_size(1, 1);
   ps_pre_struc_cpki[0] = rtNaN;
-  //  pulseOut.tag_id                     = uint32(0);%ID is a string
-  //  pulseOut.detector_dir               = currDir;%ID is a string
-  //  pulseOut.frequency                  = 0;
-  //  pulseOut.start_time.sec             =  int32(0);
-  //  pulseOut.start_time.nanosec         = uint32(0);
-  //  pulseOut.end_time.sec               =  int32(0);
-  //  pulseOut.end_time.nanosec           = uint32(0);
-  //  pulseOut.predict_next_start.sec     =  int32(0);
-  //  pulseOut.predict_next_start.nanosec = uint32(0);
-  //  pulseOut.predict_next_end.sec       =  int32(0);
-  //  pulseOut.predict_next_end.nanosec   = uint32(0);
-  //  pulseOut.snr                        = 0;
-  //  pulseOut.stft_score                 = 0;
-  //  pulseOut.group_ind                  = uint16(0);
-  //  pulseOut.group_snr                  = double(0);
-  //  pulseOut.detection_status           = false;
-  //  pulseOut.confirmed_status           = false;
   val = udpSenderSetup(50000.0);
   if (val <= 0) {
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
@@ -1708,7 +1631,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   //  The specified frame size must exactly match the size of udp packets sent
   //  out by the channelizer.
   udpReceiver.init(Config.contents.portData);
-  std::printf("Startup set 6 complete. \n");
+  std::printf("Startup set 5 complete. \n");
   std::fflush(stdout);
   //  Preallocate X and Xhold so that coder knows the data types.
   coder::wgn(dcv);
@@ -1732,7 +1655,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
          lobj_19[2]);
   Xhold->spectro(lobj_19[1]);
   X.spectro(lobj_19[0]);
-  std::printf("Startup set 7 complete. \n");
+  std::printf("Startup set 6 complete. \n");
   std::fflush(stdout);
   // Initialize loop variables
   resetBuffersFlag = true;
@@ -1750,7 +1673,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   previousPulseTime = 0.0;
   iqDataToWrite.set_size(0, 0);
   groupSeqCounter = 0.0;
-  std::printf("Startup set 8 complete. Starting processing... \n");
+  std::printf("Startup set 7 complete. Starting processing... \n");
   std::fflush(stdout);
   expectedNextTimeStamp = 0.0;
   currDir_size[0] = 1;
@@ -1770,13 +1693,13 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
     udpReceiver.receive(dataReceived_data);
     //             %% Flush UDP buffer if data in the buffer is stale.
     if (staleDataFlag) {
-      std::printf("********STALE DATA FLAG: %u *********\n", 1U);
+      std::printf("********STALE DATA FLAG: %u**************\n", 1U);
       std::fflush(stdout);
       std::printf("********CLEARING UDP DATA BUFFER*********\n");
       std::fflush(stdout);
       udpReceiverClear(udpReceiver.udpReceiver);
       staleDataFlag = false;
-      std::printf("********RESETTING TIMES*********\n");
+      std::printf("********RESETTING TIMES******************\n");
       std::fflush(stdout);
       // startTime = round(posixtime(datetime('now'))*1000000)/1000000;
       framesReceived = 0.0;
@@ -2014,10 +1937,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
     }
     // end
     //                 %% Process data if there is enough in the buffers
-    t9_det_dec = ((asyncDataBuff.pBuffer.WritePointer >= 0) &&
-                  (asyncDataBuff.pBuffer.ReadPointer <
-                   asyncDataBuff.pBuffer.WritePointer - MAX_int32_T));
-    if (t9_det_dec) {
+    if ((asyncDataBuff.pBuffer.WritePointer >= 0) &&
+        (asyncDataBuff.pBuffer.ReadPointer <
+         asyncDataBuff.pBuffer.WritePointer - MAX_int32_T)) {
       n = MAX_int32_T;
     } else if ((asyncDataBuff.pBuffer.WritePointer < 0) &&
                (asyncDataBuff.pBuffer.ReadPointer >
@@ -2055,8 +1977,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
     }
     if (nbytes >= sampsForKPulses.contents + overlapSamples.contents) {
       double processingStartToc;
-      std::printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-      std::fflush(stdout);
       t9_t_f = std::round(sampsForKPulses.contents);
       if (t9_t_f < 4.294967296E+9) {
         if (t9_t_f >= 0.0) {
@@ -2081,47 +2001,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       } else {
         timeStampNanoSec = 0U;
       }
-      std::printf("Buffer Full || sampsForKPulses: %u, overlapSamples: %u,\n",
+      std::printf("++++++++++BUFFER FULL, PROCESSING SEGMENT -- "
+                  "sampsForKPulses: %u, overlapSamples: %u,\n",
                   timeStampSec, timeStampNanoSec);
-      std::fflush(stdout);
-      if (t9_det_dec) {
-        n = MAX_int32_T;
-      } else if ((asyncDataBuff.pBuffer.WritePointer < 0) &&
-                 (asyncDataBuff.pBuffer.ReadPointer >
-                  asyncDataBuff.pBuffer.WritePointer - MIN_int32_T)) {
-        n = MIN_int32_T;
-      } else {
-        n = asyncDataBuff.pBuffer.WritePointer -
-            asyncDataBuff.pBuffer.ReadPointer;
-      }
-      if (n < -2147483647) {
-        n = MIN_int32_T;
-      } else {
-        n--;
-      }
-      if (asyncDataBuff.pBuffer.ReadPointer < -2141683327) {
-        nbytes = MAX_int32_T;
-      } else {
-        nbytes = 5800320 - asyncDataBuff.pBuffer.ReadPointer;
-      }
-      if ((nbytes < 0) &&
-          (asyncDataBuff.pBuffer.WritePointer < MIN_int32_T - nbytes)) {
-        nbytes = MIN_int32_T;
-      } else if ((nbytes > 0) &&
-                 (asyncDataBuff.pBuffer.WritePointer > MAX_int32_T - nbytes)) {
-        nbytes = MAX_int32_T;
-      } else {
-        nbytes += asyncDataBuff.pBuffer.WritePointer;
-      }
-      if (asyncDataBuff.pBuffer.ReadPointer <
-          asyncDataBuff.pBuffer.WritePointer) {
-        nbytes = n;
-      } else if (asyncDataBuff.pBuffer.ReadPointer ==
-                 asyncDataBuff.pBuffer.WritePointer) {
-        nbytes = 5800320;
-      }
-      std::printf("Running...Buffer full with %d samples. Processing. \n",
-                  nbytes);
       std::fflush(stdout);
       processingStartToc = coder::toc();
       if (cleanBuffer) {
@@ -2236,11 +2118,11 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
               (char *)&mode, ps_pre_struc_pl, ps_pre_struc_clst,
               ps_pre_struc_cmsk, ps_pre_struc_cpki);
         }
-        T = pulseStatsPriori->fstart;
-        timeDiff = pulseStatsPriori->fend;
-        std::printf("\nPS_PRE.FSTART AND FEND before MAKING WAVEFORM X step : "
-                    "\t %f \t to \t %f.",
-                    T, timeDiff);
+        timeStamp = pulseStatsPriori->fstart;
+        missingSamples = pulseStatsPriori->fend;
+        std::printf("ps_pre.fstart and ps.pre.fend before making waveform X: "
+                    "\t %f \t to \t %f. \n",
+                    timeStamp, missingSamples);
         std::fflush(stdout);
         // (1) is for coder so it knows it is a scalar
         //                         %% PRIMARY PROCESSING BLOCK
@@ -2298,15 +2180,15 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         std::printf("Computing STFT...");
         std::fflush(stdout);
         b_X.spectro(lobj_15);
-        T = coder::toc() - missingSamples;
-        std::printf("complete. Elapsed time: %f seconds \n", T);
+        timeStamp = coder::toc() - missingSamples;
+        std::printf("complete. Elapsed time: %f seconds \n", timeStamp);
         std::fflush(stdout);
-        std::printf("Building weighting matrix ...");
+        std::printf("Building weighting matrix...");
         std::fflush(stdout);
         missingSamples = coder::toc();
         b_X.setweightingmatrix();
-        T = coder::toc() - missingSamples;
-        std::printf("complete. Elapsed time: %f seconds \n", T);
+        timeStamp = coder::toc() - missingSamples;
+        std::printf("complete. Elapsed time: %f seconds \n", timeStamp);
         std::fflush(stdout);
         if (suggestedMode == 'S') {
           n = 0;
@@ -2344,20 +2226,22 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         //  end
         missingSamples = coder::toc();
         if (segmentsProcessed == 0.0) {
-          std::printf("Building thresholds  ...");
+          std::printf("Building thresholds...\n");
           std::fflush(stdout);
           _in = b_X.thresh;
           _in.makenewthreshold(b_X);
           b_X.thresh = _in;
         } else {
-          std::printf("Setting thresholds from previous waveform  ...");
+          std::printf("Setting thresholds from previous waveform...\n");
           std::fflush(stdout);
           // X.thresh = X.thresh.setthreshold(X,Xhold);
           _in = Xhold->thresh;
           b_X.thresh = _in;
         }
-        T = coder::toc() - missingSamples;
-        std::printf("complete. Elapsed time: %f seconds \n", T);
+        timeStamp = coder::toc() - missingSamples;
+        std::printf(
+            " \n \t Threshold setting complete. Elapsed time: %f seconds \n",
+            timeStamp);
         std::fflush(stdout);
         timeStampSec = static_cast<unsigned int>(b_X.stft->S.size(1));
         std::printf("Time windows in S: %u \n", timeStampSec);
@@ -2388,11 +2272,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         //  % self.confirmed_status ...
         //  % self.noise_psd ...
         udpSenderSendDoubles(val, &doublesBuffer[0], 12U);
-        std::printf("Finding pulses...");
-        std::fflush(stdout);
         varargin_1[0] = mode;
         varargin_1[1] = '\x00';
-        std::printf("PROCESSING IN %s MODE \n", &varargin_1[0]);
+        std::printf("BEGINNING PROCESSING IN %s MODE \n", &varargin_1[0]);
         std::fflush(stdout);
         std::printf("====================================\n");
         std::fflush(stdout);
@@ -2460,45 +2342,26 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         }
         std::printf("\n");
         std::fflush(stdout);
-        //  fprintf(':\n')
-        //  for i = numel(X.x)-5:numel(X.x)
-        //  fprintf('%.8f,',X.ps_pre.fp)
-        //  end
-        T = b_X.ps_pre->fstart;
-        timeDiff = b_X.ps_pre->fend;
-        std::printf(
-            "\nPS_PRE.FSTART AND FEND before PROCESS step : \t %f \t to \t %f.",
-            T, timeDiff);
-        std::fflush(stdout);
-        // (1) is for coder so it knows it is a scalar
-        T = b_X.ps_pos->fstart;
-        timeDiff = b_X.ps_pos->fend;
-        std::printf(
-            "\nPS_POS.FSTART AND FEND before PROCESS step : \t %f \t to \t %f.",
-            T, timeDiff);
-        std::fflush(stdout);
-        // (1) is for coder so it knows it is a scalar
         b_X.process(mode, Config.contents.excldFreqs);
-        T = coder::toc() - missingSamples;
-        std::printf("complete. Elapsed time: %f seconds \n", T);
+        timeStamp = coder::toc() - missingSamples;
+        std::printf("complete. Elapsed time: %f seconds \n", timeStamp);
         std::fflush(stdout);
-        T = b_X.ps_pre->fstart;
-        timeDiff = b_X.ps_pre->fend;
-        std::printf(
-            "\nPS_PRE.FSTART AND FEND after PROCESS step : \t %f \t to \t %f.",
-            T, timeDiff);
-        std::fflush(stdout);
-        // (1) is for coder so it knows it is a scalar
-        T = b_X.ps_pos->fstart;
-        timeDiff = b_X.ps_pos->fend;
-        std::printf(
-            "\nPS_POS.FSTART AND FEND after PROCESS step : \t %f \t to \t %f.",
-            T, timeDiff);
+        timeStamp = b_X.ps_pre->fstart;
+        missingSamples = b_X.ps_pre->fend;
+        std::printf("ps_pre.fstart and ps_pre.fend after PROCESS step : \t %f "
+                    "\t to \t %f.\n",
+                    timeStamp, missingSamples);
         std::fflush(stdout);
         // (1) is for coder so it knows it is a scalar
-        missingSamples = coder::toc() - processingStartToc;
-        std::printf("TOTAL PULSE PROCESSING TIME: %f seconds \n",
-                    missingSamples);
+        timeStamp = b_X.ps_pos->fstart;
+        missingSamples = b_X.ps_pos->fend;
+        std::printf("ps_pos.fstart and ps_pos.fend after PROCESS step : \t %f "
+                    "\t to \t %f.\n",
+                    timeStamp, missingSamples);
+        std::fflush(stdout);
+        // (1) is for coder so it knows it is a scalar
+        timeDiff = coder::toc() - processingStartToc;
+        std::printf("TOTAL PULSE PROCESSING TIME: %f seconds \n", timeDiff);
         std::fflush(stdout);
         //                         %% PREP FOR NEXT LOOP
         // Latch/Release the frequency lock and setup the
@@ -2558,24 +2421,23 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             b_X.ps_pos->b_updateposteriori(b_X.ps_pre, ps_pre_struc_pl);
           }
         }
-        T = b_X.ps_pre->fstart;
-        timeDiff = b_X.ps_pre->fend;
-        std::printf("\nPS_PRE.FSTART AND FEND after PRIORI UPDATE step : \t %f "
-                    "\t to \t %f.",
-                    T, timeDiff);
+        timeStamp = b_X.ps_pre->fstart;
+        missingSamples = b_X.ps_pre->fend;
+        std::printf("ps_pre.fstart and ps_pre.fend after PRIORI UPDATE step : "
+                    "\t %f \t to \t %f.\n",
+                    timeStamp, missingSamples);
         std::fflush(stdout);
         // (1) is for coder so it knows it is a scalar
-        T = b_X.ps_pos->fstart;
-        timeDiff = b_X.ps_pos->fend;
-        std::printf("\nPS_POS.FSTART AND FEND after PRIORI UPDATE step : \t %f "
-                    "\t to \t %f.",
-                    T, timeDiff);
+        timeStamp = b_X.ps_pos->fstart;
+        missingSamples = b_X.ps_pos->fend;
+        std::printf("ps_pos.fstart and ps_pos.fend after PRIORI UPDATE step : "
+                    "\t %f \t to \t %f.\n",
+                    timeStamp, missingSamples);
         std::fflush(stdout);
         // (1) is for coder so it knows it is a scalar
         // Check lagging processing
         if ((segmentsProcessed != 0.0) && (Config.contents.K > 1.0) &&
-            (missingSamples >
-             0.9 * sampsForKPulses.contents / Config.contents.Fs)) {
+            (timeDiff > 0.9 * sampsForKPulses.contents / Config.contents.Fs)) {
           // Config.K = Config.K - 1;
           t9_t_f = std::round(Config.contents.K - 1.0);
           if (t9_t_f < 4.294967296E+9) {
@@ -2637,14 +2499,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         }
         updatebufferreadvariables(Config, stftOverlapFraction, overlapSamples,
                                   sampsForKPulses, b_X.ps_pos);
-        T = coder::toc() - missingSamples;
-        std::printf("complete. Elapsed time: %f seconds \n", T);
+        timeStamp = coder::toc() - missingSamples;
+        std::printf("complete. Elapsed time: %f seconds \n", timeStamp);
         std::fflush(stdout);
-        std::printf("\nPS_PRE.FSTART AND FEND after PRIORI STRUCT UPDATE step "
-                    ": \t %f \t to \t %f.",
-                    ps_pre_struc_fstart, ps_pre_struc_fend);
-        std::fflush(stdout);
-        // (1) is for coder so it knows it is a scalar
         // Deal with detected pulses
         // Xhold{mod(segmentsProcessed,maxSegments)} = X;%Keep a maxSegments
         // running record of waveforms for debugging in Matlab Xstruct =
@@ -2715,7 +2572,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           r3[i] = !std::isnan(b_x[i]);
         }
         if (coder::internal::b_ifWhileCond(r3)) {
-          std::printf("Transmitting pulse messages");
+          std::printf("Transmitting pulse messages.  ");
           std::fflush(stdout);
           if (nbytes - 1 >= 0) {
             if (d < 4.294967296E+9) {
@@ -2842,7 +2699,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
                                   (1.0 / (t9_t_0 + 1.0));
               udpSenderSendDoubles(val, &doublesBuffer[0], 12U);
               //  ROS send
-              std::printf("Skipping ROS2 Pulse send...\n");
+              std::printf("(Skipping ROS2 Pulse send)");
               std::fflush(stdout);
               pulseCount++;
             }
@@ -2882,8 +2739,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             } else {
               u3 = MAX_uint16_T;
             }
-            std::printf("%u, %u, %g, %g, %g, %g, %u, %u, %g, %g, %u, %u\n", u1,
-                        timeStampSec, detectorPulse.t_0,
+            std::printf("%u, %u, %.3f, %.3f, %g, %g, %u, %u, %g, %g, %u, %u\n",
+                        u1, timeStampSec, detectorPulse.t_0,
                         detectorPulse.t_next[0], detectorPulse.SNR,
                         detectorPulse.yw, u2, u3, 10.0 * missingSamples,
                         detectorPulse.yw * (timeDiff * timeDiff) / T *
@@ -2891,7 +2748,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
                         static_cast<unsigned char>(detectorPulse.det_dec),
                         static_cast<unsigned char>(detectorPulse.con_dec));
             std::fflush(stdout);
-            //                                     end
           }
           groupSeqCounter++;
           std::printf("complete. Transmitted %u pulse(s).\n",
@@ -2981,8 +2837,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
                       (std::round(b_this.data.re / 1000.0 * 1.0E+6) / 1.0E+6 -
                        startTime));
       std::fflush(stdout);
-      T = coder::toc() - processingStartToc;
-      std::printf("TOTAL SEGMENT PROCESSING TIME: %f seconds \n", T);
+      timeStamp = coder::toc() - processingStartToc;
+      std::printf("TOTAL SEGMENT PROCESSING TIME: %f seconds \n", timeStamp);
       std::fflush(stdout);
       //  packetTimeSec = (packetLength-1)*1/Config.Fs;
       //  segmentTimeSec  = 1/Config.Fs * sampsForKPulses;

@@ -100,24 +100,12 @@ asyncWriteBuff.read();
 dataRecordFilename = sprintf('data_record.%d.%d.bin',int32(Config.ID),int32(Config.startIndex));
 %dataWriterFileID    = fopen(fullfile(Config.logPath,dataRecordFilename),'w');%Use this after upgrade to R2023b that supports full file
 dataWriterFileID    = fopen([char(Config.logPath),'/',char(dataRecordFilename)],'w');
-
 %dataWriterFileID    = fopen(Config.dataRecordPath,'w');
 %dataWriterFileID    = fopen('output/data.bin','w');
 if dataWriterFileID == -1
     fprintf("UAV-RT: Error opening/creating data record file with error:\n")
 end
 fprintf('Startup set 3 complete. \n')
-
-
-%pulseWriterFileID    = fopen(cat(2,char(Config.processedOuputPath),'PULSE_LOG.txt'),'w');
-%pulseWriterFileID    = fopen('pulse_log','w');
-% pulseWriterFileID    = fopen('/config/data2.bin','w');
-% if dataWriterFileID == -1
-%     fprintf("UAV-RT: Error opening/creating pulse record file with error:\n")
-% end
-% 
-
-fprintf('Startup set 4 complete. \n')
 
 
 
@@ -138,7 +126,7 @@ localCmsk = false;
 coder.varsize('localCmsk',[inf inf],[1 1]);
 localCpki = NaN;
 coder.varsize('localCpki',[inf 1],[1 1]);
-fprintf('Startup set 5 complete. \n')
+fprintf('Startup set 4 complete. \n')
 ps_pre_struc.t_p    = 0;
 ps_pre_struc.t_ip   = 0;
 ps_pre_struc.t_ipu  = 0;
@@ -154,25 +142,6 @@ ps_pre_struc.cmsk   = localCmsk;
 ps_pre_struc.cpki   = localCpki;
 
 
-% pulseOut.tag_id                     = uint32(0);%ID is a string
-% pulseOut.detector_dir               = currDir;%ID is a string
-% pulseOut.frequency                  = 0;
-% pulseOut.start_time.sec             =  int32(0);
-% pulseOut.start_time.nanosec         = uint32(0);
-% pulseOut.end_time.sec               =  int32(0);
-% pulseOut.end_time.nanosec           = uint32(0);
-% pulseOut.predict_next_start.sec     =  int32(0);
-% pulseOut.predict_next_start.nanosec = uint32(0);
-% pulseOut.predict_next_end.sec       =  int32(0);
-% pulseOut.predict_next_end.nanosec   = uint32(0);
-% pulseOut.snr                        = 0;
-% pulseOut.stft_score                 = 0;
-% pulseOut.group_ind                  = uint16(0);
-% pulseOut.group_snr                  = double(0);
-% pulseOut.detection_status           = false;
-% pulseOut.confirmed_status           = false;
-
-
 pulseInfoStruct = PulseInfoStruct();
 pulseInfoStruct.udpSenderSetup("127.0.0.1", 50000);
 
@@ -180,7 +149,7 @@ pulseInfoStruct.udpSenderSetup("127.0.0.1", 50000);
 channelizerSampleFrameSize = 1024;
 udpReceiver = ComplexSingleSamplesUDPReceiver(Config.ipData, Config.portData, channelizerSampleFrameSize);
 
-fprintf('Startup set 6 complete. \n')
+fprintf('Startup set 5 complete. \n')
 
 %% Preallocate X and Xhold so that coder knows the data types.
 coder.varsize("emptyData",[1, inf]);
@@ -190,7 +159,7 @@ X     = waveform(exampleData, Config.Fs, 0, pulseStatsPriori, stftOverlapFractio
 Xhold.spectro();
 X.spectro();
 
-fprintf('Startup set 7 complete. \n')
+fprintf('Startup set 6 complete. \n')
 
 %Initialize loop variables
 resetBuffersFlag  = true;
@@ -220,7 +189,7 @@ missingSamples    = 0;
 iqDataToWrite     = single(complex([]));
 groupSeqCounter   = 0;
 
-fprintf('Startup set 8 complete. Starting processing... \n')
+fprintf('Startup set 7 complete. Starting processing... \n')
 
 expectedNextTimeStamp = 0;
 
@@ -239,12 +208,12 @@ while true %i <= maxInd
 
             %% Flush UDP buffer if data in the buffer is stale.
             if staleDataFlag
-                fprintf('********STALE DATA FLAG: %u *********\n',uint32(staleDataFlag));
+                fprintf('********STALE DATA FLAG: %u**************\n',uint32(staleDataFlag));
                 fprintf('********CLEARING UDP DATA BUFFER*********\n');
                 udpReceiver.clear();
                 staleDataFlag = false;
 
-                fprintf('********RESETTING TIMES*********\n');
+                fprintf('********RESETTING TIMES******************\n');
                 %startTime = round(posixtime(datetime('now'))*1000000)/1000000;
                 framesReceived = 0;
                 currSampleCount = uint64(0);
@@ -379,9 +348,7 @@ while true %i <= maxInd
 
                 %% Process data if there is enough in the buffers
                 if asyncDataBuff.NumUnreadSamples >= sampsForKPulses + overlapSamples
-fprintf('++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n')
-                    fprintf('Buffer Full || sampsForKPulses: %u, overlapSamples: %u,\n',uint32(sampsForKPulses),uint32(overlapSamples))
-                    fprintf('Running...Buffer full with %d samples. Processing. \n', asyncDataBuff.NumUnreadSamples)
+fprintf('++++++++++BUFFER FULL, PROCESSING SEGMENT -- sampsForKPulses: %u, overlapSamples: %u,\n',uint32(sampsForKPulses),uint32(overlapSamples))
                     
 previousToc = toc;
 processingStartToc = previousToc;
@@ -453,7 +420,7 @@ fprintf('Sample elapsed seconds: %f \t Posix elapsed seconds: %f \n', timeVector
                                                 ps_pre_struc.cpki);
                             configUpdatedFlag = false;
                         end
-fprintf('\nPS_PRE.FSTART AND FEND before MAKING WAVEFORM X step : \t %f \t to \t %f.',...
+fprintf('ps_pre.fstart and ps.pre.fend before making waveform X: \t %f \t to \t %f. \n',...
             ps_pre.fstart, ps_pre.fend);%(1) is for coder so it knows it is a scalar
                        
 
@@ -469,7 +436,7 @@ previousToc = toc;
                         fprintf('Computing STFT...')
                         X.spectro();
                         fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
-                        fprintf('Building weighting matrix ...')
+                        fprintf('Building weighting matrix...')
 previousToc = toc;
                         X.setweightingmatrix(zetas);
                         fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
@@ -502,22 +469,21 @@ previousToc = toc;
 previousToc = toc;
                         
                         if segmentsProcessed==0
-                            fprintf('Building thresholds  ...')
+                            fprintf('Building thresholds...\n')
                             X.thresh = X.thresh.makenewthreshold(X);
                         else
-                            fprintf('Setting thresholds from previous waveform  ...')
+                            fprintf('Setting thresholds from previous waveform...\n')
                              %X.thresh = X.thresh.setthreshold(X,Xhold);
                              X.thresh = Xhold.thresh;
                         end
-                        fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+                        fprintf(' \n \t Threshold setting complete. Elapsed time: %f seconds \n', toc - previousToc)
                         
                         fprintf('Time windows in S: %u \n',uint32(size(X.stft.S,2)))
 previousToc = toc;
 
                         pulseInfoStruct.sendHeartbeatOverUDP(uint32(Config.ID));
 
-                        fprintf('Finding pulses...')
-fprintf('PROCESSING IN %s MODE \n', mode)
+fprintf('BEGINNING PROCESSING IN %s MODE \n', mode)
                         fprintf('====================================\n')
 fprintf('First 5 entries of the real data block being processed are:\n')
 for i = 1:5
@@ -541,22 +507,12 @@ fprintf('%.8f,',imag(X.x(i)))
 end
 fprintf('\n')
 
-% fprintf(':\n')
-% for i = numel(X.x)-5:numel(X.x)
-% fprintf('%.8f,',X.ps_pre.fp)
-% end
-
-fprintf('\nPS_PRE.FSTART AND FEND before PROCESS step : \t %f \t to \t %f.',...
-            X.ps_pre.fstart, X.ps_pre.fend);%(1) is for coder so it knows it is a scalar
-fprintf('\nPS_POS.FSTART AND FEND before PROCESS step : \t %f \t to \t %f.',...
-            X.ps_pos.fstart, X.ps_pos.fend);%(1) is for coder so it knows it is a scalar
-
                         X.process(mode, 'most', Config.excldFreqs)
                         fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
 
-fprintf('\nPS_PRE.FSTART AND FEND after PROCESS step : \t %f \t to \t %f.',...
+fprintf('ps_pre.fstart and ps_pre.fend after PROCESS step : \t %f \t to \t %f.\n',...
             X.ps_pre.fstart, X.ps_pre.fend);%(1) is for coder so it knows it is a scalar
-fprintf('\nPS_POS.FSTART AND FEND after PROCESS step : \t %f \t to \t %f.',...
+fprintf('ps_pos.fstart and ps_pos.fend after PROCESS step : \t %f \t to \t %f.\n',...
             X.ps_pos.fstart, X.ps_pos.fend);%(1) is for coder so it knows it is a scalar
 
                         processingTime = toc - processingStartToc;
@@ -592,9 +548,9 @@ fprintf('\nPS_POS.FSTART AND FEND after PROCESS step : \t %f \t to \t %f.',...
                                 X.ps_pos.updateposteriori(X.ps_pre, X.ps_pos.pl, 'time')
                             end
                         end
-fprintf('\nPS_PRE.FSTART AND FEND after PRIORI UPDATE step : \t %f \t to \t %f.',...
+fprintf('ps_pre.fstart and ps_pre.fend after PRIORI UPDATE step : \t %f \t to \t %f.\n',...
             X.ps_pre.fstart, X.ps_pre.fend);%(1) is for coder so it knows it is a scalar
-fprintf('\nPS_POS.FSTART AND FEND after PRIORI UPDATE step : \t %f \t to \t %f.',...
+fprintf('ps_pos.fstart and ps_pos.fend after PRIORI UPDATE step : \t %f \t to \t %f.\n',...
             X.ps_pos.fstart, X.ps_pos.fend);%(1) is for coder so it knows it is a scalar
 
                         %Check lagging processing
@@ -629,9 +585,6 @@ previousToc = toc;
 
                         updatebufferreadvariables(X.ps_pos);
                         fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
-fprintf('\nPS_PRE.FSTART AND FEND after PRIORI STRUCT UPDATE step : \t %f \t to \t %f.',...
-            ps_pre_struc.fstart, ps_pre_struc.fend);%(1) is for coder so it knows it is a scalar
-
 
 
                         %Deal with detected pulses
@@ -670,7 +623,7 @@ fprintf('\nPS_PRE.FSTART AND FEND after PRIORI STRUCT UPDATE step : \t %f \t to 
                         pulseCount = 0;
 
                         if ~isnan(X.ps_pos.cpki)
-                            fprintf("Transmitting pulse messages");
+                            fprintf("Transmitting pulse messages.  ");
                             for j = 1:nPulseList
                                 
                                 groupSNRList                        = 10.^([X.ps_pos.pl(:).SNR]/10);%Average SNR in dB
@@ -713,8 +666,6 @@ fprintf('\nPS_PRE.FSTART AND FEND after PRIORI STRUCT UPDATE step : \t %f \t to 
 fprintf('EXPECTED GCS ENTRY:\n')
 printpulseinfostruc(pulseInfoStruct);
 
-                                
-                                %                                    end
                             end
                             groupSeqCounter = groupSeqCounter + 1;
                             fprintf("complete. Transmitted %u pulse(s).\n",uint32(pulseCount));
@@ -755,39 +706,6 @@ printpulseinfostruc(pulseInfoStruct);
                 end
             end
 end
-
-    % function [mavlinkTunnelMsgUint8] = formatPulseForTunnel(target_system_in, target_component_in, payload_type_in, pulseStructIn)
-    %      %% Build PulsePose Mavlink Tunnel Message Payload
-    %      %Typecast maintains little-endian, in line
-    %      %with the mavlink serialization standard: https://mavlink.io/en/guide/serialization.html
-    %      target_system        = dec2hex(typecast(uint8(target_system_in),'uint8'), 2);                %uint8
-    %      target_component     = dec2hex(typecast(uint8(target_component_in),'uint8'), 2);                  %uint8
-    %      payload_type         = dec2hex(typecast(uint16(payload_type_in),'uint8'), 2);                 %uint16
-    %      %payload_length      = dec2hex(typecast(uint8(0),'uint8'), 2);                  %uint8
-    %      id                   = dec2hex(typecast(uint32(pulseStructIn.tag_id),'uint8'), 2);   %uint32
-    %      freq                 = dec2hex(typecast(double(pulseStructIn.frequency),'uint8'), 2);                    %uint32
-    %      start_time_sec       = dec2hex(typecast(int32(pulseStructIn.start_time.sec),'uint8'), 2);                %int32
-    %      start_time_nanosec   = dec2hex(typecast(uint32(pulseStructIn.start_time.nanosec),'uint8'), 2);           %uint32
-    %      predict_next_sec     = dec2hex(typecast(int32(pulseStructIn.predict_next_start.sec),'uint8'), 2);        %int32
-    %      predict_next_nanosec = dec2hex(typecast(uint32(pulseStructIn.predict_next_start.nanosec),'uint8'), 2);   %uint32
-    %      snr                  = dec2hex(typecast(double(pulseStructIn.snr),'uint8'), 2);          %double
-    %      stft_score           = dec2hex(typecast(double(pulseStructIn.stft_score),'uint8'), 2);   %double
-    %      group_ind            = dec2hex(typecast(uint16(pulseStructIn.group_ind),'uint8'), 2);    %uint16
-    %      detection_status     = dec2hex(typecast(uint8(pulseStructIn.detection_status),'uint8'), 2);    %uint8
-    %      confirmed_status     = dec2hex(typecast(uint8(pulseStructIn.confirmed_status),'uint8'), 2);    %uint8
-    %      noise_psd            = dec2hex(typecast(double(pulseStructIn.noise_psd),'uint8'), 2);          %double
-    % 
-    %      payload_hex = [id; freq; start_time_sec; start_time_nanosec; ...
-    %                 predict_next_sec; predict_next_nanosec; snr; ...
-    %                 stft_score; group_ind; detection_status; ...
-    %                 confirmed_status; noise_psd];
-    %      payload_length = dec2hex(typecast(uint8(size(payload_hex,1)),'uint8'),2);
-    %      mavlinkTunnelMsgHex = [target_system; target_component; ...
-    %                             payload_type; payload_length;...
-    %                             payload_hex];
-    %      mavlinkTunnelMsgUint8 = uint8( hex2dec( mavlinkTunnelMsgHex ) );
-    % end
-
 
     function [interleaveDataOut] = interleaveComplexVector(complexDataIn)
         %This function takes a vector of complex values, and interleaves
@@ -853,8 +771,8 @@ end
         %See 2022-07-11 for updates to samples def
         sampsForKPulses = n_ws*(Config.K*(N+M)+J+1)+n_ol;
 
-        fprintf('Updating buffer read vars|| N: %u, M: %u, J: %u,\n',uint32(N),uint32(M),uint32(J))
-        fprintf('Updating buffer read vars|| sampForKPulses: %u,  overlapSamples: %u,\n',uint32(sampsForKPulses),uint32(overlapSamples))
+        fprintf('Updated buffer read vars -- N: %u, M: %u, J: %u,\n',uint32(N),uint32(M),uint32(J))
+        fprintf('Updated buffer read vars -- sampForKPulses: %u,  overlapSamples: %u,\n',uint32(sampsForKPulses),uint32(overlapSamples))
     end
 end
 
@@ -887,4 +805,39 @@ end
 %                                                        payload_type; payload_length;...
 %                                                        payload];
 %                                 mavlinkTunnelMsgUint8 = uint8( hex2dec( mavlinkTunnelMsgHex ) );
+
+
+
+    % function [mavlinkTunnelMsgUint8] = formatPulseForTunnel(target_system_in, target_component_in, payload_type_in, pulseStructIn)
+    %      %% Build PulsePose Mavlink Tunnel Message Payload
+    %      %Typecast maintains little-endian, in line
+    %      %with the mavlink serialization standard: https://mavlink.io/en/guide/serialization.html
+    %      target_system        = dec2hex(typecast(uint8(target_system_in),'uint8'), 2);                %uint8
+    %      target_component     = dec2hex(typecast(uint8(target_component_in),'uint8'), 2);                  %uint8
+    %      payload_type         = dec2hex(typecast(uint16(payload_type_in),'uint8'), 2);                 %uint16
+    %      %payload_length      = dec2hex(typecast(uint8(0),'uint8'), 2);                  %uint8
+    %      id                   = dec2hex(typecast(uint32(pulseStructIn.tag_id),'uint8'), 2);   %uint32
+    %      freq                 = dec2hex(typecast(double(pulseStructIn.frequency),'uint8'), 2);                    %uint32
+    %      start_time_sec       = dec2hex(typecast(int32(pulseStructIn.start_time.sec),'uint8'), 2);                %int32
+    %      start_time_nanosec   = dec2hex(typecast(uint32(pulseStructIn.start_time.nanosec),'uint8'), 2);           %uint32
+    %      predict_next_sec     = dec2hex(typecast(int32(pulseStructIn.predict_next_start.sec),'uint8'), 2);        %int32
+    %      predict_next_nanosec = dec2hex(typecast(uint32(pulseStructIn.predict_next_start.nanosec),'uint8'), 2);   %uint32
+    %      snr                  = dec2hex(typecast(double(pulseStructIn.snr),'uint8'), 2);          %double
+    %      stft_score           = dec2hex(typecast(double(pulseStructIn.stft_score),'uint8'), 2);   %double
+    %      group_ind            = dec2hex(typecast(uint16(pulseStructIn.group_ind),'uint8'), 2);    %uint16
+    %      detection_status     = dec2hex(typecast(uint8(pulseStructIn.detection_status),'uint8'), 2);    %uint8
+    %      confirmed_status     = dec2hex(typecast(uint8(pulseStructIn.confirmed_status),'uint8'), 2);    %uint8
+    %      noise_psd            = dec2hex(typecast(double(pulseStructIn.noise_psd),'uint8'), 2);          %double
+    % 
+    %      payload_hex = [id; freq; start_time_sec; start_time_nanosec; ...
+    %                 predict_next_sec; predict_next_nanosec; snr; ...
+    %                 stft_score; group_ind; detection_status; ...
+    %                 confirmed_status; noise_psd];
+    %      payload_length = dec2hex(typecast(uint8(size(payload_hex,1)),'uint8'),2);
+    %      mavlinkTunnelMsgHex = [target_system; target_component; ...
+    %                             payload_type; payload_length;...
+    %                             payload_hex];
+    %      mavlinkTunnelMsgUint8 = uint8( hex2dec( mavlinkTunnelMsgHex ) );
+    % end
+
 

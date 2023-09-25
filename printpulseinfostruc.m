@@ -5,8 +5,8 @@ function [] = printpulseinfostruc(pulseInfoStruct)
 
 tag_id_fspec            = '%u'; %uint32(Config.ID);
 freq_Hz_fspec           = '%u'; % uint32((Config.channelCenterFreqMHz * 1e6) + detectorPulse.fp);
-start_time_fspec        = '%g';% detectorPulse.t_0;
-next_time_fspec         = '%g';%detectorPulse.t_next(1);
+start_time_fspec        = '%.3f';% detectorPulse.t_0;
+next_time_fspec         = '%.3f';%detectorPulse.t_next(1);
 snr_fspec               = '%g';% detectorPulse.SNR;
 stft_score_fspec        = '%g';%real(detectorPulse.yw);
 group_seq_count_fspec   = '%u';%groupSeqCounter;

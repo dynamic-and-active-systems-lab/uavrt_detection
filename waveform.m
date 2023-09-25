@@ -527,15 +527,9 @@ classdef waveform < handle
             %
             %%
 
-
-fprintf('\nPS_PRE.FSTART AND FEND at the end Confirmation search : \t %f \t to \t %f.',...
-            obj.ps_pre.fstart, obj.ps_pre.fend);%(1) is for coder so it knows it is a scalar
-fprintf('\nPS_POS.FSTART AND FEND beginning at the end Confirmation search : \t %f \t to \t %f.',...
-            obj.ps_pos.fstart, obj.ps_pos.fend);%(1) is for coder so it knows it is a scalar
-
-
+fprintf('FINDING PULSES...\n')
 previousToc = toc;
-fprintf('\t Setting up parameter for finding pulses  ...')
+fprintf('\t Setting up parameter for finding pulses  ...\n')
 
             if (size(excluded_freq_bands_in,2)~=2) && (~isempty(excluded_freq_bands_in))
                 error('Excluded frequency band listing must be a nx2 matrix or empty.')
@@ -576,7 +570,7 @@ fprintf('\t Setting up parameter for finding pulses  ...')
             %INFORMED SEARCH BUT NOT PRIORI FOR START TIME
             elseif strcmp(time_searchtype,'informed') && isempty(obj.ps_pre.pl(1).t_0)
                 %if coder.target('MATLAB')
-                    fprintf('Requested informed search, but previous segment did not have at least one pulse with a recorded start time. Using naive search method. \n')
+                    fprintf('\t Requested informed search, but previous segment did not have at least one pulse with a recorded start time. Using naive search method. \n')
                 %end
                 wind_start = naive_wind_start;
                 wind_end   = naive_wind_end;
@@ -775,7 +769,7 @@ fprintf('\t Setting up parameter for finding pulses  ...')
                     end
                 end
 
-                fprintf('Frequency Search Range will be \t %f \t to \t %f.',...
+                fprintf('\t Frequency Search Range will be \t %f \t to \t %f.\n',...
                         obj.Wf(freq_start(1)), obj.Wf(freq_end(1)));%(1) is for coder so it knows it is a scalar
 
                 freq_ind_rng = [freq_start,freq_end];
@@ -784,7 +778,7 @@ fprintf('\t Setting up parameter for finding pulses  ...')
             else %Naive frequency search
                 freq_mask    =  true(size(obj.Wf));
 
-                fprintf('Frequency Search Range will be \t %f \t to \t %f.',...
+                fprintf('\t Frequency Search Range will be \t %f \t to \t %f.\n',...
                         obj.Wf(1), obj.Wf(end));
             end
             
@@ -866,7 +860,7 @@ previousToc = toc;
             %%PAPER EQUATION 29
             %z       = sum(gamma.^2);
 
-fprintf('\t Running Peeling Algorithm  ...\n')
+fprintf('\t Running Peeling Algorithm...\n')
             
             %% PEELING ALGORITHM
             % The following algorithm is used to help tease out the central
@@ -1358,35 +1352,22 @@ fprintf('\t Running Peeling Algorithm  ...\n')
                     end
                 end
             end
-            
-            pl_out   = cur_pl;           
-fprintf('Frequencies are:\n')
-for i = 1:numel(obj.Wf)
-fprintf('%.6f,',obj.Wf(i))
-end
-fprintf('Threshold vector is equal to:\n')
-for i = 1:numel(thresh)
-fprintf('%f,',thresh(i))
-end
-fprintf('\n')
-fprintf('Scores vector is equal to:\n')
-for i = 1:numel(scores)
-fprintf('%f,',scores(i))
-end
-fprintf('\n')
 
-
-% if isnan(peak_ind(1))
-%     fprintf('DEBUGGING: NO PEAKS EXCEEDED THRESHOLD \n');
-% else
-%     for i =1:numel(peak_ind)
-%         fprintf('DEBUGGING: PK_IND %u IS ROW %u WITH SCORE = %f \t %f = THRESH \n',uint16(i),uint16(peak_ind(i)),scores(peak_ind(i)),thresh(peak_ind(i)));
-%     end
-% end
-%     for i = 1:numel(scores)
-%         fprintf('\tDEBUGGING: SCORE %u = %f \t %f = THRESH\n',uint8(i), scores(i), thresh(i));
-%     end
-
+            pl_out   = cur_pl;
+            fprintf('Frequencies are:\n')
+            for i = 1:numel(obj.Wf)
+                fprintf('%.6f,',obj.Wf(i))
+            end
+            fprintf('Threshold vector is equal to:\n')
+            for i = 1:numel(thresh)
+                fprintf('%f,',thresh(i))
+            end
+            fprintf('\n')
+            fprintf('Scores vector is equal to:\n')
+            for i = 1:numel(scores)
+                fprintf('%f,',scores(i))
+            end
+            fprintf('\n')
 
 fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
 previousToc = toc;
@@ -1630,9 +1611,9 @@ previousToc = toc;
         %mode. Check to see if they have entries and if they are finite (not Nan or Inf).
         %We just catch that and then set the have_priori flag to false. 
 
-fprintf('\nPS_PRE.FSTART AND FEND beginning of PROCESS: \t %f \t to \t %f.',...
+fprintf('ps_pre.fstart and ps_pre.fend at beginning of PROCESS call: \t %f \t to \t %f.\n',...
             obj.ps_pre.fstart, obj.ps_pre.fend);%(1) is for coder so it knows it is a scalar
-fprintf('\nPS_POS.FSTART AND FEND beginning of PROCESS: \t %f \t to \t %f.',...
+fprintf('ps_pos.fstart and ps_pos.fend at beginning of PROCESS call: \t %f \t to \t %f.\n',...
             obj.ps_pos.fstart, obj.ps_pos.fend);%(1) is for coder so it knows it is a scalar
 
 
@@ -1786,9 +1767,9 @@ fprintf('DETECTING IN SEARCH MODE.\n')
                     obj.ps_pos.clst(tick).mode = mode;% 'D';
                 end
                 
-fprintf('\nPS_PRE.FSTART AND FEND at the end Detection search : \t %f \t to \t %f.',...
+fprintf('ps_pre.fstart and ps_pre.fend at the end Detection search : \t %f \t to \t %f.\n',...
             obj.ps_pre.fstart, obj.ps_pre.fend);%(1) is for coder so it knows it is a scalar
-fprintf('\nPS_POS.FSTART AND FEND beginning at the end Detection search : \t %f \t to \t %f.',...
+fprintf('ps_pos.fstart and ps_pos.fend at the end Detection search : \t %f \t to \t %f.\n',...
             obj.ps_pos.fstart, obj.ps_pos.fend);%(1) is for coder so it knows it is a scalar
 
 
@@ -1884,9 +1865,9 @@ fprintf('DETECTING IN CONFIRMATION MODE.\n')
                 for tick = 1:numel(obj.ps_pos.clst)
                     obj.ps_pos.clst(tick).mode = mode;%'C';
                 end
-fprintf('\nPS_PRE.FSTART AND FEND at the end Confirmation search : \t %f \t to \t %f.',...
+fprintf('ps_pre.fstart and ps_pre.fend at the end Confirmation search : \t %f \t to \t %f.\n',...
             obj.ps_pre.fstart, obj.ps_pre.fend);%(1) is for coder so it knows it is a scalar
-fprintf('\nPS_POS.FSTART AND FEND beginning at the end Confirmation search : \t %f \t to \t %f.',...
+fprintf('ps_pos.fstart and ps_pos.fend at the end Confirmation search : \t %f \t to \t %f.\n',...
             obj.ps_pos.fstart, obj.ps_pos.fend);%(1) is for coder so it knows it is a scalar
 
 
@@ -1977,9 +1958,9 @@ fprintf('DETECTING IN TRACKING MODE.\n')
                 for tick = 1:numel(obj.ps_pos.clst)
                     obj.ps_pos.clst(tick).mode  = mode;% 'T';
                 end
-fprintf('\nPS_PRE.FSTART AND FEND at the end Tracking search : \t %f \t to \t %f.',...
+fprintf('ps_pre.fstart and ps_pre.fend at the end Tracking search : \t %f \t to \t %f.\n',...
             obj.ps_pre.fstart, obj.ps_pre.fend);%(1) is for coder so it knows it is a scalar
-fprintf('\nPS_POS.FSTART AND FEND beginning at the end Tracking search : \t %f \t to \t %f.',...
+fprintf('ps_pos.fstart and ps_pre.fend at the end Tracking search : \t %f \t to \t %f.\n',...
             obj.ps_pos.fstart, obj.ps_pos.fend);%(1) is for coder so it knows it is a scalar
 
 

@@ -199,7 +199,7 @@ classdef threshold
     %             hold on
     %             plot(xi,p,'DisplayName','EV Fit'); legend('Location','best')
             else
-                fprintf("Threshold values were pulled from cache\n");
+                fprintf("\t threshold values were pulled from cache\n");
             end
     
             threshMedPow  = evthresh(obj.evMuParam, obj.evSigmaParam, PF);

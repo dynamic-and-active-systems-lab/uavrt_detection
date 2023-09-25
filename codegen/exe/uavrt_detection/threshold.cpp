@@ -5,7 +5,7 @@
 // File: threshold.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 23-Sep-2023 21:32:11
+// C/C++ source code generated on  : 24-Sep-2023 17:58:12
 //
 
 // Include Files
@@ -656,7 +656,7 @@ void threshold::makenewthreshold(const waveform &Wfm)
     //              hold on
     //              plot(xi,p,'DisplayName','EV Fit'); legend('Location','best')
   } else {
-    std::printf("Threshold values were pulled from cache\n");
+    std::printf("\t threshold values were pulled from cache\n");
     std::fflush(stdout);
   }
   theFunc.workspace.mu = evMuParam;
