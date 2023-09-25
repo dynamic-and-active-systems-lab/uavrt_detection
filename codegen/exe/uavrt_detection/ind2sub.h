@@ -5,7 +5,7 @@
 // File: ind2sub.h
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 24-Sep-2023 17:58:12
+// C/C++ source code generated on  : 25-Sep-2023 10:39:23
 //
 
 #ifndef IND2SUB_H

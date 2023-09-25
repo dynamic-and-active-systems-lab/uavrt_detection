@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 24-Sep-2023 17:58:12
+// C/C++ source code generated on  : 25-Sep-2023 10:39:23
 //
 
 // Include Files
@@ -896,27 +896,27 @@ static void updateconfig(coder::b_captured_var &Config,
         }
         if (a) {
           creal_T x;
+          unsigned int in;
           unsigned int in_tmp;
-          unsigned int u;
           x = coder::internal::str2double(configValStr);
           d = std::round(x.re);
           if (d < 4.294967296E+9) {
             if (d >= 0.0) {
               in_tmp = static_cast<unsigned int>(d);
-              u = in_tmp;
+              in = in_tmp;
             } else {
               in_tmp = 0U;
-              u = 0U;
+              in = 0U;
             }
           } else if (d >= 4.294967296E+9) {
             in_tmp = MAX_uint32_T;
-            u = MAX_uint32_T;
+            in = MAX_uint32_T;
           } else {
             in_tmp = 0U;
-            u = 0U;
+            in = 0U;
           }
           r.ID = in_tmp;
-          if (u <= 0U) {
+          if (in <= 0U) {
             d_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
           }
         } else if (coder::internal::c_strcmp(configType)) {
@@ -930,26 +930,26 @@ static void updateconfig(coder::b_captured_var &Config,
           if (coder::internal::e_strcmp(configType)) {
             creal_T x;
             unsigned short b_in_tmp;
-            unsigned short u1;
+            unsigned short u;
             x = coder::internal::str2double(configValStr);
             d = std::round(x.re);
             if (d < 65536.0) {
               if (d >= 0.0) {
                 b_in_tmp = static_cast<unsigned short>(d);
-                u1 = b_in_tmp;
+                u = b_in_tmp;
               } else {
                 b_in_tmp = 0U;
-                u1 = 0U;
+                u = 0U;
               }
             } else if (d >= 65536.0) {
               b_in_tmp = MAX_uint16_T;
-              u1 = MAX_uint16_T;
+              u = MAX_uint16_T;
             } else {
               b_in_tmp = 0U;
-              u1 = 0U;
+              u = 0U;
             }
             r.portData = b_in_tmp;
-            if (u1 <= 0) {
+            if (u <= 0) {
               d_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
             }
           } else if (coder::internal::f_strcmp(configType)) {
@@ -999,26 +999,26 @@ static void updateconfig(coder::b_captured_var &Config,
             if (a) {
               creal_T x;
               unsigned char c_in_tmp;
-              unsigned char u2;
+              unsigned char u1;
               x = coder::internal::str2double(configValStr);
               d = std::round(x.re);
               if (d < 256.0) {
                 if (d >= 0.0) {
                   c_in_tmp = static_cast<unsigned char>(d);
-                  u2 = c_in_tmp;
+                  u1 = c_in_tmp;
                 } else {
                   c_in_tmp = 0U;
-                  u2 = 0U;
+                  u1 = 0U;
                 }
               } else if (d >= 256.0) {
                 c_in_tmp = MAX_uint8_T;
-                u2 = MAX_uint8_T;
+                u1 = MAX_uint8_T;
               } else {
                 c_in_tmp = 0U;
-                u2 = 0U;
+                u1 = 0U;
               }
               r.K = c_in_tmp;
-              if (u2 <= 0) {
+              if (u1 <= 0) {
                 d_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
               }
             } else if (!coder::internal::l_strcmp(configType)) {
@@ -1042,36 +1042,29 @@ static void updateconfig(coder::b_captured_var &Config,
                                          wc_emlrtRTEI.lineNo);
                 }
                 r.falseAlarmProb = x.re;
-              } else if ((!coder::internal::o_strcmp(configType)) &&
-                         coder::internal::p_strcmp(configType)) {
-                unsigned int in_tmp;
-                unsigned int u;
-                r.logPath.Value.set_size(1, match_idx);
-                for (text_len = 0; text_len < match_idx; text_len++) {
-                  r.logPath.Value[text_len] = lineStr[i + text_len];
-                }
-                creal_T x;
-                x = coder::internal::str2double(configValStr);
-                d = std::round(x.re);
-                if (d < 4.294967296E+9) {
-                  if (d >= 0.0) {
-                    in_tmp = static_cast<unsigned int>(d);
-                    u = in_tmp;
-                  } else {
-                    in_tmp = 0U;
-                    u = 0U;
+              } else if (!coder::internal::o_strcmp(configType)) {
+                if (coder::internal::p_strcmp(configType)) {
+                  r.logPath.Value.set_size(1, match_idx);
+                  for (text_len = 0; text_len < match_idx; text_len++) {
+                    r.logPath.Value[text_len] = lineStr[i + text_len];
                   }
-                } else if (d >= 4.294967296E+9) {
-                  in_tmp = MAX_uint32_T;
-                  u = MAX_uint32_T;
-                } else {
-                  in_tmp = 0U;
-                  u = 0U;
-                }
-                r.startIndex = in_tmp;
-                if (u <= 0U) {
-                  d_rtErrorWithMessageID(uc_emlrtRTEI.fName,
-                                         uc_emlrtRTEI.lineNo);
+                } else if (coder::internal::q_strcmp(configType)) {
+                  creal_T x;
+                  unsigned int in;
+                  x = coder::internal::str2double(configValStr);
+                  d = std::round(x.re);
+                  if (d < 4.294967296E+9) {
+                    if (d >= 0.0) {
+                      in = static_cast<unsigned int>(d);
+                    } else {
+                      in = 0U;
+                    }
+                  } else if (d >= 4.294967296E+9) {
+                    in = MAX_uint32_T;
+                  } else {
+                    in = 0U;
+                  }
+                  r.startIndex = in;
                 }
               }
             }

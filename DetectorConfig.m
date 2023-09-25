@@ -57,7 +57,7 @@ classdef DetectorConfig
         falseAlarmProb(1,1) double {mustBePositive, mustBeLessThan(falseAlarmProb,1)} = 0.01
         dataRecordPath(1,1) string                                            = ''
         logPath     (1,1) string                                              = ''
-        startIndex  (1,1) double {mustBeReal, mustBePositive, mustBeInteger}  = 1
+        startIndex  (1,1) double {mustBeReal,  mustBeInteger}                 = 1
     end
     
     methods
@@ -195,7 +195,7 @@ classdef DetectorConfig
                         obj.dataRecordPath = configValStr;
                     elseif strcmp(configType,'logPath')
                         obj.logPath = configValStr;
-                    strcmp(configType,'startIndex')
+                    elseif strcmp(configType,'startIndex')
                         obj.startIndex = uint32(real(str2double(configValStr)));
                     end
                     %Stop when we have finished reading this entry.
