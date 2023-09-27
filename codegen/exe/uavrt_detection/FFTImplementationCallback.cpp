@@ -5,7 +5,7 @@
 // File: FFTImplementationCallback.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 // Include Files
@@ -19,7 +19,7 @@
 #include <cmath>
 
 // Variable Definitions
-static rtDoubleCheckInfo j_emlrtDCI{
+static rtDoubleCheckInfo k_emlrtDCI{
     33,                     // lineNo
     28,                     // colNo
     "bluestein_setup_impl", // fName
@@ -303,7 +303,7 @@ void FFTImplementationCallback::dobluesteinfft(
   boolean_T tst;
   nInt2m1 = (nfft + nfft) - 1;
   if (nInt2m1 < 0) {
-    rtNonNegativeError(static_cast<double>(nInt2m1), j_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(nInt2m1), k_emlrtDCI);
   }
   wwc.set_size(nInt2m1);
   rt = 0;
@@ -540,7 +540,7 @@ void FFTImplementationCallback::dobluesteinfft(
   int rt;
   nInt2m1 = (nfft + nfft) - 1;
   if (nInt2m1 < 0) {
-    rtNonNegativeError(static_cast<double>(nInt2m1), j_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(nInt2m1), k_emlrtDCI);
   }
   wwc.set_size(nInt2m1);
   rt = 0;
@@ -687,7 +687,7 @@ void FFTImplementationCallback::dobluesteinfft(
   nChan = x.size(1) * x.size(2);
   nInt2m1 = (nfft + nfft) - 1;
   if (nInt2m1 < 0) {
-    rtNonNegativeError(static_cast<double>(nInt2m1), j_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(nInt2m1), k_emlrtDCI);
   }
   wwc.set_size(nInt2m1);
   rt = 0;
@@ -895,7 +895,7 @@ void FFTImplementationCallback::generate_twiddle_tables(
 int FFTImplementationCallback::get_algo_sizes(int nfft, boolean_T useRadix2,
                                               int &nRows)
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       417,                                        // lineNo
       17,                                         // colNo
       "FFTImplementationCallback/get_algo_sizes", // fName
@@ -941,7 +941,7 @@ int FFTImplementationCallback::get_algo_sizes(int nfft, boolean_T useRadix2,
       n = 1;
     }
     if (n2blue > n) {
-      i_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+      i_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
     }
     nRows = n2blue;
   }

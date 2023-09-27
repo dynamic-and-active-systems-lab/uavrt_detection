@@ -5,7 +5,7 @@
 // File: eml_int_forloop_overflow_check.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 // Include Files
@@ -20,7 +20,7 @@
 #include <string>
 
 // Variable Definitions
-static rtRunTimeErrorInfo lc_emlrtRTEI{
+static rtRunTimeErrorInfo pc_emlrtRTEI{
     87,                             // lineNo
     33,                             // colNo
     "check_forloop_overflow_error", // fName
@@ -65,7 +65,7 @@ static void m_rtErrorWithMessageID(const char *r, const char *aFcnName,
 namespace coder {
 void b_check_forloop_overflow_error()
 {
-  m_rtErrorWithMessageID("uint32", lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+  m_rtErrorWithMessageID("uint32", pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
 }
 
 //
@@ -74,7 +74,7 @@ void b_check_forloop_overflow_error()
 //
 void check_forloop_overflow_error()
 {
-  m_rtErrorWithMessageID("int32", lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+  m_rtErrorWithMessageID("int32", pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
 }
 
 } // namespace coder

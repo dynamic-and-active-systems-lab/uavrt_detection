@@ -5,7 +5,7 @@
 // File: evfit.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 // Include Files
@@ -255,50 +255,50 @@ void evfit(const ::coder::array<double, 1U> &x, double parmhat[2])
       "+internal/rangeWithCensoring.m", // pName
       0                                 // checkKind
   };
-  static rtRunTimeErrorInfo
-      qc_emlrtRTEI{
-          127,     // lineNo
-          19,      // colNo
-          "fzero", // fName
-          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/optimfun/"
-          "fzero.m" // pName
-      };
-  static rtRunTimeErrorInfo rc_emlrtRTEI{
+  static rtRunTimeErrorInfo ad_emlrtRTEI{
       209,                                                        // lineNo
       9,                                                          // colNo
       "evfit",                                                    // fName
       "/Applications/MATLAB_R2023a.app/toolbox/stats/eml/evfit.m" // pName
   };
-  static rtRunTimeErrorInfo sc_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       218,                                                        // lineNo
       9,                                                          // colNo
       "evfit",                                                    // fName
       "/Applications/MATLAB_R2023a.app/toolbox/stats/eml/evfit.m" // pName
   };
   static rtRunTimeErrorInfo
-      tc_emlrtRTEI{
+      uc_emlrtRTEI{
           149,     // lineNo
           9,       // colNo
           "fzero", // fName
           "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/optimfun/"
           "fzero.m" // pName
       };
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo vc_emlrtRTEI{
       14,    // lineNo
       9,     // colNo
       "log", // fName
       "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/elfun/log.m" // pName
   };
-  static rtRunTimeErrorInfo vc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       227,                                                        // lineNo
       1,                                                          // colNo
       "evfit",                                                    // fName
       "/Applications/MATLAB_R2023a.app/toolbox/stats/eml/evfit.m" // pName
   };
   static rtRunTimeErrorInfo
-      wc_emlrtRTEI{
+      xc_emlrtRTEI{
           137,     // lineNo
           9,       // colNo
+          "fzero", // fName
+          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/optimfun/"
+          "fzero.m" // pName
+      };
+  static rtRunTimeErrorInfo
+      yc_emlrtRTEI{
+          127,     // lineNo
+          19,      // colNo
           "fzero", // fName
           "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/optimfun/"
           "fzero.m" // pName
@@ -311,7 +311,7 @@ void evfit(const ::coder::array<double, 1U> &x, double parmhat[2])
   int k;
   int nx;
   if (x.size(0) == 0) {
-    g_rtErrorWithMessageID("X", v_emlrtRTEI.fName, v_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID("X", w_emlrtRTEI.fName, w_emlrtRTEI.lineNo);
   }
   tempMin = rtInf;
   tempMax = rtMinusInf;
@@ -396,7 +396,7 @@ void evfit(const ::coder::array<double, 1U> &x, double parmhat[2])
         upper = sigmahat;
         sigmahat *= 0.5;
         if (sigmahat < 2.2250738585072014E-308) {
-          sb_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+          sb_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
         }
       }
     } else {
@@ -405,20 +405,20 @@ void evfit(const ::coder::array<double, 1U> &x, double parmhat[2])
         sigmahat = upper;
         upper *= 2.0;
         if (sigmahat < 2.2250738585072014E-308) {
-          sb_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+          sb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
         }
       }
     }
     nx = 1;
     if (std::isinf(sigmahat) || std::isnan(sigmahat) ||
         (std::isinf(upper) || std::isnan(upper))) {
-      rb_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+      rb_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
     }
     tempMin = lkeqn(sigmahat, x0, wgtmeanUnc);
     fb = lkeqn(upper, x0, wgtmeanUnc);
     if (std::isinf(tempMin) || std::isnan(tempMin) ||
         (std::isinf(fb) || std::isnan(fb))) {
-      qb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+      qb_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
     }
     savefa = tempMin;
     savefb = fb;
@@ -431,7 +431,7 @@ void evfit(const ::coder::array<double, 1U> &x, double parmhat[2])
       double fc;
       boolean_T exitg1;
       if ((tempMin > 0.0) == (fb > 0.0)) {
-        pb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+        pb_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
       }
       fc = fb;
       c = upper;
@@ -507,7 +507,7 @@ void evfit(const ::coder::array<double, 1U> &x, double parmhat[2])
       }
     }
     if (nx < 0) {
-      sb_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+      sb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
     }
     nx = x0.size(0);
     for (k = 0; k < nx; k++) {
@@ -519,7 +519,7 @@ void evfit(const ::coder::array<double, 1U> &x, double parmhat[2])
     }
     tempMin = blockedSummation(x0, x0.size(0)) / static_cast<double>(x.size(0));
     if (tempMin < 0.0) {
-      rtErrorWithMessageID("log", uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+      rtErrorWithMessageID("log", vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
     }
     tempMin = std::log(tempMin);
     parmhat[0] = rangex * (upper * tempMin) + tempMax;

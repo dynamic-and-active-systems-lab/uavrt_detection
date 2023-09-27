@@ -5,7 +5,7 @@
 // File: ind2sub.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 // Include Files
@@ -16,7 +16,7 @@
 
 // Variable Definitions
 static rtRunTimeErrorInfo
-    ic_emlrtRTEI{
+    kc_emlrtRTEI{
         21,        // lineNo
         15,        // colNo
         "ind2sub", // fName
@@ -38,7 +38,7 @@ int ind2sub(const double siz[2], double ndx, int &varargout_2)
   int vk;
   if (static_cast<int>(ndx) >
       static_cast<int>(siz[0]) * static_cast<int>(siz[1])) {
-    cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+    cc_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
   }
   vk = div_s32(static_cast<int>(ndx) - 1, static_cast<int>(siz[0]));
   varargout_2 = vk + 1;
@@ -55,7 +55,7 @@ int ind2sub(const double siz[2], int ndx, int &varargout_2)
 {
   int vk;
   if (ndx > static_cast<int>(siz[0]) * static_cast<int>(siz[1])) {
-    cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+    cc_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
   }
   vk = div_s32(ndx - 1, static_cast<int>(siz[0]));
   varargout_2 = vk + 1;

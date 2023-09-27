@@ -5,7 +5,7 @@
 // File: uavrt_detection_rtwutil.h
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 #ifndef UAVRT_DETECTION_RTWUTIL_H
@@ -106,6 +106,9 @@ extern void rtNonNegativeError(const double aPositive,
                                const rtDoubleCheckInfo &aInfo);
 
 extern void rtSizeEq1DError(const int aDim1, const int aDim2,
+                            const rtEqualityCheckInfo &aInfo);
+
+extern void rtSizeEqNDCheck(const int *aDims1, const int *aDims2,
                             const rtEqualityCheckInfo &aInfo);
 
 extern void rtSubAssignSizeCheck(const int *aDims1, const int aNDims1,

@@ -5,37 +5,39 @@
 // File: strcmp.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 // Include Files
 #include "strcmp.h"
+#include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
-#include "string1.h"
-#include "uavrt_detection_data.h"
 #include "coder_array.h"
 
 // Function Definitions
 //
-// Arguments    : const rtString &a
+// Arguments    : const ::coder::array<char, 2U> &a
+//                const ::coder::array<char, 2U> &b
 // Return Type  : boolean_T
 //
 namespace coder {
 namespace internal {
-boolean_T b_strcmp(const rtString &a)
+boolean_T b_strcmp(const ::coder::array<char, 2U> &a,
+                   const ::coder::array<char, 2U> &b)
 {
-  static const char b_cv[16]{'f', 'r', 'e', 'q', 'A', 'l', 'l', 'N',
-                             'e', 'v', 'e', 'r', 'L', 'o', 'c', 'k'};
   boolean_T b_bool;
   b_bool = false;
-  if (a.Value.size(1) == 16) {
+  if (a.size(1) == b.size(1)) {
     int kstr;
+    if (b.size(1) > 2147483646) {
+      check_forloop_overflow_error();
+    }
     kstr = 0;
     int exitg1;
     do {
       exitg1 = 0;
-      if (kstr < 16) {
-        if (a.Value[kstr] != b_cv[kstr]) {
+      if (kstr <= b.size(1) - 1) {
+        if (a[kstr] != b[kstr]) {
           exitg1 = 1;
         } else {
           kstr++;
@@ -97,35 +99,6 @@ boolean_T b_strcmp(const char a_data[], const int a_size[2])
       exitg1 = 0;
       if (kstr < 6) {
         if (a_data[kstr] != b_cv[kstr]) {
-          exitg1 = 1;
-        } else {
-          kstr++;
-        }
-      } else {
-        b_bool = true;
-        exitg1 = 1;
-      }
-    } while (exitg1 == 0);
-  }
-  return b_bool;
-}
-
-//
-// Arguments    : const rtString &a
-// Return Type  : boolean_T
-//
-boolean_T c_strcmp(const rtString &a)
-{
-  boolean_T b_bool;
-  b_bool = false;
-  if (a.Value.size(1) == 18) {
-    int kstr;
-    kstr = 0;
-    int exitg1;
-    do {
-      exitg1 = 0;
-      if (kstr < 18) {
-        if (a.Value[kstr] != cv4[kstr]) {
           exitg1 = 1;
         } else {
           kstr++;
@@ -642,6 +615,66 @@ boolean_T o_strcmp(const ::coder::array<char, 2U> &a)
     do {
       exitg1 = 0;
       if (kstr < 14) {
+        if (a[kstr] != b_cv[kstr]) {
+          exitg1 = 1;
+        } else {
+          kstr++;
+        }
+      } else {
+        b_bool = true;
+        exitg1 = 1;
+      }
+    } while (exitg1 == 0);
+  }
+  return b_bool;
+}
+
+//
+// Arguments    : const ::coder::array<char, 2U> &a
+// Return Type  : boolean_T
+//
+boolean_T p_strcmp(const ::coder::array<char, 2U> &a)
+{
+  static const char b_cv[7]{'l', 'o', 'g', 'P', 'a', 't', 'h'};
+  boolean_T b_bool;
+  b_bool = false;
+  if (a.size(1) == 7) {
+    int kstr;
+    kstr = 0;
+    int exitg1;
+    do {
+      exitg1 = 0;
+      if (kstr < 7) {
+        if (a[kstr] != b_cv[kstr]) {
+          exitg1 = 1;
+        } else {
+          kstr++;
+        }
+      } else {
+        b_bool = true;
+        exitg1 = 1;
+      }
+    } while (exitg1 == 0);
+  }
+  return b_bool;
+}
+
+//
+// Arguments    : const ::coder::array<char, 2U> &a
+// Return Type  : boolean_T
+//
+boolean_T q_strcmp(const ::coder::array<char, 2U> &a)
+{
+  static const char b_cv[10]{'s', 't', 'a', 'r', 't', 'I', 'n', 'd', 'e', 'x'};
+  boolean_T b_bool;
+  b_bool = false;
+  if (a.size(1) == 10) {
+    int kstr;
+    kstr = 0;
+    int exitg1;
+    do {
+      exitg1 = 0;
+      if (kstr < 10) {
         if (a[kstr] != b_cv[kstr]) {
           exitg1 = 1;
         } else {

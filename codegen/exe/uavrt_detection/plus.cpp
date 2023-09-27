@@ -5,7 +5,7 @@
 // File: plus.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 // Include Files
@@ -24,7 +24,7 @@ namespace matlab {
 namespace internal {
 namespace coder {
 namespace doubledouble {
-creal_T c_plus(const creal_T a, double b)
+creal_T d_plus(const creal_T a, double b)
 {
   creal_T c;
   double ahi;

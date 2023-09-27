@@ -5,7 +5,7 @@
 // File: function_handle.h
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 #ifndef FUNCTION_HANDLE_H
@@ -24,8 +24,8 @@ class waveform;
 boolean_T binary_expand_op(const coder::array<double, 1U> &in1,
                            const waveform *in2);
 
-void h_binary_expand_op(const coder::array<boolean_T, 1U> &in1,
-                        const coder::array<boolean_T, 1U> &in2);
+boolean_T h_binary_expand_op(const coder::array<boolean_T, 1U> &in1,
+                             const coder::array<boolean_T, 1U> &in2);
 
 #endif
 //

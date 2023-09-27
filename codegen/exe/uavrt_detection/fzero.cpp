@@ -5,7 +5,7 @@
 // File: fzero.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 // Include Files
@@ -55,7 +55,7 @@ namespace coder {
 double fzero(const b_anonymous_function FunFcn)
 {
   static rtRunTimeErrorInfo
-      qc_emlrtRTEI{
+      tc_emlrtRTEI{
           83,      // lineNo
           9,       // colNo
           "fzero", // fName
@@ -75,7 +75,7 @@ double fzero(const b_anonymous_function FunFcn)
     double fb;
     int exitg2;
     if (std::isinf(fx) || std::isnan(fx)) {
-      tb_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+      tb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
     }
     dx = 0.02;
     a = 0.0;

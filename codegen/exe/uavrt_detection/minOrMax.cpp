@@ -5,7 +5,7 @@
 // File: minOrMax.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 // Include Files
@@ -20,17 +20,32 @@
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<double, 1U> &x
+// Arguments    : const double x[2]
 // Return Type  : double
 //
 namespace coder {
 namespace internal {
+double b_minimum(const double x[2])
+{
+  double ex;
+  if ((x[0] > x[1]) || (std::isnan(x[0]) && (!std::isnan(x[1])))) {
+    ex = x[1];
+  } else {
+    ex = x[0];
+  }
+  return ex;
+}
+
+//
+// Arguments    : const ::coder::array<double, 1U> &x
+// Return Type  : double
+//
 double maximum(const ::coder::array<double, 1U> &x)
 {
   double ex;
   int last;
   if (x.size(0) < 1) {
-    ib_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+    ib_rtErrorWithMessageID(vb_emlrtRTEI.fName, vb_emlrtRTEI.lineNo);
   }
   last = x.size(0);
   if (x.size(0) <= 2) {
@@ -97,7 +112,7 @@ void maximum(const ::coder::array<double, 2U> &x,
   int m;
   int n;
   if (x.size(1) < 1) {
-    ib_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+    ib_rtErrorWithMessageID(vb_emlrtRTEI.fName, vb_emlrtRTEI.lineNo);
   }
   m = x.size(0);
   n = x.size(1);
@@ -148,7 +163,7 @@ double maximum(const ::coder::array<double, 1U> &x, int &idx)
   double ex;
   int last;
   if (x.size(0) < 1) {
-    ib_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+    ib_rtErrorWithMessageID(vb_emlrtRTEI.fName, vb_emlrtRTEI.lineNo);
   }
   last = x.size(0);
   if (x.size(0) <= 2) {
@@ -222,16 +237,17 @@ double maximum(const double x[2])
 }
 
 //
-// Arguments    : const double x[2]
+// Arguments    : const double x_data[]
 // Return Type  : double
 //
-double minimum(const double x[2])
+double minimum(const double x_data[])
 {
   double ex;
-  if ((x[0] > x[1]) || (std::isnan(x[0]) && (!std::isnan(x[1])))) {
-    ex = x[1];
+  if ((x_data[0] > x_data[1]) ||
+      (std::isnan(x_data[0]) && (!std::isnan(x_data[1])))) {
+    ex = x_data[1];
   } else {
-    ex = x[0];
+    ex = x_data[0];
   }
   return ex;
 }

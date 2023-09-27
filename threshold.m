@@ -148,9 +148,9 @@ classdef threshold
                 scores       = zeros(obj.trials,1);                                 %Preallocate the scores matrix
                 Psynthall    = medPowAllFreqBins*nFreqBins;                     %Calculate the total power in the waveform for all frequency bins. Units are W/bin * # bins = W
                 xsynth       = wgn(nSamps,obj.trials,Psynthall,'linear','complex'); %Generate the synthetic data
-                [Ssynth,~,~] = stft(xsynth,Wfm.Fs,'Window',Wfm.stft.wind,'OverlapLength',Wfm.n_ol,'FFTLength',Wfm.n_w);
+                [Ssynth,~,tStft] = stft(xsynth,Wfm.Fs,'Window',Wfm.stft.wind,'OverlapLength',Wfm.n_ol,'FFTLength',Wfm.n_w);
                 Ssynth(:,nTimeWinds+1:end,:) = [];                              %Trim excess so we have the correct number of windows.
-
+                tStft(nTimeWinds+1:end) = [];
     fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
     previousToc = toc;
     fprintf('\t Running pulse summing process for all datasets ...')
@@ -158,9 +158,10 @@ classdef threshold
                 %Preform the incoherent summation using a matrix multiply.
                 %Could use pagetimes.m for this, but it isn't supported for
                 %code generation with sparse matrices as of R2023a
-                
+    [serialRejectionMatrix] = repetitionrejector(tStft, [2 3 5 10]);
+
                 for i = 1:obj.trials
-                    scores(i) = max(abs(Wfm.W'*Ssynth(:,:,i)).^2 * Wq, [], 'all'); %'all' call finds max across all temporal correlation sets and frequency bins just like we do in the dectection code.
+                    scores(i) = max(abs(Wfm.W'*Ssynth(:,:,i)).^2 * serialRejectionMatrix * Wq, [], 'all'); %'all' call finds max across all temporal correlation sets and frequency bins just like we do in the dectection code.
                 end
     fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
     previousToc = toc;
@@ -198,7 +199,7 @@ classdef threshold
     %             hold on
     %             plot(xi,p,'DisplayName','EV Fit'); legend('Location','best')
             else
-                fprintf("Threshold values were pulled from cache\n");
+                fprintf("\t threshold values were pulled from cache\n");
             end
     
             threshMedPow  = evthresh(obj.evMuParam, obj.evSigmaParam, PF);

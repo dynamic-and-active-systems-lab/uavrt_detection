@@ -56,10 +56,12 @@ classdef DetectorConfig
         excldFreqs  (:, 2) double {mustBeReal}                                = [inf, -inf]
         falseAlarmProb(1,1) double {mustBePositive, mustBeLessThan(falseAlarmProb,1)} = 0.01
         dataRecordPath(1,1) string                                            = ''
+        logPath     (1,1) string                                              = ''
+        startIndex  (1,1) double {mustBeReal,  mustBeInteger}                 = 1
     end
     
     methods
-        function obj = DetectorConfig(ID, channelCenterFreqMHZ, ipData, portData, Fs, tagFreqMHz, tp, tip, tipu, K, opMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath)
+        function obj = DetectorConfig(ID, channelCenterFreqMHZ, ipData, portData, Fs, tagFreqMHz, tp, tip, tipu, K, opMode, excldFreqs, falseAlarmProb, decisionEntryPath, dataRecordPath, logPath, startIndex)
             if nargin>0
                 obj.ID          = ID;
                 obj.channelCenterFreqMHz     = channelCenterFreqMHZ;
@@ -76,6 +78,8 @@ classdef DetectorConfig
                 obj.excldFreqs          = excldFreqs;
                 obj.falseAlarmProb      = falseAlarmProb;
                 obj.dataRecordPath      = dataRecordPath;
+                obj.logPath      = logPath;
+                obj.startIndex   = startIndex;
             end
         end
         
@@ -189,6 +193,10 @@ classdef DetectorConfig
                         obj.falseAlarmProb = real(str2double(configValStr));
                     elseif strcmp(configType,'dataRecordPath')
                         obj.dataRecordPath = configValStr;
+                    elseif strcmp(configType,'logPath')
+                        obj.logPath = configValStr;
+                    elseif strcmp(configType,'startIndex')
+                        obj.startIndex = uint32(real(str2double(configValStr)));
                     end
                     %Stop when we have finished reading this entry.
                     done = (feof(fid) == 1) || (ftell(fid)==sepByte(entry+1)) ;
@@ -222,7 +230,9 @@ classdef DetectorConfig
                                                    obj.K, obj.opMode,...
                                                    obj.excldFreqs,...
                                                    obj.falseAlarmProb,...
-                                                   obj.dataRecordPath)
+                                                   obj.dataRecordPath,...
+                                                   obj.logPath,...
+                                                   obj.startIndex);
                                                    
             detectorconfigwrite(fullConfigPath, configStr, writeType)
         end
@@ -246,6 +256,8 @@ classdef DetectorConfig
             objOut.excldFreqs          = obj.excldFreqs;
             objOut.falseAlarmProb      = obj.falseAlarmProb;
             objOut.dataRecordPath      = obj.dataRecordPath;
+            objOut.logPath      = obj.logPath;
+            objOut.startIndex   = obj.startIndex;
         end
     end
 end

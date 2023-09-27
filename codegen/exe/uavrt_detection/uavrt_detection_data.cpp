@@ -5,7 +5,7 @@
 // File: uavrt_detection_data.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 // Include Files
@@ -61,6 +61,14 @@ rtRunTimeErrorInfo j_emlrtRTEI{
 };
 
 rtRunTimeErrorInfo k_emlrtRTEI{
+    85,                // lineNo
+    27,                // colNo
+    "validate_inputs", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+    "nullAssignment.m" // pName
+};
+
+rtRunTimeErrorInfo l_emlrtRTEI{
     74,                  // lineNo
     13,                  // colNo
     "reshapeSizeChecks", // fName
@@ -68,7 +76,7 @@ rtRunTimeErrorInfo k_emlrtRTEI{
     "reshapeSizeChecks.m" // pName
 };
 
-rtRunTimeErrorInfo l_emlrtRTEI{
+rtRunTimeErrorInfo m_emlrtRTEI{
     81,                  // lineNo
     23,                  // colNo
     "reshapeSizeChecks", // fName
@@ -76,7 +84,7 @@ rtRunTimeErrorInfo l_emlrtRTEI{
     "reshapeSizeChecks.m" // pName
 };
 
-rtRunTimeErrorInfo m_emlrtRTEI{
+rtRunTimeErrorInfo n_emlrtRTEI{
     64,                   // lineNo
     15,                   // colNo
     "assertValidSizeArg", // fName
@@ -96,7 +104,7 @@ rtBoundsCheckInfo emlrtBCI{
     3                        // checkKind
 };
 
-rtRunTimeErrorInfo q_emlrtRTEI{
+rtRunTimeErrorInfo r_emlrtRTEI{
     14,                    // lineNo
     37,                    // colNo
     "validatenonnegative", // fName
@@ -104,7 +112,7 @@ rtRunTimeErrorInfo q_emlrtRTEI{
     "validatenonnegative.m" // pName
 };
 
-rtRunTimeErrorInfo r_emlrtRTEI{
+rtRunTimeErrorInfo s_emlrtRTEI{
     324,                        // lineNo
     13,                         // colNo
     "AsyncBuffercgHelper/read", // fName
@@ -112,7 +120,17 @@ rtRunTimeErrorInfo r_emlrtRTEI{
     "AsyncBuffercgHelper.m" // pName
 };
 
-rtRunTimeErrorInfo v_emlrtRTEI{
+rtDoubleCheckInfo
+    b_emlrtDCI{
+        12,       // lineNo
+        20,       // colNo
+        "blanks", // fName
+        "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/strfun/"
+        "blanks.m", // pName
+        4           // checkKind
+    };
+
+rtRunTimeErrorInfo w_emlrtRTEI{
     13,                 // lineNo
     37,                 // colNo
     "validatenonempty", // fName
@@ -120,7 +138,7 @@ rtRunTimeErrorInfo v_emlrtRTEI{
     "validatenonempty.m" // pName
 };
 
-rtRunTimeErrorInfo w_emlrtRTEI{
+rtRunTimeErrorInfo x_emlrtRTEI{
     14,               // lineNo
     37,               // colNo
     "validatenonnan", // fName
@@ -128,7 +146,7 @@ rtRunTimeErrorInfo w_emlrtRTEI{
     "validatenonnan.m" // pName
 };
 
-rtRunTimeErrorInfo x_emlrtRTEI{
+rtRunTimeErrorInfo y_emlrtRTEI{
     14,               // lineNo
     37,               // colNo
     "validatefinite", // fName
@@ -136,14 +154,14 @@ rtRunTimeErrorInfo x_emlrtRTEI{
     "validatefinite.m" // pName
 };
 
-rtRunTimeErrorInfo y_emlrtRTEI{
+rtRunTimeErrorInfo ab_emlrtRTEI{
     53,       // lineNo
     15,       // colNo
     "bsxfun", // fName
     "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/elmat/bsxfun.m" // pName
 };
 
-rtRunTimeErrorInfo cb_emlrtRTEI{
+rtRunTimeErrorInfo db_emlrtRTEI{
     13,                // lineNo
     37,                // colNo
     "validateinteger", // fName
@@ -206,7 +224,7 @@ rtBoundsCheckInfo o_emlrtBCI{
     0 // checkKind
 };
 
-rtDoubleCheckInfo g_emlrtDCI{
+rtDoubleCheckInfo h_emlrtDCI{
     81,                 // lineNo
     1,                  // colNo
     "computeDFTviaFFT", // fName
@@ -215,7 +233,7 @@ rtDoubleCheckInfo g_emlrtDCI{
     1               // checkKind
 };
 
-rtDoubleCheckInfo h_emlrtDCI{
+rtDoubleCheckInfo i_emlrtDCI{
     81,                 // lineNo
     12,                 // colNo
     "computeDFTviaFFT", // fName
@@ -224,7 +242,7 @@ rtDoubleCheckInfo h_emlrtDCI{
     4               // checkKind
 };
 
-rtDoubleCheckInfo i_emlrtDCI{
+rtDoubleCheckInfo j_emlrtDCI{
     81,                 // lineNo
     12,                 // colNo
     "computeDFTviaFFT", // fName
@@ -233,14 +251,14 @@ rtDoubleCheckInfo i_emlrtDCI{
     1               // checkKind
 };
 
-rtRunTimeErrorInfo eb_emlrtRTEI{
+rtRunTimeErrorInfo fb_emlrtRTEI{
     12,                                                             // lineNo
     23,                                                             // colNo
     "datawrap",                                                     // fName
     "/Applications/MATLAB_R2023a.app/toolbox/signal/eml/datawrap.m" // pName
 };
 
-rtRunTimeErrorInfo fb_emlrtRTEI{
+rtRunTimeErrorInfo gb_emlrtRTEI{
     37,    // lineNo
     31,    // colNo
     "fft", // fName
@@ -281,7 +299,7 @@ rtBoundsCheckInfo q_emlrtBCI{
     0               // checkKind
 };
 
-rtRunTimeErrorInfo gb_emlrtRTEI{
+rtRunTimeErrorInfo hb_emlrtRTEI{
     13,               // lineNo
     13,               // colNo
     "toLogicalCheck", // fName
@@ -289,7 +307,7 @@ rtRunTimeErrorInfo gb_emlrtRTEI{
     "toLogicalCheck.m" // pName
 };
 
-rtRunTimeErrorInfo ib_emlrtRTEI{
+rtRunTimeErrorInfo jb_emlrtRTEI{
     58,                   // lineNo
     23,                   // colNo
     "assertValidSizeArg", // fName
@@ -297,7 +315,7 @@ rtRunTimeErrorInfo ib_emlrtRTEI{
     "assertValidSizeArg.m" // pName
 };
 
-rtRunTimeErrorInfo jb_emlrtRTEI{
+rtRunTimeErrorInfo kb_emlrtRTEI{
     13,                     // lineNo
     27,                     // colNo
     "assertCompatibleDims", // fName
@@ -305,7 +323,7 @@ rtRunTimeErrorInfo jb_emlrtRTEI{
     "+internal/assertCompatibleDims.m" // pName
 };
 
-rtRunTimeErrorInfo kb_emlrtRTEI{
+rtRunTimeErrorInfo lb_emlrtRTEI{
     159,                    // lineNo
     13,                     // colNo
     "coderTimeCheckStatus", // fName
@@ -322,7 +340,7 @@ rtEqualityCheckInfo e_emlrtECI{
     "AsyncBuffercgHelper.m" // pName
 };
 
-rtRunTimeErrorInfo ob_emlrtRTEI{
+rtRunTimeErrorInfo pb_emlrtRTEI{
     288,                   // lineNo
     27,                    // colNo
     "check_non_axis_size", // fName
@@ -330,7 +348,7 @@ rtRunTimeErrorInfo ob_emlrtRTEI{
 };
 
 rtRunTimeErrorInfo
-    sb_emlrtRTEI{
+    tb_emlrtRTEI{
         208,            // lineNo
         13,             // colNo
         "interp1_work", // fName
@@ -339,7 +357,7 @@ rtRunTimeErrorInfo
     };
 
 rtRunTimeErrorInfo
-    tb_emlrtRTEI{
+    ub_emlrtRTEI{
         166,            // lineNo
         13,             // colNo
         "interp1_work", // fName
@@ -347,7 +365,7 @@ rtRunTimeErrorInfo
         "interp1.m" // pName
     };
 
-rtRunTimeErrorInfo ub_emlrtRTEI{
+rtRunTimeErrorInfo vb_emlrtRTEI{
     134,             // lineNo
     27,              // colNo
     "unaryMinOrMax", // fName
@@ -355,7 +373,7 @@ rtRunTimeErrorInfo ub_emlrtRTEI{
     "unaryMinOrMax.m" // pName
 };
 
-rtRunTimeErrorInfo wb_emlrtRTEI{
+rtRunTimeErrorInfo xb_emlrtRTEI{
     13,     // lineNo
     9,      // colNo
     "sqrt", // fName
@@ -363,22 +381,14 @@ rtRunTimeErrorInfo wb_emlrtRTEI{
 };
 
 rtRunTimeErrorInfo ac_emlrtRTEI{
-    138,                   // lineNo
-    23,                    // colNo
-    "dynamic_size_checks", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/ops/"
-    "eml_mtimes_helper.m" // pName
+    1632,              // lineNo
+    31,                // colNo
+    "assertValidSize", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/+coder/"
+    "+internal/@sparse/sparse.m" // pName
 };
 
-rtRunTimeErrorInfo bc_emlrtRTEI{
-    133,                   // lineNo
-    23,                    // colNo
-    "dynamic_size_checks", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/ops/"
-    "eml_mtimes_helper.m" // pName
-};
-
-rtDoubleCheckInfo m_emlrtDCI{
+rtDoubleCheckInfo n_emlrtDCI{
     1501,                  // lineNo
     44,                    // colNo
     "sparse/nullcopyLike", // fName
@@ -388,21 +398,43 @@ rtDoubleCheckInfo m_emlrtDCI{
 };
 
 rtRunTimeErrorInfo dc_emlrtRTEI{
-    1632,              // lineNo
-    31,                // colNo
-    "assertValidSize", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/+coder/"
-    "+internal/@sparse/sparse.m" // pName
+    138,                   // lineNo
+    23,                    // colNo
+    "dynamic_size_checks", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/ops/"
+    "eml_mtimes_helper.m" // pName
+};
+
+rtRunTimeErrorInfo ec_emlrtRTEI{
+    133,                   // lineNo
+    23,                    // colNo
+    "dynamic_size_checks", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/ops/"
+    "eml_mtimes_helper.m" // pName
 };
 
 rtRunTimeErrorInfo
-    gc_emlrtRTEI{
+    ic_emlrtRTEI{
         28,        // lineNo
         19,        // colNo
         "sub2ind", // fName
         "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
         "sub2ind.m" // pName
     };
+
+rtRunTimeErrorInfo nc_emlrtRTEI{
+    48,        // lineNo
+    5,         // colNo
+    "fprintf", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/fprintf.m" // pName
+};
+
+rtRunTimeErrorInfo oc_emlrtRTEI{
+    125,        // lineNo
+    17,         // colNo
+    "cfprintf", // fName
+    "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/fprintf.m" // pName
+};
 
 const boolean_T bv[128]{
     false, false, false, false, false, false, false, false, false, true,  true,
@@ -424,9 +456,6 @@ const char cv1[22]{'c', 'o', 'd', 'e', 'r', 'I', 'n', 'i', 't', 'T', 'i',
 const char cv2[30]{'c', 'o', 'd', 'e', 'r', 'T', 'i', 'm', 'e', 'C',
                    'l', 'o', 'c', 'k', 'G', 'e', 't', 't', 'i', 'm',
                    'e', 'M', 'o', 'n', 'o', 't', 'o', 'n', 'i', 'c'};
-
-const char cv4[18]{'f', 'r', 'e', 'q', 'S', 'e', 'a', 'r', 'c',
-                   'h', 'S', 'o', 'f', 't', 'L', 'o', 'c', 'k'};
 
 boolean_T isInitialized_uavrt_detection{false};
 

@@ -5,7 +5,7 @@
 // File: stft.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 // Include Files
@@ -65,7 +65,7 @@ static rtBoundsCheckInfo e_emlrtBCI{
     0                         // checkKind
 };
 
-static rtDoubleCheckInfo b_emlrtDCI{
+static rtDoubleCheckInfo c_emlrtDCI{
     23,               // lineNo
     42,               // colNo
     "getSTFTColumns", // fName
@@ -86,7 +86,7 @@ static rtBoundsCheckInfo f_emlrtBCI{
     0                         // checkKind
 };
 
-static rtDoubleCheckInfo c_emlrtDCI{
+static rtDoubleCheckInfo d_emlrtDCI{
     23,               // lineNo
     23,               // colNo
     "getSTFTColumns", // fName
@@ -95,7 +95,7 @@ static rtDoubleCheckInfo c_emlrtDCI{
     1                         // checkKind
 };
 
-static rtRunTimeErrorInfo ab_emlrtRTEI{
+static rtRunTimeErrorInfo bb_emlrtRTEI{
     336,                 // lineNo
     5,                   // colNo
     "verifyDataAndTime", // fName
@@ -103,7 +103,7 @@ static rtRunTimeErrorInfo ab_emlrtRTEI{
     "+stft/stftParser.m" // pName
 };
 
-static rtRunTimeErrorInfo bb_emlrtRTEI{
+static rtRunTimeErrorInfo cb_emlrtRTEI{
     318,                 // lineNo
     5,                   // colNo
     "verifyDataAndTime", // fName
@@ -155,7 +155,7 @@ static rtBoundsCheckInfo j_emlrtBCI{
     0                                                               // checkKind
 };
 
-static rtDoubleCheckInfo d_emlrtDCI{
+static rtDoubleCheckInfo e_emlrtDCI{
     14,               // lineNo
     30,               // colNo
     "getSTFTColumns", // fName
@@ -164,7 +164,7 @@ static rtDoubleCheckInfo d_emlrtDCI{
     1                         // checkKind
 };
 
-static rtDoubleCheckInfo e_emlrtDCI{
+static rtDoubleCheckInfo f_emlrtDCI{
     14,               // lineNo
     30,               // colNo
     "getSTFTColumns", // fName
@@ -173,7 +173,7 @@ static rtDoubleCheckInfo e_emlrtDCI{
     4                         // checkKind
 };
 
-static rtDoubleCheckInfo f_emlrtDCI{
+static rtDoubleCheckInfo g_emlrtDCI{
     14,               // lineNo
     5,                // colNo
     "getSTFTColumns", // fName
@@ -182,7 +182,7 @@ static rtDoubleCheckInfo f_emlrtDCI{
     1                         // checkKind
 };
 
-static rtRunTimeErrorInfo db_emlrtRTEI{
+static rtRunTimeErrorInfo eb_emlrtRTEI{
     14,                 // lineNo
     37,                 // colNo
     "validatepositive", // fName
@@ -324,7 +324,7 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
     }
   }
   if (!p) {
-    i_rtErrorWithMessageID("X", x_emlrtRTEI.fName, x_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID("X", y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
   }
   p = true;
   k = 0;
@@ -338,25 +338,25 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
     }
   }
   if (!p) {
-    h_rtErrorWithMessageID("X", w_emlrtRTEI.fName, w_emlrtRTEI.lineNo);
+    h_rtErrorWithMessageID("X", x_emlrtRTEI.fName, x_emlrtRTEI.lineNo);
   }
   if (x.size(1) == 0) {
-    g_rtErrorWithMessageID("X", v_emlrtRTEI.fName, v_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID("X", w_emlrtRTEI.fName, w_emlrtRTEI.lineNo);
   }
   if (x.size(1) < 2) {
-    t_rtErrorWithMessageID(bb_emlrtRTEI.fName, bb_emlrtRTEI.lineNo);
+    t_rtErrorWithMessageID(cb_emlrtRTEI.fName, cb_emlrtRTEI.lineNo);
   }
   if (varargin_3.size(0) > x.size(1)) {
     rtErrorWithMessageID(static_cast<long>(varargin_3.size(0)),
-                         ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
+                         bb_emlrtRTEI.fName, bb_emlrtRTEI.lineNo);
   }
   if (std::isinf(varargin_1) || std::isnan(varargin_1)) {
-    i_rtErrorWithMessageID("sample rate", x_emlrtRTEI.fName,
-                           x_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID("sample rate", y_emlrtRTEI.fName,
+                           y_emlrtRTEI.lineNo);
   }
   if (varargin_1 <= 0.0) {
-    k_rtErrorWithMessageID("sample rate", db_emlrtRTEI.fName,
-                           db_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID("sample rate", eb_emlrtRTEI.fName,
+                           eb_emlrtRTEI.lineNo);
   }
   obj.value.set_size(varargin_3.size(0));
   bcoef = varargin_3.size(0);
@@ -367,15 +367,15 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
   nCol = std::trunc((static_cast<double>(x.size(1)) - varargin_5) / hopSize);
   xin.set_size(varargin_3.size(0), xin.size(1));
   if (!(nCol >= 0.0)) {
-    rtNonNegativeError(nCol, e_emlrtDCI);
+    rtNonNegativeError(nCol, f_emlrtDCI);
   }
   if (nCol != static_cast<int>(nCol)) {
-    rtIntegerError(nCol, d_emlrtDCI);
+    rtIntegerError(nCol, e_emlrtDCI);
   }
   i = static_cast<int>(nCol);
   xin.set_size(xin.size(0), static_cast<int>(nCol));
   if (nCol != static_cast<int>(nCol)) {
-    rtIntegerError(nCol, f_emlrtDCI);
+    rtIntegerError(nCol, g_emlrtDCI);
   }
   bcoef = varargin_3.size(0) * static_cast<int>(nCol);
   for (i1 = 0; i1 < bcoef; i1++) {
@@ -400,7 +400,7 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
       i2 = 0;
     } else {
       if (nCol + 1.0 != static_cast<int>(std::floor(nCol + 1.0))) {
-        rtIntegerError(nCol + 1.0, c_emlrtDCI);
+        rtIntegerError(nCol + 1.0, d_emlrtDCI);
       }
       if ((static_cast<int>(nCol + 1.0) < 1) ||
           (static_cast<int>(nCol + 1.0) > x.size(1))) {
@@ -409,7 +409,7 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
       }
       i1 = static_cast<int>(nCol + 1.0);
       if (d != static_cast<int>(std::floor(d))) {
-        rtIntegerError(d, b_emlrtDCI);
+        rtIntegerError(d, c_emlrtDCI);
       }
       if ((static_cast<int>(d) < 1) || (static_cast<int>(d) > x.size(1))) {
         rtDynamicBoundsError(static_cast<int>(d), 1, x.size(1), e_emlrtBCI);
@@ -439,7 +439,7 @@ void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
   } else if (obj.value.size(0) == xin.size(0)) {
     csz_idx_0 = obj.value.size(0);
   } else {
-    s_rtErrorWithMessageID(y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
+    s_rtErrorWithMessageID(ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
   }
   c.set_size(csz_idx_0, xin.size(1));
   if ((csz_idx_0 != 0) && (xin.size(1) != 0)) {
@@ -563,7 +563,7 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
     }
   }
   if (!useRadix2) {
-    i_rtErrorWithMessageID("X", x_emlrtRTEI.fName, x_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID("X", y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
   }
   useRadix2 = true;
   k = 0;
@@ -577,10 +577,10 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
     }
   }
   if (!useRadix2) {
-    h_rtErrorWithMessageID("X", w_emlrtRTEI.fName, w_emlrtRTEI.lineNo);
+    h_rtErrorWithMessageID("X", x_emlrtRTEI.fName, x_emlrtRTEI.lineNo);
   }
   if ((x.size(0) == 0) || (x.size(1) == 0)) {
-    g_rtErrorWithMessageID("X", v_emlrtRTEI.fName, v_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID("X", w_emlrtRTEI.fName, w_emlrtRTEI.lineNo);
   }
   if (x.size(0) == 1) {
     wrappedData.set_size(x.size(1), 1);
@@ -595,34 +595,34 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
     }
   }
   if (wrappedData.size(0) < 2) {
-    t_rtErrorWithMessageID(bb_emlrtRTEI.fName, bb_emlrtRTEI.lineNo);
+    t_rtErrorWithMessageID(cb_emlrtRTEI.fName, cb_emlrtRTEI.lineNo);
   }
   if (varargin_3.size(0) > wrappedData.size(0)) {
     rtErrorWithMessageID(static_cast<long>(varargin_3.size(0)),
-                         ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
+                         bb_emlrtRTEI.fName, bb_emlrtRTEI.lineNo);
   }
   if (std::isinf(varargin_1) || std::isnan(varargin_1)) {
-    i_rtErrorWithMessageID("sample rate", x_emlrtRTEI.fName,
-                           x_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID("sample rate", y_emlrtRTEI.fName,
+                           y_emlrtRTEI.lineNo);
   }
   if (varargin_1 <= 0.0) {
-    k_rtErrorWithMessageID("sample rate", db_emlrtRTEI.fName,
-                           db_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID("sample rate", eb_emlrtRTEI.fName,
+                           eb_emlrtRTEI.lineNo);
   }
   hopSize = static_cast<double>(varargin_3.size(0)) - varargin_5;
   nCol = std::trunc((static_cast<double>(wrappedData.size(0)) - varargin_5) /
                     hopSize);
   xin.set_size(varargin_3.size(0), xin.size(1), xin.size(2));
   if (!(nCol >= 0.0)) {
-    rtNonNegativeError(nCol, e_emlrtDCI);
+    rtNonNegativeError(nCol, f_emlrtDCI);
   }
   if (nCol != static_cast<int>(nCol)) {
-    rtIntegerError(nCol, d_emlrtDCI);
+    rtIntegerError(nCol, e_emlrtDCI);
   }
   i = static_cast<int>(nCol);
   xin.set_size(xin.size(0), static_cast<int>(nCol), wrappedData.size(1));
   if (nCol != static_cast<int>(nCol)) {
-    rtIntegerError(nCol, f_emlrtDCI);
+    rtIntegerError(nCol, g_emlrtDCI);
   }
   loop_ub = varargin_3.size(0) * static_cast<int>(nCol) * wrappedData.size(1);
   for (i1 = 0; i1 < loop_ub; i1++) {
@@ -651,7 +651,7 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
       i2 = 0;
     } else {
       if (nCol + 1.0 != static_cast<int>(std::floor(nCol + 1.0))) {
-        rtIntegerError(nCol + 1.0, c_emlrtDCI);
+        rtIntegerError(nCol + 1.0, d_emlrtDCI);
       }
       if ((static_cast<int>(nCol + 1.0) < 1) ||
           (static_cast<int>(nCol + 1.0) > wrappedData.size(0))) {
@@ -660,7 +660,7 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
       }
       i1 = static_cast<int>(nCol + 1.0) - 1;
       if (d != static_cast<int>(std::floor(d))) {
-        rtIntegerError(d, b_emlrtDCI);
+        rtIntegerError(d, c_emlrtDCI);
       }
       if ((static_cast<int>(d) < 1) ||
           (static_cast<int>(d) > wrappedData.size(0))) {
@@ -708,7 +708,7 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
   } else if (varargin_3.size(0) == xin.size(0)) {
     csz_idx_0 = varargin_3.size(0);
   } else {
-    s_rtErrorWithMessageID(y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
+    s_rtErrorWithMessageID(ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
   }
   b_c.set_size(csz_idx_0, xin.size(1), xin.size(2));
   if ((csz_idx_0 != 0) && (xin.size(1) != 0)) {
@@ -738,16 +738,16 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
     }
   }
   if (!(varargin_7 >= 0.0)) {
-    rtNonNegativeError(varargin_7, h_emlrtDCI);
+    rtNonNegativeError(varargin_7, i_emlrtDCI);
   }
   i = static_cast<int>(std::floor(varargin_7));
   if (varargin_7 != i) {
-    rtIntegerError(varargin_7, i_emlrtDCI);
+    rtIntegerError(varargin_7, j_emlrtDCI);
   }
   csz_idx_0 = static_cast<int>(varargin_7);
   xin.set_size(csz_idx_0, b_c.size(1), b_c.size(2));
   if (csz_idx_0 != i) {
-    rtIntegerError(varargin_7, g_emlrtDCI);
+    rtIntegerError(varargin_7, h_emlrtDCI);
   }
   loop_ub = csz_idx_0 * b_c.size(1) * b_c.size(2);
   for (i = 0; i < loop_ub; i++) {
@@ -772,7 +772,7 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
         b_x[i1] = b_c[i1 + c[0] * iCol];
       }
       if (!(varargin_7 >= 1.0)) {
-        b_rtErrorWithMessageID(1, eb_emlrtRTEI.fName, eb_emlrtRTEI.lineNo);
+        b_rtErrorWithMessageID(1, fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
       }
       if (b_c.size(0) == 1) {
         wrappedData.set_size(1, csz_idx_0);
@@ -862,7 +862,7 @@ void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
     }
   }
   if (xin.size(0) == 1) {
-    u_rtErrorWithMessageID(fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
+    u_rtErrorWithMessageID(gb_emlrtRTEI.fName, gb_emlrtRTEI.lineNo);
   }
   if ((xin.size(0) == 0) || (xin.size(1) == 0) || (varargin_7 == 0.0)) {
     varargout_1.set_size(csz_idx_0, xin.size(1), xin.size(2));

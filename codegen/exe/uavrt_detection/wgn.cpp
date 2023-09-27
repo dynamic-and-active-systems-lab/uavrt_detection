@@ -5,7 +5,7 @@
 // File: wgn.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 // Include Files
@@ -142,7 +142,7 @@ void wgn(creal_T y[1000])
 void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
          ::coder::array<creal_T, 2U> &y)
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       180,                                                      // lineNo
       1,                                                        // colNo
       "wgn",                                                    // fName
@@ -178,7 +178,7 @@ void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
     }
   }
   if (b_y) {
-    nb_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+    nb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   for (k = 0; k < 6; k++) {
     switch_expression_data[k] = cv[static_cast<int>(b[k])];
@@ -214,7 +214,7 @@ void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
   }
   if (cv[static_cast<int>(a_data[0])] == 'r') {
     if (noisePower < 0.0) {
-      rtErrorWithMessageID("sqrt", wb_emlrtRTEI.fName, wb_emlrtRTEI.lineNo);
+      rtErrorWithMessageID("sqrt", xb_emlrtRTEI.fName, xb_emlrtRTEI.lineNo);
     }
     noisePower = std::sqrt(noisePower);
     randn(varargin_1, varargin_2, b_b);
@@ -226,7 +226,7 @@ void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
     }
   } else {
     if (noisePower < 0.0) {
-      rtErrorWithMessageID("sqrt", wb_emlrtRTEI.fName, wb_emlrtRTEI.lineNo);
+      rtErrorWithMessageID("sqrt", xb_emlrtRTEI.fName, xb_emlrtRTEI.lineNo);
     }
     noisePower = std::sqrt(noisePower);
     complexLike(varargin_1, varargin_2, y);

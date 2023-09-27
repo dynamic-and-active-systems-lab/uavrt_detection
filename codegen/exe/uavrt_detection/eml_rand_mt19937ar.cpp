@@ -5,7 +5,7 @@
 // File: eml_rand_mt19937ar.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 // Include Files
@@ -85,7 +85,7 @@ static void genrand_uint32_vector(unsigned int mt[625], unsigned int u[2])
 //
 static double genrandu(unsigned int mt[625])
 {
-  static rtRunTimeErrorInfo qc_emlrtRTEI{
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
       158,        // lineNo
       17,         // colNo
       "genrandu", // fName
@@ -163,7 +163,7 @@ static double genrandu(unsigned int mt[625])
         }
       }
       if (!isvalid) {
-        jc_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+        jc_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
       }
     } else {
       exitg1 = 1;

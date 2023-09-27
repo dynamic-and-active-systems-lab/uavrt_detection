@@ -5,7 +5,7 @@
 // File: unaryMinOrMax.h
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 #ifndef UNARYMINORMAX_H
@@ -20,11 +20,9 @@
 // Function Declarations
 namespace coder {
 namespace internal {
-double b_unaryMinOrMax_anonFcn1(const ::coder::array<double, 1U> &x);
-
 double unaryMinOrMax_anonFcn1(const ::coder::array<double, 1U> &x);
 
-} // namespace internal
+}
 } // namespace coder
 
 #endif

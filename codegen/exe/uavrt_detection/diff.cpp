@@ -5,7 +5,7 @@
 // File: diff.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 // Include Files
@@ -17,7 +17,7 @@
 #include "coder_array.h"
 
 // Variable Definitions
-static rtRunTimeErrorInfo qb_emlrtRTEI{
+static rtRunTimeErrorInfo rb_emlrtRTEI{
     51,     // lineNo
     19,     // colNo
     "diff", // fName
@@ -48,10 +48,13 @@ void diff(const ::coder::array<double, 1U> &x, ::coder::array<double, 1U> &y)
     } else {
       double work_data;
       if (x.size(0) == 1) {
-        u_rtErrorWithMessageID(qb_emlrtRTEI.fName, qb_emlrtRTEI.lineNo);
+        u_rtErrorWithMessageID(rb_emlrtRTEI.fName, rb_emlrtRTEI.lineNo);
       }
       y.set_size(x.size(0) - 1);
       work_data = x[0];
+      if (x.size(0) > 2147483646) {
+        check_forloop_overflow_error();
+      }
       for (u0 = 2; u0 <= dimSize; u0++) {
         double tmp2;
         tmp2 = work_data;
@@ -84,7 +87,7 @@ void diff(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U> &y)
     } else {
       double work_data;
       if (x.size(0) == 1) {
-        u_rtErrorWithMessageID(qb_emlrtRTEI.fName, qb_emlrtRTEI.lineNo);
+        u_rtErrorWithMessageID(rb_emlrtRTEI.fName, rb_emlrtRTEI.lineNo);
       }
       y.set_size(x.size(0) - 1, 1);
       work_data = x[0];

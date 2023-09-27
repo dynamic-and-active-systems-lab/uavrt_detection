@@ -5,7 +5,7 @@
 // File: pulsestats.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 // Include Files
@@ -623,13 +623,15 @@ pulsestats *pulsestats::init(double tp, double tip, double tipu, double tipj,
 //                double tipu
 //                double tipj
 //                double b_fp
+//                double b_fstart
+//                double b_fend
 //                const c_struct_T &b_pl
 //                const c_struct_T &b_clst
 // Return Type  : pulsestats *
 //
 pulsestats *pulsestats::init(double tp, double tip, double tipu, double tipj,
-                             double b_fp, const c_struct_T &b_pl,
-                             const c_struct_T &b_clst)
+                             double b_fp, double b_fstart, double b_fend,
+                             const c_struct_T &b_pl, const c_struct_T &b_clst)
 {
   pulsestats *obj;
   coder::array<c_struct_T, 2U> d_pl;
@@ -646,8 +648,8 @@ pulsestats *pulsestats::init(double tp, double tip, double tipu, double tipj,
   obj->t_ipu = tipu;
   obj->t_ipj = tipj;
   obj->fp = b_fp;
-  obj->fstart = 0.0;
-  obj->fend = 0.0;
+  obj->fstart = b_fstart;
+  obj->fend = b_fend;
   obj->tmplt[0] = 1.0;
   obj->tmplt[1] = 1.0;
   obj->mode = 'D';

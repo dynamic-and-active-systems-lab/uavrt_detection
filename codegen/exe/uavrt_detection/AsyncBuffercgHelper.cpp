@@ -5,7 +5,7 @@
 // File: AsyncBuffercgHelper.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 // Include Files
@@ -19,7 +19,7 @@
 #include "coder_array.h"
 
 // Variable Definitions
-static rtRunTimeErrorInfo s_emlrtRTEI{
+static rtRunTimeErrorInfo t_emlrtRTEI{
     473,                                         // lineNo
     13,                                          // colNo
     "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
@@ -114,7 +114,7 @@ static rtBoundsCheckInfo u_emlrtBCI{
     0                        // checkKind
 };
 
-static rtDoubleCheckInfo k_emlrtDCI{
+static rtDoubleCheckInfo l_emlrtDCI{
     470,                                         // lineNo
     31,                                          // colNo
     "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
@@ -123,7 +123,7 @@ static rtDoubleCheckInfo k_emlrtDCI{
     4                        // checkKind
 };
 
-static rtDoubleCheckInfo l_emlrtDCI{
+static rtDoubleCheckInfo m_emlrtDCI{
     467,                                         // lineNo
     21,                                          // colNo
     "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
@@ -262,7 +262,7 @@ int c_AsyncBuffercgHelper::ReadSamplesFromBuffer(
     }
   }
   if (out.size(0) != numRowsCast) {
-    i_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(t_emlrtRTEI.fName, t_emlrtRTEI.lineNo);
   }
   return underrun;
 }
@@ -388,7 +388,7 @@ int AsyncBuffercgHelper::ReadSamplesFromBuffer(
     }
   }
   if (out.size(0) != numRowsCast) {
-    i_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(t_emlrtRTEI.fName, t_emlrtRTEI.lineNo);
   }
   return underrun;
 }
@@ -508,7 +508,7 @@ int b_AsyncBuffercgHelper::ReadSamplesFromBuffer(
     }
   }
   if (out.size(0) != numRowsCast) {
-    i_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(t_emlrtRTEI.fName, t_emlrtRTEI.lineNo);
   }
   return underrun;
 }
@@ -896,7 +896,7 @@ int AsyncBuffercgHelper::ReadSamplesFromBuffer(
   } else if (overlapUnderrun != 0) {
     if (overlapUnderrun == numRowsCast) {
       if (overlapUnderrun < 0) {
-        rtNonNegativeError(static_cast<double>(overlapUnderrun), l_emlrtDCI);
+        rtNonNegativeError(static_cast<double>(overlapUnderrun), m_emlrtDCI);
       }
       out.set_size(overlapUnderrun);
       for (yk = 0; yk < overlapUnderrun; yk++) {
@@ -916,7 +916,7 @@ int AsyncBuffercgHelper::ReadSamplesFromBuffer(
         yk = overlapUnderrun;
       }
       if (overlapUnderrun < 0) {
-        rtNonNegativeError(static_cast<double>(overlapUnderrun), k_emlrtDCI);
+        rtNonNegativeError(static_cast<double>(overlapUnderrun), l_emlrtDCI);
       }
       rtSubAssignSizeCheck(&yk, 1, &overlapUnderrun, 1, f_emlrtECI);
       for (yk = 0; yk < overlapUnderrun; yk++) {
@@ -926,7 +926,7 @@ int AsyncBuffercgHelper::ReadSamplesFromBuffer(
     }
   }
   if (out.size(0) != numRowsCast) {
-    i_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(t_emlrtRTEI.fName, t_emlrtRTEI.lineNo);
   }
   return underrun;
 }
@@ -1182,7 +1182,7 @@ int b_AsyncBuffercgHelper::ReadSamplesFromBuffer(
   } else if (overlapUnderrun != 0) {
     if (overlapUnderrun == numRowsCast) {
       if (overlapUnderrun < 0) {
-        rtNonNegativeError(static_cast<double>(overlapUnderrun), l_emlrtDCI);
+        rtNonNegativeError(static_cast<double>(overlapUnderrun), m_emlrtDCI);
       }
       out.set_size(overlapUnderrun);
       for (n = 0; n < overlapUnderrun; n++) {
@@ -1201,7 +1201,7 @@ int b_AsyncBuffercgHelper::ReadSamplesFromBuffer(
         n = overlapUnderrun;
       }
       if (overlapUnderrun < 0) {
-        rtNonNegativeError(static_cast<double>(overlapUnderrun), k_emlrtDCI);
+        rtNonNegativeError(static_cast<double>(overlapUnderrun), l_emlrtDCI);
       }
       rtSubAssignSizeCheck(&n, 1, &overlapUnderrun, 1, f_emlrtECI);
       for (n = 0; n < overlapUnderrun; n++) {
@@ -1210,7 +1210,7 @@ int b_AsyncBuffercgHelper::ReadSamplesFromBuffer(
     }
   }
   if (out.size(0) != numRowsCast) {
-    i_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(t_emlrtRTEI.fName, t_emlrtRTEI.lineNo);
   }
   return underrun;
 }
@@ -1281,7 +1281,7 @@ int c_AsyncBuffercgHelper::read(int numRows, ::coder::array<creal32_T, 1U> &out)
   int loop_ub;
   int underrun;
   if (!AsyncBuffercgHelper_isInitialized) {
-    q_rtErrorWithMessageID(r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
+    q_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
   }
   underrun =
       c_AsyncBuffercgHelper::ReadSamplesFromBuffer(this, numRows, b_out, c);
@@ -1325,7 +1325,7 @@ int AsyncBuffercgHelper::read(int numRows, ::coder::array<creal32_T, 1U> &out)
   int loop_ub;
   int underrun;
   if (!AsyncBuffercgHelper_isInitialized) {
-    q_rtErrorWithMessageID(r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
+    q_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
   }
   underrun =
       AsyncBuffercgHelper::ReadSamplesFromBuffer(this, numRows, b_out, c);
@@ -1369,7 +1369,7 @@ int b_AsyncBuffercgHelper::read(int numRows, ::coder::array<double, 1U> &out)
   int loop_ub;
   int underrun;
   if (!AsyncBuffercgHelper_isInitialized) {
-    q_rtErrorWithMessageID(r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
+    q_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
   }
   underrun =
       b_AsyncBuffercgHelper::ReadSamplesFromBuffer(this, numRows, b_out, c);

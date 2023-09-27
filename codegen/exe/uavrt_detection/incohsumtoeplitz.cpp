@@ -5,7 +5,7 @@
 // File: incohsumtoeplitz.cpp
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 // Include Files
@@ -122,6 +122,7 @@
 // Arguments    : const coder::array<boolean_T, 1U> &Fb
 //                const coder::array<creal_T, 2U> &Wfherm
 //                const coder::array<creal_T, 2U> &S
+//                const coder::sparse &IR
 //                const coder::array<double, 1U> &Tb
 //                const coder::sparse &Wq
 //                coder::array<double, 2U> &Sscores
@@ -131,6 +132,7 @@
 void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
                       const coder::array<creal_T, 2U> &Wfherm,
                       const coder::array<creal_T, 2U> &S,
+                      const coder::sparse &IR,
                       const coder::array<double, 1U> &Tb,
                       const coder::sparse &Wq,
                       coder::array<double, 2U> &Sscores,
@@ -139,9 +141,9 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   static rtBoundsCheckInfo ab_emlrtBCI{
       -1,                 // iFirst
       -1,                 // iLast
-      176,                // lineNo
-      37,                 // colNo
-      "Tb",               // aName
+      197,                // lineNo
+      1,                  // colNo
+      "Sscores",          // aName
       "incohsumtoeplitz", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
@@ -161,9 +163,9 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   static rtBoundsCheckInfo cb_emlrtBCI{
       -1,                 // iFirst
       -1,                 // iLast
-      197,                // lineNo
-      1,                  // colNo
-      "Sscores",          // aName
+      176,                // lineNo
+      37,                 // colNo
+      "Tb",               // aName
       "incohsumtoeplitz", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
@@ -172,9 +174,9 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   static rtBoundsCheckInfo db_emlrtBCI{
       -1,                 // iFirst
       -1,                 // iLast
-      192,                // lineNo
-      24,                 // colNo
-      "allScores",        // aName
+      163,                // lineNo
+      37,                 // colNo
+      "Fb",               // aName
       "incohsumtoeplitz", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
@@ -183,9 +185,9 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   static rtBoundsCheckInfo y_emlrtBCI{
       -1,                 // iFirst
       -1,                 // iLast
-      163,                // lineNo
-      37,                 // colNo
-      "Fb",               // aName
+      192,                // lineNo
+      24,                 // colNo
+      "allScores",        // aName
       "incohsumtoeplitz", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
@@ -207,7 +209,6 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   coder::array<double, 2U> Srows;
   coder::array<double, 2U> allScores;
   coder::array<double, 2U> c_y;
-  coder::array<double, 2U> selectedCombinedScores;
   coder::array<double, 1U> ex;
   coder::array<int, 2U> r1;
   coder::array<int, 2U> r3;
@@ -365,7 +366,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
     for (int idx{0}; idx < maxdimlen; idx++) {
       a = static_cast<int>(FbmatDiagInds[idx]);
       if ((a < 1) || (a > Fb.size(0))) {
-        rtDynamicBoundsError(a, 1, Fb.size(0), y_emlrtBCI);
+        rtDynamicBoundsError(a, 1, Fb.size(0), db_emlrtBCI);
       }
       b_S[idx] = Fb[a - 1];
     }
@@ -423,7 +424,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
     for (int idx{0}; idx < maxdimlen; idx++) {
       a = static_cast<int>(FbmatDiagInds[idx]);
       if ((a < 1) || (a > Tb.size(0))) {
-        rtDynamicBoundsError(a, 1, Tb.size(0), ab_emlrtBCI);
+        rtDynamicBoundsError(a, 1, Tb.size(0), cb_emlrtBCI);
       }
       c_y[idx] = Tb[a - 1];
     }
@@ -448,9 +449,9 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   if (S.size(0) != Wfherm.size(1)) {
     if (((Wfherm.size(0) == 1) && (Wfherm.size(1) == 1)) ||
         ((S.size(0) == 1) && (S.size(1) == 1))) {
-      xb_rtErrorWithMessageID(bc_emlrtRTEI.fName, bc_emlrtRTEI.lineNo);
+      xb_rtErrorWithMessageID(ec_emlrtRTEI.fName, ec_emlrtRTEI.lineNo);
     } else {
-      ob_rtErrorWithMessageID(ac_emlrtRTEI.fName, ac_emlrtRTEI.lineNo);
+      ob_rtErrorWithMessageID(dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
     }
   }
   coder::internal::blas::mtimes(Wfherm, S, d_y);
@@ -462,16 +463,17 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   for (maxdimlen = 0; maxdimlen < cend; maxdimlen++) {
     Srows[maxdimlen] = rt_hypotd_snf(d_y[maxdimlen].re, d_y[maxdimlen].im);
   }
-  allScores.set_size(Srows.size(0), Srows.size(1));
-  loop_ub_tmp = Srows.size(0) * Srows.size(1);
-  for (int idx{0}; idx < loop_ub_tmp; idx++) {
+  Sinds.set_size(Srows.size(0), Srows.size(1));
+  maxdimlen = Srows.size(0) * Srows.size(1);
+  for (int idx{0}; idx < maxdimlen; idx++) {
     varargin_1 = Srows[idx];
-    allScores[idx] = varargin_1 * varargin_1;
+    Sinds[idx] = varargin_1 * varargin_1;
   }
+  IR.mtimes(Sinds, allScores);
   FbSparseMat.mtimes(allScores, Srows);
   TbSparseMat.b_mtimes(Srows, Sinds);
-  Wq.mtimes(Sinds, selectedCombinedScores);
-  coder::internal::maximum(selectedCombinedScores, ex, b_idx);
+  Wq.mtimes(Sinds, Srows);
+  coder::internal::maximum(Srows, ex, b_idx);
   // Check max on each row (frequency). This gives the columns of the resulting
   // matrix output with the max for each frequency bin This and the next line
   // gets the column numbers (time windows) of the S matrix where the highest
@@ -501,13 +503,13 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
     maxdimlen = cend;
   }
   if (static_cast<int>(K) > maxdimlen) {
-    k_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
   }
   if (static_cast<int>(varargin_1) > maxdimlen) {
-    k_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
   }
   if (static_cast<int>(K) * static_cast<int>(varargin_1) != ex.size(0)) {
-    l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+    l_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
   }
   cend = static_cast<int>(K);
   maxdimlen = static_cast<int>(varargin_1);
@@ -536,8 +538,8 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   b_Fbnumrows_tmp[1] = (*(int(*)[2])allScores.size())[1];
   coder::internal::b_sub2ind(b_Fbnumrows_tmp, Srows, Scols, r3);
   Sinds.set_size(r3.size(0), r3.size(1));
-  cend = r3.size(0) * r3.size(1);
-  for (int idx{0}; idx < cend; idx++) {
+  loop_ub_tmp = r3.size(0) * r3.size(1);
+  for (int idx{0}; idx < loop_ub_tmp; idx++) {
     Sinds[idx] = r3[idx];
   }
   int iv[2];
@@ -547,10 +549,11 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   iv[1] = (*(int(*)[2])Sinds.size())[1];
   coder::internal::indexShapeCheck(b_Fbnumrows_tmp, iv);
   Sscores.set_size(Sinds.size(0), Sinds.size(1));
-  for (int idx{0}; idx < cend; idx++) {
+  cend = allScores.size(0) * allScores.size(1);
+  for (int idx{0}; idx < loop_ub_tmp; idx++) {
     a = static_cast<int>(Sinds[idx]);
-    if ((a < 1) || (a > loop_ub_tmp)) {
-      rtDynamicBoundsError(a, 1, loop_ub_tmp, db_emlrtBCI);
+    if ((a < 1) || (a > cend)) {
+      rtDynamicBoundsError(a, 1, cend, y_emlrtBCI);
     }
     Sscores[idx] = allScores[a - 1];
   }
@@ -578,7 +581,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
     cend = r4.size(0);
     for (a = 0; a < cend; a++) {
       if (r4[a] > Sinds.size(0) - 1) {
-        rtDynamicBoundsError(r4[a], 0, Sinds.size(0) - 1, cb_emlrtBCI);
+        rtDynamicBoundsError(r4[a], 0, Sinds.size(0) - 1, ab_emlrtBCI);
       }
       Sscores[r4[a] + Sscores.size(0) * idx] = rtNaN;
     }

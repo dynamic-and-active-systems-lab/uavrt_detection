@@ -5,7 +5,7 @@
 // File: pulsestats.h
 //
 // MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 15-Aug-2023 14:57:30
+// C/C++ source code generated on  : 25-Sep-2023 12:08:03
 //
 
 #ifndef PULSESTATS_H
@@ -31,7 +31,8 @@ public:
                      const coder::array<boolean_T, 2U> &b_cmsk,
                      const coder::array<double, 2U> &b_cpki);
   pulsestats *init(double tp, double tip, double tipu, double tipj, double b_fp,
-                   const c_struct_T &b_pl, const c_struct_T &b_clst);
+                   double b_fstart, double b_fend, const c_struct_T &b_pl,
+                   const c_struct_T &b_clst);
   pulsestats *c_init(double tp, double tip, double tipu, double tipj,
                      double b_fp, double b_fstart, double b_fend,
                      const double b_tmplt[2], const char mode_data[],
