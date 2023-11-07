@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: computeDFT.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -22,17 +22,16 @@
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<creal32_T, 2U> &xin
+// Arguments    : const array<creal32_T, 2U> &xin
 //                double nfft
 //                double varargin_1
-//                ::coder::array<creal32_T, 2U> &Xx
-//                ::coder::array<double, 1U> &f
+//                array<creal32_T, 2U> &Xx
+//                array<double, 1U> &f
 // Return Type  : void
 //
 namespace coder {
-void computeDFT(const ::coder::array<creal32_T, 2U> &xin, double nfft,
-                double varargin_1, ::coder::array<creal32_T, 2U> &Xx,
-                ::coder::array<double, 1U> &f)
+void computeDFT(const array<creal32_T, 2U> &xin, double nfft, double varargin_1,
+                array<creal32_T, 2U> &Xx, array<double, 1U> &f)
 {
   array<creal32_T, 2U> wrappedData;
   array<creal32_T, 2U> xw;
@@ -45,32 +44,32 @@ void computeDFT(const ::coder::array<creal32_T, 2U> &xin, double nfft,
   int b_remainder;
   int i;
   int i1;
-  int loop_ub_tmp;
   int offset;
   boolean_T useRadix2;
-  if (!(nfft >= 0.0)) {
-    rtNonNegativeError(nfft, i_emlrtDCI);
-  }
-  i = static_cast<int>(std::floor(nfft));
-  if (nfft != i) {
-    rtIntegerError(nfft, j_emlrtDCI);
-  }
-  loop_ub_tmp = static_cast<int>(nfft);
-  xw.set_size(loop_ub_tmp, xin.size(1));
-  if (loop_ub_tmp != i) {
-    rtIntegerError(nfft, h_emlrtDCI);
-  }
-  offset = loop_ub_tmp * xin.size(1);
-  for (i = 0; i < offset; i++) {
-    xw[i].re = 0.0F;
-    xw[i].im = 0.0F;
-  }
-  if (xin.size(0) > loop_ub_tmp) {
+  if (xin.size(0) > nfft) {
+    int loop_ub_tmp;
+    if (!(nfft >= 0.0)) {
+      rtNonNegativeError(nfft, i_emlrtDCI);
+    }
+    i = static_cast<int>(std::floor(nfft));
+    if (nfft != i) {
+      rtIntegerError(nfft, h_emlrtDCI);
+    }
+    loop_ub_tmp = static_cast<int>(nfft);
+    xw.set_size(loop_ub_tmp, xin.size(1));
+    if (loop_ub_tmp != i) {
+      rtIntegerError(nfft, j_emlrtDCI);
+    }
+    offset = loop_ub_tmp * xin.size(1);
+    for (i = 0; i < offset; i++) {
+      xw[i].re = 0.0F;
+      xw[i].im = 0.0F;
+    }
     i = xin.size(1);
     for (int j{0}; j < i; j++) {
       int i2;
       if (j + 1 > xin.size(1)) {
-        rtDynamicBoundsError(j + 1, 1, xin.size(1), q_emlrtBCI);
+        rtDynamicBoundsError(j + 1, 1, xin.size(1), k_emlrtBCI);
       }
       offset = xin.size(0);
       x.set_size(xin.size(0));
@@ -78,7 +77,7 @@ void computeDFT(const ::coder::array<creal32_T, 2U> &xin, double nfft,
         x[i1] = xin[i1 + xin.size(0) * j];
       }
       if (!(nfft >= 1.0)) {
-        b_rtErrorWithMessageID(1, fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
+        b_rtErrorWithMessageID(1, ib_emlrtRTEI.fName, ib_emlrtRTEI.lineNo);
       }
       if (xin.size(0) == 1) {
         wrappedData.set_size(1, loop_ub_tmp);
@@ -108,7 +107,7 @@ void computeDFT(const ::coder::array<creal32_T, 2U> &xin, double nfft,
         i2 = (offset + k) + 1;
         useRadix2 = ((i2 < 1) || (i2 > xin.size(0)));
         if (useRadix2) {
-          rtDynamicBoundsError(i2, 1, xin.size(0), o_emlrtBCI);
+          rtDynamicBoundsError(i2, 1, xin.size(0), m_emlrtBCI);
         }
         wrappedData[k].re = x[i2 - 1].re;
         if (k + 1 > N2blue) {
@@ -120,11 +119,11 @@ void computeDFT(const ::coder::array<creal32_T, 2U> &xin, double nfft,
       for (int k{N2blue}; k <= loop_ub_tmp; k++) {
         i2 = wrappedData.size(0) * wrappedData.size(1);
         if ((k < 1) || (k > i2)) {
-          rtDynamicBoundsError(k, 1, i2, m_emlrtBCI);
+          rtDynamicBoundsError(k, 1, i2, o_emlrtBCI);
         }
         wrappedData[k - 1].re = 0.0F;
         if (k > i2) {
-          rtDynamicBoundsError(k, 1, i2, m_emlrtBCI);
+          rtDynamicBoundsError(k, 1, i2, o_emlrtBCI);
         }
         wrappedData[k - 1].im = 0.0F;
       }
@@ -136,22 +135,22 @@ void computeDFT(const ::coder::array<creal32_T, 2U> &xin, double nfft,
         for (int k{0}; k < loop_ub_tmp; k++) {
           N2blue = wrappedData.size(0) * wrappedData.size(1);
           if (k + 1 > N2blue) {
-            rtDynamicBoundsError(k + 1, 1, N2blue, k_emlrtBCI);
+            rtDynamicBoundsError(k + 1, 1, N2blue, r_emlrtBCI);
           }
           i2 = (offset + k) + 1;
           useRadix2 = ((i2 < 1) || (i2 > xin.size(0)));
           if (useRadix2) {
-            rtDynamicBoundsError(i2, 1, xin.size(0), l_emlrtBCI);
+            rtDynamicBoundsError(i2, 1, xin.size(0), q_emlrtBCI);
           }
           wrappedData[k].re = wrappedData[k].re + x[i2 - 1].re;
           if (k + 1 > N2blue) {
-            rtDynamicBoundsError(k + 1, 1, N2blue, k_emlrtBCI);
+            rtDynamicBoundsError(k + 1, 1, N2blue, p_emlrtBCI);
           }
           wrappedData[k].im = wrappedData[k].im + x[i2 - 1].im;
         }
       }
       if (j + 1 > xw.size(1)) {
-        rtDynamicBoundsError(j + 1, 1, xw.size(1), p_emlrtBCI);
+        rtDynamicBoundsError(j + 1, 1, xw.size(1), l_emlrtBCI);
       }
       offset = wrappedData.size(0) * wrappedData.size(1);
       rtSubAssignSizeCheck(xw.size(), 1, &offset, 1, d_emlrtECI);
@@ -167,18 +166,26 @@ void computeDFT(const ::coder::array<creal32_T, 2U> &xin, double nfft,
     }
   }
   if (xw.size(0) == 1) {
-    u_rtErrorWithMessageID(gb_emlrtRTEI.fName, gb_emlrtRTEI.lineNo);
+    v_rtErrorWithMessageID(fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
   }
-  if ((xw.size(0) == 0) || (xw.size(1) == 0) || (nfft == 0.0)) {
-    Xx.set_size(loop_ub_tmp, xw.size(1));
-    offset = loop_ub_tmp * xw.size(1);
+  if ((!(nfft >= 0.0)) || (!(nfft == std::floor(nfft)))) {
+    w_rtErrorWithMessageID(gb_emlrtRTEI.fName, gb_emlrtRTEI.lineNo);
+  }
+  if (!(nfft <= 2.147483647E+9)) {
+    x_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
+  }
+  if ((xw.size(0) == 0) || (xw.size(1) == 0) || (static_cast<int>(nfft) == 0)) {
+    Xx.set_size(static_cast<int>(nfft), xw.size(1));
+    offset = static_cast<int>(nfft) * xw.size(1);
     for (i = 0; i < offset; i++) {
       Xx[i].re = 0.0F;
       Xx[i].im = 0.0F;
     }
   } else {
     float e;
-    useRadix2 = ((loop_ub_tmp & (loop_ub_tmp - 1)) == 0);
+    useRadix2 =
+        ((static_cast<int>(nfft) > 0) &&
+         ((static_cast<int>(nfft) & (static_cast<int>(nfft) - 1)) == 0));
     N2blue = internal::fft::FFTImplementationCallback::get_algo_sizes(
         static_cast<int>(nfft), useRadix2, offset);
     e = 6.28318548F / static_cast<float>(offset);

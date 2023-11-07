@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: ind2sub.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -16,11 +16,11 @@
 
 // Variable Definitions
 static rtRunTimeErrorInfo
-    kc_emlrtRTEI{
+    nc_emlrtRTEI{
         21,        // lineNo
         15,        // colNo
         "ind2sub", // fName
-        "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+        "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
         "ind2sub.m" // pName
     };
 
@@ -38,7 +38,7 @@ int ind2sub(const double siz[2], double ndx, int &varargout_2)
   int vk;
   if (static_cast<int>(ndx) >
       static_cast<int>(siz[0]) * static_cast<int>(siz[1])) {
-    cc_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+    fc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
   }
   vk = div_s32(static_cast<int>(ndx) - 1, static_cast<int>(siz[0]));
   varargout_2 = vk + 1;
@@ -55,7 +55,7 @@ int ind2sub(const double siz[2], int ndx, int &varargout_2)
 {
   int vk;
   if (ndx > static_cast<int>(siz[0]) * static_cast<int>(siz[1])) {
-    cc_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+    fc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
   }
   vk = div_s32(ndx - 1, static_cast<int>(siz[0]));
   varargout_2 = vk + 1;

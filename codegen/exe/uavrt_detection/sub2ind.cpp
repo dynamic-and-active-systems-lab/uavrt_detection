@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: sub2ind.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -24,32 +24,32 @@
 
 // Variable Definitions
 static rtRunTimeErrorInfo
-    jc_emlrtRTEI{
+    mc_emlrtRTEI{
         18,        // lineNo
         23,        // colNo
         "sub2ind", // fName
-        "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+        "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
         "sub2ind.m" // pName
     };
 
 // Function Declarations
 namespace coder {
 namespace internal {
-static boolean_T allinrange(const ::coder::array<double, 2U> &x, int hi);
+static boolean_T allinrange(const array<double, 2U> &x, int hi);
 
 }
 } // namespace coder
-static void dc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void gc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<double, 2U> &x
+// Arguments    : const array<double, 2U> &x
 //                int hi
 // Return Type  : boolean_T
 //
 namespace coder {
 namespace internal {
-static boolean_T allinrange(const ::coder::array<double, 2U> &x, int hi)
+static boolean_T allinrange(const array<double, 2U> &x, int hi)
 {
   int i;
   int k;
@@ -81,7 +81,7 @@ static boolean_T allinrange(const ::coder::array<double, 2U> &x, int hi)
 //
 } // namespace internal
 } // namespace coder
-static void dc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void gc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -99,16 +99,15 @@ static void dc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 
 //
 // Arguments    : const int siz[2]
-//                const ::coder::array<double, 2U> &varargin_1
-//                const ::coder::array<double, 2U> &varargin_2
-//                ::coder::array<int, 2U> &idx
+//                const array<double, 2U> &varargin_1
+//                const array<double, 2U> &varargin_2
+//                array<int, 2U> &idx
 // Return Type  : void
 //
 namespace coder {
 namespace internal {
-void b_sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
-               const ::coder::array<double, 2U> &varargin_2,
-               ::coder::array<int, 2U> &idx)
+void b_sub2ind(const int siz[2], const array<double, 2U> &varargin_1,
+               const array<double, 2U> &varargin_2, array<int, 2U> &idx)
 {
   unsigned int b_varargin_1[2];
   unsigned int b_varargin_2[2];
@@ -116,7 +115,7 @@ void b_sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
   boolean_T exitg1;
   boolean_T p;
   if (!allinrange(varargin_1, siz[0])) {
-    cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+    fc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
   }
   b_varargin_1[0] = static_cast<unsigned int>(varargin_1.size(0));
   b_varargin_2[0] = static_cast<unsigned int>(varargin_2.size(0));
@@ -135,10 +134,10 @@ void b_sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
     }
   }
   if (!p) {
-    dc_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
+    gc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
   }
   if (!allinrange(varargin_2, siz[1])) {
-    cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+    fc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
   }
   idx.set_size(varargin_1.size(0), varargin_1.size(1));
   k = varargin_1.size(0) * varargin_1.size(1);
@@ -150,18 +149,16 @@ void b_sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
 
 //
 // Arguments    : const int siz[2]
-//                const ::coder::array<double, 2U> &varargin_1
-//                const ::coder::array<double, 2U> &varargin_2
-//                ::coder::array<int, 2U> &idx
+//                const array<double, 2U> &varargin_1
+//                const array<double, 2U> &varargin_2
+//                array<int, 2U> &idx
 // Return Type  : void
 //
-void sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
-             const ::coder::array<double, 2U> &varargin_2,
-             ::coder::array<int, 2U> &idx)
+void sub2ind(const int siz[2], const array<double, 2U> &varargin_1,
+             const array<double, 2U> &varargin_2, array<int, 2U> &idx)
 {
   unsigned int b_varargin_1[2];
   unsigned int b_varargin_2[2];
-  int hi;
   int k;
   boolean_T exitg1;
   boolean_T p;
@@ -171,7 +168,7 @@ void sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
     if ((varargin_1[k] >= 1.0) && (varargin_1[k] <= siz[0])) {
       k++;
     } else {
-      cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+      fc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
     }
   }
   b_varargin_1[0] = 1U;
@@ -191,40 +188,37 @@ void sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
     }
   }
   if (!p) {
-    dc_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
+    gc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
   }
-  hi = siz[1];
   k = 0;
   exitg1 = false;
   while ((!exitg1) && (k <= varargin_2.size(1) - 1)) {
-    if ((varargin_2[k] >= 1.0) && (varargin_2[k] <= hi)) {
+    if ((varargin_2[k] >= 1.0) && (varargin_2[k] <= siz[1])) {
       k++;
     } else {
-      cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+      fc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
     }
   }
   idx.set_size(1, varargin_1.size(1));
   k = varargin_1.size(1);
-  for (hi = 0; hi < k; hi++) {
-    idx[hi] = static_cast<int>(varargin_1[hi]) +
-              siz[0] * (static_cast<int>(varargin_2[hi]) - 1);
+  for (int i{0}; i < k; i++) {
+    idx[i] = static_cast<int>(varargin_1[i]) +
+             siz[0] * (static_cast<int>(varargin_2[i]) - 1);
   }
 }
 
 //
 // Arguments    : const int siz[2]
-//                const ::coder::array<double, 1U> &varargin_1
-//                const ::coder::array<double, 1U> &varargin_2
-//                ::coder::array<int, 1U> &idx
+//                const array<double, 1U> &varargin_1
+//                const array<double, 1U> &varargin_2
+//                array<int, 1U> &idx
 // Return Type  : void
 //
-void sub2ind(const int siz[2], const ::coder::array<double, 1U> &varargin_1,
-             const ::coder::array<double, 1U> &varargin_2,
-             ::coder::array<int, 1U> &idx)
+void sub2ind(const int siz[2], const array<double, 1U> &varargin_1,
+             const array<double, 1U> &varargin_2, array<int, 1U> &idx)
 {
   unsigned int b_varargin_1[2];
   unsigned int b_varargin_2[2];
-  int hi;
   int k;
   boolean_T exitg1;
   boolean_T p;
@@ -234,7 +228,7 @@ void sub2ind(const int siz[2], const ::coder::array<double, 1U> &varargin_1,
     if ((varargin_1[k] >= 1.0) && (varargin_1[k] <= siz[0])) {
       k++;
     } else {
-      cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+      fc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
     }
   }
   b_varargin_1[0] = static_cast<unsigned int>(varargin_1.size(0));
@@ -254,23 +248,22 @@ void sub2ind(const int siz[2], const ::coder::array<double, 1U> &varargin_1,
     }
   }
   if (!p) {
-    dc_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
+    gc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
   }
-  hi = siz[1];
   k = 0;
   exitg1 = false;
   while ((!exitg1) && (k <= varargin_2.size(0) - 1)) {
-    if ((varargin_2[k] >= 1.0) && (varargin_2[k] <= hi)) {
+    if ((varargin_2[k] >= 1.0) && (varargin_2[k] <= siz[1])) {
       k++;
     } else {
-      cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+      fc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
     }
   }
   idx.set_size(varargin_1.size(0));
   k = varargin_1.size(0);
-  for (hi = 0; hi < k; hi++) {
-    idx[hi] = static_cast<int>(varargin_1[hi]) +
-              siz[0] * (static_cast<int>(varargin_2[hi]) - 1);
+  for (int i{0}; i < k; i++) {
+    idx[i] = static_cast<int>(varargin_1[i]) +
+             siz[0] * (static_cast<int>(varargin_2[i]) - 1);
   }
 }
 
@@ -282,10 +275,10 @@ void sub2ind(const int siz[2], const ::coder::array<double, 1U> &varargin_1,
 int sub2ind(const int siz[2], double varargin_2)
 {
   if (siz[0] < 1) {
-    cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+    fc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
   }
   if (!(varargin_2 <= siz[1])) {
-    cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+    fc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
   }
   return siz[0] * (static_cast<int>(varargin_2) - 1) + 1;
 }

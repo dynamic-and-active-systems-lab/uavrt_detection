@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: evfit.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef EVFIT_H
@@ -19,7 +19,7 @@
 
 // Function Declarations
 namespace coder {
-void evfit(const ::coder::array<double, 1U> &x, double parmhat[2]);
+void evfit(const array<double, 1U> &x, double parmhat[2]);
 
 }
 

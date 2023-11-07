@@ -1358,6 +1358,7 @@ fprintf('\t Running Peeling Algorithm...\n')
             for i = 1:numel(obj.Wf)
                 fprintf('%.6f,',obj.Wf(i))
             end
+            fprintf('\n')
             fprintf('Threshold vector is equal to:\n')
             for i = 1:numel(thresh)
                 fprintf('%f,',thresh(i))

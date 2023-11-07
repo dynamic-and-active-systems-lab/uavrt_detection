@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: sortIdx.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -17,33 +17,30 @@
 // Function Declarations
 namespace coder {
 namespace internal {
-static void merge(::coder::array<int, 2U> &idx, ::coder::array<double, 2U> &x,
-                  int offset, int np, int nq, ::coder::array<int, 1U> &iwork,
-                  ::coder::array<double, 1U> &xwork);
+static void merge(array<int, 2U> &idx, array<double, 2U> &x, int offset, int np,
+                  int nq, array<int, 1U> &iwork, array<double, 1U> &xwork);
 
-static void merge(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
-                  int offset, int np, int nq, ::coder::array<int, 1U> &iwork,
-                  ::coder::array<double, 1U> &xwork);
+static void merge(array<int, 1U> &idx, array<double, 1U> &x, int offset, int np,
+                  int nq, array<int, 1U> &iwork, array<double, 1U> &xwork);
 
 } // namespace internal
 } // namespace coder
 
 // Function Definitions
 //
-// Arguments    : ::coder::array<int, 2U> &idx
-//                ::coder::array<double, 2U> &x
+// Arguments    : array<int, 2U> &idx
+//                array<double, 2U> &x
 //                int offset
 //                int np
 //                int nq
-//                ::coder::array<int, 1U> &iwork
-//                ::coder::array<double, 1U> &xwork
+//                array<int, 1U> &iwork
+//                array<double, 1U> &xwork
 // Return Type  : void
 //
 namespace coder {
 namespace internal {
-static void merge(::coder::array<int, 2U> &idx, ::coder::array<double, 2U> &x,
-                  int offset, int np, int nq, ::coder::array<int, 1U> &iwork,
-                  ::coder::array<double, 1U> &xwork)
+static void merge(array<int, 2U> &idx, array<double, 2U> &x, int offset, int np,
+                  int nq, array<int, 1U> &iwork, array<double, 1U> &xwork)
 {
   if (nq != 0) {
     int iout;
@@ -97,18 +94,17 @@ static void merge(::coder::array<int, 2U> &idx, ::coder::array<double, 2U> &x,
 }
 
 //
-// Arguments    : ::coder::array<int, 1U> &idx
-//                ::coder::array<double, 1U> &x
+// Arguments    : array<int, 1U> &idx
+//                array<double, 1U> &x
 //                int offset
 //                int np
 //                int nq
-//                ::coder::array<int, 1U> &iwork
-//                ::coder::array<double, 1U> &xwork
+//                array<int, 1U> &iwork
+//                array<double, 1U> &xwork
 // Return Type  : void
 //
-static void merge(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
-                  int offset, int np, int nq, ::coder::array<int, 1U> &iwork,
-                  ::coder::array<double, 1U> &xwork)
+static void merge(array<int, 1U> &idx, array<double, 1U> &x, int offset, int np,
+                  int nq, array<int, 1U> &iwork, array<double, 1U> &xwork)
 {
   if (nq != 0) {
     int iout;
@@ -162,19 +158,18 @@ static void merge(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
 }
 
 //
-// Arguments    : ::coder::array<int, 2U> &idx
-//                ::coder::array<double, 2U> &x
+// Arguments    : array<int, 2U> &idx
+//                array<double, 2U> &x
 //                int offset
 //                int n
 //                int preSortLevel
-//                ::coder::array<int, 1U> &iwork
-//                ::coder::array<double, 1U> &xwork
+//                array<int, 1U> &iwork
+//                array<double, 1U> &xwork
 // Return Type  : void
 //
-void merge_block(::coder::array<int, 2U> &idx, ::coder::array<double, 2U> &x,
-                 int offset, int n, int preSortLevel,
-                 ::coder::array<int, 1U> &iwork,
-                 ::coder::array<double, 1U> &xwork)
+void merge_block(array<int, 2U> &idx, array<double, 2U> &x, int offset, int n,
+                 int preSortLevel, array<int, 1U> &iwork,
+                 array<double, 1U> &xwork)
 {
   int bLen;
   int nPairs;
@@ -204,19 +199,18 @@ void merge_block(::coder::array<int, 2U> &idx, ::coder::array<double, 2U> &x,
 }
 
 //
-// Arguments    : ::coder::array<int, 1U> &idx
-//                ::coder::array<double, 1U> &x
+// Arguments    : array<int, 1U> &idx
+//                array<double, 1U> &x
 //                int offset
 //                int n
 //                int preSortLevel
-//                ::coder::array<int, 1U> &iwork
-//                ::coder::array<double, 1U> &xwork
+//                array<int, 1U> &iwork
+//                array<double, 1U> &xwork
 // Return Type  : void
 //
-void merge_block(::coder::array<int, 1U> &idx, ::coder::array<double, 1U> &x,
-                 int offset, int n, int preSortLevel,
-                 ::coder::array<int, 1U> &iwork,
-                 ::coder::array<double, 1U> &xwork)
+void merge_block(array<int, 1U> &idx, array<double, 1U> &x, int offset, int n,
+                 int preSortLevel, array<int, 1U> &iwork,
+                 array<double, 1U> &xwork)
 {
   int bLen;
   int nPairs;

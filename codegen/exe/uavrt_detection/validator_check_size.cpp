@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: validator_check_size.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -83,26 +83,25 @@ static void n_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 }
 
 //
-// Arguments    : const ::coder::array<double, 2U> &in
-//                ::coder::array<double, 2U> &out
+// Arguments    : const array<double, 2U> &in
+//                array<double, 2U> &out
 // Return Type  : void
 //
 namespace coder {
 namespace internal {
-void validator_check_size(const ::coder::array<double, 2U> &in,
-                          ::coder::array<double, 2U> &out)
+void validator_check_size(const array<double, 2U> &in, array<double, 2U> &out)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
-      158,               // lineNo
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
+      164,               // lineNo
       31,                // colNo
       "expandOrReshape", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "validator_check_size.m" // pName
   };
   if ((in.size(0) != 1) || (in.size(1) != 1)) {
     if (in.size(1) != 2) {
-      b_rtErrorWithMessageID(static_cast<long>(in.size(1)), tc_emlrtRTEI.fName,
-                             tc_emlrtRTEI.lineNo);
+      b_rtErrorWithMessageID(static_cast<long>(in.size(1)), wc_emlrtRTEI.fName,
+                             wc_emlrtRTEI.lineNo);
     }
     if (in.size(0) == 0) {
       out.set_size(0, 2);
@@ -152,18 +151,18 @@ void validator_check_size(const ::coder::array<double, 2U> &in,
 }
 
 //
-// Arguments    : const ::coder::array<c_struct_T, 2U> &in
-//                ::coder::array<c_struct_T, 2U> &out
+// Arguments    : const array<c_struct_T, 2U> &in
+//                array<c_struct_T, 2U> &out
 // Return Type  : void
 //
-void validator_check_size(const ::coder::array<c_struct_T, 2U> &in,
-                          ::coder::array<c_struct_T, 2U> &out)
+void validator_check_size(const array<c_struct_T, 2U> &in,
+                          array<c_struct_T, 2U> &out)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
-      218,               // lineNo
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
+      219,               // lineNo
       32,                // colNo
       "expandOrReshape", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "validator_check_size.m" // pName
   };
   int inVectorLength;
@@ -171,14 +170,9 @@ void validator_check_size(const ::coder::array<c_struct_T, 2U> &in,
   if (in.size(1) != 1) {
     inVectorLength = in.size(1);
   }
-  if (in.size(1) == 1) {
-    out.set_size(1, inVectorLength);
-    for (int u1{0}; u1 < inVectorLength; u1++) {
-      out[u1] = in[0];
-    }
-  } else if (in.size(1) == 0) {
+  if (in.size(1) == 0) {
     if (inVectorLength != 0) {
-      n_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+      n_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
     }
     out.set_size(1, 0);
   } else {

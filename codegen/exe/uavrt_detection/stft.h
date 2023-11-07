@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: stft.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef STFT_H
@@ -19,17 +19,15 @@
 
 // Function Declarations
 namespace coder {
-void stft(const ::coder::array<creal32_T, 2U> &x, double varargin_1,
-          const ::coder::array<double, 1U> &varargin_3, double varargin_5,
-          double varargin_7, ::coder::array<creal32_T, 2U> &varargout_1,
-          ::coder::array<float, 1U> &varargout_2,
-          ::coder::array<float, 1U> &varargout_3);
+void stft(const array<creal32_T, 2U> &x, double varargin_1,
+          const array<double, 1U> &varargin_3, double varargin_5,
+          double varargin_7, array<creal32_T, 2U> &varargout_1,
+          array<float, 1U> &varargout_2, array<float, 1U> &varargout_3);
 
-void stft(const ::coder::array<creal_T, 2U> &x, double varargin_1,
-          const ::coder::array<double, 1U> &varargin_3, double varargin_5,
-          double varargin_7, ::coder::array<creal_T, 3U> &varargout_1,
-          ::coder::array<double, 1U> &varargout_2,
-          ::coder::array<double, 1U> &varargout_3);
+void stft(const array<creal_T, 2U> &x, double varargin_1,
+          const array<double, 1U> &varargin_3, double varargin_5,
+          double varargin_7, array<creal_T, 3U> &varargout_1,
+          array<double, 1U> &varargout_2, array<double, 1U> &varargout_3);
 
 } // namespace coder
 

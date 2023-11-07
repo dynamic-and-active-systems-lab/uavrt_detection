@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: _coder_uavrt_detection_api.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef _CODER_UAVRT_DETECTION_API_H
@@ -14,6 +14,7 @@
 // Include Files
 #include "coder_array_mex.h"
 #include "emlrt.h"
+#include "mex.h"
 #include "tmwtypes.h"
 #include <algorithm>
 #include <cstring>

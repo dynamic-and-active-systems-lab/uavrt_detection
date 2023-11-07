@@ -1,4 +1,4 @@
-/* Copyright 2019-2022 The MathWorks, Inc. */
+/* Copyright 2019-2023 The MathWorks, Inc. */
 /* Copied from fullfile(matlabroot,'extern','include','coder','coder_array','coder_array_mex.h') */
 #pragma once
 
@@ -209,6 +209,13 @@ class data_ptr {
 
     void copy(data_ptr<T, SZ> const& _other) {
         copy(_other.data_, _other.size_);
+    }
+
+    void shallow_copy(data_ptr<T, SZ> const& _other){
+        data_ = _other.data_;
+        size_ = _other.size_;
+        capacity_ = _other.capacity_;
+        owner_ = false;
     }
 
     operator T*() {
@@ -588,7 +595,11 @@ class array_base {
     array_base(array_base const&) = default;
 
     array_base& operator=(array_base const& _other) {
-        data_.copy(_other.data_);
+        if(_other.data_.is_owner()){
+            data_.copy(_other.data_);
+        }else{
+            data_.shallow_copy(_other.data_);
+        }
         (void)std::copy(_other.size_, _other.size_ + N, size_);
         return *this;
     }

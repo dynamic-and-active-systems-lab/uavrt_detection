@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: uavrt_detection_data.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef UAVRT_DETECTION_DATA_H
@@ -46,34 +46,37 @@ extern rtRunTimeErrorInfo ab_emlrtRTEI;
 extern rtRunTimeErrorInfo db_emlrtRTEI;
 extern rtBoundsCheckInfo k_emlrtBCI;
 extern rtBoundsCheckInfo l_emlrtBCI;
-extern rtBoundsCheckInfo m_emlrtBCI;
-extern rtBoundsCheckInfo n_emlrtBCI;
-extern rtBoundsCheckInfo o_emlrtBCI;
+extern rtEqualityCheckInfo d_emlrtECI;
+extern rtRunTimeErrorInfo fb_emlrtRTEI;
+extern rtRunTimeErrorInfo gb_emlrtRTEI;
+extern rtRunTimeErrorInfo hb_emlrtRTEI;
+extern rtRunTimeErrorInfo ib_emlrtRTEI;
 extern rtDoubleCheckInfo h_emlrtDCI;
 extern rtDoubleCheckInfo i_emlrtDCI;
 extern rtDoubleCheckInfo j_emlrtDCI;
-extern rtRunTimeErrorInfo fb_emlrtRTEI;
-extern rtRunTimeErrorInfo gb_emlrtRTEI;
-extern rtEqualityCheckInfo d_emlrtECI;
+extern rtBoundsCheckInfo m_emlrtBCI;
+extern rtBoundsCheckInfo n_emlrtBCI;
+extern rtBoundsCheckInfo o_emlrtBCI;
 extern rtBoundsCheckInfo p_emlrtBCI;
 extern rtBoundsCheckInfo q_emlrtBCI;
-extern rtRunTimeErrorInfo hb_emlrtRTEI;
+extern rtBoundsCheckInfo r_emlrtBCI;
 extern rtRunTimeErrorInfo jb_emlrtRTEI;
-extern rtRunTimeErrorInfo kb_emlrtRTEI;
 extern rtRunTimeErrorInfo lb_emlrtRTEI;
+extern rtRunTimeErrorInfo mb_emlrtRTEI;
+extern rtRunTimeErrorInfo nb_emlrtRTEI;
 extern rtEqualityCheckInfo e_emlrtECI;
-extern rtRunTimeErrorInfo pb_emlrtRTEI;
-extern rtRunTimeErrorInfo tb_emlrtRTEI;
-extern rtRunTimeErrorInfo ub_emlrtRTEI;
-extern rtRunTimeErrorInfo vb_emlrtRTEI;
+extern rtRunTimeErrorInfo sb_emlrtRTEI;
+extern rtRunTimeErrorInfo wb_emlrtRTEI;
 extern rtRunTimeErrorInfo xb_emlrtRTEI;
-extern rtRunTimeErrorInfo ac_emlrtRTEI;
-extern rtDoubleCheckInfo n_emlrtDCI;
+extern rtRunTimeErrorInfo yb_emlrtRTEI;
+extern rtRunTimeErrorInfo bc_emlrtRTEI;
 extern rtRunTimeErrorInfo dc_emlrtRTEI;
-extern rtRunTimeErrorInfo ec_emlrtRTEI;
-extern rtRunTimeErrorInfo ic_emlrtRTEI;
-extern rtRunTimeErrorInfo nc_emlrtRTEI;
-extern rtRunTimeErrorInfo oc_emlrtRTEI;
+extern rtDoubleCheckInfo n_emlrtDCI;
+extern rtRunTimeErrorInfo gc_emlrtRTEI;
+extern rtRunTimeErrorInfo hc_emlrtRTEI;
+extern rtRunTimeErrorInfo lc_emlrtRTEI;
+extern rtRunTimeErrorInfo qc_emlrtRTEI;
+extern rtRunTimeErrorInfo rc_emlrtRTEI;
 extern const boolean_T bv[128];
 extern const char cv1[22];
 extern const char cv2[30];

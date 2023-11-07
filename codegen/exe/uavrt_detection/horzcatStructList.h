@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: horzcatStructList.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef HORZCATSTRUCTLIST_H
@@ -21,11 +21,23 @@
 // Function Declarations
 namespace coder {
 namespace internal {
-void b_horzcatStructList(const ::coder::array<c_struct_T, 2U> &structure,
-                         ::coder::array<double, 2U> &result);
+void b_horzcatStructList(const array<c_struct_T, 1U> &structure,
+                         array<double, 2U> &result);
 
-void horzcatStructList(const ::coder::array<c_struct_T, 2U> &structure,
-                       ::coder::array<double, 2U> &result);
+void b_horzcatStructList(const array<c_struct_T, 2U> &structure,
+                         array<double, 2U> &result);
+
+void c_horzcatStructList(const array<c_struct_T, 1U> &structure,
+                         array<double, 2U> &result);
+
+void c_horzcatStructList(const array<c_struct_T, 2U> &structure,
+                         array<double, 2U> &result);
+
+void d_horzcatStructList(const array<c_struct_T, 2U> &structure,
+                         array<boolean_T, 2U> &result);
+
+void horzcatStructList(const array<c_struct_T, 2U> &structure,
+                       array<boolean_T, 2U> &result);
 
 } // namespace internal
 } // namespace coder

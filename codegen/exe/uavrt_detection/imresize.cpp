@@ -4,14 +4,13 @@
 // government, commercial, or other organizational use.
 // File: imresize.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
 #include "imresize.h"
 #include "eml_int_forloop_overflow_check.h"
-#include "mod.h"
 #include "rt_nonfinite.h"
 #include "sub2ind.h"
 #include "sum.h"
@@ -29,41 +28,37 @@
 
 // Function Declarations
 namespace coder {
-static void b_resizeAlongDim2D(const ::coder::array<double, 2U> &in,
-                               const ::coder::array<double, 2U> &weights,
-                               const ::coder::array<int, 2U> &indices,
-                               double out_length,
-                               ::coder::array<double, 2U> &out);
+static void b_resizeAlongDim2D(const array<double, 2U> &in,
+                               const array<double, 2U> &weights,
+                               const array<int, 2U> &indices, double out_length,
+                               array<double, 2U> &out);
 
 static void contributions(int in_length, double out_length, double scale,
-                          double kernel_width,
-                          ::coder::array<double, 2U> &weights,
-                          ::coder::array<int, 2U> &indices);
+                          double kernel_width, array<double, 2U> &weights,
+                          array<int, 2U> &indices);
 
-static void resizeAlongDim2D(const ::coder::array<double, 2U> &in,
-                             const ::coder::array<double, 2U> &weights,
-                             const ::coder::array<int, 2U> &indices,
-                             double out_length,
-                             ::coder::array<double, 2U> &out);
+static void resizeAlongDim2D(const array<double, 2U> &in,
+                             const array<double, 2U> &weights,
+                             const array<int, 2U> &indices, double out_length,
+                             array<double, 2U> &out);
 
 } // namespace coder
-static void ic_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void lc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<double, 2U> &in
-//                const ::coder::array<double, 2U> &weights
-//                const ::coder::array<int, 2U> &indices
+// Arguments    : const array<double, 2U> &in
+//                const array<double, 2U> &weights
+//                const array<int, 2U> &indices
 //                double out_length
-//                ::coder::array<double, 2U> &out
+//                array<double, 2U> &out
 // Return Type  : void
 //
 namespace coder {
-static void b_resizeAlongDim2D(const ::coder::array<double, 2U> &in,
-                               const ::coder::array<double, 2U> &weights,
-                               const ::coder::array<int, 2U> &indices,
-                               double out_length,
-                               ::coder::array<double, 2U> &out)
+static void b_resizeAlongDim2D(const array<double, 2U> &in,
+                               const array<double, 2U> &weights,
+                               const array<int, 2U> &indices, double out_length,
+                               array<double, 2U> &out)
 {
   double sumVal1;
   int iv[2];
@@ -81,17 +76,17 @@ static void b_resizeAlongDim2D(const ::coder::array<double, 2U> &in,
 
   for (int inRInd = 0; inRInd <= ub_loop; inRInd++) {
     if (inRInd + 1 > in.size(0)) {
-      cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+      fc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
     }
     if (in.size(1) < 1) {
-      cc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+      fc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
     }
     i = static_cast<int>(out_length);
     for (outCInd = 0; outCInd < i; outCInd++) {
       sumVal1 = 0.0;
       //  Core - second dimension
-      iv[0] = (*(int(*)[2])((::coder::array<double, 2U> *)&weights)->size())[0];
-      iv[1] = (*(int(*)[2])((::coder::array<double, 2U> *)&weights)->size())[1];
+      iv[0] = (*(int(*)[2])((array<double, 2U> *)&weights)->size())[0];
+      iv[1] = (*(int(*)[2])((array<double, 2U> *)&weights)->size())[1];
       ndx = internal::sub2ind(iv, static_cast<double>(outCInd) + 1.0);
       i1 = weights.size(0);
       for (k = 0; k < i1; k++) {
@@ -109,14 +104,13 @@ static void b_resizeAlongDim2D(const ::coder::array<double, 2U> &in,
 //                double out_length
 //                double scale
 //                double kernel_width
-//                ::coder::array<double, 2U> &weights
-//                ::coder::array<int, 2U> &indices
+//                array<double, 2U> &weights
+//                array<int, 2U> &indices
 // Return Type  : void
 //
 static void contributions(int in_length, double out_length, double scale,
-                          double kernel_width,
-                          ::coder::array<double, 2U> &weights,
-                          ::coder::array<int, 2U> &indices)
+                          double kernel_width, array<double, 2U> &weights,
+                          array<int, 2U> &indices)
 {
   array<double, 2U> absx;
   array<double, 2U> absx2;
@@ -212,7 +206,7 @@ static void contributions(int in_length, double out_length, double scale,
   } else if (u.size(0) == absx.size(0)) {
     csz_idx_0 = u.size(0);
   } else {
-    s_rtErrorWithMessageID(ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
+    t_rtErrorWithMessageID(ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
   }
   b_x.set_size(csz_idx_0, absx.size(1));
   if (csz_idx_0 != 0) {
@@ -288,7 +282,7 @@ static void contributions(int in_length, double out_length, double scale,
   }
   nx = weights.size(1);
   if (!iscompatible) {
-    s_rtErrorWithMessageID(ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
+    t_rtErrorWithMessageID(ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
   }
   weights.set_size(csz_idx_0, nx);
   if (csz_idx_0 != 0) {
@@ -318,8 +312,24 @@ static void contributions(int in_length, double out_length, double scale,
   }
   //  Mirror the out-of-bounds indices using mod:
   for (b_i = 0; b_i < loop_ub_tmp; b_i++) {
-    indices[b_i] = aux[static_cast<int>(internal::scalar::b_mod(
-        static_cast<double>(indices[b_i]) - 1.0, static_cast<double>(nx)))];
+    double c_k;
+    b_kernel_width = static_cast<double>(indices[b_i]) - 1.0;
+    c_k = b_kernel_width;
+    if (nx == 0) {
+      if (b_kernel_width == 0.0) {
+        c_k = 0.0;
+      }
+    } else if (b_kernel_width == 0.0) {
+      c_k = 0.0;
+    } else {
+      c_k = std::fmod(b_kernel_width, static_cast<double>(nx));
+      if (c_k == 0.0) {
+        c_k = 0.0;
+      } else if (b_kernel_width < 0.0) {
+        c_k += static_cast<double>(nx);
+      }
+    }
+    indices[b_i] = aux[static_cast<int>(c_k)];
   }
   copyCols.set_size(1, weights.size(1));
   yk = weights.size(1);
@@ -394,17 +404,17 @@ static void contributions(int in_length, double out_length, double scale,
 }
 
 //
-// Arguments    : const ::coder::array<double, 2U> &in
-//                const ::coder::array<double, 2U> &weights
-//                const ::coder::array<int, 2U> &indices
+// Arguments    : const array<double, 2U> &in
+//                const array<double, 2U> &weights
+//                const array<int, 2U> &indices
 //                double out_length
-//                ::coder::array<double, 2U> &out
+//                array<double, 2U> &out
 // Return Type  : void
 //
-static void resizeAlongDim2D(const ::coder::array<double, 2U> &in,
-                             const ::coder::array<double, 2U> &weights,
-                             const ::coder::array<int, 2U> &indices,
-                             double out_length, ::coder::array<double, 2U> &out)
+static void resizeAlongDim2D(const array<double, 2U> &in,
+                             const array<double, 2U> &weights,
+                             const array<int, 2U> &indices, double out_length,
+                             array<double, 2U> &out)
 {
   double sumVal1;
   int iv[2];
@@ -425,8 +435,8 @@ static void resizeAlongDim2D(const ::coder::array<double, 2U> &in,
     i = static_cast<int>(out_length);
     for (outRInd = 0; outRInd < i; outRInd++) {
       sumVal1 = 0.0;
-      iv[0] = (*(int(*)[2])((::coder::array<double, 2U> *)&weights)->size())[0];
-      iv[1] = (*(int(*)[2])((::coder::array<double, 2U> *)&weights)->size())[1];
+      iv[0] = (*(int(*)[2])((array<double, 2U> *)&weights)->size())[0];
+      iv[1] = (*(int(*)[2])((array<double, 2U> *)&weights)->size())[1];
       ndx = internal::sub2ind(iv, static_cast<double>(outRInd) + 1.0);
       //  Core - first dimension
       i1 = weights.size(0);
@@ -446,7 +456,7 @@ static void resizeAlongDim2D(const ::coder::array<double, 2U> &in,
 // Return Type  : void
 //
 } // namespace coder
-static void ic_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void lc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -463,21 +473,21 @@ static void ic_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 }
 
 //
-// Arguments    : const ::coder::array<double, 2U> &Ain
+// Arguments    : const array<double, 2U> &Ain
 //                const double varargin_1[2]
-//                ::coder::array<double, 2U> &Bout
+//                array<double, 2U> &Bout
 // Return Type  : void
 //
 namespace coder {
-void imresize(const ::coder::array<double, 2U> &Ain, const double varargin_1[2],
-              ::coder::array<double, 2U> &Bout)
+void imresize(const array<double, 2U> &Ain, const double varargin_1[2],
+              array<double, 2U> &Bout)
 {
   static rtRunTimeErrorInfo
-      tc_emlrtRTEI{
+      wc_emlrtRTEI{
           319,        // lineNo
           5,          // colNo
           "imresize", // fName
-          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/images/"
+          "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/images/"
           "imresize.m" // pName
       };
   array<double, 2U> out;
@@ -509,7 +519,7 @@ void imresize(const ::coder::array<double, 2U> &Ain, const double varargin_1[2],
     }
   }
   if (y) {
-    ic_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    lc_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   }
   if (std::isnan(varargin_1[0])) {
     outputSize_idx_0 =

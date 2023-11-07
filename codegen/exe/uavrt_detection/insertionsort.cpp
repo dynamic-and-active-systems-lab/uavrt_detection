@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: insertionsort.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -18,7 +18,7 @@
 
 // Function Definitions
 //
-// Arguments    : ::coder::array<int, 1U> &x
+// Arguments    : array<int, 1U> &x
 //                int xstart
 //                int xend
 //                const anonymous_function &cmp
@@ -26,7 +26,7 @@
 //
 namespace coder {
 namespace internal {
-void insertionsort(::coder::array<int, 1U> &x, int xstart, int xend,
+void insertionsort(array<int, 1U> &x, int xstart, int xend,
                    const anonymous_function &cmp)
 {
   int a;
@@ -64,13 +64,53 @@ void insertionsort(::coder::array<int, 1U> &x, int xstart, int xend,
 }
 
 //
-// Arguments    : ::coder::array<int, 1U> &x
+// Arguments    : array<int, 1U> &x
+//                int xend
+//                const anonymous_function &cmp
+// Return Type  : void
+//
+void insertionsort(array<int, 1U> &x, int xend, const anonymous_function &cmp)
+{
+  if (xend > 2147483646) {
+    check_forloop_overflow_error();
+  }
+  for (int k{2}; k <= xend; k++) {
+    int idx;
+    int xc;
+    boolean_T exitg1;
+    xc = x[k - 1] - 1;
+    idx = k - 2;
+    exitg1 = false;
+    while ((!exitg1) && (idx + 1 >= 1)) {
+      int i;
+      boolean_T varargout_1;
+      i = cmp.workspace.a[x[idx] - 1];
+      if (cmp.workspace.a[xc] < i) {
+        varargout_1 = true;
+      } else if (cmp.workspace.a[xc] == i) {
+        varargout_1 = (cmp.workspace.b[xc] < cmp.workspace.b[x[idx] - 1]);
+      } else {
+        varargout_1 = false;
+      }
+      if (varargout_1) {
+        x[idx + 1] = x[idx];
+        idx--;
+      } else {
+        exitg1 = true;
+      }
+    }
+    x[idx + 1] = xc + 1;
+  }
+}
+
+//
+// Arguments    : array<int, 1U> &x
 //                int xstart
 //                int xend
 //                const c_anonymous_function &cmp
 // Return Type  : void
 //
-void insertionsort(::coder::array<int, 1U> &x, int xstart, int xend,
+void insertionsort(array<int, 1U> &x, int xstart, int xend,
                    const c_anonymous_function &cmp)
 {
   int a;
@@ -86,6 +126,38 @@ void insertionsort(::coder::array<int, 1U> &x, int xstart, int xend,
     idx = k - 1;
     exitg1 = false;
     while ((!exitg1) && (idx >= xstart)) {
+      int i;
+      i = x[idx - 1];
+      if (cmp.workspace.x[xc - 1] < cmp.workspace.x[i - 1]) {
+        x[idx] = i;
+        idx--;
+      } else {
+        exitg1 = true;
+      }
+    }
+    x[idx] = xc;
+  }
+}
+
+//
+// Arguments    : array<int, 1U> &x
+//                int xend
+//                const c_anonymous_function &cmp
+// Return Type  : void
+//
+void insertionsort(array<int, 1U> &x, int xend, const c_anonymous_function &cmp)
+{
+  if (xend > 2147483646) {
+    check_forloop_overflow_error();
+  }
+  for (int k{2}; k <= xend; k++) {
+    int idx;
+    int xc;
+    boolean_T exitg1;
+    xc = x[k - 1];
+    idx = k - 1;
+    exitg1 = false;
+    while ((!exitg1) && (idx >= 1)) {
       int i;
       i = x[idx - 1];
       if (cmp.workspace.x[xc - 1] < cmp.workspace.x[i - 1]) {

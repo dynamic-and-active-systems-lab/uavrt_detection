@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: minOrMax.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -37,15 +37,15 @@ double b_minimum(const double x[2])
 }
 
 //
-// Arguments    : const ::coder::array<double, 1U> &x
+// Arguments    : const array<double, 1U> &x
 // Return Type  : double
 //
-double maximum(const ::coder::array<double, 1U> &x)
+double maximum(const array<double, 1U> &x)
 {
   double ex;
   int last;
   if (x.size(0) < 1) {
-    ib_rtErrorWithMessageID(vb_emlrtRTEI.fName, vb_emlrtRTEI.lineNo);
+    lb_rtErrorWithMessageID(yb_emlrtRTEI.fName, yb_emlrtRTEI.lineNo);
   }
   last = x.size(0);
   if (x.size(0) <= 2) {
@@ -100,19 +100,19 @@ double maximum(const ::coder::array<double, 1U> &x)
 }
 
 //
-// Arguments    : const ::coder::array<double, 2U> &x
-//                ::coder::array<double, 1U> &ex
-//                ::coder::array<int, 1U> &idx
+// Arguments    : const array<double, 2U> &x
+//                array<double, 1U> &ex
+//                array<int, 1U> &idx
 // Return Type  : void
 //
-void maximum(const ::coder::array<double, 2U> &x,
-             ::coder::array<double, 1U> &ex, ::coder::array<int, 1U> &idx)
+void maximum(const array<double, 2U> &x, array<double, 1U> &ex,
+             array<int, 1U> &idx)
 {
   int loop_ub;
   int m;
   int n;
   if (x.size(1) < 1) {
-    ib_rtErrorWithMessageID(vb_emlrtRTEI.fName, vb_emlrtRTEI.lineNo);
+    lb_rtErrorWithMessageID(yb_emlrtRTEI.fName, yb_emlrtRTEI.lineNo);
   }
   m = x.size(0);
   n = x.size(1);
@@ -154,16 +154,16 @@ void maximum(const ::coder::array<double, 2U> &x,
 }
 
 //
-// Arguments    : const ::coder::array<double, 1U> &x
+// Arguments    : const array<double, 1U> &x
 //                int &idx
 // Return Type  : double
 //
-double maximum(const ::coder::array<double, 1U> &x, int &idx)
+double maximum(const array<double, 1U> &x, int &idx)
 {
   double ex;
   int last;
   if (x.size(0) < 1) {
-    ib_rtErrorWithMessageID(vb_emlrtRTEI.fName, vb_emlrtRTEI.lineNo);
+    lb_rtErrorWithMessageID(yb_emlrtRTEI.fName, yb_emlrtRTEI.lineNo);
   }
   last = x.size(0);
   if (x.size(0) <= 2) {

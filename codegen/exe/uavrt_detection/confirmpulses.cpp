@@ -4,13 +4,14 @@
 // government, commercial, or other organizational use.
 // File: confirmpulses.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
 #include "confirmpulses.h"
 #include "eml_int_forloop_overflow_check.h"
+#include "horzcatStructList.h"
 #include "pulsestats.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection_internal_types.h"
@@ -29,25 +30,26 @@ static void b_le(coder::array<boolean_T, 2U> &in1,
                  const coder::array<double, 2U> &in2,
                  const coder::array<double, 2U> &in3);
 
-static void binary_expand_op(coder::array<double, 2U> &in1, double in2,
-                             double in3, const waveform *in4);
+static void binary_expand_op_21(coder::array<boolean_T, 2U> &in1,
+                                const coder::array<boolean_T, 2U> &in2,
+                                int in3);
+
+static void binary_expand_op_22(coder::array<boolean_T, 2U> &in1,
+                                const coder::array<double, 2U> &in2,
+                                const coder::array<double, 2U> &in3);
+
+static void binary_expand_op_23(coder::array<boolean_T, 2U> &in1,
+                                const coder::array<double, 2U> &in2,
+                                const coder::array<double, 2U> &in3);
+
+static void binary_expand_op_24(coder::array<double, 2U> &in1, double in2,
+                                double in3, const waveform *in4);
+
+static void binary_expand_op_25(coder::array<double, 2U> &in1, double in2,
+                                double in3, const waveform *in4);
 
 static void d_and(coder::array<boolean_T, 2U> &in1,
                   const coder::array<boolean_T, 2U> &in2);
-
-static void j_binary_expand_op(coder::array<boolean_T, 2U> &in1,
-                               const coder::array<boolean_T, 1U> &in2);
-
-static void k_binary_expand_op(coder::array<boolean_T, 2U> &in1,
-                               const coder::array<double, 2U> &in2,
-                               const coder::array<double, 2U> &in3);
-
-static void l_binary_expand_op(coder::array<boolean_T, 2U> &in1,
-                               const coder::array<double, 2U> &in2,
-                               const coder::array<double, 2U> &in3);
-
-static void m_binary_expand_op(coder::array<double, 2U> &in1, double in2,
-                               double in3, const waveform *in4);
 
 // Function Definitions
 //
@@ -105,14 +107,97 @@ static void b_le(coder::array<boolean_T, 2U> &in1,
 }
 
 //
+// Arguments    : coder::array<boolean_T, 2U> &in1
+//                const coder::array<boolean_T, 2U> &in2
+//                int in3
+// Return Type  : void
+//
+static void binary_expand_op_21(coder::array<boolean_T, 2U> &in1,
+                                const coder::array<boolean_T, 2U> &in2, int in3)
+{
+  coder::array<boolean_T, 2U> b_in2;
+  int loop_ub;
+  int stride_1_0;
+  if (in1.size(0) == 1) {
+    loop_ub = in3;
+  } else {
+    loop_ub = in1.size(0);
+  }
+  b_in2.set_size(loop_ub, 1);
+  stride_1_0 = (in1.size(0) != 1);
+  for (int i{0}; i < loop_ub; i++) {
+    b_in2[i] = (in2[0] && in1[i * stride_1_0]);
+  }
+  in1.set_size(b_in2.size(0), 1);
+  loop_ub = b_in2.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    in1[i] = b_in2[i];
+  }
+}
+
+//
+// Arguments    : coder::array<boolean_T, 2U> &in1
+//                const coder::array<double, 2U> &in2
+//                const coder::array<double, 2U> &in3
+// Return Type  : void
+//
+static void binary_expand_op_22(coder::array<boolean_T, 2U> &in1,
+                                const coder::array<double, 2U> &in2,
+                                const coder::array<double, 2U> &in3)
+{
+  int loop_ub;
+  int stride_0_1;
+  int stride_1_1;
+  in1.set_size(1, in1.size(1));
+  if (in3.size(1) == 1) {
+    loop_ub = in2.size(1);
+  } else {
+    loop_ub = in3.size(1);
+  }
+  in1.set_size(in1.size(0), loop_ub);
+  stride_0_1 = (in2.size(1) != 1);
+  stride_1_1 = (in3.size(1) != 1);
+  for (int i{0}; i < loop_ub; i++) {
+    in1[i] = (in2[i * stride_0_1] <= in3[i * stride_1_1] + 100.0);
+  }
+}
+
+//
+// Arguments    : coder::array<boolean_T, 2U> &in1
+//                const coder::array<double, 2U> &in2
+//                const coder::array<double, 2U> &in3
+// Return Type  : void
+//
+static void binary_expand_op_23(coder::array<boolean_T, 2U> &in1,
+                                const coder::array<double, 2U> &in2,
+                                const coder::array<double, 2U> &in3)
+{
+  int loop_ub;
+  int stride_0_1;
+  int stride_1_1;
+  in1.set_size(1, in1.size(1));
+  if (in3.size(1) == 1) {
+    loop_ub = in2.size(1);
+  } else {
+    loop_ub = in3.size(1);
+  }
+  in1.set_size(in1.size(0), loop_ub);
+  stride_0_1 = (in2.size(1) != 1);
+  stride_1_1 = (in3.size(1) != 1);
+  for (int i{0}; i < loop_ub; i++) {
+    in1[i] = (in2[i * stride_0_1] >= in3[i * stride_1_1] - 100.0);
+  }
+}
+
+//
 // Arguments    : coder::array<double, 2U> &in1
 //                double in2
 //                double in3
 //                const waveform *in4
 // Return Type  : void
 //
-static void binary_expand_op(coder::array<double, 2U> &in1, double in2,
-                             double in3, const waveform *in4)
+static void binary_expand_op_24(coder::array<double, 2U> &in1, double in2,
+                                double in3, const waveform *in4)
 {
   coder::array<double, 2U> b_in2;
   int stride_0_1;
@@ -125,6 +210,35 @@ static void binary_expand_op(coder::array<double, 2U> &in1, double in2,
   stride_0_1 = (in1.size(1) != 1);
   for (int i{0}; i < unnamed_idx_1; i++) {
     b_in2[i] = (in2 + in1[i * stride_0_1]) + in3;
+  }
+  in1.set_size(1, b_in2.size(1));
+  unnamed_idx_1 = b_in2.size(1);
+  for (int i{0}; i < unnamed_idx_1; i++) {
+    in1[i] = b_in2[i];
+  }
+}
+
+//
+// Arguments    : coder::array<double, 2U> &in1
+//                double in2
+//                double in3
+//                const waveform *in4
+// Return Type  : void
+//
+static void binary_expand_op_25(coder::array<double, 2U> &in1, double in2,
+                                double in3, const waveform *in4)
+{
+  coder::array<double, 2U> b_in2;
+  int stride_0_1;
+  int unnamed_idx_1;
+  unnamed_idx_1 = static_cast<int>(in4->K);
+  if (unnamed_idx_1 == 1) {
+    unnamed_idx_1 = in1.size(1);
+  }
+  b_in2.set_size(1, unnamed_idx_1);
+  stride_0_1 = (in1.size(1) != 1);
+  for (int i{0}; i < unnamed_idx_1; i++) {
+    b_in2[i] = (in2 + in1[i * stride_0_1]) - in3;
   }
   in1.set_size(1, b_in2.size(1));
   unnamed_idx_1 = b_in2.size(1);
@@ -164,120 +278,6 @@ static void d_and(coder::array<boolean_T, 2U> &in1,
 }
 
 //
-// Arguments    : coder::array<boolean_T, 2U> &in1
-//                const coder::array<boolean_T, 1U> &in2
-// Return Type  : void
-//
-static void j_binary_expand_op(coder::array<boolean_T, 2U> &in1,
-                               const coder::array<boolean_T, 1U> &in2)
-{
-  coder::array<boolean_T, 2U> b_in2;
-  int in2_idx_0;
-  int loop_ub;
-  int stride_1_0;
-  in2_idx_0 = in2.size(0);
-  if (in1.size(0) == 1) {
-    loop_ub = in2_idx_0;
-  } else {
-    loop_ub = in1.size(0);
-  }
-  b_in2.set_size(loop_ub, 1);
-  in2_idx_0 = (in2_idx_0 != 1);
-  stride_1_0 = (in1.size(0) != 1);
-  for (int i{0}; i < loop_ub; i++) {
-    b_in2[i] = (in2[i * in2_idx_0] && in1[i * stride_1_0]);
-  }
-  in1.set_size(b_in2.size(0), 1);
-  loop_ub = b_in2.size(0);
-  for (int i{0}; i < loop_ub; i++) {
-    in1[i] = b_in2[i];
-  }
-}
-
-//
-// Arguments    : coder::array<boolean_T, 2U> &in1
-//                const coder::array<double, 2U> &in2
-//                const coder::array<double, 2U> &in3
-// Return Type  : void
-//
-static void k_binary_expand_op(coder::array<boolean_T, 2U> &in1,
-                               const coder::array<double, 2U> &in2,
-                               const coder::array<double, 2U> &in3)
-{
-  int loop_ub;
-  int stride_0_1;
-  int stride_1_1;
-  in1.set_size(1, in1.size(1));
-  if (in3.size(1) == 1) {
-    loop_ub = in2.size(1);
-  } else {
-    loop_ub = in3.size(1);
-  }
-  in1.set_size(in1.size(0), loop_ub);
-  stride_0_1 = (in2.size(1) != 1);
-  stride_1_1 = (in3.size(1) != 1);
-  for (int i{0}; i < loop_ub; i++) {
-    in1[i] = (in2[i * stride_0_1] <= in3[i * stride_1_1] + 100.0);
-  }
-}
-
-//
-// Arguments    : coder::array<boolean_T, 2U> &in1
-//                const coder::array<double, 2U> &in2
-//                const coder::array<double, 2U> &in3
-// Return Type  : void
-//
-static void l_binary_expand_op(coder::array<boolean_T, 2U> &in1,
-                               const coder::array<double, 2U> &in2,
-                               const coder::array<double, 2U> &in3)
-{
-  int loop_ub;
-  int stride_0_1;
-  int stride_1_1;
-  in1.set_size(1, in1.size(1));
-  if (in3.size(1) == 1) {
-    loop_ub = in2.size(1);
-  } else {
-    loop_ub = in3.size(1);
-  }
-  in1.set_size(in1.size(0), loop_ub);
-  stride_0_1 = (in2.size(1) != 1);
-  stride_1_1 = (in3.size(1) != 1);
-  for (int i{0}; i < loop_ub; i++) {
-    in1[i] = (in2[i * stride_0_1] >= in3[i * stride_1_1] - 100.0);
-  }
-}
-
-//
-// Arguments    : coder::array<double, 2U> &in1
-//                double in2
-//                double in3
-//                const waveform *in4
-// Return Type  : void
-//
-static void m_binary_expand_op(coder::array<double, 2U> &in1, double in2,
-                               double in3, const waveform *in4)
-{
-  coder::array<double, 2U> b_in2;
-  int stride_0_1;
-  int unnamed_idx_1;
-  unnamed_idx_1 = static_cast<int>(in4->K);
-  if (unnamed_idx_1 == 1) {
-    unnamed_idx_1 = in1.size(1);
-  }
-  b_in2.set_size(1, unnamed_idx_1);
-  stride_0_1 = (in1.size(1) != 1);
-  for (int i{0}; i < unnamed_idx_1; i++) {
-    b_in2[i] = (in2 + in1[i * stride_0_1]) - in3;
-  }
-  in1.set_size(1, b_in2.size(1));
-  unnamed_idx_1 = b_in2.size(1);
-  for (int i{0}; i < unnamed_idx_1; i++) {
-    in1[i] = b_in2[i];
-  }
-}
-
-//
 // confirmpulses Returns a boolean vector that say if the pulses in the
 // X.ps_pos pulse stats are where they should be in frequency and time based on
 // the last pulse of the X.ps_pre and its pulse timing parameter.
@@ -291,6 +291,17 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   static rtBoundsCheckInfo ab_emlrtBCI{
       -1,              // iFirst
       -1,              // iLast
+      6,               // lineNo
+      20,              // colNo
+      "X.ps_pre.pl",   // aName
+      "confirmpulses", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
+      0                                                  // checkKind
+  };
+  static rtBoundsCheckInfo bb_emlrtBCI{
+      -1,              // iFirst
+      -1,              // iLast
       12,              // lineNo
       24,              // colNo
       "X.ps_pos.pl",   // aName
@@ -299,7 +310,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
       0                                                  // checkKind
   };
-  static rtBoundsCheckInfo bb_emlrtBCI{
+  static rtBoundsCheckInfo cb_emlrtBCI{
       -1,              // iFirst
       -1,              // iLast
       56,              // lineNo
@@ -310,7 +321,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
       0                                                  // checkKind
   };
-  static rtBoundsCheckInfo cb_emlrtBCI{
+  static rtBoundsCheckInfo db_emlrtBCI{
       -1,              // iFirst
       -1,              // iLast
       82,              // lineNo
@@ -321,23 +332,12 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
       0                                                  // checkKind
   };
-  static rtBoundsCheckInfo db_emlrtBCI{
+  static rtBoundsCheckInfo eb_emlrtBCI{
       -1,              // iFirst
       -1,              // iLast
       87,              // lineNo
       36,              // colNo
       "X.ps_pos.pl",   // aName
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      0                                                  // checkKind
-  };
-  static rtBoundsCheckInfo y_emlrtBCI{
-      -1,              // iFirst
-      -1,              // iLast
-      6,               // lineNo
-      20,              // colNo
-      "X.ps_pre.pl",   // aName
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
@@ -511,7 +511,6 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
   };
-  const coder::array<c_struct_T, 2U> *structure;
   coder::array<c_struct_T, 1U> b_X;
   coder::array<double, 2U> SNRall;
   coder::array<double, 2U> pulseendtimes_withuncert;
@@ -523,7 +522,6 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   coder::array<boolean_T, 2U> maxstartlog;
   coder::array<boolean_T, 2U> minstartlog;
   coder::array<boolean_T, 2U> r2;
-  coder::array<boolean_T, 1U> b_confLog;
   double b;
   double tip;
   double tipj;
@@ -531,13 +529,13 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   double tref;
   int i;
   int loop_ub;
-  int n;
+  int numPulses;
   int size_tmp_idx_1;
   boolean_T SNRnotNegInfAll;
   i = X->ps_pre->pl.size(1);
   size_tmp_idx_1 = X->ps_pre->pl.size(1);
   if ((size_tmp_idx_1 < 1) || (size_tmp_idx_1 > i)) {
-    rtDynamicBoundsError(size_tmp_idx_1, 1, i, y_emlrtBCI);
+    rtDynamicBoundsError(size_tmp_idx_1, 1, i, ab_emlrtBCI);
   }
   tref = X->ps_pre->pl[size_tmp_idx_1 - 1].t_0;
   // tp   = X.ps_pre.t_p;
@@ -549,7 +547,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
     // overlap
     i = X->ps_pos->pl.size(1);
     if (i < 1) {
-      rtDynamicBoundsError(1, 1, i, ab_emlrtBCI);
+      rtDynamicBoundsError(1, 1, i, bb_emlrtBCI);
     }
     b = X->ps_pos->pl[0].t_0 - tref;
     if (std::abs(b) < tipu + tipj) {
@@ -575,8 +573,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       for (i = 0; i < loop_ub; i++) {
         pulsestarttimes_withuncert[i] = b * pulseendtimes_withuncert[i];
       }
-      SNRnotNegInfAll = !(X->K >= 0.0);
-      if (SNRnotNegInfAll) {
+      if (!(X->K >= 0.0)) {
         rtNonNegativeError(X->K, r_emlrtDCI);
       }
       i = static_cast<int>(std::floor(X->K));
@@ -596,18 +593,19 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
         loop_ub = pulsestarttimes_withuncert.size(1) - 1;
         pulsestarttimes_withuncert.set_size(1,
                                             pulsestarttimes_withuncert.size(1));
-        for (int i1{0}; i1 <= loop_ub; i1++) {
-          pulsestarttimes_withuncert[i1] =
-              (tref + pulsestarttimes_withuncert[i1]) - tipj;
+        for (numPulses = 0; numPulses <= loop_ub; numPulses++) {
+          pulsestarttimes_withuncert[numPulses] =
+              (tref + pulsestarttimes_withuncert[numPulses]) - tipj;
         }
       } else {
-        m_binary_expand_op(pulsestarttimes_withuncert, tref, tipj, X);
+        binary_expand_op_25(pulsestarttimes_withuncert, tref, tipj, X);
       }
       b = tip + tipu;
       pulseendtimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
-      n = pulseendtimes_withuncert.size(1) - 1;
-      for (int i1{0}; i1 <= n; i1++) {
-        pulseendtimes_withuncert[i1] = b * pulseendtimes_withuncert[i1];
+      loop_ub = pulseendtimes_withuncert.size(1) - 1;
+      for (numPulses = 0; numPulses <= loop_ub; numPulses++) {
+        pulseendtimes_withuncert[numPulses] =
+            b * pulseendtimes_withuncert[numPulses];
       }
       if (X->K != i) {
         rtIntegerError(X->K, t_emlrtDCI);
@@ -618,16 +616,15 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       }
       if (pulseendtimes_withuncert.size(1) == static_cast<int>(X->K)) {
         pulseendtimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
-        for (i = 0; i <= n; i++) {
+        for (i = 0; i <= loop_ub; i++) {
           pulseendtimes_withuncert[i] =
               (tref + pulseendtimes_withuncert[i]) + tipj;
         }
       } else {
-        binary_expand_op(pulseendtimes_withuncert, tref, tipj, X);
+        binary_expand_op_24(pulseendtimes_withuncert, tref, tipj, X);
       }
     } else {
       double b_tmp;
-      boolean_T b_b;
       // new first pulse isn't the same one as the last one in the last
       // segment because the detector detected the last K pulses in the
       // segment and not the first three. Remember that the segment can
@@ -651,12 +648,11 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       b = tip - tipu;
       pulsestarttimes_withuncert.set_size(1,
                                           pulsestarttimes_withuncert.size(1));
-      n = pulsestarttimes_withuncert.size(1) - 1;
-      for (i = 0; i <= n; i++) {
+      loop_ub = pulsestarttimes_withuncert.size(1) - 1;
+      for (i = 0; i <= loop_ub; i++) {
         pulsestarttimes_withuncert[i] = b * pulsestarttimes_withuncert[i];
       }
-      b_b = !(X->K >= 0.0);
-      if (b_b) {
+      if (!(X->K >= 0.0)) {
         rtNonNegativeError(X->K, u_emlrtDCI);
       }
       i = static_cast<int>(std::floor(X->K));
@@ -673,12 +669,12 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       if (pulsestarttimes_withuncert.size(1) == static_cast<int>(X->K)) {
         pulsestarttimes_withuncert.set_size(1,
                                             pulsestarttimes_withuncert.size(1));
-        for (int i1{0}; i1 <= n; i1++) {
-          pulsestarttimes_withuncert[i1] =
-              (tref + pulsestarttimes_withuncert[i1]) - tipj;
+        for (numPulses = 0; numPulses <= loop_ub; numPulses++) {
+          pulsestarttimes_withuncert[numPulses] =
+              (tref + pulsestarttimes_withuncert[numPulses]) - tipj;
         }
       } else {
-        m_binary_expand_op(pulsestarttimes_withuncert, tref, tipj, X);
+        binary_expand_op_25(pulsestarttimes_withuncert, tref, tipj, X);
       }
       if (SNRnotNegInfAll) {
         pulseendtimes_withuncert.set_size(1, 1);
@@ -688,15 +684,17 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       } else {
         pulseendtimes_withuncert.set_size(1, static_cast<int>(b_tmp - 1.0) + 1);
         loop_ub = static_cast<int>(b_tmp - 1.0);
-        for (int i1{0}; i1 <= loop_ub; i1++) {
-          pulseendtimes_withuncert[i1] = static_cast<double>(i1) + 1.0;
+        for (numPulses = 0; numPulses <= loop_ub; numPulses++) {
+          pulseendtimes_withuncert[numPulses] =
+              static_cast<double>(numPulses) + 1.0;
         }
       }
       b = tip + tipu;
       pulseendtimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
-      n = pulseendtimes_withuncert.size(1) - 1;
-      for (int i1{0}; i1 <= n; i1++) {
-        pulseendtimes_withuncert[i1] = b * pulseendtimes_withuncert[i1];
+      loop_ub = pulseendtimes_withuncert.size(1) - 1;
+      for (numPulses = 0; numPulses <= loop_ub; numPulses++) {
+        pulseendtimes_withuncert[numPulses] =
+            b * pulseendtimes_withuncert[numPulses];
       }
       if (X->K != i) {
         rtIntegerError(X->K, w_emlrtDCI);
@@ -708,12 +706,12 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       }
       if (pulseendtimes_withuncert.size(1) == static_cast<int>(X->K)) {
         pulseendtimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
-        for (i = 0; i <= n; i++) {
+        for (i = 0; i <= loop_ub; i++) {
           pulseendtimes_withuncert[i] =
               (tref + pulseendtimes_withuncert[i]) + tipj;
         }
       } else {
-        binary_expand_op(pulseendtimes_withuncert, tref, tipj, X);
+        binary_expand_op_24(pulseendtimes_withuncert, tref, tipj, X);
       }
     }
   } else {
@@ -738,8 +736,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
     for (i = 0; i < loop_ub; i++) {
       pulsestarttimes_withuncert[i] = b * pulseendtimes_withuncert[i];
     }
-    SNRnotNegInfAll = !(X->K >= 0.0);
-    if (SNRnotNegInfAll) {
+    if (!(X->K >= 0.0)) {
       rtNonNegativeError(X->K, x_emlrtDCI);
     }
     i = static_cast<int>(std::floor(X->K));
@@ -758,18 +755,19 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       loop_ub = pulsestarttimes_withuncert.size(1) - 1;
       pulsestarttimes_withuncert.set_size(1,
                                           pulsestarttimes_withuncert.size(1));
-      for (int i1{0}; i1 <= loop_ub; i1++) {
-        pulsestarttimes_withuncert[i1] =
-            (tref + pulsestarttimes_withuncert[i1]) - tipj;
+      for (numPulses = 0; numPulses <= loop_ub; numPulses++) {
+        pulsestarttimes_withuncert[numPulses] =
+            (tref + pulsestarttimes_withuncert[numPulses]) - tipj;
       }
     } else {
-      m_binary_expand_op(pulsestarttimes_withuncert, tref, tipj, X);
+      binary_expand_op_25(pulsestarttimes_withuncert, tref, tipj, X);
     }
     b = tip + tipu;
     pulseendtimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
-    n = pulseendtimes_withuncert.size(1) - 1;
-    for (int i1{0}; i1 <= n; i1++) {
-      pulseendtimes_withuncert[i1] = b * pulseendtimes_withuncert[i1];
+    loop_ub = pulseendtimes_withuncert.size(1) - 1;
+    for (numPulses = 0; numPulses <= loop_ub; numPulses++) {
+      pulseendtimes_withuncert[numPulses] =
+          b * pulseendtimes_withuncert[numPulses];
     }
     if (X->K != i) {
       rtIntegerError(X->K, ab_emlrtDCI);
@@ -780,12 +778,12 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
     }
     if (pulseendtimes_withuncert.size(1) == size_tmp_idx_1) {
       pulseendtimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
-      for (i = 0; i <= n; i++) {
+      for (i = 0; i <= loop_ub; i++) {
         pulseendtimes_withuncert[i] =
             (tref + pulseendtimes_withuncert[i]) + tipj;
       }
     } else {
-      binary_expand_op(pulseendtimes_withuncert, tref, tipj, X);
+      binary_expand_op_24(pulseendtimes_withuncert, tref, tipj, X);
     }
   }
   // Debugging plots
@@ -793,21 +791,9 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   //  hold on;xline(pulseendtimes_withuncert,'--')
   //  plot([X.ps_pos.pl(:).t_0],zeros(size([X.ps_pos.pl(:).t_0])),'ob')
   // Check if pulses started after expected minimum start times
-  n = X->ps_pos->pl.size(1);
-  b_X = X->ps_pos->pl.reshape(n);
-  n = b_X.size(0);
-  if (b_X.size(0) == 0) {
-    i = 0;
-  } else {
-    i = b_X.size(0);
-  }
-  r.set_size(1, i);
-  if (b_X.size(0) > 2147483646) {
-    coder::check_forloop_overflow_error();
-  }
-  for (loop_ub = 0; loop_ub < n; loop_ub++) {
-    r[loop_ub] = b_X[loop_ub].t_0;
-  }
+  loop_ub = X->ps_pos->pl.size(1);
+  b_X = X->ps_pos->pl.reshape(loop_ub);
+  coder::internal::b_horzcatStructList(b_X, r);
   if ((r.size(1) != pulsestarttimes_withuncert.size(1)) &&
       ((r.size(1) != 1) && (pulsestarttimes_withuncert.size(1) != 1))) {
     emlrtDimSizeImpxCheckR2021b(r.size(1), pulsestarttimes_withuncert.size(1),
@@ -823,21 +809,9 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
     b_ge(minstartlog, r, pulsestarttimes_withuncert);
   }
   // Check if pulses started before expected maximum start times
-  n = X->ps_pos->pl.size(1);
-  b_X = X->ps_pos->pl.reshape(n);
-  n = b_X.size(0);
-  if (b_X.size(0) == 0) {
-    i = 0;
-  } else {
-    i = b_X.size(0);
-  }
-  r.set_size(1, i);
-  if (b_X.size(0) > 2147483646) {
-    coder::check_forloop_overflow_error();
-  }
-  for (loop_ub = 0; loop_ub < n; loop_ub++) {
-    r[loop_ub] = b_X[loop_ub].t_0;
-  }
+  loop_ub = X->ps_pos->pl.size(1);
+  b_X = X->ps_pos->pl.reshape(loop_ub);
+  coder::internal::b_horzcatStructList(b_X, r);
   if ((r.size(1) != pulseendtimes_withuncert.size(1)) &&
       ((r.size(1) != 1) && (pulseendtimes_withuncert.size(1) != 1))) {
     emlrtDimSizeImpxCheckR2021b(r.size(1), pulseendtimes_withuncert.size(1),
@@ -854,67 +828,16 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   }
   // Frequency check. Within +/- 100 Hz of previously
   // detected pulses?
-  structure = &X->ps_pos->pl;
-  n = structure->size(1);
-  if (structure->size(1) == 0) {
-    i = 0;
-  } else {
-    i = structure->size(1);
-  }
-  r.set_size(1, i);
-  if (structure->size(1) > 2147483646) {
-    coder::check_forloop_overflow_error();
-  }
-  for (loop_ub = 0; loop_ub < n; loop_ub++) {
-    r[loop_ub] = (*structure)[loop_ub].fp;
-  }
-  structure = &X->ps_pre->pl;
-  n = structure->size(1);
-  if (structure->size(1) == 0) {
-    i = 0;
-  } else {
-    i = structure->size(1);
-  }
-  pulsestarttimes_withuncert.set_size(1, i);
-  if (structure->size(1) > 2147483646) {
-    coder::check_forloop_overflow_error();
-  }
-  for (loop_ub = 0; loop_ub < n; loop_ub++) {
-    pulsestarttimes_withuncert[loop_ub] = (*structure)[loop_ub].fp;
-  }
+  coder::internal::b_horzcatStructList(X->ps_pos->pl, r);
+  coder::internal::b_horzcatStructList(X->ps_pre->pl,
+                                       pulsestarttimes_withuncert);
   if ((r.size(1) != pulsestarttimes_withuncert.size(1)) &&
       ((r.size(1) != 1) && (pulsestarttimes_withuncert.size(1) != 1))) {
     emlrtDimSizeImpxCheckR2021b(r.size(1), pulsestarttimes_withuncert.size(1),
                                 k_emlrtECI);
   }
-  structure = &X->ps_pos->pl;
-  n = structure->size(1);
-  if (structure->size(1) == 0) {
-    i = 0;
-  } else {
-    i = structure->size(1);
-  }
-  pulseendtimes_withuncert.set_size(1, i);
-  if (structure->size(1) > 2147483646) {
-    coder::check_forloop_overflow_error();
-  }
-  for (loop_ub = 0; loop_ub < n; loop_ub++) {
-    pulseendtimes_withuncert[loop_ub] = (*structure)[loop_ub].fp;
-  }
-  structure = &X->ps_pre->pl;
-  n = structure->size(1);
-  if (structure->size(1) == 0) {
-    i = 0;
-  } else {
-    i = structure->size(1);
-  }
-  r1.set_size(1, i);
-  if (structure->size(1) > 2147483646) {
-    coder::check_forloop_overflow_error();
-  }
-  for (loop_ub = 0; loop_ub < n; loop_ub++) {
-    r1[loop_ub] = (*structure)[loop_ub].fp;
-  }
+  coder::internal::b_horzcatStructList(X->ps_pos->pl, pulseendtimes_withuncert);
+  coder::internal::b_horzcatStructList(X->ps_pre->pl, r1);
   if ((pulseendtimes_withuncert.size(1) != r1.size(1)) &&
       ((pulseendtimes_withuncert.size(1) != 1) && (r1.size(1) != 1))) {
     emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1), r1.size(1),
@@ -927,7 +850,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       freqInBand[i] = (r[i] >= pulsestarttimes_withuncert[i] - 100.0);
     }
   } else {
-    l_binary_expand_op(freqInBand, r, pulsestarttimes_withuncert);
+    binary_expand_op_23(freqInBand, r, pulsestarttimes_withuncert);
   }
   if (pulseendtimes_withuncert.size(1) == r1.size(1)) {
     r2.set_size(1, pulseendtimes_withuncert.size(1));
@@ -936,7 +859,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       r2[i] = (pulseendtimes_withuncert[i] <= r1[i] + 100.0);
     }
   } else {
-    k_binary_expand_op(r2, pulseendtimes_withuncert, r1);
+    binary_expand_op_22(r2, pulseendtimes_withuncert, r1);
   }
   if ((freqInBand.size(1) != r2.size(1)) &&
       ((freqInBand.size(1) != 1) && (r2.size(1) != 1))) {
@@ -958,7 +881,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   // pulse gets confirmed. We really need to only check that the first pulse in
   // the group is in the correct position. If it is, then the others are
   // confirmed by default.
-  n = X->ps_pos->pl.size(1);
+  numPulses = X->ps_pos->pl.size(1);
   if ((maxstartlog.size(1) != minstartlog.size(1)) &&
       ((maxstartlog.size(1) != 1) && (minstartlog.size(1) != 1))) {
     emlrtDimSizeImpxCheckR2021b(maxstartlog.size(1), minstartlog.size(1),
@@ -988,9 +911,8 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
     d_and(maxstartlog, freqInBand);
   }
   if (maxstartlog.size(1) < 1) {
-    rtDynamicBoundsError(1, 1, maxstartlog.size(1), bb_emlrtBCI);
+    rtDynamicBoundsError(1, 1, maxstartlog.size(1), cb_emlrtBCI);
   }
-  b_confLog.set_size(n);
   // 2023-09-21
   // If an individual pulse of noise energy is sufficient to be above exceed
   // the threshold, even if all the other K-1 pulses in its groups are just
@@ -999,44 +921,19 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   // very low. Here we check to make sure all the pulses have SNRs within 7dB
   // of the max SNR in the pulse group. If they don't we reject the pulses. If
   // we are dealing with a K = 1 case, we check against the previous pulse.
-  confLog.set_size(n, 1);
-  for (i = 0; i < n; i++) {
-    b_confLog[i] = maxstartlog[0];
+  confLog.set_size(numPulses, 1);
+  for (i = 0; i < numPulses; i++) {
     confLog[i] = false;
   }
-  if (n > 1) {
+  if (numPulses > 1) {
     boolean_T exitg1;
-    n = X->ps_pos->pl.size(1);
-    b_X = X->ps_pos->pl.reshape(n);
-    n = b_X.size(0);
-    if (b_X.size(0) == 0) {
-      i = 0;
-    } else {
-      i = b_X.size(0);
-    }
-    r.set_size(1, i);
-    if (b_X.size(0) > 2147483646) {
-      coder::check_forloop_overflow_error();
-    }
-    for (loop_ub = 0; loop_ub < n; loop_ub++) {
-      r[loop_ub] = b_X[loop_ub].SNR;
-    }
+    loop_ub = X->ps_pos->pl.size(1);
+    b_X = X->ps_pos->pl.reshape(loop_ub);
+    coder::internal::c_horzcatStructList(b_X, r);
     size_tmp_idx_1 = r.size(1);
-    n = X->ps_pos->pl.size(1);
-    b_X = X->ps_pos->pl.reshape(n);
-    n = b_X.size(0);
-    if (b_X.size(0) == 0) {
-      i = 0;
-    } else {
-      i = b_X.size(0);
-    }
-    pulsestarttimes_withuncert.set_size(1, i);
-    if (b_X.size(0) > 2147483646) {
-      coder::check_forloop_overflow_error();
-    }
-    for (loop_ub = 0; loop_ub < n; loop_ub++) {
-      pulsestarttimes_withuncert[loop_ub] = b_X[loop_ub].SNR;
-    }
+    loop_ub = X->ps_pos->pl.size(1);
+    b_X = X->ps_pos->pl.reshape(loop_ub);
+    coder::internal::c_horzcatStructList(b_X, pulsestarttimes_withuncert);
     SNRall.set_size(r.size(1), 1);
     for (i = 0; i < size_tmp_idx_1; i++) {
       SNRall[i] = pulsestarttimes_withuncert[i];
@@ -1054,28 +951,28 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
     if (SNRnotNegInfLog.size(0) > 2147483646) {
       coder::check_forloop_overflow_error();
     }
-    n = 1;
+    loop_ub = 1;
     exitg1 = false;
-    while ((!exitg1) && (n <= SNRnotNegInfLog.size(0))) {
-      if (!SNRnotNegInfLog[n - 1]) {
+    while ((!exitg1) && (loop_ub <= SNRnotNegInfLog.size(0))) {
+      if (!SNRnotNegInfLog[loop_ub - 1]) {
         SNRnotNegInfAll = false;
         exitg1 = true;
       } else {
-        n++;
+        loop_ub++;
       }
     }
-    n = SNRall.size(0);
+    loop_ub = SNRall.size(0);
     confLog.set_size(SNRall.size(0), 1);
-    for (i = 0; i < n; i++) {
+    for (i = 0; i < loop_ub; i++) {
       confLog[i] = SNRnotNegInfAll;
     }
-  } else if (n == 1) {
+  } else if (numPulses == 1) {
     // If K = 1 and we are confirming pulses, we should always have a pulse
     // in the previous pulse list. Just in case, we check here that there is
     // pulse in the previous segment.
     i = X->ps_pre->pl.size(1);
     if (i < 1) {
-      rtDynamicBoundsError(1, 1, i, cb_emlrtBCI);
+      rtDynamicBoundsError(1, 1, i, db_emlrtBCI);
     }
     b = X->ps_pre->pl[0].fp;
     if (std::isnan(b)) {
@@ -1086,7 +983,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       //  SNRsimilar  = X.ps_pos.pl(1).SNR >= SNRprevious - 7;
       i = X->ps_pos->pl.size(1);
       if (i < 1) {
-        rtDynamicBoundsError(1, 1, i, db_emlrtBCI);
+        rtDynamicBoundsError(1, 1, i, eb_emlrtBCI);
       }
       confLog.set_size(1, 1);
       confLog[0] = (X->ps_pos->pl[0].SNR != rtMinusInf);
@@ -1095,18 +992,18 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   //  if X.ps_pos.pl(1).t_0>328
   //      pause(1);
   //  end
-  if ((b_confLog.size(0) != confLog.size(0)) &&
-      ((b_confLog.size(0) != 1) && (confLog.size(0) != 1))) {
-    emlrtDimSizeImpxCheckR2021b(b_confLog.size(0), confLog.size(0), n_emlrtECI);
+  if ((numPulses != confLog.size(0)) &&
+      ((numPulses != 1) && (confLog.size(0) != 1))) {
+    emlrtDimSizeImpxCheckR2021b(numPulses, confLog.size(0), n_emlrtECI);
   }
-  if (b_confLog.size(0) == confLog.size(0)) {
-    loop_ub = b_confLog.size(0) - 1;
-    confLog.set_size(b_confLog.size(0), 1);
+  if (numPulses == confLog.size(0)) {
+    loop_ub = numPulses - 1;
+    confLog.set_size(numPulses, 1);
     for (i = 0; i <= loop_ub; i++) {
-      confLog[i] = (b_confLog[i] && confLog[i]);
+      confLog[i] = (maxstartlog[0] && confLog[i]);
     }
   } else {
-    j_binary_expand_op(confLog, b_confLog);
+    binary_expand_op_21(confLog, maxstartlog, numPulses);
   }
 }
 

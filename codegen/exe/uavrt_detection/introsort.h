@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: introsort.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef INTROSORT_H
@@ -28,11 +28,9 @@ class c_anonymous_function;
 // Function Declarations
 namespace coder {
 namespace internal {
-void introsort(::coder::array<int, 1U> &x, int xend,
-               const anonymous_function &cmp);
+void introsort(array<int, 1U> &x, int xend, const anonymous_function &cmp);
 
-void introsort(::coder::array<int, 1U> &x, int xend,
-               const c_anonymous_function &cmp);
+void introsort(array<int, 1U> &x, int xend, const c_anonymous_function &cmp);
 
 } // namespace internal
 } // namespace coder

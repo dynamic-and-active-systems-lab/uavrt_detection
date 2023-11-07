@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: wfmstft.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -87,7 +87,7 @@ static void gt(coder::array<boolean_T, 2U> &in1,
 //
 void wfmstft::updatepsd()
 {
-  static rtBoundsCheckInfo y_emlrtBCI{
+  static rtBoundsCheckInfo ab_emlrtBCI{
       -1,                  // iFirst
       -1,                  // iLast
       161,                 // lineNo
@@ -370,7 +370,7 @@ void wfmstft::updatepsd()
     if (r[outsize_idx_0]) {
       midm1 = magSqrd.size(0) * magSqrd.size(1) - 1;
       if (outsize_idx_0 > midm1) {
-        rtDynamicBoundsError(outsize_idx_0, 0, midm1, y_emlrtBCI);
+        rtDynamicBoundsError(outsize_idx_0, 0, midm1, ab_emlrtBCI);
       }
       magSqrd[outsize_idx_0] = rtNaN;
     }

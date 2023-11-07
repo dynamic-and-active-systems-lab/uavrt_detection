@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: formatSTFTOutput.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -26,22 +26,22 @@
 
 // Variable Definitions
 static rtRunTimeErrorInfo
-    yb_emlrtRTEI{
+    cc_emlrtRTEI{
         38,          // lineNo
         48,          // colNo
         "circshift", // fName
-        "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/elmat/"
+        "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elmat/"
         "circshift.m" // pName
     };
 
-static rtBoundsCheckInfo w_emlrtBCI{
+static rtBoundsCheckInfo x_emlrtBCI{
     -1,           // iFirst
     -1,           // iLast
     16,           // lineNo
     13,           // colNo
     "",           // aName
     "centerfreq", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/+signal/+internal/"
+    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/+signal/+internal/"
     "+spectral/centerfreq.m", // pName
     0                         // checkKind
 };
@@ -50,19 +50,19 @@ static rtDoubleCheckInfo o_emlrtDCI{
     16,           // lineNo
     13,           // colNo
     "centerfreq", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/+signal/+internal/"
+    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/+signal/+internal/"
     "+spectral/centerfreq.m", // pName
     1                         // checkKind
 };
 
-static rtBoundsCheckInfo x_emlrtBCI{
+static rtBoundsCheckInfo y_emlrtBCI{
     -1,           // iFirst
     -1,           // iLast
     13,           // lineNo
     13,           // colNo
     "",           // aName
     "centerfreq", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/+signal/+internal/"
+    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/+signal/+internal/"
     "+spectral/centerfreq.m", // pName
     0                         // checkKind
 };
@@ -71,16 +71,16 @@ static rtDoubleCheckInfo p_emlrtDCI{
     13,           // lineNo
     13,           // colNo
     "centerfreq", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/signal/signal/+signal/+internal/"
+    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/+signal/+internal/"
     "+spectral/centerfreq.m", // pName
     1                         // checkKind
 };
 
-static rtRunTimeErrorInfo sc_emlrtRTEI{
+static rtRunTimeErrorInfo vc_emlrtRTEI{
     41,    // lineNo
     9,     // colNo
     "rem", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/+scalar/"
+    "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/+scalar/"
     "rem.m" // pName
 };
 
@@ -143,18 +143,17 @@ static void rtErrorWithMessageID(const char *r, const char *r1,
 }
 
 //
-// Arguments    : ::coder::array<creal32_T, 2U> &S
-//                const ::coder::array<double, 1U> &F
-//                ::coder::array<double, 1U> &Fout
+// Arguments    : array<creal32_T, 2U> &S
+//                const array<double, 1U> &F
+//                array<double, 1U> &Fout
 // Return Type  : void
 //
 namespace coder {
 namespace b_signal {
 namespace internal {
 namespace stft {
-void formatSTFTOutput(::coder::array<creal32_T, 2U> &S,
-                      const ::coder::array<double, 1U> &F,
-                      ::coder::array<double, 1U> &Fout)
+void formatSTFTOutput(array<creal32_T, 2U> &S, const array<double, 1U> &F,
+                      array<double, 1U> &Fout)
 {
   array<creal32_T, 2U> buffer;
   double p;
@@ -168,8 +167,8 @@ void formatSTFTOutput(::coder::array<creal32_T, 2U> &S,
       vspread = 0;
     }
     if (static_cast<int>(p) != p) {
-      rtErrorWithMessageID("int32", "int32", yb_emlrtRTEI.fName,
-                           yb_emlrtRTEI.lineNo);
+      rtErrorWithMessageID("int32", "int32", cc_emlrtRTEI.fName,
+                           cc_emlrtRTEI.lineNo);
     }
     if ((S.size(0) != 0) && (S.size(1) != 0) &&
         ((S.size(0) != 1) || (S.size(1) != 1))) {
@@ -193,7 +192,7 @@ void formatSTFTOutput(::coder::array<creal32_T, 2U> &S,
           unsigned int u;
           u = static_cast<unsigned int>(S.size(vspread));
           if (u == 0U) {
-            rtDivisionByZeroError(sc_emlrtRTEI);
+            rtDivisionByZeroError(vc_emlrtRTEI);
           } else {
             b_i = static_cast<int>(static_cast<unsigned int>(ns) / u);
           }
@@ -338,7 +337,7 @@ void formatSTFTOutput(::coder::array<creal32_T, 2U> &S,
       rtIntegerError(p, p_emlrtDCI);
     }
     if ((static_cast<int>(p) < 1) || (static_cast<int>(p) > F.size(0))) {
-      rtDynamicBoundsError(static_cast<int>(p), 1, F.size(0), x_emlrtBCI);
+      rtDynamicBoundsError(static_cast<int>(p), 1, F.size(0), y_emlrtBCI);
     }
     p = F[static_cast<int>(p) - 1];
     Fout.set_size(F.size(0));
@@ -352,7 +351,7 @@ void formatSTFTOutput(::coder::array<creal32_T, 2U> &S,
       rtIntegerError(p, o_emlrtDCI);
     }
     if ((static_cast<int>(p) < 1) || (static_cast<int>(p) > F.size(0))) {
-      rtDynamicBoundsError(static_cast<int>(p), 1, F.size(0), w_emlrtBCI);
+      rtDynamicBoundsError(static_cast<int>(p), 1, F.size(0), x_emlrtBCI);
     }
     p = F[static_cast<int>(p) - 1];
     Fout.set_size(F.size(0));
@@ -364,14 +363,13 @@ void formatSTFTOutput(::coder::array<creal32_T, 2U> &S,
 }
 
 //
-// Arguments    : ::coder::array<creal_T, 3U> &S
-//                const ::coder::array<double, 1U> &F
-//                ::coder::array<double, 1U> &Fout
+// Arguments    : array<creal_T, 3U> &S
+//                const array<double, 1U> &F
+//                array<double, 1U> &Fout
 // Return Type  : void
 //
-void formatSTFTOutput(::coder::array<creal_T, 3U> &S,
-                      const ::coder::array<double, 1U> &F,
-                      ::coder::array<double, 1U> &Fout)
+void formatSTFTOutput(array<creal_T, 3U> &S, const array<double, 1U> &F,
+                      array<double, 1U> &Fout)
 {
   array<creal_T, 2U> buffer;
   double xtmp_re;
@@ -387,8 +385,8 @@ void formatSTFTOutput(::coder::array<creal_T, 3U> &S,
       vlend2 = 2;
     }
     if (static_cast<int>(xtmp_re) != xtmp_re) {
-      rtErrorWithMessageID("int32", "int32", yb_emlrtRTEI.fName,
-                           yb_emlrtRTEI.lineNo);
+      rtErrorWithMessageID("int32", "int32", cc_emlrtRTEI.fName,
+                           cc_emlrtRTEI.lineNo);
     }
     if ((S.size(0) != 0) && (S.size(1) != 0) && (S.size(2) != 0) &&
         ((S.size(0) != 1) || (S.size(1) != 1) || (S.size(2) != 1))) {
@@ -412,7 +410,7 @@ void formatSTFTOutput(::coder::array<creal_T, 3U> &S,
           unsigned int u;
           u = static_cast<unsigned int>(S.size(vlend2));
           if (u == 0U) {
-            rtDivisionByZeroError(sc_emlrtRTEI);
+            rtDivisionByZeroError(vc_emlrtRTEI);
           } else {
             b_i = static_cast<int>(static_cast<unsigned int>(ns) / u);
           }
@@ -554,7 +552,7 @@ void formatSTFTOutput(::coder::array<creal_T, 3U> &S,
     }
     if ((static_cast<int>(xtmp_re) < 1) ||
         (static_cast<int>(xtmp_re) > F.size(0))) {
-      rtDynamicBoundsError(static_cast<int>(xtmp_re), 1, F.size(0), x_emlrtBCI);
+      rtDynamicBoundsError(static_cast<int>(xtmp_re), 1, F.size(0), y_emlrtBCI);
     }
     xtmp_re = F[static_cast<int>(xtmp_re) - 1];
     Fout.set_size(F.size(0));
@@ -569,7 +567,7 @@ void formatSTFTOutput(::coder::array<creal_T, 3U> &S,
     }
     if ((static_cast<int>(xtmp_re) < 1) ||
         (static_cast<int>(xtmp_re) > F.size(0))) {
-      rtDynamicBoundsError(static_cast<int>(xtmp_re), 1, F.size(0), w_emlrtBCI);
+      rtDynamicBoundsError(static_cast<int>(xtmp_re), 1, F.size(0), x_emlrtBCI);
     }
     xtmp_re = F[static_cast<int>(xtmp_re) - 1];
     Fout.set_size(F.size(0));

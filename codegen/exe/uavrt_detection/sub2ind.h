@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: sub2ind.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef SUB2IND_H
@@ -20,17 +20,14 @@
 // Function Declarations
 namespace coder {
 namespace internal {
-void b_sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
-               const ::coder::array<double, 2U> &varargin_2,
-               ::coder::array<int, 2U> &idx);
+void b_sub2ind(const int siz[2], const array<double, 2U> &varargin_1,
+               const array<double, 2U> &varargin_2, array<int, 2U> &idx);
 
-void sub2ind(const int siz[2], const ::coder::array<double, 2U> &varargin_1,
-             const ::coder::array<double, 2U> &varargin_2,
-             ::coder::array<int, 2U> &idx);
+void sub2ind(const int siz[2], const array<double, 2U> &varargin_1,
+             const array<double, 2U> &varargin_2, array<int, 2U> &idx);
 
-void sub2ind(const int siz[2], const ::coder::array<double, 1U> &varargin_1,
-             const ::coder::array<double, 1U> &varargin_2,
-             ::coder::array<int, 1U> &idx);
+void sub2ind(const int siz[2], const array<double, 1U> &varargin_1,
+             const array<double, 1U> &varargin_2, array<int, 1U> &idx);
 
 int sub2ind(const int siz[2], double varargin_2);
 

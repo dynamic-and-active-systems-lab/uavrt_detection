@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: sparse.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef SPARSE_H
@@ -29,13 +29,13 @@ class g_sparse;
 
 // Function Declarations
 namespace coder {
-void i_sparse(const ::coder::array<double, 1U> &varargin_1,
-              const ::coder::array<double, 1U> &varargin_2,
-              const ::coder::array<double, 1U> &varargin_3, sparse &y);
+void i_sparse(const array<double, 1U> &varargin_1,
+              const array<double, 1U> &varargin_2,
+              const array<double, 1U> &varargin_3, sparse &y);
 
-void i_sparse(const ::coder::array<double, 1U> &varargin_1, g_sparse &y);
+void i_sparse(const array<double, 1U> &varargin_1, g_sparse &y);
 
-void j_sparse(const ::coder::array<boolean_T, 2U> &varargin_1, d_sparse &y);
+void j_sparse(const array<boolean_T, 2U> &varargin_1, d_sparse &y);
 
 } // namespace coder
 

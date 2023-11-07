@@ -4,21 +4,22 @@
 // government, commercial, or other organizational use.
 // File: CoderTimeAPI.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
 #include "CoderTimeAPI.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection_data.h"
+#include "coder_posix_time.h"
 
 // Function Definitions
 //
 // Arguments    : void
 // Return Type  : void
 //
-void freq_not_empty_init()
+void CoderTimeAPI::callCoderClockGettime_init()
 {
   freq_not_empty = false;
 }

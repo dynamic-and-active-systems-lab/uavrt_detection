@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: fzero.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -23,7 +23,7 @@
 #include <string>
 
 // Function Declarations
-static void tb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void wb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -31,7 +31,7 @@ static void tb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void tb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void wb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -55,11 +55,11 @@ namespace coder {
 double fzero(const b_anonymous_function FunFcn)
 {
   static rtRunTimeErrorInfo
-      tc_emlrtRTEI{
+      wc_emlrtRTEI{
           83,      // lineNo
           9,       // colNo
           "fzero", // fName
-          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/optimfun/"
+          "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/optimfun/"
           "fzero.m" // pName
       };
   double b;
@@ -75,7 +75,7 @@ double fzero(const b_anonymous_function FunFcn)
     double fb;
     int exitg2;
     if (std::isinf(fx) || std::isnan(fx)) {
-      tb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+      wb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
     }
     dx = 0.02;
     a = 0.0;

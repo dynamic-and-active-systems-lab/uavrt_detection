@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: circshift.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -16,11 +16,11 @@
 
 // Function Definitions
 //
-// Arguments    : ::coder::array<double, 2U> &a
+// Arguments    : array<double, 2U> &a
 // Return Type  : void
 //
 namespace coder {
-void b_circshift(::coder::array<double, 2U> &a)
+void b_circshift(array<double, 2U> &a)
 {
   array<double, 2U> buffer;
   if ((a.size(0) != 0) && (a.size(1) != 0) &&
@@ -59,10 +59,10 @@ void b_circshift(::coder::array<double, 2U> &a)
 }
 
 //
-// Arguments    : ::coder::array<double, 2U> &a
+// Arguments    : array<double, 2U> &a
 // Return Type  : void
 //
-void c_circshift(::coder::array<double, 2U> &a)
+void c_circshift(array<double, 2U> &a)
 {
   array<double, 2U> buffer;
   if ((a.size(0) != 0) && (a.size(1) != 0) &&
@@ -127,10 +127,10 @@ void c_circshift(::coder::array<double, 2U> &a)
 }
 
 //
-// Arguments    : ::coder::array<double, 2U> &a
+// Arguments    : array<double, 2U> &a
 // Return Type  : void
 //
-void circshift(::coder::array<double, 2U> &a)
+void circshift(array<double, 2U> &a)
 {
   array<double, 2U> buffer;
   if ((a.size(0) != 0) && (a.size(1) != 0) &&
@@ -169,10 +169,10 @@ void circshift(::coder::array<double, 2U> &a)
 }
 
 //
-// Arguments    : ::coder::array<double, 2U> &a
+// Arguments    : array<double, 2U> &a
 // Return Type  : void
 //
-void d_circshift(::coder::array<double, 2U> &a)
+void d_circshift(array<double, 2U> &a)
 {
   array<double, 2U> buffer;
   if ((a.size(0) != 0) && (a.size(1) != 0) &&
@@ -237,10 +237,10 @@ void d_circshift(::coder::array<double, 2U> &a)
 }
 
 //
-// Arguments    : ::coder::array<double, 2U> &a
+// Arguments    : array<double, 2U> &a
 // Return Type  : void
 //
-void e_circshift(::coder::array<double, 2U> &a)
+void e_circshift(array<double, 2U> &a)
 {
   array<double, 2U> buffer;
   if ((a.size(0) != 0) && (a.size(1) != 0) &&
@@ -275,10 +275,10 @@ void e_circshift(::coder::array<double, 2U> &a)
 }
 
 //
-// Arguments    : ::coder::array<double, 2U> &a
+// Arguments    : array<double, 2U> &a
 // Return Type  : void
 //
-void f_circshift(::coder::array<double, 2U> &a)
+void f_circshift(array<double, 2U> &a)
 {
   array<double, 2U> buffer;
   if ((a.size(0) != 0) && (a.size(1) != 0) &&
@@ -313,10 +313,10 @@ void f_circshift(::coder::array<double, 2U> &a)
 }
 
 //
-// Arguments    : ::coder::array<boolean_T, 2U> &a
+// Arguments    : array<boolean_T, 2U> &a
 // Return Type  : void
 //
-void g_circshift(::coder::array<boolean_T, 2U> &a)
+void g_circshift(array<boolean_T, 2U> &a)
 {
   array<boolean_T, 2U> buffer;
   if ((a.size(0) != 0) && (a.size(1) != 0) &&

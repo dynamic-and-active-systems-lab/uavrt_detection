@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: _coder_uavrt_detection_api.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -23,7 +23,7 @@ static uint32_T globalThresholdCachePath_guard;
 emlrtContext emlrtContextGlobal{
     true,                                                 // bFirstTime
     false,                                                // bInitialized
-    131642U,                                              // fVersionInfo
+    131643U,                                              // fVersionInfo
     nullptr,                                              // fErrorFunction
     "uavrt_detection",                                    // fFunctionName
     nullptr,                                              // fRTCallStack
@@ -37,8 +37,7 @@ static void b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
                                const emlrtMsgIdentifier *msgId,
                                coder::array<char_T, 2U> &ret);
 
-static void emlrt_marshallIn(const emlrtStack *sp,
-                             const mxArray *b_globalThresholdCachePath,
+static void emlrt_marshallIn(const emlrtStack *sp, const mxArray *b_nullptr,
                              const char_T *identifier,
                              coder::array<char_T, 2U> &y);
 
@@ -75,13 +74,12 @@ static void b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
 
 //
 // Arguments    : const emlrtStack *sp
-//                const mxArray *b_globalThresholdCachePath
+//                const mxArray *b_nullptr
 //                const char_T *identifier
 //                coder::array<char_T, 2U> &y
 // Return Type  : void
 //
-static void emlrt_marshallIn(const emlrtStack *sp,
-                             const mxArray *b_globalThresholdCachePath,
+static void emlrt_marshallIn(const emlrtStack *sp, const mxArray *b_nullptr,
                              const char_T *identifier,
                              coder::array<char_T, 2U> &y)
 {
@@ -89,8 +87,8 @@ static void emlrt_marshallIn(const emlrtStack *sp,
   thisId.fIdentifier = const_cast<const char_T *>(identifier);
   thisId.fParent = nullptr;
   thisId.bParentIsCell = false;
-  emlrt_marshallIn(sp, emlrtAlias(b_globalThresholdCachePath), &thisId, y);
-  emlrtDestroyArray(&b_globalThresholdCachePath);
+  emlrt_marshallIn(sp, emlrtAlias(b_nullptr), &thisId, y);
+  emlrtDestroyArray(&b_nullptr);
 }
 
 //

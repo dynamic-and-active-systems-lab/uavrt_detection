@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: assertValidSizeArg.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -23,7 +23,7 @@
 #include <string>
 
 // Function Declarations
-static void qc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void tc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -31,7 +31,7 @@ static void qc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void qc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void tc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -63,8 +63,8 @@ void assertValidSizeArg(double varargin_2)
   double d;
   if ((varargin_2 != std::floor(varargin_2)) || std::isinf(varargin_2) ||
       (varargin_2 < -2.147483648E+9) || (varargin_2 > 2.147483647E+9)) {
-    b_rtErrorWithMessageID(MIN_int32_T, jb_emlrtRTEI.fName,
-                           jb_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(MIN_int32_T, lb_emlrtRTEI.fName,
+                           lb_emlrtRTEI.lineNo);
   }
   if (varargin_2 <= 0.0) {
     d = 0.0;
@@ -82,11 +82,11 @@ void assertValidSizeArg(double varargin_2)
 //
 void assertValidSizeArg(const double varargin_1[2])
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       49,                   // lineNo
       19,                   // colNo
       "assertValidSizeArg", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "assertValidSizeArg.m" // pName
   };
   double d;
@@ -96,7 +96,7 @@ void assertValidSizeArg(const double varargin_1[2])
   exitg1 = false;
   while ((!exitg1) && (k < 2)) {
     if ((varargin_1[k] != varargin_1[k]) || std::isinf(varargin_1[k])) {
-      qc_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+      tc_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
     } else {
       k++;
     }

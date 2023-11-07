@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: uavrt_detection.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -25,6 +25,7 @@
 #include "fseek.h"
 #include "ftell.h"
 #include "fwrite.h"
+#include "horzcatStructList.h"
 #include "ifWhileCond.h"
 #include "indexShapeCheck.h"
 #include "makepulsestruc.h"
@@ -204,7 +205,7 @@ interleaveComplexVector(const coder::array<creal32_T, 1U> &complexDataIn,
     varargin_2[i] = complexDataIn[i].im;
   }
   if (varargin_2.size(0) != varargin_1.size(0)) {
-    cb_rtErrorWithMessageID(pb_emlrtRTEI.fName, pb_emlrtRTEI.lineNo);
+    fb_rtErrorWithMessageID(sb_emlrtRTEI.fName, sb_emlrtRTEI.lineNo);
   }
   dataMatrix.set_size(2, varargin_1.size(0));
   loop_ub = varargin_1.size(0);
@@ -520,6 +521,17 @@ static void updateconfig(coder::b_captured_var &Config,
   static rtBoundsCheckInfo ab_emlrtBCI{
       -1,                           // iFirst
       -1,                           // iLast
+      124,                          // lineNo
+      28,                           // colNo
+      "rawLine",                    // aName
+      "DetectorConfig/setFromFile", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
+      0                                                   // checkKind
+  };
+  static rtBoundsCheckInfo bb_emlrtBCI{
+      -1,                           // iFirst
+      -1,                           // iLast
       155,                          // lineNo
       31,                           // colNo
       "sepByte",                    // aName
@@ -528,7 +540,7 @@ static void updateconfig(coder::b_captured_var &Config,
       "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
       0                                                   // checkKind
   };
-  static rtBoundsCheckInfo bb_emlrtBCI{
+  static rtBoundsCheckInfo cb_emlrtBCI{
       -1,                           // iFirst
       -1,                           // iLast
       159,                          // lineNo
@@ -539,7 +551,7 @@ static void updateconfig(coder::b_captured_var &Config,
       "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
       0                                                   // checkKind
   };
-  static rtBoundsCheckInfo cb_emlrtBCI{
+  static rtBoundsCheckInfo db_emlrtBCI{
       -1,                           // iFirst
       -1,                           // iLast
       162,                          // lineNo
@@ -550,7 +562,7 @@ static void updateconfig(coder::b_captured_var &Config,
       "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
       0                                                   // checkKind
   };
-  static rtBoundsCheckInfo db_emlrtBCI{
+  static rtBoundsCheckInfo eb_emlrtBCI{
       -1,                           // iFirst
       -1,                           // iLast
       163,                          // lineNo
@@ -561,7 +573,7 @@ static void updateconfig(coder::b_captured_var &Config,
       "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
       0                                                   // checkKind
   };
-  static rtBoundsCheckInfo eb_emlrtBCI{
+  static rtBoundsCheckInfo fb_emlrtBCI{
       -1,                           // iFirst
       -1,                           // iLast
       202,                          // lineNo
@@ -572,7 +584,7 @@ static void updateconfig(coder::b_captured_var &Config,
       "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
       0                                                   // checkKind
   };
-  static rtBoundsCheckInfo fb_emlrtBCI{
+  static rtBoundsCheckInfo gb_emlrtBCI{
       -1,                           // iFirst
       -1,                           // iLast
       164,                          // lineNo
@@ -583,7 +595,7 @@ static void updateconfig(coder::b_captured_var &Config,
       "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
       0                                                   // checkKind
   };
-  static rtBoundsCheckInfo gb_emlrtBCI{
+  static rtBoundsCheckInfo hb_emlrtBCI{
       -1,                           // iFirst
       -1,                           // iLast
       164,                          // lineNo
@@ -594,7 +606,7 @@ static void updateconfig(coder::b_captured_var &Config,
       "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
       0                                                   // checkKind
   };
-  static rtBoundsCheckInfo hb_emlrtBCI{
+  static rtBoundsCheckInfo ib_emlrtBCI{
       -1,                           // iFirst
       -1,                           // iLast
       163,                          // lineNo
@@ -605,7 +617,7 @@ static void updateconfig(coder::b_captured_var &Config,
       "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
       0                                                   // checkKind
   };
-  static rtBoundsCheckInfo ib_emlrtBCI{
+  static rtBoundsCheckInfo jb_emlrtBCI{
       -1,                           // iFirst
       -1,                           // iLast
       163,                          // lineNo
@@ -616,7 +628,7 @@ static void updateconfig(coder::b_captured_var &Config,
       "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
       0                                                   // checkKind
   };
-  static rtBoundsCheckInfo jb_emlrtBCI{
+  static rtBoundsCheckInfo kb_emlrtBCI{
       -1,                           // iFirst
       -1,                           // iLast
       204,                          // lineNo
@@ -627,43 +639,32 @@ static void updateconfig(coder::b_captured_var &Config,
       "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
       0                                                   // checkKind
   };
-  static rtBoundsCheckInfo y_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      124,                          // lineNo
-      28,                           // colNo
-      "rawLine",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
-  };
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
-      37,      // lineNo
-      9,       // colNo
-      "fopen", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/fopen.m" // pName
-  };
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
-      12,               // lineNo
-      23,               // colNo
-      "mustBePositive", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/validators/"
-      "mustBePositive.m" // pName
-  };
-  static rtRunTimeErrorInfo vc_emlrtRTEI{
-      11,                  // lineNo
-      24,                  // colNo
-      "mustBeNonnegative", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/validators/"
-      "mustBeNonnegative.m" // pName
-  };
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
+  static rtRunTimeErrorInfo ad_emlrtRTEI{
       18,                     // lineNo
       5,                      // colNo
       "binaryRelopValidator", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/validators/"
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/validators/"
       "private/binaryRelopValidator.m" // pName
+  };
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
+      37,      // lineNo
+      9,       // colNo
+      "fopen", // fName
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/fopen.m" // pName
+  };
+  static rtRunTimeErrorInfo xc_emlrtRTEI{
+      12,               // lineNo
+      23,               // colNo
+      "mustBePositive", // fName
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/validators/"
+      "mustBePositive.m" // pName
+  };
+  static rtRunTimeErrorInfo yc_emlrtRTEI{
+      11,                  // lineNo
+      24,                  // colNo
+      "mustBeNonnegative", // fName
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/validators/"
+      "mustBeNonnegative.m" // pName
   };
   static const char b_cv[2]{'I', 'D'};
   int st;
@@ -716,7 +717,7 @@ static void updateconfig(coder::b_captured_var &Config,
   //    none (method modifies the properties of the instance)
   //
   if (coder::internal::b_strcmp(lineStr)) {
-    b_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   } else {
     signed char fileid;
     fileid = coder::internal::cfopen(lineStr, "rb");
@@ -744,7 +745,7 @@ static void updateconfig(coder::b_captured_var &Config,
     // currByte = ftell(fid);
     coder::fgetl(static_cast<double>(fid), lineStr);
     if (lineStr.size(1) < 1) {
-      rtDynamicBoundsError(1, 1, lineStr.size(1), y_emlrtBCI);
+      rtDynamicBoundsError(1, 1, lineStr.size(1), ab_emlrtBCI);
     }
     if (lineStr[0] == '#') {
       // && lineNum~=1
@@ -781,7 +782,7 @@ static void updateconfig(coder::b_captured_var &Config,
   if ((static_cast<int>(configNum) < 1) ||
       (static_cast<int>(configNum) > sepByte.size(1))) {
     rtDynamicBoundsError(static_cast<int>(configNum), 1, sepByte.size(1),
-                         ab_emlrtBCI);
+                         bb_emlrtBCI);
   }
   coder::b_fseek(static_cast<double>(fid),
                  sepByte[static_cast<int>(configNum) - 1]);
@@ -792,7 +793,7 @@ static void updateconfig(coder::b_captured_var &Config,
     if (!done) {
       coder::fgetl(static_cast<double>(fid), lineStr);
       if (lineStr.size(1) < 1) {
-        rtDynamicBoundsError(1, 1, lineStr.size(1), bb_emlrtBCI);
+        rtDynamicBoundsError(1, 1, lineStr.size(1), cb_emlrtBCI);
       }
       if (lineStr[0] != '#') {
         int ii_size[2];
@@ -835,20 +836,20 @@ static void updateconfig(coder::b_captured_var &Config,
         // Thanks to
         // https://www.mathworks.com/matlabcentral/answers/529668-how-do-i-detect-a-tab-character-in-a-line-of-text-read-by-fgetl
         if (tabLocs.size(1) < 1) {
-          rtDynamicBoundsError(1, 1, tabLocs.size(1), cb_emlrtBCI);
+          rtDynamicBoundsError(1, 1, tabLocs.size(1), db_emlrtBCI);
         }
         // note regexp is not supported for code generation
         if (ii_size[1] < 1) {
-          rtDynamicBoundsError(1, 1, ii_size[1], db_emlrtBCI);
+          rtDynamicBoundsError(1, 1, ii_size[1], eb_emlrtBCI);
         }
         if (static_cast<double>(ii_data) - 1.0 < 1.0) {
           loop_ub = 0;
         } else {
           if (lineStr.size(1) < 1) {
-            rtDynamicBoundsError(1, 1, lineStr.size(1), hb_emlrtBCI);
+            rtDynamicBoundsError(1, 1, lineStr.size(1), ib_emlrtBCI);
           }
           if ((ii_data - 1 < 1) || (ii_data - 1 > lineStr.size(1))) {
-            rtDynamicBoundsError(ii_data - 1, 1, lineStr.size(1), ib_emlrtBCI);
+            rtDynamicBoundsError(ii_data - 1, 1, lineStr.size(1), jb_emlrtBCI);
           }
           loop_ub = ii_data - 1;
         }
@@ -862,12 +863,12 @@ static void updateconfig(coder::b_captured_var &Config,
         } else {
           i = static_cast<int>(tabLocs[0] + 1U);
           if ((i < 1) || (i > lineStr.size(1))) {
-            rtDynamicBoundsError(i, 1, lineStr.size(1), fb_emlrtBCI);
+            rtDynamicBoundsError(i, 1, lineStr.size(1), gb_emlrtBCI);
           }
           i--;
           if (lineStr.size(1) < 1) {
             rtDynamicBoundsError(lineStr.size(1), 1, lineStr.size(1),
-                                 gb_emlrtBCI);
+                                 hb_emlrtBCI);
           }
           text_len = lineStr.size(1);
         }
@@ -917,13 +918,13 @@ static void updateconfig(coder::b_captured_var &Config,
           }
           r.ID = in_tmp;
           if (in <= 0U) {
-            d_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+            d_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
           }
         } else if (coder::internal::c_strcmp(configType)) {
           creal_T x;
           x = coder::internal::str2double(configValStr);
           if (!(x.re >= 0.0)) {
-            e_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+            e_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
           }
           r.channelCenterFreqMHz = x.re;
         } else if (!coder::internal::d_strcmp(configType)) {
@@ -950,13 +951,13 @@ static void updateconfig(coder::b_captured_var &Config,
             }
             r.portData = b_in_tmp;
             if (u <= 0) {
-              d_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+              d_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
             }
           } else if (coder::internal::f_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re > 0.0)) {
-              d_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+              d_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
             }
             r.Fs = x.re;
           } else if (coder::internal::g_strcmp(configType)) {
@@ -967,28 +968,28 @@ static void updateconfig(coder::b_captured_var &Config,
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re > 0.0)) {
-              d_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+              d_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
             }
             r.tp = x.re;
           } else if (coder::internal::i_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re > 0.0)) {
-              d_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+              d_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
             }
             r.tip = x.re;
           } else if (coder::internal::j_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re >= 0.0)) {
-              e_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+              e_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
             }
             r.tipu = x.re;
           } else if (coder::internal::k_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re >= 0.0)) {
-              e_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+              e_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
             }
             r.tipj = x.re;
           } else {
@@ -1019,7 +1020,7 @@ static void updateconfig(coder::b_captured_var &Config,
               }
               r.K = c_in_tmp;
               if (u1 <= 0) {
-                d_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+                d_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
               }
             } else if (!coder::internal::l_strcmp(configType)) {
               if (coder::internal::m_strcmp(configType)) {
@@ -1034,12 +1035,12 @@ static void updateconfig(coder::b_captured_var &Config,
                 creal_T x;
                 x = coder::internal::str2double(configValStr);
                 if (!(x.re > 0.0)) {
-                  d_rtErrorWithMessageID(uc_emlrtRTEI.fName,
-                                         uc_emlrtRTEI.lineNo);
+                  d_rtErrorWithMessageID(xc_emlrtRTEI.fName,
+                                         xc_emlrtRTEI.lineNo);
                 }
                 if (!(x.re < 1.0)) {
-                  b_rtErrorWithMessageID("1", wc_emlrtRTEI.fName,
-                                         wc_emlrtRTEI.lineNo);
+                  b_rtErrorWithMessageID("1", ad_emlrtRTEI.fName,
+                                         ad_emlrtRTEI.lineNo);
                 }
                 r.falseAlarmProb = x.re;
               } else if (!coder::internal::o_strcmp(configType)) {
@@ -1087,7 +1088,7 @@ static void updateconfig(coder::b_captured_var &Config,
                sepByte.size(1))) {
             rtDynamicBoundsError(
                 static_cast<int>(static_cast<unsigned int>(configNum) + 1U), 1,
-                sepByte.size(1), eb_emlrtBCI);
+                sepByte.size(1), fb_emlrtBCI);
           }
           if (coder::b_ftell(static_cast<double>(fid)) ==
               sepByte[static_cast<int>(static_cast<unsigned int>(configNum))]) {
@@ -1111,7 +1112,7 @@ static void updateconfig(coder::b_captured_var &Config,
                sepByte.size(1))) {
             rtDynamicBoundsError(
                 static_cast<int>(static_cast<unsigned int>(configNum) + 1U), 1,
-                sepByte.size(1), jb_emlrtBCI);
+                sepByte.size(1), kb_emlrtBCI);
           }
           if (coder::b_ftell(static_cast<double>(fid)) ==
               sepByte[static_cast<int>(static_cast<unsigned int>(configNum))]) {
@@ -1145,6 +1146,17 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo ab_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
+      372,               // lineNo
+      82,                // colNo
+      "timeVector",      // aName
+      "uavrt_detection", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
+      0                                                    // checkKind
+  };
+  static rtBoundsCheckInfo bb_emlrtBCI{
+      -1,                // iFirst
+      -1,                // iLast
       388,               // lineNo
       32,                // colNo
       "t",               // aName
@@ -1153,7 +1165,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
       0                                                    // checkKind
   };
-  static rtBoundsCheckInfo bb_emlrtBCI{
+  static rtBoundsCheckInfo cb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
       490,               // lineNo
@@ -1164,7 +1176,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
       0                                                    // checkKind
   };
-  static rtBoundsCheckInfo cb_emlrtBCI{
+  static rtBoundsCheckInfo db_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
       495,               // lineNo
@@ -1175,7 +1187,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
       0                                                    // checkKind
   };
-  static rtBoundsCheckInfo db_emlrtBCI{
+  static rtBoundsCheckInfo eb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
       501,               // lineNo
@@ -1186,7 +1198,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
       0                                                    // checkKind
   };
-  static rtBoundsCheckInfo eb_emlrtBCI{
+  static rtBoundsCheckInfo fb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
       506,               // lineNo
@@ -1197,7 +1209,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
       0                                                    // checkKind
   };
-  static rtBoundsCheckInfo fb_emlrtBCI{
+  static rtBoundsCheckInfo gb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
       601,               // lineNo
@@ -1208,7 +1220,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
       0                                                    // checkKind
   };
-  static rtBoundsCheckInfo gb_emlrtBCI{
+  static rtBoundsCheckInfo hb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
       606,               // lineNo
@@ -1219,7 +1231,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
       0                                                    // checkKind
   };
-  static rtBoundsCheckInfo hb_emlrtBCI{
+  static rtBoundsCheckInfo ib_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
       612,               // lineNo
@@ -1230,7 +1242,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
       0                                                    // checkKind
   };
-  static rtBoundsCheckInfo ib_emlrtBCI{
+  static rtBoundsCheckInfo jb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
       641,               // lineNo
@@ -1241,23 +1253,12 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
       0                                                    // checkKind
   };
-  static rtBoundsCheckInfo jb_emlrtBCI{
+  static rtBoundsCheckInfo kb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
       657,               // lineNo
       50,                // colNo
       "pulsesToSkip",    // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
-  };
-  static rtBoundsCheckInfo y_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      372,               // lineNo
-      82,                // colNo
-      "timeVector",      // aName
       "uavrt_detection", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
@@ -2018,7 +2019,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       }
       if (timeVector.size(0) < 1) {
         rtDynamicBoundsError(timeVector.size(0), 1, timeVector.size(0),
-                             y_emlrtBCI);
+                             ab_emlrtBCI);
       }
       b_this.init();
       std::printf("Sample elapsed seconds: %f \t Posix elapsed seconds: %f \n",
@@ -2055,7 +2056,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         unsigned int varargin_3;
         char varargin_1[2];
         if (t.size(0) < 1) {
-          rtDynamicBoundsError(1, 1, t.size(0), ab_emlrtBCI);
+          rtDynamicBoundsError(1, 1, t.size(0), bb_emlrtBCI);
         }
         std::printf("Running...Building priori and waveform. \n");
         std::fflush(stdout);
@@ -2274,12 +2275,12 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         std::printf(
             "First 5 entries of the real data block being processed are:\n");
         std::fflush(stdout);
-        for (int b_i{0}; b_i < 5; b_i++) {
+        for (pulseCount = 0; pulseCount < 5; pulseCount++) {
           i = b_X.x.size(1);
-          if (b_i + 1 > i) {
-            rtDynamicBoundsError(b_i + 1, 1, i, bb_emlrtBCI);
+          if (pulseCount + 1 > i) {
+            rtDynamicBoundsError(pulseCount + 1, 1, i, cb_emlrtBCI);
           }
-          validatedHoleFilling_idx_0 = b_X.x[b_i].re;
+          validatedHoleFilling_idx_0 = b_X.x[pulseCount].re;
           std::printf("%.8f,", validatedHoleFilling_idx_0);
           std::fflush(stdout);
         }
@@ -2288,12 +2289,12 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         std::printf("First 5 entries of the imaginary data block being "
                     "processed are:\n");
         std::fflush(stdout);
-        for (int b_i{0}; b_i < 5; b_i++) {
+        for (pulseCount = 0; pulseCount < 5; pulseCount++) {
           i = b_X.x.size(1);
-          if (b_i + 1 > i) {
-            rtDynamicBoundsError(b_i + 1, 1, i, cb_emlrtBCI);
+          if (pulseCount + 1 > i) {
+            rtDynamicBoundsError(pulseCount + 1, 1, i, db_emlrtBCI);
           }
-          validatedHoleFilling_idx_0 = b_X.x[b_i].im;
+          validatedHoleFilling_idx_0 = b_X.x[pulseCount].im;
           std::printf("%.8f,", validatedHoleFilling_idx_0);
           std::fflush(stdout);
         }
@@ -2305,11 +2306,11 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         i = b_X.x.size(1) - 5;
         nPulseList = b_X.x.size(1);
         nPulseList -= i;
-        for (int b_i{0}; b_i <= nPulseList; b_i++) {
+        for (pulseCount = 0; pulseCount <= nPulseList; pulseCount++) {
           nbytes = b_X.x.size(1);
-          loop_ub = i + b_i;
+          loop_ub = i + pulseCount;
           if ((loop_ub < 1) || (loop_ub > nbytes)) {
-            rtDynamicBoundsError(loop_ub, 1, nbytes, db_emlrtBCI);
+            rtDynamicBoundsError(loop_ub, 1, nbytes, eb_emlrtBCI);
           }
           validatedHoleFilling_idx_0 = b_X.x[loop_ub - 1].re;
           std::printf("%.8f,", validatedHoleFilling_idx_0);
@@ -2323,11 +2324,11 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         i = b_X.x.size(1) - 5;
         nPulseList = b_X.x.size(1);
         nPulseList -= i;
-        for (int b_i{0}; b_i <= nPulseList; b_i++) {
+        for (pulseCount = 0; pulseCount <= nPulseList; pulseCount++) {
           nbytes = b_X.x.size(1);
-          loop_ub = i + b_i;
+          loop_ub = i + pulseCount;
           if ((loop_ub < 1) || (loop_ub > nbytes)) {
-            rtDynamicBoundsError(loop_ub, 1, nbytes, eb_emlrtBCI);
+            rtDynamicBoundsError(loop_ub, 1, nbytes, fb_emlrtBCI);
           }
           validatedHoleFilling_idx_0 = b_X.x[loop_ub - 1].im;
           std::printf("%.8f,", validatedHoleFilling_idx_0);
@@ -2365,19 +2366,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         for (i = 0; i <= loop_ub; i++) {
           ps_pre_struc_pl[i] = b_X.ps_pos->pl[i];
         }
-        nbytes = ps_pre_struc_pl.size(1);
-        if (ps_pre_struc_pl.size(1) == 0) {
-          i = 0;
-        } else {
-          i = ps_pre_struc_pl.size(1);
-        }
-        pulsesToSkip.set_size(1, i);
-        if (ps_pre_struc_pl.size(1) > 2147483646) {
-          coder::check_forloop_overflow_error();
-        }
-        for (int b_i{0}; b_i < nbytes; b_i++) {
-          pulsesToSkip[b_i] = ps_pre_struc_pl[b_i].con_dec;
-        }
+        coder::internal::d_horzcatStructList(ps_pre_struc_pl, pulsesToSkip);
         coder::all(pulsesToSkip, r2);
         //  if pulsesConfirmed%Check if all were confirmed
         //      fLock = true;
@@ -2520,12 +2509,12 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           for (int j{0}; j < nPulseList; j++) {
             i = b_X.ps_pos->pl.size(1);
             if (j + 1 > i) {
-              rtDynamicBoundsError(j + 1, 1, i, fb_emlrtBCI);
+              rtDynamicBoundsError(j + 1, 1, i, gb_emlrtBCI);
             }
             missingSamples = b_X.ps_pos->pl[j].t_0;
             if (j + 1 > ps_pre_struc_pl.size(1)) {
               rtDynamicBoundsError(j + 1, 1, ps_pre_struc_pl.size(1),
-                                   gb_emlrtBCI);
+                                   hb_emlrtBCI);
             }
             std::printf("Pulse at %f Hz detected. SNR: %f \n \t Confirmation "
                         "status: %u \n\t Interpulse time    : %f \n",
@@ -2542,7 +2531,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
               std::fflush(stdout);
               if (j + 1 > pulsesToSkip.size(1)) {
                 rtDynamicBoundsError(j + 1, 1, pulsesToSkip.size(1),
-                                     hb_emlrtBCI);
+                                     ib_emlrtBCI);
               }
               pulsesToSkip[j] = true;
             } else {
@@ -2593,19 +2582,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             for (i = 0; i <= loop_ub; i++) {
               c_X[i] = b_X.ps_pos->pl[i];
             }
-            nbytes = c_X.size(0);
-            if (c_X.size(0) == 0) {
-              i = 0;
-            } else {
-              i = c_X.size(0);
-            }
-            groupSNRList.set_size(1, i);
-            if (c_X.size(0) > 2147483646) {
-              coder::check_forloop_overflow_error();
-            }
-            for (int b_i{0}; b_i < nbytes; b_i++) {
-              groupSNRList[b_i] = c_X[b_i].SNR;
-            }
+            coder::internal::c_horzcatStructList(c_X, groupSNRList);
             groupSNRList.set_size(1, groupSNRList.size(1));
             loop_ub = groupSNRList.size(1) - 1;
             for (i = 0; i <= loop_ub; i++) {
@@ -2630,7 +2607,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             //  Publish pulses to UDP
             i = b_X.ps_pos->pl.size(1);
             if (j + 1 > i) {
-              rtDynamicBoundsError(j + 1, 1, i, ib_emlrtBCI);
+              rtDynamicBoundsError(j + 1, 1, i, jb_emlrtBCI);
             }
             detectorPulse = b_X.ps_pos->pl[j];
             timeDiff = b_X.stft->dt;
@@ -2638,7 +2615,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             t9_t_0 = rt_powd_snf(10.0, detectorPulse.SNR / 10.0);
             // See Notebook Entry 2023-07-07 for derivation
             if (j + 1 > pulsesToSkip.size(1)) {
-              rtDynamicBoundsError(j + 1, 1, pulsesToSkip.size(1), jb_emlrtBCI);
+              rtDynamicBoundsError(j + 1, 1, pulsesToSkip.size(1), kb_emlrtBCI);
             }
             if (!pulsesToSkip[j]) {
               //  UDP Send

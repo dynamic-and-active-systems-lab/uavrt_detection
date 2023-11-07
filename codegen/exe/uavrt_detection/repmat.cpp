@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: repmat.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -21,22 +21,21 @@
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<double, 2U> &a
+// Arguments    : const array<double, 2U> &a
 //                double varargin_1
-//                ::coder::array<double, 2U> &b
+//                array<double, 2U> &b
 // Return Type  : void
 //
 namespace coder {
-void repmat(const ::coder::array<double, 2U> &a, double varargin_1,
-            ::coder::array<double, 2U> &b)
+void repmat(const array<double, 2U> &a, double varargin_1, array<double, 2U> &b)
 {
   double d;
   int i;
   int ncols;
   if ((varargin_1 != std::floor(varargin_1)) || std::isinf(varargin_1) ||
       (varargin_1 < -2.147483648E+9) || (varargin_1 > 2.147483647E+9)) {
-    b_rtErrorWithMessageID(MIN_int32_T, jb_emlrtRTEI.fName,
-                           jb_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(MIN_int32_T, lb_emlrtRTEI.fName,
+                           lb_emlrtRTEI.lineNo);
   }
   if (varargin_1 <= 0.0) {
     d = 0.0;
@@ -65,21 +64,20 @@ void repmat(const ::coder::array<double, 2U> &a, double varargin_1,
 }
 
 //
-// Arguments    : const ::coder::array<double, 1U> &a
+// Arguments    : const array<double, 1U> &a
 //                double varargin_2
-//                ::coder::array<double, 2U> &b
+//                array<double, 2U> &b
 // Return Type  : void
 //
-void repmat(const ::coder::array<double, 1U> &a, double varargin_2,
-            ::coder::array<double, 2U> &b)
+void repmat(const array<double, 1U> &a, double varargin_2, array<double, 2U> &b)
 {
   double d;
   int i;
   int nrows;
   if ((varargin_2 != std::floor(varargin_2)) || std::isinf(varargin_2) ||
       (varargin_2 < -2.147483648E+9) || (varargin_2 > 2.147483647E+9)) {
-    b_rtErrorWithMessageID(MIN_int32_T, jb_emlrtRTEI.fName,
-                           jb_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(MIN_int32_T, lb_emlrtRTEI.fName,
+                           lb_emlrtRTEI.lineNo);
   }
   if (varargin_2 <= 0.0) {
     d = 0.0;
@@ -111,19 +109,19 @@ void repmat(const ::coder::array<double, 1U> &a, double varargin_2,
 // Arguments    : const c_struct_T &a
 //                double varargin_1
 //                double varargin_2
-//                ::coder::array<c_struct_T, 2U> &b
+//                array<c_struct_T, 2U> &b
 // Return Type  : void
 //
 void repmat(const c_struct_T &a, double varargin_1, double varargin_2,
-            ::coder::array<c_struct_T, 2U> &b)
+            array<c_struct_T, 2U> &b)
 {
   double d;
   int loop_ub;
   boolean_T b_b;
   if ((varargin_1 != std::floor(varargin_1)) || std::isinf(varargin_1) ||
       (varargin_1 < -2.147483648E+9) || (varargin_1 > 2.147483647E+9)) {
-    b_rtErrorWithMessageID(MIN_int32_T, jb_emlrtRTEI.fName,
-                           jb_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(MIN_int32_T, lb_emlrtRTEI.fName,
+                           lb_emlrtRTEI.lineNo);
   } else {
     b_b = true;
   }
@@ -132,8 +130,8 @@ void repmat(const c_struct_T &a, double varargin_1, double varargin_2,
     b_b = false;
   }
   if (!b_b) {
-    b_rtErrorWithMessageID(MIN_int32_T, jb_emlrtRTEI.fName,
-                           jb_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(MIN_int32_T, lb_emlrtRTEI.fName,
+                           lb_emlrtRTEI.lineNo);
   }
   if (varargin_1 <= 0.0) {
     d = 0.0;

@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: wgn.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef WGN_H
@@ -22,7 +22,7 @@ namespace coder {
 void wgn(creal_T y[1000]);
 
 void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
-         ::coder::array<creal_T, 2U> &y);
+         array<creal_T, 2U> &y);
 
 } // namespace coder
 

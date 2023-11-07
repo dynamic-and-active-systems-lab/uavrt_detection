@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: incohsumtoeplitz.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -141,6 +141,17 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   static rtBoundsCheckInfo ab_emlrtBCI{
       -1,                 // iFirst
       -1,                 // iLast
+      192,                // lineNo
+      24,                 // colNo
+      "allScores",        // aName
+      "incohsumtoeplitz", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
+      0                                                     // checkKind
+  };
+  static rtBoundsCheckInfo bb_emlrtBCI{
+      -1,                 // iFirst
+      -1,                 // iLast
       197,                // lineNo
       1,                  // colNo
       "Sscores",          // aName
@@ -149,7 +160,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
       "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
       0                                                     // checkKind
   };
-  static rtBoundsCheckInfo bb_emlrtBCI{
+  static rtBoundsCheckInfo cb_emlrtBCI{
       -1,                 // iFirst
       -1,                 // iLast
       198,                // lineNo
@@ -160,7 +171,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
       "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
       0                                                     // checkKind
   };
-  static rtBoundsCheckInfo cb_emlrtBCI{
+  static rtBoundsCheckInfo db_emlrtBCI{
       -1,                 // iFirst
       -1,                 // iLast
       176,                // lineNo
@@ -171,23 +182,12 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
       "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
       0                                                     // checkKind
   };
-  static rtBoundsCheckInfo db_emlrtBCI{
+  static rtBoundsCheckInfo eb_emlrtBCI{
       -1,                 // iFirst
       -1,                 // iLast
       163,                // lineNo
       37,                 // colNo
       "Fb",               // aName
-      "incohsumtoeplitz", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
-      0                                                     // checkKind
-  };
-  static rtBoundsCheckInfo y_emlrtBCI{
-      -1,                 // iFirst
-      -1,                 // iLast
-      192,                // lineNo
-      24,                 // colNo
-      "allScores",        // aName
       "incohsumtoeplitz", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
@@ -366,7 +366,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
     for (int idx{0}; idx < maxdimlen; idx++) {
       a = static_cast<int>(FbmatDiagInds[idx]);
       if ((a < 1) || (a > Fb.size(0))) {
-        rtDynamicBoundsError(a, 1, Fb.size(0), db_emlrtBCI);
+        rtDynamicBoundsError(a, 1, Fb.size(0), eb_emlrtBCI);
       }
       b_S[idx] = Fb[a - 1];
     }
@@ -424,7 +424,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
     for (int idx{0}; idx < maxdimlen; idx++) {
       a = static_cast<int>(FbmatDiagInds[idx]);
       if ((a < 1) || (a > Tb.size(0))) {
-        rtDynamicBoundsError(a, 1, Tb.size(0), cb_emlrtBCI);
+        rtDynamicBoundsError(a, 1, Tb.size(0), db_emlrtBCI);
       }
       c_y[idx] = Tb[a - 1];
     }
@@ -449,9 +449,9 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   if (S.size(0) != Wfherm.size(1)) {
     if (((Wfherm.size(0) == 1) && (Wfherm.size(1) == 1)) ||
         ((S.size(0) == 1) && (S.size(1) == 1))) {
-      xb_rtErrorWithMessageID(ec_emlrtRTEI.fName, ec_emlrtRTEI.lineNo);
+      bc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
     } else {
-      ob_rtErrorWithMessageID(dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
+      rb_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
     }
   }
   coder::internal::blas::mtimes(Wfherm, S, d_y);
@@ -553,7 +553,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   for (int idx{0}; idx < loop_ub_tmp; idx++) {
     a = static_cast<int>(Sinds[idx]);
     if ((a < 1) || (a > cend)) {
-      rtDynamicBoundsError(a, 1, cend, y_emlrtBCI);
+      rtDynamicBoundsError(a, 1, cend, ab_emlrtBCI);
     }
     Sscores[idx] = allScores[a - 1];
   }
@@ -581,7 +581,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
     cend = r4.size(0);
     for (a = 0; a < cend; a++) {
       if (r4[a] > Sinds.size(0) - 1) {
-        rtDynamicBoundsError(r4[a], 0, Sinds.size(0) - 1, ab_emlrtBCI);
+        rtDynamicBoundsError(r4[a], 0, Sinds.size(0) - 1, bb_emlrtBCI);
       }
       Sscores[r4[a] + Sscores.size(0) * idx] = rtNaN;
     }
@@ -591,7 +591,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
     cend = r4.size(0);
     for (a = 0; a < cend; a++) {
       if (r4[a] > Scols.size(0) - 1) {
-        rtDynamicBoundsError(r4[a], 0, Scols.size(0) - 1, bb_emlrtBCI);
+        rtDynamicBoundsError(r4[a], 0, Scols.size(0) - 1, cb_emlrtBCI);
       }
       Scols[r4[a] + Scols.size(0) * idx] = rtNaN;
     }

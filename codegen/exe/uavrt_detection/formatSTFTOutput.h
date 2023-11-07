@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: formatSTFTOutput.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef FORMATSTFTOUTPUT_H
@@ -22,13 +22,11 @@ namespace coder {
 namespace b_signal {
 namespace internal {
 namespace stft {
-void formatSTFTOutput(::coder::array<creal32_T, 2U> &S,
-                      const ::coder::array<double, 1U> &F,
-                      ::coder::array<double, 1U> &Fout);
+void formatSTFTOutput(array<creal32_T, 2U> &S, const array<double, 1U> &F,
+                      array<double, 1U> &Fout);
 
-void formatSTFTOutput(::coder::array<creal_T, 3U> &S,
-                      const ::coder::array<double, 1U> &F,
-                      ::coder::array<double, 1U> &Fout);
+void formatSTFTOutput(array<creal_T, 3U> &S, const array<double, 1U> &F,
+                      array<double, 1U> &Fout);
 
 } // namespace stft
 } // namespace internal

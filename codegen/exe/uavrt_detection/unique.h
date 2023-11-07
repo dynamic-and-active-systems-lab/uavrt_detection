@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: unique.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef UNIQUE_H
@@ -19,8 +19,7 @@
 
 // Function Declarations
 namespace coder {
-void unique_rows(const ::coder::array<double, 2U> &a,
-                 ::coder::array<double, 2U> &b);
+void unique_rows(const array<double, 2U> &a, array<double, 2U> &b);
 
 }
 

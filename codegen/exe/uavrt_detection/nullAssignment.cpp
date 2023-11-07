@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: nullAssignment.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -19,35 +19,34 @@
 
 // Function Definitions
 //
-// Arguments    : ::coder::array<creal_T, 3U> &x
-//                const ::coder::array<int, 2U> &idx
+// Arguments    : array<creal_T, 3U> &x
+//                const array<int, 2U> &idx
 // Return Type  : void
 //
 namespace coder {
 namespace internal {
-void nullAssignment(::coder::array<creal_T, 3U> &x,
-                    const ::coder::array<int, 2U> &idx)
+void nullAssignment(array<creal_T, 3U> &x, const array<int, 2U> &idx)
 {
   static rtDoubleCheckInfo r_emlrtDCI{
       451,                       // lineNo
       58,                        // colNo
       "general_null_assignment", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "nullAssignment.m", // pName
       4                   // checkKind
   };
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       448,                       // lineNo
       1,                         // colNo
       "general_null_assignment", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "nullAssignment.m" // pName
   };
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
+  static rtRunTimeErrorInfo xc_emlrtRTEI{
       81,                // lineNo
       27,                // colNo
       "validate_inputs", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "nullAssignment.m" // pName
   };
   array<creal_T, 3U> b_x;
@@ -72,7 +71,7 @@ void nullAssignment(::coder::array<creal_T, 3U> &x,
     }
   }
   if (!p) {
-    j_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    j_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
   }
   b_x.set_size(x.size(0), x.size(1), x.size(2));
   loop_ub_tmp = x.size(0) * x.size(1);
@@ -103,7 +102,7 @@ void nullAssignment(::coder::array<creal_T, 3U> &x,
   }
   nxout = x.size(1) - npages;
   if (nxout > x.size(1)) {
-    i_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   }
   if (nxout < 0) {
     rtNonNegativeError(static_cast<double>(nxout), r_emlrtDCI);
@@ -139,18 +138,17 @@ void nullAssignment(::coder::array<creal_T, 3U> &x,
 }
 
 //
-// Arguments    : ::coder::array<double, 1U> &x
-//                const ::coder::array<int, 2U> &idx
+// Arguments    : array<double, 1U> &x
+//                const array<int, 2U> &idx
 // Return Type  : void
 //
-void nullAssignment(::coder::array<double, 1U> &x,
-                    const ::coder::array<int, 2U> &idx)
+void nullAssignment(array<double, 1U> &x, const array<int, 2U> &idx)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       181,                      // lineNo
       9,                        // colNo
       "onearg_null_assignment", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "nullAssignment.m" // pName
   };
   array<boolean_T, 2U> b;
@@ -207,7 +205,7 @@ void nullAssignment(::coder::array<double, 1U> &x,
     }
   }
   if (nxout > x.size(0)) {
-    i_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   }
   if (nxout < 1) {
     nxout = 0;

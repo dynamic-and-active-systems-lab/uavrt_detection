@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: fwrite.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -22,26 +22,26 @@
 // Function Definitions
 //
 // Arguments    : double fileID
-//                const ::coder::array<float, 1U> &x
+//                const array<float, 1U> &x
 // Return Type  : double
 //
 namespace coder {
-double b_fwrite(double fileID, const ::coder::array<float, 1U> &x)
+double b_fwrite(double fileID, const array<float, 1U> &x)
 {
   static rtRunTimeErrorInfo
-      tc_emlrtRTEI{
+      wc_emlrtRTEI{
           163,           // lineNo
           5,             // colNo
           "getFileStar", // fName
-          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/"
+          "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/"
           "fwrite.m" // pName
       };
   static rtRunTimeErrorInfo
-      uc_emlrtRTEI{
+      xc_emlrtRTEI{
           33,       // lineNo
           5,        // colNo
           "fwrite", // fName
-          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/"
+          "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/"
           "fwrite.m" // pName
       };
   std::FILE *f;
@@ -49,18 +49,18 @@ double b_fwrite(double fileID, const ::coder::array<float, 1U> &x)
   double count;
   boolean_T autoflush;
   if (!(fileID != 0.0)) {
-    g_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
   }
   f = internal::getfilestar(fileID, autoflush);
   filestar = f;
   if (f == nullptr) {
-    c_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   }
   if ((filestar == nullptr) || (x.size(0) == 0)) {
     count = 0.0;
   } else {
     size_t bytesOutSizet;
-    bytesOutSizet = std::fwrite(&(((::coder::array<float, 1U> *)&x)->data())[0],
+    bytesOutSizet = std::fwrite(&(((array<float, 1U> *)&x)->data())[0],
                                 sizeof(float), (size_t)x.size(0), filestar);
     count = (double)bytesOutSizet;
     if (((double)bytesOutSizet > 0.0) && autoflush) {

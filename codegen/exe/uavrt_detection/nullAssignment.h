@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: nullAssignment.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef NULLASSIGNMENT_H
@@ -20,11 +20,9 @@
 // Function Declarations
 namespace coder {
 namespace internal {
-void nullAssignment(::coder::array<creal_T, 3U> &x,
-                    const ::coder::array<int, 2U> &idx);
+void nullAssignment(array<creal_T, 3U> &x, const array<int, 2U> &idx);
 
-void nullAssignment(::coder::array<double, 1U> &x,
-                    const ::coder::array<int, 2U> &idx);
+void nullAssignment(array<double, 1U> &x, const array<int, 2U> &idx);
 
 } // namespace internal
 } // namespace coder

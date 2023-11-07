@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: randn.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -56,17 +56,17 @@ void complexLike(creal_T r[1000])
 //
 // Arguments    : double varargin_1
 //                unsigned int varargin_2
-//                ::coder::array<creal_T, 2U> &r
+//                array<creal_T, 2U> &r
 // Return Type  : void
 //
 void complexLike(double varargin_1, unsigned int varargin_2,
-                 ::coder::array<creal_T, 2U> &r)
+                 array<creal_T, 2U> &r)
 {
   static rtDoubleCheckInfo r_emlrtDCI{
       29,                            // lineNo
       34,                            // colNo
       "eml_rand_mt19937ar_stateful", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/randfun/private/"
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/randfun/private/"
       "eml_rand_mt19937ar_stateful.m", // pName
       4                                // checkKind
   };
@@ -75,12 +75,12 @@ void complexLike(double varargin_1, unsigned int varargin_2,
   int loop_ub;
   if ((varargin_1 != std::floor(varargin_1)) || std::isinf(varargin_1) ||
       (varargin_1 < -2.147483648E+9) || (varargin_1 > 2.147483647E+9)) {
-    b_rtErrorWithMessageID(MIN_int32_T, jb_emlrtRTEI.fName,
-                           jb_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(MIN_int32_T, lb_emlrtRTEI.fName,
+                           lb_emlrtRTEI.lineNo);
   }
   if (varargin_2 > 2147483647U) {
-    b_rtErrorWithMessageID(MIN_int32_T, jb_emlrtRTEI.fName,
-                           jb_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(MIN_int32_T, lb_emlrtRTEI.fName,
+                           lb_emlrtRTEI.lineNo);
   }
   if (varargin_1 <= 0.0) {
     re = 0.0;
@@ -139,17 +139,16 @@ void randn(double r[1000])
 //
 // Arguments    : double varargin_1
 //                unsigned int varargin_2
-//                ::coder::array<double, 2U> &r
+//                array<double, 2U> &r
 // Return Type  : void
 //
-void randn(double varargin_1, unsigned int varargin_2,
-           ::coder::array<double, 2U> &r)
+void randn(double varargin_1, unsigned int varargin_2, array<double, 2U> &r)
 {
   static rtDoubleCheckInfo r_emlrtDCI{
       37,                            // lineNo
       34,                            // colNo
       "eml_rand_mt19937ar_stateful", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/randfun/private/"
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/randfun/private/"
       "eml_rand_mt19937ar_stateful.m", // pName
       4                                // checkKind
   };

@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: pulsestats.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -40,7 +40,7 @@ static rtEqualityCheckInfo emlrtECI{
     "CODE_PLAYGROUND/uavrt_detection/pulsestats.m" // pName
 };
 
-static rtBoundsCheckInfo v_emlrtBCI{
+static rtBoundsCheckInfo w_emlrtBCI{
     -1,                            // iFirst
     -1,                            // iLast
     245,                           // lineNo
@@ -228,11 +228,11 @@ void pulsestats::b_updateposteriori(
     int k;
     boolean_T exitg1;
     boolean_T y;
-    coder::internal::b_horzcatStructList(pulselist, varargin_1);
+    coder::internal::c_horzcatStructList(pulselist, varargin_1);
     input_sizes_idx_0 = varargin_1.size(1);
-    coder::internal::b_horzcatStructList(pulselist, varargin_1);
+    coder::internal::c_horzcatStructList(pulselist, varargin_1);
     //  pulselist(:).t_0]'
-    coder::internal::horzcatStructList(pulselist, b_pulselist);
+    coder::internal::b_horzcatStructList(pulselist, b_pulselist);
     // pulselist(:).fp
     // Create a vector of bandwidths from the pulselist
     // fEnds   = [pulselist.fend];
@@ -252,7 +252,7 @@ void pulsestats::b_updateposteriori(
     // could be improved in the future.
     // wfm.ps_pre.t_p; %tp doesn't change. We assume it is stationary
     if (pulselist.size(1) == 1) {
-      boolean_T guard1{false};
+      boolean_T guard1;
       //  Happens if K=1
       // We only have one pulse to reference, so we need to check
       // the prior pulse too.
@@ -261,7 +261,7 @@ void pulsestats::b_updateposteriori(
         k = ps_pre->pl.size(1);
         input_sizes_idx_0 = ps_pre->pl.size(1);
         if ((input_sizes_idx_0 < 1) || (input_sizes_idx_0 > k)) {
-          rtDynamicBoundsError(input_sizes_idx_0, 1, k, v_emlrtBCI);
+          rtDynamicBoundsError(input_sizes_idx_0, 1, k, w_emlrtBCI);
         }
         x_tmp = ps_pre->pl[input_sizes_idx_0 - 1].t_0;
         if (!std::isnan(x_tmp)) {
@@ -710,7 +710,7 @@ pulsestats *pulsestats::init(double tp, double tip, double tipu, double tipj,
 void pulsestats::updateposteriori(const pulsestats *ps_pre,
                                   const coder::array<c_struct_T, 2U> &pulselist)
 {
-  static rtBoundsCheckInfo y_emlrtBCI{
+  static rtBoundsCheckInfo ab_emlrtBCI{
       -1,                            // iFirst
       -1,                            // iLast
       246,                           // lineNo
@@ -737,11 +737,11 @@ void pulsestats::updateposteriori(const pulsestats *ps_pre,
     int size_tmp_idx_1;
     boolean_T exitg1;
     boolean_T y;
-    coder::internal::b_horzcatStructList(pulselist, varargin_1);
+    coder::internal::c_horzcatStructList(pulselist, varargin_1);
     size_tmp_idx_1 = varargin_1.size(1);
-    coder::internal::b_horzcatStructList(pulselist, varargin_1);
+    coder::internal::c_horzcatStructList(pulselist, varargin_1);
     //  pulselist(:).t_0]'
-    coder::internal::horzcatStructList(pulselist, b_varargin_1);
+    coder::internal::b_horzcatStructList(pulselist, b_varargin_1);
     if (b_varargin_1.size(1) == 0) {
       freq_found = 0.0;
       c_varargin_1 = 0;
@@ -771,7 +771,7 @@ void pulsestats::updateposteriori(const pulsestats *ps_pre,
     // could be improved in the future.
     // wfm.ps_pre.t_p; %tp doesn't change. We assume it is stationary
     if (pulselist.size(1) == 1) {
-      boolean_T guard1{false};
+      boolean_T guard1;
       //  Happens if K=1
       // We only have one pulse to reference, so we need to check
       // the prior pulse too.
@@ -780,14 +780,14 @@ void pulsestats::updateposteriori(const pulsestats *ps_pre,
         i = ps_pre->pl.size(1);
         c_varargin_1 = ps_pre->pl.size(1);
         if ((c_varargin_1 < 1) || (c_varargin_1 > i)) {
-          rtDynamicBoundsError(c_varargin_1, 1, i, v_emlrtBCI);
+          rtDynamicBoundsError(c_varargin_1, 1, i, w_emlrtBCI);
         }
         if (!std::isnan(ps_pre->pl[c_varargin_1 - 1].t_0)) {
           recent_tip.set_size(1, 1);
           i = ps_pre->pl.size(1);
           c_varargin_1 = ps_pre->pl.size(1);
           if ((c_varargin_1 < 1) || (c_varargin_1 > i)) {
-            rtDynamicBoundsError(c_varargin_1, 1, i, y_emlrtBCI);
+            rtDynamicBoundsError(c_varargin_1, 1, i, ab_emlrtBCI);
           }
           recent_tip[0] = pulselist[0].t_0 - ps_pre->pl[c_varargin_1 - 1].t_0;
           // recent_tip =

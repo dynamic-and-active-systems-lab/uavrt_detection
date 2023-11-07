@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: timeKeeper.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -28,7 +28,7 @@ static coderTimespec savedTime;
 static boolean_T savedTime_not_empty;
 
 // Function Declarations
-static void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void gb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -36,7 +36,7 @@ static void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void gb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -72,13 +72,13 @@ void timeKeeper(double newTime_tv_sec, double newTime_tv_nsec)
       status = coderInitTimeFunctions(&freq);
       if (status != 0) {
         rtErrorWithMessageID(std::string(&cv1[0], 22), status,
-                             lb_emlrtRTEI.fName, lb_emlrtRTEI.lineNo);
+                             nb_emlrtRTEI.fName, nb_emlrtRTEI.lineNo);
       }
     }
     status = coderTimeClockGettimeMonotonic(&b_timespec, freq);
     if (status != 0) {
-      rtErrorWithMessageID(std::string(&cv2[0], 30), status, lb_emlrtRTEI.fName,
-                           lb_emlrtRTEI.lineNo);
+      rtErrorWithMessageID(std::string(&cv2[0], 30), status, nb_emlrtRTEI.fName,
+                           nb_emlrtRTEI.lineNo);
     }
     savedTime_not_empty = true;
   }
@@ -92,16 +92,16 @@ void timeKeeper(double newTime_tv_sec, double newTime_tv_nsec)
 //
 double timeKeeper(double &outTime_tv_nsec)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       11,           // lineNo
       9,            // colNo
       "timeKeeper", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/lib/+coder/"
+      "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/lib/+coder/"
       "+internal/+time/+impl/timeKeeper.m" // pName
   };
   double outTime_tv_sec;
   if (!savedTime_not_empty) {
-    db_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    gb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   }
   outTime_tv_sec = savedTime.tv_sec;
   outTime_tv_nsec = savedTime.tv_nsec;
@@ -116,7 +116,7 @@ double timeKeeper(double &outTime_tv_nsec)
 } // namespace b_time
 } // namespace internal
 } // namespace coder
-void savedTime_not_empty_init()
+void timeKeeper_init()
 {
   savedTime_not_empty = false;
 }

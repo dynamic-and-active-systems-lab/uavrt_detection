@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: horzcatStructList.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -17,54 +17,154 @@
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<c_struct_T, 2U> &structure
-//                ::coder::array<double, 2U> &result
+// Arguments    : const array<c_struct_T, 1U> &structure
+//                array<double, 2U> &result
 // Return Type  : void
 //
 namespace coder {
 namespace internal {
-void b_horzcatStructList(const ::coder::array<c_struct_T, 2U> &structure,
-                         ::coder::array<double, 2U> &result)
+void b_horzcatStructList(const array<c_struct_T, 1U> &structure,
+                         array<double, 2U> &result)
 {
-  int i;
   int n;
-  n = structure.size(1);
-  if (structure.size(1) == 0) {
-    i = 0;
+  int resultSize_idx_1;
+  n = structure.size(0);
+  if (structure.size(0) == 0) {
+    resultSize_idx_1 = 0;
   } else {
-    i = structure.size(1);
+    resultSize_idx_1 = structure.size(0);
+    if (structure.size(0) > 2147483646) {
+      check_forloop_overflow_error();
+    }
   }
-  result.set_size(1, i);
-  if (structure.size(1) > 2147483646) {
-    check_forloop_overflow_error();
-  }
-  for (i = 0; i < n; i++) {
-    result[i] = structure[i].t_0;
+  result.set_size(1, resultSize_idx_1);
+  for (resultSize_idx_1 = 0; resultSize_idx_1 < n; resultSize_idx_1++) {
+    result[resultSize_idx_1] = structure[resultSize_idx_1].t_0;
   }
 }
 
 //
-// Arguments    : const ::coder::array<c_struct_T, 2U> &structure
-//                ::coder::array<double, 2U> &result
+// Arguments    : const array<c_struct_T, 2U> &structure
+//                array<double, 2U> &result
 // Return Type  : void
 //
-void horzcatStructList(const ::coder::array<c_struct_T, 2U> &structure,
-                       ::coder::array<double, 2U> &result)
+void b_horzcatStructList(const array<c_struct_T, 2U> &structure,
+                         array<double, 2U> &result)
 {
-  int i;
   int n;
+  int resultSize_idx_1;
   n = structure.size(1);
   if (structure.size(1) == 0) {
-    i = 0;
+    resultSize_idx_1 = 0;
   } else {
-    i = structure.size(1);
+    resultSize_idx_1 = structure.size(1);
+    if (structure.size(1) > 2147483646) {
+      check_forloop_overflow_error();
+    }
   }
-  result.set_size(1, i);
-  if (structure.size(1) > 2147483646) {
-    check_forloop_overflow_error();
+  result.set_size(1, resultSize_idx_1);
+  for (resultSize_idx_1 = 0; resultSize_idx_1 < n; resultSize_idx_1++) {
+    result[resultSize_idx_1] = structure[resultSize_idx_1].fp;
   }
-  for (i = 0; i < n; i++) {
-    result[i] = structure[i].fp;
+}
+
+//
+// Arguments    : const array<c_struct_T, 1U> &structure
+//                array<double, 2U> &result
+// Return Type  : void
+//
+void c_horzcatStructList(const array<c_struct_T, 1U> &structure,
+                         array<double, 2U> &result)
+{
+  int n;
+  int resultSize_idx_1;
+  n = structure.size(0);
+  if (structure.size(0) == 0) {
+    resultSize_idx_1 = 0;
+  } else {
+    resultSize_idx_1 = structure.size(0);
+    if (structure.size(0) > 2147483646) {
+      check_forloop_overflow_error();
+    }
+  }
+  result.set_size(1, resultSize_idx_1);
+  for (resultSize_idx_1 = 0; resultSize_idx_1 < n; resultSize_idx_1++) {
+    result[resultSize_idx_1] = structure[resultSize_idx_1].SNR;
+  }
+}
+
+//
+// Arguments    : const array<c_struct_T, 2U> &structure
+//                array<double, 2U> &result
+// Return Type  : void
+//
+void c_horzcatStructList(const array<c_struct_T, 2U> &structure,
+                         array<double, 2U> &result)
+{
+  int n;
+  int resultSize_idx_1;
+  n = structure.size(1);
+  if (structure.size(1) == 0) {
+    resultSize_idx_1 = 0;
+  } else {
+    resultSize_idx_1 = structure.size(1);
+    if (structure.size(1) > 2147483646) {
+      check_forloop_overflow_error();
+    }
+  }
+  result.set_size(1, resultSize_idx_1);
+  for (resultSize_idx_1 = 0; resultSize_idx_1 < n; resultSize_idx_1++) {
+    result[resultSize_idx_1] = structure[resultSize_idx_1].t_0;
+  }
+}
+
+//
+// Arguments    : const array<c_struct_T, 2U> &structure
+//                array<boolean_T, 2U> &result
+// Return Type  : void
+//
+void d_horzcatStructList(const array<c_struct_T, 2U> &structure,
+                         array<boolean_T, 2U> &result)
+{
+  int n;
+  int resultSize_idx_1;
+  n = structure.size(1);
+  if (structure.size(1) == 0) {
+    resultSize_idx_1 = 0;
+  } else {
+    resultSize_idx_1 = structure.size(1);
+    if (structure.size(1) > 2147483646) {
+      check_forloop_overflow_error();
+    }
+  }
+  result.set_size(1, resultSize_idx_1);
+  for (resultSize_idx_1 = 0; resultSize_idx_1 < n; resultSize_idx_1++) {
+    result[resultSize_idx_1] = structure[resultSize_idx_1].con_dec;
+  }
+}
+
+//
+// Arguments    : const array<c_struct_T, 2U> &structure
+//                array<boolean_T, 2U> &result
+// Return Type  : void
+//
+void horzcatStructList(const array<c_struct_T, 2U> &structure,
+                       array<boolean_T, 2U> &result)
+{
+  int n_tmp;
+  int resultSize_idx_1;
+  n_tmp = structure.size(0) * structure.size(1);
+  if (n_tmp == 0) {
+    resultSize_idx_1 = 0;
+  } else {
+    resultSize_idx_1 = n_tmp;
+    if (n_tmp > 2147483646) {
+      check_forloop_overflow_error();
+    }
+  }
+  result.set_size(1, resultSize_idx_1);
+  for (resultSize_idx_1 = 0; resultSize_idx_1 < n_tmp; resultSize_idx_1++) {
+    result[resultSize_idx_1] = structure[resultSize_idx_1].det_dec;
   }
 }
 

@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: sortLE.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -17,16 +17,16 @@
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<double, 2U> &v
-//                const ::coder::array<int, 2U> &dir
+// Arguments    : const array<double, 2U> &v
+//                const array<int, 2U> &dir
 //                int idx1
 //                int idx2
 // Return Type  : boolean_T
 //
 namespace coder {
 namespace internal {
-boolean_T sortLE(const ::coder::array<double, 2U> &v,
-                 const ::coder::array<int, 2U> &dir, int idx1, int idx2)
+boolean_T sortLE(const array<double, 2U> &v, const array<int, 2U> &dir,
+                 int idx1, int idx2)
 {
   int k;
   boolean_T exitg1;

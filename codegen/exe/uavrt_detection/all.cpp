@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: all.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -22,7 +22,7 @@
 #include <string>
 
 // Function Declarations
-static void wb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void ac_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -30,7 +30,7 @@ static void wb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void wb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void ac_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -47,19 +47,18 @@ static void wb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 }
 
 //
-// Arguments    : const ::coder::array<boolean_T, 2U> &x
-//                ::coder::array<boolean_T, 1U> &y
+// Arguments    : const array<boolean_T, 2U> &x
+//                array<boolean_T, 1U> &y
 // Return Type  : void
 //
 namespace coder {
-void all(const ::coder::array<boolean_T, 2U> &x,
-         ::coder::array<boolean_T, 1U> &y)
+void all(const array<boolean_T, 2U> &x, array<boolean_T, 1U> &y)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       18,                               // lineNo
       27,                               // colNo
       "eml_int_forloop_overflow_check", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/eml/"
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/eml/"
       "eml_int_forloop_overflow_check.m" // pName
   };
   int i1;
@@ -88,7 +87,7 @@ void all(const ::coder::array<boolean_T, 2U> &x,
       overflow = (i2 > MAX_int32_T - vstride);
     }
     if (vstride == 0) {
-      wb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+      ac_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
     }
     if (overflow) {
       check_forloop_overflow_error();

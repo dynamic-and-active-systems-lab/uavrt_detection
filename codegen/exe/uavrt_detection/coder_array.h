@@ -1,4 +1,4 @@
-/* Copyright 2019-2022 The MathWorks, Inc. */
+/* Copyright 2019-2023 The MathWorks, Inc. */
 /* Copied from
  * fullfile(matlabroot,'extern','include','coder','coder_array','coder_array_rtw_cpp11.h') */
 
@@ -140,6 +140,7 @@ class data_ptr {
             _n = size_;
         }
         SZ i;
+#if defined(__cpp_exceptions)
         try {
             for (i = size_ - _n; i < size_; i++) {
                 new (&_data[i]) T();
@@ -150,6 +151,12 @@ class data_ptr {
             }
             throw;
         }
+#else
+        for (i = size_ - _n; i < size_; i++) {
+            new (&_data[i]) T();
+        }
+#endif
+
     }
 
     void destroy_last_n(T *_data, SZ _n) {
@@ -185,6 +192,14 @@ class data_ptr {
         size_ = _size;
         (void)std::copy(_data, _data + _size, data_);
     }
+
+    void shallow_copy(data_ptr<T, SZ> const& _other){
+        data_ = _other.data_;
+        size_ = _other.size_;
+        capacity_ = _other.capacity_;
+        owner_ = false;
+    }
+
 
     void copy(data_ptr<T, SZ> const& _other) {
         copy(_other.data_, _other.size_);
@@ -246,13 +261,15 @@ class data_ptr {
 
 } // namespace detail
 
-// Implementing the random access iterator class so coder::array can be
-// used in STL iterators.
 template <typename T>
-class array_iterator : public std::iterator<std::random_access_iterator_tag,
-                                            typename T::value_type,
-                                            typename T::size_type> {
+class array_iterator {
   public:
+    using iterator_category = std::random_access_iterator_tag;
+    using value_type = typename T::value_type;
+    using difference_type = std::ptrdiff_t;
+    using pointer = typename T::value_type *;
+    using reference = typename T::value_type &;    
+
     array_iterator()
         : arr_(nullptr)
         , i_(0) {
@@ -346,10 +363,14 @@ class array_iterator : public std::iterator<std::random_access_iterator_tag,
 
 // Const version of the array iterator.
 template <typename T>
-class const_array_iterator : public std::iterator<std::random_access_iterator_tag,
-                                                  typename T::value_type,
-                                                  typename T::size_type> {
+class const_array_iterator {
   public:
+    using iterator_category = std::random_access_iterator_tag;
+    using value_type = typename T::value_type;
+    using difference_type = std::ptrdiff_t;
+    using pointer = typename T::value_type *;
+    using reference = typename T::value_type &;    
+
     const_array_iterator()
         : arr_(nullptr)
         , i_(0) {
@@ -547,7 +568,11 @@ class array_base {
     array_base(array_base const&) = default;
 
     array_base& operator=(array_base const& _other) {
-        data_.copy(_other.data_);
+        if(_other.data_.is_owner()){
+            data_.copy(_other.data_);
+        }else{
+            data_.shallow_copy(_other.data_);
+        }
         (void)std::copy(_other.size_, _other.size_ + N, size_);
         return *this;
     }
@@ -606,7 +631,7 @@ class array_base {
 
     template <size_t N1>
     array_base<T, SZ, static_cast<SZ>(N1)> reshape_n(SZ const (&_ns)[N1]) const {
-        array_base<T, SZ, static_cast<SZ>(N1)> reshaped{const_cast<T*>(&data_[0]), _ns};
+        array_base<T, SZ, static_cast<SZ>(N1)> reshaped(const_cast<T*>(&data_[0]), _ns);
         return reshaped;
     }
 

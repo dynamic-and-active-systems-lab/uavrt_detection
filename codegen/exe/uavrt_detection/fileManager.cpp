@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: fileManager.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -31,7 +31,7 @@ static rtRunTimeErrorInfo e_emlrtRTEI{
     147,           // lineNo
     5,             // colNo
     "getfilestar", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+    "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
     "fileManager.m" // pName
 };
 
@@ -39,7 +39,7 @@ static rtRunTimeErrorInfo f_emlrtRTEI{
     297,                     // lineNo
     1,                       // colNo
     "cast_and_validate_fid", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+    "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
     "fileManager.m" // pName
 };
 
@@ -47,7 +47,7 @@ static rtRunTimeErrorInfo g_emlrtRTEI{
     293,                     // lineNo
     1,                       // colNo
     "cast_and_validate_fid", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+    "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
     "fileManager.m" // pName
 };
 
@@ -60,7 +60,7 @@ static signed char filedata();
 } // namespace coder
 static void h_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-static void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void qc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -117,7 +117,7 @@ static void h_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void qc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -142,11 +142,11 @@ namespace coder {
 namespace internal {
 int cfclose(double fid)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       168,                 // lineNo
       5,                   // colNo
       "conditionalAssert", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "fileManager.m" // pName
   };
   std::FILE *f;
@@ -182,7 +182,7 @@ int cfclose(double fid)
     f = stderr;
   }
   if ((!(f != nullptr)) || (fileid < 3)) {
-    c_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   }
   cst = std::fclose(f);
   if (cst == 0) {
@@ -194,18 +194,17 @@ int cfclose(double fid)
 }
 
 //
-// Arguments    : const ::coder::array<char, 2U> &cfilename
+// Arguments    : const array<char, 2U> &cfilename
 //                const char *cpermission
 // Return Type  : signed char
 //
-signed char cfopen(const ::coder::array<char, 2U> &cfilename,
-                   const char *cpermission)
+signed char cfopen(const array<char, 2U> &cfilename, const char *cpermission)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       111,      // lineNo
       5,        // colNo
       "cfopen", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "fileManager.m" // pName
   };
   std::FILE *filestar;
@@ -215,7 +214,7 @@ signed char cfopen(const ::coder::array<char, 2U> &cfilename,
   fileid = -1;
   j = filedata();
   if (j < 1) {
-    nc_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    qc_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   } else {
     int i;
     int loop_ub;

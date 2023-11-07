@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: sort.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef SORT_H
@@ -20,9 +20,9 @@
 // Function Declarations
 namespace coder {
 namespace internal {
-void sort(::coder::array<double, 2U> &x);
+void sort(array<double, 2U> &x);
 
-void sort(::coder::array<double, 1U> &x, ::coder::array<int, 1U> &idx);
+void sort(array<double, 1U> &x, array<int, 1U> &idx);
 
 } // namespace internal
 } // namespace coder

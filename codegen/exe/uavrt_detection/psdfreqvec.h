@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: psdfreqvec.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef PSDFREQVEC_H
@@ -19,8 +19,7 @@
 
 // Function Declarations
 namespace coder {
-void psdfreqvec(double varargin_2, double varargin_4,
-                ::coder::array<double, 1U> &w);
+void psdfreqvec(double varargin_2, double varargin_4, array<double, 1U> &w);
 
 }
 

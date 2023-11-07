@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: FFTImplementationCallback.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -23,27 +23,27 @@ static rtDoubleCheckInfo k_emlrtDCI{
     33,                     // lineNo
     28,                     // colNo
     "bluestein_setup_impl", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+    "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
     "bluesteinSetup.m", // pName
     4                   // checkKind
 };
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<creal32_T, 1U> &x
+// Arguments    : const array<creal32_T, 1U> &x
 //                int unsigned_nRows
-//                const ::coder::array<float, 2U> &costab
-//                const ::coder::array<float, 2U> &sintab
-//                ::coder::array<creal32_T, 1U> &y
+//                const array<float, 2U> &costab
+//                const array<float, 2U> &sintab
+//                array<creal32_T, 1U> &y
 // Return Type  : void
 //
 namespace coder {
 namespace internal {
 namespace fft {
 void FFTImplementationCallback::r2br_r2dit_trig_impl(
-    const ::coder::array<creal32_T, 1U> &x, int unsigned_nRows,
-    const ::coder::array<float, 2U> &costab,
-    const ::coder::array<float, 2U> &sintab, ::coder::array<creal32_T, 1U> &y)
+    const array<creal32_T, 1U> &x, int unsigned_nRows,
+    const array<float, 2U> &costab, const array<float, 2U> &sintab,
+    array<creal32_T, 1U> &y)
 {
   float temp_im;
   float temp_re;
@@ -91,7 +91,12 @@ void FFTImplementationCallback::r2br_r2dit_trig_impl(
     }
     iy = ju;
   }
-  y[iy] = x[j - 1];
+  if (j - 2 < 0) {
+    j = 0;
+  } else {
+    j--;
+  }
+  y[iy] = x[j];
   if (unsigned_nRows > 1) {
     for (i = 0; i <= ihi; i += 2) {
       temp_re_tmp = y[i + 1].re;
@@ -146,17 +151,17 @@ void FFTImplementationCallback::r2br_r2dit_trig_impl(
 }
 
 //
-// Arguments    : const ::coder::array<creal_T, 1U> &x
+// Arguments    : const array<creal_T, 1U> &x
 //                int unsigned_nRows
-//                const ::coder::array<double, 2U> &costab
-//                const ::coder::array<double, 2U> &sintab
-//                ::coder::array<creal_T, 1U> &y
+//                const array<double, 2U> &costab
+//                const array<double, 2U> &sintab
+//                array<creal_T, 1U> &y
 // Return Type  : void
 //
 void FFTImplementationCallback::r2br_r2dit_trig_impl(
-    const ::coder::array<creal_T, 1U> &x, int unsigned_nRows,
-    const ::coder::array<double, 2U> &costab,
-    const ::coder::array<double, 2U> &sintab, ::coder::array<creal_T, 1U> &y)
+    const array<creal_T, 1U> &x, int unsigned_nRows,
+    const array<double, 2U> &costab, const array<double, 2U> &sintab,
+    array<creal_T, 1U> &y)
 {
   double temp_im;
   double temp_re;
@@ -204,7 +209,12 @@ void FFTImplementationCallback::r2br_r2dit_trig_impl(
     }
     iy = ju;
   }
-  y[iy] = x[j - 1];
+  if (j - 2 < 0) {
+    j = 0;
+  } else {
+    j--;
+  }
+  y[iy] = x[j];
   if (unsigned_nRows > 1) {
     for (i = 0; i <= ihi; i += 2) {
       temp_re_tmp = y[i + 1].re;
@@ -259,21 +269,19 @@ void FFTImplementationCallback::r2br_r2dit_trig_impl(
 }
 
 //
-// Arguments    : const ::coder::array<creal32_T, 2U> &x
+// Arguments    : const array<creal32_T, 2U> &x
 //                int n2blue
 //                int nfft
-//                const ::coder::array<float, 2U> &costab
-//                const ::coder::array<float, 2U> &sintab
-//                const ::coder::array<float, 2U> &sintabinv
-//                ::coder::array<creal32_T, 2U> &y
+//                const array<float, 2U> &costab
+//                const array<float, 2U> &sintab
+//                const array<float, 2U> &sintabinv
+//                array<creal32_T, 2U> &y
 // Return Type  : void
 //
 void FFTImplementationCallback::dobluesteinfft(
-    const ::coder::array<creal32_T, 2U> &x, int n2blue, int nfft,
-    const ::coder::array<float, 2U> &costab,
-    const ::coder::array<float, 2U> &sintab,
-    const ::coder::array<float, 2U> &sintabinv,
-    ::coder::array<creal32_T, 2U> &y)
+    const array<creal32_T, 2U> &x, int n2blue, int nfft,
+    const array<float, 2U> &costab, const array<float, 2U> &sintab,
+    const array<float, 2U> &sintabinv, array<creal32_T, 2U> &y)
 {
   array<creal32_T, 1U> fv;
   array<creal32_T, 1U> fy;
@@ -415,7 +423,12 @@ void FFTImplementationCallback::dobluesteinfft(
       }
       iy = ju;
     }
-    fy[iy] = r[iDelta - 1];
+    if (iDelta - 2 < 0) {
+      xoff = 0;
+    } else {
+      xoff = iDelta - 1;
+    }
+    fy[iy] = r[xoff];
     if (n2blue > 1) {
       for (b_i = 0; b_i <= minNrowsNx; b_i += 2) {
         temp_re_tmp = fy[b_i + 1].re;
@@ -510,20 +523,19 @@ void FFTImplementationCallback::dobluesteinfft(
 }
 
 //
-// Arguments    : const ::coder::array<creal_T, 2U> &x
+// Arguments    : const array<creal_T, 2U> &x
 //                int n2blue
 //                int nfft
-//                const ::coder::array<double, 2U> &costab
-//                const ::coder::array<double, 2U> &sintab
-//                const ::coder::array<double, 2U> &sintabinv
-//                ::coder::array<creal_T, 2U> &y
+//                const array<double, 2U> &costab
+//                const array<double, 2U> &sintab
+//                const array<double, 2U> &sintabinv
+//                array<creal_T, 2U> &y
 // Return Type  : void
 //
 void FFTImplementationCallback::dobluesteinfft(
-    const ::coder::array<creal_T, 2U> &x, int n2blue, int nfft,
-    const ::coder::array<double, 2U> &costab,
-    const ::coder::array<double, 2U> &sintab,
-    const ::coder::array<double, 2U> &sintabinv, ::coder::array<creal_T, 2U> &y)
+    const array<creal_T, 2U> &x, int n2blue, int nfft,
+    const array<double, 2U> &costab, const array<double, 2U> &sintab,
+    const array<double, 2U> &sintabinv, array<creal_T, 2U> &y)
 {
   array<creal_T, 1U> fv;
   array<creal_T, 1U> fy;
@@ -650,20 +662,19 @@ void FFTImplementationCallback::dobluesteinfft(
 }
 
 //
-// Arguments    : const ::coder::array<creal_T, 3U> &x
+// Arguments    : const array<creal_T, 3U> &x
 //                int n2blue
 //                int nfft
-//                const ::coder::array<double, 2U> &costab
-//                const ::coder::array<double, 2U> &sintab
-//                const ::coder::array<double, 2U> &sintabinv
-//                ::coder::array<creal_T, 3U> &y
+//                const array<double, 2U> &costab
+//                const array<double, 2U> &sintab
+//                const array<double, 2U> &sintabinv
+//                array<creal_T, 3U> &y
 // Return Type  : void
 //
 void FFTImplementationCallback::dobluesteinfft(
-    const ::coder::array<creal_T, 3U> &x, int n2blue, int nfft,
-    const ::coder::array<double, 2U> &costab,
-    const ::coder::array<double, 2U> &sintab,
-    const ::coder::array<double, 2U> &sintabinv, ::coder::array<creal_T, 3U> &y)
+    const array<creal_T, 3U> &x, int n2blue, int nfft,
+    const array<double, 2U> &costab, const array<double, 2U> &sintab,
+    const array<double, 2U> &sintabinv, array<creal_T, 3U> &y)
 {
   array<creal_T, 1U> fv;
   array<creal_T, 1U> fy;
@@ -814,14 +825,14 @@ void FFTImplementationCallback::dobluesteinfft(
 //
 // Arguments    : int nRows
 //                boolean_T useRadix2
-//                ::coder::array<double, 2U> &costab
-//                ::coder::array<double, 2U> &sintab
-//                ::coder::array<double, 2U> &sintabinv
+//                array<double, 2U> &costab
+//                array<double, 2U> &sintab
+//                array<double, 2U> &sintabinv
 // Return Type  : void
 //
 void FFTImplementationCallback::generate_twiddle_tables(
-    int nRows, boolean_T useRadix2, ::coder::array<double, 2U> &costab,
-    ::coder::array<double, 2U> &sintab, ::coder::array<double, 2U> &sintabinv)
+    int nRows, boolean_T useRadix2, array<double, 2U> &costab,
+    array<double, 2U> &sintab, array<double, 2U> &sintabinv)
 {
   array<double, 2U> costab1q;
   double e;
@@ -895,11 +906,11 @@ void FFTImplementationCallback::generate_twiddle_tables(
 int FFTImplementationCallback::get_algo_sizes(int nfft, boolean_T useRadix2,
                                               int &nRows)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       417,                                        // lineNo
       17,                                         // colNo
       "FFTImplementationCallback/get_algo_sizes", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/lib/+coder/"
+      "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/lib/+coder/"
       "+internal/FFTImplementationCallback.m" // pName
   };
   int n2blue;
@@ -941,7 +952,7 @@ int FFTImplementationCallback::get_algo_sizes(int nfft, boolean_T useRadix2,
       n = 1;
     }
     if (n2blue > n) {
-      i_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+      i_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
     }
     nRows = n2blue;
   }
@@ -949,17 +960,18 @@ int FFTImplementationCallback::get_algo_sizes(int nfft, boolean_T useRadix2,
 }
 
 //
-// Arguments    : const ::coder::array<creal32_T, 2U> &x
+// Arguments    : const array<creal32_T, 2U> &x
 //                int n1_unsigned
-//                const ::coder::array<float, 2U> &costab
-//                const ::coder::array<float, 2U> &sintab
-//                ::coder::array<creal32_T, 2U> &y
+//                const array<float, 2U> &costab
+//                const array<float, 2U> &sintab
+//                array<creal32_T, 2U> &y
 // Return Type  : void
 //
-void FFTImplementationCallback::r2br_r2dit_trig(
-    const ::coder::array<creal32_T, 2U> &x, int n1_unsigned,
-    const ::coder::array<float, 2U> &costab,
-    const ::coder::array<float, 2U> &sintab, ::coder::array<creal32_T, 2U> &y)
+void FFTImplementationCallback::r2br_r2dit_trig(const array<creal32_T, 2U> &x,
+                                                int n1_unsigned,
+                                                const array<float, 2U> &costab,
+                                                const array<float, 2U> &sintab,
+                                                array<creal32_T, 2U> &y)
 {
   array<creal32_T, 1U> r;
   float temp_im;
@@ -1032,7 +1044,10 @@ void FFTImplementationCallback::r2br_r2dit_trig(
       }
       iy = ju;
     }
-    r[iy] = x[(xoff + iDelta) - 1];
+    if (iDelta - 2 >= 0) {
+      xoff = (xoff + iDelta) - 1;
+    }
+    r[iy] = x[xoff];
     if (n1_unsigned > 1) {
       for (b_i = 0; b_i <= ihi; b_i += 2) {
         temp_re_tmp = r[b_i + 1].re;
@@ -1091,17 +1106,18 @@ void FFTImplementationCallback::r2br_r2dit_trig(
 }
 
 //
-// Arguments    : const ::coder::array<creal_T, 2U> &x
+// Arguments    : const array<creal_T, 2U> &x
 //                int n1_unsigned
-//                const ::coder::array<double, 2U> &costab
-//                const ::coder::array<double, 2U> &sintab
-//                ::coder::array<creal_T, 2U> &y
+//                const array<double, 2U> &costab
+//                const array<double, 2U> &sintab
+//                array<creal_T, 2U> &y
 // Return Type  : void
 //
-void FFTImplementationCallback::r2br_r2dit_trig(
-    const ::coder::array<creal_T, 2U> &x, int n1_unsigned,
-    const ::coder::array<double, 2U> &costab,
-    const ::coder::array<double, 2U> &sintab, ::coder::array<creal_T, 2U> &y)
+void FFTImplementationCallback::r2br_r2dit_trig(const array<creal_T, 2U> &x,
+                                                int n1_unsigned,
+                                                const array<double, 2U> &costab,
+                                                const array<double, 2U> &sintab,
+                                                array<creal_T, 2U> &y)
 {
   array<creal_T, 1U> r;
   double temp_im;
@@ -1158,7 +1174,12 @@ void FFTImplementationCallback::r2br_r2dit_trig(
     }
     iy = ju;
   }
-  r[iy] = x[ihi - 1];
+  if (ihi - 2 < 0) {
+    ihi = 0;
+  } else {
+    ihi--;
+  }
+  r[iy] = x[ihi];
   if (n1_unsigned > 1) {
     for (i = 0; i <= nRowsM2; i += 2) {
       temp_re_tmp = r[i + 1].re;
@@ -1217,17 +1238,18 @@ void FFTImplementationCallback::r2br_r2dit_trig(
 }
 
 //
-// Arguments    : const ::coder::array<creal_T, 3U> &x
+// Arguments    : const array<creal_T, 3U> &x
 //                int n1_unsigned
-//                const ::coder::array<double, 2U> &costab
-//                const ::coder::array<double, 2U> &sintab
-//                ::coder::array<creal_T, 3U> &y
+//                const array<double, 2U> &costab
+//                const array<double, 2U> &sintab
+//                array<creal_T, 3U> &y
 // Return Type  : void
 //
-void FFTImplementationCallback::r2br_r2dit_trig(
-    const ::coder::array<creal_T, 3U> &x, int n1_unsigned,
-    const ::coder::array<double, 2U> &costab,
-    const ::coder::array<double, 2U> &sintab, ::coder::array<creal_T, 3U> &y)
+void FFTImplementationCallback::r2br_r2dit_trig(const array<creal_T, 3U> &x,
+                                                int n1_unsigned,
+                                                const array<double, 2U> &costab,
+                                                const array<double, 2U> &sintab,
+                                                array<creal_T, 3U> &y)
 {
   array<creal_T, 1U> r;
   double temp_im;
@@ -1302,7 +1324,10 @@ void FFTImplementationCallback::r2br_r2dit_trig(
       }
       iy = ju;
     }
-    r[iy] = x[(xoff + iDelta) - 1];
+    if (iDelta - 2 >= 0) {
+      xoff = (xoff + iDelta) - 1;
+    }
+    r[iy] = x[xoff];
     if (n1_unsigned > 1) {
       for (b_i = 0; b_i <= ihi; b_i += 2) {
         temp_re_tmp = r[b_i + 1].re;

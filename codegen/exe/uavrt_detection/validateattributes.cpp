@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: validateattributes.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -64,11 +64,11 @@ static void rtErrorWithMessageID(const char *r, const char *r1, const char *r2,
 namespace coder {
 void b_validateattributes(double a, double attributesMixed_f9)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       22,           // lineNo
       27,           // colNo
       "validatege", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "+valattr/validatege.m" // pName
   };
   if (std::isinf(a) || std::isnan(a) || (!(std::floor(a) == a))) {
@@ -79,16 +79,16 @@ void b_validateattributes(double a, double attributesMixed_f9)
     e_rtErrorWithMessageID("FFTLength", r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
   }
   if (!(a >= attributesMixed_f9)) {
-    rtErrorWithMessageID("FFTLength", ">=", "NaN", tc_emlrtRTEI.fName,
-                         tc_emlrtRTEI.lineNo);
+    rtErrorWithMessageID("FFTLength", ">=", "NaN", wc_emlrtRTEI.fName,
+                         wc_emlrtRTEI.lineNo);
   }
 }
 
 //
-// Arguments    : const ::coder::array<double, 1U> &a
+// Arguments    : const array<double, 1U> &a
 // Return Type  : void
 //
-void validateattributes(const ::coder::array<double, 1U> &a)
+void validateattributes(const array<double, 1U> &a)
 {
   int k;
   boolean_T exitg1;
@@ -132,11 +132,11 @@ void validateattributes(const ::coder::array<double, 1U> &a)
 //
 void validateattributes(double a)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       22,           // lineNo
       27,           // colNo
       "validategt", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "+valattr/validategt.m" // pName
   };
   if (std::isinf(a) || std::isnan(a) || (!(std::floor(a) == a))) {
@@ -148,8 +148,8 @@ void validateattributes(double a)
                            r_emlrtRTEI.lineNo);
   }
   if (!(a > 1.0)) {
-    rtErrorWithMessageID("WindowLength", ">", "1", tc_emlrtRTEI.fName,
-                         tc_emlrtRTEI.lineNo);
+    rtErrorWithMessageID("WindowLength", ">", "1", wc_emlrtRTEI.fName,
+                         wc_emlrtRTEI.lineNo);
   }
 }
 
@@ -160,11 +160,11 @@ void validateattributes(double a)
 //
 void validateattributes(double a, double attributesMixed_f11)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       22,           // lineNo
       27,           // colNo
       "validatelt", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/eml/+coder/+internal/"
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "+valattr/validatelt.m" // pName
   };
   if (std::isinf(a) || std::isnan(a) || (!(std::floor(a) == a))) {
@@ -176,8 +176,8 @@ void validateattributes(double a, double attributesMixed_f11)
                            r_emlrtRTEI.lineNo);
   }
   if (!(a < attributesMixed_f11)) {
-    rtErrorWithMessageID("OverlapLength", "<", "NaN", tc_emlrtRTEI.fName,
-                         tc_emlrtRTEI.lineNo);
+    rtErrorWithMessageID("OverlapLength", "<", "NaN", wc_emlrtRTEI.fName,
+                         wc_emlrtRTEI.lineNo);
   }
 }
 

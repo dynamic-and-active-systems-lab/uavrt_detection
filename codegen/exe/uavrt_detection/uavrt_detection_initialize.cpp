@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: uavrt_detection_initialize.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -28,13 +28,13 @@
 void uavrt_detection_initialize()
 {
   omp_init_nest_lock(&uavrt_detection_nestLockGlobal);
-  fid_not_empty_init();
-  savedTime_not_empty_init();
-  freq_not_empty_init();
   globalThresholdCachePath.set_size(1, 1);
   globalThresholdCachePath[0] = 'X';
   filedata_init();
   eml_rand_mt19937ar_stateful_init();
+  CoderTimeAPI::callCoderClockGettime_init();
+  timeKeeper_init();
+  wfmcsvwrite_init();
   isInitialized_uavrt_detection = true;
 }
 

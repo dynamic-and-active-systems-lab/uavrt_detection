@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: fftshift.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -15,11 +15,11 @@
 
 // Function Definitions
 //
-// Arguments    : ::coder::array<creal_T, 2U> &x
+// Arguments    : array<creal_T, 2U> &x
 // Return Type  : void
 //
 namespace coder {
-void fftshift(::coder::array<creal_T, 2U> &x)
+void fftshift(array<creal_T, 2U> &x)
 {
   if (x.size(0) > 1) {
     int vlend2;

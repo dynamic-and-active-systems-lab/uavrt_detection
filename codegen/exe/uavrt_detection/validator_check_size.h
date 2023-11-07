@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: validator_check_size.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef VALIDATOR_CHECK_SIZE_H
@@ -21,11 +21,10 @@
 // Function Declarations
 namespace coder {
 namespace internal {
-void validator_check_size(const ::coder::array<double, 2U> &in,
-                          ::coder::array<double, 2U> &out);
+void validator_check_size(const array<double, 2U> &in, array<double, 2U> &out);
 
-void validator_check_size(const ::coder::array<c_struct_T, 2U> &in,
-                          ::coder::array<c_struct_T, 2U> &out);
+void validator_check_size(const array<c_struct_T, 2U> &in,
+                          array<c_struct_T, 2U> &out);
 
 } // namespace internal
 } // namespace coder

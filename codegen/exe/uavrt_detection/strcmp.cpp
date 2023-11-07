@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: strcmp.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -16,14 +16,13 @@
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<char, 2U> &a
-//                const ::coder::array<char, 2U> &b
+// Arguments    : const array<char, 2U> &a
+//                const array<char, 2U> &b
 // Return Type  : boolean_T
 //
 namespace coder {
 namespace internal {
-boolean_T b_strcmp(const ::coder::array<char, 2U> &a,
-                   const ::coder::array<char, 2U> &b)
+boolean_T b_strcmp(const array<char, 2U> &a, const array<char, 2U> &b)
 {
   boolean_T b_bool;
   b_bool = false;
@@ -52,10 +51,10 @@ boolean_T b_strcmp(const ::coder::array<char, 2U> &a,
 }
 
 //
-// Arguments    : const ::coder::array<char, 2U> &a
+// Arguments    : const array<char, 2U> &a
 // Return Type  : boolean_T
 //
-boolean_T b_strcmp(const ::coder::array<char, 2U> &a)
+boolean_T b_strcmp(const array<char, 2U> &a)
 {
   static const char b_cv[3]{'a', 'l', 'l'};
   boolean_T b_bool;
@@ -82,23 +81,23 @@ boolean_T b_strcmp(const ::coder::array<char, 2U> &a)
 }
 
 //
-// Arguments    : const char a_data[]
-//                const int a_size[2]
+// Arguments    : const char b_data[]
+//                const int b_size[2]
 // Return Type  : boolean_T
 //
-boolean_T b_strcmp(const char a_data[], const int a_size[2])
+boolean_T b_strcmp(const char b_data[], const int b_size[2])
 {
   static const char b_cv[6]{'s', 'e', 'a', 'r', 'c', 'h'};
   boolean_T b_bool;
   b_bool = false;
-  if (a_size[1] == 6) {
+  if (b_size[1] == 6) {
     int kstr;
     kstr = 0;
     int exitg1;
     do {
       exitg1 = 0;
       if (kstr < 6) {
-        if (a_data[kstr] != b_cv[kstr]) {
+        if (b_cv[kstr] != b_data[kstr]) {
           exitg1 = 1;
         } else {
           kstr++;
@@ -113,10 +112,10 @@ boolean_T b_strcmp(const char a_data[], const int a_size[2])
 }
 
 //
-// Arguments    : const ::coder::array<char, 2U> &a
+// Arguments    : const array<char, 2U> &a
 // Return Type  : boolean_T
 //
-boolean_T c_strcmp(const ::coder::array<char, 2U> &a)
+boolean_T c_strcmp(const array<char, 2U> &a)
 {
   static const char b_cv[20]{'c', 'h', 'a', 'n', 'n', 'e', 'l', 'C', 'e', 'n',
                              't', 'e', 'r', 'F', 'r', 'e', 'q', 'M', 'H', 'z'};
@@ -144,23 +143,23 @@ boolean_T c_strcmp(const ::coder::array<char, 2U> &a)
 }
 
 //
-// Arguments    : const char a_data[]
-//                const int a_size[2]
+// Arguments    : const char b_data[]
+//                const int b_size[2]
 // Return Type  : boolean_T
 //
-boolean_T c_strcmp(const char a_data[], const int a_size[2])
+boolean_T c_strcmp(const char b_data[], const int b_size[2])
 {
   static const char b_cv[7]{'c', 'o', 'n', 'f', 'i', 'r', 'm'};
   boolean_T b_bool;
   b_bool = false;
-  if (a_size[1] == 7) {
+  if (b_size[1] == 7) {
     int kstr;
     kstr = 0;
     int exitg1;
     do {
       exitg1 = 0;
       if (kstr < 7) {
-        if (a_data[kstr] != b_cv[kstr]) {
+        if (b_cv[kstr] != b_data[kstr]) {
           exitg1 = 1;
         } else {
           kstr++;
@@ -175,10 +174,10 @@ boolean_T c_strcmp(const char a_data[], const int a_size[2])
 }
 
 //
-// Arguments    : const ::coder::array<char, 2U> &a
+// Arguments    : const array<char, 2U> &a
 // Return Type  : boolean_T
 //
-boolean_T d_strcmp(const ::coder::array<char, 2U> &a)
+boolean_T d_strcmp(const array<char, 2U> &a)
 {
   static const char b_cv[6]{'i', 'p', 'D', 'a', 't', 'a'};
   boolean_T b_bool;
@@ -205,23 +204,23 @@ boolean_T d_strcmp(const ::coder::array<char, 2U> &a)
 }
 
 //
-// Arguments    : const char a_data[]
-//                const int a_size[2]
+// Arguments    : const char b_data[]
+//                const int b_size[2]
 // Return Type  : boolean_T
 //
-boolean_T d_strcmp(const char a_data[], const int a_size[2])
+boolean_T d_strcmp(const char b_data[], const int b_size[2])
 {
   static const char b_cv[5]{'t', 'r', 'a', 'c', 'k'};
   boolean_T b_bool;
   b_bool = false;
-  if (a_size[1] == 5) {
+  if (b_size[1] == 5) {
     int kstr;
     kstr = 0;
     int exitg1;
     do {
       exitg1 = 0;
       if (kstr < 5) {
-        if (a_data[kstr] != b_cv[kstr]) {
+        if (b_cv[kstr] != b_data[kstr]) {
           exitg1 = 1;
         } else {
           kstr++;
@@ -236,10 +235,10 @@ boolean_T d_strcmp(const char a_data[], const int a_size[2])
 }
 
 //
-// Arguments    : const ::coder::array<char, 2U> &a
+// Arguments    : const array<char, 2U> &a
 // Return Type  : boolean_T
 //
-boolean_T e_strcmp(const ::coder::array<char, 2U> &a)
+boolean_T e_strcmp(const array<char, 2U> &a)
 {
   static const char b_cv[8]{'p', 'o', 'r', 't', 'D', 'a', 't', 'a'};
   boolean_T b_bool;
@@ -297,10 +296,10 @@ boolean_T e_strcmp(const char a_data[], const int a_size[2])
 }
 
 //
-// Arguments    : const ::coder::array<char, 2U> &a
+// Arguments    : const array<char, 2U> &a
 // Return Type  : boolean_T
 //
-boolean_T f_strcmp(const ::coder::array<char, 2U> &a)
+boolean_T f_strcmp(const array<char, 2U> &a)
 {
   static const char b_cv[2]{'F', 's'};
   boolean_T b_bool;
@@ -358,10 +357,10 @@ boolean_T f_strcmp(const char a_data[], const int a_size[2])
 }
 
 //
-// Arguments    : const ::coder::array<char, 2U> &a
+// Arguments    : const array<char, 2U> &a
 // Return Type  : boolean_T
 //
-boolean_T g_strcmp(const ::coder::array<char, 2U> &a)
+boolean_T g_strcmp(const array<char, 2U> &a)
 {
   static const char b_cv[10]{'t', 'a', 'g', 'F', 'r', 'e', 'q', 'M', 'H', 'z'};
   boolean_T b_bool;
@@ -388,10 +387,10 @@ boolean_T g_strcmp(const ::coder::array<char, 2U> &a)
 }
 
 //
-// Arguments    : const ::coder::array<char, 2U> &a
+// Arguments    : const array<char, 2U> &a
 // Return Type  : boolean_T
 //
-boolean_T h_strcmp(const ::coder::array<char, 2U> &a)
+boolean_T h_strcmp(const array<char, 2U> &a)
 {
   static const char b_cv[2]{'t', 'p'};
   boolean_T b_bool;
@@ -418,10 +417,10 @@ boolean_T h_strcmp(const ::coder::array<char, 2U> &a)
 }
 
 //
-// Arguments    : const ::coder::array<char, 2U> &a
+// Arguments    : const array<char, 2U> &a
 // Return Type  : boolean_T
 //
-boolean_T i_strcmp(const ::coder::array<char, 2U> &a)
+boolean_T i_strcmp(const array<char, 2U> &a)
 {
   static const char b_cv[3]{'t', 'i', 'p'};
   boolean_T b_bool;
@@ -448,10 +447,10 @@ boolean_T i_strcmp(const ::coder::array<char, 2U> &a)
 }
 
 //
-// Arguments    : const ::coder::array<char, 2U> &a
+// Arguments    : const array<char, 2U> &a
 // Return Type  : boolean_T
 //
-boolean_T j_strcmp(const ::coder::array<char, 2U> &a)
+boolean_T j_strcmp(const array<char, 2U> &a)
 {
   static const char b_cv[4]{'t', 'i', 'p', 'u'};
   boolean_T b_bool;
@@ -478,10 +477,10 @@ boolean_T j_strcmp(const ::coder::array<char, 2U> &a)
 }
 
 //
-// Arguments    : const ::coder::array<char, 2U> &a
+// Arguments    : const array<char, 2U> &a
 // Return Type  : boolean_T
 //
-boolean_T k_strcmp(const ::coder::array<char, 2U> &a)
+boolean_T k_strcmp(const array<char, 2U> &a)
 {
   static const char b_cv[4]{'t', 'i', 'p', 'j'};
   boolean_T b_bool;
@@ -508,10 +507,10 @@ boolean_T k_strcmp(const ::coder::array<char, 2U> &a)
 }
 
 //
-// Arguments    : const ::coder::array<char, 2U> &a
+// Arguments    : const array<char, 2U> &a
 // Return Type  : boolean_T
 //
-boolean_T l_strcmp(const ::coder::array<char, 2U> &a)
+boolean_T l_strcmp(const array<char, 2U> &a)
 {
   static const char b_cv[6]{'o', 'p', 'M', 'o', 'd', 'e'};
   boolean_T b_bool;
@@ -538,10 +537,10 @@ boolean_T l_strcmp(const ::coder::array<char, 2U> &a)
 }
 
 //
-// Arguments    : const ::coder::array<char, 2U> &a
+// Arguments    : const array<char, 2U> &a
 // Return Type  : boolean_T
 //
-boolean_T m_strcmp(const ::coder::array<char, 2U> &a)
+boolean_T m_strcmp(const array<char, 2U> &a)
 {
   static const char b_cv[10]{'e', 'x', 'c', 'l', 'd', 'F', 'r', 'e', 'q', 's'};
   boolean_T b_bool;
@@ -568,10 +567,10 @@ boolean_T m_strcmp(const ::coder::array<char, 2U> &a)
 }
 
 //
-// Arguments    : const ::coder::array<char, 2U> &a
+// Arguments    : const array<char, 2U> &a
 // Return Type  : boolean_T
 //
-boolean_T n_strcmp(const ::coder::array<char, 2U> &a)
+boolean_T n_strcmp(const array<char, 2U> &a)
 {
   static const char b_cv[14]{'f', 'a', 'l', 's', 'e', 'A', 'l',
                              'a', 'r', 'm', 'P', 'r', 'o', 'b'};
@@ -599,10 +598,10 @@ boolean_T n_strcmp(const ::coder::array<char, 2U> &a)
 }
 
 //
-// Arguments    : const ::coder::array<char, 2U> &a
+// Arguments    : const array<char, 2U> &a
 // Return Type  : boolean_T
 //
-boolean_T o_strcmp(const ::coder::array<char, 2U> &a)
+boolean_T o_strcmp(const array<char, 2U> &a)
 {
   static const char b_cv[14]{'d', 'a', 't', 'a', 'R', 'e', 'c',
                              'o', 'r', 'd', 'P', 'a', 't', 'h'};
@@ -630,10 +629,10 @@ boolean_T o_strcmp(const ::coder::array<char, 2U> &a)
 }
 
 //
-// Arguments    : const ::coder::array<char, 2U> &a
+// Arguments    : const array<char, 2U> &a
 // Return Type  : boolean_T
 //
-boolean_T p_strcmp(const ::coder::array<char, 2U> &a)
+boolean_T p_strcmp(const array<char, 2U> &a)
 {
   static const char b_cv[7]{'l', 'o', 'g', 'P', 'a', 't', 'h'};
   boolean_T b_bool;
@@ -660,10 +659,10 @@ boolean_T p_strcmp(const ::coder::array<char, 2U> &a)
 }
 
 //
-// Arguments    : const ::coder::array<char, 2U> &a
+// Arguments    : const array<char, 2U> &a
 // Return Type  : boolean_T
 //
-boolean_T q_strcmp(const ::coder::array<char, 2U> &a)
+boolean_T q_strcmp(const array<char, 2U> &a)
 {
   static const char b_cv[10]{'s', 't', 'a', 'r', 't', 'I', 'n', 'd', 'e', 'x'};
   boolean_T b_bool;

@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: abs.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -17,12 +17,12 @@
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<creal_T, 2U> &x
-//                ::coder::array<double, 2U> &y
+// Arguments    : const array<creal_T, 2U> &x
+//                array<double, 2U> &y
 // Return Type  : void
 //
 namespace coder {
-void b_abs(const ::coder::array<creal_T, 2U> &x, ::coder::array<double, 2U> &y)
+void b_abs(const array<creal_T, 2U> &x, array<double, 2U> &y)
 {
   int nx;
   nx = x.size(0) * x.size(1);

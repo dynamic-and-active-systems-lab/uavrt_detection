@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: ifWhileCond.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -16,12 +16,12 @@
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<boolean_T, 2U> &x
+// Arguments    : const array<boolean_T, 2U> &x
 // Return Type  : boolean_T
 //
 namespace coder {
 namespace internal {
-boolean_T b_ifWhileCond(const ::coder::array<boolean_T, 2U> &x)
+boolean_T b_ifWhileCond(const array<boolean_T, 2U> &x)
 {
   boolean_T y;
   y = ((x.size(0) != 0) && (x.size(1) != 0));
@@ -48,10 +48,10 @@ boolean_T b_ifWhileCond(const ::coder::array<boolean_T, 2U> &x)
 }
 
 //
-// Arguments    : const ::coder::array<boolean_T, 1U> &x
+// Arguments    : const array<boolean_T, 1U> &x
 // Return Type  : boolean_T
 //
-boolean_T ifWhileCond(const ::coder::array<boolean_T, 1U> &x)
+boolean_T ifWhileCond(const array<boolean_T, 1U> &x)
 {
   boolean_T y;
   y = (x.size(0) != 0);

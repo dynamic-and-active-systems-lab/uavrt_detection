@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: all.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef ALL_H
@@ -19,8 +19,7 @@
 
 // Function Declarations
 namespace coder {
-void all(const ::coder::array<boolean_T, 2U> &x,
-         ::coder::array<boolean_T, 1U> &y);
+void all(const array<boolean_T, 2U> &x, array<boolean_T, 1U> &y);
 
 }
 

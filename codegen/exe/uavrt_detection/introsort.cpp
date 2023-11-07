@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: introsort.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -28,11 +28,11 @@
 #include <string>
 
 // Variable Definitions
-static rtRunTimeErrorInfo qc_emlrtRTEI{
+static rtRunTimeErrorInfo tc_emlrtRTEI{
     62,           // lineNo
     39,           // colNo
     "stack/push", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/lib/+coder/"
+    "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/lib/+coder/"
     "+internal/stack.m" // pName
 };
 
@@ -40,13 +40,13 @@ static rtDoubleCheckInfo q_emlrtDCI{
     48,            // lineNo
     48,            // colNo
     "stack/stack", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/shared/coder/coder/lib/+coder/"
+    "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/lib/+coder/"
     "+internal/stack.m", // pName
     4                    // checkKind
 };
 
 // Function Declarations
-static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -54,7 +54,7 @@ static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -71,20 +71,19 @@ static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 }
 
 //
-// Arguments    : ::coder::array<int, 1U> &x
+// Arguments    : array<int, 1U> &x
 //                int xend
 //                const anonymous_function &cmp
 // Return Type  : void
 //
 namespace coder {
 namespace internal {
-void introsort(::coder::array<int, 1U> &x, int xend,
-               const anonymous_function &cmp)
+void introsort(array<int, 1U> &x, int xend, const anonymous_function &cmp)
 {
   struct_T frame;
   if (xend > 1) {
     if (xend <= 32) {
-      insertionsort(x, 1, xend, cmp);
+      insertionsort(x, xend, cmp);
     } else {
       stack st;
       int MAXDEPTH;
@@ -122,7 +121,7 @@ void introsort(::coder::array<int, 1U> &x, int xend,
         st.d.data[i] = frame;
       }
       if (pmax <= 0) {
-        kc_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+        nc_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
       }
       st.d.data[0] = frame;
       st.n = 1;
@@ -243,7 +242,7 @@ void introsort(::coder::array<int, 1U> &x, int xend,
           x[pmax] = pow2p + 1;
           if (pmax + 2 < frame.xend) {
             if (frame_tmp_tmp >= st.d.size[0]) {
-              kc_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+              nc_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
             }
             st.d.data[frame_tmp_tmp].xstart = pmax + 2;
             st.d.data[frame_tmp_tmp].xend = frame.xend;
@@ -252,7 +251,7 @@ void introsort(::coder::array<int, 1U> &x, int xend,
           }
           if (frame.xstart < pmax + 1) {
             if (st.n >= st.d.size[0]) {
-              kc_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+              nc_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
             }
             st.d.data[st.n].xstart = frame.xstart;
             st.d.data[st.n].xend = pmax + 1;
@@ -266,19 +265,18 @@ void introsort(::coder::array<int, 1U> &x, int xend,
 }
 
 //
-// Arguments    : ::coder::array<int, 1U> &x
+// Arguments    : array<int, 1U> &x
 //                int xend
 //                const c_anonymous_function &cmp
 // Return Type  : void
 //
-void introsort(::coder::array<int, 1U> &x, int xend,
-               const c_anonymous_function &cmp)
+void introsort(array<int, 1U> &x, int xend, const c_anonymous_function &cmp)
 {
   struct_T frame;
   int pmin;
   if (xend > 1) {
     if (xend <= 32) {
-      insertionsort(x, 1, xend, cmp);
+      insertionsort(x, xend, cmp);
     } else {
       stack st;
       int MAXDEPTH;
@@ -315,7 +313,7 @@ void introsort(::coder::array<int, 1U> &x, int xend,
         st.d.data[i] = frame;
       }
       if (pmax <= 0) {
-        kc_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+        nc_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
       }
       st.d.data[0] = frame;
       st.n = 1;
@@ -381,7 +379,7 @@ void introsort(::coder::array<int, 1U> &x, int xend,
           x[pmax] = pow2p;
           if (pmax + 2 < frame.xend) {
             if (frame_tmp_tmp >= st.d.size[0]) {
-              kc_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+              nc_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
             }
             st.d.data[frame_tmp_tmp].xstart = pmax + 2;
             st.d.data[frame_tmp_tmp].xend = frame.xend;
@@ -390,7 +388,7 @@ void introsort(::coder::array<int, 1U> &x, int xend,
           }
           if (frame.xstart < pmax + 1) {
             if (st.n >= st.d.size[0]) {
-              kc_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+              nc_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
             }
             st.d.data[st.n].xstart = frame.xstart;
             st.d.data[st.n].xend = pmax + 1;

@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: fgetl.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -82,41 +82,41 @@ static void rtErrorWithMessageID(const int i, const char *aFcnName,
 
 //
 // Arguments    : double fileID
-//                ::coder::array<char, 2U> &out
+//                array<char, 2U> &out
 // Return Type  : void
 //
 namespace coder {
-void fgetl(double fileID, ::coder::array<char, 2U> &out)
+void fgetl(double fileID, array<char, 2U> &out)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
-      106,      // lineNo
-      9,        // colNo
-      "cFgets", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/fgets.m" // pName
-  };
-  static rtRunTimeErrorInfo uc_emlrtRTEI{
-      253,           // lineNo
-      5,             // colNo
-      "getFileStar", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/fgets.m" // pName
-  };
-  static rtRunTimeErrorInfo vc_emlrtRTEI{
-      72,      // lineNo
-      9,       // colNo
-      "fread", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/fread.m" // pName
-  };
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
+  static rtRunTimeErrorInfo ad_emlrtRTEI{
       124,      // lineNo
       17,       // colNo
       "cFgets", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/fgets.m" // pName
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/fgets.m" // pName
   };
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
+  static rtRunTimeErrorInfo bd_emlrtRTEI{
       145,      // lineNo
       17,       // colNo
       "cFgets", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/iofun/fgets.m" // pName
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/fgets.m" // pName
+  };
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
+      106,      // lineNo
+      9,        // colNo
+      "cFgets", // fName
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/fgets.m" // pName
+  };
+  static rtRunTimeErrorInfo xc_emlrtRTEI{
+      253,           // lineNo
+      5,             // colNo
+      "getFileStar", // fName
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/fgets.m" // pName
+  };
+  static rtRunTimeErrorInfo yc_emlrtRTEI{
+      72,      // lineNo
+      9,       // colNo
+      "fread", // fName
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/fread.m" // pName
   };
   std::FILE *b_filestar;
   std::FILE *f;
@@ -130,7 +130,7 @@ void fgetl(double fileID, ::coder::array<char, 2U> &out)
   f = internal::getfilestar(fileID, newLineAfterCarriageReturn);
   filestar = f;
   if (f == nullptr) {
-    c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
   }
   if ((!(fileID != 0.0)) || (!(fileID != 1.0)) || (!(fileID != 2.0))) {
     filestar = nullptr;
@@ -155,7 +155,7 @@ void fgetl(double fileID, ::coder::array<char, 2U> &out)
         reachedEndOfFile = ((int)st != 0);
       }
       if ((cOut == nullptr) && (out.size(1) == 0)) {
-        f_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+        f_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
       }
       if (cOut == nullptr) {
         exitg1 = 1;
@@ -177,8 +177,8 @@ void fgetl(double fileID, ::coder::array<char, 2U> &out)
               if (carriageReturnAt == 0) {
                 b_i = static_cast<unsigned char>(ReadBuff[i]);
                 if (b_i > 127) {
-                  rtErrorWithMessageID(b_i, wc_emlrtRTEI.fName,
-                                       wc_emlrtRTEI.lineNo);
+                  rtErrorWithMessageID(b_i, ad_emlrtRTEI.fName,
+                                       ad_emlrtRTEI.lineNo);
                 }
               }
               if ((carriageReturnAt == 0) && (ReadBuff[i] == '\r')) {
@@ -205,8 +205,8 @@ void fgetl(double fileID, ::coder::array<char, 2U> &out)
               if (carriageReturnAt == 0) {
                 b_i = static_cast<unsigned char>(ReadBuff[i]);
                 if (b_i > 127) {
-                  rtErrorWithMessageID(b_i, xc_emlrtRTEI.fName,
-                                       xc_emlrtRTEI.lineNo);
+                  rtErrorWithMessageID(b_i, bd_emlrtRTEI.fName,
+                                       bd_emlrtRTEI.lineNo);
                 }
               }
               if ((carriageReturnAt == 0) && (ReadBuff[i] == '\r')) {
@@ -231,13 +231,9 @@ void fgetl(double fileID, ::coder::array<char, 2U> &out)
         }
         if ((carriageReturnAt == 0) || newLineAfterCarriageReturn ||
             fileEndAfterCarriageReturn) {
-          if (idx + 1 < 1) {
-            i = 0;
-          } else {
-            i = idx + 1;
-          }
+          i = idx + 1;
           b_i = out.size(1);
-          out.set_size(out.size(0), out.size(1) + i);
+          out.set_size(out.size(0), (out.size(1) + idx) + 1);
           for (int i2{0}; i2 < i; i2++) {
             out[b_i + i2] = ReadBuff[i2];
           }
@@ -275,12 +271,12 @@ void fgetl(double fileID, ::coder::array<char, 2U> &out)
     }
     if (i1 == 0) {
       if ((!(fileID != 0.0)) || (!(fileID != 1.0)) || (!(fileID != 2.0))) {
-        g_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+        g_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
       }
       f = internal::getfilestar(fileID, newLineAfterCarriageReturn);
       filestar = f;
       if (f == nullptr) {
-        c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+        c_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
       }
       if ((!(fileID != 0.0)) || (!(fileID != 1.0)) || (!(fileID != 2.0))) {
         filestar = nullptr;
@@ -322,36 +318,24 @@ void fgetl(double fileID, ::coder::array<char, 2U> &out)
     c = out[out.size(1) - 1];
     if (c == '\n') {
       if ((out.size(1) > 1) && (out[out.size(1) - 2] == '\r')) {
-        if (out.size(1) - 2 < 1) {
-          i = 0;
-        } else {
-          i = out.size(1) - 2;
-        }
+        i = out.size(1) - 2;
         for (b_i = 0; b_i < i; b_i++) {
           out[b_i] = out[b_i];
         }
-        out.set_size(1, i);
-      } else {
-        if (out.size(1) - 1 < 1) {
-          i = 0;
-        } else {
-          i = out.size(1) - 1;
-        }
-        for (b_i = 0; b_i < i; b_i++) {
-          out[b_i] = out[b_i];
-        }
-        out.set_size(1, i);
-      }
-    } else if (c == '\r') {
-      if (out.size(1) - 1 < 1) {
-        i = 0;
+        out.set_size(1, out.size(1) - 2);
       } else {
         i = out.size(1) - 1;
+        for (b_i = 0; b_i < i; b_i++) {
+          out[b_i] = out[b_i];
+        }
+        out.set_size(1, out.size(1) - 1);
       }
+    } else if (c == '\r') {
+      i = out.size(1) - 1;
       for (b_i = 0; b_i < i; b_i++) {
         out[b_i] = out[b_i];
       }
-      out.set_size(1, i);
+      out.set_size(1, out.size(1) - 1);
     }
   }
 }

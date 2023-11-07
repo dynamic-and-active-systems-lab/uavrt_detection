@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: unaryMinOrMax.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -20,17 +20,17 @@
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<double, 1U> &x
+// Arguments    : const array<double, 1U> &x
 // Return Type  : double
 //
 namespace coder {
 namespace internal {
-double unaryMinOrMax_anonFcn1(const ::coder::array<double, 1U> &x)
+double unaryMinOrMax_anonFcn1(const array<double, 1U> &x)
 {
   double varargout_1;
   int last;
   if (x.size(0) < 1) {
-    ib_rtErrorWithMessageID(vb_emlrtRTEI.fName, vb_emlrtRTEI.lineNo);
+    lb_rtErrorWithMessageID(yb_emlrtRTEI.fName, yb_emlrtRTEI.lineNo);
   }
   last = x.size(0);
   if (x.size(0) <= 2) {

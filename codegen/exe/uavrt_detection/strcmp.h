@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: strcmp.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef STRCMP_H
@@ -20,50 +20,49 @@
 // Function Declarations
 namespace coder {
 namespace internal {
-boolean_T b_strcmp(const ::coder::array<char, 2U> &a,
-                   const ::coder::array<char, 2U> &b);
+boolean_T b_strcmp(const array<char, 2U> &a, const array<char, 2U> &b);
 
-boolean_T b_strcmp(const ::coder::array<char, 2U> &a);
+boolean_T b_strcmp(const array<char, 2U> &a);
 
-boolean_T b_strcmp(const char a_data[], const int a_size[2]);
+boolean_T b_strcmp(const char b_data[], const int b_size[2]);
 
-boolean_T c_strcmp(const ::coder::array<char, 2U> &a);
+boolean_T c_strcmp(const array<char, 2U> &a);
 
-boolean_T c_strcmp(const char a_data[], const int a_size[2]);
+boolean_T c_strcmp(const char b_data[], const int b_size[2]);
 
-boolean_T d_strcmp(const ::coder::array<char, 2U> &a);
+boolean_T d_strcmp(const array<char, 2U> &a);
 
-boolean_T d_strcmp(const char a_data[], const int a_size[2]);
+boolean_T d_strcmp(const char b_data[], const int b_size[2]);
 
-boolean_T e_strcmp(const ::coder::array<char, 2U> &a);
+boolean_T e_strcmp(const array<char, 2U> &a);
 
 boolean_T e_strcmp(const char a_data[], const int a_size[2]);
 
-boolean_T f_strcmp(const ::coder::array<char, 2U> &a);
+boolean_T f_strcmp(const array<char, 2U> &a);
 
 boolean_T f_strcmp(const char a_data[], const int a_size[2]);
 
-boolean_T g_strcmp(const ::coder::array<char, 2U> &a);
+boolean_T g_strcmp(const array<char, 2U> &a);
 
-boolean_T h_strcmp(const ::coder::array<char, 2U> &a);
+boolean_T h_strcmp(const array<char, 2U> &a);
 
-boolean_T i_strcmp(const ::coder::array<char, 2U> &a);
+boolean_T i_strcmp(const array<char, 2U> &a);
 
-boolean_T j_strcmp(const ::coder::array<char, 2U> &a);
+boolean_T j_strcmp(const array<char, 2U> &a);
 
-boolean_T k_strcmp(const ::coder::array<char, 2U> &a);
+boolean_T k_strcmp(const array<char, 2U> &a);
 
-boolean_T l_strcmp(const ::coder::array<char, 2U> &a);
+boolean_T l_strcmp(const array<char, 2U> &a);
 
-boolean_T m_strcmp(const ::coder::array<char, 2U> &a);
+boolean_T m_strcmp(const array<char, 2U> &a);
 
-boolean_T n_strcmp(const ::coder::array<char, 2U> &a);
+boolean_T n_strcmp(const array<char, 2U> &a);
 
-boolean_T o_strcmp(const ::coder::array<char, 2U> &a);
+boolean_T o_strcmp(const array<char, 2U> &a);
 
-boolean_T p_strcmp(const ::coder::array<char, 2U> &a);
+boolean_T p_strcmp(const array<char, 2U> &a);
 
-boolean_T q_strcmp(const ::coder::array<char, 2U> &a);
+boolean_T q_strcmp(const array<char, 2U> &a);
 
 } // namespace internal
 } // namespace coder

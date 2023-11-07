@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: wgn.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -43,7 +43,7 @@ static const char cv[128]{
     '~',    '\x7f'};
 
 // Function Declarations
-static void nb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void qb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -51,7 +51,7 @@ static void nb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void nb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void qb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -75,33 +75,33 @@ namespace coder {
 void wgn(creal_T y[1000])
 {
   static const char b_cv1[7]{'c', 'o', 'm', 'p', 'l', 'e', 'x'};
-  static const char b[6]{'l', 'i', 'n', 'e', 'a', 'r'};
+  static const char a[6]{'l', 'i', 'n', 'e', 'a', 'r'};
   static const char b_cv[6]{'l', 'i', 'n', 'e', 'a', 'r'};
   double noisePower;
   int i;
   char a_data[7];
   char switch_expression_data[6];
-  boolean_T b_bool;
+  boolean_T result;
   for (i = 0; i < 6; i++) {
-    switch_expression_data[i] = cv[static_cast<int>(b[i])];
+    switch_expression_data[i] = cv[static_cast<int>(a[i])];
   }
-  b_bool = false;
+  result = false;
   i = 0;
   int exitg1;
   do {
     exitg1 = 0;
     if (i < 6) {
-      if (switch_expression_data[i] != b_cv[i]) {
+      if (b_cv[i] != switch_expression_data[i]) {
         exitg1 = 1;
       } else {
         i++;
       }
     } else {
-      b_bool = true;
+      result = true;
       exitg1 = 1;
     }
   } while (exitg1 == 0);
-  if (b_bool) {
+  if (result) {
     i = 0;
   } else {
     i = -1;
@@ -115,11 +115,11 @@ void wgn(creal_T y[1000])
     a_data[i] = b_cv1[i];
   }
   if (cv[static_cast<int>(a_data[0])] == 'r') {
-    double b_b[1000];
+    double b[1000];
     noisePower = std::sqrt(noisePower);
-    randn(b_b);
+    randn(b);
     for (i = 0; i < 1000; i++) {
-      y[i].re = noisePower * b_b[i];
+      y[i].re = noisePower * b[i];
       y[i].im = 0.0;
     }
   } else {
@@ -136,22 +136,22 @@ void wgn(creal_T y[1000])
 // Arguments    : double varargin_1
 //                unsigned int varargin_2
 //                double varargin_3
-//                ::coder::array<creal_T, 2U> &y
+//                array<creal_T, 2U> &y
 // Return Type  : void
 //
 void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
-         ::coder::array<creal_T, 2U> &y)
+         array<creal_T, 2U> &y)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       180,                                                      // lineNo
       1,                                                        // colNo
       "wgn",                                                    // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/comm/comm/wgn.m" // pName
+      "/Applications/MATLAB_R2023b.app/toolbox/comm/comm/wgn.m" // pName
   };
   static const char b_cv1[7]{'c', 'o', 'm', 'p', 'l', 'e', 'x'};
-  static const char b[6]{'l', 'i', 'n', 'e', 'a', 'r'};
+  static const char a[6]{'l', 'i', 'n', 'e', 'a', 'r'};
   static const char b_cv[6]{'l', 'i', 'n', 'e', 'a', 'r'};
-  array<double, 2U> b_b;
+  array<double, 2U> b;
   double noisePower;
   int i;
   int k;
@@ -178,10 +178,10 @@ void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
     }
   }
   if (b_y) {
-    nb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    qb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   }
   for (k = 0; k < 6; k++) {
-    switch_expression_data[k] = cv[static_cast<int>(b[k])];
+    switch_expression_data[k] = cv[static_cast<int>(a[k])];
   }
   b_y = false;
   k = 0;
@@ -189,7 +189,7 @@ void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
   do {
     exitg2 = 0;
     if (k < 6) {
-      if (switch_expression_data[k] != b_cv[k]) {
+      if (b_cv[k] != switch_expression_data[k]) {
         exitg2 = 1;
       } else {
         k++;
@@ -214,19 +214,19 @@ void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
   }
   if (cv[static_cast<int>(a_data[0])] == 'r') {
     if (noisePower < 0.0) {
-      rtErrorWithMessageID("sqrt", xb_emlrtRTEI.fName, xb_emlrtRTEI.lineNo);
+      rtErrorWithMessageID("sqrt", bc_emlrtRTEI.fName, bc_emlrtRTEI.lineNo);
     }
     noisePower = std::sqrt(noisePower);
-    randn(varargin_1, varargin_2, b_b);
-    y.set_size(b_b.size(0), b_b.size(1));
-    k = b_b.size(0) * b_b.size(1);
+    randn(varargin_1, varargin_2, b);
+    y.set_size(b.size(0), b.size(1));
+    k = b.size(0) * b.size(1);
     for (i = 0; i < k; i++) {
-      y[i].re = noisePower * b_b[i];
+      y[i].re = noisePower * b[i];
       y[i].im = 0.0;
     }
   } else {
     if (noisePower < 0.0) {
-      rtErrorWithMessageID("sqrt", xb_emlrtRTEI.fName, xb_emlrtRTEI.lineNo);
+      rtErrorWithMessageID("sqrt", bc_emlrtRTEI.fName, bc_emlrtRTEI.lineNo);
     }
     noisePower = std::sqrt(noisePower);
     complexLike(varargin_1, varargin_2, y);

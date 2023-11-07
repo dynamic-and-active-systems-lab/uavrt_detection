@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: psdfreqvec.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -51,65 +51,71 @@ static double rt_remd_snf(double u0, double u1)
 //
 // Arguments    : double varargin_2
 //                double varargin_4
-//                ::coder::array<double, 1U> &w
+//                array<double, 1U> &w
 // Return Type  : void
 //
 namespace coder {
-void psdfreqvec(double varargin_2, double varargin_4,
-                ::coder::array<double, 1U> &w)
+void psdfreqvec(double varargin_2, double varargin_4, array<double, 1U> &w)
 {
   static rtBoundsCheckInfo ab_emlrtBCI{
+      -1,              // iFirst
+      -1,              // iLast
+      74,              // lineNo
+      8,               // colNo
+      "",              // aName
+      "frequencygrid", // fName
+      "/Applications/MATLAB_R2023b.app/toolbox/shared/siglib/psdfreqvec.m", // pName
+      0 // checkKind
+  };
+  static rtBoundsCheckInfo bb_emlrtBCI{
       -1,              // iFirst
       -1,              // iLast
       75,              // lineNo
       8,               // colNo
       "",              // aName
       "frequencygrid", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/siglib/psdfreqvec.m", // pName
+      "/Applications/MATLAB_R2023b.app/toolbox/shared/siglib/psdfreqvec.m", // pName
       0 // checkKind
   };
-  static rtBoundsCheckInfo bb_emlrtBCI{
+  static rtBoundsCheckInfo cb_emlrtBCI{
       -1,              // iFirst
       -1,              // iLast
       80,              // lineNo
       4,               // colNo
       "",              // aName
       "frequencygrid", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/siglib/psdfreqvec.m", // pName
+      "/Applications/MATLAB_R2023b.app/toolbox/shared/siglib/psdfreqvec.m", // pName
       0 // checkKind
   };
-  static rtBoundsCheckInfo cb_emlrtBCI{
+  static rtBoundsCheckInfo db_emlrtBCI{
       -1,              // iFirst
       -1,              // iLast
       78,              // lineNo
       8,               // colNo
       "",              // aName
       "frequencygrid", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/siglib/psdfreqvec.m", // pName
-      0 // checkKind
-  };
-  static rtBoundsCheckInfo y_emlrtBCI{
-      -1,              // iFirst
-      -1,              // iLast
-      74,              // lineNo
-      8,               // colNo
-      "",              // aName
-      "frequencygrid", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/siglib/psdfreqvec.m", // pName
+      "/Applications/MATLAB_R2023b.app/toolbox/shared/siglib/psdfreqvec.m", // pName
       0 // checkKind
   };
   static rtDoubleCheckInfo r_emlrtDCI{
       74,              // lineNo
       8,               // colNo
       "frequencygrid", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/siglib/psdfreqvec.m", // pName
+      "/Applications/MATLAB_R2023b.app/toolbox/shared/siglib/psdfreqvec.m", // pName
       1 // checkKind
   };
   static rtDoubleCheckInfo s_emlrtDCI{
+      80,              // lineNo
+      4,               // colNo
+      "frequencygrid", // fName
+      "/Applications/MATLAB_R2023b.app/toolbox/shared/siglib/psdfreqvec.m", // pName
+      1 // checkKind
+  };
+  static rtDoubleCheckInfo t_emlrtDCI{
       78,              // lineNo
       8,               // colNo
       "frequencygrid", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/shared/siglib/psdfreqvec.m", // pName
+      "/Applications/MATLAB_R2023b.app/toolbox/shared/siglib/psdfreqvec.m", // pName
       1 // checkKind
   };
   array<double, 2U> w1;
@@ -147,7 +153,7 @@ void psdfreqvec(double varargin_2, double varargin_4,
   half_res = freq_res / 2.0;
   x = rt_remd_snf(varargin_2, 2.0);
   if (std::isnan(x)) {
-    v_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
+    y_rtErrorWithMessageID(jb_emlrtRTEI.fName, jb_emlrtRTEI.lineNo);
   }
   isNPTSodd = (x != 0.0);
   if (isNPTSodd) {
@@ -156,35 +162,38 @@ void psdfreqvec(double varargin_2, double varargin_4,
     x = varargin_2 / 2.0 + 1.0;
   }
   if (std::isnan(rt_remd_snf(x, 2.0))) {
-    v_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
+    y_rtErrorWithMessageID(jb_emlrtRTEI.fName, jb_emlrtRTEI.lineNo);
   }
   if (isNPTSodd) {
     if (x != static_cast<int>(std::floor(x))) {
       rtIntegerError(x, r_emlrtDCI);
     }
     if ((static_cast<int>(x) < 1) || (static_cast<int>(x) > w1.size(1))) {
-      rtDynamicBoundsError(static_cast<int>(x), 1, w1.size(1), y_emlrtBCI);
+      rtDynamicBoundsError(static_cast<int>(x), 1, w1.size(1), ab_emlrtBCI);
     }
     w1[static_cast<int>(x) - 1] = Nyq - half_res;
     if ((static_cast<int>(static_cast<unsigned int>(x) + 1U) < 1) ||
         (static_cast<int>(static_cast<unsigned int>(x) + 1U) > w1.size(1))) {
       rtDynamicBoundsError(static_cast<int>(static_cast<unsigned int>(x) + 1U),
-                           1, w1.size(1), ab_emlrtBCI);
+                           1, w1.size(1), bb_emlrtBCI);
     }
     w1[static_cast<int>(static_cast<unsigned int>(x))] = Nyq + half_res;
   } else {
     if (x != static_cast<int>(std::floor(x))) {
-      rtIntegerError(x, s_emlrtDCI);
+      rtIntegerError(x, t_emlrtDCI);
     }
     if ((static_cast<int>(x) < 1) || (static_cast<int>(x) > w1.size(1))) {
-      rtDynamicBoundsError(static_cast<int>(x), 1, w1.size(1), cb_emlrtBCI);
+      rtDynamicBoundsError(static_cast<int>(x), 1, w1.size(1), db_emlrtBCI);
     }
     w1[static_cast<int>(x) - 1] = Nyq;
+  }
+  if (varargin_2 != static_cast<int>(std::floor(varargin_2))) {
+    rtIntegerError(varargin_2, s_emlrtDCI);
   }
   if ((static_cast<int>(varargin_2) < 1) ||
       (static_cast<int>(varargin_2) > w1.size(1))) {
     rtDynamicBoundsError(static_cast<int>(varargin_2), 1, w1.size(1),
-                         bb_emlrtBCI);
+                         cb_emlrtBCI);
   }
   w1[static_cast<int>(varargin_2) - 1] = Fs1 - freq_res;
   w.set_size(w1.size(1));

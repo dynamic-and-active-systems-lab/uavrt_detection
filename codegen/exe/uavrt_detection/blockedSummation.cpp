@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: blockedSummation.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -16,12 +16,12 @@
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<double, 1U> &x
+// Arguments    : const array<double, 1U> &x
 //                int vlen
 // Return Type  : double
 //
 namespace coder {
-double blockedSummation(const ::coder::array<double, 1U> &x, int vlen)
+double blockedSummation(const array<double, 1U> &x, int vlen)
 {
   double y;
   if ((x.size(0) == 0) || (vlen == 0)) {
@@ -68,13 +68,12 @@ double blockedSummation(const ::coder::array<double, 1U> &x, int vlen)
 }
 
 //
-// Arguments    : const ::coder::array<double, 1U> &x
+// Arguments    : const array<double, 1U> &x
 //                int vlen
 //                int &counts
 // Return Type  : double
 //
-double colMajorFlatIter(const ::coder::array<double, 1U> &x, int vlen,
-                        int &counts)
+double colMajorFlatIter(const array<double, 1U> &x, int vlen, int &counts)
 {
   double bsum;
   double y;

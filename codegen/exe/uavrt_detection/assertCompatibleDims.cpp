@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: assertCompatibleDims.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -18,18 +18,18 @@
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<double, 2U> &x
-//                const ::coder::array<double, 2U> &y
+// Arguments    : const array<double, 2U> &x
+//                const array<double, 2U> &y
 // Return Type  : void
 //
 namespace coder {
 namespace internal {
-void assertCompatibleDims(const ::coder::array<double, 2U> &x,
-                          const ::coder::array<double, 2U> &y)
+void assertCompatibleDims(const array<double, 2U> &x,
+                          const array<double, 2U> &y)
 {
   if (((x.size(0) != 1) && (y.size(0) != 1) && (x.size(0) != y.size(0))) ||
       ((x.size(1) != 1) && (y.size(1) != 1) && (x.size(1) != y.size(1)))) {
-    y_rtErrorWithMessageID(kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
+    cb_rtErrorWithMessageID(mb_emlrtRTEI.fName, mb_emlrtRTEI.lineNo);
   }
 }
 

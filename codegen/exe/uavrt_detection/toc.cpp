@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: toc.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -35,14 +35,14 @@ double toc()
     freq_not_empty = true;
     status = coderInitTimeFunctions(&freq);
     if (status != 0) {
-      rtErrorWithMessageID(std::string(&cv1[0], 22), status, lb_emlrtRTEI.fName,
-                           lb_emlrtRTEI.lineNo);
+      rtErrorWithMessageID(std::string(&cv1[0], 22), status, nb_emlrtRTEI.fName,
+                           nb_emlrtRTEI.lineNo);
     }
   }
   status = coderTimeClockGettimeMonotonic(&b_timespec, freq);
   if (status != 0) {
-    rtErrorWithMessageID(std::string(&cv2[0], 30), status, lb_emlrtRTEI.fName,
-                         lb_emlrtRTEI.lineNo);
+    rtErrorWithMessageID(std::string(&cv2[0], 30), status, nb_emlrtRTEI.fName,
+                         nb_emlrtRTEI.lineNo);
   }
   return (b_timespec.tv_sec - tstart_tv_sec) +
          (b_timespec.tv_nsec - tstart_tv_nsec) / 1.0E+9;

@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: mean.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -21,12 +21,12 @@
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<double, 2U> &x
-//                ::coder::array<double, 1U> &y
+// Arguments    : const array<double, 2U> &x
+//                array<double, 1U> &y
 // Return Type  : void
 //
 namespace coder {
-void mean(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y)
+void mean(const array<double, 2U> &x, array<double, 1U> &y)
 {
   array<double, 1U> bsum;
   array<int, 1U> counts;
@@ -132,7 +132,7 @@ void mean(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y)
     bsum[xblockoffset] = counts[xblockoffset];
   }
   if ((y.size(0) != 1) && (bsum.size(0) != 1) && (y.size(0) != bsum.size(0))) {
-    y_rtErrorWithMessageID(kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
+    cb_rtErrorWithMessageID(mb_emlrtRTEI.fName, mb_emlrtRTEI.lineNo);
   }
   if (y.size(0) == bsum.size(0)) {
     firstBlockLength = y.size(0);

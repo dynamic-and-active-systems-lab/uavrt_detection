@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: AsyncBuffercgHelper.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -23,7 +23,7 @@ static rtRunTimeErrorInfo t_emlrtRTEI{
     473,                                         // lineNo
     13,                                          // colNo
     "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "/Applications/MATLAB_R2023b.app/toolbox/dsp/dsp/+dsp/+internal/"
     "AsyncBuffercgHelper.m" // pName
 };
 
@@ -32,7 +32,7 @@ static rtEqualityCheckInfo b_emlrtECI{
     462,                                         // lineNo
     17,                                          // colNo
     "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "/Applications/MATLAB_R2023b.app/toolbox/dsp/dsp/+dsp/+internal/"
     "AsyncBuffercgHelper.m" // pName
 };
 
@@ -43,7 +43,7 @@ static rtBoundsCheckInfo b_emlrtBCI{
     50,                                          // colNo
     "",                                          // aName
     "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "/Applications/MATLAB_R2023b.app/toolbox/dsp/dsp/+dsp/+internal/"
     "AsyncBuffercgHelper.m", // pName
     0                        // checkKind
 };
@@ -55,7 +55,7 @@ static rtBoundsCheckInfo c_emlrtBCI{
     21,                                          // colNo
     "",                                          // aName
     "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "/Applications/MATLAB_R2023b.app/toolbox/dsp/dsp/+dsp/+internal/"
     "AsyncBuffercgHelper.m", // pName
     0                        // checkKind
 };
@@ -64,19 +64,19 @@ static rtDoubleCheckInfo emlrtDCI{
     463,                                         // lineNo
     27,                                          // colNo
     "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "/Applications/MATLAB_R2023b.app/toolbox/dsp/dsp/+dsp/+internal/"
     "AsyncBuffercgHelper.m", // pName
     4                        // checkKind
 };
 
-static rtBoundsCheckInfo s_emlrtBCI{
+static rtBoundsCheckInfo t_emlrtBCI{
     1,                                           // iFirst
     5800321,                                     // iLast
     457,                                         // lineNo
     29,                                          // colNo
     "",                                          // aName
     "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "/Applications/MATLAB_R2023b.app/toolbox/dsp/dsp/+dsp/+internal/"
     "AsyncBuffercgHelper.m", // pName
     0                        // checkKind
 };
@@ -86,30 +86,30 @@ static rtEqualityCheckInfo f_emlrtECI{
     469,                                         // lineNo
     21,                                          // colNo
     "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "/Applications/MATLAB_R2023b.app/toolbox/dsp/dsp/+dsp/+internal/"
     "AsyncBuffercgHelper.m" // pName
-};
-
-static rtBoundsCheckInfo t_emlrtBCI{
-    -1,                                          // iFirst
-    -1,                                          // iLast
-    469,                                         // lineNo
-    33,                                          // colNo
-    "",                                          // aName
-    "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
-    "AsyncBuffercgHelper.m", // pName
-    0                        // checkKind
 };
 
 static rtBoundsCheckInfo u_emlrtBCI{
     -1,                                          // iFirst
     -1,                                          // iLast
     469,                                         // lineNo
+    33,                                          // colNo
+    "",                                          // aName
+    "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
+    "/Applications/MATLAB_R2023b.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "AsyncBuffercgHelper.m", // pName
+    0                        // checkKind
+};
+
+static rtBoundsCheckInfo v_emlrtBCI{
+    -1,                                          // iFirst
+    -1,                                          // iLast
+    469,                                         // lineNo
     25,                                          // colNo
     "",                                          // aName
     "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "/Applications/MATLAB_R2023b.app/toolbox/dsp/dsp/+dsp/+internal/"
     "AsyncBuffercgHelper.m", // pName
     0                        // checkKind
 };
@@ -118,7 +118,7 @@ static rtDoubleCheckInfo l_emlrtDCI{
     470,                                         // lineNo
     31,                                          // colNo
     "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "/Applications/MATLAB_R2023b.app/toolbox/dsp/dsp/+dsp/+internal/"
     "AsyncBuffercgHelper.m", // pName
     4                        // checkKind
 };
@@ -127,7 +127,7 @@ static rtDoubleCheckInfo m_emlrtDCI{
     467,                                         // lineNo
     21,                                          // colNo
     "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+    "/Applications/MATLAB_R2023b.app/toolbox/dsp/dsp/+dsp/+internal/"
     "AsyncBuffercgHelper.m", // pName
     4                        // checkKind
 };
@@ -136,7 +136,7 @@ static rtDoubleCheckInfo m_emlrtDCI{
 //
 // Arguments    : const c_AsyncBuffercgHelper *obj
 //                int numRowsCast
-//                ::coder::array<creal32_T, 1U> &out
+//                array<creal32_T, 1U> &out
 //                int &c
 // Return Type  : int
 //
@@ -145,16 +145,16 @@ namespace dsp {
 namespace internal {
 int c_AsyncBuffercgHelper::ReadSamplesFromBuffer(
     const c_AsyncBuffercgHelper *obj, int numRowsCast,
-    ::coder::array<creal32_T, 1U> &out, int &c)
+    array<creal32_T, 1U> &out, int &c)
 {
-  static rtBoundsCheckInfo y_emlrtBCI{
+  static rtBoundsCheckInfo ab_emlrtBCI{
       1,                                           // iFirst
       600651,                                      // iLast
       457,                                         // lineNo
       29,                                          // colNo
       "",                                          // aName
       "AsyncBuffercgHelper/ReadSamplesFromBuffer", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/dsp/dsp/+dsp/+internal/"
+      "/Applications/MATLAB_R2023b.app/toolbox/dsp/dsp/+dsp/+internal/"
       "AsyncBuffercgHelper.m", // pName
       0                        // checkKind
   };
@@ -225,7 +225,7 @@ int c_AsyncBuffercgHelper::ReadSamplesFromBuffer(
     boolean_T b;
     b = ((y[k] < 1) || (y[k] > 600651));
     if (b) {
-      rtDynamicBoundsError(y[k], 1, 600651, y_emlrtBCI);
+      rtDynamicBoundsError(y[k], 1, 600651, ab_emlrtBCI);
     }
     out[k].re = obj->Cache[y[k] - 1].re;
     out[k].im = obj->Cache[y[k] - 1].im;
@@ -270,13 +270,14 @@ int c_AsyncBuffercgHelper::ReadSamplesFromBuffer(
 //
 // Arguments    : const AsyncBuffercgHelper *obj
 //                int numRowsCast
-//                ::coder::array<creal32_T, 1U> &out
+//                array<creal32_T, 1U> &out
 //                int &c
 // Return Type  : int
 //
-int AsyncBuffercgHelper::ReadSamplesFromBuffer(
-    const AsyncBuffercgHelper *obj, int numRowsCast,
-    ::coder::array<creal32_T, 1U> &out, int &c)
+int AsyncBuffercgHelper::ReadSamplesFromBuffer(const AsyncBuffercgHelper *obj,
+                                               int numRowsCast,
+                                               array<creal32_T, 1U> &out,
+                                               int &c)
 {
   array<int, 2U> b_y;
   array<int, 2U> readIdx;
@@ -351,7 +352,7 @@ int AsyncBuffercgHelper::ReadSamplesFromBuffer(
     boolean_T b;
     b = ((readIdx[k] < 1) || (readIdx[k] > 5800321));
     if (b) {
-      rtDynamicBoundsError(readIdx[k], 1, 5800321, s_emlrtBCI);
+      rtDynamicBoundsError(readIdx[k], 1, 5800321, t_emlrtBCI);
     }
     out[k].re = obj->Cache[readIdx[k] - 1].re;
     out[k].im = obj->Cache[readIdx[k] - 1].im;
@@ -396,13 +397,13 @@ int AsyncBuffercgHelper::ReadSamplesFromBuffer(
 //
 // Arguments    : const b_AsyncBuffercgHelper *obj
 //                int numRowsCast
-//                ::coder::array<double, 1U> &out
+//                array<double, 1U> &out
 //                int &c
 // Return Type  : int
 //
 int b_AsyncBuffercgHelper::ReadSamplesFromBuffer(
-    const b_AsyncBuffercgHelper *obj, int numRowsCast,
-    ::coder::array<double, 1U> &out, int &c)
+    const b_AsyncBuffercgHelper *obj, int numRowsCast, array<double, 1U> &out,
+    int &c)
 {
   array<int, 2U> b_y;
   array<int, 2U> readIdx;
@@ -474,7 +475,7 @@ int b_AsyncBuffercgHelper::ReadSamplesFromBuffer(
   n = readIdx.size(1);
   for (yk = 0; yk < n; yk++) {
     if ((readIdx[yk] < 1) || (readIdx[yk] > 5800321)) {
-      rtDynamicBoundsError(readIdx[yk], 1, 5800321, s_emlrtBCI);
+      rtDynamicBoundsError(readIdx[yk], 1, 5800321, t_emlrtBCI);
     }
     out[yk] = obj->Cache[readIdx[yk] - 1];
   }
@@ -691,14 +692,15 @@ void AsyncBuffercgHelper::releaseWrapper()
 // Arguments    : const AsyncBuffercgHelper &obj
 //                int numRowsCast
 //                int overlapCast
-//                ::coder::array<creal32_T, 1U> &out
+//                array<creal32_T, 1U> &out
 //                int &overlapUnderrun
 //                int &c
 // Return Type  : int
 //
-int AsyncBuffercgHelper::ReadSamplesFromBuffer(
-    const AsyncBuffercgHelper &obj, int numRowsCast, int overlapCast,
-    ::coder::array<creal32_T, 1U> &out, int &overlapUnderrun, int &c)
+int AsyncBuffercgHelper::ReadSamplesFromBuffer(const AsyncBuffercgHelper &obj,
+                                               int numRowsCast, int overlapCast,
+                                               array<creal32_T, 1U> &out,
+                                               int &overlapUnderrun, int &c)
 {
   array<int, 2U> b_y;
   array<int, 2U> readIdx;
@@ -858,7 +860,7 @@ int AsyncBuffercgHelper::ReadSamplesFromBuffer(
     boolean_T b;
     b = ((readIdx[yk] < 1) || (readIdx[yk] > 5800321));
     if (b) {
-      rtDynamicBoundsError(readIdx[yk], 1, 5800321, s_emlrtBCI);
+      rtDynamicBoundsError(readIdx[yk], 1, 5800321, t_emlrtBCI);
     }
     out[yk].re = obj.Cache[readIdx[yk] - 1].re;
     out[yk].im = obj.Cache[readIdx[yk] - 1].im;
@@ -908,10 +910,10 @@ int AsyncBuffercgHelper::ReadSamplesFromBuffer(
         yk = 0;
       } else {
         if (readIdx.size(1) < 1) {
-          rtDynamicBoundsError(1, 1, readIdx.size(1), u_emlrtBCI);
+          rtDynamicBoundsError(1, 1, readIdx.size(1), v_emlrtBCI);
         }
         if (overlapUnderrun > readIdx.size(1)) {
-          rtDynamicBoundsError(overlapUnderrun, 1, readIdx.size(1), t_emlrtBCI);
+          rtDynamicBoundsError(overlapUnderrun, 1, readIdx.size(1), u_emlrtBCI);
         }
         yk = overlapUnderrun;
       }
@@ -935,14 +937,14 @@ int AsyncBuffercgHelper::ReadSamplesFromBuffer(
 // Arguments    : const b_AsyncBuffercgHelper &obj
 //                int numRowsCast
 //                int overlapCast
-//                ::coder::array<double, 1U> &out
+//                array<double, 1U> &out
 //                int &overlapUnderrun
 //                int &c
 // Return Type  : int
 //
 int b_AsyncBuffercgHelper::ReadSamplesFromBuffer(
     const b_AsyncBuffercgHelper &obj, int numRowsCast, int overlapCast,
-    ::coder::array<double, 1U> &out, int &overlapUnderrun, int &c)
+    array<double, 1U> &out, int &overlapUnderrun, int &c)
 {
   array<int, 2U> b_y;
   array<int, 2U> readIdx;
@@ -1147,7 +1149,7 @@ int b_AsyncBuffercgHelper::ReadSamplesFromBuffer(
   q0 = readIdx.size(1);
   for (n = 0; n < q0; n++) {
     if ((readIdx[n] < 1) || (readIdx[n] > 5800321)) {
-      rtDynamicBoundsError(readIdx[n], 1, 5800321, s_emlrtBCI);
+      rtDynamicBoundsError(readIdx[n], 1, 5800321, t_emlrtBCI);
     }
     out[n] = obj.Cache[readIdx[n] - 1];
   }
@@ -1193,10 +1195,10 @@ int b_AsyncBuffercgHelper::ReadSamplesFromBuffer(
         n = 0;
       } else {
         if (readIdx.size(1) < 1) {
-          rtDynamicBoundsError(1, 1, readIdx.size(1), u_emlrtBCI);
+          rtDynamicBoundsError(1, 1, readIdx.size(1), v_emlrtBCI);
         }
         if (overlapUnderrun > readIdx.size(1)) {
-          rtDynamicBoundsError(overlapUnderrun, 1, readIdx.size(1), t_emlrtBCI);
+          rtDynamicBoundsError(overlapUnderrun, 1, readIdx.size(1), u_emlrtBCI);
         }
         n = overlapUnderrun;
       }
@@ -1271,10 +1273,10 @@ AsyncBuffercgHelper::~AsyncBuffercgHelper()
 
 //
 // Arguments    : int numRows
-//                ::coder::array<creal32_T, 1U> &out
+//                array<creal32_T, 1U> &out
 // Return Type  : int
 //
-int c_AsyncBuffercgHelper::read(int numRows, ::coder::array<creal32_T, 1U> &out)
+int c_AsyncBuffercgHelper::read(int numRows, array<creal32_T, 1U> &out)
 {
   array<creal32_T, 1U> b_out;
   int c;
@@ -1315,10 +1317,10 @@ int c_AsyncBuffercgHelper::read(int numRows, ::coder::array<creal32_T, 1U> &out)
 
 //
 // Arguments    : int numRows
-//                ::coder::array<creal32_T, 1U> &out
+//                array<creal32_T, 1U> &out
 // Return Type  : int
 //
-int AsyncBuffercgHelper::read(int numRows, ::coder::array<creal32_T, 1U> &out)
+int AsyncBuffercgHelper::read(int numRows, array<creal32_T, 1U> &out)
 {
   array<creal32_T, 1U> b_out;
   int c;
@@ -1359,10 +1361,10 @@ int AsyncBuffercgHelper::read(int numRows, ::coder::array<creal32_T, 1U> &out)
 
 //
 // Arguments    : int numRows
-//                ::coder::array<double, 1U> &out
+//                array<double, 1U> &out
 // Return Type  : int
 //
-int b_AsyncBuffercgHelper::read(int numRows, ::coder::array<double, 1U> &out)
+int b_AsyncBuffercgHelper::read(int numRows, array<double, 1U> &out)
 {
   array<double, 1U> b_out;
   int c;
@@ -1403,10 +1405,9 @@ int b_AsyncBuffercgHelper::read(int numRows, ::coder::array<double, 1U> &out)
 
 //
 // Arguments    : const creal32_T in_data[]
-//                int in_size
 // Return Type  : int
 //
-int c_AsyncBuffercgHelper::stepImpl(const creal32_T in_data[], int in_size)
+int c_AsyncBuffercgHelper::stepImpl(const creal32_T in_data[])
 {
   array<int, 2U> b_y;
   array<int, 2U> c_y;
@@ -1488,7 +1489,8 @@ int c_AsyncBuffercgHelper::stepImpl(const creal32_T in_data[], int in_size)
     }
     r[yk] = y[yk] - 1;
   }
-  rtSubAssignSizeCheck(r.size(), 1, &in_size, 1, e_emlrtECI);
+  yk = 1023;
+  rtSubAssignSizeCheck(r.size(), 1, &yk, 1, e_emlrtECI);
   for (yk = 0; yk < 1023; yk++) {
     Cache[r[yk]] = in_data[yk];
   }

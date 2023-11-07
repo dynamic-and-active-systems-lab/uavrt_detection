@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: str2double.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef STR2DOUBLE_H
@@ -20,7 +20,7 @@
 // Function Declarations
 namespace coder {
 namespace internal {
-creal_T str2double(const ::coder::array<char, 2U> &s);
+creal_T str2double(const array<char, 2U> &s);
 
 }
 } // namespace coder

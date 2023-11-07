@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: computeDFT.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef COMPUTEDFT_H
@@ -19,9 +19,8 @@
 
 // Function Declarations
 namespace coder {
-void computeDFT(const ::coder::array<creal32_T, 2U> &xin, double nfft,
-                double varargin_1, ::coder::array<creal32_T, 2U> &Xx,
-                ::coder::array<double, 1U> &f);
+void computeDFT(const array<creal32_T, 2U> &xin, double nfft, double varargin_1,
+                array<creal32_T, 2U> &Xx, array<double, 1U> &f);
 
 }
 

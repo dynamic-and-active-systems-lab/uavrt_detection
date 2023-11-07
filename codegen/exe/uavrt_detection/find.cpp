@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: find.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -25,55 +25,17 @@ static rtRunTimeErrorInfo h_emlrtRTEI{
     81,         // lineNo
     1,          // colNo
     "eml_find", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/elmat/find.m" // pName
+    "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elmat/find.m" // pName
 };
 
 static rtRunTimeErrorInfo i_emlrtRTEI{
     392,                  // lineNo
     1,                    // colNo
     "find_first_indices", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/elmat/find.m" // pName
+    "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elmat/find.m" // pName
 };
 
 // Function Definitions
-//
-// Arguments    : int in1_data[]
-//                const coder::array<double, 1U> &in2
-//                int in3
-//                int in4
-//                int in5
-//                const waveform *in6
-//                int in7
-//                int in8
-//                int in9
-// Return Type  : int
-//
-int binary_expand_op(int in1_data[], const coder::array<double, 1U> &in2,
-                     int in3, int in4, int in5, const waveform *in6, int in7,
-                     int in8, int in9)
-{
-  coder::array<boolean_T, 1U> b_in2;
-  int i;
-  int loop_ub;
-  int stride_0_0;
-  int stride_1_0;
-  i = div_s32((in9 - in7) + 1, in8) + 1;
-  stride_0_0 = div_s32((in5 - in3) + 1, in4) + 1;
-  if (i == 1) {
-    loop_ub = stride_0_0;
-  } else {
-    loop_ub = i;
-  }
-  b_in2.set_size(loop_ub);
-  stride_0_0 = (stride_0_0 != 1);
-  stride_1_0 = (i != 1);
-  for (i = 0; i < loop_ub; i++) {
-    b_in2[i] = (in2[(in3 + in4 * (i * stride_0_0)) - 1] <
-                in6->thresh.threshVecFine[(in7 + in8 * (i * stride_1_0)) - 1]);
-  }
-  return coder::c_eml_find(b_in2, in1_data);
-}
-
 //
 // Arguments    : int in1_data[]
 //                const coder::array<double, 1U> &in2
@@ -84,8 +46,8 @@ int binary_expand_op(int in1_data[], const coder::array<double, 1U> &in2,
 //                int in7
 // Return Type  : int
 //
-int binary_expand_op(int in1_data[], const coder::array<double, 1U> &in2,
-                     int in3, int in4, const waveform *in5, int in6, int in7)
+int binary_expand_op_2(int in1_data[], const coder::array<double, 1U> &in2,
+                       int in3, int in4, const waveform *in5, int in6, int in7)
 {
   coder::array<boolean_T, 1U> b_in2;
   int i;
@@ -110,13 +72,50 @@ int binary_expand_op(int in1_data[], const coder::array<double, 1U> &in2,
 }
 
 //
-// Arguments    : const ::coder::array<boolean_T, 2U> &x
-//                ::coder::array<int, 2U> &i
+// Arguments    : int in1_data[]
+//                const coder::array<double, 1U> &in2
+//                int in3
+//                int in4
+//                int in5
+//                const waveform *in6
+//                int in7
+//                int in8
+//                int in9
+// Return Type  : int
+//
+int binary_expand_op_3(int in1_data[], const coder::array<double, 1U> &in2,
+                       int in3, int in4, int in5, const waveform *in6, int in7,
+                       int in8, int in9)
+{
+  coder::array<boolean_T, 1U> b_in2;
+  int i;
+  int loop_ub;
+  int stride_0_0;
+  int stride_1_0;
+  i = div_s32((in9 - in7) + 1, in8) + 1;
+  stride_0_0 = div_s32((in5 - in3) + 1, in4) + 1;
+  if (i == 1) {
+    loop_ub = stride_0_0;
+  } else {
+    loop_ub = i;
+  }
+  b_in2.set_size(loop_ub);
+  stride_0_0 = (stride_0_0 != 1);
+  stride_1_0 = (i != 1);
+  for (i = 0; i < loop_ub; i++) {
+    b_in2[i] = (in2[(in3 + in4 * (i * stride_0_0)) - 1] <
+                in6->thresh.threshVecFine[(in7 + in8 * (i * stride_1_0)) - 1]);
+  }
+  return coder::c_eml_find(b_in2, in1_data);
+}
+
+//
+// Arguments    : const array<boolean_T, 2U> &x
+//                array<int, 2U> &i
 // Return Type  : void
 //
 namespace coder {
-void b_eml_find(const ::coder::array<boolean_T, 2U> &x,
-                ::coder::array<int, 2U> &i)
+void b_eml_find(const array<boolean_T, 2U> &x, array<int, 2U> &i)
 {
   int idx;
   int ii;
@@ -159,11 +158,11 @@ void b_eml_find(const ::coder::array<boolean_T, 2U> &x,
 }
 
 //
-// Arguments    : const ::coder::array<boolean_T, 1U> &x
+// Arguments    : const array<boolean_T, 1U> &x
 //                int i_data[]
 // Return Type  : int
 //
-int c_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[])
+int c_eml_find(const array<boolean_T, 1U> &x, int i_data[])
 {
   int i_size;
   int idx;
@@ -206,17 +205,17 @@ int c_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[])
 }
 
 //
-// Arguments    : const ::coder::array<boolean_T, 1U> &x
+// Arguments    : const array<boolean_T, 1U> &x
 //                int i_data[]
 // Return Type  : int
 //
-int d_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[])
+int d_eml_find(const array<boolean_T, 1U> &x, int i_data[])
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       447,                 // lineNo
       1,                   // colNo
       "find_last_indices", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/elmat/find.m" // pName
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elmat/find.m" // pName
   };
   int i_size;
   int idx;
@@ -239,7 +238,7 @@ int d_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[])
     }
   }
   if (idx > i_size) {
-    i_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   }
   if (i_size == 1) {
     if (idx == 0) {
@@ -257,25 +256,24 @@ int d_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[])
 
 //
 // Arguments    : const sparse &x
-//                ::coder::array<int, 1U> &i
-//                ::coder::array<int, 1U> &j
+//                array<int, 1U> &i
+//                array<int, 1U> &j
 // Return Type  : void
 //
-void e_eml_find(const sparse &x, ::coder::array<int, 1U> &i,
-                ::coder::array<int, 1U> &j)
+void e_eml_find(const sparse &x, array<int, 1U> &i, array<int, 1U> &j)
 {
   static rtDoubleCheckInfo r_emlrtDCI{
       195,                           // lineNo
       30,                            // colNo
       "find_first_nonempty_triples", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/elmat/find.m", // pName
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elmat/find.m", // pName
       4 // checkKind
   };
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       239,                           // lineNo
       1,                             // colNo
       "find_first_nonempty_triples", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/elmat/find.m" // pName
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elmat/find.m" // pName
   };
   array<double, 1U> v;
   int nx;
@@ -316,7 +314,7 @@ void e_eml_find(const sparse &x, ::coder::array<int, 1U> &i,
       }
     }
     if (idx > nx_tmp - 1) {
-      i_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+      i_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
     }
     if (nx_tmp - 1 == 1) {
       if (idx == 0) {
@@ -325,36 +323,29 @@ void e_eml_find(const sparse &x, ::coder::array<int, 1U> &i,
       }
     } else {
       int iv[2];
-      if (idx < 1) {
-        nx = 0;
-      } else {
-        nx = idx;
-      }
       iv[0] = 1;
-      iv[1] = nx;
+      iv[1] = idx;
       internal::indexShapeCheck(i.size(0), iv);
-      i.set_size(nx);
+      i.set_size(idx);
       iv[0] = 1;
-      iv[1] = nx;
+      iv[1] = idx;
       internal::indexShapeCheck(j.size(0), iv);
-      j.set_size(nx);
+      j.set_size(idx);
       iv[0] = 1;
-      iv[1] = nx;
+      iv[1] = idx;
       internal::indexShapeCheck(v.size(0), iv);
     }
   }
 }
 
 //
-// Arguments    : const ::coder::array<boolean_T, 2U> &x
+// Arguments    : const array<boolean_T, 2U> &x
 //                int i_data[]
 //                int i_size[2]
 // Return Type  : void
 //
-void eml_find(const ::coder::array<boolean_T, 2U> &x, int i_data[],
-              int i_size[2])
+void eml_find(const array<boolean_T, 2U> &x, int i_data[], int i_size[2])
 {
-  array<int, 2U> i;
   int idx;
   int ii;
   int k;
@@ -364,7 +355,8 @@ void eml_find(const ::coder::array<boolean_T, 2U> &x, int i_data[],
     i_rtErrorWithMessageID(h_emlrtRTEI.fName, h_emlrtRTEI.lineNo);
   }
   idx = 0;
-  i.set_size(1, k);
+  i_size[0] = 1;
+  i_size[1] = k;
   if (x.size(1) > 2147483646) {
     check_forloop_overflow_error();
   }
@@ -372,13 +364,9 @@ void eml_find(const ::coder::array<boolean_T, 2U> &x, int i_data[],
   exitg1 = false;
   while ((!exitg1) && (ii <= x.size(1) - 1)) {
     if (x[ii]) {
-      idx++;
-      i[idx - 1] = ii + 1;
-      if (idx >= k) {
-        exitg1 = true;
-      } else {
-        ii++;
-      }
+      idx = 1;
+      i_data[0] = ii + 1;
+      exitg1 = true;
     } else {
       ii++;
     }
@@ -388,16 +376,11 @@ void eml_find(const ::coder::array<boolean_T, 2U> &x, int i_data[],
   }
   if (k == 1) {
     if (idx == 0) {
-      i.set_size(1, 0);
+      i_size[0] = 1;
+      i_size[1] = 0;
     }
   } else {
-    i.set_size(i.size(0), static_cast<int>(idx >= 1));
-  }
-  i_size[0] = 1;
-  i_size[1] = i.size(1);
-  k = i.size(1);
-  if (k - 1 >= 0) {
-    i_data[0] = i[0];
+    i_size[1] = (idx >= 1);
   }
 }
 

@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: interp1.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -26,30 +26,28 @@
 
 // Function Declarations
 namespace coder {
-static void interp1Linear(const ::coder::array<double, 1U> &y, int nyrows,
-                          const ::coder::array<double, 1U> &xi,
-                          ::coder::array<double, 1U> &yi,
-                          const ::coder::array<double, 1U> &varargin_1);
+static void interp1Linear(const array<double, 1U> &y, int nyrows,
+                          const array<double, 1U> &xi, array<double, 1U> &yi,
+                          const array<double, 1U> &varargin_1);
 
 }
-static void ub_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void xb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-static void vb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void yb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<double, 1U> &y
+// Arguments    : const array<double, 1U> &y
 //                int nyrows
-//                const ::coder::array<double, 1U> &xi
-//                ::coder::array<double, 1U> &yi
-//                const ::coder::array<double, 1U> &varargin_1
+//                const array<double, 1U> &xi
+//                array<double, 1U> &yi
+//                const array<double, 1U> &varargin_1
 // Return Type  : void
 //
 namespace coder {
-static void interp1Linear(const ::coder::array<double, 1U> &y, int nyrows,
-                          const ::coder::array<double, 1U> &xi,
-                          ::coder::array<double, 1U> &yi,
-                          const ::coder::array<double, 1U> &varargin_1)
+static void interp1Linear(const array<double, 1U> &y, int nyrows,
+                          const array<double, 1U> &xi, array<double, 1U> &yi,
+                          const array<double, 1U> &varargin_1)
 {
   double d;
   double maxx;
@@ -121,7 +119,7 @@ static void interp1Linear(const ::coder::array<double, 1U> &y, int nyrows,
 // Return Type  : void
 //
 } // namespace coder
-static void ub_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void xb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -142,7 +140,7 @@ static void ub_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void vb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void yb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -159,32 +157,31 @@ static void vb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 }
 
 //
-// Arguments    : const ::coder::array<double, 1U> &varargin_1
-//                const ::coder::array<double, 1U> &varargin_2
-//                const ::coder::array<double, 1U> &varargin_3
-//                ::coder::array<double, 1U> &Vq
+// Arguments    : const array<double, 1U> &varargin_1
+//                const array<double, 1U> &varargin_2
+//                const array<double, 1U> &varargin_3
+//                array<double, 1U> &Vq
 // Return Type  : void
 //
 namespace coder {
-void interp1(const ::coder::array<double, 1U> &varargin_1,
-             const ::coder::array<double, 1U> &varargin_2,
-             const ::coder::array<double, 1U> &varargin_3,
-             ::coder::array<double, 1U> &Vq)
+void interp1(const array<double, 1U> &varargin_1,
+             const array<double, 1U> &varargin_2,
+             const array<double, 1U> &varargin_3, array<double, 1U> &Vq)
 {
   static rtRunTimeErrorInfo
-      tc_emlrtRTEI{
+      wc_emlrtRTEI{
           155,            // lineNo
           15,             // colNo
           "interp1_work", // fName
-          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/polyfun/"
+          "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/polyfun/"
           "interp1.m" // pName
       };
   static rtRunTimeErrorInfo
-      uc_emlrtRTEI{
+      xc_emlrtRTEI{
           139,            // lineNo
           23,             // colNo
           "interp1_work", // fName
-          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/polyfun/"
+          "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/polyfun/"
           "interp1.m" // pName
       };
   array<double, 1U> x;
@@ -204,10 +201,10 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
   }
   nx = varargin_1.size(0);
   if (varargin_1.size(0) != varargin_2.size(0)) {
-    ub_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+    xb_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
   }
   if (varargin_1.size(0) <= 1) {
-    vb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+    yb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   }
   Vq.set_size(varargin_3.size(0));
   n = varargin_3.size(0);
@@ -225,7 +222,7 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
       exitg1 = 0;
       if (k <= nx - 1) {
         if (std::isnan(varargin_1[k])) {
-          gb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+          jb_rtErrorWithMessageID(xb_emlrtRTEI.fName, xb_emlrtRTEI.lineNo);
         } else {
           k++;
         }
@@ -253,7 +250,7 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
         }
         for (k = 2; k <= nx; k++) {
           if (x[k - 1] <= x[k - 2]) {
-            fb_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
+            ib_rtErrorWithMessageID(wb_emlrtRTEI.fName, wb_emlrtRTEI.lineNo);
           }
         }
         interp1Linear(y, varargin_2.size(0), varargin_3, Vq, x);
@@ -265,13 +262,13 @@ void interp1(const ::coder::array<double, 1U> &varargin_1,
 
 //
 // Arguments    : const double y[2]
-//                const ::coder::array<double, 2U> &xi
-//                ::coder::array<double, 2U> &yi
+//                const array<double, 2U> &xi
+//                array<double, 2U> &yi
 //                const double varargin_1[2]
 // Return Type  : void
 //
-void interp1Linear(const double y[2], const ::coder::array<double, 2U> &xi,
-                   ::coder::array<double, 2U> &yi, const double varargin_1[2])
+void interp1Linear(const double y[2], const array<double, 2U> &xi,
+                   array<double, 2U> &yi, const double varargin_1[2])
 {
   double maxx;
   double minx;
@@ -306,12 +303,12 @@ void interp1Linear(const double y[2], const ::coder::array<double, 2U> &xi,
 
 //
 // Arguments    : const double y[2]
-//                const ::coder::array<double, 1U> &xi
-//                ::coder::array<double, 1U> &yi
+//                const array<double, 1U> &xi
+//                array<double, 1U> &yi
 // Return Type  : void
 //
-void interp1Linear(const double y[2], const ::coder::array<double, 1U> &xi,
-                   ::coder::array<double, 1U> &yi)
+void interp1Linear(const double y[2], const array<double, 1U> &xi,
+                   array<double, 1U> &yi)
 {
   int ub_loop;
   if (xi.size(0) > 2147483646) {

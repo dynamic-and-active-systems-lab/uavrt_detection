@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: quickselect.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -16,21 +16,21 @@
 // Function Declarations
 namespace coder {
 namespace internal {
-static int thirdOfFive(const ::coder::array<double, 1U> &v, int ia, int ib);
+static int thirdOfFive(const array<double, 1U> &v, int ia, int ib);
 
 }
 } // namespace coder
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<double, 1U> &v
+// Arguments    : const array<double, 1U> &v
 //                int ia
 //                int ib
 // Return Type  : int
 //
 namespace coder {
 namespace internal {
-static int thirdOfFive(const ::coder::array<double, 1U> &v, int ia, int ib)
+static int thirdOfFive(const array<double, 1U> &v, int ia, int ib)
 {
   int im;
   if ((ia == ib) || (ia + 1 == ib)) {
@@ -124,14 +124,14 @@ static int thirdOfFive(const ::coder::array<double, 1U> &v, int ia, int ib)
 }
 
 //
-// Arguments    : ::coder::array<double, 1U> &v
+// Arguments    : array<double, 1U> &v
 //                int n
 //                int vlen
 //                int &nfirst
 //                int &nlast
 // Return Type  : double
 //
-double quickselect(::coder::array<double, 1U> &v, int n, int vlen, int &nfirst,
+double quickselect(array<double, 1U> &v, int n, int vlen, int &nfirst,
                    int &nlast)
 {
   double vn;
@@ -159,7 +159,7 @@ double quickselect(::coder::array<double, 1U> &v, int n, int vlen, int &nfirst,
     exitg1 = false;
     while ((!exitg1) && (ia + 1 < ib + 1)) {
       double vref;
-      boolean_T guard1{false};
+      boolean_T guard1;
       vref = v[ipiv - 1];
       v[ipiv - 1] = v[ib];
       v[ib] = vref;

@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: sum.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -32,7 +32,7 @@ void sum(const sparse &x, b_sparse &y)
           20,    // lineNo
           1,     // colNo
           "sum", // fName
-          "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/datafun/"
+          "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/datafun/"
           "sum.m", // pName
           4        // checkKind
       };
@@ -149,11 +149,11 @@ void sum(const g_sparse &x, c_sparse &y)
 }
 
 //
-// Arguments    : const ::coder::array<double, 2U> &x
-//                ::coder::array<double, 1U> &y
+// Arguments    : const array<double, 2U> &x
+//                array<double, 1U> &y
 // Return Type  : void
 //
-void sum(const ::coder::array<double, 2U> &x, ::coder::array<double, 1U> &y)
+void sum(const array<double, 2U> &x, array<double, 1U> &y)
 {
   array<double, 1U> bsum;
   if ((x.size(0) == 0) || (x.size(1) == 0)) {

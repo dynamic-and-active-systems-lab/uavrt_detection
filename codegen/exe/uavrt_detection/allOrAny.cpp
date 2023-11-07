@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: allOrAny.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -16,12 +16,12 @@
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<boolean_T, 1U> &x
+// Arguments    : const array<boolean_T, 1U> &x
 // Return Type  : boolean_T
 //
 namespace coder {
 namespace internal {
-boolean_T allOrAny_anonFcn1(const ::coder::array<boolean_T, 1U> &x)
+boolean_T allOrAny_anonFcn1(const array<boolean_T, 1U> &x)
 {
   int ix;
   boolean_T exitg1;

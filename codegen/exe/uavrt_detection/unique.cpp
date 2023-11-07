@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: unique.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -19,19 +19,18 @@
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<double, 2U> &a
-//                ::coder::array<double, 2U> &b
+// Arguments    : const array<double, 2U> &a
+//                array<double, 2U> &b
 // Return Type  : void
 //
 namespace coder {
-void unique_rows(const ::coder::array<double, 2U> &a,
-                 ::coder::array<double, 2U> &b)
+void unique_rows(const array<double, 2U> &a, array<double, 2U> &b)
 {
-  static rtRunTimeErrorInfo tc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       331,           // lineNo
       1,             // colNo
       "unique_rows", // fName
-      "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/ops/unique.m" // pName
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/ops/unique.m" // pName
   };
   array<double, 1U> ycol;
   array<int, 2U> col;
@@ -200,7 +199,7 @@ void unique_rows(const ::coder::array<double, 2U> &a,
       }
     }
     if (p > a.size(0)) {
-      i_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+      i_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
     }
     if (p < 1) {
       i2 = 0;

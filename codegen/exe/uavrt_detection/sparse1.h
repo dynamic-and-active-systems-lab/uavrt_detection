@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: sparse1.h
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 #ifndef SPARSE1_H
@@ -35,15 +35,13 @@ class h_sparse;
 namespace coder {
 class sparse {
 public:
-  static void assertValidIndexArg(const ::coder::array<double, 1U> &s,
-                                  ::coder::array<int, 1U> &sint);
+  static void assertValidIndexArg(const array<double, 1U> &s,
+                                  array<int, 1U> &sint);
   static void eyeLike(int ndiag, int b_m, int b_n, sparse &b_I);
-  void mtimes(const ::coder::array<double, 2U> &a,
-              ::coder::array<double, 2U> &c) const;
+  void mtimes(const array<double, 2U> &a, array<double, 2U> &c) const;
   void logical(f_sparse &y) const;
   void parenReference(g_sparse &s) const;
-  void parenReference(const ::coder::array<double, 1U> &varargin_2,
-                      sparse &s) const;
+  void parenReference(const array<double, 1U> &varargin_2, sparse &s) const;
   void fillIn();
   static void b_realloc(f_sparse *b_this, int numAllocRequested, int ub1,
                         int lb2, int ub2);
@@ -75,7 +73,7 @@ public:
 class d_sparse {
 public:
   void b_not(d_sparse &out) const;
-  void full(::coder::array<boolean_T, 2U> &y) const;
+  void full(array<boolean_T, 2U> &y) const;
   array<boolean_T, 1U> d;
   array<int, 1U> colidx;
   array<int, 1U> rowidx;
@@ -91,21 +89,17 @@ public:
 
 class f_sparse {
 public:
-  void parenReference(const ::coder::array<double, 2U> &varargin_1,
-                      d_sparse &s) const;
-  void mtimes(const ::coder::array<double, 2U> &b,
-              ::coder::array<double, 2U> &c) const;
-  void b_mtimes(const ::coder::array<double, 2U> &a,
-                ::coder::array<double, 2U> &c) const;
-  void parenAssign(const ::coder::array<boolean_T, 1U> &rhs,
-                   const ::coder::array<double, 2U> &varargin_1);
+  void parenReference(const array<double, 2U> &varargin_1, d_sparse &s) const;
+  void mtimes(const array<double, 2U> &b, array<double, 2U> &c) const;
+  void b_mtimes(const array<double, 2U> &a, array<double, 2U> &c) const;
+  void parenAssign(const array<boolean_T, 1U> &rhs,
+                   const array<double, 2U> &varargin_1);
   void parenAssign2D(boolean_T rhs, double r, double c);
-  void b_parenAssign(const ::coder::array<boolean_T, 2U> &rhs,
-                     const ::coder::array<double, 2U> &varargin_1);
-  void c_parenAssign(const h_sparse &rhs,
-                     const ::coder::array<double, 2U> &varargin_1);
-  void c_parenAssign(const ::coder::array<double, 2U> &rhs,
-                     const ::coder::array<double, 2U> &varargin_1);
+  void b_parenAssign(const array<boolean_T, 2U> &rhs,
+                     const array<double, 2U> &varargin_1);
+  void c_parenAssign(const h_sparse &rhs, const array<double, 2U> &varargin_1);
+  void c_parenAssign(const array<double, 2U> &rhs,
+                     const array<double, 2U> &varargin_1);
   array<boolean_T, 1U> d;
   array<int, 1U> colidx;
   array<int, 1U> rowidx;

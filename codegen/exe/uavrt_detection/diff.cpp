@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: diff.cpp
 //
-// MATLAB Coder version            : 5.6
-// C/C++ source code generated on  : 25-Sep-2023 12:08:03
+// MATLAB Coder version            : 23.2
+// C/C++ source code generated on  : 07-Nov-2023 15:12:52
 //
 
 // Include Files
@@ -17,21 +17,21 @@
 #include "coder_array.h"
 
 // Variable Definitions
-static rtRunTimeErrorInfo rb_emlrtRTEI{
+static rtRunTimeErrorInfo ub_emlrtRTEI{
     51,     // lineNo
     19,     // colNo
     "diff", // fName
-    "/Applications/MATLAB_R2023a.app/toolbox/eml/lib/matlab/datafun/diff.m" // pName
+    "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/datafun/diff.m" // pName
 };
 
 // Function Definitions
 //
-// Arguments    : const ::coder::array<double, 1U> &x
-//                ::coder::array<double, 1U> &y
+// Arguments    : const array<double, 1U> &x
+//                array<double, 1U> &y
 // Return Type  : void
 //
 namespace coder {
-void diff(const ::coder::array<double, 1U> &x, ::coder::array<double, 1U> &y)
+void diff(const array<double, 1U> &x, array<double, 1U> &y)
 {
   int dimSize;
   dimSize = x.size(0);
@@ -48,7 +48,7 @@ void diff(const ::coder::array<double, 1U> &x, ::coder::array<double, 1U> &y)
     } else {
       double work_data;
       if (x.size(0) == 1) {
-        u_rtErrorWithMessageID(rb_emlrtRTEI.fName, rb_emlrtRTEI.lineNo);
+        v_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
       }
       y.set_size(x.size(0) - 1);
       work_data = x[0];
@@ -66,11 +66,11 @@ void diff(const ::coder::array<double, 1U> &x, ::coder::array<double, 1U> &y)
 }
 
 //
-// Arguments    : const ::coder::array<double, 2U> &x
-//                ::coder::array<double, 2U> &y
+// Arguments    : const array<double, 2U> &x
+//                array<double, 2U> &y
 // Return Type  : void
 //
-void diff(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U> &y)
+void diff(const array<double, 2U> &x, array<double, 2U> &y)
 {
   int dimSize;
   dimSize = x.size(0);
@@ -87,7 +87,7 @@ void diff(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U> &y)
     } else {
       double work_data;
       if (x.size(0) == 1) {
-        u_rtErrorWithMessageID(rb_emlrtRTEI.fName, rb_emlrtRTEI.lineNo);
+        v_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
       }
       y.set_size(x.size(0) - 1, 1);
       work_data = x[0];
