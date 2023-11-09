@@ -66,7 +66,7 @@ for i = 1:numLines
         tcell = textscan(t_string,'%f,');
         numTimes = numel(tcell{1});
         if numRead == 1
-            t = cell(numSegments);
+            t = cell(numSegments,1);
         end
         try
         t{numRead} = tcell{1};
@@ -89,7 +89,6 @@ for i = 1:numLines
     waitbar(numRead/numSegments,fWait,['Imported ',num2str(numRead),' out of ',num2str(numSegments),' segments.'])
 end
 close(fWait)
-
 
 fclose(fid);
 
