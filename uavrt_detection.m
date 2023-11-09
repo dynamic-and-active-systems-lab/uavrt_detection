@@ -473,8 +473,18 @@ previousToc = toc;
                             X.thresh = X.thresh.makenewthreshold(X);
                         else
                             fprintf('Setting thresholds from previous waveform...\n')
-                             %X.thresh = X.thresh.setthreshold(X,Xhold);
-                             X.thresh = Xhold.thresh;
+                            %Setting the threshold takes too long to run in
+                            %real time if any of the dependent variables
+                            %change so we can't use.
+                            %X.thresh = X.thresh.setthreshold(X,Xhold);
+                            %We also don't want to simply hold the same
+                            %threshold from the last waveform:
+                            %X.thresh = Xhold.thresh;
+                            %We will hold the mu and sigma parameters
+                            %contant (Xhold.thresh1W will be the same as 
+                            %the last segment, but we  update the 
+                            %thresholds as the noise values change.
+                            X.thresh = Xhold.thresh.setthreshprops(Xhold.thresh.thresh1W, X);
                         end
                         fprintf(' \n \t Threshold setting complete. Elapsed time: %f seconds \n', toc - previousToc)
                         
