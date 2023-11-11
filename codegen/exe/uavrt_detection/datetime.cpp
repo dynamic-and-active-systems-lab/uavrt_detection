@@ -5,7 +5,7 @@
 // File: datetime.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 07-Nov-2023 15:12:52
+// C/C++ source code generated on  : 11-Nov-2023 11:31:43
 //
 
 // Include Files
@@ -23,7 +23,7 @@
 #include <string>
 
 // Function Declarations
-static void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void eb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -31,7 +31,7 @@ static void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void eb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -55,7 +55,7 @@ static void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 namespace coder {
 void datetime::init()
 {
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
+  static rtRunTimeErrorInfo vc_emlrtRTEI{
       1,                   // lineNo
       1,                   // colNo
       "createFromDateVec", // fName
@@ -84,10 +84,10 @@ void datetime::init()
         (!(std::ceil(c_tm_mon) == c_tm_mon)) || (!(std::ceil(shi) == shi)) ||
         (!(std::ceil(c_tm_hour) == c_tm_hour)) ||
         (!(std::ceil(c_tm_min) == c_tm_min))) {
-      db_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+      eb_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
     }
     if (std::ceil(b_second) != b_second) {
-      db_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+      eb_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
     }
     if ((c_tm_mon < 1.0) || (c_tm_mon > 12.0)) {
       wholeSecsFromMillis = std::floor((c_tm_mon - 1.0) / 12.0);
@@ -122,9 +122,9 @@ void datetime::init()
     }
     ahi.re = shi;
     ahi.im = check;
-    data = matlab::internal::coder::doubledouble::d_plus(
-        matlab::internal::coder::doubledouble::d_plus(
-            matlab::internal::coder::doubledouble::d_plus(
+    data = matlab::internal::coder::doubledouble::c_plus(
+        matlab::internal::coder::doubledouble::c_plus(
+            matlab::internal::coder::doubledouble::c_plus(
                 ahi, (60.0 * c_tm_hour + c_tm_min) * 60000.0),
             b_second * 1000.0),
         fracSecs);

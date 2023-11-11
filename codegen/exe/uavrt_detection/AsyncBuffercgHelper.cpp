@@ -5,7 +5,7 @@
 // File: AsyncBuffercgHelper.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 07-Nov-2023 15:12:52
+// C/C++ source code generated on  : 11-Nov-2023 11:31:43
 //
 
 // Include Files
@@ -1283,7 +1283,7 @@ int c_AsyncBuffercgHelper::read(int numRows, array<creal32_T, 1U> &out)
   int loop_ub;
   int underrun;
   if (!AsyncBuffercgHelper_isInitialized) {
-    q_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
+    r_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
   }
   underrun =
       c_AsyncBuffercgHelper::ReadSamplesFromBuffer(this, numRows, b_out, c);
@@ -1327,7 +1327,7 @@ int AsyncBuffercgHelper::read(int numRows, array<creal32_T, 1U> &out)
   int loop_ub;
   int underrun;
   if (!AsyncBuffercgHelper_isInitialized) {
-    q_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
+    r_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
   }
   underrun =
       AsyncBuffercgHelper::ReadSamplesFromBuffer(this, numRows, b_out, c);
@@ -1371,7 +1371,7 @@ int b_AsyncBuffercgHelper::read(int numRows, array<double, 1U> &out)
   int loop_ub;
   int underrun;
   if (!AsyncBuffercgHelper_isInitialized) {
-    q_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
+    r_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
   }
   underrun =
       b_AsyncBuffercgHelper::ReadSamplesFromBuffer(this, numRows, b_out, c);

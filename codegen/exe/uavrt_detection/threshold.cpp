@@ -5,7 +5,7 @@
 // File: threshold.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 07-Nov-2023 15:12:52
+// C/C++ source code generated on  : 11-Nov-2023 11:31:43
 //
 
 // Include Files
@@ -39,6 +39,24 @@
 
 // Function Definitions
 //
+// UNTITLED2 Construct an instance of this class
+//    Detailed explanation goes here
+//
+// Arguments    : double b_pf
+// Return Type  : void
+//
+void threshold::init(double b_pf)
+{
+  trials = 100U;
+  pf = b_pf;
+  evMuParam = 0.0;
+  evSigmaParam = 0.0;
+  thresh1W = 0.0;
+  threshVecFine.set_size(1);
+  threshVecFine[0] = 0.0;
+}
+
+//
 // BUILDTHRESHOLD generates a threshold vector for the waveform argument
 // based on the false alarm probability input.
 //
@@ -69,7 +87,7 @@ void threshold::makenewthreshold(const waveform &Wfm)
   static rtBoundsCheckInfo ab_emlrtBCI{
       -1,                                       // iFirst
       -1,                                       // iLast
-      340,                                      // lineNo
+      309,                                      // lineNo
       37,                                       // colNo
       "values",                                 // aName
       "threshold/loadThresholdValuesFromCache", // fName
@@ -80,7 +98,7 @@ void threshold::makenewthreshold(const waveform &Wfm)
   static rtBoundsCheckInfo bb_emlrtBCI{
       -1,                           // iFirst
       -1,                           // iLast
-      164,                          // lineNo
+      165,                          // lineNo
       59,                           // colNo
       "Ssynth",                     // aName
       "threshold/makenewthreshold", // fName
@@ -91,7 +109,7 @@ void threshold::makenewthreshold(const waveform &Wfm)
   static rtBoundsCheckInfo cb_emlrtBCI{
       -1,                           // iFirst
       -1,                           // iLast
-      164,                          // lineNo
+      165,                          // lineNo
       28,                           // colNo
       "scores",                     // aName
       "threshold/makenewthreshold", // fName
@@ -100,122 +118,12 @@ void threshold::makenewthreshold(const waveform &Wfm)
       0                                              // checkKind
   };
   static rtBoundsCheckInfo db_emlrtBCI{
-      -1,                         // iFirst
-      -1,                         // iLast
-      283,                        // lineNo
-      49,                         // colNo
-      "Wfm.stft.f",               // aName
-      "threshold/setthreshprops", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
-      0                                              // checkKind
-  };
-  static rtBoundsCheckInfo eb_emlrtBCI{
-      -1,                         // iFirst
-      -1,                         // iLast
-      297,                        // lineNo
-      44,                         // colNo
-      "newThresh",                // aName
-      "threshold/setthreshprops", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
-      0                                              // checkKind
-  };
-  static rtBoundsCheckInfo fb_emlrtBCI{
       -1,                                       // iFirst
       -1,                                       // iLast
-      341,                                      // lineNo
+      310,                                      // lineNo
       37,                                       // colNo
       "values",                                 // aName
       "threshold/loadThresholdValuesFromCache", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
-      0                                              // checkKind
-  };
-  static rtBoundsCheckInfo gb_emlrtBCI{
-      -1,                         // iFirst
-      -1,                         // iLast
-      283,                        // lineNo
-      63,                         // colNo
-      "Wfm.stft.f",               // aName
-      "threshold/setthreshprops", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
-      0                                              // checkKind
-  };
-  static rtBoundsCheckInfo hb_emlrtBCI{
-      -1,                         // iFirst
-      -1,                         // iLast
-      298,                        // lineNo
-      44,                         // colNo
-      "newThresh",                // aName
-      "threshold/setthreshprops", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
-      0                                              // checkKind
-  };
-  static rtBoundsCheckInfo ib_emlrtBCI{
-      -1,                         // iFirst
-      -1,                         // iLast
-      299,                        // lineNo
-      44,                         // colNo
-      "firstTrueThreshInd",       // aName
-      "threshold/setthreshprops", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
-      0                                              // checkKind
-  };
-  static rtBoundsCheckInfo jb_emlrtBCI{
-      -1,                         // iFirst
-      -1,                         // iLast
-      299,                        // lineNo
-      23,                         // colNo
-      "newThresh",                // aName
-      "threshold/setthreshprops", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
-      0                                              // checkKind
-  };
-  static rtBoundsCheckInfo kb_emlrtBCI{
-      -1,                         // iFirst
-      -1,                         // iLast
-      299,                        // lineNo
-      25,                         // colNo
-      "newThresh",                // aName
-      "threshold/setthreshprops", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
-      0                                              // checkKind
-  };
-  static rtBoundsCheckInfo lb_emlrtBCI{
-      -1,                         // iFirst
-      -1,                         // iLast
-      300,                        // lineNo
-      41,                         // colNo
-      "lastTrueThreshInd",        // aName
-      "threshold/setthreshprops", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
-      0                                              // checkKind
-  };
-  static rtBoundsCheckInfo mb_emlrtBCI{
-      -1,                         // iFirst
-      -1,                         // iLast
-      300,                        // lineNo
-      23,                         // colNo
-      "newThresh",                // aName
-      "threshold/setthreshprops", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
-      0                                              // checkKind
-  };
-  static rtBoundsCheckInfo nb_emlrtBCI{
-      -1,                         // iFirst
-      -1,                         // iLast
-      300,                        // lineNo
-      44,                         // colNo
-      "newThresh",                // aName
-      "threshold/setthreshprops", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
       0                                              // checkKind
@@ -228,22 +136,6 @@ void threshold::makenewthreshold(const waveform &Wfm)
       "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
       1                                              // checkKind
   };
-  static rtEqualityCheckInfo g_emlrtECI{
-      -1,                         // nDims
-      299,                        // lineNo
-      13,                         // colNo
-      "threshold/setthreshprops", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/threshold.m" // pName
-  };
-  static rtEqualityCheckInfo h_emlrtECI{
-      -1,                         // nDims
-      300,                        // lineNo
-      13,                         // colNo
-      "threshold/setthreshprops", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/threshold.m" // pName
-  };
   std::FILE *f;
   coder::b_anonymous_function theFunc;
   coder::sparse Wq;
@@ -252,20 +144,17 @@ void threshold::makenewthreshold(const waveform &Wfm)
   coder::array<creal_T, 2U> b;
   coder::array<creal_T, 2U> xsynth;
   coder::array<creal_T, 2U> y;
-  coder::array<double, 2U> b_scores;
   coder::array<double, 2U> b_y;
   coder::array<double, 2U> r;
   coder::array<double, 1U> b_Wfm;
+  coder::array<double, 1U> bigA;
   coder::array<double, 1U> scores;
   coder::array<double, 1U> tStft;
-  coder::array<double, 1U> values;
   coder::array<int, 2U> b_stftSz;
   coder::array<char, 2U> b_str;
   coder::array<char, 2U> b_varargin_1;
   coder::array<char, 2U> str;
   coder::array<char, 2U> varargin_1;
-  coder::array<boolean_T, 1U> x_tmp;
-  double stftSz[2];
   double nSamps;
   double previousToc;
   double s_im;
@@ -274,9 +163,6 @@ void threshold::makenewthreshold(const waveform &Wfm)
   double varargin_4;
   double varargin_5;
   int i;
-  int ii_data;
-  int inner;
-  int k;
   int loop_ub;
   int n;
   int nbytes;
@@ -326,7 +212,7 @@ void threshold::makenewthreshold(const waveform &Wfm)
     // then fscanf converts each character to its numeric equivalent. This
     // conversion occurs even when the format explicitly skips all numeric
     // values (for example, formatSpec is '%*d %s').
-    values.set_size(0);
+    bigA.set_size(0);
     numRead = 1;
     f = coder::internal::getfilestar(static_cast<double>(fileid),
                                      incompleteRead);
@@ -339,23 +225,23 @@ void threshold::makenewthreshold(const waveform &Wfm)
       }
       incompleteRead = (numRead == 0);
       if (numRead > 0) {
-        i = values.size(0);
-        values.set_size(values.size(0) + 1);
-        values[i] = nSamps;
+        i = bigA.size(0);
+        bigA.set_size(bigA.size(0) + 1);
+        bigA[i] = nSamps;
         incompleteRead = ((numRead < 2) || incompleteRead);
       }
       if (incompleteRead) {
         exitg1 = true;
       }
     }
-    if (values.size(0) < 1) {
-      rtDynamicBoundsError(1, 1, values.size(0), ab_emlrtBCI);
+    if (bigA.size(0) < 1) {
+      rtDynamicBoundsError(1, 1, bigA.size(0), ab_emlrtBCI);
     }
-    nSamps = values[0];
-    if (values.size(0) < 2) {
-      rtDynamicBoundsError(2, 1, values.size(0), fb_emlrtBCI);
+    nSamps = bigA[0];
+    if (bigA.size(0) < 2) {
+      rtDynamicBoundsError(2, 1, bigA.size(0), db_emlrtBCI);
     }
-    s_im = values[1];
+    s_im = bigA[1];
     coder::internal::cfclose(static_cast<double>(fileid));
   } else {
     //  Cache miss
@@ -363,6 +249,8 @@ void threshold::makenewthreshold(const waveform &Wfm)
   evMuParam = nSamps;
   evSigmaParam = s_im;
   if ((nSamps == 0.0) && (s_im == 0.0)) {
+    double stftSz[2];
+    int k;
     unsigned int u;
     //  Mu and Sigma were not available from the cache. We have to generate them
     //  here.
@@ -414,8 +302,7 @@ void threshold::makenewthreshold(const waveform &Wfm)
     for (k = 0; k <= nbytes; k++) {
       b_Wfm[k] = Wfm.stft->wind[k];
     }
-    coder::stft(xsynth, Wfm.Fs, b_Wfm, Wfm.n_ol, Wfm.n_w, Ssynth, values,
-                tStft);
+    coder::stft(xsynth, Wfm.Fs, b_Wfm, Wfm.n_ol, Wfm.n_w, Ssynth, bigA, tStft);
     nbytes = Ssynth.size(1) - i;
     b_stftSz.set_size(1, nbytes);
     for (k = 0; k < nbytes; k++) {
@@ -423,17 +310,17 @@ void threshold::makenewthreshold(const waveform &Wfm)
     }
     coder::internal::nullAssignment(Ssynth, b_stftSz);
     // Trim excess so we have the correct number of windows.
-    values.set_size(tStft.size(0));
+    bigA.set_size(tStft.size(0));
     nbytes = tStft.size(0);
     for (k = 0; k < nbytes; k++) {
-      values[k] = tStft[k];
+      bigA[k] = tStft[k];
     }
     nbytes = tStft.size(0) - i;
     b_stftSz.set_size(1, nbytes);
     for (k = 0; k < nbytes; k++) {
       b_stftSz[k] = (i + k) + 1;
     }
-    coder::internal::nullAssignment(values, b_stftSz);
+    coder::internal::nullAssignment(bigA, b_stftSz);
     nSamps = coder::toc() - previousToc;
     std::printf("complete. Elapsed time: %f seconds \n", nSamps);
     std::fflush(stdout);
@@ -443,7 +330,8 @@ void threshold::makenewthreshold(const waveform &Wfm)
     // Preform the incoherent summation using a matrix multiply.
     // Could use pagetimes.m for this, but it isn't supported for
     // code generation with sparse matrices as of R2023a
-    repetitionrejector(values, serialRejectionMatrix);
+    // [serialRejectionMatrix] = repetitionrejector(tStft, [2 3 5 10]);
+    repetitionrejector(bigA, serialRejectionMatrix);
     if (trials > 4294967294U) {
       coder::b_check_forloop_overflow_error();
     }
@@ -454,6 +342,8 @@ void threshold::makenewthreshold(const waveform &Wfm)
       overflow = (Ssynth.size(1) > 2147483646);
     }
     for (int b_i{0}; b_i < i; b_i++) {
+      int inner;
+      int m;
       xsynth.set_size(Wfm.W.size(0), Wfm.W.size(1));
       nbytes = Wfm.W.size(0) * Wfm.W.size(1);
       for (k = 0; k < nbytes; k++) {
@@ -478,12 +368,12 @@ void threshold::makenewthreshold(const waveform &Wfm)
       if (xsynth.size(0) != Ssynth.size(0)) {
         if (((xsynth.size(0) == 1) && (xsynth.size(1) == 1)) ||
             ((Ssynth.size(0) == 1) && (Ssynth.size(1) == 1))) {
-          bc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+          cc_rtErrorWithMessageID(fc_emlrtRTEI.fName, fc_emlrtRTEI.lineNo);
         } else {
-          rb_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
+          sb_rtErrorWithMessageID(ec_emlrtRTEI.fName, ec_emlrtRTEI.lineNo);
         }
       }
-      ii_data = xsynth.size(1);
+      m = xsynth.size(1);
       inner = xsynth.size(0);
       y.set_size(xsynth.size(1), Ssynth.size(1));
       if (overflow) {
@@ -492,12 +382,12 @@ void threshold::makenewthreshold(const waveform &Wfm)
       for (int j{0}; j < n; j++) {
         int boffset;
         int coffset;
-        coffset = j * ii_data;
+        coffset = j * m;
         boffset = j * Ssynth.size(0);
-        if (ii_data > 2147483646) {
+        if (m > 2147483646) {
           coder::check_forloop_overflow_error();
         }
-        for (int c_i{0}; c_i < ii_data; c_i++) {
+        for (int c_i{0}; c_i < m; c_i++) {
           numRead = c_i * xsynth.size(0);
           nSamps = 0.0;
           s_im = 0.0;
@@ -543,8 +433,8 @@ void threshold::makenewthreshold(const waveform &Wfm)
             static_cast<int>(static_cast<unsigned int>(b_i) + 1U), 1,
             scores.size(0), cb_emlrtBCI);
       }
-      tStft = r.reshape(nbytes);
-      scores[b_i] = coder::internal::unaryMinOrMax_anonFcn1(tStft);
+      bigA = r.reshape(nbytes);
+      scores[b_i] = coder::internal::unaryMinOrMax_anonFcn1(bigA);
       // 'all' call finds max across all temporal correlation sets and frequency
       // bins just like we do in the dectection code.
     }
@@ -615,12 +505,12 @@ void threshold::makenewthreshold(const waveform &Wfm)
       std::fflush(stdout);
     } else {
       if (fileid == 0) {
-        g_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+        g_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
       }
       f = coder::internal::getfilestar(static_cast<double>(fileid),
                                        incompleteRead);
       if (f == nullptr) {
-        c_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+        c_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
       } else {
         std::fprintf(f, "%f\n", stftSz[0]);
         if (incompleteRead) {
@@ -628,12 +518,12 @@ void threshold::makenewthreshold(const waveform &Wfm)
         }
       }
       if (fileid == 0) {
-        g_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+        g_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
       }
       f = coder::internal::getfilestar(static_cast<double>(fileid),
                                        incompleteRead);
       if (f == nullptr) {
-        c_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+        c_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
       } else {
         std::fprintf(f, "%f\n", stftSz[1]);
         if (incompleteRead) {
@@ -704,121 +594,267 @@ void threshold::makenewthreshold(const waveform &Wfm)
   //              obj.threshVecCoarse = newThresh;
   //              obj.threshVecFine   =
   //              interp1(Wfm.stft.f,double(newThresh),Wfm.Wf,'linear','extrap');
-  values.set_size(Wfm.stft->psd.size(0));
-  nbytes = Wfm.stft->psd.size(0);
-  for (i = 0; i < nbytes; i++) {
-    values[i] = Wfm.stft->psd[i];
+  setthreshprops(s_im, Wfm);
+}
+
+//
+// Arguments    : double thresh
+//                const waveform &Wfm
+// Return Type  : void
+//
+void threshold::setthreshprops(double thresh, const waveform &Wfm)
+{
+  static rtBoundsCheckInfo ab_emlrtBCI{
+      -1,                         // iFirst
+      -1,                         // iLast
+      261,                        // lineNo
+      44,                         // colNo
+      "newThresh",                // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
+  };
+  static rtBoundsCheckInfo bb_emlrtBCI{
+      -1,                         // iFirst
+      -1,                         // iLast
+      247,                        // lineNo
+      63,                         // colNo
+      "Wfm.stft.f",               // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
+  };
+  static rtBoundsCheckInfo cb_emlrtBCI{
+      -1,                         // iFirst
+      -1,                         // iLast
+      247,                        // lineNo
+      49,                         // colNo
+      "Wfm.stft.f",               // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
+  };
+  static rtBoundsCheckInfo db_emlrtBCI{
+      -1,                         // iFirst
+      -1,                         // iLast
+      262,                        // lineNo
+      44,                         // colNo
+      "newThresh",                // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
+  };
+  static rtBoundsCheckInfo eb_emlrtBCI{
+      -1,                         // iFirst
+      -1,                         // iLast
+      263,                        // lineNo
+      44,                         // colNo
+      "firstTrueThreshInd",       // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
+  };
+  static rtBoundsCheckInfo fb_emlrtBCI{
+      -1,                         // iFirst
+      -1,                         // iLast
+      263,                        // lineNo
+      23,                         // colNo
+      "newThresh",                // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
+  };
+  static rtBoundsCheckInfo gb_emlrtBCI{
+      -1,                         // iFirst
+      -1,                         // iLast
+      263,                        // lineNo
+      25,                         // colNo
+      "newThresh",                // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
+  };
+  static rtBoundsCheckInfo hb_emlrtBCI{
+      -1,                         // iFirst
+      -1,                         // iLast
+      264,                        // lineNo
+      41,                         // colNo
+      "lastTrueThreshInd",        // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
+  };
+  static rtBoundsCheckInfo ib_emlrtBCI{
+      -1,                         // iFirst
+      -1,                         // iLast
+      264,                        // lineNo
+      23,                         // colNo
+      "newThresh",                // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
+  };
+  static rtBoundsCheckInfo jb_emlrtBCI{
+      -1,                         // iFirst
+      -1,                         // iLast
+      264,                        // lineNo
+      44,                         // colNo
+      "newThresh",                // aName
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
+      0                                              // checkKind
+  };
+  static rtEqualityCheckInfo g_emlrtECI{
+      -1,                         // nDims
+      263,                        // lineNo
+      13,                         // colNo
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m" // pName
+  };
+  static rtEqualityCheckInfo h_emlrtECI{
+      -1,                         // nDims
+      264,                        // lineNo
+      13,                         // colNo
+      "threshold/setthreshprops", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/threshold.m" // pName
+  };
+  coder::array<double, 2U> b_newThresh;
+  coder::array<double, 1U> freqBinPSD;
+  coder::array<double, 1U> newThresh;
+  coder::array<boolean_T, 1U> x_tmp;
+  double lastTrueThresh_data;
+  int firstTrueThreshInd_data;
+  int firstTrueThreshInd_size;
+  int i;
+  int ii_data;
+  int ii_size;
+  freqBinPSD.set_size(Wfm.stft->psd.size(0));
+  firstTrueThreshInd_data = Wfm.stft->psd.size(0);
+  for (i = 0; i < firstTrueThreshInd_data; i++) {
+    freqBinPSD[i] = Wfm.stft->psd[i];
   }
   // Extract psd for current waveform. Units are W/Hz
   i = Wfm.stft->f.size(0);
   if (i < 2) {
-    rtDynamicBoundsError(2, 1, i, db_emlrtBCI);
+    rtDynamicBoundsError(2, 1, i, cb_emlrtBCI);
   }
   i = Wfm.stft->f.size(0);
   if (i < 1) {
-    rtDynamicBoundsError(1, 1, i, gb_emlrtBCI);
+    rtDynamicBoundsError(1, 1, i, bb_emlrtBCI);
   }
-  nSamps = Wfm.stft->f[1] - Wfm.stft->f[0];
+  lastTrueThresh_data = Wfm.stft->f[1] - Wfm.stft->f[0];
+  firstTrueThreshInd_data = freqBinPSD.size(0);
+  for (i = 0; i < firstTrueThreshInd_data; i++) {
+    freqBinPSD[i] = freqBinPSD[i] * lastTrueThresh_data;
+  }
   // PSD (W/Hz) times bin width (Hz/bin) gives bin total power in (W/bin)
   // 1W standard
-  nbytes = values.size(0);
-  for (i = 0; i < nbytes; i++) {
-    values[i] = values[i] * nSamps;
+  newThresh.set_size(freqBinPSD.size(0));
+  firstTrueThreshInd_data = freqBinPSD.size(0);
+  for (i = 0; i < firstTrueThreshInd_data; i++) {
+    newThresh[i] = 0.0;
   }
-  scores.set_size(values.size(0));
-  nbytes = values.size(0);
-  for (i = 0; i < nbytes; i++) {
-    scores[i] = 0.0;
-  }
-  if (values.size(0) != 0) {
-    stftSz[0] = 0.0;
-    stftSz[1] = s_im;
-    coder::interp1Linear(stftSz, values, scores);
+  if (freqBinPSD.size(0) != 0) {
+    double dv[2];
+    dv[0] = 0.0;
+    dv[1] = thresh;
+    coder::interp1Linear(dv, freqBinPSD, newThresh);
   }
   // Finally,extrapolating the thresholds that are a little beyond the original
   // frequeny range can result in negative thresholds. Here we copy the first
   // and last valid threshold out to the places where the extrapolations would
   // have occured
-  x_tmp.set_size(scores.size(0));
-  nbytes = scores.size(0);
-  for (i = 0; i < nbytes; i++) {
-    x_tmp[i] = !std::isnan(scores[i]);
+  x_tmp.set_size(newThresh.size(0));
+  firstTrueThreshInd_data = newThresh.size(0);
+  for (i = 0; i < firstTrueThreshInd_data; i++) {
+    x_tmp[i] = !std::isnan(newThresh[i]);
   }
-  inner = coder::c_eml_find(x_tmp, (int *)&ii_data);
-  numRead = inner;
-  for (i = 0; i < inner; i++) {
-    nbytes = ii_data;
+  ii_size = coder::c_eml_find(x_tmp, (int *)&ii_data);
+  firstTrueThreshInd_size = ii_size;
+  for (i = 0; i < ii_size; i++) {
+    firstTrueThreshInd_data = ii_data;
   }
-  inner = coder::d_eml_find(x_tmp, (int *)&ii_data);
-  for (i = 0; i < numRead; i++) {
-    if ((nbytes < 1) || (nbytes > scores.size(0))) {
-      rtDynamicBoundsError(nbytes, 1, scores.size(0), eb_emlrtBCI);
+  ii_size = coder::d_eml_find(x_tmp, (int *)&ii_data);
+  for (i = 0; i < firstTrueThreshInd_size; i++) {
+    if ((firstTrueThreshInd_data < 1) ||
+        (firstTrueThreshInd_data > newThresh.size(0))) {
+      rtDynamicBoundsError(firstTrueThreshInd_data, 1, newThresh.size(0),
+                           ab_emlrtBCI);
     }
   }
-  for (i = 0; i < inner; i++) {
-    if ((ii_data < 1) || (ii_data > scores.size(0))) {
-      rtDynamicBoundsError(ii_data, 1, scores.size(0), hb_emlrtBCI);
+  for (i = 0; i < ii_size; i++) {
+    if ((ii_data < 1) || (ii_data > newThresh.size(0))) {
+      rtDynamicBoundsError(ii_data, 1, newThresh.size(0), db_emlrtBCI);
     }
-    nSamps = scores[ii_data - 1];
+    lastTrueThresh_data = newThresh[ii_data - 1];
   }
-  if (numRead < 1) {
-    rtDynamicBoundsError(1, 1, numRead, ib_emlrtBCI);
+  if (firstTrueThreshInd_size < 1) {
+    rtDynamicBoundsError(1, 1, firstTrueThreshInd_size, eb_emlrtBCI);
   }
-  if (scores.size(0) < 1) {
-    rtDynamicBoundsError(1, 1, scores.size(0), jb_emlrtBCI);
+  if (newThresh.size(0) < 1) {
+    rtDynamicBoundsError(1, 1, newThresh.size(0), fb_emlrtBCI);
   }
-  if ((nbytes < 1) || (nbytes > scores.size(0))) {
-    rtDynamicBoundsError(nbytes, 1, scores.size(0), kb_emlrtBCI);
+  if ((firstTrueThreshInd_data < 1) ||
+      (firstTrueThreshInd_data > newThresh.size(0))) {
+    rtDynamicBoundsError(firstTrueThreshInd_data, 1, newThresh.size(0),
+                         gb_emlrtBCI);
   }
-  if (nbytes != numRead) {
-    rtSizeEq1DError(nbytes, numRead, g_emlrtECI);
+  if (firstTrueThreshInd_data != firstTrueThreshInd_size) {
+    rtSizeEq1DError(firstTrueThreshInd_data, firstTrueThreshInd_size,
+                    g_emlrtECI);
   }
-  b_scores.set_size(1, nbytes);
-  for (i = 0; i < nbytes; i++) {
-    b_scores[i] = scores[nbytes - 1];
+  b_newThresh.set_size(1, firstTrueThreshInd_data);
+  for (i = 0; i < firstTrueThreshInd_data; i++) {
+    b_newThresh[i] = newThresh[firstTrueThreshInd_data - 1];
   }
-  nbytes = b_scores.size(1);
-  for (i = 0; i < nbytes; i++) {
-    scores[i] = b_scores[i];
+  firstTrueThreshInd_data = b_newThresh.size(1);
+  for (i = 0; i < firstTrueThreshInd_data; i++) {
+    newThresh[i] = b_newThresh[i];
   }
   // The (1) call is needed by coder, as it doesn't know that the find call
   // above will only produced a scalar output.
-  if (inner < 1) {
-    rtDynamicBoundsError(1, 1, inner, lb_emlrtBCI);
+  if (ii_size < 1) {
+    rtDynamicBoundsError(1, 1, ii_size, hb_emlrtBCI);
   }
-  if (ii_data > scores.size(0)) {
+  if (ii_data > newThresh.size(0)) {
     i = 0;
-    k = 0;
+    firstTrueThreshInd_size = 0;
   } else {
-    if ((ii_data < 1) || (ii_data > scores.size(0))) {
-      rtDynamicBoundsError(ii_data, 1, scores.size(0), mb_emlrtBCI);
+    if ((ii_data < 1) || (ii_data > newThresh.size(0))) {
+      rtDynamicBoundsError(ii_data, 1, newThresh.size(0), ib_emlrtBCI);
     }
     i = ii_data - 1;
-    if (scores.size(0) < 1) {
-      rtDynamicBoundsError(scores.size(0), 1, scores.size(0), nb_emlrtBCI);
+    if (newThresh.size(0) < 1) {
+      rtDynamicBoundsError(newThresh.size(0), 1, newThresh.size(0),
+                           jb_emlrtBCI);
     }
-    k = scores.size(0);
+    firstTrueThreshInd_size = newThresh.size(0);
   }
-  nbytes = k - i;
-  if (nbytes != inner) {
-    rtSizeEq1DError(nbytes, inner, h_emlrtECI);
+  firstTrueThreshInd_data = firstTrueThreshInd_size - i;
+  if (firstTrueThreshInd_data != ii_size) {
+    rtSizeEq1DError(firstTrueThreshInd_data, ii_size, h_emlrtECI);
   }
-  for (k = 0; k < nbytes; k++) {
-    scores[i + k] = nSamps;
+  for (firstTrueThreshInd_size = 0;
+       firstTrueThreshInd_size < firstTrueThreshInd_data;
+       firstTrueThreshInd_size++) {
+    newThresh[i + firstTrueThreshInd_size] = lastTrueThresh_data;
   }
   // The (1) call is needed by coder, as it doesn't know that the find call
   // above will only produced a scalar output. toc
-  b_Wfm.set_size(Wfm.stft->f.size(0));
-  nbytes = Wfm.stft->f.size(0) - 1;
-  for (i = 0; i <= nbytes; i++) {
-    b_Wfm[i] = Wfm.stft->f[i];
-  }
-  values.set_size(Wfm.Wf.size(0));
-  nbytes = Wfm.Wf.size(0) - 1;
-  for (i = 0; i <= nbytes; i++) {
-    values[i] = Wfm.Wf[i];
-  }
-  coder::interp1(b_Wfm, scores, values, threshVecFine);
+  thresh1W = thresh;
+  coder::interp1(Wfm.stft->f, newThresh, Wfm.Wf, threshVecFine);
 }
 
 //

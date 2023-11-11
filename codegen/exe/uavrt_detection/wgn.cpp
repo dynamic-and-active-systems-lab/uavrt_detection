@@ -5,7 +5,7 @@
 // File: wgn.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 07-Nov-2023 15:12:52
+// C/C++ source code generated on  : 11-Nov-2023 11:31:43
 //
 
 // Include Files
@@ -43,7 +43,7 @@ static const char cv[128]{
     '~',    '\x7f'};
 
 // Function Declarations
-static void qb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void rb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -51,7 +51,7 @@ static void qb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void qb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void rb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -142,7 +142,7 @@ void wgn(creal_T y[1000])
 void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
          array<creal_T, 2U> &y)
 {
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
+  static rtRunTimeErrorInfo vc_emlrtRTEI{
       180,                                                      // lineNo
       1,                                                        // colNo
       "wgn",                                                    // fName
@@ -178,7 +178,7 @@ void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
     }
   }
   if (b_y) {
-    qb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+    rb_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
   }
   for (k = 0; k < 6; k++) {
     switch_expression_data[k] = cv[static_cast<int>(a[k])];

@@ -5,7 +5,7 @@
 // File: evfit.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 07-Nov-2023 15:12:52
+// C/C++ source code generated on  : 11-Nov-2023 11:31:43
 //
 
 // Include Files
@@ -31,8 +31,6 @@ static double lkeqn(double sigma, const array<double, 1U> &x,
                     double xbarWgtUnc);
 
 }
-static void sb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
-
 static void tb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void times(coder::array<double, 1U> &in1,
@@ -42,6 +40,8 @@ static void times(coder::array<double, 1U> &in1,
 static void ub_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void vb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+static void wb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -97,32 +97,11 @@ static double lkeqn(double sigma, const array<double, 1U> &x, double xbarWgtUnc)
 // Return Type  : void
 //
 } // namespace coder
-static void sb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  outStream << "Function values at the interval endpoints must differ in sign.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
 static void tb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
-  outStream << "Function values at interval endpoints must be finite and real.";
+  outStream << "Function values at the interval endpoints must differ in sign.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -169,7 +148,7 @@ static void ub_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
-  outStream << "Second argument must be finite.";
+  outStream << "Function values at interval endpoints must be finite and real.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -187,6 +166,27 @@ static void ub_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 // Return Type  : void
 //
 static void vb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Second argument must be finite.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void wb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -254,14 +254,8 @@ void evfit(const array<double, 1U> &x, double parmhat[2])
       "+internal/rangeWithCensoring.m", // pName
       0                                 // checkKind
   };
-  static rtRunTimeErrorInfo ad_emlrtRTEI{
-      227,                                                        // lineNo
-      1,                                                          // colNo
-      "evfit",                                                    // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/stats/eml/evfit.m" // pName
-  };
   static rtRunTimeErrorInfo
-      bd_emlrtRTEI{
+      ad_emlrtRTEI{
           137,     // lineNo
           9,       // colNo
           "fzero", // fName
@@ -269,38 +263,44 @@ void evfit(const array<double, 1U> &x, double parmhat[2])
           "fzero.m" // pName
       };
   static rtRunTimeErrorInfo
-      cd_emlrtRTEI{
+      bd_emlrtRTEI{
           127,     // lineNo
           19,      // colNo
           "fzero", // fName
           "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/optimfun/"
           "fzero.m" // pName
       };
-  static rtRunTimeErrorInfo dd_emlrtRTEI{
+  static rtRunTimeErrorInfo cd_emlrtRTEI{
       209,                                                        // lineNo
       9,                                                          // colNo
       "evfit",                                                    // fName
       "/Applications/MATLAB_R2023b.app/toolbox/stats/eml/evfit.m" // pName
   };
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
+  static rtRunTimeErrorInfo vc_emlrtRTEI{
       218,                                                        // lineNo
       9,                                                          // colNo
       "evfit",                                                    // fName
       "/Applications/MATLAB_R2023b.app/toolbox/stats/eml/evfit.m" // pName
   };
   static rtRunTimeErrorInfo
-      xc_emlrtRTEI{
+      wc_emlrtRTEI{
           149,     // lineNo
           9,       // colNo
           "fzero", // fName
           "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/optimfun/"
           "fzero.m" // pName
       };
-  static rtRunTimeErrorInfo yc_emlrtRTEI{
+  static rtRunTimeErrorInfo xc_emlrtRTEI{
       14,    // lineNo
       9,     // colNo
       "log", // fName
       "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elfun/log.m" // pName
+  };
+  static rtRunTimeErrorInfo yc_emlrtRTEI{
+      227,                                                        // lineNo
+      1,                                                          // colNo
+      "evfit",                                                    // fName
+      "/Applications/MATLAB_R2023b.app/toolbox/stats/eml/evfit.m" // pName
   };
   array<double, 1U> x0;
   double rangex;
@@ -395,7 +395,7 @@ void evfit(const array<double, 1U> &x, double parmhat[2])
         upper = sigmahat;
         sigmahat *= 0.5;
         if (sigmahat < 2.2250738585072014E-308) {
-          vb_rtErrorWithMessageID(dd_emlrtRTEI.fName, dd_emlrtRTEI.lineNo);
+          wb_rtErrorWithMessageID(cd_emlrtRTEI.fName, cd_emlrtRTEI.lineNo);
         }
       }
     } else {
@@ -404,20 +404,20 @@ void evfit(const array<double, 1U> &x, double parmhat[2])
         sigmahat = upper;
         upper *= 2.0;
         if (sigmahat < 2.2250738585072014E-308) {
-          vb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+          wb_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
         }
       }
     }
     nx = 1;
     if (std::isinf(sigmahat) || std::isnan(sigmahat) ||
         (std::isinf(upper) || std::isnan(upper))) {
-      ub_rtErrorWithMessageID(cd_emlrtRTEI.fName, cd_emlrtRTEI.lineNo);
+      vb_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
     }
     tempMin = lkeqn(sigmahat, x0, wgtmeanUnc);
     fb = lkeqn(upper, x0, wgtmeanUnc);
     if (std::isinf(tempMin) || std::isnan(tempMin) ||
         (std::isinf(fb) || std::isnan(fb))) {
-      tb_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
+      ub_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
     }
     savefa = tempMin;
     savefb = fb;
@@ -430,7 +430,7 @@ void evfit(const array<double, 1U> &x, double parmhat[2])
       double fc;
       boolean_T exitg1;
       if ((tempMin > 0.0) == (fb > 0.0)) {
-        sb_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+        tb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
       }
       fc = fb;
       c = upper;
@@ -506,7 +506,7 @@ void evfit(const array<double, 1U> &x, double parmhat[2])
       }
     }
     if (nx < 0) {
-      vb_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
+      wb_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
     }
     nx = x0.size(0);
     for (k = 0; k < nx; k++) {
@@ -518,7 +518,7 @@ void evfit(const array<double, 1U> &x, double parmhat[2])
     }
     tempMin = blockedSummation(x0, x0.size(0)) / static_cast<double>(x.size(0));
     if (tempMin < 0.0) {
-      rtErrorWithMessageID("log", yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+      rtErrorWithMessageID("log", xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
     }
     tempMin = std::log(tempMin);
     parmhat[0] = rangex * (upper * tempMin) + tempMax;

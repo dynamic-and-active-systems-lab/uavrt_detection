@@ -5,7 +5,7 @@
 // File: confirmpulses.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 07-Nov-2023 15:12:52
+// C/C++ source code generated on  : 11-Nov-2023 11:31:43
 //
 
 // Include Files
@@ -828,16 +828,16 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   }
   // Frequency check. Within +/- 100 Hz of previously
   // detected pulses?
-  coder::internal::b_horzcatStructList(X->ps_pos->pl, r);
-  coder::internal::b_horzcatStructList(X->ps_pre->pl,
+  coder::internal::c_horzcatStructList(X->ps_pos->pl, r);
+  coder::internal::c_horzcatStructList(X->ps_pre->pl,
                                        pulsestarttimes_withuncert);
   if ((r.size(1) != pulsestarttimes_withuncert.size(1)) &&
       ((r.size(1) != 1) && (pulsestarttimes_withuncert.size(1) != 1))) {
     emlrtDimSizeImpxCheckR2021b(r.size(1), pulsestarttimes_withuncert.size(1),
                                 k_emlrtECI);
   }
-  coder::internal::b_horzcatStructList(X->ps_pos->pl, pulseendtimes_withuncert);
-  coder::internal::b_horzcatStructList(X->ps_pre->pl, r1);
+  coder::internal::c_horzcatStructList(X->ps_pos->pl, pulseendtimes_withuncert);
+  coder::internal::c_horzcatStructList(X->ps_pre->pl, r1);
   if ((pulseendtimes_withuncert.size(1) != r1.size(1)) &&
       ((pulseendtimes_withuncert.size(1) != 1) && (r1.size(1) != 1))) {
     emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1), r1.size(1),

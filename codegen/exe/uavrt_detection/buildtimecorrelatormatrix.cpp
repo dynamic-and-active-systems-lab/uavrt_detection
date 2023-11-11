@@ -5,7 +5,7 @@
 // File: buildtimecorrelatormatrix.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 07-Nov-2023 15:12:52
+// C/C++ source code generated on  : 11-Nov-2023 11:31:43
 //
 
 // Include Files
@@ -33,7 +33,7 @@
 #include <string>
 
 // Function Declarations
-static void kb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void lb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -41,7 +41,7 @@ static void kb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void kb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void lb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -491,7 +491,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/assembleWq.m" // pName
   };
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
+  static rtRunTimeErrorInfo vc_emlrtRTEI{
       82,         // lineNo
       5,          // colNo
       "fltpower", // fName
@@ -630,7 +630,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   ntilerows = priJtrList.size(1);
   if ((ntilerows < 0) && (!std::isnan(reps - 1.0)) &&
       (std::floor(reps - 1.0) != reps - 1.0)) {
-    kb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+    lb_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
   }
   num_PRI_patterns = static_cast<double>(priMeansList.size(1)) *
                      rt_powd_snf(static_cast<double>(ntilerows), reps - 1.0);
@@ -799,7 +799,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
     ntilerows = pulse_position_value.size(1);
     if ((ntilerows < 0) && (static_cast<double>(nrows) + 1.0 !=
                             static_cast<double>(nrows) + 1.0)) {
-      kb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+      lb_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
     }
     num_PRI_patterns = rt_powd_snf(static_cast<double>(ntilerows),
                                    static_cast<double>(nrows) + 1.0);
@@ -935,12 +935,12 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
     }
   }
   if ((ncols != nrows) && (!(num_position_patterns == 0.0))) {
-    fb_rtErrorWithMessageID(sb_emlrtRTEI.fName, sb_emlrtRTEI.lineNo);
+    gb_rtErrorWithMessageID(sb_emlrtRTEI.fName, sb_emlrtRTEI.lineNo);
   }
   if ((pulsePositionMatrix.size(0) != nrows) &&
       ((pulsePositionMatrix.size(0) != 0) &&
        (pulsePositionMatrix.size(1) != 0))) {
-    fb_rtErrorWithMessageID(sb_emlrtRTEI.fName, sb_emlrtRTEI.lineNo);
+    gb_rtErrorWithMessageID(sb_emlrtRTEI.fName, sb_emlrtRTEI.lineNo);
   }
   empty_non_axis_sizes = (nrows == 0);
   if (empty_non_axis_sizes || (num_position_patterns != 0.0)) {

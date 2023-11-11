@@ -5,7 +5,7 @@
 // File: linspace.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 07-Nov-2023 15:12:52
+// C/C++ source code generated on  : 11-Nov-2023 11:31:43
 //
 
 // Include Files
@@ -59,7 +59,7 @@ namespace coder {
 void linspace(double d2, double n, array<double, 2U> &y)
 {
   static rtRunTimeErrorInfo
-      wc_emlrtRTEI{
+      vc_emlrtRTEI{
           33,         // lineNo
           37,         // colNo
           "linspace", // fName
@@ -68,7 +68,7 @@ void linspace(double d2, double n, array<double, 2U> &y)
       };
   if (!(n >= 0.0)) {
     if (std::isnan(n)) {
-      l_rtErrorWithMessageID("N", wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+      l_rtErrorWithMessageID("N", vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
     }
     y.set_size(1, 0);
   } else {

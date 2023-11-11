@@ -5,7 +5,7 @@
 // File: validator_check_size.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 07-Nov-2023 15:12:52
+// C/C++ source code generated on  : 11-Nov-2023 11:31:43
 //
 
 // Include Files
@@ -28,6 +28,8 @@ static void b_rtErrorWithMessageID(const long i, const char *aFcnName,
                                    int aLineNum);
 
 static void n_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+static void o_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -67,6 +69,27 @@ static void n_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
+  outStream << "Value must be a vector.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void o_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
   outStream
       << "Number of elements must not change. Use [] as one of the size inputs "
          "to automatically calculate the appropriate size for that di"
@@ -91,7 +114,7 @@ namespace coder {
 namespace internal {
 void validator_check_size(const array<double, 2U> &in, array<double, 2U> &out)
 {
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
+  static rtRunTimeErrorInfo vc_emlrtRTEI{
       164,               // lineNo
       31,                // colNo
       "expandOrReshape", // fName
@@ -100,8 +123,8 @@ void validator_check_size(const array<double, 2U> &in, array<double, 2U> &out)
   };
   if ((in.size(0) != 1) || (in.size(1) != 1)) {
     if (in.size(1) != 2) {
-      b_rtErrorWithMessageID(static_cast<long>(in.size(1)), wc_emlrtRTEI.fName,
-                             wc_emlrtRTEI.lineNo);
+      b_rtErrorWithMessageID(static_cast<long>(in.size(1)), vc_emlrtRTEI.fName,
+                             vc_emlrtRTEI.lineNo);
     }
     if (in.size(0) == 0) {
       out.set_size(0, 2);
@@ -158,43 +181,73 @@ void validator_check_size(const array<double, 2U> &in, array<double, 2U> &out)
 void validator_check_size(const array<c_struct_T, 2U> &in,
                           array<c_struct_T, 2U> &out)
 {
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
+  static rtRunTimeErrorInfo vc_emlrtRTEI{
       219,               // lineNo
       32,                // colNo
       "expandOrReshape", // fName
       "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "validator_check_size.m" // pName
   };
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
+      277,                                          // lineNo
+      5,                                            // colNo
+      "getExclusiveNonSingletonDimSizeOr1IfScalar", // fName
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
+      "validator_check_size.m" // pName
+  };
   int inVectorLength;
+  boolean_T hitNotSingletonDim;
+  boolean_T isequal_the_empty_in;
+  boolean_T szNot1;
+  if ((in.size(0) == 0) && (in.size(1) == 0)) {
+    isequal_the_empty_in = true;
+  } else {
+    isequal_the_empty_in = false;
+  }
+  if (((in.size(0) != 1) || (in.size(1) != 1)) && (!isequal_the_empty_in)) {
+    isequal_the_empty_in = true;
+  } else {
+    isequal_the_empty_in = false;
+  }
   inVectorLength = 1;
-  if (in.size(1) != 1) {
+  if (in.size(0) != 1) {
+    hitNotSingletonDim = true;
+    inVectorLength = in.size(0);
+  } else {
+    hitNotSingletonDim = false;
+  }
+  szNot1 = (in.size(1) != 1);
+  if (isequal_the_empty_in && hitNotSingletonDim && szNot1) {
+    n_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+  }
+  if (szNot1) {
     inVectorLength = in.size(1);
   }
-  if (in.size(1) == 0) {
+  if ((in.size(0) == 0) || (in.size(1) == 0)) {
     if (inVectorLength != 0) {
-      n_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+      o_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
     }
     out.set_size(1, 0);
   } else {
-    int u0;
-    int u1;
-    u1 = 1;
-    if (in.size(1) > 1) {
-      u1 = in.size(1);
+    int n;
+    int nx;
+    nx = in.size(0) * in.size(1);
+    n = in.size(0);
+    if (in.size(1) > in.size(0)) {
+      n = in.size(1);
     }
-    u0 = in.size(1);
-    if (u0 >= u1) {
-      u1 = u0;
+    if (nx >= n) {
+      n = nx;
     }
-    if (inVectorLength > u1) {
+    if (inVectorLength > n) {
       k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
-    if (inVectorLength != in.size(1)) {
+    if (inVectorLength != nx) {
       l_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
     }
     out.set_size(1, inVectorLength);
-    for (u1 = 0; u1 < inVectorLength; u1++) {
-      out[u1] = in[u1];
+    for (nx = 0; nx < inVectorLength; nx++) {
+      out[nx] = in[nx];
     }
   }
 }

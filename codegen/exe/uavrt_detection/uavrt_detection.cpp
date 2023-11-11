@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 07-Nov-2023 15:12:52
+// C/C++ source code generated on  : 11-Nov-2023 11:31:43
 //
 
 // Include Files
@@ -205,7 +205,7 @@ interleaveComplexVector(const coder::array<creal32_T, 1U> &complexDataIn,
     varargin_2[i] = complexDataIn[i].im;
   }
   if (varargin_2.size(0) != varargin_1.size(0)) {
-    fb_rtErrorWithMessageID(sb_emlrtRTEI.fName, sb_emlrtRTEI.lineNo);
+    gb_rtErrorWithMessageID(sb_emlrtRTEI.fName, sb_emlrtRTEI.lineNo);
   }
   dataMatrix.set_size(2, varargin_1.size(0));
   loop_ub = varargin_1.size(0);
@@ -639,32 +639,32 @@ static void updateconfig(coder::b_captured_var &Config,
       "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
       0                                                   // checkKind
   };
-  static rtRunTimeErrorInfo ad_emlrtRTEI{
-      18,                     // lineNo
-      5,                      // colNo
-      "binaryRelopValidator", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/validators/"
-      "private/binaryRelopValidator.m" // pName
-  };
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
+  static rtRunTimeErrorInfo vc_emlrtRTEI{
       37,      // lineNo
       9,       // colNo
       "fopen", // fName
       "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/fopen.m" // pName
   };
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
+  static rtRunTimeErrorInfo wc_emlrtRTEI{
       12,               // lineNo
       23,               // colNo
       "mustBePositive", // fName
       "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/validators/"
       "mustBePositive.m" // pName
   };
-  static rtRunTimeErrorInfo yc_emlrtRTEI{
+  static rtRunTimeErrorInfo xc_emlrtRTEI{
       11,                  // lineNo
       24,                  // colNo
       "mustBeNonnegative", // fName
       "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/validators/"
       "mustBeNonnegative.m" // pName
+  };
+  static rtRunTimeErrorInfo yc_emlrtRTEI{
+      18,                     // lineNo
+      5,                      // colNo
+      "binaryRelopValidator", // fName
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/validators/"
+      "private/binaryRelopValidator.m" // pName
   };
   static const char b_cv[2]{'I', 'D'};
   int st;
@@ -717,7 +717,7 @@ static void updateconfig(coder::b_captured_var &Config,
   //    none (method modifies the properties of the instance)
   //
   if (coder::internal::b_strcmp(lineStr)) {
-    b_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
   } else {
     signed char fileid;
     fileid = coder::internal::cfopen(lineStr, "rb");
@@ -918,13 +918,13 @@ static void updateconfig(coder::b_captured_var &Config,
           }
           r.ID = in_tmp;
           if (in <= 0U) {
-            d_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+            d_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
           }
         } else if (coder::internal::c_strcmp(configType)) {
           creal_T x;
           x = coder::internal::str2double(configValStr);
           if (!(x.re >= 0.0)) {
-            e_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+            e_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
           }
           r.channelCenterFreqMHz = x.re;
         } else if (!coder::internal::d_strcmp(configType)) {
@@ -951,13 +951,13 @@ static void updateconfig(coder::b_captured_var &Config,
             }
             r.portData = b_in_tmp;
             if (u <= 0) {
-              d_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+              d_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
             }
           } else if (coder::internal::f_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re > 0.0)) {
-              d_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+              d_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
             }
             r.Fs = x.re;
           } else if (coder::internal::g_strcmp(configType)) {
@@ -968,28 +968,28 @@ static void updateconfig(coder::b_captured_var &Config,
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re > 0.0)) {
-              d_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+              d_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
             }
             r.tp = x.re;
           } else if (coder::internal::i_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re > 0.0)) {
-              d_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+              d_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
             }
             r.tip = x.re;
           } else if (coder::internal::j_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re >= 0.0)) {
-              e_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+              e_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
             }
             r.tipu = x.re;
           } else if (coder::internal::k_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re >= 0.0)) {
-              e_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+              e_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
             }
             r.tipj = x.re;
           } else {
@@ -1020,7 +1020,7 @@ static void updateconfig(coder::b_captured_var &Config,
               }
               r.K = c_in_tmp;
               if (u1 <= 0) {
-                d_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+                d_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
               }
             } else if (!coder::internal::l_strcmp(configType)) {
               if (coder::internal::m_strcmp(configType)) {
@@ -1035,12 +1035,12 @@ static void updateconfig(coder::b_captured_var &Config,
                 creal_T x;
                 x = coder::internal::str2double(configValStr);
                 if (!(x.re > 0.0)) {
-                  d_rtErrorWithMessageID(xc_emlrtRTEI.fName,
-                                         xc_emlrtRTEI.lineNo);
+                  d_rtErrorWithMessageID(wc_emlrtRTEI.fName,
+                                         wc_emlrtRTEI.lineNo);
                 }
                 if (!(x.re < 1.0)) {
-                  b_rtErrorWithMessageID("1", ad_emlrtRTEI.fName,
-                                         ad_emlrtRTEI.lineNo);
+                  b_rtErrorWithMessageID("1", yc_emlrtRTEI.fName,
+                                         yc_emlrtRTEI.lineNo);
                 }
                 r.falseAlarmProb = x.re;
               } else if (!coder::internal::o_strcmp(configType)) {
@@ -1168,7 +1168,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo cb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      490,               // lineNo
+      500,               // lineNo
       26,                // colNo
       "X.x",             // aName
       "uavrt_detection", // fName
@@ -1179,7 +1179,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo db_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      495,               // lineNo
+      505,               // lineNo
       26,                // colNo
       "X.x",             // aName
       "uavrt_detection", // fName
@@ -1190,7 +1190,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo eb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      501,               // lineNo
+      511,               // lineNo
       26,                // colNo
       "X.x",             // aName
       "uavrt_detection", // fName
@@ -1201,7 +1201,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo fb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      506,               // lineNo
+      516,               // lineNo
       26,                // colNo
       "X.x",             // aName
       "uavrt_detection", // fName
@@ -1212,7 +1212,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo gb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      601,               // lineNo
+      611,               // lineNo
       61,                // colNo
       "X.ps_pos.pl",     // aName
       "uavrt_detection", // fName
@@ -1223,7 +1223,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo hb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      606,               // lineNo
+      616,               // lineNo
       79,                // colNo
       "ps_pre_struc.pl", // aName
       "uavrt_detection", // fName
@@ -1234,7 +1234,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo ib_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      612,               // lineNo
+      622,               // lineNo
       50,                // colNo
       "pulsesToSkip",    // aName
       "uavrt_detection", // fName
@@ -1245,7 +1245,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo jb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      641,               // lineNo
+      651,               // lineNo
       91,                // colNo
       "X.ps_pos.pl",     // aName
       "uavrt_detection", // fName
@@ -1256,7 +1256,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static rtBoundsCheckInfo kb_emlrtBCI{
       -1,                // iFirst
       -1,                // iLast
-      657,               // lineNo
+      667,               // lineNo
       50,                // colNo
       "pulsesToSkip",    // aName
       "uavrt_detection", // fName
@@ -1633,14 +1633,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
     exampleData[i].re = static_cast<float>(dcv[i].re);
     exampleData[i].im = static_cast<float>(dcv[i].im);
   }
-  // UNTITLED2 Construct an instance of this class
-  //    Detailed explanation goes here
-  Xhold_tmp.trials = 100U;
-  Xhold_tmp.pf = Config.contents.falseAlarmProb;
-  Xhold_tmp.evMuParam = 0.0;
-  Xhold_tmp.evSigmaParam = 0.0;
-  Xhold_tmp.threshVecFine.set_size(1);
-  Xhold_tmp.threshVecFine[0] = 0.0;
+  Xhold_tmp.init(Config.contents.falseAlarmProb);
   Xhold = lobj_20.init(exampleData, Config.contents.Fs, pulseStatsPriori,
                        Xhold_tmp);
   // UNTITLED2 Construct an instance of this class
@@ -2228,8 +2221,19 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         } else {
           std::printf("Setting thresholds from previous waveform...\n");
           std::fflush(stdout);
+          // Setting the threshold takes too long to run in
+          // real time if any of the dependent variables
+          // change so we can't use.
           // X.thresh = X.thresh.setthreshold(X,Xhold);
+          // We also don't want to simply hold the same
+          // threshold from the last waveform:
+          // X.thresh = Xhold.thresh;
+          // We will hold the mu and sigma parameters
+          // contant (Xhold.thresh1W will be the same as
+          // the last segment, but we  update the
+          // thresholds as the noise values change.
           _in = Xhold->thresh;
+          _in.setthreshprops(Xhold->thresh.thresh1W, b_X);
           b_X.thresh = _in;
         }
         timeStamp = coder::toc() - missingSamples;
@@ -2385,8 +2389,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         }
         // Decide when/how the priori is updated for the next
         // segment's processing.
-        if (coder::internal::ifWhileCond(r2) &&
-            ((mode == 'C') || (mode == 'T'))) {
+        if (coder::internal::ifWhileCond(r2)) {
+          // Now checking for confirmation during search mode as well&
+          // (strcmp(mode,'C') || strcmp(mode,'T'))
           ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
           loop_ub = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
           for (i = 0; i <= loop_ub; i++) {

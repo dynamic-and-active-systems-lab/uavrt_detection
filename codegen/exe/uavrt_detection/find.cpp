@@ -5,7 +5,7 @@
 // File: find.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 07-Nov-2023 15:12:52
+// C/C++ source code generated on  : 11-Nov-2023 11:31:43
 //
 
 // Include Files
@@ -15,6 +15,7 @@
 #include "rt_nonfinite.h"
 #include "sparse1.h"
 #include "threshold.h"
+#include "uavrt_detection_data.h"
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
 #include "waveform.h"
@@ -25,13 +26,6 @@ static rtRunTimeErrorInfo h_emlrtRTEI{
     81,         // lineNo
     1,          // colNo
     "eml_find", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elmat/find.m" // pName
-};
-
-static rtRunTimeErrorInfo i_emlrtRTEI{
-    392,                  // lineNo
-    1,                    // colNo
-    "find_first_indices", // fName
     "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elmat/find.m" // pName
 };
 
@@ -211,7 +205,7 @@ int c_eml_find(const array<boolean_T, 1U> &x, int i_data[])
 //
 int d_eml_find(const array<boolean_T, 1U> &x, int i_data[])
 {
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
+  static rtRunTimeErrorInfo vc_emlrtRTEI{
       447,                 // lineNo
       1,                   // colNo
       "find_last_indices", // fName
@@ -238,7 +232,7 @@ int d_eml_find(const array<boolean_T, 1U> &x, int i_data[])
     }
   }
   if (idx > i_size) {
-    i_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
   }
   if (i_size == 1) {
     if (idx == 0) {
@@ -269,7 +263,7 @@ void e_eml_find(const sparse &x, array<int, 1U> &i, array<int, 1U> &j)
       "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elmat/find.m", // pName
       4 // checkKind
   };
-  static rtRunTimeErrorInfo wc_emlrtRTEI{
+  static rtRunTimeErrorInfo vc_emlrtRTEI{
       239,                           // lineNo
       1,                             // colNo
       "find_first_nonempty_triples", // fName
@@ -314,7 +308,7 @@ void e_eml_find(const sparse &x, array<int, 1U> &i, array<int, 1U> &j)
       }
     }
     if (idx > nx_tmp - 1) {
-      i_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+      i_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
     }
     if (nx_tmp - 1 == 1) {
       if (idx == 0) {

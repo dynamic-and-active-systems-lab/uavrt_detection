@@ -5,7 +5,7 @@
 // File: interp1.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 07-Nov-2023 15:12:52
+// C/C++ source code generated on  : 11-Nov-2023 11:31:43
 //
 
 // Include Files
@@ -25,17 +25,38 @@
 #include <string>
 
 // Function Declarations
+static void ac_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
 namespace coder {
 static void interp1Linear(const array<double, 1U> &y, int nyrows,
                           const array<double, 1U> &xi, array<double, 1U> &yi,
                           const array<double, 1U> &varargin_1);
 
 }
-static void xb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
-
 static void yb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void ac_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "A minimum of two data points is required.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
 //
 // Arguments    : const array<double, 1U> &y
 //                int nyrows
@@ -119,32 +140,11 @@ static void interp1Linear(const array<double, 1U> &y, int nyrows,
 // Return Type  : void
 //
 } // namespace coder
-static void xb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  outStream << "Y must have length(X) rows.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
 static void yb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
-  outStream << "A minimum of two data points is required.";
+  outStream << "Y must have length(X) rows.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -169,7 +169,7 @@ void interp1(const array<double, 1U> &varargin_1,
              const array<double, 1U> &varargin_3, array<double, 1U> &Vq)
 {
   static rtRunTimeErrorInfo
-      wc_emlrtRTEI{
+      vc_emlrtRTEI{
           155,            // lineNo
           15,             // colNo
           "interp1_work", // fName
@@ -177,7 +177,7 @@ void interp1(const array<double, 1U> &varargin_1,
           "interp1.m" // pName
       };
   static rtRunTimeErrorInfo
-      xc_emlrtRTEI{
+      wc_emlrtRTEI{
           139,            // lineNo
           23,             // colNo
           "interp1_work", // fName
@@ -201,10 +201,10 @@ void interp1(const array<double, 1U> &varargin_1,
   }
   nx = varargin_1.size(0);
   if (varargin_1.size(0) != varargin_2.size(0)) {
-    xb_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+    yb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
   }
   if (varargin_1.size(0) <= 1) {
-    yb_rtErrorWithMessageID(wc_emlrtRTEI.fName, wc_emlrtRTEI.lineNo);
+    ac_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
   }
   Vq.set_size(varargin_3.size(0));
   n = varargin_3.size(0);
@@ -222,7 +222,7 @@ void interp1(const array<double, 1U> &varargin_1,
       exitg1 = 0;
       if (k <= nx - 1) {
         if (std::isnan(varargin_1[k])) {
-          jb_rtErrorWithMessageID(xb_emlrtRTEI.fName, xb_emlrtRTEI.lineNo);
+          kb_rtErrorWithMessageID(xb_emlrtRTEI.fName, xb_emlrtRTEI.lineNo);
         } else {
           k++;
         }
@@ -250,7 +250,7 @@ void interp1(const array<double, 1U> &varargin_1,
         }
         for (k = 2; k <= nx; k++) {
           if (x[k - 1] <= x[k - 2]) {
-            ib_rtErrorWithMessageID(wb_emlrtRTEI.fName, wb_emlrtRTEI.lineNo);
+            jb_rtErrorWithMessageID(wb_emlrtRTEI.fName, wb_emlrtRTEI.lineNo);
           }
         }
         interp1Linear(y, varargin_2.size(0), varargin_3, Vq, x);

@@ -5,7 +5,7 @@
 // File: formatSTFTOutput.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 07-Nov-2023 15:12:52
+// C/C++ source code generated on  : 11-Nov-2023 11:31:43
 //
 
 // Include Files
@@ -26,7 +26,7 @@
 
 // Variable Definitions
 static rtRunTimeErrorInfo
-    cc_emlrtRTEI{
+    rc_emlrtRTEI{
         38,          // lineNo
         48,          // colNo
         "circshift", // fName
@@ -76,7 +76,7 @@ static rtDoubleCheckInfo p_emlrtDCI{
     1                         // checkKind
 };
 
-static rtRunTimeErrorInfo vc_emlrtRTEI{
+static rtRunTimeErrorInfo uc_emlrtRTEI{
     41,    // lineNo
     9,     // colNo
     "rem", // fName
@@ -167,8 +167,8 @@ void formatSTFTOutput(array<creal32_T, 2U> &S, const array<double, 1U> &F,
       vspread = 0;
     }
     if (static_cast<int>(p) != p) {
-      rtErrorWithMessageID("int32", "int32", cc_emlrtRTEI.fName,
-                           cc_emlrtRTEI.lineNo);
+      rtErrorWithMessageID("int32", "int32", rc_emlrtRTEI.fName,
+                           rc_emlrtRTEI.lineNo);
     }
     if ((S.size(0) != 0) && (S.size(1) != 0) &&
         ((S.size(0) != 1) || (S.size(1) != 1))) {
@@ -192,7 +192,7 @@ void formatSTFTOutput(array<creal32_T, 2U> &S, const array<double, 1U> &F,
           unsigned int u;
           u = static_cast<unsigned int>(S.size(vspread));
           if (u == 0U) {
-            rtDivisionByZeroError(vc_emlrtRTEI);
+            rtDivisionByZeroError(uc_emlrtRTEI);
           } else {
             b_i = static_cast<int>(static_cast<unsigned int>(ns) / u);
           }
@@ -385,8 +385,8 @@ void formatSTFTOutput(array<creal_T, 3U> &S, const array<double, 1U> &F,
       vlend2 = 2;
     }
     if (static_cast<int>(xtmp_re) != xtmp_re) {
-      rtErrorWithMessageID("int32", "int32", cc_emlrtRTEI.fName,
-                           cc_emlrtRTEI.lineNo);
+      rtErrorWithMessageID("int32", "int32", rc_emlrtRTEI.fName,
+                           rc_emlrtRTEI.lineNo);
     }
     if ((S.size(0) != 0) && (S.size(1) != 0) && (S.size(2) != 0) &&
         ((S.size(0) != 1) || (S.size(1) != 1) || (S.size(2) != 1))) {
@@ -410,7 +410,7 @@ void formatSTFTOutput(array<creal_T, 3U> &S, const array<double, 1U> &F,
           unsigned int u;
           u = static_cast<unsigned int>(S.size(vlend2));
           if (u == 0U) {
-            rtDivisionByZeroError(vc_emlrtRTEI);
+            rtDivisionByZeroError(uc_emlrtRTEI);
           } else {
             b_i = static_cast<int>(static_cast<unsigned int>(ns) / u);
           }
