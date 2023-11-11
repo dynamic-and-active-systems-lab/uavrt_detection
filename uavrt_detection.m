@@ -551,7 +551,7 @@ fprintf('ps_pos.fstart and ps_pos.fend after PROCESS step : \t %f \t to \t %f.\n
 
                         %Decide when/how the priori is updated for the next
                         %segment's processing.
-                        if pulsesConfirmed & (strcmp(mode,'C') || strcmp(mode,'T'))
+                        if pulsesConfirmed %Now checking for confirmation during search mode as well& (strcmp(mode,'C') || strcmp(mode,'T'))
                             X.ps_pos.updateposteriori(X.ps_pre, X.ps_pos.pl, 'freq')
                             if trackedCount > 5
                                 trackedCount = 0;

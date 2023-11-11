@@ -198,9 +198,10 @@ plot([X(i).ps_pos.clst(:,1).yw]);hold on
 plot([X(i).ps_pos.clst(:,2).yw]);
 plot([X(i).ps_pos.clst(:,3).yw]);
 
-% plot([X(i).ps_pos.clst(:,1).yw]+[X(i).ps_pos.clst(:,2).yw]+[X(i).ps_pos.clst(:,3).yw])        
-% hold on;
-% plot(X(i).thresh.threshVecFine)
+ plot([X(i).ps_pos.clst(:,1).yw]+[X(i).ps_pos.clst(:,2).yw]+[X(i).ps_pos.clst(:,3).yw])        
+ title(num2str(i))
+ hold on;
+ plot(X(i).thresh.threshVecFine)
 drawnow
 pause(0.5)
 hold off
@@ -229,7 +230,7 @@ hold off
 
         %Decide when/how the priori is updated for the next
         %segment's processing.
-        if pulsesConfirmed & (strcmp(mode,'C') || strcmp(mode,'T'))
+        if pulsesConfirmed %& (strcmp(mode,'C') || strcmp(mode,'T'))
             X(i).ps_pos.updateposteriori(X(i).ps_pre, X(i).ps_pos.pl, 'freq')
             if trackedCount > 5
                 trackedCount = 0;
@@ -283,7 +284,13 @@ for i = 1:iMax
          if X(i).ps_pos.pl(j).SNR == -inf
              plot(X(i).ps_pos.pl(j).t_0, -20,'.','Color',color);
          else
-        plot(X(i).ps_pos.pl(j).t_0, X(i).ps_pos.pl(j).SNR,'o','Color',color);
+             subplot(2,1,1)
+             plot(X(i).ps_pos.pl(j).t_0, X(i).ps_pos.pl(j).SNR,'o','Color',color); hold on
+             xline(X(i).t_0);
+             subplot(2,1,2)
+             plot(X(i).ps_pos.pl(j).t_0, X(i).ps_pos.pl(j).fp,'o','Color',color); hold on
+             xline(X(i).t_0);
+             
          end
     end
     hold on;
@@ -328,6 +335,7 @@ end
 %         xlabel('STFT Freq (Hz)');ylabel('Freq (MHz)');zlabel('S-fft magnitudes')
 %         view([-28 84])
 % 
+ 
  pause(1);
 
 function [] = updateconfig()

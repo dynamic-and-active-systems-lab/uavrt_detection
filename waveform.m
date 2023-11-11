@@ -823,8 +823,8 @@ fprintf('\t Conducting incoherent summation step  ...')
 % if obj.t_0>93
 %     pause(1);
 % end
-[serialRejectionMatrix] = repetitionrejector(obj.stft.t, [2 3 5 10]);
-%[serialRejectionMatrix] = repetitionrejector(obj.stft.t, 0);%Outputs Identity for testing purposes
+%[serialRejectionMatrix] = repetitionrejector(obj.stft.t, [2 3 5 10]);
+[serialRejectionMatrix] = repetitionrejector(obj.stft.t, 0);%Outputs Identity for testing purposes
 
                [yw_max_all_freq,S_cols] = incohsumtoeplitz(freq_mask,obj.W',obj.stft.S,serialRejectionMatrix,timeBlinderVec, Wq);%obj.TimeCorr.Wq(obj.K));
 fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
@@ -1374,7 +1374,7 @@ fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
 previousToc = toc;
 
         end    
-       
+
         function [n_p,n_w,n_ol,n_ws,t_ws,n_ip,N,M,J] = getprioridependentprops(obj,ps_obj)
             %GETPRIORIDEPENDENTVARS returns the properties in the
             %waveform that are dependent on prior pulse data estimates. It
@@ -1472,8 +1472,7 @@ previousToc = toc;
             end
             
         end
-        
-                          
+
         function [] = process(obj,mode,selection_mode,excluded_freq_bands)
             %PROCESS is a method that runs the pulse detection algorithm on
             %a waveform object. 
@@ -1705,15 +1704,20 @@ fprintf('DETECTING IN SEARCH MODE.\n')
                         warning('UAV-RT: Candidate pulses were detected that exceeded the decision threshold, but no peaks in the scores were detected. This is likely because these high scoring pulses existed at the edges of frequency bounds. Try changing the frequency search bounds and reprocessing. ')
                     end
                 end
-
+                
+               
+               
                 % Determine which peak to focus depending on the selection mode
                 % Select a peak if we found had at least one detection
                 if ~isnan(pk_ind)
-                    if strcmp(selection_mode,'most') || isempty(selection_mode)
-                        selected_ind = 1;
-                    elseif strcmp(selection_mode,'least')
-                        selected_ind = numel(pk_ind);
-                    end
+                     selected_ind = obj.selectpeakindex(candidatelist, pk_ind);
+
+                    % if strcmp(selection_mode,'most') || isempty(selection_mode)
+                    %     selected_ind = 1;
+                    % elseif strcmp(selection_mode,'least')
+                    %     selected_ind = numel(pk_ind);
+                    % end
+
                     %Set the pulselist property in the ps_pos based on the
                     %downselection of pulses
                     obj.ps_pos.pl = candidatelist(pk_ind(selected_ind),:);
@@ -1726,37 +1730,52 @@ fprintf('DETECTING IN SEARCH MODE.\n')
                 obj.ps_pos.clst = candidatelist;
                 obj.ps_pos.cmsk = msk;
                 obj.ps_pos.cpki = pk_ind;
-
+                
+conflog = false(size(obj.ps_pos)); %Set to all false. Needed
                 % Detection?
-                if ~isnan(pk_ind)   %Dection was made
-                    %True ->
-                    %Update confirmation property for each pulse. False 
-                    %recorded for confirmation property since we are 
-                    %currently in discovery mode and can't confirm anything
-                    %yet. 
-                    for ip = 1:length(obj.ps_pos.pl)
-                        obj.ps_pos.pl(ip).con_dec = false;
-                    end
-                    
-%                     %Only update posteriori if we are focusing. If in open
-%                     %mode, we don't evolve the understanding of pulse
-%                     %timing in the priori. 
-%                     if strcmp(focus_mode,'focus')
-%                     %Calculate & set post. stats (reduced uncertainty)
-%                     %obj.update_posteriori(obj.ps_pos.pl)
-%                     obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl)
-%                     end
-                    
-                    %   Update Mode Recommendation -> Confirmation
-                    obj.ps_pos.mode = 'C';
-                else    %Dection was not made
-                    %False ->
-                    %Just update the mode recommendation to 'S' (search) 
-                    %so we keep an open search
-                    obj.ps_pos.mode = 'S';%'D';
+                if ~isnan(pk_ind) 
+%If move to confirm pulses that were real but the pulses before them were
+%noise, the real pulses will not be confirmed and the detector will move
+%back to search mode. Then when it gets to this point, it should try to
+%confirm against the previous detections. 
+conflog = confirmpulses(obj);
 
-                    %obj.ps_pos.updateposteriori(obj.ps_pre,[]);%No pulses to update the posteriori
+if any(conflog,'all')
+    conf = true;
+else
+    conf = false;
+end
+                    % %True ->
+                    % %Update confirmation property for each pulse. False 
+                    % %recorded for confirmation property since we are 
+                    % %currently in discovery mode and can't confirm anything
+                    % %yet. 
+                    % for ip = 1:length(obj.ps_pos.pl)
+                    %     obj.ps_pos.pl(ip).con_dec = false;
+                    % end
+                    % 
+                    % %   Update Mode Recommendation -> Confirmation
+                    % obj.ps_pos.mode = 'C';
+
+                else    %Dection was not made
+                    % obj.ps_pos.mode = 'S';%'D';
+conf = false;                   
                 end
+               % Confirmation?
+                if conf
+                    for ip = 1:length(obj.ps_pos.pl)
+                        obj.ps_pos.pl(ip).con_dec = conflog(ip);
+                    end
+
+                    obj.ps_pos.mode = 'T';
+                else
+                    if ~isnan(pk_ind)  %Detection, no confirmation  -> Confirmation mode
+                        obj.ps_pos.mode = 'C';
+                    else  %No detection, no confirmation  -> Search mode
+                        obj.ps_pos.mode = 'S';
+                    end
+                end
+
                 %Set the mode in the pulse and candidate listing for 
                 %records. This records the mode that was used in the 
                 %detection of the record pulses. This is useful for 
@@ -1789,13 +1808,17 @@ fprintf('DETECTING IN CONFIRMATION MODE.\n')
                     end
                 end
 
+
+
                 %At least one pulse group met the threshold
                 if ~isnan(pk_ind)
+                    selected_ind = obj.selectpeakindex( candidatelist, pk_ind);
+
                     %Record the detection pulses
                     %We only use the highest power pulse group for now
                     %because if we are in confirmation mode, we only allow
                     %for the selection mode to be 'most'
-                    obj.ps_pos.pl = candidatelist(pk_ind(1),:);
+                    obj.ps_pos.pl = candidatelist(pk_ind(selected_ind),:);
                 else
                     %If nothing above threshold was found, fill with empty 
                     %pulse object
@@ -1809,19 +1832,12 @@ fprintf('DETECTING IN CONFIRMATION MODE.\n')
                 
                 conflog = false(size(obj.ps_pos)); %Set to all false. Needed
                 % Detection?
-                if ~isnan(pk_ind)%~isempty(pulselist)%obj.decide(pulselist,PF,decision_table) %Decision on IDed pulses
-                    %True ->
-              
+                if ~isnan(pk_ind)
                     conflog = confirmpulses(obj);
-
-
-                    %[minstartlog', maxstartlog', freqInBand', conflog']
+                    %Confirmation?
                     if any(conflog,'all')
-                        % 	Confirmed?
-                        % 		True -> Confirmation = True
                         conf = true;
                     else
-                        % 		False -> Confirmation = False
                         conf = false;
                     end
                 else
@@ -1829,31 +1845,15 @@ fprintf('DETECTING IN CONFIRMATION MODE.\n')
                     %Set confirmation = False
                     conf = false;
                 end
-                % Confirmation?
+
                 if conf
-                    %True ->
-                    %Update confirmation property for each pulse
                     for ip = 1:length(obj.ps_pos.pl)
-                        %obj.ps_pos.pl(ip).con_dec = true;
+                       
                         obj.ps_pos.pl(ip).con_dec = conflog(ip);
                     end
-                    
-%                     %Open focus mode will never get to confirmation, so we
-%                     %don't need the 'if' statement here checking the focus
-%                     %most like in the discovery case above
-%                     %   Calculate & set post. stats (reduced uncertainty)
-%                     %obj.update_posteriori(obj.ps_pos.pl)%(Note this records pulse list)
-%                     obj.ps_pos.updateposteriori(obj.ps_pre,obj.ps_pos.pl)
-
-                    %Update mode suggestion for next segment processing
-                    %   Mode -> Tracking
                     obj.ps_pos.mode = 'T';
                 else
-                    %False ->
-                    %Update mode suggestion for next segment processing
-                    %	Mode -> Discovery
                     obj.ps_pos.mode = 'S';
-                    %obj.ps_pos.updateposteriori(obj.ps_pre,[]); %No pulses to update the posteriori
                 end
 
                 %Set the mode in the pulse and candidate listing for 
@@ -1885,17 +1885,16 @@ fprintf('DETECTING IN TRACKING MODE.\n')
                         warning('UAV-RT: Candidate pulses were detected that exceeded the decision threshold, but no peaks in the scores were detected. This is likely because these high scoring pulses existed at the edges of frequency bounds. Try changing the frequency search bounds and reprocessing. ')
                     end
                 end
-
-
-
+                
                 %At least one pulse group met the threshold
                 if ~isnan(pk_ind)
+                    selected_ind = obj.selectpeakindex( candidatelist, pk_ind);
 
                     %Record the detection pulses
                     %We only use the highest power pulse group for now
                     %because if we are in confirmation mode, we only allow
                     %for the selection mode to be 'most'
-                    obj.ps_pos.pl = candidatelist(pk_ind(1),:);
+                    obj.ps_pos.pl = candidatelist(pk_ind(selected_ind),:);
 
                 else %Nothing met the threshold for detection
 
@@ -1971,6 +1970,25 @@ fprintf('ps_pos.fstart and ps_pre.fend at the end Tracking search : \t %f \t to 
         end
         end
     
+        function [selectedIndex] = selectpeakindex(obj, candidateList, peakIndexList)
+            interpulseTimeRangeMin = obj.ps_pre.t_ip - obj.ps_pre.t_ipu - obj.ps_pre.t_ipj;
+            interpulseTimeRangeMax = obj.ps_pre.t_ip + obj.ps_pre.t_ipu + obj.ps_pre.t_ipj;
+
+            interPulseAligned = false(numel(peakIndexList),1);
+            if numel(obj.ps_pre.clst) ~= 1 %There is a previous candidate list
+                for i = 1:numel(peakIndexList)
+                    deltaTimeFromPrev = [candidateList(peakIndexList(i),1:(end-obj.K+2)).t_0]-[obj.ps_pre.clst(peakIndexList(i),end).t_0];
+                    interPulseAligned(i) = any(deltaTimeFromPrev < interpulseTimeRangeMax & deltaTimeFromPrev > interpulseTimeRangeMin);
+                end
+            end
+            if sum(interPulseAligned) > 1 | sum(interPulseAligned) == 0
+                selectedIndex = 1;
+            else
+                selectedIndex = find(interPulseAligned);
+            end
+
+        end
+
         function [] = setweightingmatrix(obj, zetas)
                 %SETWEIGHTINGMATRIX method sets the W and Wf properties of
                 %the waveform. These are the weighting matrix and the
