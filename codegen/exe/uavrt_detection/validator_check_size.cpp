@@ -5,7 +5,7 @@
 // File: validator_check_size.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -114,7 +114,7 @@ namespace coder {
 namespace internal {
 void validator_check_size(const array<double, 2U> &in, array<double, 2U> &out)
 {
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
+  static rtRunTimeErrorInfo yc_emlrtRTEI{
       164,               // lineNo
       31,                // colNo
       "expandOrReshape", // fName
@@ -123,8 +123,8 @@ void validator_check_size(const array<double, 2U> &in, array<double, 2U> &out)
   };
   if ((in.size(0) != 1) || (in.size(1) != 1)) {
     if (in.size(1) != 2) {
-      b_rtErrorWithMessageID(static_cast<long>(in.size(1)), xc_emlrtRTEI.fName,
-                             xc_emlrtRTEI.lineNo);
+      b_rtErrorWithMessageID(static_cast<long>(in.size(1)), yc_emlrtRTEI.fName,
+                             yc_emlrtRTEI.lineNo);
     }
     if (in.size(0) == 0) {
       out.set_size(0, 2);
@@ -181,17 +181,17 @@ void validator_check_size(const array<double, 2U> &in, array<double, 2U> &out)
 void validator_check_size(const array<c_struct_T, 2U> &in,
                           array<c_struct_T, 2U> &out)
 {
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
-      277,                                          // lineNo
-      5,                                            // colNo
-      "getExclusiveNonSingletonDimSizeOr1IfScalar", // fName
+  static rtRunTimeErrorInfo ad_emlrtRTEI{
+      219,               // lineNo
+      32,                // colNo
+      "expandOrReshape", // fName
       "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "validator_check_size.m" // pName
   };
   static rtRunTimeErrorInfo yc_emlrtRTEI{
-      219,               // lineNo
-      32,                // colNo
-      "expandOrReshape", // fName
+      277,                                          // lineNo
+      5,                                            // colNo
+      "getExclusiveNonSingletonDimSizeOr1IfScalar", // fName
       "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "validator_check_size.m" // pName
   };
@@ -218,14 +218,14 @@ void validator_check_size(const array<c_struct_T, 2U> &in,
   }
   szNot1 = (in.size(1) != 1);
   if (isequal_the_empty_in && hitNotSingletonDim && szNot1) {
-    o_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+    o_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
   }
   if (szNot1) {
     inVectorLength = in.size(1);
   }
   if ((in.size(0) == 0) || (in.size(1) == 0)) {
     if (inVectorLength != 0) {
-      p_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+      p_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
     }
     out.set_size(1, 0);
   } else {

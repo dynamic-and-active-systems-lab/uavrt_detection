@@ -5,7 +5,7 @@
 // File: imresize.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -43,7 +43,7 @@ static void resizeAlongDim2D(const array<double, 2U> &in,
                              array<double, 2U> &out);
 
 } // namespace coder
-static void oc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -76,10 +76,10 @@ static void b_resizeAlongDim2D(const array<double, 2U> &in,
 
   for (int inRInd = 0; inRInd <= ub_loop; inRInd++) {
     if (inRInd + 1 > in.size(0)) {
-      ic_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+      hc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
     }
     if (in.size(1) < 1) {
-      ic_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+      hc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
     }
     i = static_cast<int>(out_length);
     for (outCInd = 0; outCInd < i; outCInd++) {
@@ -456,7 +456,7 @@ static void resizeAlongDim2D(const array<double, 2U> &in,
 // Return Type  : void
 //
 } // namespace coder
-static void oc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -483,7 +483,7 @@ void imresize(const array<double, 2U> &Ain, const double varargin_1[2],
               array<double, 2U> &Bout)
 {
   static rtRunTimeErrorInfo
-      xc_emlrtRTEI{
+      yc_emlrtRTEI{
           319,        // lineNo
           5,          // colNo
           "imresize", // fName
@@ -519,7 +519,7 @@ void imresize(const array<double, 2U> &Ain, const double varargin_1[2],
     }
   }
   if (y) {
-    oc_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+    nc_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
   }
   if (std::isnan(varargin_1[0])) {
     outputSize_idx_0 =

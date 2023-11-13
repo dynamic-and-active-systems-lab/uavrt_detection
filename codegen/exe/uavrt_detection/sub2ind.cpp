@@ -5,7 +5,7 @@
 // File: sub2ind.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -24,7 +24,7 @@
 
 // Variable Definitions
 static rtRunTimeErrorInfo
-    mc_emlrtRTEI{
+    nc_emlrtRTEI{
         18,        // lineNo
         23,        // colNo
         "sub2ind", // fName
@@ -39,7 +39,7 @@ static boolean_T allinrange(const array<double, 2U> &x, int hi);
 
 }
 } // namespace coder
-static void jc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void ic_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -81,7 +81,7 @@ static boolean_T allinrange(const array<double, 2U> &x, int hi)
 //
 } // namespace internal
 } // namespace coder
-static void jc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void ic_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -115,7 +115,7 @@ void b_sub2ind(const int siz[2], const array<double, 2U> &varargin_1,
   boolean_T exitg1;
   boolean_T p;
   if (!allinrange(varargin_1, siz[0])) {
-    ic_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+    hc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
   }
   b_varargin_1[0] = static_cast<unsigned int>(varargin_1.size(0));
   b_varargin_2[0] = static_cast<unsigned int>(varargin_2.size(0));
@@ -134,10 +134,10 @@ void b_sub2ind(const int siz[2], const array<double, 2U> &varargin_1,
     }
   }
   if (!p) {
-    jc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+    ic_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
   }
   if (!allinrange(varargin_2, siz[1])) {
-    ic_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+    hc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
   }
   idx.set_size(varargin_1.size(0), varargin_1.size(1));
   k = varargin_1.size(0) * varargin_1.size(1);
@@ -168,7 +168,7 @@ void sub2ind(const int siz[2], const array<double, 2U> &varargin_1,
     if ((varargin_1[k] >= 1.0) && (varargin_1[k] <= siz[0])) {
       k++;
     } else {
-      ic_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+      hc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
     }
   }
   b_varargin_1[0] = 1U;
@@ -188,7 +188,7 @@ void sub2ind(const int siz[2], const array<double, 2U> &varargin_1,
     }
   }
   if (!p) {
-    jc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+    ic_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
   }
   k = 0;
   exitg1 = false;
@@ -196,7 +196,7 @@ void sub2ind(const int siz[2], const array<double, 2U> &varargin_1,
     if ((varargin_2[k] >= 1.0) && (varargin_2[k] <= siz[1])) {
       k++;
     } else {
-      ic_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+      hc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
     }
   }
   idx.set_size(1, varargin_1.size(1));
@@ -228,7 +228,7 @@ void sub2ind(const int siz[2], const array<double, 1U> &varargin_1,
     if ((varargin_1[k] >= 1.0) && (varargin_1[k] <= siz[0])) {
       k++;
     } else {
-      ic_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+      hc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
     }
   }
   b_varargin_1[0] = static_cast<unsigned int>(varargin_1.size(0));
@@ -248,7 +248,7 @@ void sub2ind(const int siz[2], const array<double, 1U> &varargin_1,
     }
   }
   if (!p) {
-    jc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+    ic_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
   }
   k = 0;
   exitg1 = false;
@@ -256,7 +256,7 @@ void sub2ind(const int siz[2], const array<double, 1U> &varargin_1,
     if ((varargin_2[k] >= 1.0) && (varargin_2[k] <= siz[1])) {
       k++;
     } else {
-      ic_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+      hc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
     }
   }
   idx.set_size(varargin_1.size(0));
@@ -275,10 +275,10 @@ void sub2ind(const int siz[2], const array<double, 1U> &varargin_1,
 int sub2ind(const int siz[2], double varargin_2)
 {
   if (siz[0] < 1) {
-    ic_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+    hc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
   }
   if (!(varargin_2 <= siz[1])) {
-    ic_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+    hc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
   }
   return siz[0] * (static_cast<int>(varargin_2) - 1) + 1;
 }

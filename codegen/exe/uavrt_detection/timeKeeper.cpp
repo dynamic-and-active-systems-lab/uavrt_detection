@@ -5,7 +5,7 @@
 // File: timeKeeper.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -92,7 +92,7 @@ void timeKeeper(double newTime_tv_sec, double newTime_tv_nsec)
 //
 double timeKeeper(double &outTime_tv_nsec)
 {
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
+  static rtRunTimeErrorInfo yc_emlrtRTEI{
       11,           // lineNo
       9,            // colNo
       "timeKeeper", // fName
@@ -101,7 +101,7 @@ double timeKeeper(double &outTime_tv_nsec)
   };
   double outTime_tv_sec;
   if (!savedTime_not_empty) {
-    ib_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+    ib_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
   }
   outTime_tv_sec = savedTime.tv_sec;
   outTime_tv_nsec = savedTime.tv_nsec;

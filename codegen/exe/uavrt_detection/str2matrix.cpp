@@ -5,7 +5,7 @@
 // File: str2matrix.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -387,7 +387,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
     }
     b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i) - 1]);
     if (b_i > 127) {
-      uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+      tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
     if (bv[b_i]) {
       if ((static_cast<int>(static_cast<double>(i) + 1.0) < 1) ||
@@ -397,7 +397,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       }
       b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
       if (b_i > 127) {
-        uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
       }
       if (bv[b_i]) {
         // inputStr(i+1) = '';
@@ -442,7 +442,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       }
       b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
       if (b_i > 127) {
-        uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
       }
       if (bv[b_i]) {
         nd2 = static_cast<int>(i) + 1;
@@ -476,7 +476,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
         }
         b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
         if (b_i > 127) {
-          uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+          tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
         }
         if (bv[b_i]) {
           nd2 = static_cast<int>(i) + 1;
@@ -509,7 +509,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       }
       b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
       if (b_i > 127) {
-        uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
       }
       if (bv[b_i]) {
         nd2 = static_cast<int>(i) + 1;
@@ -559,7 +559,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       }
       b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
       if (b_i > 127) {
-        uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
       }
       if (bv[b_i]) {
         nd2 = static_cast<int>(i) + 1;
@@ -593,7 +593,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
         }
         b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
         if (b_i > 127) {
-          uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+          tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
         }
         if (bv[b_i]) {
           nd2 = static_cast<int>(i) + 1;
@@ -626,7 +626,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       }
       b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
       if (b_i > 127) {
-        uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
       }
       if (bv[b_i]) {
         nd2 = static_cast<int>(i) + 1;

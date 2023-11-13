@@ -5,7 +5,7 @@
 // File: nullAssignment.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -35,17 +35,17 @@ void nullAssignment(array<creal_T, 3U> &x, const array<int, 2U> &idx)
       "nullAssignment.m", // pName
       4                   // checkKind
   };
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
-      448,                       // lineNo
-      1,                         // colNo
-      "general_null_assignment", // fName
+  static rtRunTimeErrorInfo ad_emlrtRTEI{
+      81,                // lineNo
+      27,                // colNo
+      "validate_inputs", // fName
       "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "nullAssignment.m" // pName
   };
   static rtRunTimeErrorInfo yc_emlrtRTEI{
-      81,                // lineNo
-      27,                // colNo
-      "validate_inputs", // fName
+      448,                       // lineNo
+      1,                         // colNo
+      "general_null_assignment", // fName
       "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "nullAssignment.m" // pName
   };
@@ -71,7 +71,7 @@ void nullAssignment(array<creal_T, 3U> &x, const array<int, 2U> &idx)
     }
   }
   if (!p) {
-    j_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+    j_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
   }
   b_x.set_size(x.size(0), x.size(1), x.size(2));
   loop_ub_tmp = x.size(0) * x.size(1);
@@ -102,7 +102,7 @@ void nullAssignment(array<creal_T, 3U> &x, const array<int, 2U> &idx)
   }
   nxout = x.size(1) - npages;
   if (nxout > x.size(1)) {
-    i_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
   }
   if (nxout < 0) {
     rtNonNegativeError(static_cast<double>(nxout), r_emlrtDCI);
@@ -144,7 +144,7 @@ void nullAssignment(array<creal_T, 3U> &x, const array<int, 2U> &idx)
 //
 void nullAssignment(array<double, 1U> &x, const array<int, 2U> &idx)
 {
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
+  static rtRunTimeErrorInfo yc_emlrtRTEI{
       181,                      // lineNo
       9,                        // colNo
       "onearg_null_assignment", // fName
@@ -205,7 +205,7 @@ void nullAssignment(array<double, 1U> &x, const array<int, 2U> &idx)
     }
   }
   if (nxout > x.size(0)) {
-    i_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
   }
   if (nxout < 1) {
     nxout = 0;

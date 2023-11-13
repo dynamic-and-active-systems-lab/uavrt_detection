@@ -5,7 +5,7 @@
 // File: wgn.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -142,7 +142,7 @@ void wgn(creal_T y[1000])
 void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
          array<creal_T, 2U> &y)
 {
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
+  static rtRunTimeErrorInfo yc_emlrtRTEI{
       180,                                                      // lineNo
       1,                                                        // colNo
       "wgn",                                                    // fName
@@ -178,7 +178,7 @@ void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
     }
   }
   if (b_y) {
-    sb_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+    sb_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
   }
   for (k = 0; k < 6; k++) {
     switch_expression_data[k] = cv[static_cast<int>(a[k])];

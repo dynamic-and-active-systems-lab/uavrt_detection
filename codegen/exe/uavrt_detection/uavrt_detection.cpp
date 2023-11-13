@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -573,18 +573,18 @@ static void updateconfig(coder::b_captured_var &Config,
       "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
       0                                                   // checkKind
   };
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
-      37,      // lineNo
-      9,       // colNo
-      "fopen", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/fopen.m" // pName
-  };
-  static rtRunTimeErrorInfo yc_emlrtRTEI{
+  static rtRunTimeErrorInfo ad_emlrtRTEI{
       11,                  // lineNo
       24,                  // colNo
       "mustBeNonnegative", // fName
       "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/validators/"
       "mustBeNonnegative.m" // pName
+  };
+  static rtRunTimeErrorInfo yc_emlrtRTEI{
+      37,      // lineNo
+      9,       // colNo
+      "fopen", // fName
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/fopen.m" // pName
   };
   static const char b_cv[2]{'I', 'D'};
   int st;
@@ -637,7 +637,7 @@ static void updateconfig(coder::b_captured_var &Config,
   //    none (method modifies the properties of the instance)
   //
   if (coder::internal::b_strcmp(lineStr)) {
-    b_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
   } else {
     signed char fileid;
     fileid = coder::internal::cfopen(lineStr, "rb");
@@ -844,7 +844,7 @@ static void updateconfig(coder::b_captured_var &Config,
           creal_T x;
           x = coder::internal::str2double(configValStr);
           if (!(x.re >= 0.0)) {
-            e_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+            e_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
           }
           r.channelCenterFreqMHz = x.re;
         } else if (!coder::internal::d_strcmp(configType)) {
@@ -902,14 +902,14 @@ static void updateconfig(coder::b_captured_var &Config,
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re >= 0.0)) {
-              e_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+              e_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
             }
             r.tipu = x.re;
           } else if (coder::internal::k_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re >= 0.0)) {
-              e_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+              e_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
             }
             r.tipj = x.re;
           } else {

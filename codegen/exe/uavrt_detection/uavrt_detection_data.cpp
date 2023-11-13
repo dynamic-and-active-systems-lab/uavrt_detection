@@ -5,7 +5,7 @@
 // File: uavrt_detection_data.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -462,7 +462,7 @@ rtRunTimeErrorInfo jc_emlrtRTEI{
 };
 
 rtRunTimeErrorInfo
-    lc_emlrtRTEI{
+    mc_emlrtRTEI{
         28,        // lineNo
         19,        // colNo
         "sub2ind", // fName
@@ -470,14 +470,14 @@ rtRunTimeErrorInfo
         "sub2ind.m" // pName
     };
 
-rtRunTimeErrorInfo qc_emlrtRTEI{
+rtRunTimeErrorInfo rc_emlrtRTEI{
     48,        // lineNo
     5,         // colNo
     "fprintf", // fName
     "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/fprintf.m" // pName
 };
 
-rtRunTimeErrorInfo rc_emlrtRTEI{
+rtRunTimeErrorInfo sc_emlrtRTEI{
     125,        // lineNo
     17,         // colNo
     "cfprintf", // fName

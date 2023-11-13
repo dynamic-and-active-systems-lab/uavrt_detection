@@ -5,7 +5,7 @@
 // File: fileManager.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -60,7 +60,7 @@ static signed char filedata();
 } // namespace coder
 static void h_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-static void tc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void sc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -117,7 +117,7 @@ static void h_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void tc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void sc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -142,7 +142,7 @@ namespace coder {
 namespace internal {
 int cfclose(double fid)
 {
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
+  static rtRunTimeErrorInfo yc_emlrtRTEI{
       168,                 // lineNo
       5,                   // colNo
       "conditionalAssert", // fName
@@ -182,7 +182,7 @@ int cfclose(double fid)
     f = stderr;
   }
   if ((!(f != nullptr)) || (fileid < 3)) {
-    c_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
   }
   cst = std::fclose(f);
   if (cst == 0) {
@@ -200,7 +200,7 @@ int cfclose(double fid)
 //
 signed char cfopen(const array<char, 2U> &cfilename, const char *cpermission)
 {
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
+  static rtRunTimeErrorInfo yc_emlrtRTEI{
       111,      // lineNo
       5,        // colNo
       "cfopen", // fName
@@ -214,7 +214,7 @@ signed char cfopen(const array<char, 2U> &cfilename, const char *cpermission)
   fileid = -1;
   j = filedata();
   if (j < 1) {
-    tc_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+    sc_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
   } else {
     int i;
     int loop_ub;

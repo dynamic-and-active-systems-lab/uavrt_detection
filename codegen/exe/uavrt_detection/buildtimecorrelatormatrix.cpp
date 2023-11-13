@@ -5,7 +5,7 @@
 // File: buildtimecorrelatormatrix.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -428,7 +428,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/assembleWq.m" // pName
   };
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
+  static rtRunTimeErrorInfo yc_emlrtRTEI{
       82,         // lineNo
       5,          // colNo
       "fltpower", // fName
@@ -569,7 +569,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   // --------------------------------------------------------------------------
   ntilecols = priJtrList.size(1);
   if ((ntilecols < 0) && (std::floor(reps - 1.0) != reps - 1.0)) {
-    mb_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+    mb_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
   }
   num_PRI_patterns = static_cast<double>(priMeansList.size(1)) *
                      rt_powd_snf(static_cast<double>(ntilecols), reps - 1.0);
@@ -729,7 +729,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
     ntilecols = pulse_position_value.size(1);
     if ((ntilecols < 0) && (static_cast<double>(ncols) + 1.0 !=
                             static_cast<double>(ncols) + 1.0)) {
-      mb_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+      mb_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
     }
     num_PRI_patterns = rt_powd_snf(static_cast<double>(ntilecols),
                                    static_cast<double>(ncols) + 1.0);

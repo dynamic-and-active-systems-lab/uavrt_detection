@@ -5,7 +5,7 @@
 // File: threshold.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -506,12 +506,12 @@ void threshold::makenewthreshold(const waveform &Wfm)
       std::fflush(stdout);
     } else {
       if (fileid == 0) {
-        g_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+        g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
       }
       f = coder::internal::getfilestar(static_cast<double>(fileid),
                                        incompleteRead);
       if (f == nullptr) {
-        c_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+        c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
       } else {
         std::fprintf(f, "%f\n", stftSz[0]);
         if (incompleteRead) {
@@ -519,12 +519,12 @@ void threshold::makenewthreshold(const waveform &Wfm)
         }
       }
       if (fileid == 0) {
-        g_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+        g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
       }
       f = coder::internal::getfilestar(static_cast<double>(fileid),
                                        incompleteRead);
       if (f == nullptr) {
-        c_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+        c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
       } else {
         std::fprintf(f, "%f\n", stftSz[1]);
         if (incompleteRead) {

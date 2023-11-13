@@ -5,7 +5,7 @@
 // File: waveform.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -109,7 +109,6 @@ static void binary_expand_op_7(coder::array<double, 1U> &in1, const coder::array
   double, 1U> &in2, const coder::array<boolean_T, 1U> &in3);
 static void c_and(coder::array<boolean_T, 1U> &in1, const coder::array<boolean_T,
                   1U> &in2, const coder::array<boolean_T, 1U> &in3);
-static void ec_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 static void g_rtErrorWithMessageID(const char *r, const char *aFcnName, int
   aLineNum);
 static void minus(coder::array<double, 2U> &in1, const coder::array<double, 2U>
@@ -5351,22 +5350,18 @@ void waveform::selectpeakindex(const coder::array<c_struct_T, 2U> &candidateList
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
   };
 
-  static rtRunTimeErrorInfo xc_emlrtRTEI{ 47,// lineNo
-    19,                                // colNo
-    "allOrAny",                        // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/allOrAny.m"// pName
-  };
-
   coder::array<c_struct_T, 2U> b_candidateList;
   coder::array<double, 2U> deltaTimeFromPrev;
   coder::array<int, 1U> ii;
   coder::array<boolean_T, 2U> b_x;
   coder::array<boolean_T, 2U> r;
+  coder::array<boolean_T, 2U> r1;
+  coder::array<boolean_T, 1U> c_x;
   coder::array<boolean_T, 1U> interPulseAligned;
   double interpulseTimeRangeMax;
   double interpulseTimeRangeMin;
   int i;
-  int i1_tmp_tmp;
+  int k;
   int loop_ub;
   int n;
   int resultSize_idx_1;
@@ -5411,6 +5406,7 @@ void waveform::selectpeakindex(const coder::array<c_struct_T, 2U> &candidateList
     for (int b_i{0}; b_i < i; b_i++) {
       int i1;
       int i2;
+      boolean_T varargout_1;
       if (b_i + 1 > peakIndexList.size(0)) {
         rtDynamicBoundsError(b_i + 1, 1, peakIndexList.size(0), bb_emlrtBCI);
       }
@@ -5428,9 +5424,9 @@ void waveform::selectpeakindex(const coder::array<c_struct_T, 2U> &candidateList
       }
 
       b_candidateList.set_size(1, loop_ub);
-      for (int c_i{0}; c_i < loop_ub; c_i++) {
-        b_candidateList[c_i] = candidateList[(static_cast<int>(peakIndexList[b_i])
-          + candidateList.size(0) * c_i) - 1];
+      for (int i3{0}; i3 < loop_ub; i3++) {
+        b_candidateList[i3] = candidateList[(static_cast<int>(peakIndexList[b_i])
+          + candidateList.size(0) * i3) - 1];
       }
 
       n = b_candidateList.size(1);
@@ -5444,14 +5440,15 @@ void waveform::selectpeakindex(const coder::array<c_struct_T, 2U> &candidateList
       }
 
       deltaTimeFromPrev.set_size(1, resultSize_idx_1);
-      for (int c_i{0}; c_i < n; c_i++) {
-        deltaTimeFromPrev[c_i] = b_candidateList[c_i].t_0;
+      for (resultSize_idx_1 = 0; resultSize_idx_1 < n; resultSize_idx_1++) {
+        deltaTimeFromPrev[resultSize_idx_1] = b_candidateList[resultSize_idx_1].
+          t_0;
       }
 
       deltaTimeFromPrev.set_size(1, deltaTimeFromPrev.size(1));
-      n = deltaTimeFromPrev.size(1) - 1;
-      for (int c_i{0}; c_i <= n; c_i++) {
-        resultSize_idx_1 = ps_pre->clst.size(0);
+      resultSize_idx_1 = deltaTimeFromPrev.size(1) - 1;
+      for (int i3{0}; i3 <= resultSize_idx_1; i3++) {
+        k = ps_pre->clst.size(0);
         if (b_i + 1 > peakIndexList.size(0)) {
           rtDynamicBoundsError(b_i + 1, 1, peakIndexList.size(0), cb_emlrtBCI);
         }
@@ -5460,71 +5457,62 @@ void waveform::selectpeakindex(const coder::array<c_struct_T, 2U> &candidateList
           rtIntegerError(d, s_emlrtDCI);
         }
 
-        if ((d < 1.0) || (i2 > resultSize_idx_1)) {
-          rtDynamicBoundsError(static_cast<int>(d), 1, resultSize_idx_1,
-                               db_emlrtBCI);
+        if ((d < 1.0) || (i2 > k)) {
+          rtDynamicBoundsError(static_cast<int>(d), 1, k, db_emlrtBCI);
         }
 
-        resultSize_idx_1 = ps_pre->clst.size(1);
-        i1_tmp_tmp = ps_pre->clst.size(1);
-        if ((i1_tmp_tmp < 1) || (i1_tmp_tmp > resultSize_idx_1)) {
-          rtDynamicBoundsError(i1_tmp_tmp, 1, resultSize_idx_1, eb_emlrtBCI);
+        k = ps_pre->clst.size(1);
+        n = ps_pre->clst.size(1);
+        if ((n < 1) || (n > k)) {
+          rtDynamicBoundsError(n, 1, k, eb_emlrtBCI);
         }
 
-        deltaTimeFromPrev[c_i] = deltaTimeFromPrev[c_i] - ps_pre->clst[(
-          static_cast<int>(d) + ps_pre->clst.size(0) * (i1_tmp_tmp - 1)) - 1].
-          t_0;
+        deltaTimeFromPrev[i3] = deltaTimeFromPrev[i3] - ps_pre->clst[(
+          static_cast<int>(d) + ps_pre->clst.size(0) * (n - 1)) - 1].t_0;
       }
 
-      b_x.set_size(1, deltaTimeFromPrev.size(1));
-      resultSize_idx_1 = deltaTimeFromPrev.size(1);
       r.set_size(1, deltaTimeFromPrev.size(1));
+      resultSize_idx_1 = deltaTimeFromPrev.size(1);
+      r1.set_size(1, deltaTimeFromPrev.size(1));
       for (i1 = 0; i1 < resultSize_idx_1; i1++) {
         d = deltaTimeFromPrev[i1];
-        b_x[i1] = (d < interpulseTimeRangeMax);
-        r[i1] = (d > interpulseTimeRangeMin);
+        r[i1] = (d < interpulseTimeRangeMax);
+        r1[i1] = (d > interpulseTimeRangeMin);
       }
 
-      if (b_x.size(1) != r.size(1)) {
-        rtSizeEqNDCheck(b_x.size(), r.size(), g_emlrtECI);
+      if (r.size(1) != r1.size(1)) {
+        rtSizeEqNDCheck(r.size(), r1.size(), g_emlrtECI);
       }
 
-      b_x.set_size(1, b_x.size(1));
-      for (i1 = 0; i1 <= n; i1++) {
-        b_x[i1] = (b_x[i1] && r[i1]);
+      b_x.set_size(1, r.size(1));
+      resultSize_idx_1 = r.size(1);
+      for (i1 = 0; i1 < resultSize_idx_1; i1++) {
+        b_x[i1] = (r[i1] && r1[i1]);
       }
 
-      if (b_x.size(1) != 1) {
-        ec_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
-      }
-
-      r.set_size(1, 1);
-      r[0] = false;
-      n = 0;
-      for (int c_i{0}; c_i < 1; c_i++) {
-        i1_tmp_tmp = n + 1;
-        n++;
-        if (i1_tmp_tmp > 2147483646) {
-          coder::check_forloop_overflow_error();
-        }
-
-        resultSize_idx_1 = i1_tmp_tmp;
-        exitg1 = false;
-        while ((!exitg1) && (resultSize_idx_1 <= i1_tmp_tmp)) {
-          if (b_x[resultSize_idx_1 - 1]) {
-            r[0] = true;
-            exitg1 = true;
-          } else {
-            resultSize_idx_1++;
-          }
-        }
-      }
-
+      resultSize_idx_1 = b_x.size(1);
       if (b_i + 1 > interPulseAligned.size(0)) {
         rtDynamicBoundsError(b_i + 1, 1, interPulseAligned.size(0), fb_emlrtBCI);
       }
 
-      interPulseAligned[b_i] = r[0];
+      c_x = b_x.reshape(resultSize_idx_1);
+      varargout_1 = false;
+      if (c_x.size(0) > 2147483646) {
+        coder::check_forloop_overflow_error();
+      }
+
+      resultSize_idx_1 = 1;
+      exitg1 = false;
+      while ((!exitg1) && (resultSize_idx_1 <= c_x.size(0))) {
+        if (c_x[resultSize_idx_1 - 1]) {
+          varargout_1 = true;
+          exitg1 = true;
+        } else {
+          resultSize_idx_1++;
+        }
+      }
+
+      interPulseAligned[b_i] = varargout_1;
     }
   }
 
@@ -5537,8 +5525,8 @@ void waveform::selectpeakindex(const coder::array<c_struct_T, 2U> &candidateList
       coder::check_forloop_overflow_error();
     }
 
-    for (i1_tmp_tmp = 2; i1_tmp_tmp <= resultSize_idx_1; i1_tmp_tmp++) {
-      n += interPulseAligned[i1_tmp_tmp - 1];
+    for (k = 2; k <= resultSize_idx_1; k++) {
+      n += interPulseAligned[k - 1];
     }
   }
 
@@ -5555,8 +5543,8 @@ void waveform::selectpeakindex(const coder::array<c_struct_T, 2U> &candidateList
         coder::check_forloop_overflow_error();
       }
 
-      for (i1_tmp_tmp = 2; i1_tmp_tmp <= resultSize_idx_1; i1_tmp_tmp++) {
-        n += interPulseAligned[i1_tmp_tmp - 1];
+      for (k = 2; k <= resultSize_idx_1; k++) {
+        n += interPulseAligned[k - 1];
       }
     }
 
@@ -5570,19 +5558,19 @@ void waveform::selectpeakindex(const coder::array<c_struct_T, 2U> &candidateList
         coder::check_forloop_overflow_error();
       }
 
-      i1_tmp_tmp = 0;
+      k = 0;
       exitg1 = false;
-      while ((!exitg1) && (i1_tmp_tmp <= resultSize_idx_1 - 1)) {
-        if (interPulseAligned[i1_tmp_tmp]) {
+      while ((!exitg1) && (k <= resultSize_idx_1 - 1)) {
+        if (interPulseAligned[k]) {
           n++;
-          ii[n - 1] = i1_tmp_tmp + 1;
+          ii[n - 1] = k + 1;
           if (n >= resultSize_idx_1) {
             exitg1 = true;
           } else {
-            i1_tmp_tmp++;
+            k++;
           }
         } else {
-          i1_tmp_tmp++;
+          k++;
         }
       }
 
@@ -6149,29 +6137,6 @@ static void c_and(coder::array<boolean_T, 1U> &in1, const coder::array<boolean_T
   stride_1_0 = (in3.size(0) != 1);
   for (int i{0}; i < loop_ub; i++) {
     in1[i] = (in2[i * stride_0_0] && in3[i * stride_1_0]);
-  }
-}
-
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-static void ec_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  outStream <<
-    "The working dimension was selected automatically, is variable-size, and has length 1 at run time. This is not supported. Manuall"
-    "y select the working dimension by supplying the DIM argument.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
   }
 }
 

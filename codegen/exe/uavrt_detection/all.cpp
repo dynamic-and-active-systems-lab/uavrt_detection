@@ -5,7 +5,7 @@
 // File: all.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -54,7 +54,7 @@ static void cc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 namespace coder {
 void all(const array<boolean_T, 2U> &x, array<boolean_T, 1U> &y)
 {
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
+  static rtRunTimeErrorInfo yc_emlrtRTEI{
       18,                               // lineNo
       27,                               // colNo
       "eml_int_forloop_overflow_check", // fName
@@ -87,7 +87,7 @@ void all(const array<boolean_T, 2U> &x, array<boolean_T, 1U> &y)
       overflow = (i2 > MAX_int32_T - vstride);
     }
     if (vstride == 0) {
-      cc_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+      cc_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
     }
     if (overflow) {
       check_forloop_overflow_error();

@@ -5,7 +5,7 @@
 // File: fwrite.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -29,18 +29,18 @@ namespace coder {
 double b_fwrite(double fileID, const array<float, 1U> &x)
 {
   static rtRunTimeErrorInfo
-      xc_emlrtRTEI{
-          163,           // lineNo
-          5,             // colNo
-          "getFileStar", // fName
+      ad_emlrtRTEI{
+          33,       // lineNo
+          5,        // colNo
+          "fwrite", // fName
           "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/"
           "fwrite.m" // pName
       };
   static rtRunTimeErrorInfo
       yc_emlrtRTEI{
-          33,       // lineNo
-          5,        // colNo
-          "fwrite", // fName
+          163,           // lineNo
+          5,             // colNo
+          "getFileStar", // fName
           "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/"
           "fwrite.m" // pName
       };
@@ -49,12 +49,12 @@ double b_fwrite(double fileID, const array<float, 1U> &x)
   double count;
   boolean_T autoflush;
   if (!(fileID != 0.0)) {
-    g_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
   }
   f = internal::getfilestar(fileID, autoflush);
   filestar = f;
   if (f == nullptr) {
-    c_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
   }
   if ((filestar == nullptr) || (x.size(0) == 0)) {
     count = 0.0;

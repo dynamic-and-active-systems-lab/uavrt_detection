@@ -5,7 +5,7 @@
 // File: stft.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -311,7 +311,7 @@ void stft(const array<creal32_T, 2U> &x, double varargin_1,
           double varargin_7, array<creal32_T, 2U> &varargout_1,
           array<float, 1U> &varargout_2, array<float, 1U> &varargout_3)
 {
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
+  static rtRunTimeErrorInfo yc_emlrtRTEI{
       398,          // lineNo
       5,            // colNo
       "checkrange", // fName
@@ -415,7 +415,7 @@ void stft(const array<creal32_T, 2U> &x, double varargin_1,
     y.set_size(y.size(0), 0);
   } else {
     if (!(nCol - 1.0 <= 3.4028234663852886E+38)) {
-      u_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+      u_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
     }
     y.set_size(1, static_cast<int>(nCol - 1.0) + 1);
     bcoef = static_cast<int>(nCol - 1.0);

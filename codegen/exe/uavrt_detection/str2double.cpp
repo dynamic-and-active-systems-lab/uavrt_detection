@@ -5,7 +5,7 @@
 // File: str2double.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -85,7 +85,7 @@ static boolean_T b_copysign(array<char, 2U> &s1, int &idx,
       k++;
     } else {
       if (static_cast<unsigned char>(c) > 127) {
-        uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
       }
       if (!bv[static_cast<unsigned char>(c) & 127]) {
         exitg1 = true;
@@ -152,7 +152,7 @@ static boolean_T b_readfloat(array<char, 2U> &s1, int &idx,
       while ((!exitg1) && (k <= n)) {
         c = s[k - 1];
         if (static_cast<unsigned char>(c) > 127) {
-          uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+          tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
         }
         if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
             (c == ',')) {
@@ -167,7 +167,7 @@ static boolean_T b_readfloat(array<char, 2U> &s1, int &idx,
         while ((!exitg1) && (k <= n)) {
           c = s[k - 1];
           if (static_cast<unsigned char>(c) > 127) {
-            uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+            tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
           }
           if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
               (c == ',')) {
@@ -189,7 +189,7 @@ static boolean_T b_readfloat(array<char, 2U> &s1, int &idx,
     while ((!exitg1) && (k <= n)) {
       c = s[k - 1];
       if (static_cast<unsigned char>(c) > 127) {
-        uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
       }
       if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
           (c == ',')) {
@@ -421,7 +421,7 @@ static int readfloat(array<char, 2U> &s1, const array<char, 2U> &s, int &k,
       k++;
     } else {
       if (static_cast<unsigned char>(c) > 127) {
-        uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
       }
       if (!bv[static_cast<unsigned char>(c) & 127]) {
         exitg1 = true;
@@ -443,7 +443,7 @@ static int readfloat(array<char, 2U> &s1, const array<char, 2U> &s, int &k,
       while ((!exitg1) && (k <= n)) {
         c = s[k - 1];
         if (static_cast<unsigned char>(c) > 127) {
-          uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+          tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
         }
         if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
             (c == ',')) {
@@ -475,7 +475,7 @@ static int readfloat(array<char, 2U> &s1, const array<char, 2U> &s, int &k,
       while ((!exitg1) && (k <= n)) {
         c = s[k - 1];
         if (static_cast<unsigned char>(c) > 127) {
-          uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+          tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
         }
         if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
             (c == ',')) {
@@ -490,7 +490,7 @@ static int readfloat(array<char, 2U> &s1, const array<char, 2U> &s, int &k,
         while ((!exitg1) && (k <= n)) {
           c = s[k - 1];
           if (static_cast<unsigned char>(c) > 127) {
-            uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+            tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
           }
           if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
               (c == ',')) {
@@ -512,7 +512,7 @@ static int readfloat(array<char, 2U> &s1, const array<char, 2U> &s, int &k,
     while ((!exitg1) && (k <= n)) {
       c = s[k - 1];
       if (static_cast<unsigned char>(c) > 127) {
-        uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
       }
       if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
           (c == ',')) {
@@ -559,7 +559,7 @@ creal_T str2double(const array<char, 2U> &s)
     while ((!exitg1) && (k + 1 <= n)) {
       idx = static_cast<unsigned char>(s[k]);
       if (idx > 127) {
-        uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
       }
       if (bv[idx] || (s[k] == '\x00')) {
         k++;
@@ -597,7 +597,7 @@ creal_T str2double(const array<char, 2U> &s)
           while ((!exitg1) && (k <= n)) {
             c = s[k - 1];
             if (static_cast<unsigned char>(c) > 127) {
-              uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+              tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
             }
             if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
                 (c == ',')) {
@@ -630,7 +630,7 @@ creal_T str2double(const array<char, 2U> &s)
           while ((!exitg1) && (k <= n)) {
             c = s[k - 1];
             if (static_cast<unsigned char>(c) > 127) {
-              uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+              tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
             }
             if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
                 (c == ',')) {
@@ -645,7 +645,7 @@ creal_T str2double(const array<char, 2U> &s)
             while ((!exitg1) && (k <= n)) {
               c = s[k - 1];
               if (static_cast<unsigned char>(c) > 127) {
-                uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+                tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
               }
               if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
                   (c == ',')) {
@@ -667,7 +667,7 @@ creal_T str2double(const array<char, 2U> &s)
         while ((!exitg1) && (k <= n)) {
           c = s[k - 1];
           if (static_cast<unsigned char>(c) > 127) {
-            uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+            tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
           }
           if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
               (c == ',')) {

@@ -5,7 +5,7 @@
 // File: interp1.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -168,17 +168,17 @@ void interp1(const array<double, 1U> &varargin_1,
              const array<double, 1U> &varargin_3, array<double, 1U> &Vq)
 {
   static rtRunTimeErrorInfo
-      xc_emlrtRTEI{
-          155,            // lineNo
-          15,             // colNo
+      ad_emlrtRTEI{
+          139,            // lineNo
+          23,             // colNo
           "interp1_work", // fName
           "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/polyfun/"
           "interp1.m" // pName
       };
   static rtRunTimeErrorInfo
       yc_emlrtRTEI{
-          139,            // lineNo
-          23,             // colNo
+          155,            // lineNo
+          15,             // colNo
           "interp1_work", // fName
           "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/polyfun/"
           "interp1.m" // pName
@@ -200,10 +200,10 @@ void interp1(const array<double, 1U> &varargin_1,
   }
   nx = varargin_1.size(0);
   if (varargin_1.size(0) != varargin_2.size(0)) {
-    ac_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+    ac_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
   }
   if (varargin_1.size(0) <= 1) {
-    bc_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+    bc_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
   }
   Vq.set_size(varargin_3.size(0));
   n = varargin_3.size(0);

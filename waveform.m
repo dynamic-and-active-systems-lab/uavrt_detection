@@ -1829,7 +1829,7 @@ fprintf('ps_pos.fstart and ps_pre.fend at the end Tracking search : \t %f \t to 
             if numel(obj.ps_pre.clst) ~= 1 %There is a previous candidate list
                 for i = 1:numel(peakIndexList)
                     deltaTimeFromPrev = [candidateList(peakIndexList(i),1:(end-obj.K+2)).t_0]-[obj.ps_pre.clst(peakIndexList(i),end).t_0];
-                    interPulseAligned(i) = any(deltaTimeFromPrev < interpulseTimeRangeMax & deltaTimeFromPrev > interpulseTimeRangeMin);
+                    interPulseAligned(i) = any(deltaTimeFromPrev < interpulseTimeRangeMax & deltaTimeFromPrev > interpulseTimeRangeMin, 'all');
                 end
             end
             if sum(interPulseAligned) > 1 | sum(interPulseAligned) == 0

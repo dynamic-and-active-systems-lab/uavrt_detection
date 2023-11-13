@@ -5,7 +5,7 @@
 // File: sparse.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Nov-2023 20:09:42
+// C/C++ source code generated on  : 13-Nov-2023 11:57:04
 //
 
 // Include Files
@@ -43,15 +43,15 @@ void i_sparse(const array<double, 1U> &varargin_1,
           "sparse.m", // pName
           4           // checkKind
       };
-  static rtRunTimeErrorInfo xc_emlrtRTEI{
-      111,             // lineNo
+  static rtRunTimeErrorInfo ad_emlrtRTEI{
+      116,             // lineNo
       35,              // colNo
       "sparse/sparse", // fName
       "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
       "+internal/@sparse/sparse.m" // pName
   };
   static rtRunTimeErrorInfo yc_emlrtRTEI{
-      116,             // lineNo
+      111,             // lineNo
       35,              // colNo
       "sparse/sparse", // fName
       "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
@@ -67,11 +67,11 @@ void i_sparse(const array<double, 1U> &varargin_1,
   nc = varargin_2.size(0);
   if ((varargin_1.size(0) != varargin_2.size(0)) ||
       (varargin_3.size(0) != varargin_2.size(0))) {
-    ob_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
+    ob_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
   }
   if ((varargin_3.size(0) != varargin_2.size(0)) &&
       (varargin_3.size(0) != varargin_1.size(0))) {
-    ob_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+    ob_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
   }
   sparse::assertValidIndexArg(varargin_1, b_this.workspace.b);
   sparse::assertValidIndexArg(varargin_2, b_this.workspace.a);
@@ -180,7 +180,7 @@ void i_sparse(const array<double, 1U> &varargin_1, g_sparse &y)
   int row;
   mInt = varargin_1.size(0);
   if (varargin_1.size(0) >= MAX_int32_T) {
-    vc_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
+    uc_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
   }
   numalloc = 0;
   row = varargin_1.size(0);
@@ -227,7 +227,7 @@ void j_sparse(const array<boolean_T, 2U> &varargin_1, d_sparse &y)
   int numalloc;
   nInt = varargin_1.size(1);
   if (varargin_1.size(1) >= MAX_int32_T) {
-    vc_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
+    uc_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
   }
   numalloc = 0;
   i = varargin_1.size(1);
