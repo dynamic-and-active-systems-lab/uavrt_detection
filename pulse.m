@@ -1,15 +1,16 @@
-classdef pulse %< handle
+classdef pulse 
     %PULSE is an object containing the details of an individual pulse
     %
-    % 
-    %Author: Michael Shafer
-    %Date:   Sometime in the summer of 2020. 
     %
-    %%
+    %Author: Michael Shafer
+    %Date:   Sometime in the summer of 2020.
+    %
+    %--------------------------------------------------------------------------
+    %
     properties
         A           %Amplitude
         P           %Power
-        SNR         %Signal to noise ratio in dB - This is often estimated as signal+noise to noise. 
+        SNR         %Signal to noise ratio in dB - This is often estimated as signal+noise to noise.
         yw          %STFT value at location (time and freq) of pulse. w here mean omega. This is equation 14 in the paper draft.
         t_0         %Start time of pulse
         t_f         %End time of pulse
@@ -21,11 +22,11 @@ classdef pulse %< handle
         det_dec     %Detection decision (true/false)
         con_dec     %Was the pulse confirmed (true/false). In tracking, no confirmation step is executed so we record false.
     end
-    
+
     methods
         function obj = pulse(A,yw,SNR,t_0,t_f,t_next,fp,fstart,fend)
             %PULSE Constructs an instance of this class
-            %   
+            %
             if nargin>0 %Allows for array construction https://www.mathworks.com/help/matlab/matlab_oop/initialize-object-arrays.html
                 obj.A   = A;
                 obj.P   = A.^2;
@@ -54,50 +55,9 @@ classdef pulse %< handle
                 obj.mode = 'TBD';
                 obj.det_dec = false;
                 obj.con_dec = false;
-           end
+            end
         end
-        
-%         function charArray = charArrayOutput(obj)
-%             propSepChars  = ', ';
-%             sepChars      = ': ';
-%             props    = properties(obj);
-%             numProps = numel(props);
-%             charArray = '';
-%             for i = 1:numProps
-%                 switch props{i}
-%                     case 'A'
-%                         formatSpec = '%3e';
-%                     case 'P'
-%                         formatSpec = '%3e';
-%                     case 'SNR'
-%                         formatSpec = '%3e';
-%                     case 'yw'
-%                         formatSpec = '%3e';
-%                     case 't_0'
-%                         formatSpec = '%6f';
-%                     case 't_f'
-%                         formatSpec = '%6f';
-%                     case 't_next'
-%                         formatSpec = '%6f';
-%                     case 'fp'
-%                         formatSpec = '%3f';
-%                     case 'f_start'
-%                         formatSpec = '%3f';
-%                     case 'f_end'
-%                         formatSpec = '%3f';
-%                     case 'mode'
-%                         formatSpec = '%c';
-%                     case 'det_dec'
-%                         formatSpec = '%u';
-%                     case 'con_dec'
-%                         formatSpec = '%u';
-%                 end
-%             
-%             propCharArray = sprintf(formatSpec, obj.(props{i}));
-%             charArray = [charArray, props{i}, sepChars, propCharArray, propSepChars];
-%             end
-%             charArray = charArray(1:end-numel(sepChars));
-%         end
+
 
     end
 end

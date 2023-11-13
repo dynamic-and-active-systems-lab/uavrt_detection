@@ -6,11 +6,12 @@ function [] = uavrt_detection(configPath, thresholdCachePath)
 
  %#codegen
  coder.cinclude('time.h') %Needed for usleep function in generated code
-% coder.cinclude('stdlib.h')%needed for system call to kill the channelizer
 
 if nargin == 0
-    configPath          = "config/detectorConfig.txt"; %Must exist in the same directory as the execution of this executable
-    thresholdCachePath  = "";                              % Forces thresholds to be generated
+    %Must exist in the same directory as the execution of this executable
+    configPath          = "config/detectorConfig.txt"; 
+    % Forces thresholds to be generated
+    thresholdCachePath  = "";                              
 end
 
 global globalThresholdCachePath;
@@ -20,37 +21,27 @@ Config =  DetectorConfig(); %Build empty config object
 updateconfig()              %Update (fill) the configuration
 configUpdatedFlag = true;
  
-% %Get current working directory
+
+currDir = pwd;
+
+% %Attempts at catching a failed getcwd() call
+% % Get current working directory
 % if coder.target('MATLAB')
-%     currDir = pwd;
+%       currDir = pwd;  
 % else
-%     %Solution from https://www.mathworks.com/matlabcentral/answers/1843008-using-coder-ceval-to-getcwd
-%     coder.cinclude('unistd.h');
-%     bufferTemplate = repmat('c', 1, 200);
-%     untokenizedDir = coder.nullcopy(bufferTemplate);
-%     coder.ceval('getcwd', coder.ref(untokenizedDir), 200);
-%     currDir = strtok(untokenizedDir, char(0));
+%      coder.cinclude('unistd.h');
+%      nullVal = coder.opaque('char*', 'NULL', 'HeaderFile', 'stdio.h');
+%      retVal = nullVal;
+%      bufferTemplate = repmat('c', 1, 200);
+%      untokenizedDir = coder.nullcopy(bufferTemplate);
+%      retVal = coder.ceval('getcwd', coder.ref(untokenizedDir), 200);
+%      if retVal == nullVal
+%          % Do some error handling here
+%          currDir = 'current_working_directory_error';
+%      else
+%          currDir = strtok(untokenizedDir, char(0));
+%      end
 % end
-
-
-%Attempts at catching a failed getcwd() call
-% Get current working directory
-if coder.target('MATLAB')
-    currDir = pwd;
-else
-     coder.cinclude('unistd.h');
-     nullVal = coder.opaque('char*', 'NULL', 'HeaderFile', 'stdio.h');
-     retVal = nullVal;
-     bufferTemplate = repmat('c', 1, 200);
-     untokenizedDir = coder.nullcopy(bufferTemplate);
-     retVal = coder.ceval('getcwd', coder.ref(untokenizedDir), 200);
-     if retVal == nullVal
-         % Do some error handling here
-         currDir = 'current_working_directory_error';
-     else
-         currDir = strtok(untokenizedDir, char(0));
-     end
-end
 
 fprintf('Curr Directory is: %s\n',currDir)
 
@@ -100,13 +91,11 @@ asyncWriteBuff.read();
 dataRecordFilename = sprintf('data_record.%d.%d.bin',int32(Config.ID),int32(Config.startIndex));
 %dataWriterFileID    = fopen(fullfile(Config.logPath,dataRecordFilename),'w');%Use this after upgrade to R2023b that supports full file
 dataWriterFileID    = fopen([char(Config.logPath),'/',char(dataRecordFilename)],'w');
-%dataWriterFileID    = fopen(Config.dataRecordPath,'w');
-%dataWriterFileID    = fopen('output/data.bin','w');
+
 if dataWriterFileID == -1
     fprintf("UAV-RT: Error opening/creating data record file with error:\n")
 end
 fprintf('Startup set 3 complete. \n')
-
 
 
 %Define a pulsestats structure that isn't an object.
@@ -193,7 +182,7 @@ fprintf('Startup set 7 complete. Starting processing... \n')
 
 expectedNextTimeStamp = 0;
 
-while true %i <= maxInd
+while true 
 
             if resetBuffersFlag
                 asyncDataBuff.reset();
@@ -226,7 +215,6 @@ while true %i <= maxInd
             %% Wait for new data if none ready, else put data in buffers
             if isempty(dataReceived)
                 pauseTimeSec = 0.0001;
-                %pauseTimeSec = (packetLength-1)/2*1/Config.Fs;
                 if isdeployed
                     coder.ceval('usleep',uint32(pauseTimeSec * 1e6));
                 else
@@ -234,22 +222,22 @@ while true %i <= maxInd
                 end
             else
                 
-                %timeStamp      = 10^-3*singlecomplex2int(dataReceived(1)); % OLD TIME STAMP METHOD
+                
                 timeStampRaw     = dataReceived(1);
                 timeStampReal    = real(timeStampRaw);
                 timeStampImag    = imag(timeStampRaw);
                 timeStampSec     = typecast(timeStampReal,'uint32');
                 timeStampNanoSec = typecast(timeStampImag,'uint32');
-                timeStamp        = double(timeStampSec) + 10^-9*double(timeStampNanoSec); % OLD TIME STAMP METHOD
-                iqData           = dataReceived(2:end);% OLD TIME STAMP METHOD
-                %timeVector     = timeStamp+1/Config.Fs*(0:(numel(iqData)-1)).';% OLD TIME STAMP METHOD
+                timeStamp        = double(timeStampSec) + 10^-9*double(timeStampNanoSec); 
+                iqData           = dataReceived(2:end);
+                
                 
                 if framesReceived == 0 
                     iqDataToWrite = iqData;
-                    %dataFirstTimeStamp = timeStamp;
+                    
                 else
                     timeDiff = timeStamp - expectedNextTimeStamp;
-%fprintf('Current Received Time Stamp: %f \t Expected Time Stamp: %f \t Diff: %f \n',timeStamp, expectedNextTimeStamp, timeDiff)
+
                     if abs(timeDiff) < Config.tp / 2
                         
                         iqDataToWrite = iqData;
@@ -274,69 +262,11 @@ while true %i <= maxInd
                 expectedNextTimeStamp = timeStamp + 1/Config.Fs * frameNSamps;
                 framesReceived       = framesReceived + 1;
 
-
-%                % Parse the incoming data and sample count. 
-%                % and fill in any missing data with zeros. 
-%                 framesReceived = framesReceived + 1;
-%                
-%                 iqData           = dataReceived(1:end-1);
-% 
-%                 nReceived        = uint64(numel(iqData));
-% 
-%                 currSampleCount  = nextSampleCount + nReceived;
-%                 %This is the number of samples transmitted by the 
-%                 %upstream process (ideal if none are dropped)
-%                 %If this is the first packet, calculate the offset 
-%                 %sample count since the upstream processess may have 
-%                 %started a while ago and its sample count may not be zero
-%                 if framesReceived == 1
-%                     startTime = round(posixtime(datetime('now'))*1000000)/1000000;
-%                     sampleOffset = rawIdealSampleCount - nReceived;
-%                     %To estimate the timestamp of the sample before the 
-%                     %first one in this first frame we go back in time 
-%                     %from the start time. 
-%                     lastTimeStamp = startTime - (double(nReceived) + 1) * 1/Config.Fs; 
-%                 end
-% 
-% 
-%                 idealSampleCount = rawIdealSampleCount - sampleOffset;
-% 
-%                 missingSamples  = idealSampleCount - currSampleCount;
-% 
-%                 if missingSamples > 0 
-% 
-%                     zerosFill = single(zeros(missingSamples, 1)) + ...
-%                                     1i*single(zeros(missingSamples, 1));
-% 
-%                     iqDataToWrite = [zerosFill(:); iqData];
-% 
-%                     nextSampleCount = nextSampleCount + nReceived + missingSamples;
-% 
-%                     fprintf('Missing samples detected. Filling with zeros for %u samples.',missingSamples);
-% 
-%                 elseif missingSamples < 0
-% 
-%                     error('UAV-RT: Number of samples transmitted to the detector is less than that expected by the detector. Upstream processes (channelizer) may be transmitting more than 1024 IQ data samples per packet. This is not supported by this detetor.')
-% 
-%                 else
-% 
-%                     iqDataToWrite = iqData;
-% 
-%                     nextSampleCount = nextSampleCount + nReceived; 
-% 
-%                 end
-% 
-% fprintf('nReceived: %u \t currSampleCount: %u \t idealSampleCount: %u \t rawIdealSampleCount: %u \t missingSamples: %u numel(iqData): %u numel(iqDataToWrite): %u nextSampleCount: %u \t\n',nReceived, currSampleCount, idealSampleCount, rawIdealSampleCount, missingSamples, uint64(numel(iqData)), uint64(numel(iqDataToWrite)), nextSampleCount)
-% 
-%                 timeVector = lastTimeStamp + ...
-%                              (1 : numel(iqDataToWrite)).' * 1/Config.Fs;
-%                 lastTimeStamp = timeVector(end);
-
                 %Write out data and time.
                 asyncDataBuff.write(iqDataToWrite(:));
                 asyncTimeBuff.write(timeVector(:));
                 asyncWriteBuff.write(iqData);
-                %asyncWriteBuff.write([dataReceived; int2singlecomplex(timeAtPacketReceive*10^3)]);
+                
                 if asyncWriteBuff.NumUnreadSamples >= dataWriterSamples
                     dataWriterBuffData = asyncWriteBuff.read();
                     if dataWriterFileID ~= -1
@@ -344,7 +274,7 @@ while true %i <= maxInd
                     end
                 end
 
-                %end
+                
 
                 %% Process data if there is enough in the buffers
                 if asyncDataBuff.NumUnreadSamples >= sampsForKPulses + overlapSamples
@@ -371,7 +301,6 @@ processingStartToc = previousToc;
 
 fprintf('Sample elapsed seconds: %f \t Posix elapsed seconds: %f \n', timeVector(end) - startTime, round(posixtime(datetime('now'))*1000000)/1000000 - startTime)
 
-%plot(t, abs(x)); hold on
                     %Check the timestamps in the buffer for gaps larger
                     %than the max interpulse uncertainty. If there are
                     %enough dropped packets such that the time is shifted
@@ -392,17 +321,7 @@ fprintf('Sample elapsed seconds: %f \t Posix elapsed seconds: %f \n', timeVector
                             %Initialize states for operational modes
                             fLock = false;
                             % switch Config.opMode
-                            %     case 'freqSearchHardLock'
-                            %         fLock = false;
-                            %     case 'freqKnownHardLock'
-                            %         fLock = true;
-                            %     case 'freqSearchSoftLock'
-                            %         fLock = false;
-                            %     case 'freqAllNoLock'
-                            %         fLock = false;
-                            %     otherwise
-                            %         fLock = false;
-                            % end
+                            
                             prioriRelativeFreqHz = 10e-6 * abs(Config.tagFreqMHz - Config.channelCenterFreqMHz);
                             ps_pre = pulsestats(Config.tp, Config.tip, Config.tipu,...
                                                 Config.tipj, prioriRelativeFreqHz ,...
@@ -463,10 +382,7 @@ previousToc = toc;
                                 mode = 'D';
                         end
 
-                        % if strcmp(Config.opMode, 'freqAllNeverLock')
-                        %     mode = 'D';
-                        % end
-previousToc = toc;
+                        previousToc = toc;
                         
                         if segmentsProcessed==0
                             fprintf('Building thresholds...\n')
@@ -534,15 +450,7 @@ fprintf('ps_pos.fstart and ps_pos.fend after PROCESS step : \t %f \t to \t %f.\n
                         %suggested mode
                         suggestedMode = X.ps_pos.mode;
                         pulsesConfirmed = all([X.ps_pos.pl.con_dec],2);
-                        % if pulsesConfirmed%Check if all were confirmed
-                        %     fLock = true;
-                        % end
-                        % %We only ever release if we are in softlock mode and
-                        % %only do so in that case if we are no longer confirming
-                        % %pulses.
-                        % if strcmp(Config.opMode, 'freqSearchSoftLock') & ~pulsesConfirmed
-                        %     fLock = false;
-                        % end
+                        
                         if pulsesConfirmed%Check if all were confirmed
                             fLock = true;
                         else
@@ -595,16 +503,12 @@ previousToc = toc;
 
                         updatebufferreadvariables(X.ps_pos);
                         fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
-
-
-                        %Deal with detected pulses
-                        %Xhold{mod(segmentsProcessed,maxSegments)} = X;%Keep a maxSegments running record of waveforms for debugging in Matlab
-                        %Xstruct = obj2structrecursive();
-                        %Xhold = X;
+                        
                         Xhold = waveformcopy(X);
                         
                         nPulseList           = numel(X.ps_pos.pl);
                         pulsesToSkip         = false(1, nPulseList);
+
                         %Report pulses and check for repeat detections
                         if ~isnan(X.ps_pos.cpki)
                             for j = 1 : nPulseList
@@ -682,10 +586,6 @@ printpulseinfostruc(pulseInfoStruct);
                         else
                             fprintf("\n");
                         end
-                        % dataRecordPathChar = char(Config.dataRecordPath);
-                        % waveformRecordPath = sprintf('%s_%f_%f_.csv',dataRecordPathChar(1:end-4),startTime,X.t_0);
-                        % fprintf("Writing waveform record csv file: %s\n",waveformRecordPath)
-                        % wfmcsvwrite(X,Config.channelCenterFreqMHz, waveformRecordPath);
                         
                         spectroFileName = sprintf('spectro_segment.%d.%d.csv',int32(Config.ID),int32(Config.startIndex));
                         %waveformRecordPath =fullfile(Config.logPath,spectroFileName);%Use this after upgrade to R2023b that supports full file
@@ -701,18 +601,7 @@ printpulseinfostruc(pulseInfoStruct);
                     fprintf('tocElapsed - clockElapsed = %0.6f  **************** \n', elapsedTimeToc - elapsedTimeClock)
                     totalLoopTime = toc - processingStartToc;                    
                     fprintf('TOTAL SEGMENT PROCESSING TIME: %f seconds \n', totalLoopTime)
-                    % packetTimeSec = (packetLength-1)*1/Config.Fs;
-                    % segmentTimeSec  = 1/Config.Fs * sampsForKPulses;
-                    % sleepTime = segmentTimeSec  - packetTimeSec -  totalLoopTime;
-                    % if sleepTime < 0
-                    %     fprintf('WARNING: CALCULATED SLEEP TIME IS NEGATIVE MEANING THAT I AM NOT KEEPING UP WITH THE INCOMING DATA RATE \n');
-                    % else
-                    %     % if isdeployed
-                    %     %     coder.ceval('usleep',uint32(sleepTime * 1e6));
-                    %     % else
-                    %     %     pause(sleepTime);
-                    %     % end
-                    % end
+                    
                 end
             end
 end
@@ -755,29 +644,15 @@ end
         %lengths depend on the interpulse duration and uncertainty
         %parameters.
 
-        %persistent X0
-        %if isempty(X0)
         %Build an empty waveform just so that we can calculate number
         %of overlapSamples. This is needed for buffer operations
-        %X0 = waveform([], Config.Fs, 0, pulsestats, stftOverlapFraction);
         X0 = waveform(single(complex([])), Config.Fs, 0, ps_input, stftOverlapFraction, threshold(0.01));
-        %end
-
-        %X0.ps_pre = ps_pre;
         X0.setprioridependentprops(ps_input)
         [~,~,n_ol,n_ws,~,~,N,M,J] = X0.getprioridependentprops(X0.ps_pre);
-        %         overlapWindows  = 2*Config.K*M+1;
-        %         overlapSamples	= n_ws*overlapWindows;
-        %         %sampsForKPulses = Config.K*n_ws*(N+M+1+1);
-        %         sampsForKPulses = n_ws*(Config.K*(N+M)+1+1);
-
+        
         overlapWindows  = 2*(Config.K*M+J);
         overlapSamples	= n_ws*overlapWindows;
-        %         if Config.K~=1
-        %             sampsForKPulses = n_ws*(Config.K*(N+M)-2*M)+n_ol;
-        %         else
-        %             sampsForKPulses = n_ws*(N+M+J)+n_ol;
-        %         end
+        
         %See 2022-07-11 for updates to samples def
         sampsForKPulses = n_ws*(Config.K*(N+M)+J+1)+n_ol;
 

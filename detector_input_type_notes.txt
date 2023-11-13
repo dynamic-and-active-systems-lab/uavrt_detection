@@ -1,9 +1,0 @@
-Detector Data Conditioning------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Assumptions about incoming data for detector	Maximum sample rate is 4000 Hz.	Maximum duration of each segment is 10s        Pulse width ranges from 0.01 Ð 0.05 s.	Data is single precision complex	Overlap fraction of STFT windows is 50%	STFT window length is same as pulse width
-	Pulse width is not variable during processing
-	Sample rate is not variable during processing
-	Computed values	Max segment data size is 10s * 4000Hz => 40000;	Max size of stft matrix: (200, 2000)		Rows => Based on fft length => max fft length = max stft window = Fs*max pulse duration = 4000*0.05 = 200. 		Columns => Max segment time/minimum pulse width*1/STFT overlap fraction.				10s/0.01s*1/0.5 = (2000)	STFT matrix must be double precision since it is later multiplied by a sparse matrix and this is only supported in MATLAB for double precision matrices. 
-	Spectral Weighting Matrix
-		Number of rows is n*STFT Rows, where n is the number of elements in the zeta vector. Typically this will be 2, so rows = 400.
-		Matrix is square, so columns = rows = 400. 
-	Spectral Weighting Matrix Frequencies		Number of rows is n*STFT Rows, where n is the number of elements in the zeta vector. Typically this will be 2, so rows = 400.

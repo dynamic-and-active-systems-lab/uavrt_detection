@@ -28,26 +28,33 @@ function [xout] = fftshiftstft(x)
 % Author: Michael Shafer
 % Date:   2020-12-19
 %
-%% Change log:
+% Change log:
 % 2022-01-10    Updated to deal with row or column vectors or stft matrices
 %
-%%
+%--------------------------------------------------------------------------
+
 sz = size(x);
-% if (numel(sz)~=2) && (min(sz)~=1)
-%     error('fftshiftstft only accepts vector inputs.')
-% end
 
 if sz(1)==1 && sz(2)~= sz(1) %Passed a row vector
+
     dim2shift = 2;
+
 else %Passed a matrix or a column vector
+
     dim2shift = 1;
+
 end
 
 n = numel(x);
+
 if mod(n,2)
+
     xout = fftshift(x,dim2shift);    
+
 else
+
     xout = circshift(fftshift(x,dim2shift),-1,dim2shift);
+
 end
 
 end

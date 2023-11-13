@@ -70,14 +70,11 @@ classdef pulsestats < handle
     %   PULSESTATS Constructs an instance of this class
     %   COPY Creates an exact copy of the pulse stats object as a separate object
     %
-    %----------------------------------------------------------------------
+    %
     %Author: Michael W. Shafer
     %Date: 2020-05-28
     %----------------------------------------------------------------------
-    %Updates:
-    %   2022-03-31 Added interpulse jitter property
-    %   2022-04-05 Added psdHist property
-    %%
+    %
     properties
         t_p   (1, 1) double %Duration of pulse (second)
         t_ip  (1, 1) double %Inter-pulse time (seconds)
@@ -164,7 +161,8 @@ classdef pulsestats < handle
                 obj.cpki = localCpki;
         end
         function obj_out = makepropertycopy(obj)
-            %COPY Creates an exact copy of the pulse stats object as a separate object
+            %COPY Creates an exact copy of the pulse stats object as a 
+            %separate object
                  obj_out =   pulsestats(obj.t_p,...
                                         obj.t_ip,...
                                         obj.t_ipu,...
@@ -187,23 +185,21 @@ classdef pulsestats < handle
             obj.clst = ps_tocopyfrom.clst;
             obj.cmsk = ps_tocopyfrom.cmsk;
             obj.cpki = ps_tocopyfrom.cpki;
-            %obj.thresh = ps_tocopyfrom.thresh;
-            %obj_out.psdHist = obj.psdHist;
         end
 
         function [] = updateposteriori(obj, ps_pre, pulselist, updateType)
-            %             %UPDATEPOSTERIORI updates the posteriori pulse statistics
-            %             object using the new pulse list (input), prior pulse stats
-            %             and the waveforms power spectral density vector. This
-            %             methods is typically going to be called on a posteriori pulse
-            %             stats object after a waveform has been processed and a set
-            %             of candidate pulses found. This method uses those pulses and
-            %             the prior information about the pulses to update the
-            %             posteriori pulse stats.
+            %UPDATEPOSTERIORI updates the posteriori pulse statistics
+            %object using the new pulse list (input), prior pulse stats
+            %and the waveforms power spectral density vector. This
+            %methods is typically going to be called on a posteriori pulse
+            %stats object after a waveform has been processed and a set
+            %of candidate pulses found. This method uses those pulses and
+            %the prior information about the pulses to update the
+            %posteriori pulse stats.
             %
-            %             The pulse contained in the waveform's ps_pos
-            %             property is not used directly so that the caller can decide
-            %             which pulses on which to focus the posteriori updates
+            %The pulse contained in the waveform's ps_pos
+            %property is not used directly so that the caller can decide
+            %which pulses on which to focus the posteriori updates
             %
             % updateType    What parts of the pulsestats to update. Valid
             %               options are 'time', 'freq', 'timeandfreq'. The
@@ -218,26 +214,11 @@ classdef pulsestats < handle
                 t_found    = [pulselist.t_0]'; % pulselist(:).t_0]'
                 freq_found = mean([pulselist.fp],'all','omitnan'); %pulselist(:).fp
                 
-                %Create a vector of bandwidths from the pulselist
-                %fEnds   = [pulselist.fend];
-                %fStarts = [pulselist.fstart];
-                %bw_found = 2*(mean(fEnds,'all','omitnan')-mean(fStarts,'all','omitnan'));
-                %if isempty(bw_found)
-                %    bw_found = 100;
-                %    if coder.target('MATLAB')
-                %       warning(['UAV-R: No bandwidth could be calculated ',...
-                %            'from the start and stop frequencies of the ',...
-                %            'identified pulses. A bandwidth of 100 Hz ',...
-                %            'will be used for continued informed search.'])
-                %    end
-                %end
-                
                 %Fix the bandwidth in the priori to +/- 100 Hz.
                 bw_found = 200;
                 
                 %Here is where we update the stats. These methods of updates
                 %could be improved in the future.
-                %wfm.ps_pre.t_p; %tp doesn't change. We assume it is stationary
                 
                 if numel(pulselist)==1% Happens if K=1
                     %We only have one pulse to reference, so we need to check
@@ -274,19 +255,7 @@ classdef pulsestats < handle
                 if recent_tip > 1.5*ps_pre.t_ip & recent_tip < 0.5*ps_pre.t_ip
                     recent_tip = NaN;
                 end
-                
-%                 %Only update time parameters if we are in tracking mode. If we
-%                 %aren't, we may have identified somethign that isn't a pulse
-%                 if strcmp(obj.mode,'T') || strcmp(ps_pre.mode,'T')
-%                     obj.t_ip  = mean([recent_tip;ps_pre.t_ip],'omitnan');
-%                     obj.t_ipu = ps_pre.t_ipu; %Don't update this because it can get too narrow.%mean([3*std(diff(t_found));wfm.ps_pre.t_ipu]);
-%                     obj.t_ipj = ps_pre.t_ipj;
-%                 end
-%                 fp_pos     = freq_found;%nanmean([freq_found;wfm.ps_pre.fp]);%Previous fc may be nan if unknown
-%                 obj.fp     = fp_pos;
-%                 obj.fstart = fp_pos-bw_found/2;
-%                 obj.fend   = fp_pos+bw_found/2;
-                
+                                
                 switch updateType
                     case 'time'
                         obj.t_ip  = mean([recent_tip;ps_pre.t_ip],'omitnan');
@@ -309,53 +278,7 @@ classdef pulsestats < handle
             end
             
         end
-%         function charArray = charArrayOutput(obj)
-%             propSepChars  = '\n';
-%             sepChars      = ': ';
-%             props    = properties(obj);
-%             numProps = numel(props);
-%             charArray = '';
-%             for i = 1:numProps
-%                 switch props{i}
-%                     case 't_p'
-%                         formatSpec = '%3e';
-%                     case 't_ip'
-%                         formatSpec = '%3e';
-%                     case 't_ipu'
-%                         formatSpec = '%3e';
-%                     case 't_ipj'
-%                         formatSpec = '%3e';
-%                     case 'fp'
-%                         formatSpec = '%3f';
-%                     case 'fstart'
-%                         formatSpec = '%3f';
-%                     case 'fend'
-%                         formatSpec = '%3f';
-%                     case 'tmplt'
-%                         formatSpec = '%3f';
-%                     case 'mode'
-%                         formatSpec = '%c';
-%                     case 'cmsk'
-%                         formatSpec = '%u';
-%                     case 'cpki'
-%                         formatSpec = '%u';
-%                 end
-%                 if strcmp(props{i}, 'pl') | strcmp(props{i}, 'clst') 
-%                     propCharArray = '\n';
-%                     for j = 1:numel(obj.(props{i}))
-%                         propCharArray = [propCharArray, obj.(props{i})(j).charArrayOutput() , '\n',];
-%                     end
-%                     propCharArray = sprintf(propCharArray(1:end-numel(propSepChars)));
-%                 else
-%                     propCharArray = sprintf(formatSpec, obj.(props{i}));
-%                 end
-%                 
-%                 charArray = [charArray, props{i}, sepChars, propCharArray, propSepChars];
-% 
-%             end
-%             %charArray = charArray(1:end-numel(sepChars));
-%             charArray  = sprintf(charArray(1:end-numel(sepChars)));
-%         end
+
 
     end
 end

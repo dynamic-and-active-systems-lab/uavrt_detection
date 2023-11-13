@@ -1,4 +1,19 @@
 function Wq = assembleWq(PRI_means_q,PRI_jitters_q, K)
+% ASSEMBLEWQ Build the Wq matrix that is used in the incoherent summation
+% based on a set of mean PRI values, jitter values, and the number of
+% pulses to sum (K).
+%INPUTS:
+%   PRI_means   a vector of mean PRI values in units of STFT windows. 
+%   PRI_jitters a vector of the jitter values in units of STFT windows.
+%   K           The number of pulses that will be summed
+%OUTPUTS:
+%   Wq          a sparse matrix to be used for the incoherent summation
+%
+%Example. Consider an interpulse nominal time of 10 stft windows and an
+%uncertainty of 2. The PRI_mean values would be the vector 10 + (-2:2) = 
+% [8     9    10    11    12]. Jitters input would be something like -1:1. 
+%
+%--------------------------------------------------------------------------
 
 %PPM Contains the column positions (time windows) in the S matrix to search
 %for the K pulses assuming the first pulse arrives at window 1. 

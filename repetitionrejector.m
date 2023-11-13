@@ -1,6 +1,17 @@
 function [allWeightsMat] = repetitionrejector(t,repFreqHz)
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+%REPETITIONREJETOR Build the comb filter matrix used to reject repeaing
+%patterns in the stft matrix. 
+%INPUTS:
+%   t   a vector of time values for the columns of an stft matrix
+%   repFreqHz   n x 1   a vector of frequencies to reject. ex: [2 3 5 10]
+%OUTPUTS
+%   allWeightsMat   sparse matrix of the comb filter
+%
+%Author: Michael Shafer
+%Date:  Fall 2023
+%
+%--------------------------------------------------------------------------
+%
 
 if numel(t)<2
     fprintf('UAV-RT: Time vector must contain at least two elements.\n')

@@ -1,6 +1,6 @@
 classdef threshold
-    %UNTITLED2 Summary of this class goes here
-    %   Detailed explanation goes here
+    %THRESHOLD is the class containing the details of the threshold use for
+    %pulse detection decision
 
     properties 
         pf              (1,1) double
@@ -14,8 +14,10 @@ classdef threshold
 
     methods (Access = public)
         function obj = threshold(pf)
-            %UNTITLED2 Construct an instance of this class
-            %   Detailed explanation goes here
+            %THRESHOLD Constructs an instance of this class
+            %INPUTS: 
+            %   pf  probability of false alarm
+            %
             if nargin>0
                 obj.pf = pf;
             else
@@ -81,13 +83,11 @@ classdef threshold
         end
         
         function [obj] = updatepf(obj, Wfm, pfNew)
-            %fprintf('%f\n',obj.evMuParam)
-            %fprintf('%f\n',obj.evMuParam)
-            %fprintf('%f\n',obj.pf)
-
             obj.pf = pfNew;
-            thresh = evthresh(obj.evMuParam, obj.evSigmaParam, pfNew); %Build a single threshold value at 1 W bin power
-            obj    = obj.setthreshprops(thresh, Wfm);                   %Set thresholds for each bin based on their bin powers
+            %Build a single threshold value at 1 W bin power
+            thresh = evthresh(obj.evMuParam, obj.evSigmaParam, pfNew); 
+            %Set thresholds for each bin based on their bin powers
+            obj    = obj.setthreshprops(thresh, Wfm);                  
         end
 
         function [obj] = makenewthreshold(obj, Wfm) %#codegen
@@ -189,16 +189,16 @@ classdef threshold
 
                 %Uncomment to see how fitted distribution compares to histogram of max
                 %scores
-    %             p = evpdf(-xi,paramEstsMaxima(1),paramEstsMaxima(2));
-    %             figure
-    %             histogram(scores,'Normalization','pdf');
-    %             hold on
-    %             plot(xi,p,'DisplayName','EV Fit'); legend('Location','best')
-    %             p = 1-evcdf(-xi,paramEstsMaxima(1),paramEstsMaxima(2));
-    %             figure
-    %             histogram(scores,'Normalization','cdf');
-    %             hold on
-    %             plot(xi,p,'DisplayName','EV Fit'); legend('Location','best')
+                % p = evpdf(-xi,paramEstsMaxima(1),paramEstsMaxima(2));
+                % figure
+                % histogram(scores,'Normalization','pdf');
+                % hold on
+                % plot(xi,p,'DisplayName','EV Fit'); legend('Location','best')
+                % p = 1-evcdf(-xi,paramEstsMaxima(1),paramEstsMaxima(2));
+                % figure
+                % histogram(scores,'Normalization','cdf');
+                % hold on
+                % plot(xi,p,'DisplayName','EV Fit'); legend('Location','best')
             else
                 fprintf("\t threshold values were pulled from cache\n");
             end

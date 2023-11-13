@@ -4,11 +4,11 @@ function [outmat] = vecfind(refvec,comparison_op_string,searchvec)
 %   This function can be used to do comparison operations of vectors of
 %   difference sizes. Comparing a single to a vector work natively
 %   in Matlab and create a resulting logic vector, i.e. [1 3 5]>4 outputs
-%   [0 0 1]. Many cases though require comparison of on vector to all the
+%   [0 0 1]. Many cases though require comparison of a vector to all the
 %   elements of another. i.e. [1 3 5]>[2 4] would ask which elements of 
 %   [1 3 5] are greater than 2 and which are greater than 4? This function
 %   produces an output matrix whose columns are the logicial comparion of
-%   the reference vector to each element of the search vector. Logicals fpr
+%   the reference vector to each element of the search vector. Logicals for
 %   comparison are input to this function as strings.
 %
 %   Example:

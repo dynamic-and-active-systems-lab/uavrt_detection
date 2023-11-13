@@ -39,18 +39,12 @@ while ~done
         done = true;
     end
     if inputStr(i)=='[' && isspace(inputStr(i+1))
-        %inputStr(i+1) = '';
-        %inputStr = inputStr(1:numel(inputStr) ~= i+1);
         inputStr(i+1) = [];
         i = i-1;
 	elseif inputStr(i)==',' && isspace(inputStr(i+1))
-        %inputStr(i+1) = '';
-        %inputStr = inputStr(1:numel(inputStr) ~= i+1);
         inputStr(i+1) = [];
         i = i-1;
     elseif inputStr(i)==';' && isspace(inputStr(i+1))
-        %inputStr(i+1) = '';
-        %inputStr = inputStr(1:numel(inputStr) ~= i+1);
         inputStr(i+1) = [];
         i = i-1;
     end
@@ -66,18 +60,12 @@ while ~done
         done = true;
     end
     if inputStr(i)=='[' && isspace(inputStr(i+1))
-        %inputStr(i+1) = '';
-        %inputStr = inputStr(1:numel(inputStr) ~= i+1);
         inputStr(i+1) = [];
         i = i-1;
 	elseif inputStr(i)==',' && isspace(inputStr(i+1))
-        %inputStr(i+1) = '';
-        %inputStr = inputStr(1:numel(inputStr) ~= i+1);
         inputStr(i+1) = [];
         i = i-1;
     elseif inputStr(i)==';' && isspace(inputStr(i+1))
-        %inputStr(i+1) = '';
-        %inputStr = inputStr(1:numel(inputStr) ~= i+1);
         inputStr(i+1) = [];
         i = i-1;
     end
@@ -113,7 +101,6 @@ for i = 1:numelRows
     charEnd   = rowDividerLocs(i+1);
     currCommaLocs = commaLocs( commaLocs > charStart & commaLocs < charEnd);
     numelCommasCurr = numel(currCommaLocs);
-    %numelCols = numelCommasCurr+1;
     
     if i>1 && (numelCommasCurr ~= numelCommasLast)
         error('UAV-RT: Different numer of columns in different rows.')

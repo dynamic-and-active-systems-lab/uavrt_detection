@@ -139,12 +139,6 @@ classdef wfmstft < handle
             
         end
         function [] = updatepsd(obj)
-            %obj.psd = obj.dt^2/obj.T*mean(abs(obj.S).^2,2);
-            %obj.psd = obj.dt^2/obj.T*median(abs(obj.S).^2,2);%use median to exclude outliers from short pulses
-%             runningPsd = obj.dt^2/obj.T*abs(obj.S).^2;
-%             psdStdDev  = stdev(runningPsd,[],2);
-%             psdStdDevMat = repmat(runningPsd,1,size(runningPsd,2));
-
             %This block calculates a three window moving mean of the power
             %spectral density of the waveform and then thresholds that
             %moving mean for values greater than 10x the median. This

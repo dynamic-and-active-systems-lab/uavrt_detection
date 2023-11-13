@@ -1,8 +1,21 @@
 function [] = wfmcsvwrite(X,radioFcMHz, filePath)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%WFMCSVWRITE Saves the spectrogram, pulses, and the spectrogram frequencies
+%and times to a file for record keeping and post-flight analysis. 
+%
+%INPUTS:
+%   X   waveform instance
+%   radioFcMHz  radio channel center frequency in MHz
+%   filePath    file path to write to
+%OUTPUTS:
+%   none other than the file
+%
+%Author:    Michael Shafer
+%Date:      Fall 2023
+%
+%--------------------------------------------------------------------------
 
 persistent fid
+
 persistent filePathPersistent
 
 if isempty(fid)
@@ -58,23 +71,8 @@ fprintf(fid, '%s\n','Spectrogram Values (|STFT|):');
 for i = 1:numel(X.stft.S)
     fprintf(fid, '%f,', abs(X.stft.S(i)));
 end
+
 fprintf(fid, '\n');
 
-%fclose(fid);
-
-% for i = 1:numel(X.x)
-%     fprintf(fid,'%f,', real(X.x(i)));
-% end
-% fprintf(fid, '\n');
-% for i = 1:numel(X.x)
-%     fprintf(fid, '%f,', imag(X.x(i)));
-% end
-% for i = 1:numel(X.stft.S)
-%     fprintf(fid, '%f,', real(X.stft.S(i)));
-% end
-% fprintf(fid, '\n');
-% for i = 1:numel(X.stft.S)
-%     fprintf(fid, '%f,', imag(X.stft.S(i)));
-% end
 
 end

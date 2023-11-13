@@ -134,9 +134,6 @@ classdef waveform < handle
                 obj.Wf      = [];               
                 %Copy over ps_
                 obj.ps_pos  = ps_pre.makepropertycopy; %Current stats are same as previous during construction
-                %obj.ps_pos = pulsestats();%TESTING FOR CODER - NEEDS TO BE REVERTED BACK TO LAST LINE
-
-                %obj.TimeCorr = TemporalCorrelator(10, 0, 0);%Generate a temporalcorrelator object so coder knows the type of the object
                 obj.setprioridependentprops(ps_pre)
                 obj.thresh  = thresh;
             else
@@ -146,6 +143,7 @@ classdef waveform < handle
                 obj.ps_pos = pulsestats();
             end
         end
+        
         function t_out = t(obj)
             %T provides a time vector of x based on t_0 and Fs
             %
@@ -158,6 +156,7 @@ classdef waveform < handle
             %%
             t_out = obj.t_0+(0:(obj.l-1))/obj.Fs;
         end
+        
         function [] = adddata(obj,x)
             %ADDDATA Tacks new data onto the end of the waveform. This
             %method updates the objects properties that depend on x after
@@ -187,7 +186,8 @@ classdef waveform < handle
 %             if ~isempty(obj.stft.S)
 %                 spectro(obj)
 %             end
-         end
+        end
+
         function [] = spectro(obj)
             %SPECTRO Executes an STFT of x and sets up the wfmstst object
             %for the waveform
@@ -197,9 +197,10 @@ classdef waveform < handle
             %OUTPUTS:
             %   none
             %
-            %%
+            %
             obj.stft = wfmstft(obj);
         end
+
         function [wfmout] = cleave(obj,K,ps_pre)
             %CLEAVE Cuts enough samples from the beginning of the waveform
             %to ensure they will contain at least K pulses, but not more
@@ -230,7 +231,7 @@ classdef waveform < handle
             %Ideally,
             %windows_in_cleaved_wfm = (K*(N+M)+1);
             %and
-            %samples_in_cleaved_wfm = n_ws*windows_in_cleaved_wfm,
+            %samples_in_cleaved_wfm = n_ws * windows_in_cleaved_wfm,
             %but the number of columns (time windows) that result from the
             %stft function is dependent on a floor operation. As a result
             %we have to solve for the number of samples that accounts for
@@ -243,12 +244,7 @@ classdef waveform < handle
             %of a window in windows_in_cleaved_wfm because that variable is
             %only used to transfer a portion of the STFT matrix into the
             %cleaved waveform.
-%             if K~=1 %See 2022-04-12 for definitions
-%                 samples_in_cleaved_wfm = n_ws*(K*(N+M)-2*M)+n_ol;
-%             else
-%                 samples_in_cleaved_wfm = n_ws*(N+M+J)+n_ol;
-%             end
-%             windows_in_cleaved_wfm = floor((samples_in_cleaved_wfm-n_ol)/n_ws);
+            %See 2022-04-12 for original definitions
             %See 2022-07-11 for updates to samples def
             samples_in_cleaved_wfm = n_ws*(K*(N+M)+J+1)+n_ol;
             windows_in_cleaved_wfm = floor((samples_in_cleaved_wfm-n_ol)/n_ws);
@@ -264,15 +260,12 @@ classdef waveform < handle
                 wfmout = waveform(obj.x,obj.Fs,obj.t_0,obj.ps_pre,obj.OLF);
                 wfmout.stft = obj.stft.copy;
                 wfmout.ps_pos = obj.ps_pos.makepropertycopy();
-                %wfmout.ps_pos.copydetectionresults(obj.ps_pos);
                 %Clear out relevent variables in the remaining empty waveform.
                 obj.x = [];      
                 obj.l = 0;      
                 obj.t_0 = obj.t_f+obj.Fs;    %One time step forward
                 obj.ps_pre =  wfmout.ps_pos; %What we clipped now becomes the previous segment
-                %obj.stft.S = double.empty(size(obj.stft.S,1),0); %Empty stft object. Maintain frequency bins
                 obj.stft.S = zeros(size(obj.stft.S,1),0); %Empty stft object. Maintain frequency bins
-                %obj.stft.t = double.empty(1,0); %Empty stft object. Maintain frequency bins
                 obj.stft.t = zeros(1,0); %Empty stft object. Maintain frequency bins
                 obj.ps_pos.pl    = makepulsestruc();    %Empty out pulse list
                 
@@ -286,21 +279,18 @@ classdef waveform < handle
                 wfmout      = waveform(x_out,obj.Fs,t(inds4cleavedwfm(1)),...
                                        obj.ps_pre,obj.OLF, obj.thresh);
                 
-                %wfmout.ps_pos = ps_pre.copy;
-                wfmout.ps_pos = obj.ps_pre.makepropertycopy();
+                wfmout.ps_pos  = obj.ps_pre.makepropertycopy();
                 wfmout.ps_pos.copydetectionresults(obj.ps_pre);
-                
                 wfmout.setprioridependentprops(wfmout.ps_pre)
-                wfmout.K    = K;
+                wfmout.K       = K;
                 wfmout.t_nextsegstart = t(inds4remainingwfm(1));
                 
                 %Then update existing object
                 obj.x       = obj.x(inds4remainingwfm);
                 obj.l       = length(inds4remainingwfm);
                 obj.t_0     = t(inds4remainingwfm(1));
-                
-                
                 obj.ps_pre  =  wfmout.ps_pos; 
+
                 %What we clipped now becomes the previous segment
                 %If stft has been run on this wfm, we cut out the windows
                 %for the new waveform and create its wfmstft object. We
@@ -331,6 +321,7 @@ classdef waveform < handle
             end
             
         end
+        
         function [wfmout] = leave(obj,K,t0,ps_pre)
             %LEAVE Grabs enough samples from the beginning of the waveform
             %to ensure they will contain at least K pulses, but not more
@@ -397,13 +388,8 @@ classdef waveform < handle
             %of a window in windows_in_cleaved_wfm because that variable is
             %only used to transfer a portion of the STFT matrix into the
             %cleaved waveform.
-%             if K~=1 %See 2022-04-12 for definitions
-%                 samples_in_cleaved_wfm = n_ws*(K*(N+M)-2*M)+n_ol;
-%             else
-%                 samples_in_cleaved_wfm = n_ws*(N+M+J)+n_ol;
-%             end
-%            windows_in_cleaved_wfm = floor((samples_in_cleaved_wfm-n_ol)/n_ws);
-            %See 2022-07-11 for updates to samples def
+            %See 2022-04-12 for original definitions
+            %See 2022-07-11 for updates to samples def            
             samples_in_cleaved_wfm = n_ws*(K*(N+M)+J+1)+n_ol;
             windows_in_cleaved_wfm = floor((samples_in_cleaved_wfm-n_ol)/n_ws);
                        
@@ -453,6 +439,7 @@ classdef waveform < handle
                 end
             end
         end
+
         function [pl_out,indiv_msk,peak_ind] = findpulse(obj,time_searchtype,freq_searchtype,excluded_freq_bands_in)
             %FINDPULSE Looks for pulses in the waveform based on its pulse
             %statistics object
@@ -527,9 +514,9 @@ classdef waveform < handle
             %
             %%
 
-fprintf('FINDING PULSES...\n')
-previousToc = toc;
-fprintf('\t Setting up parameter for finding pulses  ...\n')
+            fprintf('FINDING PULSES...\n')
+            previousToc = toc;
+            fprintf('\t Setting up parameter for finding pulses  ...\n')
 
             if (size(excluded_freq_bands_in,2)~=2) && (~isempty(excluded_freq_bands_in))
                 error('Excluded frequency band listing must be a nx2 matrix or empty.')
@@ -665,11 +652,10 @@ fprintf('\t Setting up parameter for finding pulses  ...\n')
                 wind_end   = naive_wind_end;
             end
 
-            %time_search_range = [wind_start,wind_end];
             %Build a time search range matrix with one row for each pulse
             %The first column is the first window where that pulse might
             %live in the S matrix, and the second column is the last window
-            %wher that pulse might live in the S matrix.
+            %where that pulse might live in the S matrix.
             timeSearchRange = zeros(obj.K,2);
             timeSearchRange(1,:) = [wind_start,wind_end];
             for i = 2:obj.K
@@ -701,38 +687,7 @@ fprintf('\t Setting up parameter for finding pulses  ...\n')
             if strcmp(freq_searchtype,'informed')
                 f_lo = obj.ps_pre.fstart;
                 f_hi = obj.ps_pre.fend;
-                %Check to makesure the informed search range is covered by
-                %the frequencies available. If the prev bw is listed
-                %as NaN, this will fail and will default to the naive
-                %search. Freq_mask variable is a logicial vector of the
-                %same size as Wf indicating which frequencies to look at.
-                %IF FREQS ARE UNAVILABLE, USE NAIVE
-                %Updated to check center of frequencies rather than
-                %extremes since pulses might be detected near the edge of
-                %the channel BW.
-                % if (mean([f_lo, f_hi])<min(obj.Wf,[],'all')) || (mean([f_lo, f_hi])>max(obj.Wf,[],'all'))%(f_lo<min(obj.Wf,[],'all')) || (f_hi>max(obj.Wf,[],'all'))%isnan(obj.ps_pre.fc) %Naive
-                %     if coder.target('MATLAB')
-                %         warning('UAVRT:searchtype',...
-                %                 ['Requested informed search, but previous '...
-                %                  'segment does not contain a start and/or '...
-                %                  'stop frequency, or those values produces'...
-                %                  ' a search range outside the range of '...
-                %                  'frequencies available. Using naive '...
-                %                  'frequency search. Defaulting to naive'...
-                %                  ' frequency search.'])
-                %     else
-                %         fprintf(['UAVRT: ',...
-                %                 'Requested informed search, but previous '...
-                %                  'segment does not contain a start and/or '...
-                %                  'stop frequency, or those values produces'...
-                %                  ' a search range outside the range of '...
-                %                  'frequencies available. Using naive '...
-                %                  'frequency search. Defaulting to naive'...
-                %                  ' frequency search.'])
-                %     end
-                %     freq_start = 1;
-                %     freq_end   = numel(obj.Wf);%size(Sw,1);
-                %IF FREQS ARE AVILABLE, USE INFORMED
+                
                 freqModWarningFlag = false;
                 if ~isempty(obj.ps_pre.fstart)
                     freq_start = find(obj.Wf>=(obj.ps_pre.fstart),1,'first');
@@ -810,57 +765,22 @@ fprintf('\t Setting up parameter for finding pulses  ...\n')
                        'pulse is in segment'])
             end
 
-fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
-previousToc = toc;
-fprintf('\t Building Time Correlation Matrix  ...')
+            fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+            previousToc = toc;
+            fprintf('\t Building Time Correlation Matrix  ...')
             Wq = buildtimecorrelatormatrix(N, M, J, obj.K);
-fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
-previousToc = toc;
-fprintf('\t Conducting incoherent summation step  ...')
+            fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+            previousToc = toc;
+            fprintf('\t Conducting incoherent summation step  ...')
 
-%[serialRejectionMatrix] = repetitionrejector(obj.stft.t,[1, 2, 3, 5, 10]);
+            %[serialRejectionMatrix] = repetitionrejector(obj.stft.t, [2 3 5 10]);
+            [serialRejectionMatrix] = repetitionrejector(obj.stft.t, 0);%Outputs Identity for testing purposes
 
-% if obj.t_0>93
-%     pause(1);
-% end
-%[serialRejectionMatrix] = repetitionrejector(obj.stft.t, [2 3 5 10]);
-[serialRejectionMatrix] = repetitionrejector(obj.stft.t, 0);%Outputs Identity for testing purposes
+            [yw_max_all_freq,S_cols] = incohsumtoeplitz(freq_mask,obj.W',obj.stft.S,serialRejectionMatrix,timeBlinderVec, Wq);%obj.TimeCorr.Wq(obj.K));
+            fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
+            previousToc = toc;
 
-               [yw_max_all_freq,S_cols] = incohsumtoeplitz(freq_mask,obj.W',obj.stft.S,serialRejectionMatrix,timeBlinderVec, Wq);%obj.TimeCorr.Wq(obj.K));
-fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
-previousToc = toc;
-
-
-%Only pass a freq_msk subset of the Sw matrix to the incohsum
-%function. Run the algorithm            
-%             tic
-%             [yw_max_all_freq,S_cols,S_rows] = incohsumfast(Sw(freq_mask,:),...
-%                                                         N,M,...
-%                                                         time_search_range,...
-%                                                         n_blks);
-%             time(1) = toc;
-%             tic
-%             [yw_max_all_freq,S_cols,S_rows] = incohsum(Sw(freq_mask,:),...
-%                                                         N,M,...
-%                                                         time_search_range,...
-%                                                         n_blks);
-%             time(2) = toc;
-%             time
-%             yw_max_all_freq2 = NaN(numel(Wf),n_blks);
-%             yw_max_all_freq2(freq_mask,:) = yw_max_all_freq;
-%             yw_max_all_freq = yw_max_all_freq2;                         
-%             S_cols2 = NaN(numel(Wf),n_blks);
-%             S_cols2(freq_mask,:) = S_cols;
-%             S_cols = S_cols2;
-            
-            %PAPER EQUATION 14
-            %y_vec_w = Sw(sub2ind(size(Sw),out(:,1),out(:,2)));
-            % %PAPER EQUATION pre-29
-            %gamma   = abs(y_vec_w);
-            %%PAPER EQUATION 29
-            %z       = sum(gamma.^2);
-
-fprintf('\t Running Peeling Algorithm...\n')
+            fprintf('\t Running Peeling Algorithm...\n')
             
             %% PEELING ALGORITHM
             % The following algorithm is used to help tease out the central
@@ -880,14 +800,11 @@ fprintf('\t Running Peeling Algorithm...\n')
             n_freqs  = size(yw_max_all_freq,1);
             %Calculate the sum of the yw values - the score/test statistic
             scores   = sum(yw_max_all_freq,2);
-            %Calculate an estimate of the noise only power in each bin
-            %based on the PSD
-            %psdAtZetas = interp1(obj.stft.f,obj.stft.psd,Wf,'linear','extrap');
-            %freqBinPowAtZetas = psdAtZetas*(Wf(2)-Wf(1));
+            
             [nRowsOfS, nColsOfS] = size(obj.stft.S);
-            %sIndsOfBins = sub2ind([nRowsOfS nColsOfS],repmat((1:nRowsOfS)',1,nColsOfS),S_cols);
+            
             nZetas = numel(obj.Wf)/nRowsOfS;
-            %sIndsOfBins = sub2ind([nZetas*nRowsOfS nColsOfS],transpose(1:numel(Wf)),S_cols);
+            
             %The few lines below finds the noisePSD, but excludes regions
             %in time and frequency around possible detection. We do
             %detections as the zeta steps, but use the S matrix for PSD
@@ -928,15 +845,15 @@ fprintf('\t Running Peeling Algorithm...\n')
                                        circshift(freqShiftedBinMaskMatrix,1,2) + ...
                                        circshift(freqShiftedBinMaskMatrix,-1,2);
             freqtimeShiftedBinMaskMatrixScaled = imresize(freqtimeShiftedBinMaskMatrix,[nRowsOfS, nColsOfS]);
-            %figure;spy(freqtimeShiftedBinMaskMatrixScaled)
+            
             dt = 1/obj.Fs;
             T = obj.n_w/obj.Fs;
-            %noisePSD = dt^2/T*abs(mean(obj.stft.S+freqtimeShiftedBinMaskMatrixScaled,2,'omitnan')).^2;%Add since it is 0 where we expect noise and NaN where there might be a pulse
+            
             noisePSD = dt^2/T*mean(abs(obj.stft.S+freqtimeShiftedBinMaskMatrixScaled).^2,2,'omitnan');%Add since it is 0 where we expect noise and NaN where there might be a pulse
             noisePSDAtZetas = interp1(obj.stft.f,noisePSD,obj.Wf,'linear','extrap');
             noisePSDAtZetas(noisePSDAtZetas<0) = 0;
             fBinWidthZetas = obj.stft.f(2)-obj.stft.f(1);%Not the delta f of the Wf vector, because the frequency bins are the same width, just with half bin steps %
-            %noisePowers = noisePSDAtZetas*fBinWidthZetas;
+            
 
             %Calculate the power at each of the S locations that were
             %selected by the incohsum function. Scores are the mag squared
@@ -944,29 +861,12 @@ fprintf('\t Running Peeling Algorithm...\n')
             %the frequency bin to get power. We have to do this because the
             %psd in the stft object uses dt^2/T factor for the psd calc. 
             signalPlusNoisePSD   = dt^2/T*yw_max_all_freq;%scores;
-            %signalPlusNoisePSDPulseGroup   = dt^2/T*scores;%scores;
             signalPSD             = signalPlusNoisePSD-repmat(noisePSDAtZetas,1,n_pls);
-            %signalPSDPulseGroup   = signalPlusNoisePSDPulseGroup-noisePSDAtZetas;
-            
             signalPSD(signalPSD<0) = 0; %Can't have negative values
-            %signalPSDPulseGroup(signalPSD<0)   = 0; %Can't have negative values
             signalPowers           = signalPSD*fBinWidthZetas;
             signalAmps             = sqrt(signalPowers);
-
-            %signalPlusNoisePowers = signalPlusNoisePSD*fBinWidthZetas;
-            %signalPowers          = signalPlusNoisePowers-noisePowers;
-            
-            %SNRdB = 10*log10(powers./freqBinPowAtZetas);
-            %%Signal power ratio to  noise power in its frequency bin for all pulses in group
-            %SNRdB = 10*log10(powers./sum(freqBinPowAtZetas));          %Signal power ratio to all noise power in bandwidth
-            %SNRdB = 10*log10(powers./obj.K*1./sum(freqBinPowAtZetas)); %Average the power across all pulses
-            %SNRdB = 10*log10(signalPowers./obj.K*1./noisePowers); %Average the power across all pulses
-            
             SNRdB           = 10*log10(signalPSD./repmat(noisePSDAtZetas,1,n_pls));
-            %SNRdBPulseGroup = 10*log10(signalPSDPulseGroup./noisePSDAtZetas);
-            
             SNRdB(SNRdB==Inf) = NaN;
-            %SNRdBPulseGroup(SNRdBPulseGroup==Inf) = NaN;
 
             %Calculate the first and second frequency derivatives of the 
             %scores. We'll use these for slope and curvature assessments.
@@ -981,15 +881,9 @@ fprintf('\t Running Peeling Algorithm...\n')
             %This block of code determines where there are peaks (negative
             %slopes to the left and right) and where there are valleys
             %(positive slopes to left and right)
-            %greater_than_next = scores(2:end-1)>scores(3:end);
-            %greater_than_prev = scores(2:end-1)>scores(1:end-2);
             greater_than_next = scores(1:end)>[scores(2:end);0];
             greater_than_prev = scores(1:end)>[0;scores(1:end-1)];
             
-            %slope_pos = [false;~greater_than_next&greater_than_prev;false];
-            %slope_neg = [false; greater_than_next&~greater_than_prev;false];
-            %slope_val = [false;~greater_than_next&~greater_than_prev;false];
-            %slope_peak = [false;greater_than_next&greater_than_prev;false];
             slope_pos  = (~greater_than_next & greater_than_prev);
             slope_neg  = ( greater_than_next &~greater_than_prev);
             slope_val  = (~greater_than_next &~greater_than_prev);
@@ -998,7 +892,6 @@ fprintf('\t Running Peeling Algorithm...\n')
             score_left_bndry  = [true;~isnan(scores(2:end))&isnan(scores(1:end-1))];
             score_right_bndry = [~isnan(scores(1:end-1))&isnan(scores(2:end));true];
                        
-            %[score_left_bndry&slope_neg,score_right_bndry&slope_pos,scores]
             %This deals with the frequency masking and some scores will be
             %NaN because they were excluded from consideration in the
             %incohsum processing. If the score is a left boundary
@@ -1059,10 +952,8 @@ fprintf('\t Running Peeling Algorithm...\n')
             %Keep doing this loop below while there are scores that exceed
             %the threshold which aren't masked as a valley, +slope, -slope,
             %or previously identified peak/sideband. 
-            %figure; plot3([1:160],ones(160,1)*0,curr_scores)
             while any(peak_masked_curr_scores >= thresh, 'all')
 
-             %   hold on; plot3([1:160],ones(160,1)*p,curr_scores)
                 %Identify the highest scoring peak of the currently
                 %identifed scores. 
                 [peak(p), peak_ind(p)] = max(peak_masked_curr_scores);
@@ -1126,8 +1017,6 @@ fprintf('\t Running Peeling Algorithm...\n')
                     
                     %These are the number of frequency bins foward or
                     %backward from the peak to the last score>threshold
-                    %inds_bkwd_2_thresh_xing = find(scores(peak_ind(p)-1:-1:1)<thresh,1,'first')-1;
-                    %inds_frwd_2_thresh_xing = find(scores(peak_ind(p)+1:end)<thresh,1,'first')-1;
                     inds_bkwd_2_thresh_xing = find(scores(peak_ind(p)-1:-1:1,1)<thresh(peak_ind(p)-1:-1:1,1),1,'first')-1;
                     inds_frwd_2_thresh_xing = find(scores(peak_ind(p)+1:end,1)<thresh(peak_ind(p)+1:end,1),1,'first')-1;
                     %Here we look for the location where the slope changes.
@@ -1140,14 +1029,12 @@ fprintf('\t Running Peeling Algorithm...\n')
                     %picked up later as an additional peak. 
                     inds_bkwd_2_next_valley = find(slope_val(peak_ind(p)-1:-1:1,1)==1,1,'first');
                     inds_frwd_2_next_valley = find(slope_val(peak_ind(p)+1:end,1)>0,1,'first');
-                    %Wf_sub = Wf(freq_mask);
                     
                     if isempty(inds_frwd_2_thresh_xing) && isempty(inds_bkwd_2_thresh_xing)
                         %If it can't find a place backwards or forwards
                         %that is less than the threshold, the whole thing
                         %could be sideband. Often the case for informed
                         %search. 
-%                        sideband_msk = true(n_freqs,1);
                         
                         %Alternatively, the interactions of
                         %adjacent sidebands might be so large, that there
@@ -1237,9 +1124,6 @@ fprintf('\t Running Peeling Algorithm...\n')
                                      upper_sideband_ind) = true;
                     end
                     
-%                     timecheck(:,k) = (n_diff_to_curr_pk<=diff_thresh)|...
-%                                      (n_diff_check_back<=diff_thresh)|...
-%                                      (n_diff_check_for<=diff_thresh);
                     
                     %Here we build up a mask that incorporates all the
                     %peaks and their sidebands that we have identified 
@@ -1262,9 +1146,6 @@ fprintf('\t Running Peeling Algorithm...\n')
                 curr_scores = scores.*~msk(:,p+1); %Mask the recently found sidebands                
                 peak_masked_curr_scores = curr_scores.*slope_peak; %Mask to only look at peaks
                 peak_masked_curr_scores = peak_masked_curr_scores.*(peak_masked_curr_scores>=thresh);%Eliminate non-threshold exceeding scores from consideration
-%                 hold on;plot(peak_masked_curr_scores)
-%                 pause(1)
-                %peak_masked_curr_scores = curr_scores.*slope_peak.*independent_super_thresh_msk;
                 p = p+1;
             end
             %Clean up the msk and indiv_mask so their columns align with
@@ -1292,27 +1173,18 @@ fprintf('\t Running Peeling Algorithm...\n')
             %%BINS WITHOUTH DOING THE THRESHOLDING.
             
             %Preallocate cur_pl matrix
-            %This was the original code, but it doesn't work with Code
-            %Generation
-            %cur_pl(1:n_freqs,1:n_pls) = pulse;
-            %cur_pl = pulse.empty(n_freqs,n_pls,0);  %Build empty array          
-            %cur_pl(n_freqs,n_pls,1) = pulse;        %This will cause all array elements to fill with the empty constructor
-            %cur_pl = pulse;
-            %cur_pl(n_freqs,n_pls) = pulse;
             blankPulse = makepulsestruc();
             cur_pl = repmat(blankPulse,n_freqs,n_pls);
             %Create a frequency array that accounts for the masking that
             %was done to reduce the frequency space.
             Wf_sub = obj.Wf(freq_mask);
-            %freq_found = Wf_sub(S_rows);
             freq_found = obj.Wf;
             %t_found here is the start of the pulse - not the center like
             %in the time stamps in the stft, which are the centers of the
             %windows. The dt_stft/2 term offfset would affect both the first
             %and second terms of the equation below and therefore cancel.
             t_found    = NaN(n_freqs,n_pls);
-            %t_found    = obj.stft.t(S_cols)-obj.stft.t(1)+obj.t_0;%Don't forget the add the t_0 of this waveform
-
+            
            %The lines below effectively do the following operation:
            %    t_found(freq_mask,:)    = obj.stft.t(S_cols(freq_mask,:))-obj.stft.t(1)+obj.t_0;
            %but in a way that doesn't generate errors in the C++ generated
@@ -1328,10 +1200,8 @@ fprintf('\t Running Peeling Algorithm...\n')
            t_found_freq_mask_inds = t_found_inds(freq_mask,:);
            t_found(t_found_freq_mask_inds) = obj.stft.t(S_cols_freq_mask(:))-obj.stft.t(1)+obj.t_0;
 
-            %f_bands    = [Wf_sub-(Wf_sub(2)-Wf_sub(1))/2,...
-            %              Wf_sub+(Wf_sub(2)-Wf_sub(1))/2];
-            f_bands    = [obj.Wf-(obj.Wf(2)-obj.Wf(1))/2,...
-                          obj.Wf+(obj.Wf(2)-obj.Wf(1))/2];
+           f_bands    = [obj.Wf-(obj.Wf(2)-obj.Wf(1))/2,...
+                         obj.Wf+(obj.Wf(2)-obj.Wf(1))/2];
             
             %Build out the pulse object for each one found
             for i = 1:n_pls
@@ -1422,22 +1292,11 @@ previousToc = toc;
             K                 = obj.K;
             overlap_windows   = 2*(K*M+J);
             overlap_samps     = n_ws*overlap_windows;
-%             if K ~= 1
-%                 samplesforKpulses = n_ws*(K*(N+M)-2*M)+n_ol;
-%             else
-%                 samplesforKpulses = n_ws*(N+M+J+1)+n_ol;
-%             end
             %See 2022-07-11 for updates to samples def
             samplesforKpulses = n_ws*(K*(N+M)+J+1)+n_ol;
             
-            %obj.t_nextsegstart  = obj.t_0+(samplesforKpulses)/obj.Fs; %Don't need the overlap here since the next segment starts at samplesforKpulses+n_ol-n_ol from current sample
-            obj.t_nextsegstart  = obj.t_0+(samplesforKpulses-overlap_samps)/obj.Fs; %Don't need the overlap here since the next segment starts at samplesforKpulses+n_ol-n_ol from current sample
             
-%             if isempty(obj.TimeCorr)
-%                 obj.TimeCorr = TemporalCorrelator(N, M, J);
-%             else
-%                 obj.TimeCorr.update(N, M, J);
-%             end
+            obj.t_nextsegstart  = obj.t_0+(samplesforKpulses-overlap_samps)/obj.Fs; %Don't need the overlap here since the next segment starts at samplesforKpulses+n_ol-n_ol from current sample
 
             
         end       
@@ -1704,19 +1563,11 @@ fprintf('DETECTING IN SEARCH MODE.\n')
                         warning('UAV-RT: Candidate pulses were detected that exceeded the decision threshold, but no peaks in the scores were detected. This is likely because these high scoring pulses existed at the edges of frequency bounds. Try changing the frequency search bounds and reprocessing. ')
                     end
                 end
-                
-               
                
                 % Determine which peak to focus depending on the selection mode
                 % Select a peak if we found had at least one detection
                 if ~isnan(pk_ind)
                      selected_ind = obj.selectpeakindex(candidatelist, pk_ind);
-
-                    % if strcmp(selection_mode,'most') || isempty(selection_mode)
-                    %     selected_ind = 1;
-                    % elseif strcmp(selection_mode,'least')
-                    %     selected_ind = numel(pk_ind);
-                    % end
 
                     %Set the pulselist property in the ps_pos based on the
                     %downselection of pulses
@@ -1734,17 +1585,17 @@ fprintf('DETECTING IN SEARCH MODE.\n')
 conflog = false(size(obj.ps_pos)); %Set to all false. Needed
                 % Detection?
                 if ~isnan(pk_ind) 
-%If move to confirm pulses that were real but the pulses before them were
-%noise, the real pulses will not be confirmed and the detector will move
-%back to search mode. Then when it gets to this point, it should try to
-%confirm against the previous detections. 
-conflog = confirmpulses(obj);
+                    %If move to confirm pulses that were real but the pulses before them were
+                    %noise, the real pulses will not be confirmed and the detector will move
+                    %back to search mode. Then when it gets to this point, it should try to
+                    %confirm against the previous detections.
+                    conflog = confirmpulses(obj);
 
-if any(conflog,'all')
-    conf = true;
-else
-    conf = false;
-end
+                    if any(conflog,'all')
+                        conf = true;
+                    else
+                        conf = false;
+                    end
                     % %True ->
                     % %Update confirmation property for each pulse. False 
                     % %recorded for confirmation property since we are 
@@ -1759,7 +1610,7 @@ end
 
                 else    %Dection was not made
                     % obj.ps_pos.mode = 'S';%'D';
-conf = false;                   
+                    conf = false;
                 end
                % Confirmation?
                 if conf
@@ -2013,83 +1864,7 @@ fprintf('ps_pos.fstart and ps_pre.fend at the end Tracking search : \t %f \t to 
                 %Build weighting matrix
                 [obj.W,obj.Wf] = weightingmatrix(w_time_domain,obj.Fs,zetas,'centered');                
         end
-        
-%         function charArray = charArrayOutput(obj)
-%             propSepChars  = '\n';
-%             sepChars      = ': ';
-%             props    = properties(obj);
-%             numProps = numel(props);
-%             charArray = '';
-%             for i = 1:numProps
-%                 propCharArray = '';
-%                 switch props{i}
-%                     case 'K'
-%                         formatSpec = '%u';
-%                     case 'Fs'
-%                         formatSpec = '%3f';
-%                     case 'l'
-%                         formatSpec = '%u';
-%                     case 't_0'
-%                         formatSpec = '%6f';
-%                     case 't_f'
-%                         formatSpec = '%6f';
-%                     case 't_nextsegstart'
-%                         formatSpec = '%6f';
-%                     case 'OLF'
-%                         formatSpec = '%3f';
-%                     case 'n_p'
-%                         formatSpec = '%u';
-%                     case 'n_w'
-%                         formatSpec = '%u';
-%                     case 'n_ol'
-%                         formatSpec = '%u';
-%                     case 'n_ws'
-%                         formatSpec = '%u';
-%                     case 't_ws'
-%                         formatSpec = '%6f';
-%                     case 'n_ip'
-%                         formatSpec = '%u';
-%                     case 'N'
-%                         formatSpec = '%u';
-%                     case 'M'
-%                         formatSpec = '%u';
-%                     case 'J'
-%                         formatSpec = '%u';
-%                     case 'ps_pre'
-%                         if ~isempty(obj.(props{i}))
-%                             propCharArray = obj.(props{i}).charArrayOutput();
-%                         else
-%                             propCharArray = 'none';
-%                         end
-%                     case 'ps_pos'
-%                         if ~isempty(obj.(props{i}))
-%                             propCharArray = obj.(props{i}).charArrayOutput();
-%                         else
-%                             propCharArray = 'none';
-%                         end
-%                     case 'thresh'
-%                         if ~isempty(obj.(props{i}))
-%                             propCharArray = obj.(props{i}).charArrayOutput();
-%                         else
-%                             propCharArray = 'none';
-%                         end
-%                 end
-%                 vecSepChar = ', ';
-%                 %We don't write out the following properties
-%                 %stft, W, Wf
-%                 if ~(strcmp(props{i}, 'stft') | strcmp(props{i}, 'W') | strcmp(props{i}, 'Wf'))
-%                     if isempty(propCharArray)
-%                         propCharArray = sprintf(formatSpec, obj.(props{i}));                   
-%                     end
-%                 
-%                 charArray = [charArray, props{i}, sepChars, propCharArray, propSepChars];
-%                 end
-% 
-%             end
-%             %charArray = charArray(1:end-numel(sepChars));
-%             charArray  = sprintf(charArray(1:end-numel(sepChars)));
-%         end
-        
+     
         function [] = displayresults(obj,ax)
             if coder.target('MATLAB')
             if nargin==1
@@ -2117,78 +1892,3 @@ fprintf('ps_pos.fstart and ps_pre.fend at the end Tracking search : \t %f \t to 
     end
 end
     
-    %WHAT WAS DONE BY THIS METHOD IS NOW DONE BY A METHOD OF THE
-        %PULSESTATS CLASS. 
-%         function [] = update_posteriori(obj,pulselist)
-%             %UPDATE_POSTERIORI updates the posteriori pulse statistics of
-%             %this waveform object using the new pulse list (input) and the
-%             %apriori stats. The pulse contained in the waveform's ps_pos
-%             %property is not used directly so that the caller can decide
-%             %which pulses on which to focus the posteriori. 
-%             
-%             t_found    = [pulselist(:).t_0]';
-%             freq_found = mean([pulselist(:).fp],'omitnan');
-%             
-%             %Create a vector of bandwidths from the pulselist
-%             bw_found = 2*(mean([pulselist.fend],'omitnan')-mean([pulselist.fstart],'omitnan'));
-%             if isempty(bw_found)
-%                 bw_found = 100;
-%                 if coder.target('MATLAB')
-%                     warning(['UAV-R: No bandwidth could be calculated ',... 
-%                          'from the start and stop frequencies of the ',...
-%                          'identified pulses. A bandwidth of 100 Hz ',...
-%                          'will be used for continued informed search.'])
-%                 end
-%             end
-%             
-%             %Here is where we update the stats. These methods of updates
-%             %could be improved in the future. 
-%             %obj.ps_pre.t_p; %tp doesn't change. We assume it is stationary
-%             
-%             if numel(pulselist)==1% Happens if K=1
-%                 %We only have one pulse to reference, so we need to check
-%                 %the prior pulse too. 
-%                 if ~isempty(obj.ps_pre.pl) && ~isnan(obj.ps_pre.pl(end).t_0)
-%                     recent_tip = pulselist.t_0-obj.ps_pre.pl(end).t_0;
-%                     %There could be a case where the last segment and this
-%                     %segement identified the same pulse. In this case
-%                     %recent_tip will be very small. In this case, we just
-%                     %say we learned nothing about t_ip in this segment. 
-%                     if recent_tip < obj.ps_pre.t_ipu + obj.ps_pre.t_ipJ
-%                         recent_tip = NaN;
-%                     end
-%                 else
-%                     %No new information because we don't know the last 
-%                     %pulse time
-%                     recent_tip = NaN;
-%                 end
-%             else
-%                 recent_tip = diff(t_found);
-%             end
-%             %Do a check here to make sure the new tip isn't a huge change.
-%             %This could potentially happen if we are in the K = 1 case and
-%             %the block getting processed contained two pulses, with the
-%             %latter pulse getting identified/detected. The lines above
-%             %would look back to the last identified pulse and it might be
-%             %2*tip back in time, producing a very large recenttip values.
-%             %If something like this happens, we ignore it so it doesn't
-%             %affect our new tip estimates. 
-%             if recent_tip > 1.5*obj.ps_pre.t_ip & recent_tip < 0.5*obj.ps_pre.t_ip
-%                 recent_tip = NaN;
-%             end
-%             
-%             %Only update time parameters if we are in tracking mode. If we
-%             %aren't, we may have identified somethign that isn't a pulse
-%             if strcmp(obj.ps_pos.mode,'T') || strcmp(obj.ps_pre.mode,'T')
-%                 obj.ps_pos.t_ip  = mean([recent_tip;obj.ps_pre.t_ip],'omitnan');
-%                 obj.ps_pos.t_ipu = obj.ps_pre.t_ipu; %Don't update this because it can get too narrow.%mean([3*std(diff(t_found));obj.ps_pre.t_ipu]);
-%                 obj.ps_pos.t_ipj = obj.ps_pre.t_ipj;
-%             end
-%             fp_pos           = freq_found;%nanmean([freq_found;obj.ps_pre.fp]);%Previous fc may be nan if unknown
-%             obj.ps_pos.fp    = fp_pos;
-%             obj.ps_pos.fstart = fp_pos-bw_found/2;
-%             obj.ps_pos.fend   = fp_pos+bw_found/2;
-%             
-%             obj.ps_pos.psdHist = obj.stft.psd
-%         end
-        

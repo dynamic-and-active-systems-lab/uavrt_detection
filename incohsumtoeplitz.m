@@ -69,6 +69,8 @@ function [Sscores,Scols] = incohsumtoeplitz(Fb,Wfherm,S,IR,Tb,Wq)
 %           Wq must have the same number of rows as columns of S, but can
 %           have as many columns as summation cases that need to be
 %           considered.
+%   IR      Repetition rejection comb filter matrix. Set to the identity to
+%           if no comb filtering is needed.
 %
 %OUTPUTS:
 %   Sscores The results of the incoherent summation of S per the time
@@ -86,7 +88,7 @@ function [Sscores,Scols] = incohsumtoeplitz(Fb,Wfherm,S,IR,Tb,Wq)
 %%
 %Author: Michael W. Shafer
 %Date:   2022-03-31
-%%
+%--------------------------------------------------------------------------
 
 Ssz  = size(S);
 Wqsz = size(Wq);
@@ -178,7 +180,6 @@ end
 %% Perform the incoherent summation
 
 SnumRows   = Ssz(1);
-%S          = abs(S).^2;
 K          = full(sum(Wq(:,1)));
 allScores  = abs(Wfherm*S).^2 * IR;
 selectedCombinedScores  = FbSparseMat*allScores*TbSparseMat*Wq;

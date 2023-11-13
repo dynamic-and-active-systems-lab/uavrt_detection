@@ -171,23 +171,12 @@ W = reshape(stackedToeplitzMatrices,nw,numZetas*nw);
 
 
 %Build a vector of the frequencies
-%  tick=1;
-%  for i = 1:numZetas:size(W,2)
-%      freqs(i:i+(numZetas-1)) = Fs/nw*((tick-1)+zetas);
-%      tick = tick+1;
-%  end
+
 freqs = makeSTFTFreqVector(2*nw,'twosided',Fs);
-
-%Simulink (coder?) didn't like the new round inputs
-%freqs = round(freqs,3);
-
-%freqs = round(freqs*1000)/1000;
-
 
 
 %Shift everything so we use a negative frequencies
 nyq_ind = zeros(1,1);%A little non-matlab notation to get this to run in simulink.
-%nyq_ind(1)  = find(freqs == floor(Fs/2),1,'first');
 nyq_ind(1)  = find(freqs == Fs/2,1,'first');
 frequency_shift_amount = -freqs(end)-(Fs-freqs(end));
 zero_padding = zeros(1,nyq_ind);

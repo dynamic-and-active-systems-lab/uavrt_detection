@@ -1,6 +1,9 @@
-% generate_pulse_positions_func.m
 function pulse_position_matrix = generate_pulse_positions_func( K, PRI_mean_value, PRI_jitter_value )
-
+% GENERATE_PULSE_POSITIONS_FUNC generates the pulse position matrix from
+% the number of pulses, mean pri values, and jitter values.
+% PPM Contains the column positions (time windows) in the S matrix to 
+% search for the K pulses assuming the first pulse arrives at window 1.  
+%
 % INPUTS:
 %   PRI_mean_value          row vector of PRI means (scale/index is STFT step
 %                           size)
@@ -17,13 +20,15 @@ function pulse_position_matrix = generate_pulse_positions_func( K, PRI_mean_valu
 % CALLS: 
 %                           cartesion_prod_func()
 %
-
+%
 % Author: Paul G. Flikkema
 % Date:   1 Oct 2021
+%--------------------------------------------------------------------------
 
+num_PRI_means    = length( PRI_mean_value );
 
-num_PRI_means = length( PRI_mean_value );
-num_PRI_jitters = length( PRI_jitter_value );
+num_PRI_jitters  = length( PRI_jitter_value );
+
 num_PRI_patterns = num_PRI_means*num_PRI_jitters^(K-1);
 
 pulse_position_matrix = zeros( num_PRI_patterns, K );
@@ -31,9 +36,10 @@ pulse_position_matrix = zeros( num_PRI_patterns, K );
 pulse_position_matrix( :, 1 ) = ones( num_PRI_patterns, 1 );
 
 % based on the model, generate all the pulse position values in a 3D matrix
-% pulse_position_value(k, i_position, i_mean )
 pulse_position_value = zeros( K, num_PRI_jitters, num_PRI_means );
+
 pulse_position_value( 1, :, : ) = 1; % first pulse is always in position 1
+
 % loop through the mean PRI values
 for i_mean = 1:num_PRI_means
     for k = 2:K
@@ -56,9 +62,11 @@ end
 %
 % we stack matrices vertically into the pulse_position_matrix
 num_position_patterns = num_PRI_means*num_PRI_jitters^(K-1);
+
 pulse_position_matrix = zeros( num_position_patterns, K-1 );
 
 n_rows = num_PRI_jitters^(K-1); % number of rows per PRI mean
+
 for i_set = 1:num_PRI_means
     
 %     % DEBUG
@@ -71,6 +79,7 @@ for i_set = 1:num_PRI_means
     pattern_matrix = cartesian_prod_func( pulse_position_value( 2:end, :, i_set ) );
     pulse_position_matrix( ( (i_set - 1)*n_rows + 1 ):i_set*n_rows, : ) = pattern_matrix;
 end
+
 pulse_position_matrix = ...
     horzcat( ones( num_position_patterns, 1 ), pulse_position_matrix );
 

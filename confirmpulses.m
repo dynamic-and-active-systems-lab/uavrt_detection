@@ -1,10 +1,22 @@
 function [confLog] = confirmpulses(X)
-%confirmpulses Returns a boolean vector that say if the pulses in the
+%CONFIRMPULSES Returns a boolean vector that say if the pulses in the
 %X.ps_pos pulse stats are where they should be in frequency and time based on
 %the last pulse of the X.ps_pre and its pulse timing parameter.
+%
+%INPUTS:
+%   X       1x1     waveform
+%OUTPUTS
+%   conflog n x 1   boolean vector of confirmation of the pulses in
+%                   X.ps_pos
+%
+%--------------------------------------------------------------------------
+%
+arguments
+    X   (1,1) waveform
+end
 
 tref = X.ps_pre.pl(end).t_0;
-%tp   = X.ps_pre.t_p;
+
 tip  = X.ps_pre.t_ip;
 tipu = X.ps_pre.t_ipu;
 tipj = X.ps_pre.t_ipj;
@@ -26,6 +38,7 @@ else %First pulse in this segment does not exists in last segment as well becaus
     pulsestarttimes_withuncert = tref+((tip-tipu)*(1:(X.K)))-tipj*ones(1,X.K);
     pulseendtimes_withuncert   = tref+((tip+tipu)*(1:(X.K)))+tipj*ones(1,X.K);
 end
+
 %%Debugging plots
 % figure;xline(pulsestarttimes_withuncert,'--')
 % hold on;xline(pulseendtimes_withuncert,'--')
@@ -54,7 +67,6 @@ numPulses = numel(X.ps_pos.pl);
 indivConfLog = maxstartlog & minstartlog & freqInBand; 
 confLog = false(numPulses ,1);
 confLog(:) = indivConfLog(1);
-
 
 %2023-09-21
 %If an individual pulse of noise energy is sufficient to be above exceed
@@ -87,9 +99,7 @@ elseif numPulses == 1
         SNRnotNegInf = X.ps_pos.pl(1).SNR ~= -Inf;
     end
 end
-% if X.ps_pos.pl(1).t_0>328
-%     pause(1);
-% end
+
 confLog = confLog & SNRnotNegInf;
 
 
