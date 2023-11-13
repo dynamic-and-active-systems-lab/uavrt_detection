@@ -5,7 +5,7 @@
 // File: timeKeeper.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -28,7 +28,7 @@ static coderTimespec savedTime;
 static boolean_T savedTime_not_empty;
 
 // Function Declarations
-static void hb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void ib_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -36,7 +36,7 @@ static void hb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void hb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void ib_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -72,13 +72,13 @@ void timeKeeper(double newTime_tv_sec, double newTime_tv_nsec)
       status = coderInitTimeFunctions(&freq);
       if (status != 0) {
         rtErrorWithMessageID(std::string(&cv1[0], 22), status,
-                             nb_emlrtRTEI.fName, nb_emlrtRTEI.lineNo);
+                             pb_emlrtRTEI.fName, pb_emlrtRTEI.lineNo);
       }
     }
     status = coderTimeClockGettimeMonotonic(&b_timespec, freq);
     if (status != 0) {
-      rtErrorWithMessageID(std::string(&cv2[0], 30), status, nb_emlrtRTEI.fName,
-                           nb_emlrtRTEI.lineNo);
+      rtErrorWithMessageID(std::string(&cv2[0], 30), status, pb_emlrtRTEI.fName,
+                           pb_emlrtRTEI.lineNo);
     }
     savedTime_not_empty = true;
   }
@@ -92,7 +92,7 @@ void timeKeeper(double newTime_tv_sec, double newTime_tv_nsec)
 //
 double timeKeeper(double &outTime_tv_nsec)
 {
-  static rtRunTimeErrorInfo vc_emlrtRTEI{
+  static rtRunTimeErrorInfo xc_emlrtRTEI{
       11,           // lineNo
       9,            // colNo
       "timeKeeper", // fName
@@ -101,7 +101,7 @@ double timeKeeper(double &outTime_tv_nsec)
   };
   double outTime_tv_sec;
   if (!savedTime_not_empty) {
-    hb_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+    ib_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
   }
   outTime_tv_sec = savedTime.tv_sec;
   outTime_tv_nsec = savedTime.tv_nsec;

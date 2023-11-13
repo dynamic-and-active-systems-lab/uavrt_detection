@@ -5,7 +5,7 @@
 // File: find.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -22,7 +22,7 @@
 #include "coder_array.h"
 
 // Variable Definitions
-static rtRunTimeErrorInfo h_emlrtRTEI{
+static rtRunTimeErrorInfo j_emlrtRTEI{
     81,         // lineNo
     1,          // colNo
     "eml_find", // fName
@@ -137,7 +137,7 @@ void b_eml_find(const array<boolean_T, 2U> &x, array<int, 2U> &i)
     }
   }
   if (idx > x.size(1)) {
-    i_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
   }
   if (x.size(1) == 1) {
     if (idx == 0) {
@@ -164,7 +164,7 @@ int c_eml_find(const array<boolean_T, 1U> &x, int i_data[])
   boolean_T exitg1;
   i_size = (x.size(0) >= 1);
   if (i_size > x.size(0)) {
-    i_rtErrorWithMessageID(h_emlrtRTEI.fName, h_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
   }
   idx = 0;
   if (x.size(0) > 2147483646) {
@@ -182,7 +182,7 @@ int c_eml_find(const array<boolean_T, 1U> &x, int i_data[])
     }
   }
   if (idx > i_size) {
-    i_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
   }
   if (i_size == 1) {
     if (idx == 0) {
@@ -205,7 +205,7 @@ int c_eml_find(const array<boolean_T, 1U> &x, int i_data[])
 //
 int d_eml_find(const array<boolean_T, 1U> &x, int i_data[])
 {
-  static rtRunTimeErrorInfo vc_emlrtRTEI{
+  static rtRunTimeErrorInfo xc_emlrtRTEI{
       447,                 // lineNo
       1,                   // colNo
       "find_last_indices", // fName
@@ -217,7 +217,7 @@ int d_eml_find(const array<boolean_T, 1U> &x, int i_data[])
   boolean_T exitg1;
   i_size = (x.size(0) >= 1);
   if (i_size > x.size(0)) {
-    i_rtErrorWithMessageID(h_emlrtRTEI.fName, h_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
   }
   ii = x.size(0);
   idx = 0;
@@ -232,7 +232,7 @@ int d_eml_find(const array<boolean_T, 1U> &x, int i_data[])
     }
   }
   if (idx > i_size) {
-    i_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
   }
   if (i_size == 1) {
     if (idx == 0) {
@@ -263,7 +263,7 @@ void e_eml_find(const sparse &x, array<int, 1U> &i, array<int, 1U> &j)
       "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elmat/find.m", // pName
       4 // checkKind
   };
-  static rtRunTimeErrorInfo vc_emlrtRTEI{
+  static rtRunTimeErrorInfo xc_emlrtRTEI{
       239,                           // lineNo
       1,                             // colNo
       "find_first_nonempty_triples", // fName
@@ -308,7 +308,7 @@ void e_eml_find(const sparse &x, array<int, 1U> &i, array<int, 1U> &j)
       }
     }
     if (idx > nx_tmp - 1) {
-      i_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+      i_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
     }
     if (nx_tmp - 1 == 1) {
       if (idx == 0) {
@@ -346,7 +346,7 @@ void eml_find(const array<boolean_T, 2U> &x, int i_data[], int i_size[2])
   boolean_T exitg1;
   k = (x.size(1) >= 1);
   if (k > x.size(1)) {
-    i_rtErrorWithMessageID(h_emlrtRTEI.fName, h_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
   }
   idx = 0;
   i_size[0] = 1;
@@ -366,7 +366,7 @@ void eml_find(const array<boolean_T, 2U> &x, int i_data[], int i_size[2])
     }
   }
   if (idx > k) {
-    i_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
   }
   if (k == 1) {
     if (idx == 0) {

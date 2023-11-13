@@ -5,7 +5,7 @@
 // File: randn.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -75,12 +75,12 @@ void complexLike(double varargin_1, unsigned int varargin_2,
   int loop_ub;
   if ((varargin_1 != std::floor(varargin_1)) || std::isinf(varargin_1) ||
       (varargin_1 < -2.147483648E+9) || (varargin_1 > 2.147483647E+9)) {
-    b_rtErrorWithMessageID(MIN_int32_T, lb_emlrtRTEI.fName,
-                           lb_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(MIN_int32_T, nb_emlrtRTEI.fName,
+                           nb_emlrtRTEI.lineNo);
   }
   if (varargin_2 > 2147483647U) {
-    b_rtErrorWithMessageID(MIN_int32_T, lb_emlrtRTEI.fName,
-                           lb_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(MIN_int32_T, nb_emlrtRTEI.fName,
+                           nb_emlrtRTEI.lineNo);
   }
   if (varargin_1 <= 0.0) {
     re = 0.0;
@@ -93,7 +93,7 @@ void complexLike(double varargin_1, unsigned int varargin_2,
     re *= static_cast<double>(varargin_2);
   }
   if (!(re <= 2.147483647E+9)) {
-    m_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+    m_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
   }
   if (!(varargin_1 >= 0.0)) {
     rtNonNegativeError(varargin_1, r_emlrtDCI);

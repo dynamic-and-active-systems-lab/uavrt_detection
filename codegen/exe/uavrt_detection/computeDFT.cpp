@@ -5,7 +5,7 @@
 // File: computeDFT.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -77,7 +77,7 @@ void computeDFT(const array<creal32_T, 2U> &xin, double nfft, double varargin_1,
         x[i1] = xin[i1 + xin.size(0) * j];
       }
       if (!(nfft >= 1.0)) {
-        b_rtErrorWithMessageID(1, ib_emlrtRTEI.fName, ib_emlrtRTEI.lineNo);
+        b_rtErrorWithMessageID(1, kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
       }
       if (xin.size(0) == 1) {
         wrappedData.set_size(1, loop_ub_tmp);
@@ -166,13 +166,13 @@ void computeDFT(const array<creal32_T, 2U> &xin, double nfft, double varargin_1,
     }
   }
   if (xw.size(0) == 1) {
-    w_rtErrorWithMessageID(fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
+    x_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
   }
   if ((!(nfft >= 0.0)) || (!(nfft == std::floor(nfft)))) {
-    x_rtErrorWithMessageID(gb_emlrtRTEI.fName, gb_emlrtRTEI.lineNo);
+    y_rtErrorWithMessageID(ib_emlrtRTEI.fName, ib_emlrtRTEI.lineNo);
   }
   if (!(nfft <= 2.147483647E+9)) {
-    y_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
+    ab_rtErrorWithMessageID(jb_emlrtRTEI.fName, jb_emlrtRTEI.lineNo);
   }
   if ((xw.size(0) == 0) || (xw.size(1) == 0) || (static_cast<int>(nfft) == 0)) {
     Xx.set_size(static_cast<int>(nfft), xw.size(1));

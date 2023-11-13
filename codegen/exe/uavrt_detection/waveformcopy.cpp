@@ -5,7 +5,7 @@
 // File: waveformcopy.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -75,8 +75,10 @@ waveform *waveformcopy(waveform &wfmIn, wfmstft &iobj_0, pulsestats &iobj_1,
   iobj_2.x.set_size(1, 0);
   iobj_2.W.set_size(0, 0);
   iobj_2.Wf.set_size(0);
-  // UNTITLED2 Construct an instance of this class
-  //    Detailed explanation goes here
+  // THRESHOLD Constructs an instance of this class
+  // INPUTS:
+  //    pf  probability of false alarm
+  //
   _in.trials = 100U;
   _in.pf = 0.01;
   _in.evMuParam = 0.0;

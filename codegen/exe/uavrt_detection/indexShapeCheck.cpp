@@ -5,7 +5,7 @@
 // File: indexShapeCheck.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -20,7 +20,7 @@
 #include <string>
 
 // Variable Definitions
-static rtRunTimeErrorInfo kb_emlrtRTEI{
+static rtRunTimeErrorInfo mb_emlrtRTEI{
     122,           // lineNo
     5,             // colNo
     "errOrWarnIf", // fName
@@ -29,13 +29,13 @@ static rtRunTimeErrorInfo kb_emlrtRTEI{
 };
 
 // Function Declarations
-static void cb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
-
-static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void lc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void mc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+static void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -43,7 +43,7 @@ static void mc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void cb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -67,7 +67,7 @@ static void cb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void lc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -91,7 +91,7 @@ static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void lc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void mc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -115,7 +115,7 @@ static void lc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void mc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -158,7 +158,7 @@ void b_indexShapeCheck(const int matrixSize[2], const int indexSize[2])
       nonSingletonDimFound = true;
     }
     if (nonSingletonDimFound) {
-      lc_rtErrorWithMessageID(kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
+      mc_rtErrorWithMessageID(mb_emlrtRTEI.fName, mb_emlrtRTEI.lineNo);
     }
   } else {
     nonSingletonDimFound = (indexSize[0] != 1);
@@ -175,7 +175,7 @@ void b_indexShapeCheck(const int matrixSize[2], const int indexSize[2])
         nonSingletonDimFound = true;
       }
       if (nonSingletonDimFound) {
-        mc_rtErrorWithMessageID(kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
+        nc_rtErrorWithMessageID(mb_emlrtRTEI.fName, mb_emlrtRTEI.lineNo);
       }
     }
   }
@@ -213,7 +213,7 @@ void indexShapeCheck(const int matrixSize[2], const int indexSize[2])
         nonSingletonDimFound = true;
       }
       if (nonSingletonDimFound) {
-        kc_rtErrorWithMessageID(kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
+        lc_rtErrorWithMessageID(mb_emlrtRTEI.fName, mb_emlrtRTEI.lineNo);
       }
     }
   }
@@ -242,7 +242,7 @@ void indexShapeCheck(const double matrixSize[2], const double indexSize[2])
       nonSingletonDimFound = true;
     }
     if (nonSingletonDimFound) {
-      kc_rtErrorWithMessageID(kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
+      lc_rtErrorWithMessageID(mb_emlrtRTEI.fName, mb_emlrtRTEI.lineNo);
     }
   }
 }
@@ -255,7 +255,7 @@ void indexShapeCheck(const double matrixSize[2], const double indexSize[2])
 void indexShapeCheck(int matrixSize, const int indexSize[2])
 {
   if ((matrixSize == 1) && (indexSize[1] != 1)) {
-    cb_rtErrorWithMessageID(kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
+    db_rtErrorWithMessageID(mb_emlrtRTEI.fName, mb_emlrtRTEI.lineNo);
   }
 }
 

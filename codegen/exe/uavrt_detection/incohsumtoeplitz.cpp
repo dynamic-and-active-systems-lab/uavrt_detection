@@ -5,7 +5,7 @@
 // File: incohsumtoeplitz.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -100,6 +100,8 @@
 //            Wq must have the same number of rows as columns of S, but can
 //            have as many columns as summation cases that need to be
 //            considered.
+//    IR      Repetition rejection comb filter matrix. Set to the identity to
+//            if no comb filtering is needed.
 //
 // OUTPUTS:
 //    Sscores The results of the incoherent summation of S per the time
@@ -117,7 +119,7 @@
 //
 // Author: Michael W. Shafer
 // Date:   2022-03-31
-//
+// --------------------------------------------------------------------------
 //
 // Arguments    : const coder::array<boolean_T, 1U> &Fb
 //                const coder::array<creal_T, 2U> &Wfherm
@@ -141,7 +143,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   static rtBoundsCheckInfo ab_emlrtBCI{
       -1,                 // iFirst
       -1,                 // iLast
-      163,                // lineNo
+      165,                // lineNo
       37,                 // colNo
       "Fb",               // aName
       "incohsumtoeplitz", // fName
@@ -152,7 +154,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   static rtBoundsCheckInfo bb_emlrtBCI{
       -1,                 // iFirst
       -1,                 // iLast
-      176,                // lineNo
+      178,                // lineNo
       37,                 // colNo
       "Tb",               // aName
       "incohsumtoeplitz", // fName
@@ -163,7 +165,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   static rtBoundsCheckInfo cb_emlrtBCI{
       -1,                 // iFirst
       -1,                 // iLast
-      198,                // lineNo
+      199,                // lineNo
       1,                  // colNo
       "Scols",            // aName
       "incohsumtoeplitz", // fName
@@ -174,7 +176,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   static rtBoundsCheckInfo db_emlrtBCI{
       -1,                 // iFirst
       -1,                 // iLast
-      197,                // lineNo
+      198,                // lineNo
       1,                  // colNo
       "Sscores",          // aName
       "incohsumtoeplitz", // fName
@@ -185,7 +187,7 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   static rtBoundsCheckInfo eb_emlrtBCI{
       -1,                 // iFirst
       -1,                 // iLast
-      192,                // lineNo
+      193,                // lineNo
       24,                 // colNo
       "allScores",        // aName
       "incohsumtoeplitz", // fName
@@ -433,7 +435,6 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
     // work with Tb being either a vector or matrix.
   }
   //  Perform the incoherent summation
-  // S          = abs(S).^2;
   Wq.parenReference(r2);
   coder::sum(r2, firstPulseNum);
   K = 0.0;
@@ -449,9 +450,9 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   if (S.size(0) != Wfherm.size(1)) {
     if (((Wfherm.size(0) == 1) && (Wfherm.size(1) == 1)) ||
         ((S.size(0) == 1) && (S.size(1) == 1))) {
-      cc_rtErrorWithMessageID(fc_emlrtRTEI.fName, fc_emlrtRTEI.lineNo);
+      dc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
     } else {
-      sb_rtErrorWithMessageID(ec_emlrtRTEI.fName, ec_emlrtRTEI.lineNo);
+      tb_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
     }
   }
   coder::internal::blas::mtimes(Wfherm, S, d_y);
@@ -503,13 +504,13 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
     maxdimlen = cend;
   }
   if (static_cast<int>(K) > maxdimlen) {
-    k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
   }
   if (static_cast<int>(varargin_1) > maxdimlen) {
-    k_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
   }
   if (static_cast<int>(K) * static_cast<int>(varargin_1) != ex.size(0)) {
-    l_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
+    l_rtErrorWithMessageID(o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
   }
   cend = static_cast<int>(K);
   maxdimlen = static_cast<int>(varargin_1);

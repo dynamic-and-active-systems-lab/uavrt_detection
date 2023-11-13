@@ -5,7 +5,7 @@
 // File: linspace.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -22,7 +22,7 @@
 #include <string>
 
 // Function Declarations
-static void l_rtErrorWithMessageID(const char *r, const char *aFcnName,
+static void m_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum);
 
 // Function Definitions
@@ -32,7 +32,7 @@ static void l_rtErrorWithMessageID(const char *r, const char *aFcnName,
 //                int aLineNum
 // Return Type  : void
 //
-static void l_rtErrorWithMessageID(const char *r, const char *aFcnName,
+static void m_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum)
 {
   std::string errMsg;
@@ -59,7 +59,7 @@ namespace coder {
 void linspace(double d2, double n, array<double, 2U> &y)
 {
   static rtRunTimeErrorInfo
-      vc_emlrtRTEI{
+      xc_emlrtRTEI{
           33,         // lineNo
           37,         // colNo
           "linspace", // fName
@@ -68,7 +68,7 @@ void linspace(double d2, double n, array<double, 2U> &y)
       };
   if (!(n >= 0.0)) {
     if (std::isnan(n)) {
-      l_rtErrorWithMessageID("N", vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+      m_rtErrorWithMessageID("N", xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
     }
     y.set_size(1, 0);
   } else {

@@ -5,7 +5,7 @@
 // File: repmat.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 #ifndef REPMAT_H
@@ -20,6 +20,9 @@
 
 // Function Declarations
 namespace coder {
+void b_repmat(const array<double, 2U> &a, double varargin_1,
+              array<double, 2U> &b);
+
 void repmat(const array<double, 2U> &a, double varargin_1,
             array<double, 2U> &b);
 

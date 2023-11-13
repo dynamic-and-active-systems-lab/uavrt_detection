@@ -5,7 +5,7 @@
 // File: repetitionrejector.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -23,8 +23,19 @@
 
 // Function Definitions
 //
-// UNTITLED2 Summary of this function goes here
-//    Detailed explanation goes here
+// REPETITIONREJETOR Build the comb filter matrix used to reject repeaing
+// patterns in the stft matrix.
+// INPUTS:
+//    t   a vector of time values for the columns of an stft matrix
+//    repFreqHz   n x 1   a vector of frequencies to reject. ex: [2 3 5 10]
+// OUTPUTS
+//    allWeightsMat   sparse matrix of the comb filter
+//
+// Author: Michael Shafer
+// Date:  Fall 2023
+//
+// --------------------------------------------------------------------------
+//
 //
 // Arguments    : const coder::array<double, 1U> &t
 //                coder::sparse &allWeightsMat
@@ -36,7 +47,7 @@ void repetitionrejector(const coder::array<double, 1U> &t,
   static rtBoundsCheckInfo ab_emlrtBCI{
       -1,                   // iFirst
       -1,                   // iLast
-      9,                    // lineNo
+      20,                   // lineNo
       13,                   // colNo
       "t",                  // aName
       "repetitionrejector", // fName
@@ -47,7 +58,7 @@ void repetitionrejector(const coder::array<double, 1U> &t,
   static rtBoundsCheckInfo bb_emlrtBCI{
       -1,                   // iFirst
       -1,                   // iLast
-      9,                    // lineNo
+      20,                   // lineNo
       8,                    // colNo
       "t",                  // aName
       "repetitionrejector", // fName

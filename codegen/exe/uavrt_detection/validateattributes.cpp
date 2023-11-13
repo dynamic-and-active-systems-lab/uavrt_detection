@@ -5,7 +5,7 @@
 // File: validateattributes.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -64,7 +64,7 @@ static void rtErrorWithMessageID(const char *r, const char *r1, const char *r2,
 namespace coder {
 void b_validateattributes(double a, double attributesMixed_f9)
 {
-  static rtRunTimeErrorInfo vc_emlrtRTEI{
+  static rtRunTimeErrorInfo xc_emlrtRTEI{
       22,           // lineNo
       27,           // colNo
       "validatege", // fName
@@ -72,15 +72,15 @@ void b_validateattributes(double a, double attributesMixed_f9)
       "+valattr/validatege.m" // pName
   };
   if (std::isinf(a) || std::isnan(a) || (!(std::floor(a) == a))) {
-    j_rtErrorWithMessageID("FFTLength", db_emlrtRTEI.fName,
-                           db_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID("FFTLength", fb_emlrtRTEI.fName,
+                           fb_emlrtRTEI.lineNo);
   }
   if (a < 0.0) {
-    e_rtErrorWithMessageID("FFTLength", r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
+    f_rtErrorWithMessageID("FFTLength", t_emlrtRTEI.fName, t_emlrtRTEI.lineNo);
   }
   if (!(a >= attributesMixed_f9)) {
-    rtErrorWithMessageID("FFTLength", ">=", "NaN", vc_emlrtRTEI.fName,
-                         vc_emlrtRTEI.lineNo);
+    rtErrorWithMessageID("FFTLength", ">=", "NaN", xc_emlrtRTEI.fName,
+                         xc_emlrtRTEI.lineNo);
   }
 }
 
@@ -94,7 +94,7 @@ void validateattributes(const array<double, 1U> &a)
   boolean_T exitg1;
   boolean_T p;
   if (a.size(0) == 0) {
-    g_rtErrorWithMessageID("Window", w_emlrtRTEI.fName, w_emlrtRTEI.lineNo);
+    h_rtErrorWithMessageID("Window", y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
   }
   p = true;
   k = 0;
@@ -108,7 +108,7 @@ void validateattributes(const array<double, 1U> &a)
     }
   }
   if (!p) {
-    i_rtErrorWithMessageID("Window", y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
+    j_rtErrorWithMessageID("Window", bb_emlrtRTEI.fName, bb_emlrtRTEI.lineNo);
   }
   p = true;
   k = 0;
@@ -122,7 +122,7 @@ void validateattributes(const array<double, 1U> &a)
     }
   }
   if (!p) {
-    h_rtErrorWithMessageID("Window", x_emlrtRTEI.fName, x_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID("Window", ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
   }
 }
 
@@ -132,7 +132,7 @@ void validateattributes(const array<double, 1U> &a)
 //
 void validateattributes(double a)
 {
-  static rtRunTimeErrorInfo vc_emlrtRTEI{
+  static rtRunTimeErrorInfo xc_emlrtRTEI{
       22,           // lineNo
       27,           // colNo
       "validategt", // fName
@@ -140,16 +140,16 @@ void validateattributes(double a)
       "+valattr/validategt.m" // pName
   };
   if (std::isinf(a) || std::isnan(a) || (!(std::floor(a) == a))) {
-    j_rtErrorWithMessageID("WindowLength", db_emlrtRTEI.fName,
-                           db_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID("WindowLength", fb_emlrtRTEI.fName,
+                           fb_emlrtRTEI.lineNo);
   }
   if (a < 0.0) {
-    e_rtErrorWithMessageID("WindowLength", r_emlrtRTEI.fName,
-                           r_emlrtRTEI.lineNo);
+    f_rtErrorWithMessageID("WindowLength", t_emlrtRTEI.fName,
+                           t_emlrtRTEI.lineNo);
   }
   if (!(a > 1.0)) {
-    rtErrorWithMessageID("WindowLength", ">", "1", vc_emlrtRTEI.fName,
-                         vc_emlrtRTEI.lineNo);
+    rtErrorWithMessageID("WindowLength", ">", "1", xc_emlrtRTEI.fName,
+                         xc_emlrtRTEI.lineNo);
   }
 }
 
@@ -160,7 +160,7 @@ void validateattributes(double a)
 //
 void validateattributes(double a, double attributesMixed_f11)
 {
-  static rtRunTimeErrorInfo vc_emlrtRTEI{
+  static rtRunTimeErrorInfo xc_emlrtRTEI{
       22,           // lineNo
       27,           // colNo
       "validatelt", // fName
@@ -168,16 +168,16 @@ void validateattributes(double a, double attributesMixed_f11)
       "+valattr/validatelt.m" // pName
   };
   if (std::isinf(a) || std::isnan(a) || (!(std::floor(a) == a))) {
-    j_rtErrorWithMessageID("OverlapLength", db_emlrtRTEI.fName,
-                           db_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID("OverlapLength", fb_emlrtRTEI.fName,
+                           fb_emlrtRTEI.lineNo);
   }
   if (a < 0.0) {
-    e_rtErrorWithMessageID("OverlapLength", r_emlrtRTEI.fName,
-                           r_emlrtRTEI.lineNo);
+    f_rtErrorWithMessageID("OverlapLength", t_emlrtRTEI.fName,
+                           t_emlrtRTEI.lineNo);
   }
   if (!(a < attributesMixed_f11)) {
-    rtErrorWithMessageID("OverlapLength", "<", "NaN", vc_emlrtRTEI.fName,
-                         vc_emlrtRTEI.lineNo);
+    rtErrorWithMessageID("OverlapLength", "<", "NaN", xc_emlrtRTEI.fName,
+                         xc_emlrtRTEI.lineNo);
   }
 }
 

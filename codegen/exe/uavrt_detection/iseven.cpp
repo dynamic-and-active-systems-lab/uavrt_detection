@@ -5,7 +5,7 @@
 // File: iseven.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -21,7 +21,7 @@
 #include <string>
 
 // Function Declarations
-static void bb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void cb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -29,7 +29,7 @@ static void bb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void bb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void cb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -54,7 +54,7 @@ namespace signalwavelet {
 namespace internal {
 boolean_T iseven(double x)
 {
-  static rtRunTimeErrorInfo vc_emlrtRTEI{
+  static rtRunTimeErrorInfo xc_emlrtRTEI{
       12,       // lineNo
       1,        // colNo
       "iseven", // fName
@@ -63,7 +63,7 @@ boolean_T iseven(double x)
   };
   double r;
   if (x - std::trunc(x) != 0.0) {
-    bb_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+    cb_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
   }
   if (std::isnan(x) || std::isinf(x)) {
     r = rtNaN;

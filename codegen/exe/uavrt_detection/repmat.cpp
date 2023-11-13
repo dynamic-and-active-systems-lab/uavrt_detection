@@ -5,7 +5,7 @@
 // File: repmat.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -27,15 +27,16 @@
 // Return Type  : void
 //
 namespace coder {
-void repmat(const array<double, 2U> &a, double varargin_1, array<double, 2U> &b)
+void b_repmat(const array<double, 2U> &a, double varargin_1,
+              array<double, 2U> &b)
 {
   double d;
   int i;
   int ncols;
   if ((varargin_1 != std::floor(varargin_1)) || std::isinf(varargin_1) ||
       (varargin_1 < -2.147483648E+9) || (varargin_1 > 2.147483647E+9)) {
-    b_rtErrorWithMessageID(MIN_int32_T, lb_emlrtRTEI.fName,
-                           lb_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(MIN_int32_T, nb_emlrtRTEI.fName,
+                           nb_emlrtRTEI.lineNo);
   }
   if (varargin_1 <= 0.0) {
     d = 0.0;
@@ -43,7 +44,7 @@ void repmat(const array<double, 2U> &a, double varargin_1, array<double, 2U> &b)
     d = varargin_1;
   }
   if (!(d <= 2.147483647E+9)) {
-    m_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+    m_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
   }
   i = static_cast<int>(varargin_1);
   b.set_size(i, a.size(1));
@@ -64,6 +65,73 @@ void repmat(const array<double, 2U> &a, double varargin_1, array<double, 2U> &b)
 }
 
 //
+// Arguments    : const array<double, 2U> &a
+//                double varargin_1
+//                array<double, 2U> &b
+// Return Type  : void
+//
+void repmat(const array<double, 2U> &a, double varargin_1, array<double, 2U> &b)
+{
+  static rtDoubleCheckInfo
+      r_emlrtDCI{
+          31,       // lineNo
+          14,       // colNo
+          "repmat", // fName
+          "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elmat/"
+          "repmat.m", // pName
+          4           // checkKind
+      };
+  double d;
+  int i;
+  int ncols;
+  int nrows;
+  int ntilerows;
+  if ((varargin_1 != std::floor(varargin_1)) || std::isinf(varargin_1) ||
+      (varargin_1 < -2.147483648E+9) || (varargin_1 > 2.147483647E+9)) {
+    b_rtErrorWithMessageID(MIN_int32_T, nb_emlrtRTEI.fName,
+                           nb_emlrtRTEI.lineNo);
+  }
+  if (varargin_1 <= 0.0) {
+    d = 0.0;
+  } else {
+    d = varargin_1;
+  }
+  if (!(d <= 2.147483647E+9)) {
+    m_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
+  }
+  if (!(varargin_1 >= 0.0)) {
+    rtNonNegativeError(varargin_1, r_emlrtDCI);
+  }
+  i = a.size(0) * static_cast<int>(varargin_1);
+  b.set_size(i, a.size(1));
+  nrows = a.size(0);
+  ncols = a.size(1);
+  ntilerows = static_cast<int>(varargin_1);
+  if (a.size(1) > 2147483646) {
+    check_forloop_overflow_error();
+  }
+  for (int jcol{0}; jcol < ncols; jcol++) {
+    int iacol;
+    int ibmat;
+    iacol = jcol * nrows;
+    ibmat = jcol * i - 1;
+    if (static_cast<int>(varargin_1) > 2147483646) {
+      check_forloop_overflow_error();
+    }
+    for (int itilerow{0}; itilerow < ntilerows; itilerow++) {
+      int ibcol;
+      ibcol = ibmat + itilerow * nrows;
+      if (nrows > 2147483646) {
+        check_forloop_overflow_error();
+      }
+      for (int k{0}; k < nrows; k++) {
+        b[(ibcol + k) + 1] = a[iacol + k];
+      }
+    }
+  }
+}
+
+//
 // Arguments    : const array<double, 1U> &a
 //                double varargin_2
 //                array<double, 2U> &b
@@ -76,8 +144,8 @@ void repmat(const array<double, 1U> &a, double varargin_2, array<double, 2U> &b)
   int nrows;
   if ((varargin_2 != std::floor(varargin_2)) || std::isinf(varargin_2) ||
       (varargin_2 < -2.147483648E+9) || (varargin_2 > 2.147483647E+9)) {
-    b_rtErrorWithMessageID(MIN_int32_T, lb_emlrtRTEI.fName,
-                           lb_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(MIN_int32_T, nb_emlrtRTEI.fName,
+                           nb_emlrtRTEI.lineNo);
   }
   if (varargin_2 <= 0.0) {
     d = 0.0;
@@ -85,7 +153,7 @@ void repmat(const array<double, 1U> &a, double varargin_2, array<double, 2U> &b)
     d = varargin_2;
   }
   if (!(d <= 2.147483647E+9)) {
-    m_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+    m_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
   }
   i = static_cast<int>(varargin_2);
   b.set_size(a.size(0), i);
@@ -120,8 +188,8 @@ void repmat(const c_struct_T &a, double varargin_1, double varargin_2,
   boolean_T b_b;
   if ((varargin_1 != std::floor(varargin_1)) || std::isinf(varargin_1) ||
       (varargin_1 < -2.147483648E+9) || (varargin_1 > 2.147483647E+9)) {
-    b_rtErrorWithMessageID(MIN_int32_T, lb_emlrtRTEI.fName,
-                           lb_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(MIN_int32_T, nb_emlrtRTEI.fName,
+                           nb_emlrtRTEI.lineNo);
   } else {
     b_b = true;
   }
@@ -130,8 +198,8 @@ void repmat(const c_struct_T &a, double varargin_1, double varargin_2,
     b_b = false;
   }
   if (!b_b) {
-    b_rtErrorWithMessageID(MIN_int32_T, lb_emlrtRTEI.fName,
-                           lb_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(MIN_int32_T, nb_emlrtRTEI.fName,
+                           nb_emlrtRTEI.lineNo);
   }
   if (varargin_1 <= 0.0) {
     d = 0.0;
@@ -144,7 +212,7 @@ void repmat(const c_struct_T &a, double varargin_1, double varargin_2,
     d *= varargin_2;
   }
   if (!(d <= 2.147483647E+9)) {
-    m_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+    m_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
   }
   b.set_size(static_cast<int>(varargin_1), static_cast<int>(varargin_2));
   loop_ub = static_cast<int>(varargin_1) * static_cast<int>(varargin_2);

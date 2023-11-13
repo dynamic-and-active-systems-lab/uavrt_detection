@@ -5,7 +5,7 @@
 // File: makepulsestruc.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -18,27 +18,16 @@
 //
 // PULSE is an thepulseect containing the details of an individual pulse
 //
-//
-// Author: Michael Shafer
-// Date:   Sometime in the summer of 2022.
-//
-//
-//      properties
-//          A           %Amplitude
-//          P           %Power
-//          SNR         %Signal to noise ratio in dB - This is often estimated
-//          as signal+noise to noise. yw          %STFT value at location (time
-//          and freq) of pulse. w here mean omega. This is equation 14 in the
-//          paper draft. t_0         %Start time of pulse t_f         %End time
-//          of pulse t_next      %Time range [tstart tend] of expected location
-//          of next pulse fp          %Peak frequency of pulse (Center frequency
-//          if symmetric in frequency domain fstart      %Start of the frequency
-//          bandwidth fend        %End of frequency bandwidth mode        %State
-//          machine mode under which pulse was discovered det_dec     %Detection
-//          decision (true/false) con_dec     %Was the pulse confirmed
-//          (true/false). In tracking, no confirmation step is executed so we
-//          record false.
-//
+// INPUTS
+//    A           Amplitude
+//    SNR         Signal to noise ratio in dB - This is often estimated as
+//    signal+noise to noise. yw          STFT value at location (time and freq)
+//    of pulse. w here mean omega. This is equation 14 in the paper draft. t_0
+//    Start time of pulse t_f         End time of pulse t_next      Time range
+//    [tstart tend] of expected location of next pulse fp          Peak
+//    frequency of pulse (Center frequency if symmetric in frequency domain
+//    fstart      Start of the frequency bandwidth
+//    fend        End of frequency bandwidth
 //
 // Arguments    : double A
 //                double yw
@@ -56,7 +45,26 @@ void b_makepulsestruc(double A, double yw, double SNR, double t_0, double t_f,
                       const double t_next[2], double fp, double fstart,
                       double fend, c_struct_T *thepulse)
 {
-  // PULSE Constructs an instance of this class
+  // OUTPUTS
+  //    thePulse    a pulse struture with the properties:
+  //          A           Amplitude
+  //          P           Power
+  //          SNR         Signal to noise ratio in dB - This is often estimated
+  //          as signal+noise to noise. yw          STFT value at location (time
+  //          and freq) of pulse. w here mean omega. This is equation 14 in the
+  //          paper draft. t_0         Start time of pulse t_f         End time
+  //          of pulse t_next      Time range [tstart tend] of expected location
+  //          of next pulse fp          Peak frequency of pulse (Center
+  //          frequency if symmetric in frequency domain fstart      Start of
+  //          the frequency bandwidth fend        End of frequency bandwidth
+  //          mode        State machine mode under which pulse was discovered
+  //          det_dec     Detection decision (true/false)
+  //          con_dec     Was the pulse confirmed (true/false). In tracking, no
+  //          confirmation step is executed so we record false.
+  //
+  // Author:    Michael Shafer
+  // Date:      Summer 2022
+  // --------------------------------------------------------------------------
   //
   // Needed to let coder know the mode string will be of variable length
   // https://www.mathworks.com/help/simulink/ug/how-working-with-matlab-classes-is-different-for-code-generation.html
@@ -85,27 +93,16 @@ void b_makepulsestruc(double A, double yw, double SNR, double t_0, double t_f,
 //
 // PULSE is an thepulseect containing the details of an individual pulse
 //
-//
-// Author: Michael Shafer
-// Date:   Sometime in the summer of 2022.
-//
-//
-//      properties
-//          A           %Amplitude
-//          P           %Power
-//          SNR         %Signal to noise ratio in dB - This is often estimated
-//          as signal+noise to noise. yw          %STFT value at location (time
-//          and freq) of pulse. w here mean omega. This is equation 14 in the
-//          paper draft. t_0         %Start time of pulse t_f         %End time
-//          of pulse t_next      %Time range [tstart tend] of expected location
-//          of next pulse fp          %Peak frequency of pulse (Center frequency
-//          if symmetric in frequency domain fstart      %Start of the frequency
-//          bandwidth fend        %End of frequency bandwidth mode        %State
-//          machine mode under which pulse was discovered det_dec     %Detection
-//          decision (true/false) con_dec     %Was the pulse confirmed
-//          (true/false). In tracking, no confirmation step is executed so we
-//          record false.
-//
+// INPUTS
+//    A           Amplitude
+//    SNR         Signal to noise ratio in dB - This is often estimated as
+//    signal+noise to noise. yw          STFT value at location (time and freq)
+//    of pulse. w here mean omega. This is equation 14 in the paper draft. t_0
+//    Start time of pulse t_f         End time of pulse t_next      Time range
+//    [tstart tend] of expected location of next pulse fp          Peak
+//    frequency of pulse (Center frequency if symmetric in frequency domain
+//    fstart      Start of the frequency bandwidth
+//    fend        End of frequency bandwidth
 //
 // Arguments    : double thepulse_t_next[2]
 //                coder::array<char, 2U> &thepulse_mode
@@ -130,7 +127,26 @@ double makepulsestruc(double thepulse_t_next[2],
                       boolean_T &thepulse_con_dec)
 {
   double thepulse_A;
-  // PULSE Constructs an instance of this class
+  // OUTPUTS
+  //    thePulse    a pulse struture with the properties:
+  //          A           Amplitude
+  //          P           Power
+  //          SNR         Signal to noise ratio in dB - This is often estimated
+  //          as signal+noise to noise. yw          STFT value at location (time
+  //          and freq) of pulse. w here mean omega. This is equation 14 in the
+  //          paper draft. t_0         Start time of pulse t_f         End time
+  //          of pulse t_next      Time range [tstart tend] of expected location
+  //          of next pulse fp          Peak frequency of pulse (Center
+  //          frequency if symmetric in frequency domain fstart      Start of
+  //          the frequency bandwidth fend        End of frequency bandwidth
+  //          mode        State machine mode under which pulse was discovered
+  //          det_dec     Detection decision (true/false)
+  //          con_dec     Was the pulse confirmed (true/false). In tracking, no
+  //          confirmation step is executed so we record false.
+  //
+  // Author:    Michael Shafer
+  // Date:      Summer 2022
+  // --------------------------------------------------------------------------
   //
   // Needed to let coder know the mode string will be of variable length
   // https://www.mathworks.com/help/simulink/ug/how-working-with-matlab-classes-is-different-for-code-generation.html

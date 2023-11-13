@@ -5,7 +5,7 @@
 // File: confirmpulses.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -43,10 +43,10 @@ static void binary_expand_op_23(coder::array<boolean_T, 2U> &in1,
                                 const coder::array<double, 2U> &in3);
 
 static void binary_expand_op_24(coder::array<double, 2U> &in1, double in2,
-                                double in3, const waveform *in4);
+                                const coder::array<double, 2U> &in3);
 
 static void binary_expand_op_25(coder::array<double, 2U> &in1, double in2,
-                                double in3, const waveform *in4);
+                                const coder::array<double, 2U> &in3);
 
 static void d_and(coder::array<boolean_T, 2U> &in1,
                   const coder::array<boolean_T, 2U> &in2);
@@ -192,28 +192,30 @@ static void binary_expand_op_23(coder::array<boolean_T, 2U> &in1,
 //
 // Arguments    : coder::array<double, 2U> &in1
 //                double in2
-//                double in3
-//                const waveform *in4
+//                const coder::array<double, 2U> &in3
 // Return Type  : void
 //
 static void binary_expand_op_24(coder::array<double, 2U> &in1, double in2,
-                                double in3, const waveform *in4)
+                                const coder::array<double, 2U> &in3)
 {
   coder::array<double, 2U> b_in2;
+  int loop_ub;
   int stride_0_1;
-  int unnamed_idx_1;
-  unnamed_idx_1 = static_cast<int>(in4->K);
-  if (unnamed_idx_1 == 1) {
-    unnamed_idx_1 = in1.size(1);
+  int stride_1_1;
+  if (in3.size(1) == 1) {
+    loop_ub = in1.size(1);
+  } else {
+    loop_ub = in3.size(1);
   }
-  b_in2.set_size(1, unnamed_idx_1);
+  b_in2.set_size(1, loop_ub);
   stride_0_1 = (in1.size(1) != 1);
-  for (int i{0}; i < unnamed_idx_1; i++) {
-    b_in2[i] = (in2 + in1[i * stride_0_1]) + in3;
+  stride_1_1 = (in3.size(1) != 1);
+  for (int i{0}; i < loop_ub; i++) {
+    b_in2[i] = (in2 + in1[i * stride_0_1]) + in3[i * stride_1_1];
   }
   in1.set_size(1, b_in2.size(1));
-  unnamed_idx_1 = b_in2.size(1);
-  for (int i{0}; i < unnamed_idx_1; i++) {
+  loop_ub = b_in2.size(1);
+  for (int i{0}; i < loop_ub; i++) {
     in1[i] = b_in2[i];
   }
 }
@@ -221,28 +223,30 @@ static void binary_expand_op_24(coder::array<double, 2U> &in1, double in2,
 //
 // Arguments    : coder::array<double, 2U> &in1
 //                double in2
-//                double in3
-//                const waveform *in4
+//                const coder::array<double, 2U> &in3
 // Return Type  : void
 //
 static void binary_expand_op_25(coder::array<double, 2U> &in1, double in2,
-                                double in3, const waveform *in4)
+                                const coder::array<double, 2U> &in3)
 {
   coder::array<double, 2U> b_in2;
+  int loop_ub;
   int stride_0_1;
-  int unnamed_idx_1;
-  unnamed_idx_1 = static_cast<int>(in4->K);
-  if (unnamed_idx_1 == 1) {
-    unnamed_idx_1 = in1.size(1);
+  int stride_1_1;
+  if (in3.size(1) == 1) {
+    loop_ub = in1.size(1);
+  } else {
+    loop_ub = in3.size(1);
   }
-  b_in2.set_size(1, unnamed_idx_1);
+  b_in2.set_size(1, loop_ub);
   stride_0_1 = (in1.size(1) != 1);
-  for (int i{0}; i < unnamed_idx_1; i++) {
-    b_in2[i] = (in2 + in1[i * stride_0_1]) - in3;
+  stride_1_1 = (in3.size(1) != 1);
+  for (int i{0}; i < loop_ub; i++) {
+    b_in2[i] = (in2 + in1[i * stride_0_1]) - in3[i * stride_1_1];
   }
   in1.set_size(1, b_in2.size(1));
-  unnamed_idx_1 = b_in2.size(1);
-  for (int i{0}; i < unnamed_idx_1; i++) {
+  loop_ub = b_in2.size(1);
+  for (int i{0}; i < loop_ub; i++) {
     in1[i] = b_in2[i];
   }
 }
@@ -278,9 +282,18 @@ static void d_and(coder::array<boolean_T, 2U> &in1,
 }
 
 //
-// confirmpulses Returns a boolean vector that say if the pulses in the
+// CONFIRMPULSES Returns a boolean vector that say if the pulses in the
 // X.ps_pos pulse stats are where they should be in frequency and time based on
 // the last pulse of the X.ps_pre and its pulse timing parameter.
+//
+// INPUTS:
+//    X       1x1     waveform
+// OUTPUTS
+//    conflog n x 1   boolean vector of confirmation of the pulses in
+//                    X.ps_pos
+//
+// --------------------------------------------------------------------------
+//
 //
 // Arguments    : const waveform *X
 //                coder::array<boolean_T, 2U> &confLog
@@ -291,7 +304,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   static rtBoundsCheckInfo ab_emlrtBCI{
       -1,              // iFirst
       -1,              // iLast
-      6,               // lineNo
+      18,              // lineNo
       20,              // colNo
       "X.ps_pre.pl",   // aName
       "confirmpulses", // fName
@@ -302,7 +315,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   static rtBoundsCheckInfo bb_emlrtBCI{
       -1,              // iFirst
       -1,              // iLast
-      12,              // lineNo
+      24,              // lineNo
       24,              // colNo
       "X.ps_pos.pl",   // aName
       "confirmpulses", // fName
@@ -313,7 +326,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   static rtBoundsCheckInfo cb_emlrtBCI{
       -1,              // iFirst
       -1,              // iLast
-      56,              // lineNo
+      69,              // lineNo
       27,              // colNo
       "indivConfLog",  // aName
       "confirmpulses", // fName
@@ -324,7 +337,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   static rtBoundsCheckInfo db_emlrtBCI{
       -1,              // iFirst
       -1,              // iLast
-      82,              // lineNo
+      94,              // lineNo
       26,              // colNo
       "X.ps_pre.pl",   // aName
       "confirmpulses", // fName
@@ -335,7 +348,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   static rtBoundsCheckInfo eb_emlrtBCI{
       -1,              // iFirst
       -1,              // iLast
-      87,              // lineNo
+      99,              // lineNo
       36,              // colNo
       "X.ps_pos.pl",   // aName
       "confirmpulses", // fName
@@ -344,7 +357,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       0                                                  // checkKind
   };
   static rtDoubleCheckInfo ab_emlrtDCI{
-      27,              // lineNo
+      39,              // lineNo
       74,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -352,7 +365,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       1                                                  // checkKind
   };
   static rtDoubleCheckInfo r_emlrtDCI{
-      15,              // lineNo
+      27,              // lineNo
       80,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -360,7 +373,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       4                                                  // checkKind
   };
   static rtDoubleCheckInfo s_emlrtDCI{
-      15,              // lineNo
+      27,              // lineNo
       80,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -368,7 +381,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       1                                                  // checkKind
   };
   static rtDoubleCheckInfo t_emlrtDCI{
-      16,              // lineNo
+      28,              // lineNo
       80,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -376,7 +389,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       1                                                  // checkKind
   };
   static rtDoubleCheckInfo u_emlrtDCI{
-      22,              // lineNo
+      34,              // lineNo
       78,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -384,7 +397,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       4                                                  // checkKind
   };
   static rtDoubleCheckInfo v_emlrtDCI{
-      22,              // lineNo
+      34,              // lineNo
       78,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -392,7 +405,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       1                                                  // checkKind
   };
   static rtDoubleCheckInfo w_emlrtDCI{
-      23,              // lineNo
+      35,              // lineNo
       78,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -400,7 +413,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       1                                                  // checkKind
   };
   static rtDoubleCheckInfo x_emlrtDCI{
-      26,              // lineNo
+      38,              // lineNo
       74,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -408,7 +421,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       4                                                  // checkKind
   };
   static rtDoubleCheckInfo y_emlrtDCI{
-      26,              // lineNo
+      38,              // lineNo
       74,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -417,7 +430,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   };
   static rtEqualityCheckInfo g_emlrtECI{
       2,               // nDims
-      15,              // lineNo
+      27,              // lineNo
       38,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -425,7 +438,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   };
   static rtEqualityCheckInfo h_emlrtECI{
       2,               // nDims
-      16,              // lineNo
+      28,              // lineNo
       38,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -433,7 +446,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   };
   static rtEqualityCheckInfo i_emlrtECI{
       2,               // nDims
-      35,              // lineNo
+      48,              // lineNo
       15,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -441,7 +454,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   };
   static rtEqualityCheckInfo j_emlrtECI{
       2,               // nDims
-      37,              // lineNo
+      50,              // lineNo
       15,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -449,7 +462,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   };
   static rtEqualityCheckInfo k_emlrtECI{
       2,               // nDims
-      41,              // lineNo
+      54,              // lineNo
       14,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -457,7 +470,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   };
   static rtEqualityCheckInfo l_emlrtECI{
       2,               // nDims
-      42,              // lineNo
+      55,              // lineNo
       14,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -465,7 +478,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   };
   static rtEqualityCheckInfo m_emlrtECI{
       2,               // nDims
-      54,              // lineNo
+      67,              // lineNo
       16,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -473,7 +486,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   };
   static rtEqualityCheckInfo n_emlrtECI{
       1,               // nDims
-      93,              // lineNo
+      103,             // lineNo
       11,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -481,7 +494,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   };
   static rtEqualityCheckInfo o_emlrtECI{
       2,               // nDims
-      22,              // lineNo
+      34,              // lineNo
       38,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -489,7 +502,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   };
   static rtEqualityCheckInfo p_emlrtECI{
       2,               // nDims
-      23,              // lineNo
+      35,              // lineNo
       38,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -497,7 +510,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   };
   static rtEqualityCheckInfo q_emlrtECI{
       2,               // nDims
-      26,              // lineNo
+      38,              // lineNo
       34,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -505,7 +518,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   };
   static rtEqualityCheckInfo r_emlrtECI{
       2,               // nDims
-      27,              // lineNo
+      39,              // lineNo
       34,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -522,23 +535,22 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   coder::array<boolean_T, 2U> maxstartlog;
   coder::array<boolean_T, 2U> minstartlog;
   coder::array<boolean_T, 2U> r2;
-  double b;
+  double b_tmp;
   double tip;
   double tipj;
   double tipu;
   double tref;
   int i;
   int loop_ub;
+  int loop_ub_tmp;
   int numPulses;
-  int size_tmp_idx_1;
   boolean_T SNRnotNegInfAll;
   i = X->ps_pre->pl.size(1);
-  size_tmp_idx_1 = X->ps_pre->pl.size(1);
-  if ((size_tmp_idx_1 < 1) || (size_tmp_idx_1 > i)) {
-    rtDynamicBoundsError(size_tmp_idx_1, 1, i, ab_emlrtBCI);
+  numPulses = X->ps_pre->pl.size(1);
+  if ((numPulses < 1) || (numPulses > i)) {
+    rtDynamicBoundsError(numPulses, 1, i, ab_emlrtBCI);
   }
-  tref = X->ps_pre->pl[size_tmp_idx_1 - 1].t_0;
-  // tp   = X.ps_pre.t_p;
+  tref = X->ps_pre->pl[numPulses - 1].t_0;
   tip = X->ps_pre->t_ip;
   tipu = X->ps_pre->t_ipu;
   tipj = X->ps_pre->t_ipj;
@@ -549,29 +561,33 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
     if (i < 1) {
       rtDynamicBoundsError(1, 1, i, bb_emlrtBCI);
     }
-    b = X->ps_pos->pl[0].t_0 - tref;
-    if (std::abs(b) < tipu + tipj) {
+    b_tmp = X->ps_pos->pl[0].t_0 - tref;
+    if (std::abs(b_tmp) < tipu + tipj) {
+      double a;
       // X.ps_pos.pl(1).t_0 <= tref + (tip + tipu + tipj)
       // new first pulse is the same one as the last one in the last
       // segment
-      b = X->K - 1.0;
-      if (std::isnan(b)) {
-        pulseendtimes_withuncert.set_size(1, 1);
-        pulseendtimes_withuncert[0] = rtNaN;
-      } else if (b < 0.0) {
-        pulseendtimes_withuncert.set_size(1, 0);
+      b_tmp = X->K - 1.0;
+      SNRnotNegInfAll = std::isnan(b_tmp);
+      if (SNRnotNegInfAll) {
+        pulsestarttimes_withuncert.set_size(1, 1);
+        pulsestarttimes_withuncert[0] = rtNaN;
+      } else if (b_tmp < 0.0) {
+        pulsestarttimes_withuncert.set_size(pulsestarttimes_withuncert.size(0),
+                                            0);
       } else {
-        pulseendtimes_withuncert.set_size(1, static_cast<int>(b) + 1);
-        loop_ub = static_cast<int>(b);
+        pulsestarttimes_withuncert.set_size(1, static_cast<int>(b_tmp) + 1);
+        loop_ub = static_cast<int>(b_tmp);
         for (i = 0; i <= loop_ub; i++) {
-          pulseendtimes_withuncert[i] = i;
+          pulsestarttimes_withuncert[i] = i;
         }
       }
-      b = tip - tipu;
-      pulsestarttimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
-      loop_ub = pulseendtimes_withuncert.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        pulsestarttimes_withuncert[i] = b * pulseendtimes_withuncert[i];
+      a = tip - tipu;
+      pulsestarttimes_withuncert.set_size(1,
+                                          pulsestarttimes_withuncert.size(1));
+      loop_ub_tmp = pulsestarttimes_withuncert.size(1) - 1;
+      for (i = 0; i <= loop_ub_tmp; i++) {
+        pulsestarttimes_withuncert[i] = a * pulsestarttimes_withuncert[i];
       }
       if (!(X->K >= 0.0)) {
         rtNonNegativeError(X->K, r_emlrtDCI);
@@ -580,51 +596,68 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       if (X->K != i) {
         rtIntegerError(X->K, s_emlrtDCI);
       }
-      size_tmp_idx_1 = static_cast<int>(X->K);
-      SNRnotNegInfAll =
-          ((pulsestarttimes_withuncert.size(1) != size_tmp_idx_1) &&
-           ((pulsestarttimes_withuncert.size(1) != 1) &&
-            (size_tmp_idx_1 != 1)));
-      if (SNRnotNegInfAll) {
-        emlrtDimSizeImpxCheckR2021b(pulsestarttimes_withuncert.size(1),
-                                    size_tmp_idx_1, g_emlrtECI);
+      loop_ub = static_cast<int>(X->K);
+      r.set_size(1, loop_ub);
+      for (numPulses = 0; numPulses < loop_ub; numPulses++) {
+        r[numPulses] = tipj;
       }
-      if (pulsestarttimes_withuncert.size(1) == static_cast<int>(X->K)) {
-        loop_ub = pulsestarttimes_withuncert.size(1) - 1;
+      if ((pulsestarttimes_withuncert.size(1) != r.size(1)) &&
+          ((pulsestarttimes_withuncert.size(1) != 1) && (r.size(1) != 1))) {
+        emlrtDimSizeImpxCheckR2021b(pulsestarttimes_withuncert.size(1),
+                                    r.size(1), g_emlrtECI);
+      }
+      if (pulsestarttimes_withuncert.size(1) == r.size(1)) {
         pulsestarttimes_withuncert.set_size(1,
                                             pulsestarttimes_withuncert.size(1));
-        for (numPulses = 0; numPulses <= loop_ub; numPulses++) {
+        for (numPulses = 0; numPulses <= loop_ub_tmp; numPulses++) {
           pulsestarttimes_withuncert[numPulses] =
-              (tref + pulsestarttimes_withuncert[numPulses]) - tipj;
+              (tref + pulsestarttimes_withuncert[numPulses]) - r[numPulses];
         }
       } else {
-        binary_expand_op_25(pulsestarttimes_withuncert, tref, tipj, X);
+        binary_expand_op_25(pulsestarttimes_withuncert, tref, r);
       }
-      b = tip + tipu;
+      if (SNRnotNegInfAll) {
+        pulseendtimes_withuncert.set_size(1, 1);
+        pulseendtimes_withuncert[0] = rtNaN;
+      } else if (b_tmp < 0.0) {
+        pulseendtimes_withuncert.set_size(pulseendtimes_withuncert.size(0), 0);
+      } else {
+        pulseendtimes_withuncert.set_size(1, static_cast<int>(b_tmp) + 1);
+        loop_ub_tmp = static_cast<int>(b_tmp);
+        for (numPulses = 0; numPulses <= loop_ub_tmp; numPulses++) {
+          pulseendtimes_withuncert[numPulses] = numPulses;
+        }
+      }
+      a = tip + tipu;
       pulseendtimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
-      loop_ub = pulseendtimes_withuncert.size(1) - 1;
-      for (numPulses = 0; numPulses <= loop_ub; numPulses++) {
+      loop_ub_tmp = pulseendtimes_withuncert.size(1) - 1;
+      for (numPulses = 0; numPulses <= loop_ub_tmp; numPulses++) {
         pulseendtimes_withuncert[numPulses] =
-            b * pulseendtimes_withuncert[numPulses];
+            a * pulseendtimes_withuncert[numPulses];
       }
       if (X->K != i) {
         rtIntegerError(X->K, t_emlrtDCI);
       }
-      if (SNRnotNegInfAll) {
-        emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1),
-                                    size_tmp_idx_1, h_emlrtECI);
+      r.set_size(1, loop_ub);
+      for (i = 0; i < loop_ub; i++) {
+        r[i] = tipj;
       }
-      if (pulseendtimes_withuncert.size(1) == static_cast<int>(X->K)) {
+      if ((pulseendtimes_withuncert.size(1) != r.size(1)) &&
+          ((pulseendtimes_withuncert.size(1) != 1) && (r.size(1) != 1))) {
+        emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1), r.size(1),
+                                    h_emlrtECI);
+      }
+      if (pulseendtimes_withuncert.size(1) == r.size(1)) {
         pulseendtimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
-        for (i = 0; i <= loop_ub; i++) {
+        for (i = 0; i <= loop_ub_tmp; i++) {
           pulseendtimes_withuncert[i] =
-              (tref + pulseendtimes_withuncert[i]) + tipj;
+              (tref + pulseendtimes_withuncert[i]) + r[i];
         }
       } else {
-        binary_expand_op_24(pulseendtimes_withuncert, tref, tipj, X);
+        binary_expand_op_24(pulseendtimes_withuncert, tref, r);
       }
     } else {
-      double b_tmp;
+      double a;
       // new first pulse isn't the same one as the last one in the last
       // segment because the detector detected the last K pulses in the
       // segment and not the first three. Remember that the segment can
@@ -645,12 +678,12 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
           pulsestarttimes_withuncert[i] = static_cast<double>(i) + 1.0;
         }
       }
-      b = tip - tipu;
+      a = tip - tipu;
       pulsestarttimes_withuncert.set_size(1,
                                           pulsestarttimes_withuncert.size(1));
-      loop_ub = pulsestarttimes_withuncert.size(1) - 1;
-      for (i = 0; i <= loop_ub; i++) {
-        pulsestarttimes_withuncert[i] = b * pulsestarttimes_withuncert[i];
+      loop_ub_tmp = pulsestarttimes_withuncert.size(1) - 1;
+      for (i = 0; i <= loop_ub_tmp; i++) {
+        pulsestarttimes_withuncert[i] = a * pulsestarttimes_withuncert[i];
       }
       if (!(X->K >= 0.0)) {
         rtNonNegativeError(X->K, u_emlrtDCI);
@@ -659,22 +692,25 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       if (X->K != i) {
         rtIntegerError(X->K, v_emlrtDCI);
       }
-      size_tmp_idx_1 = static_cast<int>(X->K);
-      if ((pulsestarttimes_withuncert.size(1) != size_tmp_idx_1) &&
-          ((pulsestarttimes_withuncert.size(1) != 1) &&
-           (size_tmp_idx_1 != 1))) {
-        emlrtDimSizeImpxCheckR2021b(pulsestarttimes_withuncert.size(1),
-                                    size_tmp_idx_1, o_emlrtECI);
+      loop_ub = static_cast<int>(X->K);
+      r.set_size(1, loop_ub);
+      for (numPulses = 0; numPulses < loop_ub; numPulses++) {
+        r[numPulses] = tipj;
       }
-      if (pulsestarttimes_withuncert.size(1) == static_cast<int>(X->K)) {
+      if ((pulsestarttimes_withuncert.size(1) != r.size(1)) &&
+          ((pulsestarttimes_withuncert.size(1) != 1) && (r.size(1) != 1))) {
+        emlrtDimSizeImpxCheckR2021b(pulsestarttimes_withuncert.size(1),
+                                    r.size(1), o_emlrtECI);
+      }
+      if (pulsestarttimes_withuncert.size(1) == r.size(1)) {
         pulsestarttimes_withuncert.set_size(1,
                                             pulsestarttimes_withuncert.size(1));
-        for (numPulses = 0; numPulses <= loop_ub; numPulses++) {
+        for (numPulses = 0; numPulses <= loop_ub_tmp; numPulses++) {
           pulsestarttimes_withuncert[numPulses] =
-              (tref + pulsestarttimes_withuncert[numPulses]) - tipj;
+              (tref + pulsestarttimes_withuncert[numPulses]) - r[numPulses];
         }
       } else {
-        binary_expand_op_25(pulsestarttimes_withuncert, tref, tipj, X);
+        binary_expand_op_25(pulsestarttimes_withuncert, tref, r);
       }
       if (SNRnotNegInfAll) {
         pulseendtimes_withuncert.set_size(1, 1);
@@ -683,58 +719,65 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
         pulseendtimes_withuncert.set_size(pulseendtimes_withuncert.size(0), 0);
       } else {
         pulseendtimes_withuncert.set_size(1, static_cast<int>(b_tmp - 1.0) + 1);
-        loop_ub = static_cast<int>(b_tmp - 1.0);
-        for (numPulses = 0; numPulses <= loop_ub; numPulses++) {
+        loop_ub_tmp = static_cast<int>(b_tmp - 1.0);
+        for (numPulses = 0; numPulses <= loop_ub_tmp; numPulses++) {
           pulseendtimes_withuncert[numPulses] =
               static_cast<double>(numPulses) + 1.0;
         }
       }
-      b = tip + tipu;
+      a = tip + tipu;
       pulseendtimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
-      loop_ub = pulseendtimes_withuncert.size(1) - 1;
-      for (numPulses = 0; numPulses <= loop_ub; numPulses++) {
+      loop_ub_tmp = pulseendtimes_withuncert.size(1) - 1;
+      for (numPulses = 0; numPulses <= loop_ub_tmp; numPulses++) {
         pulseendtimes_withuncert[numPulses] =
-            b * pulseendtimes_withuncert[numPulses];
+            a * pulseendtimes_withuncert[numPulses];
       }
       if (X->K != i) {
         rtIntegerError(X->K, w_emlrtDCI);
       }
-      if ((pulseendtimes_withuncert.size(1) != size_tmp_idx_1) &&
-          ((pulseendtimes_withuncert.size(1) != 1) && (size_tmp_idx_1 != 1))) {
-        emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1),
-                                    size_tmp_idx_1, p_emlrtECI);
+      r.set_size(1, loop_ub);
+      for (i = 0; i < loop_ub; i++) {
+        r[i] = tipj;
       }
-      if (pulseendtimes_withuncert.size(1) == static_cast<int>(X->K)) {
+      if ((pulseendtimes_withuncert.size(1) != r.size(1)) &&
+          ((pulseendtimes_withuncert.size(1) != 1) && (r.size(1) != 1))) {
+        emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1), r.size(1),
+                                    p_emlrtECI);
+      }
+      if (pulseendtimes_withuncert.size(1) == r.size(1)) {
         pulseendtimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
-        for (i = 0; i <= loop_ub; i++) {
+        for (i = 0; i <= loop_ub_tmp; i++) {
           pulseendtimes_withuncert[i] =
-              (tref + pulseendtimes_withuncert[i]) + tipj;
+              (tref + pulseendtimes_withuncert[i]) + r[i];
         }
       } else {
-        binary_expand_op_24(pulseendtimes_withuncert, tref, tipj, X);
+        binary_expand_op_24(pulseendtimes_withuncert, tref, r);
       }
     }
   } else {
+    double a;
     // First pulse in this segment does not exists in last segment as well
     // because of overlap
-    b = X->K;
-    if (std::isnan(b)) {
-      pulseendtimes_withuncert.set_size(1, 1);
-      pulseendtimes_withuncert[0] = rtNaN;
-    } else if (b < 1.0) {
-      pulseendtimes_withuncert.set_size(1, 0);
+    b_tmp = X->K;
+    SNRnotNegInfAll = std::isnan(b_tmp);
+    if (SNRnotNegInfAll) {
+      pulsestarttimes_withuncert.set_size(1, 1);
+      pulsestarttimes_withuncert[0] = rtNaN;
+    } else if (b_tmp < 1.0) {
+      pulsestarttimes_withuncert.set_size(pulsestarttimes_withuncert.size(0),
+                                          0);
     } else {
-      pulseendtimes_withuncert.set_size(1, static_cast<int>(b - 1.0) + 1);
-      loop_ub = static_cast<int>(b - 1.0);
+      pulsestarttimes_withuncert.set_size(1, static_cast<int>(b_tmp - 1.0) + 1);
+      loop_ub = static_cast<int>(b_tmp - 1.0);
       for (i = 0; i <= loop_ub; i++) {
-        pulseendtimes_withuncert[i] = static_cast<double>(i) + 1.0;
+        pulsestarttimes_withuncert[i] = static_cast<double>(i) + 1.0;
       }
     }
-    b = tip - tipu;
-    pulsestarttimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
-    loop_ub = pulseendtimes_withuncert.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      pulsestarttimes_withuncert[i] = b * pulseendtimes_withuncert[i];
+    a = tip - tipu;
+    pulsestarttimes_withuncert.set_size(1, pulsestarttimes_withuncert.size(1));
+    loop_ub_tmp = pulsestarttimes_withuncert.size(1) - 1;
+    for (i = 0; i <= loop_ub_tmp; i++) {
+      pulsestarttimes_withuncert[i] = a * pulsestarttimes_withuncert[i];
     }
     if (!(X->K >= 0.0)) {
       rtNonNegativeError(X->K, x_emlrtDCI);
@@ -743,47 +786,66 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
     if (X->K != i) {
       rtIntegerError(X->K, y_emlrtDCI);
     }
-    size_tmp_idx_1 = static_cast<int>(X->K);
-    SNRnotNegInfAll =
-        ((pulsestarttimes_withuncert.size(1) != size_tmp_idx_1) &&
-         ((pulsestarttimes_withuncert.size(1) != 1) && (size_tmp_idx_1 != 1)));
-    if (SNRnotNegInfAll) {
-      emlrtDimSizeImpxCheckR2021b(pulsestarttimes_withuncert.size(1),
-                                  size_tmp_idx_1, q_emlrtECI);
+    loop_ub = static_cast<int>(X->K);
+    r.set_size(1, loop_ub);
+    for (numPulses = 0; numPulses < loop_ub; numPulses++) {
+      r[numPulses] = tipj;
     }
-    if (pulsestarttimes_withuncert.size(1) == size_tmp_idx_1) {
-      loop_ub = pulsestarttimes_withuncert.size(1) - 1;
+    if ((pulsestarttimes_withuncert.size(1) != r.size(1)) &&
+        ((pulsestarttimes_withuncert.size(1) != 1) && (r.size(1) != 1))) {
+      emlrtDimSizeImpxCheckR2021b(pulsestarttimes_withuncert.size(1), r.size(1),
+                                  q_emlrtECI);
+    }
+    if (pulsestarttimes_withuncert.size(1) == r.size(1)) {
       pulsestarttimes_withuncert.set_size(1,
                                           pulsestarttimes_withuncert.size(1));
-      for (numPulses = 0; numPulses <= loop_ub; numPulses++) {
+      for (numPulses = 0; numPulses <= loop_ub_tmp; numPulses++) {
         pulsestarttimes_withuncert[numPulses] =
-            (tref + pulsestarttimes_withuncert[numPulses]) - tipj;
+            (tref + pulsestarttimes_withuncert[numPulses]) - r[numPulses];
       }
     } else {
-      binary_expand_op_25(pulsestarttimes_withuncert, tref, tipj, X);
+      binary_expand_op_25(pulsestarttimes_withuncert, tref, r);
     }
-    b = tip + tipu;
+    if (SNRnotNegInfAll) {
+      pulseendtimes_withuncert.set_size(1, 1);
+      pulseendtimes_withuncert[0] = rtNaN;
+    } else if (b_tmp < 1.0) {
+      pulseendtimes_withuncert.set_size(pulseendtimes_withuncert.size(0), 0);
+    } else {
+      pulseendtimes_withuncert.set_size(1, static_cast<int>(b_tmp - 1.0) + 1);
+      loop_ub_tmp = static_cast<int>(b_tmp - 1.0);
+      for (numPulses = 0; numPulses <= loop_ub_tmp; numPulses++) {
+        pulseendtimes_withuncert[numPulses] =
+            static_cast<double>(numPulses) + 1.0;
+      }
+    }
+    a = tip + tipu;
     pulseendtimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
-    loop_ub = pulseendtimes_withuncert.size(1) - 1;
-    for (numPulses = 0; numPulses <= loop_ub; numPulses++) {
+    loop_ub_tmp = pulseendtimes_withuncert.size(1) - 1;
+    for (numPulses = 0; numPulses <= loop_ub_tmp; numPulses++) {
       pulseendtimes_withuncert[numPulses] =
-          b * pulseendtimes_withuncert[numPulses];
+          a * pulseendtimes_withuncert[numPulses];
     }
     if (X->K != i) {
       rtIntegerError(X->K, ab_emlrtDCI);
     }
-    if (SNRnotNegInfAll) {
-      emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1),
-                                  size_tmp_idx_1, r_emlrtECI);
+    r.set_size(1, loop_ub);
+    for (i = 0; i < loop_ub; i++) {
+      r[i] = tipj;
     }
-    if (pulseendtimes_withuncert.size(1) == size_tmp_idx_1) {
+    if ((pulseendtimes_withuncert.size(1) != r.size(1)) &&
+        ((pulseendtimes_withuncert.size(1) != 1) && (r.size(1) != 1))) {
+      emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1), r.size(1),
+                                  r_emlrtECI);
+    }
+    if (pulseendtimes_withuncert.size(1) == r.size(1)) {
       pulseendtimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
-      for (i = 0; i <= loop_ub; i++) {
+      for (i = 0; i <= loop_ub_tmp; i++) {
         pulseendtimes_withuncert[i] =
-            (tref + pulseendtimes_withuncert[i]) + tipj;
+            (tref + pulseendtimes_withuncert[i]) + r[i];
       }
     } else {
-      binary_expand_op_24(pulseendtimes_withuncert, tref, tipj, X);
+      binary_expand_op_24(pulseendtimes_withuncert, tref, r);
     }
   }
   // Debugging plots
@@ -791,8 +853,8 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   //  hold on;xline(pulseendtimes_withuncert,'--')
   //  plot([X.ps_pos.pl(:).t_0],zeros(size([X.ps_pos.pl(:).t_0])),'ob')
   // Check if pulses started after expected minimum start times
-  loop_ub = X->ps_pos->pl.size(1);
-  b_X = X->ps_pos->pl.reshape(loop_ub);
+  loop_ub_tmp = X->ps_pos->pl.size(1);
+  b_X = X->ps_pos->pl.reshape(loop_ub_tmp);
   coder::internal::b_horzcatStructList(b_X, r);
   if ((r.size(1) != pulsestarttimes_withuncert.size(1)) &&
       ((r.size(1) != 1) && (pulsestarttimes_withuncert.size(1) != 1))) {
@@ -809,8 +871,8 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
     b_ge(minstartlog, r, pulsestarttimes_withuncert);
   }
   // Check if pulses started before expected maximum start times
-  loop_ub = X->ps_pos->pl.size(1);
-  b_X = X->ps_pos->pl.reshape(loop_ub);
+  loop_ub_tmp = X->ps_pos->pl.size(1);
+  b_X = X->ps_pos->pl.reshape(loop_ub_tmp);
   coder::internal::b_horzcatStructList(b_X, r);
   if ((r.size(1) != pulseendtimes_withuncert.size(1)) &&
       ((r.size(1) != 1) && (pulseendtimes_withuncert.size(1) != 1))) {
@@ -927,15 +989,15 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   }
   if (numPulses > 1) {
     boolean_T exitg1;
-    loop_ub = X->ps_pos->pl.size(1);
-    b_X = X->ps_pos->pl.reshape(loop_ub);
+    loop_ub_tmp = X->ps_pos->pl.size(1);
+    b_X = X->ps_pos->pl.reshape(loop_ub_tmp);
     coder::internal::c_horzcatStructList(b_X, r);
-    size_tmp_idx_1 = r.size(1);
-    loop_ub = X->ps_pos->pl.size(1);
-    b_X = X->ps_pos->pl.reshape(loop_ub);
+    loop_ub = r.size(1);
+    loop_ub_tmp = X->ps_pos->pl.size(1);
+    b_X = X->ps_pos->pl.reshape(loop_ub_tmp);
     coder::internal::c_horzcatStructList(b_X, pulsestarttimes_withuncert);
     SNRall.set_size(r.size(1), 1);
-    for (i = 0; i < size_tmp_idx_1; i++) {
+    for (i = 0; i < loop_ub; i++) {
       SNRall[i] = pulsestarttimes_withuncert[i];
     }
     // SNRmax     = max(SNRall,[],'all');
@@ -951,19 +1013,19 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
     if (SNRnotNegInfLog.size(0) > 2147483646) {
       coder::check_forloop_overflow_error();
     }
-    loop_ub = 1;
+    loop_ub_tmp = 1;
     exitg1 = false;
-    while ((!exitg1) && (loop_ub <= SNRnotNegInfLog.size(0))) {
-      if (!SNRnotNegInfLog[loop_ub - 1]) {
+    while ((!exitg1) && (loop_ub_tmp <= SNRnotNegInfLog.size(0))) {
+      if (!SNRnotNegInfLog[loop_ub_tmp - 1]) {
         SNRnotNegInfAll = false;
         exitg1 = true;
       } else {
-        loop_ub++;
+        loop_ub_tmp++;
       }
     }
-    loop_ub = SNRall.size(0);
+    loop_ub_tmp = SNRall.size(0);
     confLog.set_size(SNRall.size(0), 1);
-    for (i = 0; i < loop_ub; i++) {
+    for (i = 0; i < loop_ub_tmp; i++) {
       confLog[i] = SNRnotNegInfAll;
     }
   } else if (numPulses == 1) {
@@ -974,8 +1036,8 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
     if (i < 1) {
       rtDynamicBoundsError(1, 1, i, db_emlrtBCI);
     }
-    b = X->ps_pre->pl[0].fp;
-    if (std::isnan(b)) {
+    b_tmp = X->ps_pre->pl[0].fp;
+    if (std::isnan(b_tmp)) {
       confLog.set_size(1, 1);
       confLog[0] = false;
     } else {
@@ -989,9 +1051,6 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       confLog[0] = (X->ps_pos->pl[0].SNR != rtMinusInf);
     }
   }
-  //  if X.ps_pos.pl(1).t_0>328
-  //      pause(1);
-  //  end
   if ((numPulses != confLog.size(0)) &&
       ((numPulses != 1) && (confLog.size(0) != 1))) {
     emlrtDimSizeImpxCheckR2021b(numPulses, confLog.size(0), n_emlrtECI);

@@ -5,7 +5,7 @@
 // File: tic.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -32,14 +32,14 @@ void tic()
     freq_not_empty = true;
     status = coderInitTimeFunctions(&freq);
     if (status != 0) {
-      rtErrorWithMessageID(std::string(&cv1[0], 22), status, nb_emlrtRTEI.fName,
-                           nb_emlrtRTEI.lineNo);
+      rtErrorWithMessageID(std::string(&cv1[0], 22), status, pb_emlrtRTEI.fName,
+                           pb_emlrtRTEI.lineNo);
     }
   }
   status = coderTimeClockGettimeMonotonic(&b_timespec, freq);
   if (status != 0) {
-    rtErrorWithMessageID(std::string(&cv2[0], 30), status, nb_emlrtRTEI.fName,
-                         nb_emlrtRTEI.lineNo);
+    rtErrorWithMessageID(std::string(&cv2[0], 30), status, pb_emlrtRTEI.fName,
+                         pb_emlrtRTEI.lineNo);
   }
   internal::b_time::impl::timeKeeper(b_timespec.tv_sec, b_timespec.tv_nsec);
 }

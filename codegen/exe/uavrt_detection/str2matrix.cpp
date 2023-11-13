@@ -5,7 +5,7 @@
 // File: str2matrix.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -48,7 +48,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo ab_emlrtBCI{
       -1,               // iFirst
       -1,               // iLast
-      103,              // lineNo
+      91,               // lineNo
       28,               // colNo
       "rowDividerLocs", // aName
       "str2matrix",     // fName
@@ -103,7 +103,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo fb_emlrtBCI{
       -1,           // iFirst
       -1,           // iLast
-      46,           // lineNo
+      44,           // lineNo
       46,           // colNo
       "inputStr",   // aName
       "str2matrix", // fName
@@ -114,7 +114,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo gb_emlrtBCI{
       -1,           // iFirst
       -1,           // iLast
-      51,           // lineNo
+      47,           // lineNo
       49,           // colNo
       "inputStr",   // aName
       "str2matrix", // fName
@@ -125,7 +125,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo hb_emlrtBCI{
       -1,           // iFirst
       -1,           // iLast
-      68,           // lineNo
+      62,           // lineNo
       17,           // colNo
       "inputStr",   // aName
       "str2matrix", // fName
@@ -136,7 +136,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo ib_emlrtBCI{
       -1,           // iFirst
       -1,           // iLast
-      68,           // lineNo
+      62,           // lineNo
       45,           // colNo
       "inputStr",   // aName
       "str2matrix", // fName
@@ -147,7 +147,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo jb_emlrtBCI{
       -1,           // iFirst
       -1,           // iLast
-      73,           // lineNo
+      65,           // lineNo
       46,           // colNo
       "inputStr",   // aName
       "str2matrix", // fName
@@ -158,7 +158,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo kb_emlrtBCI{
       -1,           // iFirst
       -1,           // iLast
-      78,           // lineNo
+      68,           // lineNo
       49,           // colNo
       "inputStr",   // aName
       "str2matrix", // fName
@@ -169,7 +169,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo lb_emlrtBCI{
       -1,           // iFirst
       -1,           // iLast
-      88,           // lineNo
+      76,           // lineNo
       10,           // colNo
       "inputStr",   // aName
       "str2matrix", // fName
@@ -180,7 +180,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo mb_emlrtBCI{
       -1,               // iFirst
       -1,               // iLast
-      104,              // lineNo
+      92,               // lineNo
       28,               // colNo
       "rowDividerLocs", // aName
       "str2matrix",     // fName
@@ -191,7 +191,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo nb_emlrtBCI{
       -1,           // iFirst
       -1,           // iLast
-      105,          // lineNo
+      93,           // lineNo
       28,           // colNo
       "commaLocs",  // aName
       "str2matrix", // fName
@@ -202,7 +202,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo ob_emlrtBCI{
       -1,               // iFirst
       -1,               // iLast
-      112,              // lineNo
+      100,              // lineNo
       32,               // colNo
       "rowDividerLocs", // aName
       "str2matrix",     // fName
@@ -213,7 +213,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo pb_emlrtBCI{
       -1,               // iFirst
       -1,               // iLast
-      113,              // lineNo
+      101,              // lineNo
       32,               // colNo
       "rowDividerLocs", // aName
       "str2matrix",     // fName
@@ -224,7 +224,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo qb_emlrtBCI{
       -1,           // iFirst
       -1,           // iLast
-      114,          // lineNo
+      102,          // lineNo
       32,           // colNo
       "commaLocs",  // aName
       "str2matrix", // fName
@@ -235,7 +235,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo rb_emlrtBCI{
       -1,               // iFirst
       -1,               // iLast
-      127,              // lineNo
+      114,              // lineNo
       54,               // colNo
       "colDividerLocs", // aName
       "str2matrix",     // fName
@@ -246,7 +246,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo sb_emlrtBCI{
       -1,               // iFirst
       -1,               // iLast
-      127,              // lineNo
+      114,              // lineNo
       74,               // colNo
       "colDividerLocs", // aName
       "str2matrix",     // fName
@@ -257,7 +257,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo tb_emlrtBCI{
       -1,           // iFirst
       -1,           // iLast
-      128,          // lineNo
+      115,          // lineNo
       17,           // colNo
       "tempRow",    // aName
       "str2matrix", // fName
@@ -268,7 +268,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo ub_emlrtBCI{
       -1,           // iFirst
       -1,           // iLast
-      127,          // lineNo
+      114,          // lineNo
       39,           // colNo
       "inputStr",   // aName
       "str2matrix", // fName
@@ -279,7 +279,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo vb_emlrtBCI{
       -1,           // iFirst
       -1,           // iLast
-      127,          // lineNo
+      114,          // lineNo
       59,           // colNo
       "inputStr",   // aName
       "str2matrix", // fName
@@ -290,7 +290,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   static rtBoundsCheckInfo wb_emlrtBCI{
       -1,           // iFirst
       -1,           // iLast
-      130,          // lineNo
+      117,          // lineNo
       12,           // colNo
       "outMat",     // aName
       "str2matrix", // fName
@@ -299,7 +299,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       0                                               // checkKind
   };
   static rtDoubleCheckInfo r_emlrtDCI{
-      108,          // lineNo
+      96,           // lineNo
       24,           // colNo
       "str2matrix", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -307,7 +307,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       4                                               // checkKind
   };
   static rtDoubleCheckInfo s_emlrtDCI{
-      108,          // lineNo
+      96,           // lineNo
       34,           // colNo
       "str2matrix", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -315,7 +315,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       1                                               // checkKind
   };
   static rtDoubleCheckInfo t_emlrtDCI{
-      108,          // lineNo
+      96,           // lineNo
       1,            // colNo
       "str2matrix", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -323,7 +323,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       1                                               // checkKind
   };
   static rtDoubleCheckInfo u_emlrtDCI{
-      124,          // lineNo
+      111,          // lineNo
       31,           // colNo
       "str2matrix", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -331,7 +331,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       1                                               // checkKind
   };
   static rtDoubleCheckInfo v_emlrtDCI{
-      124,          // lineNo
+      111,          // lineNo
       5,            // colNo
       "str2matrix", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -340,7 +340,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   };
   static rtEqualityCheckInfo g_emlrtECI{
       2,            // nDims
-      114,          // lineNo
+      102,          // lineNo
       32,           // colNo
       "str2matrix", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -348,7 +348,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   };
   static rtEqualityCheckInfo h_emlrtECI{
       -1,           // nDims
-      130,          // lineNo
+      117,          // lineNo
       5,            // colNo
       "str2matrix", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -387,7 +387,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
     }
     b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i) - 1]);
     if (b_i > 127) {
-      tc_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+      uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
     if (bv[b_i]) {
       if ((static_cast<int>(static_cast<double>(i) + 1.0) < 1) ||
@@ -397,14 +397,14 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       }
       b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
       if (b_i > 127) {
-        tc_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+        uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
       }
       if (bv[b_i]) {
         // inputStr(i+1) = '';
         // inputStr = inputStr(1:numel(inputStr) ~= i+1);
         nd2 = static_cast<int>(i) + 1;
         if (static_cast<int>(i) + 1 > inputStr.size(1)) {
-          j_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
+          j_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
         }
         j2 = inputStr.size(1) - 1;
         for (int b_j1{nd2}; b_j1 <= j2; b_j1++) {
@@ -442,14 +442,12 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       }
       b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
       if (b_i > 127) {
-        tc_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+        uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
       }
       if (bv[b_i]) {
-        // inputStr(i+1) = '';
-        // inputStr = inputStr(1:numel(inputStr) ~= i+1);
         nd2 = static_cast<int>(i) + 1;
         if (static_cast<int>(i) + 1 > inputStr.size(1)) {
-          j_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
+          j_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
         }
         j2 = inputStr.size(1) - 1;
         for (int b_j1{nd2}; b_j1 <= j2; b_j1++) {
@@ -478,14 +476,12 @@ void str2matrix(coder::array<char, 2U> &inputStr,
         }
         b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
         if (b_i > 127) {
-          tc_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+          uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
         }
         if (bv[b_i]) {
-          // inputStr(i+1) = '';
-          // inputStr = inputStr(1:numel(inputStr) ~= i+1);
           nd2 = static_cast<int>(i) + 1;
           if (static_cast<int>(i) + 1 > inputStr.size(1)) {
-            j_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
+            j_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
           }
           j2 = inputStr.size(1) - 1;
           for (int b_j1{nd2}; b_j1 <= j2; b_j1++) {
@@ -513,14 +509,12 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       }
       b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
       if (b_i > 127) {
-        tc_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+        uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
       }
       if (bv[b_i]) {
-        // inputStr(i+1) = '';
-        // inputStr = inputStr(1:numel(inputStr) ~= i+1);
         nd2 = static_cast<int>(i) + 1;
         if (static_cast<int>(i) + 1 > inputStr.size(1)) {
-          j_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
+          j_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
         }
         j2 = inputStr.size(1) - 1;
         for (int b_j1{nd2}; b_j1 <= j2; b_j1++) {
@@ -565,14 +559,12 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       }
       b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
       if (b_i > 127) {
-        tc_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+        uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
       }
       if (bv[b_i]) {
-        // inputStr(i+1) = '';
-        // inputStr = inputStr(1:numel(inputStr) ~= i+1);
         nd2 = static_cast<int>(i) + 1;
         if (static_cast<int>(i) + 1 > inputStr.size(1)) {
-          j_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
+          j_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
         }
         j2 = inputStr.size(1) - 1;
         for (int b_j1{nd2}; b_j1 <= j2; b_j1++) {
@@ -601,14 +593,12 @@ void str2matrix(coder::array<char, 2U> &inputStr,
         }
         b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
         if (b_i > 127) {
-          tc_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+          uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
         }
         if (bv[b_i]) {
-          // inputStr(i+1) = '';
-          // inputStr = inputStr(1:numel(inputStr) ~= i+1);
           nd2 = static_cast<int>(i) + 1;
           if (static_cast<int>(i) + 1 > inputStr.size(1)) {
-            j_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
+            j_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
           }
           j2 = inputStr.size(1) - 1;
           for (int b_j1{nd2}; b_j1 <= j2; b_j1++) {
@@ -636,14 +626,12 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       }
       b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
       if (b_i > 127) {
-        tc_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+        uc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
       }
       if (bv[b_i]) {
-        // inputStr(i+1) = '';
-        // inputStr = inputStr(1:numel(inputStr) ~= i+1);
         nd2 = static_cast<int>(i) + 1;
         if (static_cast<int>(i) + 1 > inputStr.size(1)) {
-          j_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
+          j_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
         }
         j2 = inputStr.size(1) - 1;
         for (int b_j1{nd2}; b_j1 <= j2; b_j1++) {
@@ -819,7 +807,6 @@ void str2matrix(coder::array<char, 2U> &inputStr,
         rtDynamicBoundsError(r1[i1], 0, b_leftBracketLoc - 1, qb_emlrtBCI);
       }
     }
-    // numelCols = numelCommasCurr+1;
     if ((c_i + 1 > 1) && (r1.size(1) != nd2)) {
       rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
     }

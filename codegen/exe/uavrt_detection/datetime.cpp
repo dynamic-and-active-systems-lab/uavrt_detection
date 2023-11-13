@@ -5,7 +5,7 @@
 // File: datetime.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -23,7 +23,7 @@
 #include <string>
 
 // Function Declarations
-static void eb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void fb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -31,7 +31,7 @@ static void eb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void eb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void fb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -55,7 +55,7 @@ static void eb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 namespace coder {
 void datetime::init()
 {
-  static rtRunTimeErrorInfo vc_emlrtRTEI{
+  static rtRunTimeErrorInfo xc_emlrtRTEI{
       1,                   // lineNo
       1,                   // colNo
       "createFromDateVec", // fName
@@ -84,10 +84,10 @@ void datetime::init()
         (!(std::ceil(c_tm_mon) == c_tm_mon)) || (!(std::ceil(shi) == shi)) ||
         (!(std::ceil(c_tm_hour) == c_tm_hour)) ||
         (!(std::ceil(c_tm_min) == c_tm_min))) {
-      eb_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+      fb_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
     }
     if (std::ceil(b_second) != b_second) {
-      eb_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+      fb_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
     }
     if ((c_tm_mon < 1.0) || (c_tm_mon > 12.0)) {
       wholeSecsFromMillis = std::floor((c_tm_mon - 1.0) / 12.0);

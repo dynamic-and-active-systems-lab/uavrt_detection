@@ -5,7 +5,7 @@
 // File: fseek.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -37,7 +37,7 @@ void b_fseek(double fileID, double offset)
     f = internal::getfilestar(fileID, a);
     filestar = f;
     if (f == nullptr) {
-      c_rtErrorWithMessageID(d_emlrtRTEI.fName, d_emlrtRTEI.lineNo);
+      c_rtErrorWithMessageID(f_emlrtRTEI.fName, f_emlrtRTEI.lineNo);
     }
     if ((!(fileID != 0.0)) || (!(fileID != 1.0)) || (!(fileID != 2.0))) {
       filestar = nullptr;

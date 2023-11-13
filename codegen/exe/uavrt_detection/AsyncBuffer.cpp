@@ -5,7 +5,7 @@
 // File: AsyncBuffer.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -29,7 +29,7 @@
 #include <string>
 
 // Variable Definitions
-static rtRunTimeErrorInfo o_emlrtRTEI{
+static rtRunTimeErrorInfo q_emlrtRTEI{
     1,                    // lineNo
     1,                    // colNo
     "SystemCore/release", // fName
@@ -37,7 +37,7 @@ static rtRunTimeErrorInfo o_emlrtRTEI{
     "+system/+coder/SystemCore.p" // pName
 };
 
-static rtRunTimeErrorInfo p_emlrtRTEI{
+static rtRunTimeErrorInfo r_emlrtRTEI{
     101,                                      // lineNo
     13,                                       // colNo
     "AsyncBuffercgHelper/validateInputsImpl", // fName
@@ -45,7 +45,7 @@ static rtRunTimeErrorInfo p_emlrtRTEI{
     "AsyncBuffercgHelper.m" // pName
 };
 
-static rtRunTimeErrorInfo q_emlrtRTEI{
+static rtRunTimeErrorInfo s_emlrtRTEI{
     103,                  // lineNo
     17,                   // colNo
     "AsyncBuffercg/read", // fName
@@ -53,7 +53,7 @@ static rtRunTimeErrorInfo q_emlrtRTEI{
     "AsyncBuffercg.m" // pName
 };
 
-static rtRunTimeErrorInfo ob_emlrtRTEI{
+static rtRunTimeErrorInfo qb_emlrtRTEI{
     1,                  // lineNo
     1,                  // colNo
     "SystemCore/reset", // fName
@@ -61,7 +61,7 @@ static rtRunTimeErrorInfo ob_emlrtRTEI{
     "+system/+coder/SystemCore.p" // pName
 };
 
-static rtRunTimeErrorInfo pb_emlrtRTEI{
+static rtRunTimeErrorInfo rb_emlrtRTEI{
     1,                 // lineNo
     1,                 // colNo
     "SystemCore/step", // fName
@@ -69,7 +69,7 @@ static rtRunTimeErrorInfo pb_emlrtRTEI{
     "+system/+coder/SystemCore.p" // pName
 };
 
-static rtRunTimeErrorInfo qb_emlrtRTEI{
+static rtRunTimeErrorInfo sb_emlrtRTEI{
     93,                                       // lineNo
     13,                                       // colNo
     "AsyncBuffercgHelper/validateInputsImpl", // fName
@@ -77,7 +77,7 @@ static rtRunTimeErrorInfo qb_emlrtRTEI{
     "AsyncBuffercgHelper.m" // pName
 };
 
-static rtRunTimeErrorInfo rb_emlrtRTEI{
+static rtRunTimeErrorInfo tb_emlrtRTEI{
     1,                  // lineNo
     1,                  // colNo
     "SystemCore/setup", // fName
@@ -97,7 +97,7 @@ static rtBoundsCheckInfo s_emlrtBCI{
     3                        // checkKind
 };
 
-static rtRunTimeErrorInfo tb_emlrtRTEI{
+static rtRunTimeErrorInfo vb_emlrtRTEI{
     109,                  // lineNo
     17,                   // colNo
     "AsyncBuffercg/read", // fName
@@ -106,19 +106,19 @@ static rtRunTimeErrorInfo tb_emlrtRTEI{
 };
 
 // Function Declarations
-static void c_rtErrorWithMessageID(const char *r, const char *aFcnName,
-                                   int aLineNum);
-
 static void d_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum);
 
-static void fb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void e_rtErrorWithMessageID(const char *r, const char *aFcnName,
+                                   int aLineNum);
 
-static void ib_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void gb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-static void p_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void jb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void q_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+static void r_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -164,7 +164,7 @@ void AsyncBuffer::matlabCodegenDestructor()
 //
 } // namespace dsp
 } // namespace coder
-static void c_rtErrorWithMessageID(const char *r, const char *aFcnName,
+static void d_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum)
 {
   std::string errMsg;
@@ -188,7 +188,7 @@ static void c_rtErrorWithMessageID(const char *r, const char *aFcnName,
 //                int aLineNum
 // Return Type  : void
 //
-static void d_rtErrorWithMessageID(const char *r, const char *aFcnName,
+static void e_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum)
 {
   std::string errMsg;
@@ -212,7 +212,7 @@ static void d_rtErrorWithMessageID(const char *r, const char *aFcnName,
 //                int aLineNum
 // Return Type  : void
 //
-static void fb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void gb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -234,7 +234,7 @@ static void fb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void ib_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void jb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -256,7 +256,7 @@ static void ib_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void p_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void q_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -278,7 +278,7 @@ static void p_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void q_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void r_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -393,11 +393,11 @@ void c_AsyncBuffer::read()
     numRows = 600650;
   }
   if (numRows < 0) {
-    e_rtErrorWithMessageID("number of rows", r_emlrtRTEI.fName,
-                           r_emlrtRTEI.lineNo);
+    f_rtErrorWithMessageID("number of rows", t_emlrtRTEI.fName,
+                           t_emlrtRTEI.lineNo);
   }
   if (numRows > 600650) {
-    q_rtErrorWithMessageID(q_emlrtRTEI.fName, q_emlrtRTEI.lineNo);
+    r_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
   }
   pBuffer.read(numRows, out);
 }
@@ -443,11 +443,11 @@ void c_AsyncBuffer::read(array<creal32_T, 1U> &out)
     numRows = 600650;
   }
   if (numRows < 0) {
-    e_rtErrorWithMessageID("number of rows", r_emlrtRTEI.fName,
-                           r_emlrtRTEI.lineNo);
+    f_rtErrorWithMessageID("number of rows", t_emlrtRTEI.fName,
+                           t_emlrtRTEI.lineNo);
   }
   if (numRows > 600650) {
-    q_rtErrorWithMessageID(q_emlrtRTEI.fName, q_emlrtRTEI.lineNo);
+    r_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
   }
   pBuffer.read(numRows, out);
 }
@@ -460,19 +460,19 @@ void c_AsyncBuffer::read(array<creal32_T, 1U> &out)
 void AsyncBuffer::read(double numRows, array<creal32_T, 1U> &out)
 {
   if (numRows < 0.0) {
-    e_rtErrorWithMessageID("number of rows", r_emlrtRTEI.fName,
-                           r_emlrtRTEI.lineNo);
+    f_rtErrorWithMessageID("number of rows", t_emlrtRTEI.fName,
+                           t_emlrtRTEI.lineNo);
   }
   if (std::isinf(numRows) || std::isnan(numRows)) {
-    i_rtErrorWithMessageID("number of rows", y_emlrtRTEI.fName,
-                           y_emlrtRTEI.lineNo);
+    j_rtErrorWithMessageID("number of rows", bb_emlrtRTEI.fName,
+                           bb_emlrtRTEI.lineNo);
   }
   if (!(std::floor(numRows) == numRows)) {
-    j_rtErrorWithMessageID("number of rows", db_emlrtRTEI.fName,
-                           db_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID("number of rows", fb_emlrtRTEI.fName,
+                           fb_emlrtRTEI.lineNo);
   }
   if (numRows > 5.80032E+6) {
-    q_rtErrorWithMessageID(q_emlrtRTEI.fName, q_emlrtRTEI.lineNo);
+    r_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
   }
   pBuffer.read(static_cast<int>(numRows), out);
 }
@@ -485,19 +485,19 @@ void AsyncBuffer::read(double numRows, array<creal32_T, 1U> &out)
 void b_AsyncBuffer::read(double numRows, array<double, 1U> &out)
 {
   if (numRows < 0.0) {
-    e_rtErrorWithMessageID("number of rows", r_emlrtRTEI.fName,
-                           r_emlrtRTEI.lineNo);
+    f_rtErrorWithMessageID("number of rows", t_emlrtRTEI.fName,
+                           t_emlrtRTEI.lineNo);
   }
   if (std::isinf(numRows) || std::isnan(numRows)) {
-    i_rtErrorWithMessageID("number of rows", y_emlrtRTEI.fName,
-                           y_emlrtRTEI.lineNo);
+    j_rtErrorWithMessageID("number of rows", bb_emlrtRTEI.fName,
+                           bb_emlrtRTEI.lineNo);
   }
   if (!(std::floor(numRows) == numRows)) {
-    j_rtErrorWithMessageID("number of rows", db_emlrtRTEI.fName,
-                           db_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID("number of rows", fb_emlrtRTEI.fName,
+                           fb_emlrtRTEI.lineNo);
   }
   if (numRows > 5.80032E+6) {
-    q_rtErrorWithMessageID(q_emlrtRTEI.fName, q_emlrtRTEI.lineNo);
+    r_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
   }
   pBuffer.read(static_cast<int>(numRows), out);
 }
@@ -516,34 +516,34 @@ void AsyncBuffer::read(double numRows, double overlap,
   int overlapUnderrun;
   int underrun;
   if (numRows < 0.0) {
-    e_rtErrorWithMessageID("number of rows", r_emlrtRTEI.fName,
-                           r_emlrtRTEI.lineNo);
+    f_rtErrorWithMessageID("number of rows", t_emlrtRTEI.fName,
+                           t_emlrtRTEI.lineNo);
   }
   if (std::isinf(numRows) || std::isnan(numRows)) {
-    i_rtErrorWithMessageID("number of rows", y_emlrtRTEI.fName,
-                           y_emlrtRTEI.lineNo);
+    j_rtErrorWithMessageID("number of rows", bb_emlrtRTEI.fName,
+                           bb_emlrtRTEI.lineNo);
   }
   if (!(std::floor(numRows) == numRows)) {
-    j_rtErrorWithMessageID("number of rows", db_emlrtRTEI.fName,
-                           db_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID("number of rows", fb_emlrtRTEI.fName,
+                           fb_emlrtRTEI.lineNo);
   }
   if (numRows > 5.80032E+6) {
-    q_rtErrorWithMessageID(q_emlrtRTEI.fName, q_emlrtRTEI.lineNo);
+    r_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
   }
   if (overlap < 0.0) {
-    e_rtErrorWithMessageID("overlap", r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
+    f_rtErrorWithMessageID("overlap", t_emlrtRTEI.fName, t_emlrtRTEI.lineNo);
   }
   if (std::isinf(overlap) || std::isnan(overlap)) {
-    i_rtErrorWithMessageID("overlap", y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
+    j_rtErrorWithMessageID("overlap", bb_emlrtRTEI.fName, bb_emlrtRTEI.lineNo);
   }
   if (!(std::floor(overlap) == overlap)) {
-    j_rtErrorWithMessageID("overlap", db_emlrtRTEI.fName, db_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID("overlap", fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
   }
   if (overlap > numRows) {
-    ib_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
+    jb_rtErrorWithMessageID(vb_emlrtRTEI.fName, vb_emlrtRTEI.lineNo);
   }
   if (!pBuffer.AsyncBuffercgHelper_isInitialized) {
-    r_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
+    s_rtErrorWithMessageID(u_emlrtRTEI.fName, u_emlrtRTEI.lineNo);
   }
   underrun = internal::AsyncBuffercgHelper::ReadSamplesFromBuffer(
       pBuffer, static_cast<int>(numRows), static_cast<int>(overlap), b_out,
@@ -589,34 +589,34 @@ void b_AsyncBuffer::read(double numRows, double overlap, array<double, 1U> &out)
   int overlapUnderrun;
   int underrun;
   if (numRows < 0.0) {
-    e_rtErrorWithMessageID("number of rows", r_emlrtRTEI.fName,
-                           r_emlrtRTEI.lineNo);
+    f_rtErrorWithMessageID("number of rows", t_emlrtRTEI.fName,
+                           t_emlrtRTEI.lineNo);
   }
   if (std::isinf(numRows) || std::isnan(numRows)) {
-    i_rtErrorWithMessageID("number of rows", y_emlrtRTEI.fName,
-                           y_emlrtRTEI.lineNo);
+    j_rtErrorWithMessageID("number of rows", bb_emlrtRTEI.fName,
+                           bb_emlrtRTEI.lineNo);
   }
   if (!(std::floor(numRows) == numRows)) {
-    j_rtErrorWithMessageID("number of rows", db_emlrtRTEI.fName,
-                           db_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID("number of rows", fb_emlrtRTEI.fName,
+                           fb_emlrtRTEI.lineNo);
   }
   if (numRows > 5.80032E+6) {
-    q_rtErrorWithMessageID(q_emlrtRTEI.fName, q_emlrtRTEI.lineNo);
+    r_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
   }
   if (overlap < 0.0) {
-    e_rtErrorWithMessageID("overlap", r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
+    f_rtErrorWithMessageID("overlap", t_emlrtRTEI.fName, t_emlrtRTEI.lineNo);
   }
   if (std::isinf(overlap) || std::isnan(overlap)) {
-    i_rtErrorWithMessageID("overlap", y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
+    j_rtErrorWithMessageID("overlap", bb_emlrtRTEI.fName, bb_emlrtRTEI.lineNo);
   }
   if (!(std::floor(overlap) == overlap)) {
-    j_rtErrorWithMessageID("overlap", db_emlrtRTEI.fName, db_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID("overlap", fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
   }
   if (overlap > numRows) {
-    ib_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
+    jb_rtErrorWithMessageID(vb_emlrtRTEI.fName, vb_emlrtRTEI.lineNo);
   }
   if (!pBuffer.AsyncBuffercgHelper_isInitialized) {
-    r_rtErrorWithMessageID(s_emlrtRTEI.fName, s_emlrtRTEI.lineNo);
+    s_rtErrorWithMessageID(u_emlrtRTEI.fName, u_emlrtRTEI.lineNo);
   }
   underrun = internal::b_AsyncBuffercgHelper::ReadSamplesFromBuffer(
       pBuffer, static_cast<int>(numRows), static_cast<int>(overlap), b_out,
@@ -656,7 +656,7 @@ void b_AsyncBuffer::read(double numRows, double overlap, array<double, 1U> &out)
 void AsyncBuffer::reset()
 {
   if (pBuffer.isInitialized == 2) {
-    c_rtErrorWithMessageID("reset", o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
+    d_rtErrorWithMessageID("reset", q_emlrtRTEI.fName, q_emlrtRTEI.lineNo);
   }
   if (pBuffer.isInitialized == 1) {
     pBuffer.ReadPointer = 1;
@@ -674,7 +674,7 @@ void AsyncBuffer::reset()
 void b_AsyncBuffer::reset()
 {
   if (pBuffer.isInitialized == 2) {
-    c_rtErrorWithMessageID("reset", ob_emlrtRTEI.fName, ob_emlrtRTEI.lineNo);
+    d_rtErrorWithMessageID("reset", qb_emlrtRTEI.fName, qb_emlrtRTEI.lineNo);
   }
   if (pBuffer.isInitialized == 1) {
     pBuffer.ReadPointer = 1;
@@ -692,7 +692,7 @@ void b_AsyncBuffer::reset()
 void c_AsyncBuffer::reset()
 {
   if (pBuffer.isInitialized == 2) {
-    c_rtErrorWithMessageID("reset", ob_emlrtRTEI.fName, ob_emlrtRTEI.lineNo);
+    d_rtErrorWithMessageID("reset", qb_emlrtRTEI.fName, qb_emlrtRTEI.lineNo);
   }
   if (pBuffer.isInitialized == 1) {
     pBuffer.ReadPointer = 1;
@@ -720,13 +720,13 @@ void c_AsyncBuffer::write()
   boolean_T exitg1;
   obj = &pBuffer;
   if (pBuffer.isInitialized == 2) {
-    c_rtErrorWithMessageID("step", o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
+    d_rtErrorWithMessageID("step", q_emlrtRTEI.fName, q_emlrtRTEI.lineNo);
   }
   if (pBuffer.isInitialized != 1) {
     cell_wrap_2 varSizes;
     pBuffer.isSetupComplete = false;
     if (pBuffer.isInitialized != 0) {
-      d_rtErrorWithMessageID("setup", o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
+      e_rtErrorWithMessageID("setup", q_emlrtRTEI.fName, q_emlrtRTEI.lineNo);
     }
     pBuffer.isInitialized = 1;
     for (int b_i{0}; b_i < 8; b_i++) {
@@ -734,7 +734,7 @@ void c_AsyncBuffer::write()
     }
     pBuffer.inputVarSize[0] = varSizes;
     if ((pBuffer.NumChannels != -1) && (pBuffer.NumChannels != 1)) {
-      p_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
+      q_rtErrorWithMessageID(r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
     }
     pBuffer.NumChannels = 1;
     pBuffer.AsyncBuffercgHelper_isInitialized = true;
@@ -766,7 +766,7 @@ void c_AsyncBuffer::write()
   }
   if (anyInputSizeChanged && (pBuffer.NumChannels != -1) &&
       (pBuffer.NumChannels != 1)) {
-    p_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
+    q_rtErrorWithMessageID(r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
   }
   obj = &pBuffer;
   wPtr = pBuffer.WritePointer;
@@ -837,13 +837,13 @@ void AsyncBuffer::write(const array<creal32_T, 1U> &in)
   boolean_T exitg1;
   obj = &pBuffer;
   if (pBuffer.isInitialized == 2) {
-    c_rtErrorWithMessageID("step", pb_emlrtRTEI.fName, pb_emlrtRTEI.lineNo);
+    d_rtErrorWithMessageID("step", rb_emlrtRTEI.fName, rb_emlrtRTEI.lineNo);
   }
   if (pBuffer.isInitialized != 1) {
     cell_wrap_2 varSizes;
     pBuffer.isSetupComplete = false;
     if (pBuffer.isInitialized != 0) {
-      d_rtErrorWithMessageID("setup", rb_emlrtRTEI.fName, rb_emlrtRTEI.lineNo);
+      e_rtErrorWithMessageID("setup", tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
     }
     pBuffer.isInitialized = 1;
     varSizes.f1[0] = static_cast<unsigned int>(in.size(0));
@@ -853,10 +853,10 @@ void AsyncBuffer::write(const array<creal32_T, 1U> &in)
     }
     pBuffer.inputVarSize[0] = varSizes;
     if (in.size(0) > 5800320) {
-      fb_rtErrorWithMessageID(qb_emlrtRTEI.fName, qb_emlrtRTEI.lineNo);
+      gb_rtErrorWithMessageID(sb_emlrtRTEI.fName, sb_emlrtRTEI.lineNo);
     }
     if ((pBuffer.NumChannels != -1) && (pBuffer.NumChannels != 1)) {
-      p_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
+      q_rtErrorWithMessageID(r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
     }
     pBuffer.NumChannels = 1;
     pBuffer.AsyncBuffercgHelper_isInitialized = true;
@@ -893,10 +893,10 @@ void AsyncBuffer::write(const array<creal32_T, 1U> &in)
   }
   if (anyInputSizeChanged) {
     if (in.size(0) > 5800320) {
-      fb_rtErrorWithMessageID(qb_emlrtRTEI.fName, qb_emlrtRTEI.lineNo);
+      gb_rtErrorWithMessageID(sb_emlrtRTEI.fName, sb_emlrtRTEI.lineNo);
     }
     if ((pBuffer.NumChannels != -1) && (pBuffer.NumChannels != 1)) {
-      p_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
+      q_rtErrorWithMessageID(r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
     }
   }
   wPtr = pBuffer.WritePointer;
@@ -1026,13 +1026,13 @@ void b_AsyncBuffer::write(const array<double, 1U> &in)
   boolean_T exitg1;
   obj = &pBuffer;
   if (pBuffer.isInitialized == 2) {
-    c_rtErrorWithMessageID("step", pb_emlrtRTEI.fName, pb_emlrtRTEI.lineNo);
+    d_rtErrorWithMessageID("step", rb_emlrtRTEI.fName, rb_emlrtRTEI.lineNo);
   }
   if (pBuffer.isInitialized != 1) {
     cell_wrap_2 varSizes;
     pBuffer.isSetupComplete = false;
     if (pBuffer.isInitialized != 0) {
-      d_rtErrorWithMessageID("setup", rb_emlrtRTEI.fName, rb_emlrtRTEI.lineNo);
+      e_rtErrorWithMessageID("setup", tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
     }
     pBuffer.isInitialized = 1;
     varSizes.f1[0] = static_cast<unsigned int>(in.size(0));
@@ -1042,10 +1042,10 @@ void b_AsyncBuffer::write(const array<double, 1U> &in)
     }
     pBuffer.inputVarSize[0] = varSizes;
     if (in.size(0) > 5800320) {
-      fb_rtErrorWithMessageID(qb_emlrtRTEI.fName, qb_emlrtRTEI.lineNo);
+      gb_rtErrorWithMessageID(sb_emlrtRTEI.fName, sb_emlrtRTEI.lineNo);
     }
     if ((pBuffer.NumChannels != -1) && (pBuffer.NumChannels != 1)) {
-      p_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
+      q_rtErrorWithMessageID(r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
     }
     pBuffer.NumChannels = 1;
     pBuffer.AsyncBuffercgHelper_isInitialized = true;
@@ -1080,10 +1080,10 @@ void b_AsyncBuffer::write(const array<double, 1U> &in)
   }
   if (anyInputSizeChanged) {
     if (in.size(0) > 5800320) {
-      fb_rtErrorWithMessageID(qb_emlrtRTEI.fName, qb_emlrtRTEI.lineNo);
+      gb_rtErrorWithMessageID(sb_emlrtRTEI.fName, sb_emlrtRTEI.lineNo);
     }
     if ((pBuffer.NumChannels != -1) && (pBuffer.NumChannels != 1)) {
-      p_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
+      q_rtErrorWithMessageID(r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
     }
   }
   wPtr = pBuffer.WritePointer;
@@ -1204,13 +1204,13 @@ void c_AsyncBuffer::write(const creal32_T in_data[])
   boolean_T exitg1;
   obj = &pBuffer;
   if (pBuffer.isInitialized == 2) {
-    c_rtErrorWithMessageID("step", pb_emlrtRTEI.fName, pb_emlrtRTEI.lineNo);
+    d_rtErrorWithMessageID("step", rb_emlrtRTEI.fName, rb_emlrtRTEI.lineNo);
   }
   if (pBuffer.isInitialized != 1) {
     cell_wrap_2 varSizes;
     pBuffer.isSetupComplete = false;
     if (pBuffer.isInitialized != 0) {
-      d_rtErrorWithMessageID("setup", rb_emlrtRTEI.fName, rb_emlrtRTEI.lineNo);
+      e_rtErrorWithMessageID("setup", tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
     }
     pBuffer.isInitialized = 1;
     for (i = 0; i < 8; i++) {
@@ -1218,7 +1218,7 @@ void c_AsyncBuffer::write(const creal32_T in_data[])
     }
     pBuffer.inputVarSize[0] = varSizes;
     if ((pBuffer.NumChannels != -1) && (pBuffer.NumChannels != 1)) {
-      p_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
+      q_rtErrorWithMessageID(r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
     }
     pBuffer.NumChannels = 1;
     pBuffer.AsyncBuffercgHelper_isInitialized = true;
@@ -1250,7 +1250,7 @@ void c_AsyncBuffer::write(const creal32_T in_data[])
   }
   if (anyInputSizeChanged && (pBuffer.NumChannels != -1) &&
       (pBuffer.NumChannels != 1)) {
-    p_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
+    q_rtErrorWithMessageID(r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
   }
   pBuffer.stepImpl(in_data);
 }

@@ -23,9 +23,12 @@ function [X] = uavrt_detection_post_flight_analysis() %configPath, thresholdCach
 % configPath =         '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/FLIGHT_TESTING_DATA/2023-09-14-Office Testing/LOGS-2023-09-15-Ft Valley Flight/detector.2.config';
 % thresholdCachePath = '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/FLIGHT_TESTING_DATA/2023-09-14-Office Testing/LOGS-2023-09-15-Ft Valley Flight';
 
-filePath =           '/Users/michael/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code/data_record.2.5.bin';
-configPath =         '/Users/michael/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code/detector.2.config';
-thresholdCachePath = '/Users/michael/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code';
+%filePath =           '/Users/michael/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code/data_record.2.5.bin';
+filePath =           '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code/data_record.2.5.bin';
+%configPath =         '/Users/michael/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code/detector.2.config';
+configPath =         '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code/detector.2.config'; 
+%thresholdCachePath = '/Users/michael/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code';
+thresholdCachePath = '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code';
 
 
 global globalThresholdCachePath;

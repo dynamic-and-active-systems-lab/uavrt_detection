@@ -5,7 +5,7 @@
 // File: wfmstft.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -75,12 +75,14 @@ static void gt(coder::array<boolean_T, 2U> &in1,
 }
 
 //
-// obj.psd = obj.dt^2/obj.T*mean(abs(obj.S).^2,2);
-// obj.psd = obj.dt^2/obj.T*median(abs(obj.S).^2,2);%use median to exclude
-// outliers from short pulses
-//              runningPsd = obj.dt^2/obj.T*abs(obj.S).^2;
-//              psdStdDev  = stdev(runningPsd,[],2);
-//              psdStdDevMat = repmat(runningPsd,1,size(runningPsd,2));
+// This block calculates a three window moving mean of the power
+// spectral density of the waveform and then thresholds that
+// moving mean for values greater than 10x the median. This
+// thresholding step reduced the energy from very high power
+// pulses that might be in the signal from affecting the PSD
+// estimate. It is assumed here that low signal power pulses will
+// only marginally affect the psd estimate.
+// coder.varsize('magSqrd','movMeanMagSqrd','medMovMeanMagSqrd','medMovMeanMagSqrdMat','magSqrdMask')
 //
 // Arguments    : void
 // Return Type  : void
@@ -90,7 +92,7 @@ void wfmstft::updatepsd()
   static rtBoundsCheckInfo ab_emlrtBCI{
       -1,                  // iFirst
       -1,                  // iLast
-      161,                 // lineNo
+      155,                 // lineNo
       21,                  // colNo
       "magSqrd",           // aName
       "wfmstft/updatepsd", // fName
@@ -100,7 +102,7 @@ void wfmstft::updatepsd()
   };
   static rtEqualityCheckInfo g_emlrtECI{
       1,                   // nDims
-      160,                 // lineNo
+      154,                 // lineNo
       27,                  // colNo
       "wfmstft/updatepsd", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -108,7 +110,7 @@ void wfmstft::updatepsd()
   };
   static rtEqualityCheckInfo h_emlrtECI{
       2,                   // nDims
-      160,                 // lineNo
+      154,                 // lineNo
       27,                  // colNo
       "wfmstft/updatepsd", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -129,14 +131,6 @@ void wfmstft::updatepsd()
   int outsize_idx_0;
   int stride;
   boolean_T overflow;
-  // This block calculates a three window moving mean of the power
-  // spectral density of the waveform and then thresholds that
-  // moving mean for values greater than 10x the median. This
-  // thresholding step reduced the energy from very high power
-  // pulses that might be in the signal from affecting the PSD
-  // estimate. It is assumed here that low signal power pulses will
-  // only marginally affect the psd estimate.
-  // coder.varsize('magSqrd','movMeanMagSqrd','medMovMeanMagSqrd','medMovMeanMagSqrdMat','magSqrdMask')
   nx = S.size(0) * S.size(1);
   movMeanMagSqrd.set_size(S.size(0), S.size(1));
   if (nx > 2147483646) {

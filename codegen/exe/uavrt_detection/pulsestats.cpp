@@ -5,7 +5,7 @@
 // File: pulsestats.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -33,7 +33,7 @@
 // Variable Definitions
 static rtEqualityCheckInfo emlrtECI{
     2,                       // nDims
-    148,                     // lineNo
+    145,                     // lineNo
     17,                      // colNo
     "pulsestats/pulsestats", // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -43,7 +43,7 @@ static rtEqualityCheckInfo emlrtECI{
 static rtBoundsCheckInfo w_emlrtBCI{
     -1,                            // iFirst
     -1,                            // iLast
-    245,                           // lineNo
+    226,                           // lineNo
     64,                            // colNo
     "ps_pre.pl",                   // aName
     "pulsestats/updateposteriori", // fName
@@ -186,18 +186,18 @@ pulsestats *pulsestats::b_init(double tp, double tip, double tipu, double tipj,
 }
 
 //
-// %UPDATEPOSTERIORI updates the posteriori pulse statistics
-//              object using the new pulse list (input), prior pulse stats
-//              and the waveforms power spectral density vector. This
-//              methods is typically going to be called on a posteriori pulse
-//              stats object after a waveform has been processed and a set
-//              of candidate pulses found. This method uses those pulses and
-//              the prior information about the pulses to update the
-//              posteriori pulse stats.
+// UPDATEPOSTERIORI updates the posteriori pulse statistics
+// object using the new pulse list (input), prior pulse stats
+// and the waveforms power spectral density vector. This
+// methods is typically going to be called on a posteriori pulse
+// stats object after a waveform has been processed and a set
+// of candidate pulses found. This method uses those pulses and
+// the prior information about the pulses to update the
+// posteriori pulse stats.
 //
-//              The pulse contained in the waveform's ps_pos
-//              property is not used directly so that the caller can decide
-//              which pulses on which to focus the posteriori updates
+// The pulse contained in the waveform's ps_pos
+// property is not used directly so that the caller can decide
+// which pulses on which to focus the posteriori updates
 //
 //  updateType    What parts of the pulsestats to update. Valid
 //                options are 'time', 'freq', 'timeandfreq'. The
@@ -234,23 +234,9 @@ void pulsestats::b_updateposteriori(
     //  pulselist(:).t_0]'
     coder::internal::c_horzcatStructList(pulselist, b_pulselist);
     // pulselist(:).fp
-    // Create a vector of bandwidths from the pulselist
-    // fEnds   = [pulselist.fend];
-    // fStarts = [pulselist.fstart];
-    // bw_found = 2*(mean(fEnds,'all','omitnan')-mean(fStarts,'all','omitnan'));
-    // if isempty(bw_found)
-    //     bw_found = 100;
-    //     if coder.target('MATLAB')
-    //        warning(['UAV-R: No bandwidth could be calculated ',...
-    //             'from the start and stop frequencies of the ',...
-    //             'identified pulses. A bandwidth of 100 Hz ',...
-    //             'will be used for continued informed search.'])
-    //     end
-    // end
     // Fix the bandwidth in the priori to +/- 100 Hz.
     // Here is where we update the stats. These methods of updates
     // could be improved in the future.
-    // wfm.ps_pre.t_p; %tp doesn't change. We assume it is stationary
     if (pulselist.size(1) == 1) {
       boolean_T guard1;
       //  Happens if K=1
@@ -378,21 +364,6 @@ void pulsestats::b_updateposteriori(
         recent_tip[0] = rtNaN;
       }
     }
-    //                  %Only update time parameters if we are in tracking mode.
-    //                  If we %aren't, we may have identified somethign that
-    //                  isn't a pulse if strcmp(obj.mode,'T') ||
-    //                  strcmp(ps_pre.mode,'T')
-    //                      obj.t_ip  =
-    //                      mean([recent_tip;ps_pre.t_ip],'omitnan'); obj.t_ipu
-    //                      = ps_pre.t_ipu; %Don't update this because it can
-    //                      get too
-    //                      narrow.%mean([3*std(diff(t_found));wfm.ps_pre.t_ipu]);
-    //                      obj.t_ipj = ps_pre.t_ipj;
-    //                  end
-    //                  fp_pos     =
-    //                  freq_found;%nanmean([freq_found;wfm.ps_pre.fp]);%Previous
-    //                  fc may be nan if unknown obj.fp     = fp_pos; obj.fstart
-    //                  = fp_pos-bw_found/2; obj.fend   = fp_pos+bw_found/2;
     if (recent_tip.size(0) != 0) {
       input_sizes_idx_0 = recent_tip.size(0);
     } else {
@@ -682,18 +653,18 @@ pulsestats *pulsestats::init(double tp, double tip, double tipu, double tipj,
 }
 
 //
-// %UPDATEPOSTERIORI updates the posteriori pulse statistics
-//              object using the new pulse list (input), prior pulse stats
-//              and the waveforms power spectral density vector. This
-//              methods is typically going to be called on a posteriori pulse
-//              stats object after a waveform has been processed and a set
-//              of candidate pulses found. This method uses those pulses and
-//              the prior information about the pulses to update the
-//              posteriori pulse stats.
+// UPDATEPOSTERIORI updates the posteriori pulse statistics
+// object using the new pulse list (input), prior pulse stats
+// and the waveforms power spectral density vector. This
+// methods is typically going to be called on a posteriori pulse
+// stats object after a waveform has been processed and a set
+// of candidate pulses found. This method uses those pulses and
+// the prior information about the pulses to update the
+// posteriori pulse stats.
 //
-//              The pulse contained in the waveform's ps_pos
-//              property is not used directly so that the caller can decide
-//              which pulses on which to focus the posteriori updates
+// The pulse contained in the waveform's ps_pos
+// property is not used directly so that the caller can decide
+// which pulses on which to focus the posteriori updates
 //
 //  updateType    What parts of the pulsestats to update. Valid
 //                options are 'time', 'freq', 'timeandfreq'. The
@@ -713,7 +684,7 @@ void pulsestats::updateposteriori(const pulsestats *ps_pre,
   static rtBoundsCheckInfo ab_emlrtBCI{
       -1,                            // iFirst
       -1,                            // iLast
-      246,                           // lineNo
+      227,                           // lineNo
       25,                            // colNo
       "ps_pre.pl",                   // aName
       "pulsestats/updateposteriori", // fName
@@ -753,23 +724,9 @@ void pulsestats::updateposteriori(const pulsestats *ps_pre,
     }
     freq_found /= static_cast<double>(c_varargin_1);
     // pulselist(:).fp
-    // Create a vector of bandwidths from the pulselist
-    // fEnds   = [pulselist.fend];
-    // fStarts = [pulselist.fstart];
-    // bw_found = 2*(mean(fEnds,'all','omitnan')-mean(fStarts,'all','omitnan'));
-    // if isempty(bw_found)
-    //     bw_found = 100;
-    //     if coder.target('MATLAB')
-    //        warning(['UAV-R: No bandwidth could be calculated ',...
-    //             'from the start and stop frequencies of the ',...
-    //             'identified pulses. A bandwidth of 100 Hz ',...
-    //             'will be used for continued informed search.'])
-    //     end
-    // end
     // Fix the bandwidth in the priori to +/- 100 Hz.
     // Here is where we update the stats. These methods of updates
     // could be improved in the future.
-    // wfm.ps_pre.t_p; %tp doesn't change. We assume it is stationary
     if (pulselist.size(1) == 1) {
       boolean_T guard1;
       //  Happens if K=1
@@ -886,23 +843,6 @@ void pulsestats::updateposteriori(const pulsestats *ps_pre,
           coder::check_forloop_overflow_error();
         }
       }
-    } else {
-      //                  %Only update time parameters if we are in tracking
-      //                  mode. If we %aren't, we may have identified somethign
-      //                  that isn't a pulse if strcmp(obj.mode,'T') ||
-      //                  strcmp(ps_pre.mode,'T')
-      //                      obj.t_ip  =
-      //                      mean([recent_tip;ps_pre.t_ip],'omitnan');
-      //                      obj.t_ipu = ps_pre.t_ipu; %Don't update this
-      //                      because it can get too
-      //                      narrow.%mean([3*std(diff(t_found));wfm.ps_pre.t_ipu]);
-      //                      obj.t_ipj = ps_pre.t_ipj;
-      //                  end
-      //                  fp_pos     =
-      //                  freq_found;%nanmean([freq_found;wfm.ps_pre.fp]);%Previous
-      //                  fc may be nan if unknown obj.fp     = fp_pos;
-      //                  obj.fstart = fp_pos-bw_found/2;
-      //                  obj.fend   = fp_pos+bw_found/2;
     }
     // nanmean([freq_found;wfm.ps_pre.fp]);%Previous fc may be nan if unknown
     fp = freq_found;

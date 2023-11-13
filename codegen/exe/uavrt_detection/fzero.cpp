@@ -5,7 +5,7 @@
 // File: fzero.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 11-Nov-2023 11:31:43
+// C/C++ source code generated on  : 12-Nov-2023 20:09:42
 //
 
 // Include Files
@@ -23,7 +23,7 @@
 #include <string>
 
 // Function Declarations
-static void xb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void yb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -31,7 +31,7 @@ static void xb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void xb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void yb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -55,7 +55,7 @@ namespace coder {
 double fzero(const b_anonymous_function FunFcn)
 {
   static rtRunTimeErrorInfo
-      vc_emlrtRTEI{
+      xc_emlrtRTEI{
           83,      // lineNo
           9,       // colNo
           "fzero", // fName
@@ -75,7 +75,7 @@ double fzero(const b_anonymous_function FunFcn)
     double fb;
     int exitg2;
     if (std::isinf(fx) || std::isnan(fx)) {
-      xb_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+      yb_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
     }
     dx = 0.02;
     a = 0.0;
