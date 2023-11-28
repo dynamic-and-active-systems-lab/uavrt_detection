@@ -5,7 +5,7 @@
 // File: randn.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
@@ -62,7 +62,7 @@ void complexLike(creal_T r[1000])
 void complexLike(double varargin_1, unsigned int varargin_2,
                  array<creal_T, 2U> &r)
 {
-  static rtDoubleCheckInfo r_emlrtDCI{
+  static rtDoubleCheckInfo s_emlrtDCI{
       29,                            // lineNo
       34,                            // colNo
       "eml_rand_mt19937ar_stateful", // fName
@@ -96,7 +96,7 @@ void complexLike(double varargin_1, unsigned int varargin_2,
     m_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
   }
   if (!(varargin_1 >= 0.0)) {
-    rtNonNegativeError(varargin_1, r_emlrtDCI);
+    rtNonNegativeError(varargin_1, s_emlrtDCI);
   }
   r.set_size(static_cast<int>(varargin_1), static_cast<int>(varargin_2));
   loop_ub = static_cast<int>(varargin_1) * static_cast<int>(varargin_2);
@@ -144,7 +144,7 @@ void randn(double r[1000])
 //
 void randn(double varargin_1, unsigned int varargin_2, array<double, 2U> &r)
 {
-  static rtDoubleCheckInfo r_emlrtDCI{
+  static rtDoubleCheckInfo s_emlrtDCI{
       37,                            // lineNo
       34,                            // colNo
       "eml_rand_mt19937ar_stateful", // fName
@@ -154,7 +154,7 @@ void randn(double varargin_1, unsigned int varargin_2, array<double, 2U> &r)
   };
   int i;
   if (!(varargin_1 >= 0.0)) {
-    rtNonNegativeError(varargin_1, r_emlrtDCI);
+    rtNonNegativeError(varargin_1, s_emlrtDCI);
   }
   r.set_size(static_cast<int>(varargin_1), static_cast<int>(varargin_2));
   i = static_cast<int>(varargin_1) * static_cast<int>(varargin_2);

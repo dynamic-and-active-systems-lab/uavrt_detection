@@ -5,7 +5,7 @@
 // File: sqrt.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
@@ -36,7 +36,7 @@ void b_sqrt(array<double, 2U> &x)
     }
   }
   if (p) {
-    rtErrorWithMessageID("sqrt", dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
+    rtErrorWithMessageID("sqrt", ec_emlrtRTEI.fName, ec_emlrtRTEI.lineNo);
   }
   if (i > 2147483646) {
     check_forloop_overflow_error();

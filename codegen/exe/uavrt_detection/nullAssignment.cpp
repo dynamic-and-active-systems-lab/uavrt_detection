@@ -5,7 +5,7 @@
 // File: nullAssignment.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
@@ -27,7 +27,7 @@ namespace coder {
 namespace internal {
 void nullAssignment(array<creal_T, 3U> &x, const array<int, 2U> &idx)
 {
-  static rtDoubleCheckInfo r_emlrtDCI{
+  static rtDoubleCheckInfo s_emlrtDCI{
       451,                       // lineNo
       58,                        // colNo
       "general_null_assignment", // fName
@@ -35,17 +35,17 @@ void nullAssignment(array<creal_T, 3U> &x, const array<int, 2U> &idx)
       "nullAssignment.m", // pName
       4                   // checkKind
   };
-  static rtRunTimeErrorInfo ad_emlrtRTEI{
-      81,                // lineNo
-      27,                // colNo
-      "validate_inputs", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
-      "nullAssignment.m" // pName
-  };
-  static rtRunTimeErrorInfo yc_emlrtRTEI{
+  static rtRunTimeErrorInfo bd_emlrtRTEI{
       448,                       // lineNo
       1,                         // colNo
       "general_null_assignment", // fName
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
+      "nullAssignment.m" // pName
+  };
+  static rtRunTimeErrorInfo cd_emlrtRTEI{
+      81,                // lineNo
+      27,                // colNo
+      "validate_inputs", // fName
       "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "nullAssignment.m" // pName
   };
@@ -71,7 +71,7 @@ void nullAssignment(array<creal_T, 3U> &x, const array<int, 2U> &idx)
     }
   }
   if (!p) {
-    j_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
+    j_rtErrorWithMessageID(cd_emlrtRTEI.fName, cd_emlrtRTEI.lineNo);
   }
   b_x.set_size(x.size(0), x.size(1), x.size(2));
   loop_ub_tmp = x.size(0) * x.size(1);
@@ -102,10 +102,10 @@ void nullAssignment(array<creal_T, 3U> &x, const array<int, 2U> &idx)
   }
   nxout = x.size(1) - npages;
   if (nxout > x.size(1)) {
-    i_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
   }
   if (nxout < 0) {
-    rtNonNegativeError(static_cast<double>(nxout), r_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(nxout), s_emlrtDCI);
   }
   x.set_size(x.size(0), nxout, x.size(2));
   vstride = b_x.size(0);
@@ -144,7 +144,7 @@ void nullAssignment(array<creal_T, 3U> &x, const array<int, 2U> &idx)
 //
 void nullAssignment(array<double, 1U> &x, const array<int, 2U> &idx)
 {
-  static rtRunTimeErrorInfo yc_emlrtRTEI{
+  static rtRunTimeErrorInfo bd_emlrtRTEI{
       181,                      // lineNo
       9,                        // colNo
       "onearg_null_assignment", // fName
@@ -205,7 +205,7 @@ void nullAssignment(array<double, 1U> &x, const array<int, 2U> &idx)
     }
   }
   if (nxout > x.size(0)) {
-    i_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
   }
   if (nxout < 1) {
     nxout = 0;

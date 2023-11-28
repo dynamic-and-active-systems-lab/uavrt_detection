@@ -5,7 +5,7 @@
 // File: buildtimecorrelatormatrix.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
@@ -219,13 +219,13 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       0         // checkKind
   };
   static rtDoubleCheckInfo ab_emlrtDCI{
-      66,                              // lineNo
-      32,                              // colNo
+      39,                              // lineNo
+      1,                               // colNo
       "generate_pulse_positions_func", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
       "func.m", // pName
-      4         // checkKind
+      1         // checkKind
   };
   static rtDoubleCheckInfo bb_emlrtDCI{
       66,                              // lineNo
@@ -234,9 +234,18 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
       "func.m", // pName
-      1         // checkKind
+      4         // checkKind
   };
   static rtDoubleCheckInfo cb_emlrtDCI{
+      66,                              // lineNo
+      32,                              // colNo
+      "generate_pulse_positions_func", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
+      "func.m", // pName
+      1         // checkKind
+  };
+  static rtDoubleCheckInfo db_emlrtDCI{
       20,           // lineNo
       1,            // colNo
       "assembleWq", // fName
@@ -244,7 +253,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       "CODE_PLAYGROUND/uavrt_detection/assembleWq.m", // pName
       1                                               // checkKind
   };
-  static rtDoubleCheckInfo db_emlrtDCI{
+  static rtDoubleCheckInfo eb_emlrtDCI{
       18,                    // lineNo
       12,                    // colNo
       "cartesian_prod_func", // fName
@@ -252,7 +261,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       "CODE_PLAYGROUND/uavrt_detection/cartesian_prod_func.m", // pName
       1                                                        // checkKind
   };
-  static rtDoubleCheckInfo eb_emlrtDCI{
+  static rtDoubleCheckInfo fb_emlrtDCI{
       79,                              // lineNo
       5,                               // colNo
       "generate_pulse_positions_func", // fName
@@ -261,7 +270,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       "func.m", // pName
       1         // checkKind
   };
-  static rtDoubleCheckInfo fb_emlrtDCI{
+  static rtDoubleCheckInfo gb_emlrtDCI{
       46,                    // lineNo
       12,                    // colNo
       "cartesian_prod_func", // fName
@@ -269,7 +278,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       "CODE_PLAYGROUND/uavrt_detection/cartesian_prod_func.m", // pName
       1                                                        // checkKind
   };
-  static rtDoubleCheckInfo gb_emlrtDCI{
+  static rtDoubleCheckInfo hb_emlrtDCI{
       46,                    // lineNo
       17,                    // colNo
       "cartesian_prod_func", // fName
@@ -277,7 +286,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       "CODE_PLAYGROUND/uavrt_detection/cartesian_prod_func.m", // pName
       1                                                        // checkKind
   };
-  static rtDoubleCheckInfo hb_emlrtDCI{
+  static rtDoubleCheckInfo ib_emlrtDCI{
       80,                              // lineNo
       30,                              // colNo
       "generate_pulse_positions_func", // fName
@@ -286,7 +295,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       "func.m", // pName
       1         // checkKind
   };
-  static rtDoubleCheckInfo ib_emlrtDCI{
+  static rtDoubleCheckInfo jb_emlrtDCI{
       80,                              // lineNo
       55,                              // colNo
       "generate_pulse_positions_func", // fName
@@ -295,7 +304,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       "func.m", // pName
       1         // checkKind
   };
-  static rtDoubleCheckInfo jb_emlrtDCI{
+  static rtDoubleCheckInfo kb_emlrtDCI{
       84,                              // lineNo
       20,                              // colNo
       "generate_pulse_positions_func", // fName
@@ -304,7 +313,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       "func.m", // pName
       1         // checkKind
   };
-  static rtDoubleCheckInfo r_emlrtDCI{
+  static rtDoubleCheckInfo s_emlrtDCI{
       30,                          // lineNo
       25,                          // colNo
       "buildtimecorrelatormatrix", // fName
@@ -313,7 +322,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       ".m", // pName
       1     // checkKind
   };
-  static rtDoubleCheckInfo s_emlrtDCI{
+  static rtDoubleCheckInfo t_emlrtDCI{
       32,                          // lineNo
       25,                          // colNo
       "buildtimecorrelatormatrix", // fName
@@ -322,7 +331,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       ".m", // pName
       1     // checkKind
   };
-  static rtDoubleCheckInfo t_emlrtDCI{
+  static rtDoubleCheckInfo u_emlrtDCI{
       34,                              // lineNo
       32,                              // colNo
       "generate_pulse_positions_func", // fName
@@ -331,7 +340,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       "func.m", // pName
       4         // checkKind
   };
-  static rtDoubleCheckInfo u_emlrtDCI{
+  static rtDoubleCheckInfo v_emlrtDCI{
       34,                              // lineNo
       32,                              // colNo
       "generate_pulse_positions_func", // fName
@@ -340,7 +349,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       "func.m", // pName
       1         // checkKind
   };
-  static rtDoubleCheckInfo v_emlrtDCI{
+  static rtDoubleCheckInfo w_emlrtDCI{
       34,                              // lineNo
       50,                              // colNo
       "generate_pulse_positions_func", // fName
@@ -349,7 +358,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       "func.m", // pName
       1         // checkKind
   };
-  static rtDoubleCheckInfo w_emlrtDCI{
+  static rtDoubleCheckInfo x_emlrtDCI{
       36,                              // lineNo
       39,                              // colNo
       "generate_pulse_positions_func", // fName
@@ -358,18 +367,9 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       "func.m", // pName
       1         // checkKind
   };
-  static rtDoubleCheckInfo x_emlrtDCI{
-      39,                              // lineNo
-      31,                              // colNo
-      "generate_pulse_positions_func", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
-      "func.m", // pName
-      1         // checkKind
-  };
   static rtDoubleCheckInfo y_emlrtDCI{
       39,                              // lineNo
-      1,                               // colNo
+      31,                              // colNo
       "generate_pulse_positions_func", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/generate_pulse_positions_"
@@ -428,7 +428,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/assembleWq.m" // pName
   };
-  static rtRunTimeErrorInfo yc_emlrtRTEI{
+  static rtRunTimeErrorInfo bd_emlrtRTEI{
       82,         // lineNo
       5,          // colNo
       "fltpower", // fName
@@ -480,11 +480,11 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   // elements
   d = 2.0 * priUncert + 1.0;
   if (d != static_cast<int>(std::floor(d))) {
-    rtIntegerError(d, r_emlrtDCI);
+    rtIntegerError(d, s_emlrtDCI);
   }
   num_PRI_patterns = 2.0 * priJtr + 1.0;
   if (num_PRI_patterns != static_cast<int>(std::floor(num_PRI_patterns))) {
-    rtIntegerError(num_PRI_patterns, s_emlrtDCI);
+    rtIntegerError(num_PRI_patterns, t_emlrtDCI);
   }
   // Change names to align with other code.
   if ((std::isinf(-priUncert) || std::isinf(priUncert)) &&
@@ -569,41 +569,41 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   // --------------------------------------------------------------------------
   ntilecols = priJtrList.size(1);
   if ((ntilecols < 0) && (std::floor(reps - 1.0) != reps - 1.0)) {
-    mb_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+    mb_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
   }
   num_PRI_patterns = static_cast<double>(priMeansList.size(1)) *
                      rt_powd_snf(static_cast<double>(ntilecols), reps - 1.0);
   if (!(num_PRI_patterns >= 0.0)) {
-    rtNonNegativeError(num_PRI_patterns, t_emlrtDCI);
+    rtNonNegativeError(num_PRI_patterns, u_emlrtDCI);
   }
   i = static_cast<int>(std::floor(num_PRI_patterns));
   if (num_PRI_patterns != i) {
-    rtIntegerError(num_PRI_patterns, u_emlrtDCI);
+    rtIntegerError(num_PRI_patterns, v_emlrtDCI);
   }
   i1 = static_cast<int>(std::floor(reps));
   if (reps != i1) {
-    rtIntegerError(reps, v_emlrtDCI);
+    rtIntegerError(reps, w_emlrtDCI);
   }
   ncols = static_cast<int>(num_PRI_patterns);
   if (ncols != i) {
-    rtIntegerError(num_PRI_patterns, u_emlrtDCI);
+    rtIntegerError(num_PRI_patterns, v_emlrtDCI);
   }
   i2 = static_cast<int>(reps);
   if (i2 != i1) {
-    rtIntegerError(reps, v_emlrtDCI);
+    rtIntegerError(reps, w_emlrtDCI);
   }
   //  place first pulse at pulse position q = 1
   if (ncols != i) {
-    rtIntegerError(num_PRI_patterns, w_emlrtDCI);
+    rtIntegerError(num_PRI_patterns, x_emlrtDCI);
   }
   rtSubAssignSizeCheck(&ncols, 1, &ncols, 1, j_emlrtECI);
   //  based on the model, generate all the pulse position values in a 3D matrix
   if (i2 != i1) {
-    rtIntegerError(reps, x_emlrtDCI);
+    rtIntegerError(reps, y_emlrtDCI);
   }
   pulse_position_value.set_size(i2, priJtrList.size(1), priMeansList.size(1));
   if (i2 != i1) {
-    rtIntegerError(reps, y_emlrtDCI);
+    rtIntegerError(reps, ab_emlrtDCI);
   }
   loop_ub = i2 * priJtrList.size(1) * priMeansList.size(1);
   for (i = 0; i < loop_ub; i++) {
@@ -675,17 +675,17 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       static_cast<double>(priMeansList.size(1)) *
       rt_powd_snf(static_cast<double>(ntilecols), static_cast<double>(ncols));
   if (!(num_position_patterns >= 0.0)) {
-    rtNonNegativeError(num_position_patterns, ab_emlrtDCI);
+    rtNonNegativeError(num_position_patterns, bb_emlrtDCI);
   }
   if (num_position_patterns != static_cast<int>(num_position_patterns)) {
-    rtIntegerError(num_position_patterns, bb_emlrtDCI);
+    rtIntegerError(num_position_patterns, cb_emlrtDCI);
   }
   pulsePositionMatrix.set_size(static_cast<int>(num_position_patterns),
                                pulsePositionMatrix.size(1));
   pulsePositionMatrix.set_size(pulsePositionMatrix.size(0), ncols);
   if (static_cast<int>(num_position_patterns) !=
       static_cast<int>(num_position_patterns)) {
-    rtIntegerError(num_position_patterns, cb_emlrtDCI);
+    rtIntegerError(num_position_patterns, db_emlrtDCI);
   }
   loop_ub = static_cast<int>(num_position_patterns) * ncols;
   for (i = 0; i < loop_ub; i++) {
@@ -729,18 +729,18 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
     ntilecols = pulse_position_value.size(1);
     if ((ntilecols < 0) && (static_cast<double>(ncols) + 1.0 !=
                             static_cast<double>(ncols) + 1.0)) {
-      mb_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+      mb_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
     }
     num_PRI_patterns = rt_powd_snf(static_cast<double>(ntilecols),
                                    static_cast<double>(ncols) + 1.0);
     i1 = static_cast<int>(std::floor(num_PRI_patterns));
     if (num_PRI_patterns != i1) {
-      rtIntegerError(num_PRI_patterns, db_emlrtDCI);
+      rtIntegerError(num_PRI_patterns, eb_emlrtDCI);
     }
     i2 = static_cast<int>(num_PRI_patterns);
     pattern_matrix.set_size(i2, ncols + 1);
     if (i2 != i1) {
-      rtIntegerError(num_PRI_patterns, eb_emlrtDCI);
+      rtIntegerError(num_PRI_patterns, fb_emlrtDCI);
     }
     loop_ub = i2 * (ncols + 1);
     for (i1 = 0; i1 < loop_ub; i1++) {
@@ -771,7 +771,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
           i3 = 0;
         } else {
           if (star != static_cast<int>(std::floor(star))) {
-            rtIntegerError(star, fb_emlrtDCI);
+            rtIntegerError(star, gb_emlrtDCI);
           }
           if ((static_cast<int>(star) < 1) ||
               (static_cast<int>(star) > pattern_matrix.size(0))) {
@@ -780,7 +780,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
           }
           i2 = static_cast<int>(star) - 1;
           if (d != static_cast<int>(std::floor(d))) {
-            rtIntegerError(d, gb_emlrtDCI);
+            rtIntegerError(d, hb_emlrtDCI);
           }
           if ((static_cast<int>(d) < 1) ||
               (static_cast<int>(d) > pattern_matrix.size(0))) {
@@ -820,7 +820,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       i2 = 0;
     } else {
       if (d != static_cast<int>(d)) {
-        rtIntegerError(d, hb_emlrtDCI);
+        rtIntegerError(d, ib_emlrtDCI);
       }
       if ((static_cast<int>(d) < 1) ||
           (static_cast<int>(d) > pulsePositionMatrix.size(0))) {
@@ -829,7 +829,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
       }
       i1 = static_cast<int>(d) - 1;
       if (num_PRI_patterns != static_cast<int>(num_PRI_patterns)) {
-        rtIntegerError(num_PRI_patterns, ib_emlrtDCI);
+        rtIntegerError(num_PRI_patterns, jb_emlrtDCI);
       }
       if ((static_cast<int>(num_PRI_patterns) < 1) ||
           (static_cast<int>(num_PRI_patterns) > pulsePositionMatrix.size(0))) {
@@ -852,7 +852,7 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   }
   if (static_cast<int>(num_position_patterns) !=
       static_cast<int>(num_position_patterns)) {
-    rtIntegerError(num_position_patterns, jb_emlrtDCI);
+    rtIntegerError(num_position_patterns, kb_emlrtDCI);
   }
   if (num_position_patterns != 0.0) {
     ncols = static_cast<int>(num_position_patterns);
@@ -867,12 +867,12 @@ void buildtimecorrelatormatrix(double pri, double priUncert, double priJtr,
   }
   if ((static_cast<int>(num_position_patterns) != ncols) &&
       (!(num_position_patterns == 0.0))) {
-    hb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+    gb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
   }
   if ((pulsePositionMatrix.size(0) != ncols) &&
       ((pulsePositionMatrix.size(0) != 0) &&
        (pulsePositionMatrix.size(1) != 0))) {
-    hb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+    gb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
   }
   empty_non_axis_sizes = (ncols == 0);
   if (empty_non_axis_sizes || (num_position_patterns != 0.0)) {

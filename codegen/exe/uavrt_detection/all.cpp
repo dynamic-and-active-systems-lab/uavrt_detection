@@ -5,47 +5,19 @@
 // File: all.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
 #include "all.h"
 #include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
+#include "uavrt_detection_data.h"
+#include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
-#include "omp.h"
-#include <cstdio>
-#include <cstdlib>
-#include <sstream>
-#include <stdexcept>
-#include <string>
-
-// Function Declarations
-static void cc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-static void cc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  outStream << "Vector expression with zero stride is not supported.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
 //
 // Arguments    : const array<boolean_T, 2U> &x
 //                array<boolean_T, 1U> &y
@@ -54,13 +26,6 @@ static void cc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 namespace coder {
 void all(const array<boolean_T, 2U> &x, array<boolean_T, 1U> &y)
 {
-  static rtRunTimeErrorInfo yc_emlrtRTEI{
-      18,                               // lineNo
-      27,                               // colNo
-      "eml_int_forloop_overflow_check", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/eml/"
-      "eml_int_forloop_overflow_check.m" // pName
-  };
   int i1;
   int i2;
   int vstride;
@@ -87,7 +52,7 @@ void all(const array<boolean_T, 2U> &x, array<boolean_T, 1U> &y)
       overflow = (i2 > MAX_int32_T - vstride);
     }
     if (vstride == 0) {
-      cc_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+      cc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
     }
     if (overflow) {
       check_forloop_overflow_error();

@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
@@ -180,7 +180,7 @@ interleaveComplexVector(const coder::array<creal32_T, 1U> &complexDataIn,
     varargin_2[i] = complexDataIn[i].im;
   }
   if (varargin_2.size(0) != varargin_1.size(0)) {
-    hb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+    gb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
   }
   dataMatrix.set_size(2, varargin_1.size(0));
   loop_ub = varargin_1.size(0);
@@ -573,18 +573,18 @@ static void updateconfig(coder::b_captured_var &Config,
       "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
       0                                                   // checkKind
   };
-  static rtRunTimeErrorInfo ad_emlrtRTEI{
+  static rtRunTimeErrorInfo bd_emlrtRTEI{
+      37,      // lineNo
+      9,       // colNo
+      "fopen", // fName
+      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/fopen.m" // pName
+  };
+  static rtRunTimeErrorInfo cd_emlrtRTEI{
       11,                  // lineNo
       24,                  // colNo
       "mustBeNonnegative", // fName
       "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/validators/"
       "mustBeNonnegative.m" // pName
-  };
-  static rtRunTimeErrorInfo yc_emlrtRTEI{
-      37,      // lineNo
-      9,       // colNo
-      "fopen", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/fopen.m" // pName
   };
   static const char b_cv[2]{'I', 'D'};
   int st;
@@ -637,7 +637,7 @@ static void updateconfig(coder::b_captured_var &Config,
   //    none (method modifies the properties of the instance)
   //
   if (coder::internal::b_strcmp(lineStr)) {
-    b_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
   } else {
     signed char fileid;
     fileid = coder::internal::cfopen(lineStr, "rb");
@@ -844,7 +844,7 @@ static void updateconfig(coder::b_captured_var &Config,
           creal_T x;
           x = coder::internal::str2double(configValStr);
           if (!(x.re >= 0.0)) {
-            e_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
+            e_rtErrorWithMessageID(cd_emlrtRTEI.fName, cd_emlrtRTEI.lineNo);
           }
           r.channelCenterFreqMHz = x.re;
         } else if (!coder::internal::d_strcmp(configType)) {
@@ -902,14 +902,14 @@ static void updateconfig(coder::b_captured_var &Config,
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re >= 0.0)) {
-              e_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
+              e_rtErrorWithMessageID(cd_emlrtRTEI.fName, cd_emlrtRTEI.lineNo);
             }
             r.tipu = x.re;
           } else if (coder::internal::k_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re >= 0.0)) {
-              e_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
+              e_rtErrorWithMessageID(cd_emlrtRTEI.fName, cd_emlrtRTEI.lineNo);
             }
             r.tipj = x.re;
           } else {
@@ -1183,7 +1183,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
       0                                                    // checkKind
   };
-  static rtDoubleCheckInfo r_emlrtDCI{
+  static rtDoubleCheckInfo s_emlrtDCI{
       247,               // lineNo
       50,                // colNo
       "uavrt_detection", // fName
@@ -1191,7 +1191,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
       4                                                    // checkKind
   };
-  static rtDoubleCheckInfo s_emlrtDCI{
+  static rtDoubleCheckInfo t_emlrtDCI{
       247,               // lineNo
       50,                // colNo
       "uavrt_detection", // fName
@@ -1636,10 +1636,10 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             "Missing samples detected. Filling with zeros for %lu samples.", u);
         std::fflush(stdout);
         if (!(missingSamples >= 0.0)) {
-          rtNonNegativeError(missingSamples, r_emlrtDCI);
+          rtNonNegativeError(missingSamples, s_emlrtDCI);
         }
         if (missingSamples != static_cast<int>(missingSamples)) {
-          rtIntegerError(missingSamples, s_emlrtDCI);
+          rtIntegerError(missingSamples, t_emlrtDCI);
         }
         loop_ub = static_cast<int>(missingSamples);
         r.set_size(static_cast<int>(missingSamples));

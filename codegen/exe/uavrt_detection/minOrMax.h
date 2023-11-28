@@ -5,7 +5,7 @@
 // File: minOrMax.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 #ifndef MINORMAX_H
@@ -18,8 +18,16 @@
 #include <cstdlib>
 
 // Function Declarations
+double binary_expand_op_21(const coder::array<double, 1U> &in1,
+                           const coder::array<double, 1U> &in2, int &out2);
+
+double binary_expand_op_23(const coder::array<boolean_T, 1U> &in1,
+                           const coder::array<double, 1U> &in2, int &out2);
+
 namespace coder {
 namespace internal {
+double b_maximum(const array<double, 1U> &x, int &idx);
+
 double b_minimum(const double x[2]);
 
 double maximum(const array<double, 1U> &x);

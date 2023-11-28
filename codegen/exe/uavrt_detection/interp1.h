@@ -5,7 +5,7 @@
 // File: interp1.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 #ifndef INTERP1_H
@@ -19,12 +19,12 @@
 
 // Function Declarations
 namespace coder {
+void interp1(const double varargin_1[2], const double varargin_2[2],
+             const array<double, 2U> &varargin_3, array<double, 2U> &Vq);
+
 void interp1(const array<double, 1U> &varargin_1,
              const array<double, 1U> &varargin_2,
              const array<double, 1U> &varargin_3, array<double, 1U> &Vq);
-
-void interp1Linear(const double y[2], const array<double, 2U> &xi,
-                   array<double, 2U> &yi, const double varargin_1[2]);
 
 void interp1Linear(const double y[2], const array<double, 1U> &xi,
                    array<double, 1U> &yi);

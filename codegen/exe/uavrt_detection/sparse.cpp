@@ -5,7 +5,7 @@
 // File: sparse.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
@@ -35,7 +35,7 @@ void i_sparse(const array<double, 1U> &varargin_1,
               const array<double, 1U> &varargin_3, sparse &y)
 {
   static rtDoubleCheckInfo
-      r_emlrtDCI{
+      s_emlrtDCI{
           13,       // lineNo
           1,        // colNo
           "sparse", // fName
@@ -43,15 +43,15 @@ void i_sparse(const array<double, 1U> &varargin_1,
           "sparse.m", // pName
           4           // checkKind
       };
-  static rtRunTimeErrorInfo ad_emlrtRTEI{
-      116,             // lineNo
+  static rtRunTimeErrorInfo bd_emlrtRTEI{
+      111,             // lineNo
       35,              // colNo
       "sparse/sparse", // fName
       "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
       "+internal/@sparse/sparse.m" // pName
   };
-  static rtRunTimeErrorInfo yc_emlrtRTEI{
-      111,             // lineNo
+  static rtRunTimeErrorInfo cd_emlrtRTEI{
+      116,             // lineNo
       35,              // colNo
       "sparse/sparse", // fName
       "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
@@ -67,11 +67,11 @@ void i_sparse(const array<double, 1U> &varargin_1,
   nc = varargin_2.size(0);
   if ((varargin_1.size(0) != varargin_2.size(0)) ||
       (varargin_3.size(0) != varargin_2.size(0))) {
-    ob_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+    ob_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
   }
   if ((varargin_3.size(0) != varargin_2.size(0)) &&
       (varargin_3.size(0) != varargin_1.size(0))) {
-    ob_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
+    ob_rtErrorWithMessageID(cd_emlrtRTEI.fName, cd_emlrtRTEI.lineNo);
   }
   sparse::assertValidIndexArg(varargin_1, b_this.workspace.b);
   sparse::assertValidIndexArg(varargin_2, b_this.workspace.a);
@@ -135,11 +135,11 @@ void i_sparse(const array<double, 1U> &varargin_1,
   }
   y.maxnz = ny;
   if (y.n + 1 < 0) {
-    rtNonNegativeError(static_cast<double>(y.n + 1), r_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(y.n + 1), s_emlrtDCI);
   }
   y.colidx.set_size(y.n + 1);
   if (y.n + 1 < 0) {
-    rtNonNegativeError(static_cast<double>(y.n + 1), r_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(y.n + 1), s_emlrtDCI);
   }
   thism = y.n + 1;
   for (i = 0; i < thism; i++) {
@@ -180,7 +180,7 @@ void i_sparse(const array<double, 1U> &varargin_1, g_sparse &y)
   int row;
   mInt = varargin_1.size(0);
   if (varargin_1.size(0) >= MAX_int32_T) {
-    uc_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
+    uc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
   }
   numalloc = 0;
   row = varargin_1.size(0);
@@ -227,7 +227,7 @@ void j_sparse(const array<boolean_T, 2U> &varargin_1, d_sparse &y)
   int numalloc;
   nInt = varargin_1.size(1);
   if (varargin_1.size(1) >= MAX_int32_T) {
-    uc_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
+    uc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
   }
   numalloc = 0;
   i = varargin_1.size(1);

@@ -5,15 +5,13 @@
 // File: interp1.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
 #include "interp1.h"
 #include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
-#include "uavrt_detection_data.h"
-#include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
 #include "omp.h"
@@ -24,17 +22,42 @@
 #include <stdexcept>
 #include <string>
 
+// Variable Definitions
+static rtRunTimeErrorInfo
+    ac_emlrtRTEI{
+        166,            // lineNo
+        13,             // colNo
+        "interp1_work", // fName
+        "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/polyfun/"
+        "interp1.m" // pName
+    };
+
+static rtRunTimeErrorInfo
+    bc_emlrtRTEI{
+        208,            // lineNo
+        13,             // colNo
+        "interp1_work", // fName
+        "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/polyfun/"
+        "interp1.m" // pName
+    };
+
 // Function Declarations
 static void ac_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void bc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 namespace coder {
+static void interp1Linear(const double y[2], const array<double, 2U> &xi,
+                          array<double, 2U> &yi, const double varargin_1[2]);
+
 static void interp1Linear(const array<double, 1U> &y, int nyrows,
                           const array<double, 1U> &xi, array<double, 1U> &yi,
                           const array<double, 1U> &varargin_1);
 
-}
+} // namespace coder
+static void kb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+static void lb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -80,6 +103,48 @@ static void bc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 }
 
 //
+// Arguments    : const double y[2]
+//                const array<double, 2U> &xi
+//                array<double, 2U> &yi
+//                const double varargin_1[2]
+// Return Type  : void
+//
+namespace coder {
+static void interp1Linear(const double y[2], const array<double, 2U> &xi,
+                          array<double, 2U> &yi, const double varargin_1[2])
+{
+  double maxx;
+  double minx;
+  double r;
+  int ub_loop;
+  minx = varargin_1[0];
+  maxx = varargin_1[1];
+  if (xi.size(1) > 2147483646) {
+    check_forloop_overflow_error();
+  }
+  ub_loop = xi.size(1) - 1;
+#pragma omp parallel for num_threads(omp_get_max_threads()) private(r)
+
+  for (int k = 0; k <= ub_loop; k++) {
+    r = xi[k];
+    if (std::isnan(r)) {
+      yi[k] = rtNaN;
+    } else if ((!(r > maxx)) && (!(r < minx))) {
+      r = (r - varargin_1[0]) / (varargin_1[1] - varargin_1[0]);
+      if (r == 0.0) {
+        yi[k] = y[0];
+      } else if (r == 1.0) {
+        yi[k] = y[1];
+      } else if (y[0] == y[1]) {
+        yi[k] = y[0];
+      } else {
+        yi[k] = (1.0 - r) * y[0] + r * y[1];
+      }
+    }
+  }
+}
+
+//
 // Arguments    : const array<double, 1U> &y
 //                int nyrows
 //                const array<double, 1U> &xi
@@ -87,7 +152,6 @@ static void bc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                const array<double, 1U> &varargin_1
 // Return Type  : void
 //
-namespace coder {
 static void interp1Linear(const array<double, 1U> &y, int nyrows,
                           const array<double, 1U> &xi, array<double, 1U> &yi,
                           const array<double, 1U> &varargin_1)
@@ -157,6 +221,102 @@ static void interp1Linear(const array<double, 1U> &y, int nyrows,
 }
 
 //
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+} // namespace coder
+static void kb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "NaN is not an appropriate value for X.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void lb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "The data abscissae must be distinct and strictly monotonic.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const double varargin_1[2]
+//                const double varargin_2[2]
+//                const array<double, 2U> &varargin_3
+//                array<double, 2U> &Vq
+// Return Type  : void
+//
+namespace coder {
+void interp1(const double varargin_1[2], const double varargin_2[2],
+             const array<double, 2U> &varargin_3, array<double, 2U> &Vq)
+{
+  double x[2];
+  double y[2];
+  int loop_ub;
+  boolean_T b;
+  y[0] = varargin_2[0];
+  x[0] = varargin_1[0];
+  y[1] = varargin_2[1];
+  x[1] = varargin_1[1];
+  Vq.set_size(1, varargin_3.size(1));
+  loop_ub = varargin_3.size(1);
+  for (int i{0}; i < loop_ub; i++) {
+    Vq[i] = rtNaN;
+  }
+  b = (varargin_3.size(1) == 0);
+  if (!b) {
+    loop_ub = 0;
+    int exitg1;
+    do {
+      exitg1 = 0;
+      if (loop_ub < 2) {
+        if (std::isnan(varargin_1[loop_ub])) {
+          kb_rtErrorWithMessageID(ac_emlrtRTEI.fName, ac_emlrtRTEI.lineNo);
+        } else {
+          loop_ub++;
+        }
+      } else {
+        if (varargin_1[1] < 0.0) {
+          x[0] = varargin_1[1];
+          x[1] = 0.0;
+          y[0] = varargin_2[1];
+          y[1] = varargin_2[0];
+        }
+        if (x[1] <= x[0]) {
+          lb_rtErrorWithMessageID(bc_emlrtRTEI.fName, bc_emlrtRTEI.lineNo);
+        }
+        interp1Linear(y, varargin_3, Vq, x);
+        exitg1 = 1;
+      }
+    } while (exitg1 == 0);
+  }
+}
+
+//
 // Arguments    : const array<double, 1U> &varargin_1
 //                const array<double, 1U> &varargin_2
 //                const array<double, 1U> &varargin_3
@@ -168,17 +328,17 @@ void interp1(const array<double, 1U> &varargin_1,
              const array<double, 1U> &varargin_3, array<double, 1U> &Vq)
 {
   static rtRunTimeErrorInfo
-      ad_emlrtRTEI{
-          139,            // lineNo
-          23,             // colNo
+      bd_emlrtRTEI{
+          155,            // lineNo
+          15,             // colNo
           "interp1_work", // fName
           "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/polyfun/"
           "interp1.m" // pName
       };
   static rtRunTimeErrorInfo
-      yc_emlrtRTEI{
-          155,            // lineNo
-          15,             // colNo
+      cd_emlrtRTEI{
+          139,            // lineNo
+          23,             // colNo
           "interp1_work", // fName
           "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/polyfun/"
           "interp1.m" // pName
@@ -200,10 +360,10 @@ void interp1(const array<double, 1U> &varargin_1,
   }
   nx = varargin_1.size(0);
   if (varargin_1.size(0) != varargin_2.size(0)) {
-    ac_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
+    ac_rtErrorWithMessageID(cd_emlrtRTEI.fName, cd_emlrtRTEI.lineNo);
   }
   if (varargin_1.size(0) <= 1) {
-    bc_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+    bc_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
   }
   Vq.set_size(varargin_3.size(0));
   n = varargin_3.size(0);
@@ -221,7 +381,7 @@ void interp1(const array<double, 1U> &varargin_1,
       exitg1 = 0;
       if (k <= nx - 1) {
         if (std::isnan(varargin_1[k])) {
-          lb_rtErrorWithMessageID(ac_emlrtRTEI.fName, ac_emlrtRTEI.lineNo);
+          kb_rtErrorWithMessageID(ac_emlrtRTEI.fName, ac_emlrtRTEI.lineNo);
         } else {
           k++;
         }
@@ -249,54 +409,13 @@ void interp1(const array<double, 1U> &varargin_1,
         }
         for (k = 2; k <= nx; k++) {
           if (x[k - 1] <= x[k - 2]) {
-            kb_rtErrorWithMessageID(yb_emlrtRTEI.fName, yb_emlrtRTEI.lineNo);
+            lb_rtErrorWithMessageID(bc_emlrtRTEI.fName, bc_emlrtRTEI.lineNo);
           }
         }
         interp1Linear(y, varargin_2.size(0), varargin_3, Vq, x);
         exitg1 = 1;
       }
     } while (exitg1 == 0);
-  }
-}
-
-//
-// Arguments    : const double y[2]
-//                const array<double, 2U> &xi
-//                array<double, 2U> &yi
-//                const double varargin_1[2]
-// Return Type  : void
-//
-void interp1Linear(const double y[2], const array<double, 2U> &xi,
-                   array<double, 2U> &yi, const double varargin_1[2])
-{
-  double maxx;
-  double minx;
-  double r;
-  int ub_loop;
-  minx = varargin_1[0];
-  maxx = varargin_1[1];
-  if (xi.size(1) > 2147483646) {
-    check_forloop_overflow_error();
-  }
-  ub_loop = xi.size(1) - 1;
-#pragma omp parallel for num_threads(omp_get_max_threads()) private(r)
-
-  for (int k = 0; k <= ub_loop; k++) {
-    r = xi[k];
-    if (std::isnan(r)) {
-      yi[k] = rtNaN;
-    } else if ((!(r > maxx)) && (!(r < minx))) {
-      r = (r - varargin_1[0]) / (varargin_1[1] - varargin_1[0]);
-      if (r == 0.0) {
-        yi[k] = y[0];
-      } else if (r == 1.0) {
-        yi[k] = y[1];
-      } else if (y[0] == y[1]) {
-        yi[k] = y[0];
-      } else {
-        yi[k] = (1.0 - r) * y[0] + r * y[1];
-      }
-    }
   }
 }
 

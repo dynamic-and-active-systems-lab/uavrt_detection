@@ -5,7 +5,7 @@
 // File: pwd.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
@@ -84,16 +84,16 @@ static void n_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 namespace coder {
 void pwd(array<char, 2U> &wd)
 {
-  static rtRunTimeErrorInfo ad_emlrtRTEI{
-      23,                           // lineNo
-      13,                           // colNo
+  static rtRunTimeErrorInfo bd_emlrtRTEI{
+      30,                           // lineNo
+      47,                           // colNo
       "CoderFileOperationsAPI/pwd", // fName
       "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "CoderFileOperationsAPI.m" // pName
   };
-  static rtRunTimeErrorInfo yc_emlrtRTEI{
-      30,                           // lineNo
-      47,                           // colNo
+  static rtRunTimeErrorInfo cd_emlrtRTEI{
+      23,                           // lineNo
+      13,                           // colNo
       "CoderFileOperationsAPI/pwd", // fName
       "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
       "CoderFileOperationsAPI.m" // pName
@@ -102,7 +102,7 @@ void pwd(array<char, 2U> &wd)
   int fileNameMax;
   fileNameMax = coderGetLenghtOfCwd();
   if (fileNameMax == -2) {
-    n_rtErrorWithMessageID(ad_emlrtRTEI.fName, ad_emlrtRTEI.lineNo);
+    n_rtErrorWithMessageID(cd_emlrtRTEI.fName, cd_emlrtRTEI.lineNo);
   }
   if (fileNameMax + 1 < 0) {
     rtNonNegativeError(static_cast<double>(fileNameMax + 1), emlrtDCI);
@@ -110,7 +110,7 @@ void pwd(array<char, 2U> &wd)
   wdTemp.set_size(1, fileNameMax + 1);
   fileNameMax = coderGetCurrentDirectory(&wdTemp[0], fileNameMax + 1);
   if (fileNameMax == -1) {
-    c_rtErrorWithMessageID("pwd", yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID("pwd", bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
   }
   if (fileNameMax < 1) {
     fileNameMax = 0;

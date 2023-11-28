@@ -5,7 +5,7 @@
 // File: introsort.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
@@ -28,7 +28,7 @@
 #include <string>
 
 // Variable Definitions
-static rtRunTimeErrorInfo vc_emlrtRTEI{
+static rtRunTimeErrorInfo xc_emlrtRTEI{
     62,           // lineNo
     39,           // colNo
     "stack/push", // fName
@@ -36,7 +36,7 @@ static rtRunTimeErrorInfo vc_emlrtRTEI{
     "+internal/stack.m" // pName
 };
 
-static rtDoubleCheckInfo q_emlrtDCI{
+static rtDoubleCheckInfo r_emlrtDCI{
     48,            // lineNo
     48,            // colNo
     "stack/stack", // fName
@@ -114,14 +114,14 @@ void introsort(array<int, 1U> &x, int xend, const anonymous_function &cmp)
       frame.depth = 0;
       pmax = MAXDEPTH << 1;
       if (pmax < 0) {
-        rtNonNegativeError(static_cast<double>(pmax), q_emlrtDCI);
+        rtNonNegativeError(static_cast<double>(pmax), r_emlrtDCI);
       }
       st.d.size[0] = pmax;
       for (i = 0; i < pmax; i++) {
         st.d.data[i] = frame;
       }
       if (pmax <= 0) {
-        pc_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+        pc_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
       }
       st.d.data[0] = frame;
       st.n = 1;
@@ -242,7 +242,7 @@ void introsort(array<int, 1U> &x, int xend, const anonymous_function &cmp)
           x[pmax] = pow2p + 1;
           if (pmax + 2 < frame.xend) {
             if (frame_tmp_tmp >= st.d.size[0]) {
-              pc_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+              pc_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
             }
             st.d.data[frame_tmp_tmp].xstart = pmax + 2;
             st.d.data[frame_tmp_tmp].xend = frame.xend;
@@ -251,7 +251,7 @@ void introsort(array<int, 1U> &x, int xend, const anonymous_function &cmp)
           }
           if (frame.xstart < pmax + 1) {
             if (st.n >= st.d.size[0]) {
-              pc_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+              pc_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
             }
             st.d.data[st.n].xstart = frame.xstart;
             st.d.data[st.n].xend = pmax + 1;
@@ -306,14 +306,14 @@ void introsort(array<int, 1U> &x, int xend, const c_anonymous_function &cmp)
       frame.depth = 0;
       pmax = MAXDEPTH << 1;
       if (pmax < 0) {
-        rtNonNegativeError(static_cast<double>(pmax), q_emlrtDCI);
+        rtNonNegativeError(static_cast<double>(pmax), r_emlrtDCI);
       }
       st.d.size[0] = pmax;
       for (i = 0; i < pmax; i++) {
         st.d.data[i] = frame;
       }
       if (pmax <= 0) {
-        pc_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+        pc_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
       }
       st.d.data[0] = frame;
       st.n = 1;
@@ -379,7 +379,7 @@ void introsort(array<int, 1U> &x, int xend, const c_anonymous_function &cmp)
           x[pmax] = pow2p;
           if (pmax + 2 < frame.xend) {
             if (frame_tmp_tmp >= st.d.size[0]) {
-              pc_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+              pc_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
             }
             st.d.data[frame_tmp_tmp].xstart = pmax + 2;
             st.d.data[frame_tmp_tmp].xend = frame.xend;
@@ -388,7 +388,7 @@ void introsort(array<int, 1U> &x, int xend, const c_anonymous_function &cmp)
           }
           if (frame.xstart < pmax + 1) {
             if (st.n >= st.d.size[0]) {
-              pc_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+              pc_rtErrorWithMessageID(xc_emlrtRTEI.fName, xc_emlrtRTEI.lineNo);
             }
             st.d.data[st.n].xstart = frame.xstart;
             st.d.data[st.n].xend = pmax + 1;

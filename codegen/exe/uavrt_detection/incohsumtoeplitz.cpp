@@ -5,7 +5,7 @@
 // File: incohsumtoeplitz.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
@@ -450,9 +450,9 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   if (S.size(0) != Wfherm.size(1)) {
     if (((Wfherm.size(0) == 1) && (Wfherm.size(1) == 1)) ||
         ((S.size(0) == 1) && (S.size(1) == 1))) {
-      dc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+      dc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
     } else {
-      tb_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
+      tb_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
     }
   }
   coder::internal::blas::mtimes(Wfherm, S, d_y);
@@ -508,6 +508,9 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   }
   if (static_cast<int>(varargin_1) > maxdimlen) {
     k_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+  }
+  if (static_cast<int>(varargin_1) < 0) {
+    jb_rtErrorWithMessageID(yb_emlrtRTEI.fName, yb_emlrtRTEI.lineNo);
   }
   if (static_cast<int>(K) * static_cast<int>(varargin_1) != ex.size(0)) {
     l_rtErrorWithMessageID(o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);

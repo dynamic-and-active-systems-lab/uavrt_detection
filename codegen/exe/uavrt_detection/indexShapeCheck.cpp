@@ -5,7 +5,7 @@
 // File: indexShapeCheck.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
@@ -29,7 +29,7 @@ static rtRunTimeErrorInfo mb_emlrtRTEI{
 };
 
 // Function Declarations
-static void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void cb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void kc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
@@ -43,7 +43,7 @@ static void mc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void cb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -255,7 +255,7 @@ void indexShapeCheck(const double matrixSize[2], const double indexSize[2])
 void indexShapeCheck(int matrixSize, const int indexSize[2])
 {
   if ((matrixSize == 1) && (indexSize[1] != 1)) {
-    db_rtErrorWithMessageID(mb_emlrtRTEI.fName, mb_emlrtRTEI.lineNo);
+    cb_rtErrorWithMessageID(mb_emlrtRTEI.fName, mb_emlrtRTEI.lineNo);
   }
 }
 

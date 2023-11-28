@@ -5,7 +5,7 @@
 // File: threshold.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
@@ -130,7 +130,7 @@ void threshold::makenewthreshold(const waveform &Wfm)
       "CODE_PLAYGROUND/uavrt_detection/threshold.m", // pName
       0                                              // checkKind
   };
-  static rtDoubleCheckInfo r_emlrtDCI{
+  static rtDoubleCheckInfo s_emlrtDCI{
       148,                          // lineNo
       17,                           // colNo
       "threshold/makenewthreshold", // fName
@@ -283,12 +283,12 @@ void threshold::makenewthreshold(const waveform &Wfm)
     // enough in our STFT output. We'll clip off any excess after the STFT
     u = trials;
     if (static_cast<double>(u) != static_cast<int>(u)) {
-      rtIntegerError(static_cast<double>(u), r_emlrtDCI);
+      rtIntegerError(static_cast<double>(u), s_emlrtDCI);
     }
     nbytes = static_cast<int>(u);
     scores.set_size(nbytes);
     if (static_cast<double>(u) != static_cast<int>(u)) {
-      rtIntegerError(static_cast<double>(u), r_emlrtDCI);
+      rtIntegerError(static_cast<double>(u), s_emlrtDCI);
     }
     for (k = 0; k < nbytes; k++) {
       scores[k] = 0.0;
@@ -369,9 +369,9 @@ void threshold::makenewthreshold(const waveform &Wfm)
       if (xsynth.size(0) != Ssynth.size(0)) {
         if (((xsynth.size(0) == 1) && (xsynth.size(1) == 1)) ||
             ((Ssynth.size(0) == 1) && (Ssynth.size(1) == 1))) {
-          dc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+          dc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
         } else {
-          tb_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
+          tb_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
         }
       }
       m = xsynth.size(1);
@@ -506,12 +506,12 @@ void threshold::makenewthreshold(const waveform &Wfm)
       std::fflush(stdout);
     } else {
       if (fileid == 0) {
-        g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+        g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
       }
       f = coder::internal::getfilestar(static_cast<double>(fileid),
                                        incompleteRead);
       if (f == nullptr) {
-        c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+        c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
       } else {
         std::fprintf(f, "%f\n", stftSz[0]);
         if (incompleteRead) {
@@ -519,12 +519,12 @@ void threshold::makenewthreshold(const waveform &Wfm)
         }
       }
       if (fileid == 0) {
-        g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+        g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
       }
       f = coder::internal::getfilestar(static_cast<double>(fileid),
                                        incompleteRead);
       if (f == nullptr) {
-        c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+        c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
       } else {
         std::fprintf(f, "%f\n", stftSz[1]);
         if (incompleteRead) {

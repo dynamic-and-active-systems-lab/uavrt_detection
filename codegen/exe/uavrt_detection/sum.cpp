@@ -5,7 +5,7 @@
 // File: sum.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
@@ -28,7 +28,7 @@ namespace coder {
 void sum(const sparse &x, b_sparse &y)
 {
   static rtDoubleCheckInfo
-      r_emlrtDCI{
+      s_emlrtDCI{
           20,    // lineNo
           1,     // colNo
           "sum", // fName
@@ -40,7 +40,7 @@ void sum(const sparse &x, b_sparse &y)
     int outidx;
     y.n = x.n;
     if (x.n + 1 < 0) {
-      rtNonNegativeError(static_cast<double>(x.n + 1), r_emlrtDCI);
+      rtNonNegativeError(static_cast<double>(x.n + 1), s_emlrtDCI);
     }
     outidx = x.n + 1;
     y.colidx.set_size(x.n + 1);
@@ -66,7 +66,7 @@ void sum(const sparse &x, b_sparse &y)
     y.d.set_size(u1);
     y.rowidx.set_size(u1);
     if (x.n + 1 < 0) {
-      rtNonNegativeError(static_cast<double>(x.n + 1), n_emlrtDCI);
+      rtNonNegativeError(static_cast<double>(x.n + 1), o_emlrtDCI);
     }
     y.colidx.set_size(x.n + 1);
     y.colidx[0] = 1;

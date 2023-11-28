@@ -1857,31 +1857,39 @@ fprintf('ps_pos.fstart and ps_pre.fend at the end Tracking search : \t %f \t to 
             %     selectedIndex = find(interPulseAligned);
             % end
             % 
-            
+            selectedIndex = NaN;
             if sum(interPulseAligned, 1) == 1
                 %Only one option that has pulse times aligned with 
                 %previous segment, so select that even if there are 
                 %stronger (higher scoring) pulses available
-                selectedIndex = find(interPulseAligned);
-                fprintf('Selected peak at frequency %d Hz from center because it was the only one that was aligned in time with candidates from the previous segment.',candidateList(peakIndexList(selectedIndex), 1).fp )
+                selectedIndex  = find(interPulseAligned, 1);%There will only be 1, but we use n = 1 so coder knows there selectedIndex will be a scalar
+                selectedIndex = selectedIndex(1);
+                aSelectedPulse = candidateList(peakIndexList(selectedIndex), 1);
+                fprintf('Selected peak at frequency %f Hz from center because it was the only one that was aligned in time with candidates from the previous segment.',aSelectedPulse.fp )
             elseif sum(interPulseAligned, 1) > 1
                 if sum(interPulseAligned .* doesntContainSingleBigPeak, 1) == 1
                     %Single option that doesn't contain a single big 
                     %peak and pulses are aligned in time so pick that one
-                    selectedIndex = find(interPulseAligned .* doesntContainSingleBigPeak);
-                    fprintf('Selected peak at frequency %d Hz from center because of those that were aligned in time with candidates from the previous segment, it was the only one without a single big peak.', candidateList(peakIndexList(selectedIndex), 1).fp )
+                    selectedIndex = find(interPulseAligned .* doesntContainSingleBigPeak, 1); %There will only be 1, but we use n = 1 so coder knows there selectedIndex will be a scalar
+                    selectedIndex = selectedIndex(1);
+                    aSelectedPulse = candidateList(peakIndexList(selectedIndex), 1);
+                    fprintf('Selected peak at frequency %f Hz from center because of those that were aligned in time with candidates from the previous segment, it was the only one without a single big peak.', aSelectedPulse.fp )
                 elseif  sum(interPulseAligned .* doesntContainSingleBigPeak, 1) > 1
                     %Multiple options that don't contain a single big 
                     %peak and pulses are aligned in time. Pick the one 
                     %with the biggest score from that subset. 
-                    [~,selectedIndex] = max(interPulseAligned .* doesntContainSingleBigPeak .* sumScores,[],1);
-                    fprintf('Selected peak at frequency %d Hz from center because of those that were aligned in time with candidates from the previous segment and those without a single big peak, it had the strongst pulses', candidateList(peakIndexList(selectedIndex), 1).fp )
+                    [~,selectedIndex] = max(interPulseAligned .* doesntContainSingleBigPeak .* sumScores,[], 1);
+                    selectedIndex = selectedIndex(1);
+                    aSelectedPulse = candidateList(peakIndexList(selectedIndex), 1);
+                    fprintf('Selected peak at frequency %f Hz from center because of those that were aligned in time with candidates from the previous segment and those without a single big peak, it had the strongst pulses', aSelectedPulse.fp )
                 elseif  sum(interPulseAligned .* doesntContainSingleBigPeak, 1) == 0
                     %No options that don't contain a single big 
                     %peak and pulses are aligned in time. Pick the one 
                     %with the biggest score. 
-                   [~,selectedIndex] = max(sumScores,[],1);
-                   fprintf('Selected peak at frequency %d Hz from center because there were no pulses that aligned in time with the previous segment that also did not have a single bit peak, so the stronget pulse set was selected.', candidateList(peakIndexList(selectedIndex), 1).fp )
+                    [~,selectedIndex] = max(sumScores,[],1);
+                    selectedIndex = selectedIndex(1);
+                    aSelectedPulse = candidateList(peakIndexList(selectedIndex), 1);
+                    fprintf('Selected peak at frequency %f Hz from center because there were no pulses that aligned in time with the previous segment that also did not have a single bit peak, so the stronget pulse set was selected.', aSelectedPulse.fp )
                 end
             elseif sum(interPulseAligned, 1) == 0
                 %No pulses are aligned in time, so only use single big 
@@ -1889,20 +1897,26 @@ fprintf('ps_pos.fstart and ps_pre.fend at the end Tracking search : \t %f \t to 
                if sum(doesntContainSingleBigPeak, 1) == 1
                     %Single option that doesn't contain a single big 
                     %peak and pulses are aligned in time so pick that one
-                    selectedIndex = find(doesntContainSingleBigPeak);
-                    fprintf('Selected peak at frequency %d Hz from center because no pulses that aligned in time with the previous segment were found and this was the only one that did not have a single big peak.', candidateList(peakIndexList(selectedIndex),1).fp )
+                    selectedIndex = find(doesntContainSingleBigPeak, 1); %There will only be 1, but we use n = 1 so coder knows there selectedIndex will be a scalar
+                    selectedIndex = selectedIndex(1);
+                    aSelectedPulse = candidateList(peakIndexList(selectedIndex), 1);
+                    fprintf('Selected peak at frequency %f Hz from center because no pulses that aligned in time with the previous segment were found and this was the only one that did not have a single big peak.', aSelectedPulse.fp )
                 elseif  sum(doesntContainSingleBigPeak, 1) > 1
                     %Multiple options that don't contain a single big 
                     %peak. Pick the one with the biggest score from that
                     %subset. 
                     [~,selectedIndex] = max(doesntContainSingleBigPeak .* sumScores,[],1);
-                    fprintf('Selected peak at frequency %d Hz from center because no pulses that aligned in time with the previous segment were found and of those that did not have a single big peak, this one had the strongest pulses.', candidateList(peakIndexList(selectedIndex), 1).fp )
+                    selectedIndex = selectedIndex(1);
+                    aSelectedPulse = candidateList(peakIndexList(selectedIndex), 1);
+                    fprintf('Selected peak at frequency %f Hz from center because no pulses that aligned in time with the previous segment were found and of those that did not have a single big peak, this one had the strongest pulses.', aSelectedPulse.fp )
                 elseif  sum(doesntContainSingleBigPeak, 1) == 0
                     %No options that don't contain a single big 
                     %peak and pulses are aligned in time. Pick the one 
                     %with the biggest score. 
-                    [~,selectedIndex] = max(sumScores,[],1);
-                    fprintf('Selected peak at frequency %d Hz from center because no pulses that aligned in time with the previous segment were found and all peaks considered had a single big peak. This one had the strongest pulses.',candidateList(peakIndexList(selectedIndex), 1).fp )
+                    [~,selectedIndex] = max(sumScores,[], 1);
+                    selectedIndex = selectedIndex(1);
+                    aSelectedPulse = candidateList(peakIndexList(selectedIndex), 1);
+                    fprintf('Selected peak at frequency %f Hz from center because no pulses that aligned in time with the previous segment were found and all peaks considered had a single big peak. This one had the strongest pulses.', aSelectedPulse.fp )
                end
             end
         end

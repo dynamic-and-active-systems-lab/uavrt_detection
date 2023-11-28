@@ -5,7 +5,7 @@
 // File: repmat.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 #ifndef REPMAT_H
@@ -26,11 +26,11 @@ void b_repmat(const array<double, 2U> &a, double varargin_1,
 void repmat(const array<double, 2U> &a, double varargin_1,
             array<double, 2U> &b);
 
-void repmat(const array<double, 1U> &a, double varargin_2,
-            array<double, 2U> &b);
-
 void repmat(const c_struct_T &a, double varargin_1, double varargin_2,
             array<c_struct_T, 2U> &b);
+
+void repmat(const array<double, 1U> &a, double varargin_2,
+            array<double, 2U> &b);
 
 } // namespace coder
 

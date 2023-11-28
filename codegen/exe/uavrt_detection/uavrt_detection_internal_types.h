@@ -5,7 +5,7 @@
 // File: uavrt_detection_internal_types.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 #ifndef UAVRT_DETECTION_INTERNAL_TYPES_H

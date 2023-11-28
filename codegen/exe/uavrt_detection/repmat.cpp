@@ -5,7 +5,7 @@
 // File: repmat.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
@@ -18,6 +18,15 @@
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
 #include <cmath>
+
+// Variable Definitions
+static rtDoubleCheckInfo l_emlrtDCI{
+    31,       // lineNo
+    14,       // colNo
+    "repmat", // fName
+    "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elmat/repmat.m", // pName
+    4 // checkKind
+};
 
 // Function Definitions
 //
@@ -72,15 +81,6 @@ void b_repmat(const array<double, 2U> &a, double varargin_1,
 //
 void repmat(const array<double, 2U> &a, double varargin_1, array<double, 2U> &b)
 {
-  static rtDoubleCheckInfo
-      r_emlrtDCI{
-          31,       // lineNo
-          14,       // colNo
-          "repmat", // fName
-          "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elmat/"
-          "repmat.m", // pName
-          4           // checkKind
-      };
   double d;
   int i;
   int ncols;
@@ -100,7 +100,7 @@ void repmat(const array<double, 2U> &a, double varargin_1, array<double, 2U> &b)
     m_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
   }
   if (!(varargin_1 >= 0.0)) {
-    rtNonNegativeError(varargin_1, r_emlrtDCI);
+    rtNonNegativeError(varargin_1, l_emlrtDCI);
   }
   i = a.size(0) * static_cast<int>(varargin_1);
   b.set_size(i, a.size(1));
@@ -127,48 +127,6 @@ void repmat(const array<double, 2U> &a, double varargin_1, array<double, 2U> &b)
       for (int k{0}; k < nrows; k++) {
         b[(ibcol + k) + 1] = a[iacol + k];
       }
-    }
-  }
-}
-
-//
-// Arguments    : const array<double, 1U> &a
-//                double varargin_2
-//                array<double, 2U> &b
-// Return Type  : void
-//
-void repmat(const array<double, 1U> &a, double varargin_2, array<double, 2U> &b)
-{
-  double d;
-  int i;
-  int nrows;
-  if ((varargin_2 != std::floor(varargin_2)) || std::isinf(varargin_2) ||
-      (varargin_2 < -2.147483648E+9) || (varargin_2 > 2.147483647E+9)) {
-    b_rtErrorWithMessageID(MIN_int32_T, nb_emlrtRTEI.fName,
-                           nb_emlrtRTEI.lineNo);
-  }
-  if (varargin_2 <= 0.0) {
-    d = 0.0;
-  } else {
-    d = varargin_2;
-  }
-  if (!(d <= 2.147483647E+9)) {
-    m_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
-  }
-  i = static_cast<int>(varargin_2);
-  b.set_size(a.size(0), i);
-  nrows = a.size(0);
-  if (static_cast<int>(varargin_2) > 2147483646) {
-    check_forloop_overflow_error();
-  }
-  for (int jtilecol{0}; jtilecol < i; jtilecol++) {
-    int ibtile;
-    ibtile = jtilecol * nrows;
-    if (nrows > 2147483646) {
-      check_forloop_overflow_error();
-    }
-    for (int k{0}; k < nrows; k++) {
-      b[ibtile + k] = a[k];
     }
   }
 }
@@ -218,6 +176,51 @@ void repmat(const c_struct_T &a, double varargin_1, double varargin_2,
   loop_ub = static_cast<int>(varargin_1) * static_cast<int>(varargin_2);
   for (int i{0}; i < loop_ub; i++) {
     b[i] = a;
+  }
+}
+
+//
+// Arguments    : const array<double, 1U> &a
+//                double varargin_2
+//                array<double, 2U> &b
+// Return Type  : void
+//
+void repmat(const array<double, 1U> &a, double varargin_2, array<double, 2U> &b)
+{
+  double d;
+  int i;
+  int nrows;
+  if ((varargin_2 != std::floor(varargin_2)) || std::isinf(varargin_2) ||
+      (varargin_2 < -2.147483648E+9) || (varargin_2 > 2.147483647E+9)) {
+    b_rtErrorWithMessageID(MIN_int32_T, nb_emlrtRTEI.fName,
+                           nb_emlrtRTEI.lineNo);
+  }
+  if (varargin_2 <= 0.0) {
+    d = 0.0;
+  } else {
+    d = varargin_2;
+  }
+  if (!(d <= 2.147483647E+9)) {
+    m_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
+  }
+  if (!(varargin_2 >= 0.0)) {
+    rtNonNegativeError(varargin_2, l_emlrtDCI);
+  }
+  i = static_cast<int>(varargin_2);
+  b.set_size(a.size(0), i);
+  nrows = a.size(0);
+  if (static_cast<int>(varargin_2) > 2147483646) {
+    check_forloop_overflow_error();
+  }
+  for (int jtilecol{0}; jtilecol < i; jtilecol++) {
+    int ibtile;
+    ibtile = jtilecol * nrows;
+    if (nrows > 2147483646) {
+      check_forloop_overflow_error();
+    }
+    for (int k{0}; k < nrows; k++) {
+      b[ibtile + k] = a[k];
+    }
   }
 }
 

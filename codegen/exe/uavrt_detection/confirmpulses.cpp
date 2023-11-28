@@ -5,7 +5,7 @@
 // File: confirmpulses.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
@@ -30,22 +30,22 @@ static void b_le(coder::array<boolean_T, 2U> &in1,
                  const coder::array<double, 2U> &in2,
                  const coder::array<double, 2U> &in3);
 
-static void binary_expand_op_21(coder::array<boolean_T, 2U> &in1,
+static void binary_expand_op_25(coder::array<boolean_T, 2U> &in1,
                                 const coder::array<boolean_T, 2U> &in2,
                                 int in3);
 
-static void binary_expand_op_22(coder::array<boolean_T, 2U> &in1,
+static void binary_expand_op_26(coder::array<boolean_T, 2U> &in1,
                                 const coder::array<double, 2U> &in2,
                                 const coder::array<double, 2U> &in3);
 
-static void binary_expand_op_23(coder::array<boolean_T, 2U> &in1,
+static void binary_expand_op_27(coder::array<boolean_T, 2U> &in1,
                                 const coder::array<double, 2U> &in2,
                                 const coder::array<double, 2U> &in3);
 
-static void binary_expand_op_24(coder::array<double, 2U> &in1, double in2,
+static void binary_expand_op_28(coder::array<double, 2U> &in1, double in2,
                                 const coder::array<double, 2U> &in3);
 
-static void binary_expand_op_25(coder::array<double, 2U> &in1, double in2,
+static void binary_expand_op_29(coder::array<double, 2U> &in1, double in2,
                                 const coder::array<double, 2U> &in3);
 
 static void d_and(coder::array<boolean_T, 2U> &in1,
@@ -112,7 +112,7 @@ static void b_le(coder::array<boolean_T, 2U> &in1,
 //                int in3
 // Return Type  : void
 //
-static void binary_expand_op_21(coder::array<boolean_T, 2U> &in1,
+static void binary_expand_op_25(coder::array<boolean_T, 2U> &in1,
                                 const coder::array<boolean_T, 2U> &in2, int in3)
 {
   coder::array<boolean_T, 2U> b_in2;
@@ -141,7 +141,7 @@ static void binary_expand_op_21(coder::array<boolean_T, 2U> &in1,
 //                const coder::array<double, 2U> &in3
 // Return Type  : void
 //
-static void binary_expand_op_22(coder::array<boolean_T, 2U> &in1,
+static void binary_expand_op_26(coder::array<boolean_T, 2U> &in1,
                                 const coder::array<double, 2U> &in2,
                                 const coder::array<double, 2U> &in3)
 {
@@ -168,7 +168,7 @@ static void binary_expand_op_22(coder::array<boolean_T, 2U> &in1,
 //                const coder::array<double, 2U> &in3
 // Return Type  : void
 //
-static void binary_expand_op_23(coder::array<boolean_T, 2U> &in1,
+static void binary_expand_op_27(coder::array<boolean_T, 2U> &in1,
                                 const coder::array<double, 2U> &in2,
                                 const coder::array<double, 2U> &in3)
 {
@@ -195,7 +195,7 @@ static void binary_expand_op_23(coder::array<boolean_T, 2U> &in1,
 //                const coder::array<double, 2U> &in3
 // Return Type  : void
 //
-static void binary_expand_op_24(coder::array<double, 2U> &in1, double in2,
+static void binary_expand_op_28(coder::array<double, 2U> &in1, double in2,
                                 const coder::array<double, 2U> &in3)
 {
   coder::array<double, 2U> b_in2;
@@ -226,7 +226,7 @@ static void binary_expand_op_24(coder::array<double, 2U> &in1, double in2,
 //                const coder::array<double, 2U> &in3
 // Return Type  : void
 //
-static void binary_expand_op_25(coder::array<double, 2U> &in1, double in2,
+static void binary_expand_op_29(coder::array<double, 2U> &in1, double in2,
                                 const coder::array<double, 2U> &in3)
 {
   coder::array<double, 2U> b_in2;
@@ -357,6 +357,14 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       0                                                  // checkKind
   };
   static rtDoubleCheckInfo ab_emlrtDCI{
+      38,              // lineNo
+      74,              // colNo
+      "confirmpulses", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
+      1                                                  // checkKind
+  };
+  static rtDoubleCheckInfo bb_emlrtDCI{
       39,              // lineNo
       74,              // colNo
       "confirmpulses", // fName
@@ -364,23 +372,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
       1                                                  // checkKind
   };
-  static rtDoubleCheckInfo r_emlrtDCI{
-      27,              // lineNo
-      80,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      4                                                  // checkKind
-  };
   static rtDoubleCheckInfo s_emlrtDCI{
-      27,              // lineNo
-      80,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      1                                                  // checkKind
-  };
-  static rtDoubleCheckInfo t_emlrtDCI{
       28,              // lineNo
       80,              // colNo
       "confirmpulses", // fName
@@ -388,9 +380,17 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
       1                                                  // checkKind
   };
+  static rtDoubleCheckInfo t_emlrtDCI{
+      27,              // lineNo
+      80,              // colNo
+      "confirmpulses", // fName
+      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
+      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
+      1                                                  // checkKind
+  };
   static rtDoubleCheckInfo u_emlrtDCI{
-      34,              // lineNo
-      78,              // colNo
+      27,              // lineNo
+      80,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
@@ -402,10 +402,10 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      1                                                  // checkKind
+      4                                                  // checkKind
   };
   static rtDoubleCheckInfo w_emlrtDCI{
-      35,              // lineNo
+      34,              // lineNo
       78,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
@@ -413,12 +413,12 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       1                                                  // checkKind
   };
   static rtDoubleCheckInfo x_emlrtDCI{
-      38,              // lineNo
-      74,              // colNo
+      35,              // lineNo
+      78,              // colNo
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      4                                                  // checkKind
+      1                                                  // checkKind
   };
   static rtDoubleCheckInfo y_emlrtDCI{
       38,              // lineNo
@@ -426,7 +426,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       "confirmpulses", // fName
       "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
       "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      1                                                  // checkKind
+      4                                                  // checkKind
   };
   static rtEqualityCheckInfo g_emlrtECI{
       2,               // nDims
@@ -590,11 +590,11 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
         pulsestarttimes_withuncert[i] = a * pulsestarttimes_withuncert[i];
       }
       if (!(X->K >= 0.0)) {
-        rtNonNegativeError(X->K, r_emlrtDCI);
+        rtNonNegativeError(X->K, u_emlrtDCI);
       }
       i = static_cast<int>(std::floor(X->K));
       if (X->K != i) {
-        rtIntegerError(X->K, s_emlrtDCI);
+        rtIntegerError(X->K, t_emlrtDCI);
       }
       loop_ub = static_cast<int>(X->K);
       r.set_size(1, loop_ub);
@@ -614,7 +614,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
               (tref + pulsestarttimes_withuncert[numPulses]) - r[numPulses];
         }
       } else {
-        binary_expand_op_25(pulsestarttimes_withuncert, tref, r);
+        binary_expand_op_29(pulsestarttimes_withuncert, tref, r);
       }
       if (SNRnotNegInfAll) {
         pulseendtimes_withuncert.set_size(1, 1);
@@ -636,7 +636,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
             a * pulseendtimes_withuncert[numPulses];
       }
       if (X->K != i) {
-        rtIntegerError(X->K, t_emlrtDCI);
+        rtIntegerError(X->K, s_emlrtDCI);
       }
       r.set_size(1, loop_ub);
       for (i = 0; i < loop_ub; i++) {
@@ -654,7 +654,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
               (tref + pulseendtimes_withuncert[i]) + r[i];
         }
       } else {
-        binary_expand_op_24(pulseendtimes_withuncert, tref, r);
+        binary_expand_op_28(pulseendtimes_withuncert, tref, r);
       }
     } else {
       double a;
@@ -686,11 +686,11 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
         pulsestarttimes_withuncert[i] = a * pulsestarttimes_withuncert[i];
       }
       if (!(X->K >= 0.0)) {
-        rtNonNegativeError(X->K, u_emlrtDCI);
+        rtNonNegativeError(X->K, v_emlrtDCI);
       }
       i = static_cast<int>(std::floor(X->K));
       if (X->K != i) {
-        rtIntegerError(X->K, v_emlrtDCI);
+        rtIntegerError(X->K, w_emlrtDCI);
       }
       loop_ub = static_cast<int>(X->K);
       r.set_size(1, loop_ub);
@@ -710,7 +710,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
               (tref + pulsestarttimes_withuncert[numPulses]) - r[numPulses];
         }
       } else {
-        binary_expand_op_25(pulsestarttimes_withuncert, tref, r);
+        binary_expand_op_29(pulsestarttimes_withuncert, tref, r);
       }
       if (SNRnotNegInfAll) {
         pulseendtimes_withuncert.set_size(1, 1);
@@ -733,7 +733,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
             a * pulseendtimes_withuncert[numPulses];
       }
       if (X->K != i) {
-        rtIntegerError(X->K, w_emlrtDCI);
+        rtIntegerError(X->K, x_emlrtDCI);
       }
       r.set_size(1, loop_ub);
       for (i = 0; i < loop_ub; i++) {
@@ -751,7 +751,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
               (tref + pulseendtimes_withuncert[i]) + r[i];
         }
       } else {
-        binary_expand_op_24(pulseendtimes_withuncert, tref, r);
+        binary_expand_op_28(pulseendtimes_withuncert, tref, r);
       }
     }
   } else {
@@ -780,11 +780,11 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       pulsestarttimes_withuncert[i] = a * pulsestarttimes_withuncert[i];
     }
     if (!(X->K >= 0.0)) {
-      rtNonNegativeError(X->K, x_emlrtDCI);
+      rtNonNegativeError(X->K, y_emlrtDCI);
     }
     i = static_cast<int>(std::floor(X->K));
     if (X->K != i) {
-      rtIntegerError(X->K, y_emlrtDCI);
+      rtIntegerError(X->K, ab_emlrtDCI);
     }
     loop_ub = static_cast<int>(X->K);
     r.set_size(1, loop_ub);
@@ -804,7 +804,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
             (tref + pulsestarttimes_withuncert[numPulses]) - r[numPulses];
       }
     } else {
-      binary_expand_op_25(pulsestarttimes_withuncert, tref, r);
+      binary_expand_op_29(pulsestarttimes_withuncert, tref, r);
     }
     if (SNRnotNegInfAll) {
       pulseendtimes_withuncert.set_size(1, 1);
@@ -827,7 +827,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
           a * pulseendtimes_withuncert[numPulses];
     }
     if (X->K != i) {
-      rtIntegerError(X->K, ab_emlrtDCI);
+      rtIntegerError(X->K, bb_emlrtDCI);
     }
     r.set_size(1, loop_ub);
     for (i = 0; i < loop_ub; i++) {
@@ -845,7 +845,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
             (tref + pulseendtimes_withuncert[i]) + r[i];
       }
     } else {
-      binary_expand_op_24(pulseendtimes_withuncert, tref, r);
+      binary_expand_op_28(pulseendtimes_withuncert, tref, r);
     }
   }
   // Debugging plots
@@ -912,7 +912,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       freqInBand[i] = (r[i] >= pulsestarttimes_withuncert[i] - 100.0);
     }
   } else {
-    binary_expand_op_23(freqInBand, r, pulsestarttimes_withuncert);
+    binary_expand_op_27(freqInBand, r, pulsestarttimes_withuncert);
   }
   if (pulseendtimes_withuncert.size(1) == r1.size(1)) {
     r2.set_size(1, pulseendtimes_withuncert.size(1));
@@ -921,7 +921,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       r2[i] = (pulseendtimes_withuncert[i] <= r1[i] + 100.0);
     }
   } else {
-    binary_expand_op_22(r2, pulseendtimes_withuncert, r1);
+    binary_expand_op_26(r2, pulseendtimes_withuncert, r1);
   }
   if ((freqInBand.size(1) != r2.size(1)) &&
       ((freqInBand.size(1) != 1) && (r2.size(1) != 1))) {
@@ -1062,7 +1062,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       confLog[i] = (maxstartlog[0] && confLog[i]);
     }
   } else {
-    binary_expand_op_21(confLog, maxstartlog, numPulses);
+    binary_expand_op_25(confLog, maxstartlog, numPulses);
   }
 }
 

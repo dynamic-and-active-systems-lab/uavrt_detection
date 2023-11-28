@@ -5,7 +5,7 @@
 // File: str2matrix.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
@@ -298,7 +298,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
       0                                               // checkKind
   };
-  static rtDoubleCheckInfo r_emlrtDCI{
+  static rtDoubleCheckInfo s_emlrtDCI{
       96,           // lineNo
       24,           // colNo
       "str2matrix", // fName
@@ -306,7 +306,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
       4                                               // checkKind
   };
-  static rtDoubleCheckInfo s_emlrtDCI{
+  static rtDoubleCheckInfo t_emlrtDCI{
       96,           // lineNo
       34,           // colNo
       "str2matrix", // fName
@@ -314,7 +314,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
       1                                               // checkKind
   };
-  static rtDoubleCheckInfo t_emlrtDCI{
+  static rtDoubleCheckInfo u_emlrtDCI{
       96,           // lineNo
       1,            // colNo
       "str2matrix", // fName
@@ -322,7 +322,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
       1                                               // checkKind
   };
-  static rtDoubleCheckInfo u_emlrtDCI{
+  static rtDoubleCheckInfo v_emlrtDCI{
       111,          // lineNo
       31,           // colNo
       "str2matrix", // fName
@@ -330,7 +330,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
       1                                               // checkKind
   };
-  static rtDoubleCheckInfo v_emlrtDCI{
+  static rtDoubleCheckInfo w_emlrtDCI{
       111,          // lineNo
       5,            // colNo
       "str2matrix", // fName
@@ -749,15 +749,15 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   }
   b = (rowDividerLocs.size(1) - 1 < 0);
   if (b) {
-    rtNonNegativeError(-1.0, r_emlrtDCI);
+    rtNonNegativeError(-1.0, s_emlrtDCI);
   }
   outMat.set_size(rowDividerLocs.size(1) - 1, outMat.size(1));
   if (static_cast<double>(r.size(1)) + 1.0 != r.size(1) + 1) {
-    rtIntegerError(static_cast<double>(r.size(1)) + 1.0, s_emlrtDCI);
+    rtIntegerError(static_cast<double>(r.size(1)) + 1.0, t_emlrtDCI);
   }
   outMat.set_size(outMat.size(0), r.size(1) + 1);
   if (static_cast<double>(r.size(1)) + 1.0 != r.size(1) + 1) {
-    rtIntegerError(static_cast<double>(r.size(1)) + 1.0, t_emlrtDCI);
+    rtIntegerError(static_cast<double>(r.size(1)) + 1.0, u_emlrtDCI);
   }
   j2 = (rowDividerLocs.size(1) - 1) * (r.size(1) + 1);
   for (b_i = 0; b_i < j2; b_i++) {
@@ -819,12 +819,12 @@ void str2matrix(coder::array<char, 2U> &inputStr,
     rightBracketLoc[r1.size(1) + 1] = rowDividerLocs[c_i + 1];
     tempRow.set_size(1, tempRow.size(1));
     if (static_cast<double>(r1.size(1)) + 1.0 != r1.size(1) + 1) {
-      rtIntegerError(static_cast<double>(r1.size(1)) + 1.0, u_emlrtDCI);
+      rtIntegerError(static_cast<double>(r1.size(1)) + 1.0, v_emlrtDCI);
     }
     j2 = r1.size(1) + 1;
     tempRow.set_size(tempRow.size(0), r1.size(1) + 1);
     if (static_cast<double>(r1.size(1)) + 1.0 != r1.size(1) + 1) {
-      rtIntegerError(static_cast<double>(r1.size(1)) + 1.0, v_emlrtDCI);
+      rtIntegerError(static_cast<double>(r1.size(1)) + 1.0, w_emlrtDCI);
     }
     for (i1 = 0; i1 < j2; i1++) {
       tempRow[i1].re = 0.0;

@@ -5,7 +5,7 @@
 // File: wfmcsvwrite.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
@@ -183,11 +183,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
   }
   if (fid == 0.0) {
-    g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   f = coder::internal::getfilestar(fid, autoflush);
   if (f == nullptr) {
-    c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   } else {
     std::fprintf(f, "%s\n", "----------------------------------------");
     if (autoflush) {
@@ -195,11 +195,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
   }
   if (fid == 0.0) {
-    g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   f = coder::internal::getfilestar(fid, autoflush);
   if (f == nullptr) {
-    c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   } else {
     std::fprintf(f, "%s\n", "Record Start Time (s):");
     if (autoflush) {
@@ -208,11 +208,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
   }
   validatedHoleFilling_idx_0 = X.t_0;
   if (fid == 0.0) {
-    g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   f = coder::internal::getfilestar(fid, autoflush);
   if (f == nullptr) {
-    c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   } else {
     std::fprintf(f, "%f\n", validatedHoleFilling_idx_0);
     if (autoflush) {
@@ -220,11 +220,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
   }
   if (fid == 0.0) {
-    g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   f = coder::internal::getfilestar(fid, autoflush);
   if (f == nullptr) {
-    c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   } else {
     std::fprintf(f, "%s\n", "----------------------------------------");
     if (autoflush) {
@@ -232,11 +232,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
   }
   if (fid == 0.0) {
-    g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   f = coder::internal::getfilestar(fid, autoflush);
   if (f == nullptr) {
-    c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   } else {
     std::fprintf(f, "%s\n", "Pulse Listing:");
     if (autoflush) {
@@ -251,11 +251,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
     validatedHoleFilling_idx_0 = X.ps_pos->pl[b_i].t_0;
     if (fid == 0.0) {
-      g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+      g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
     }
     f = coder::internal::getfilestar(fid, autoflush);
     if (f == nullptr) {
-      c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+      c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
     } else {
       std::fprintf(f, "%f,", validatedHoleFilling_idx_0);
       if (autoflush) {
@@ -264,11 +264,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
   }
   if (fid == 0.0) {
-    g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   f = coder::internal::getfilestar(fid, autoflush);
   if (f == nullptr) {
-    c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   } else {
     std::fprintf(f, "\n");
     if (autoflush) {
@@ -283,11 +283,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
     validatedHoleFilling_idx_0 = X.ps_pos->pl[b_i].fp / 1.0E+6 + radioFcMHz;
     if (fid == 0.0) {
-      g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+      g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
     }
     f = coder::internal::getfilestar(fid, autoflush);
     if (f == nullptr) {
-      c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+      c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
     } else {
       std::fprintf(f, "%f,", validatedHoleFilling_idx_0);
       if (autoflush) {
@@ -296,11 +296,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
   }
   if (fid == 0.0) {
-    g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   f = coder::internal::getfilestar(fid, autoflush);
   if (f == nullptr) {
-    c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   } else {
     std::fprintf(f, "\n");
     if (autoflush) {
@@ -315,11 +315,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
     validatedHoleFilling_idx_0 = X.ps_pos->pl[b_i].SNR;
     if (fid == 0.0) {
-      g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+      g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
     }
     f = coder::internal::getfilestar(fid, autoflush);
     if (f == nullptr) {
-      c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+      c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
     } else {
       std::fprintf(f, "%f,", validatedHoleFilling_idx_0);
       if (autoflush) {
@@ -328,11 +328,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
   }
   if (fid == 0.0) {
-    g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   f = coder::internal::getfilestar(fid, autoflush);
   if (f == nullptr) {
-    c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   } else {
     std::fprintf(f, "\n");
     if (autoflush) {
@@ -347,11 +347,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
     fileid = static_cast<signed char>(X.ps_pos->pl[b_i].con_dec);
     if (fid == 0.0) {
-      g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+      g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
     }
     f = coder::internal::getfilestar(fid, autoflush);
     if (f == nullptr) {
-      c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+      c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
     } else {
       std::fprintf(f, "%u,", static_cast<unsigned char>(fileid));
       if (autoflush) {
@@ -360,11 +360,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
   }
   if (fid == 0.0) {
-    g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   f = coder::internal::getfilestar(fid, autoflush);
   if (f == nullptr) {
-    c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   } else {
     std::fprintf(f, "\n%s\n", "----------------------------------------");
     if (autoflush) {
@@ -372,11 +372,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
   }
   if (fid == 0.0) {
-    g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   f = coder::internal::getfilestar(fid, autoflush);
   if (f == nullptr) {
-    c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   } else {
     std::fprintf(f, "%s\n", "Spectrogram Frequencies (MHz):");
     if (autoflush) {
@@ -391,11 +391,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
     validatedHoleFilling_idx_0 = X.stft->f[b_i] / 1.0E+6 + radioFcMHz;
     if (fid == 0.0) {
-      g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+      g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
     }
     f = coder::internal::getfilestar(fid, autoflush);
     if (f == nullptr) {
-      c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+      c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
     } else {
       std::fprintf(f, "%f,", validatedHoleFilling_idx_0);
       if (autoflush) {
@@ -404,11 +404,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
   }
   if (fid == 0.0) {
-    g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   f = coder::internal::getfilestar(fid, autoflush);
   if (f == nullptr) {
-    c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   } else {
     std::fprintf(f, "\n%s\n", "----------------------------------------");
     if (autoflush) {
@@ -416,11 +416,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
   }
   if (fid == 0.0) {
-    g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   f = coder::internal::getfilestar(fid, autoflush);
   if (f == nullptr) {
-    c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   } else {
     std::fprintf(f, "%s\n", "Spectrogram Times (s):");
     if (autoflush) {
@@ -435,11 +435,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
     validatedHoleFilling_idx_0 = X.stft->t[b_i];
     if (fid == 0.0) {
-      g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+      g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
     }
     f = coder::internal::getfilestar(fid, autoflush);
     if (f == nullptr) {
-      c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+      c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
     } else {
       std::fprintf(f, "%f,", validatedHoleFilling_idx_0);
       if (autoflush) {
@@ -448,11 +448,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
   }
   if (fid == 0.0) {
-    g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   f = coder::internal::getfilestar(fid, autoflush);
   if (f == nullptr) {
-    c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   } else {
     std::fprintf(f, "\n%s\n", "----------------------------------------");
     if (autoflush) {
@@ -460,11 +460,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
   }
   if (fid == 0.0) {
-    g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   f = coder::internal::getfilestar(fid, autoflush);
   if (f == nullptr) {
-    c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   } else {
     std::fprintf(f, "%s\n", "Spectrogram Values (|STFT|):");
     if (autoflush) {
@@ -491,11 +491,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
     x_im = X.stft->S[b_i].im;
     if (fid == 0.0) {
-      g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+      g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
     }
     f = coder::internal::getfilestar(fid, autoflush);
     if (f == nullptr) {
-      c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+      c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
     } else {
       std::fprintf(f, "%f,", rt_hypotd_snf(validatedHoleFilling_idx_0, x_im));
       if (autoflush) {
@@ -504,11 +504,11 @@ void wfmcsvwrite(const waveform &X, double radioFcMHz,
     }
   }
   if (fid == 0.0) {
-    g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
   }
   f = coder::internal::getfilestar(fid, autoflush);
   if (f == nullptr) {
-    c_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
   } else {
     std::fprintf(f, "\n");
     if (autoflush) {

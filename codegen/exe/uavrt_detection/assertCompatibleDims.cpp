@@ -5,7 +5,7 @@
 // File: assertCompatibleDims.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
@@ -29,7 +29,7 @@ void assertCompatibleDims(const array<double, 2U> &x,
 {
   if (((x.size(0) != 1) && (y.size(0) != 1) && (x.size(0) != y.size(0))) ||
       ((x.size(1) != 1) && (y.size(1) != 1) && (x.size(1) != y.size(1)))) {
-    eb_rtErrorWithMessageID(ob_emlrtRTEI.fName, ob_emlrtRTEI.lineNo);
+    db_rtErrorWithMessageID(ob_emlrtRTEI.fName, ob_emlrtRTEI.lineNo);
   }
 }
 

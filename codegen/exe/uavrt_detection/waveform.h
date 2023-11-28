@@ -5,7 +5,7 @@
 // File: waveform.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 #ifndef WAVEFORM_H
@@ -37,9 +37,8 @@ public:
                  coder::array<c_struct_T, 2U> &pl_out,
                  coder::array<boolean_T, 2U> &indiv_msk,
                  coder::array<double, 1U> &peak_ind) const;
-  void selectpeakindex(const coder::array<c_struct_T, 2U> &candidateList,
-                       const coder::array<double, 1U> &peakIndexList,
-                       coder::array<double, 1U> &selectedIndex) const;
+  double selectpeakindex(const coder::array<c_struct_T, 2U> &candidateList,
+                         const coder::array<double, 1U> &peakIndexList) const;
   void spectro(wfmstft &iobj_0);
   waveform *init(const creal32_T b_x[1000], double b_Fs, pulsestats *b_ps_pre,
                  const threshold &b_thresh);

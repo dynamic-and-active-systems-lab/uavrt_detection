@@ -5,7 +5,7 @@
 // File: timeKeeper.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 13-Nov-2023 11:57:04
+// C/C++ source code generated on  : 28-Nov-2023 16:36:41
 //
 
 // Include Files
@@ -28,7 +28,7 @@ static coderTimespec savedTime;
 static boolean_T savedTime_not_empty;
 
 // Function Declarations
-static void ib_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void hb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -36,7 +36,7 @@ static void ib_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void ib_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void hb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -92,7 +92,7 @@ void timeKeeper(double newTime_tv_sec, double newTime_tv_nsec)
 //
 double timeKeeper(double &outTime_tv_nsec)
 {
-  static rtRunTimeErrorInfo yc_emlrtRTEI{
+  static rtRunTimeErrorInfo bd_emlrtRTEI{
       11,           // lineNo
       9,            // colNo
       "timeKeeper", // fName
@@ -101,7 +101,7 @@ double timeKeeper(double &outTime_tv_nsec)
   };
   double outTime_tv_sec;
   if (!savedTime_not_empty) {
-    ib_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+    hb_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
   }
   outTime_tv_sec = savedTime.tv_sec;
   outTime_tv_nsec = savedTime.tv_nsec;
