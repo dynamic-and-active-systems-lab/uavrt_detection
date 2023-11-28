@@ -23,12 +23,20 @@ function [X] = uavrt_detection_post_flight_analysis() %configPath, thresholdCach
 % configPath =         '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/FLIGHT_TESTING_DATA/2023-09-14-Office Testing/LOGS-2023-09-15-Ft Valley Flight/detector.2.config';
 % thresholdCachePath = '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/FLIGHT_TESTING_DATA/2023-09-14-Office Testing/LOGS-2023-09-15-Ft Valley Flight';
 
-%filePath =           '/Users/michael/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code/data_record.2.5.bin';
-filePath =           '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code/data_record.2.5.bin';
-%configPath =         '/Users/michael/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code/detector.2.config';
-configPath =         '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code/detector.2.config'; 
-%thresholdCachePath = '/Users/michael/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code';
-thresholdCachePath = '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code';
+% %filePath =           '/Users/michael/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code/data_record.2.5.bin';
+% filePath =           '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code/data_record.2.5.bin';
+% %configPath =         '/Users/michael/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code/detector.2.config';
+% configPath =         '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code/detector.2.config'; 
+% %thresholdCachePath = '/Users/michael/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code';
+% thresholdCachePath = '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/data_for_testing_detection_code';
+
+filePath = '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/FLIGHT_TESTING_DATA/2023-11-27-South Field Long Cable Tests/Set_2/data_record.2.1.bin';
+configPath = '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/FLIGHT_TESTING_DATA/2023-11-27-South Field Long Cable Tests/Set_2/detector_2.1.config';
+thresholdCachePath = '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/FLIGHT_TESTING_DATA/2023-11-27-South Field Long Cable Tests/Set_2';
+
+filePath = '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/FLIGHT_TESTING_DATA/2023-11-27-South Field Long Cable Tests/Set_2 copy with expanded interpulse uncertainty for testing/data_record.2.1.bin';
+configPath = '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/FLIGHT_TESTING_DATA/2023-11-27-South Field Long Cable Tests/Set_2 copy with expanded interpulse uncertainty for testing/detector_2.1.config';
+thresholdCachePath = '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/FLIGHT_TESTING_DATA/2023-11-27-South Field Long Cable Tests/Set_2 copy with expanded interpulse uncertainty for testing';
 
 
 global globalThresholdCachePath;
@@ -195,19 +203,32 @@ while asyncDataBuff.NumUnreadSamples > sampsForKPulses + overlapSamples
 % end
         X(i).process(mode, 'most', Config.excldFreqs)
 %if i == 1
-    figure;
-%end
-plot([X(i).ps_pos.clst(:,1).yw]);hold on
-plot([X(i).ps_pos.clst(:,2).yw]);
-plot([X(i).ps_pos.clst(:,3).yw]);
-
- plot([X(i).ps_pos.clst(:,1).yw]+[X(i).ps_pos.clst(:,2).yw]+[X(i).ps_pos.clst(:,3).yw])        
- title(num2str(i))
- hold on;
- plot(X(i).thresh.threshVecFine)
-drawnow
-pause(0.5)
-hold off
+%     figure;
+% %end
+% plot(X(i).Wf,[X(i).ps_pos.clst(:,1).yw],'DisplayName','Score 1');hold on
+% plot(X(i).Wf,[X(i).ps_pos.clst(:,2).yw],'DisplayName','Score 1');
+% plot(X(i).Wf,[X(i).ps_pos.clst(:,3).yw],'DisplayName','Score 1');
+% summedScore = [X(i).ps_pos.clst(:,1).yw]+[X(i).ps_pos.clst(:,2).yw]+[X(i).ps_pos.clst(:,3).yw];
+% plot(X(i).Wf,summedScore,'DisplayName','Combined Score')        
+% 
+% if ~isnan(X(i).ps_pos.cpki)
+%  for j = 1:numel(X(i).ps_pos.cpki)
+%      currentInd = X(i).ps_pos.cpki(j);
+%      plot(X(i).Wf(currentInd),summedScore(currentInd),'o')
+%  end
+% end
+% 
+%  for j = 1:numel(X(i).ps_pos.pl)
+%      plot(X(i).ps_pos.pl(j).fp,  X(i).ps_pos.pl(j).yw,'ro','MarkerSize',5)
+%  end
+% 
+%  title(num2str(i))
+%  hold on;
+%  plot(X(i).Wf,X(i).thresh.threshVecFine,'DisplayName','Threshold')
+%  legend('Location','Best')
+% drawnow
+% pause(0.5)
+% hold off
 
 
         %% PREP FOR NEXT LOOP
@@ -278,28 +299,48 @@ hold off
 end
 iMax = i-1; 
 figure;
+pulseSNRVec = [];
+pulseTimeVec = [];
+pulseFreqVec = [];
 for i = 1:iMax
     for j = 1:numel(X(i).ps_pos.pl(:))
          color = 'r';
         if X(i).ps_pos.pl(j).con_dec
             color = 'g';
         end
+        pulseSNRVec(end+1) = X(i).ps_pos.pl(j).SNR;
+        pulseTimeVec(end+1) = X(i).ps_pos.pl(j).t_0;
+        pulseFreqVec(end+1) = X(i).ps_pos.pl(j).fp;
          if X(i).ps_pos.pl(j).SNR == -inf
              plot(X(i).ps_pos.pl(j).t_0, -20,'.','Color',color);
          else
-             subplot(2,1,1)
+             ax1 = subplot(2,1,1);
              plot(X(i).ps_pos.pl(j).t_0, X(i).ps_pos.pl(j).SNR,'o','Color',color); hold on
-             xline(X(i).t_0);
-             subplot(2,1,2)
+             xline(X(i).t_0,'Color',[0.8 0.8 0.8]);
+             ax2 = subplot(2,1,2);
              plot(X(i).ps_pos.pl(j).t_0, X(i).ps_pos.pl(j).fp,'o','Color',color); hold on
-             xline(X(i).t_0);
+             xline(X(i).t_0,'Color',[0.8 0.8 0.8]);
              
          end
     end
     hold on;
 end
 
+title('Antenna Offset = +90 deg')
+linkaxes([ax1 ax2],'x')
+subplot(2,1,1)
+ylabel('SNR (dB)');
+xlabel('Time (s)');
+subplot(2,1,2)
+ylabel('Frequency from channel center (Hz)');
+set(ax2,'ylim',[min(X(1).Wf), max(X(1).Wf)])
+xlabel('Time (s)');
 
+subplot(2,1,1)
+plot(pulseTimeVec, movmean(pulseSNRVec, X(1).K * 3 ),'k' )
+
+
+pause(1);
 % tVerify = 93;
 % indVerify = find([X(:).t_0] >= tVerify,1,'first');
 % for indVerify = 1:numel(X)
