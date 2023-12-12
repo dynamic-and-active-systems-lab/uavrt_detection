@@ -5,7 +5,7 @@
 // File: threshold.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 28-Nov-2023 16:36:41
+// C/C++ source code generated on  : 12-Dec-2023 09:08:48
 //
 
 // Include Files
@@ -331,8 +331,8 @@ void threshold::makenewthreshold(const waveform &Wfm)
     // Preform the incoherent summation using a matrix multiply.
     // Could use pagetimes.m for this, but it isn't supported for
     // code generation with sparse matrices as of R2023a
-    // [serialRejectionMatrix] = repetitionrejector(tStft, [2 3 5 10]);
     repetitionrejector(bigA, serialRejectionMatrix);
+    // [serialRejectionMatrix] = repetitionrejector(tStft, [0]);
     if (trials > 4294967294U) {
       coder::b_check_forloop_overflow_error();
     }
@@ -369,9 +369,9 @@ void threshold::makenewthreshold(const waveform &Wfm)
       if (xsynth.size(0) != Ssynth.size(0)) {
         if (((xsynth.size(0) == 1) && (xsynth.size(1) == 1)) ||
             ((Ssynth.size(0) == 1) && (Ssynth.size(1) == 1))) {
-          dc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
+          dc_rtErrorWithMessageID(kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
         } else {
-          tb_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
+          tb_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
         }
       }
       m = xsynth.size(1);
@@ -506,12 +506,12 @@ void threshold::makenewthreshold(const waveform &Wfm)
       std::fflush(stdout);
     } else {
       if (fileid == 0) {
-        g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+        g_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
       }
       f = coder::internal::getfilestar(static_cast<double>(fileid),
                                        incompleteRead);
       if (f == nullptr) {
-        c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+        c_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
       } else {
         std::fprintf(f, "%f\n", stftSz[0]);
         if (incompleteRead) {
@@ -519,12 +519,12 @@ void threshold::makenewthreshold(const waveform &Wfm)
         }
       }
       if (fileid == 0) {
-        g_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
+        g_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
       }
       f = coder::internal::getfilestar(static_cast<double>(fileid),
                                        incompleteRead);
       if (f == nullptr) {
-        c_rtErrorWithMessageID(uc_emlrtRTEI.fName, uc_emlrtRTEI.lineNo);
+        c_rtErrorWithMessageID(vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
       } else {
         std::fprintf(f, "%f\n", stftSz[1]);
         if (incompleteRead) {

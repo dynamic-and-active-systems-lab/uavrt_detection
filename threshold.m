@@ -158,8 +158,8 @@ classdef threshold
                 %Preform the incoherent summation using a matrix multiply.
                 %Could use pagetimes.m for this, but it isn't supported for
                 %code generation with sparse matrices as of R2023a
-    %[serialRejectionMatrix] = repetitionrejector(tStft, [2 3 5 10]);
-    [serialRejectionMatrix] = repetitionrejector(tStft, [0]);
+    [serialRejectionMatrix] = repetitionrejector(tStft, [2 3 5 10]);
+    %[serialRejectionMatrix] = repetitionrejector(tStft, [0]);
 
                 for i = 1:obj.trials
                     scores(i) = max(abs(Wfm.W'*Ssynth(:,:,i)).^2 * serialRejectionMatrix * Wq, [], 'all'); %'all' call finds max across all temporal correlation sets and frequency bins just like we do in the dectection code.

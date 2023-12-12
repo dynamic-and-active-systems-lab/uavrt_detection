@@ -5,7 +5,7 @@
 // File: formatSTFTOutput.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 28-Nov-2023 16:36:41
+// C/C++ source code generated on  : 12-Dec-2023 09:08:48
 //
 
 // Include Files
@@ -26,7 +26,7 @@
 
 // Variable Definitions
 static rtRunTimeErrorInfo
-    wc_emlrtRTEI{
+    fc_emlrtRTEI{
         38,          // lineNo
         48,          // colNo
         "circshift", // fName
@@ -167,8 +167,8 @@ void formatSTFTOutput(array<creal32_T, 2U> &S, const array<double, 1U> &F,
       vspread = 0;
     }
     if (static_cast<int>(p) != p) {
-      rtErrorWithMessageID("int32", "int32", wc_emlrtRTEI.fName,
-                           wc_emlrtRTEI.lineNo);
+      rtErrorWithMessageID("int32", "int32", fc_emlrtRTEI.fName,
+                           fc_emlrtRTEI.lineNo);
     }
     if ((S.size(0) != 0) && (S.size(1) != 0) &&
         ((S.size(0) != 1) || (S.size(1) != 1))) {
@@ -385,8 +385,8 @@ void formatSTFTOutput(array<creal_T, 3U> &S, const array<double, 1U> &F,
       vlend2 = 2;
     }
     if (static_cast<int>(xtmp_re) != xtmp_re) {
-      rtErrorWithMessageID("int32", "int32", wc_emlrtRTEI.fName,
-                           wc_emlrtRTEI.lineNo);
+      rtErrorWithMessageID("int32", "int32", fc_emlrtRTEI.fName,
+                           fc_emlrtRTEI.lineNo);
     }
     if ((S.size(0) != 0) && (S.size(1) != 0) && (S.size(2) != 0) &&
         ((S.size(0) != 1) || (S.size(1) != 1) || (S.size(2) != 1))) {
