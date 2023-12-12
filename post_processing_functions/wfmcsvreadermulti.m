@@ -80,17 +80,18 @@ for i = 1:numLines
         if numFreqs * numTimes ~= numSpecVec
             if numRead==numSegments
                 warning('UAV-RT: Last segment looks cut off because numer of frequency times number of time elements does not equal number of spectrogram elements. Output will not include last segment')
-                t{end} = [];
+                t(end) = [];
+                SpecCell(end) = [];
                 plList(end) = [];
             else
                 error('UAV-RT: Numer of frequency times number of time elements does not equal number of spectrogram elements')
             end
         else
-        if numRead == 1
-            SpecCell = cell(numSegments,1);
-        end
-        SpecCell{numRead} = reshape(SpecVec{1},numFreqs,numTimes);
-        numRead = numRead + 1;
+            if numRead == 1
+                SpecCell = cell(numSegments,1);
+            end
+            SpecCell{numRead} = reshape(SpecVec{1},numFreqs,numTimes);
+            numRead = numRead + 1;
         end
     end
     waitbar(numRead/numSegments,fWait,['Imported ',num2str(numRead),' out of ',num2str(numSegments),' segments.'])
