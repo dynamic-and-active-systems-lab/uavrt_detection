@@ -5,7 +5,7 @@
 // File: uavrt_detection_rtwutil.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Dec-2023 09:08:48
+// C/C++ source code generated on  : 29-Feb-2024 15:45:33
 //
 
 #ifndef UAVRT_DETECTION_RTWUTIL_H
@@ -69,10 +69,10 @@ extern void j_rtErrorWithMessageID(const char *r, const char *aFcnName,
 
 extern void jb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
+extern void k_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
 extern void k_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum);
-
-extern void k_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void l_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
@@ -92,11 +92,11 @@ extern void rtDivisionByZeroErrorN();
 extern void rtDynamicBoundsError(int aIndexValue, int aLoBound, int aHiBound,
                                  const rtBoundsCheckInfo &aInfo);
 
-extern void rtErrorWithMessageID(const std::string r, const int i,
-                                 const char *aFcnName, int aLineNum);
-
 extern void rtErrorWithMessageID(const char *r, const char *aFcnName,
                                  int aLineNum);
+
+extern void rtErrorWithMessageID(const std::string r, const int i,
+                                 const char *aFcnName, int aLineNum);
 
 extern void rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 

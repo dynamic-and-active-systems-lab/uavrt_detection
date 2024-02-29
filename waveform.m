@@ -1829,8 +1829,33 @@ fprintf('ps_pos.fstart and ps_pre.fend at the end Tracking search : \t %f \t to 
             interPulseAligned = false(numel(peakIndexList),1);
             if numel(obj.ps_pre.clst) ~= 1 %There is a previous candidate list
                 for i = 1:numel(peakIndexList)
-                    deltaTimeFromPrev = [candidateList(peakIndexList(i),1:(end-obj.K+2)).t_0]-[obj.ps_pre.clst(peakIndexList(i),end).t_0];
-                    interPulseAligned(i) = any(deltaTimeFromPrev < interpulseTimeRangeMax & deltaTimeFromPrev > interpulseTimeRangeMin, 'all');
+                    % deltaTimeFromPrev = [candidateList(peakIndexList(i),1:(end-obj.K+2)).t_0]-[obj.ps_pre.clst(peakIndexList(i),end).t_0];
+                    if obj.K > 1%Need to consider first two candidate pulses in case the first was in the last segment due to overlap
+                        deltaTimeFromPrev = [candidateList(peakIndexList(i),1:2).t_0]-[obj.ps_pre.clst(peakIndexList(i),end).t_0];
+                        interPulseAligned(i) = any(deltaTimeFromPrev < interpulseTimeRangeMax & deltaTimeFromPrev > interpulseTimeRangeMin, 'all');
+                    else
+                        %Due to overlap, there is a chance that the current
+                        %detetion is the same as the last detection. This
+                        %is why we check for time alignment of the first
+                        %twp pulses in the 'if' statement above. But for K
+                        %= 1, we only have one pulse to check in the
+                        %current candidate list. That pulse could be the
+                        %same as the one in the previous segement due to
+                        %the overlap. If we are detecting the same pulse as
+                        %was in the last segment, we can't look back beyond
+                        %the previous segment, but we can use that pulses
+                        %confirmation status, which would only have been
+                        %set if the interpulse duration was correct. 
+                        deltaTimeFromPrev = [candidateList(peakIndexList(i),1).t_0]-[obj.ps_pre.clst(peakIndexList(i),end).t_0];
+                        
+                        if deltaTimeFromPrev < 2 * obj.ps_pre.t_p %detected same pulse as previous due to overlap
+                            interPulseAligned(i) = obj.ps_pre.clst(peakIndexList(i),end).con_dec;
+                        else
+                            interPulseAligned(i) = any(deltaTimeFromPrev < interpulseTimeRangeMax & deltaTimeFromPrev > interpulseTimeRangeMin, 'all');
+                        end
+
+                    end
+                    
                 end
             end
             

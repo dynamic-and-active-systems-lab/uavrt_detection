@@ -5,7 +5,7 @@
 // File: pulsestats.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Dec-2023 09:08:48
+// C/C++ source code generated on  : 29-Feb-2024 15:45:33
 //
 
 // Include Files
@@ -228,11 +228,11 @@ void pulsestats::b_updateposteriori(
     int k;
     boolean_T exitg1;
     boolean_T y;
-    coder::internal::b_horzcatStructList(pulselist, varargin_1);
+    coder::internal::c_horzcatStructList(pulselist, varargin_1);
     input_sizes_idx_0 = varargin_1.size(1);
-    coder::internal::b_horzcatStructList(pulselist, varargin_1);
+    coder::internal::c_horzcatStructList(pulselist, varargin_1);
     //  pulselist(:).t_0]'
-    coder::internal::c_horzcatStructList(pulselist, b_pulselist);
+    coder::internal::b_horzcatStructList(pulselist, b_pulselist);
     // pulselist(:).fp
     // Fix the bandwidth in the priori to +/- 100 Hz.
     // Here is where we update the stats. These methods of updates
@@ -708,11 +708,11 @@ void pulsestats::updateposteriori(const pulsestats *ps_pre,
     int size_tmp_idx_1;
     boolean_T exitg1;
     boolean_T y;
-    coder::internal::b_horzcatStructList(pulselist, varargin_1);
+    coder::internal::c_horzcatStructList(pulselist, varargin_1);
     size_tmp_idx_1 = varargin_1.size(1);
-    coder::internal::b_horzcatStructList(pulselist, varargin_1);
+    coder::internal::c_horzcatStructList(pulselist, varargin_1);
     //  pulselist(:).t_0]'
-    coder::internal::c_horzcatStructList(pulselist, b_varargin_1);
+    coder::internal::b_horzcatStructList(pulselist, b_varargin_1);
     if (b_varargin_1.size(1) == 0) {
       freq_found = 0.0;
       c_varargin_1 = 0;

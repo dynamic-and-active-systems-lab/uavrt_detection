@@ -5,7 +5,7 @@
 // File: find.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Dec-2023 09:08:48
+// C/C++ source code generated on  : 29-Feb-2024 15:45:33
 //
 
 // Include Files
@@ -15,11 +15,25 @@
 #include "rt_nonfinite.h"
 #include "sparse1.h"
 #include "threshold.h"
-#include "uavrt_detection_data.h"
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
 #include "waveform.h"
 #include "coder_array.h"
+
+// Variable Definitions
+static rtRunTimeErrorInfo j_emlrtRTEI{
+    81,         // lineNo
+    1,          // colNo
+    "eml_find", // fName
+    "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elmat/find.m" // pName
+};
+
+static rtRunTimeErrorInfo k_emlrtRTEI{
+    392,                  // lineNo
+    1,                    // colNo
+    "find_first_indices", // fName
+    "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elmat/find.m" // pName
+};
 
 // Function Definitions
 //
@@ -322,6 +336,53 @@ void e_eml_find(const sparse &x, array<int, 1U> &i, array<int, 1U> &j)
       internal::indexShapeCheck(v.size(0), iv);
     }
   }
+}
+
+//
+// Arguments    : const array<double, 1U> &x
+//                int i_data[]
+// Return Type  : int
+//
+int e_eml_find(const array<double, 1U> &x, int i_data[])
+{
+  int i_size;
+  int idx;
+  int ii;
+  boolean_T exitg1;
+  i_size = (x.size(0) >= 1);
+  if (i_size > x.size(0)) {
+    i_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+  }
+  idx = 0;
+  if (x.size(0) > 2147483646) {
+    check_forloop_overflow_error();
+  }
+  ii = 0;
+  exitg1 = false;
+  while ((!exitg1) && (ii <= x.size(0) - 1)) {
+    if (x[ii] != 0.0) {
+      idx = 1;
+      i_data[0] = ii + 1;
+      exitg1 = true;
+    } else {
+      ii++;
+    }
+  }
+  if (idx > i_size) {
+    i_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
+  }
+  if (i_size == 1) {
+    if (idx == 0) {
+      i_size = 0;
+    }
+  } else {
+    int iv[2];
+    i_size = (idx >= 1);
+    iv[0] = 1;
+    iv[1] = i_size;
+    internal::indexShapeCheck(0, iv);
+  }
+  return i_size;
 }
 
 //

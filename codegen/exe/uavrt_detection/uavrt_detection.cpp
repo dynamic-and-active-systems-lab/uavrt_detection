@@ -5,7 +5,7 @@
 // File: uavrt_detection.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Dec-2023 09:08:48
+// C/C++ source code generated on  : 29-Feb-2024 15:45:33
 //
 
 // Include Files
@@ -1255,29 +1255,36 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   coder::array<boolean_T, 2U> pulsesToSkip;
   coder::array<boolean_T, 2U> r3;
   coder::array<boolean_T, 1U> r2;
-  c_struct_T pulseStatsPriori_tmp;
+  c_struct_T detectorPulse;
+  c_struct_T expl_temp;
   creal_T dcv[1000];
   creal32_T dataReceived_data[1024];
   creal32_T b_dataReceived_data[1023];
   creal32_T exampleData[1000];
   double doublesBuffer[12];
   double ps_pre_struc_tmplt[2];
+  double T;
   double d;
   double d1;
   double dataWriterSamples;
   double expectedNextTimeStamp;
   double framesReceived;
   double groupSeqCounter;
+  double missingSamples;
   double previousPulseTime;
+  double prioriRelativeFreqHz;
   double ps_pre_struc_fend;
   double ps_pre_struc_fp;
   double ps_pre_struc_fstart;
-  double ps_pre_struc_t_ip;
-  double ps_pre_struc_t_ipj;
-  double ps_pre_struc_t_ipu;
-  double ps_pre_struc_t_p;
   double segmentsProcessed;
   double startTime;
+  double t9_fend;
+  double t9_fp;
+  double t9_fstart;
+  double t9_t_0;
+  double t9_t_f;
+  double timeDiff;
+  double timeStamp;
   double trackedCount;
   int iv[2];
   int i;
@@ -1295,6 +1302,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   boolean_T fLock;
   boolean_T resetBuffersFlag;
   boolean_T staleDataFlag;
+  boolean_T t9_con_dec;
+  boolean_T t9_det_dec;
   if (!isInitialized_uavrt_detection) {
     uavrt_detection_initialize();
   }
@@ -1347,10 +1356,28 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   std::fflush(stdout);
   std::printf("ROS2 setup disabled\n");
   std::fflush(stdout);
-  makepulsestruc(&pulseStatsPriori_tmp);
-  pulseStatsPriori = lobj_21[1].init(
-      Config.contents.tp, Config.contents.tip, Config.contents.tipu,
-      Config.contents.tipj, pulseStatsPriori_tmp, pulseStatsPriori_tmp);
+  detectorPulse.A = makepulsestruc(
+      detectorPulse.t_next, detectorPulse.mode, detectorPulse.P,
+      detectorPulse.SNR, detectorPulse.yw, detectorPulse.t_0, detectorPulse.t_f,
+      detectorPulse.fp, detectorPulse.fstart, detectorPulse.fend,
+      detectorPulse.det_dec, detectorPulse.con_dec);
+  missingSamples = makepulsestruc(expl_temp.t_next, expl_temp.mode, timeDiff,
+                                  timeStamp, T, t9_t_0, t9_t_f, t9_fp,
+                                  t9_fstart, t9_fend, t9_det_dec, t9_con_dec);
+  expl_temp.con_dec = t9_con_dec;
+  expl_temp.det_dec = t9_det_dec;
+  expl_temp.fend = t9_fend;
+  expl_temp.fstart = t9_fstart;
+  expl_temp.fp = t9_fp;
+  expl_temp.t_f = t9_t_f;
+  expl_temp.t_0 = t9_t_0;
+  expl_temp.yw = T;
+  expl_temp.SNR = timeStamp;
+  expl_temp.P = timeDiff;
+  expl_temp.A = missingSamples;
+  pulseStatsPriori = lobj_21[1].init(Config.contents.tp, Config.contents.tip,
+                                     Config.contents.tipu, Config.contents.tipj,
+                                     detectorPulse, expl_temp);
   //  % tp, tip, tipu
   //  % tipj, fp, fstart, fend, tmplt, mode
   //   % pl ,clst
@@ -1465,19 +1492,29 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   // dims 0 if fixed, 1 if variable
   std::printf("Startup set 4 complete. \n");
   std::fflush(stdout);
-  ps_pre_struc_t_p = 0.0;
-  ps_pre_struc_t_ip = 0.0;
-  ps_pre_struc_t_ipu = 0.0;
-  ps_pre_struc_t_ipj = 0.0;
+  t9_fp = 0.0;
+  t9_fstart = 0.0;
+  t9_fend = 0.0;
+  prioriRelativeFreqHz = 0.0;
   ps_pre_struc_fp = 0.0;
   ps_pre_struc_fstart = 0.0;
   ps_pre_struc_fend = 0.0;
   ps_pre_struc_tmplt[0] = 1.0;
   ps_pre_struc_tmplt[1] = 1.0;
+  detectorPulse.A = makepulsestruc(
+      detectorPulse.t_next, detectorPulse.mode, detectorPulse.P,
+      detectorPulse.SNR, detectorPulse.yw, detectorPulse.t_0, detectorPulse.t_f,
+      detectorPulse.fp, detectorPulse.fstart, detectorPulse.fend,
+      detectorPulse.det_dec, detectorPulse.con_dec);
   ps_pre_struc_pl.set_size(1, 1);
-  ps_pre_struc_pl[0] = pulseStatsPriori_tmp;
+  ps_pre_struc_pl[0] = detectorPulse;
+  detectorPulse.A = makepulsestruc(
+      detectorPulse.t_next, detectorPulse.mode, detectorPulse.P,
+      detectorPulse.SNR, detectorPulse.yw, detectorPulse.t_0, detectorPulse.t_f,
+      detectorPulse.fp, detectorPulse.fstart, detectorPulse.fend,
+      detectorPulse.det_dec, detectorPulse.con_dec);
   ps_pre_struc_clst.set_size(1, 1);
-  ps_pre_struc_clst[0] = pulseStatsPriori_tmp;
+  ps_pre_struc_clst[0] = detectorPulse;
   ps_pre_struc_cmsk.set_size(1, 1);
   ps_pre_struc_cmsk[0] = false;
   ps_pre_struc_cpki.set_size(1, 1);
@@ -1532,10 +1569,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   iv[0] = 1;
   iv[1] = 1023;
   while (1) {
-    double d2;
-    double missingSamples;
-    double timeDiff;
-    double timeStamp;
     unsigned int timeStampNanoSec;
     unsigned int timeStampSec;
     if (resetBuffersFlag) {
@@ -1578,13 +1611,13 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       }
     } else {
       timeDiff = timeStamp - expectedNextTimeStamp;
-      d2 = Config.contents.tp / 2.0;
-      if (std::abs(timeDiff) < d2) {
+      t9_t_f = Config.contents.tp / 2.0;
+      if (std::abs(timeDiff) < t9_t_f) {
         iqDataToWrite.set_size(1023, 1);
         for (i = 0; i < 1023; i++) {
           iqDataToWrite[i] = dataReceived_data[i + 1];
         }
-      } else if ((timeDiff >= d2) && (timeDiff < Config.contents.tip)) {
+      } else if ((timeDiff >= t9_t_f) && (timeDiff < Config.contents.tip)) {
         unsigned long u;
         // missed samples but not a whole lot
         missingSamples = std::round(timeDiff * Config.contents.Fs);
@@ -1632,7 +1665,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         for (i = 0; i < loop_ub; i++) {
           iqDataToWrite[i] = c_iqDataToWrite[i];
         }
-      } else if (((timeDiff >= d2) && (timeDiff >= Config.contents.tip)) ||
+      } else if (((timeDiff >= t9_t_f) && (timeDiff >= Config.contents.tip)) ||
                  (timeDiff < -Config.contents.tp / 2.0)) {
         //  %missed a lot of samples. Reset buffers
         // predictions is ahead of recently received packet. Shouldn't ever
@@ -1754,26 +1787,26 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
     }
     if (loop_ub >= sampsForKPulses.contents + overlapSamples.contents) {
       double processingStartToc;
-      d2 = std::round(sampsForKPulses.contents);
-      if (d2 < 4.294967296E+9) {
-        if (d2 >= 0.0) {
-          timeStampSec = static_cast<unsigned int>(d2);
+      t9_t_f = std::round(sampsForKPulses.contents);
+      if (t9_t_f < 4.294967296E+9) {
+        if (t9_t_f >= 0.0) {
+          timeStampSec = static_cast<unsigned int>(t9_t_f);
         } else {
           timeStampSec = 0U;
         }
-      } else if (d2 >= 4.294967296E+9) {
+      } else if (t9_t_f >= 4.294967296E+9) {
         timeStampSec = MAX_uint32_T;
       } else {
         timeStampSec = 0U;
       }
-      d2 = std::round(overlapSamples.contents);
-      if (d2 < 4.294967296E+9) {
-        if (d2 >= 0.0) {
-          timeStampNanoSec = static_cast<unsigned int>(d2);
+      t9_t_f = std::round(overlapSamples.contents);
+      if (t9_t_f < 4.294967296E+9) {
+        if (t9_t_f >= 0.0) {
+          timeStampNanoSec = static_cast<unsigned int>(t9_t_f);
         } else {
           timeStampNanoSec = 0U;
         }
-      } else if (d2 >= 4.294967296E+9) {
+      } else if (t9_t_f >= 4.294967296E+9) {
         timeStampNanoSec = MAX_uint32_T;
       } else {
         timeStampNanoSec = 0U;
@@ -1847,23 +1880,41 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           // Initialize states for operational modes
           fLock = false;
           //  switch Config.opMode
-          missingSamples =
+          prioriRelativeFreqHz =
               1.0E-5 * std::abs(Config.contents.tagFreqMHz -
                                 Config.contents.channelCenterFreqMHz);
-          timeDiff = std::ceil(Config.contents.Fs / 2.0);
+          detectorPulse.A = makepulsestruc(
+              detectorPulse.t_next, detectorPulse.mode, detectorPulse.P,
+              detectorPulse.SNR, detectorPulse.yw, detectorPulse.t_0,
+              detectorPulse.t_f, detectorPulse.fp, detectorPulse.fstart,
+              detectorPulse.fend, detectorPulse.det_dec, detectorPulse.con_dec);
+          missingSamples = makepulsestruc(
+              expl_temp.t_next, expl_temp.mode, timeDiff, timeStamp, T, t9_t_0,
+              t9_t_f, t9_fp, t9_fstart, t9_fend, t9_det_dec, t9_con_dec);
+          expl_temp.con_dec = t9_con_dec;
+          expl_temp.det_dec = t9_det_dec;
+          expl_temp.fend = t9_fend;
+          expl_temp.fstart = t9_fstart;
+          expl_temp.fp = t9_fp;
+          expl_temp.t_f = t9_t_f;
+          expl_temp.t_0 = t9_t_0;
+          expl_temp.yw = T;
+          expl_temp.SNR = timeStamp;
+          expl_temp.P = timeDiff;
+          expl_temp.A = missingSamples;
+          missingSamples = std::ceil(Config.contents.Fs / 2.0);
           pulseStatsPriori = lobj_17.init(
               Config.contents.tp, Config.contents.tip, Config.contents.tipu,
-              Config.contents.tipj, missingSamples, missingSamples - timeDiff,
-              missingSamples + timeDiff, pulseStatsPriori_tmp,
-              pulseStatsPriori_tmp);
+              Config.contents.tipj, prioriRelativeFreqHz,
+              prioriRelativeFreqHz - missingSamples,
+              prioriRelativeFreqHz + missingSamples, detectorPulse, expl_temp);
           configUpdatedFlag = false;
         } else {
           pulseStatsPriori = lobj_18.c_init(
-              ps_pre_struc_t_p, ps_pre_struc_t_ip, ps_pre_struc_t_ipu,
-              ps_pre_struc_t_ipj, ps_pre_struc_fp, ps_pre_struc_fstart,
-              ps_pre_struc_fend, ps_pre_struc_tmplt, (char *)&mode,
-              ps_pre_struc_pl, ps_pre_struc_clst, ps_pre_struc_cmsk,
-              ps_pre_struc_cpki);
+              t9_fp, t9_fstart, t9_fend, prioriRelativeFreqHz, ps_pre_struc_fp,
+              ps_pre_struc_fstart, ps_pre_struc_fend, ps_pre_struc_tmplt,
+              (char *)&mode, ps_pre_struc_pl, ps_pre_struc_clst,
+              ps_pre_struc_cmsk, ps_pre_struc_cpki);
         }
         timeStamp = pulseStatsPriori->fstart;
         missingSamples = pulseStatsPriori->fend;
@@ -1877,38 +1928,38 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         b_X.init(x, Config.contents.Fs, t[0], pulseStatsPriori, Xhold_tmp,
                  lobj_16, lobj_15);
         b_X.K = Config.contents.K;
-        d2 = std::round(b_X.N);
-        if (d2 < 4.294967296E+9) {
-          if (d2 >= 0.0) {
-            timeStampSec = static_cast<unsigned int>(d2);
+        t9_t_f = std::round(b_X.N);
+        if (t9_t_f < 4.294967296E+9) {
+          if (t9_t_f >= 0.0) {
+            timeStampSec = static_cast<unsigned int>(t9_t_f);
           } else {
             timeStampSec = 0U;
           }
-        } else if (d2 >= 4.294967296E+9) {
+        } else if (t9_t_f >= 4.294967296E+9) {
           timeStampSec = MAX_uint32_T;
         } else {
           timeStampSec = 0U;
         }
-        d2 = std::round(b_X.M);
-        if (d2 < 4.294967296E+9) {
-          if (d2 >= 0.0) {
-            timeStampNanoSec = static_cast<unsigned int>(d2);
+        t9_t_f = std::round(b_X.M);
+        if (t9_t_f < 4.294967296E+9) {
+          if (t9_t_f >= 0.0) {
+            timeStampNanoSec = static_cast<unsigned int>(t9_t_f);
           } else {
             timeStampNanoSec = 0U;
           }
-        } else if (d2 >= 4.294967296E+9) {
+        } else if (t9_t_f >= 4.294967296E+9) {
           timeStampNanoSec = MAX_uint32_T;
         } else {
           timeStampNanoSec = 0U;
         }
-        d2 = std::round(b_X.J);
-        if (d2 < 4.294967296E+9) {
-          if (d2 >= 0.0) {
-            varargin_3 = static_cast<unsigned int>(d2);
+        t9_t_f = std::round(b_X.J);
+        if (t9_t_f < 4.294967296E+9) {
+          if (t9_t_f >= 0.0) {
+            varargin_3 = static_cast<unsigned int>(t9_t_f);
           } else {
             varargin_3 = 0U;
           }
-        } else if (d2 >= 4.294967296E+9) {
+        } else if (t9_t_f >= 4.294967296E+9) {
           varargin_3 = MAX_uint32_T;
         } else {
           varargin_3 = 0U;
@@ -2174,9 +2225,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         if ((segmentsProcessed != 0.0) && (Config.contents.K > 1.0) &&
             (timeDiff > 0.9 * sampsForKPulses.contents / Config.contents.Fs)) {
           // Config.K = Config.K - 1;
-          d2 = std::round(Config.contents.K - 1.0);
-          if (d2 < 4.294967296E+9) {
-            timeStampSec = static_cast<unsigned int>(d2);
+          t9_t_f = std::round(Config.contents.K - 1.0);
+          if (t9_t_f < 4.294967296E+9) {
+            timeStampSec = static_cast<unsigned int>(t9_t_f);
           } else {
             timeStampSec = MAX_uint32_T;
           }
@@ -2199,10 +2250,10 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         // Prepare priori for next segment
         std::printf("Updating priori...\n");
         std::fflush(stdout);
-        ps_pre_struc_t_p = b_X.ps_pos->t_p;
-        ps_pre_struc_t_ip = b_X.ps_pos->t_ip;
-        ps_pre_struc_t_ipu = b_X.ps_pos->t_ipu;
-        ps_pre_struc_t_ipj = b_X.ps_pos->t_ipj;
+        t9_fp = b_X.ps_pos->t_p;
+        t9_fstart = b_X.ps_pos->t_ip;
+        t9_fend = b_X.ps_pos->t_ipu;
+        prioriRelativeFreqHz = b_X.ps_pos->t_ipj;
         ps_pre_struc_fp = b_X.ps_pos->fp;
         ps_pre_struc_fstart = b_X.ps_pos->fstart;
         ps_pre_struc_fend = b_X.ps_pos->fend;
@@ -2324,8 +2375,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             }
           }
           for (int j{0}; j < nPulseList; j++) {
-            c_struct_T detectorPulse;
-            double c;
             unsigned short u3;
             nbytes = b_X.ps_pos->pl.size(1);
             c_X.set_size(nbytes);
@@ -2362,8 +2411,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             }
             detectorPulse = b_X.ps_pos->pl[j];
             timeDiff = b_X.stft->dt;
-            timeStamp = b_X.stft->T;
-            c = rt_powd_snf(10.0, detectorPulse.SNR / 10.0);
+            T = b_X.stft->T;
+            t9_t_0 = rt_powd_snf(10.0, detectorPulse.SNR / 10.0);
             // See Notebook Entry 2023-07-07 for derivation
             if (j + 1 > pulsesToSkip.size(1)) {
               rtDynamicBoundsError(j + 1, 1, pulsesToSkip.size(1), kb_emlrtBCI);
@@ -2382,15 +2431,16 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
                 timeStampSec = 0U;
               }
               doublesBuffer[0] = timeStampSec;
-              d2 = std::round(Config.contents.channelCenterFreqMHz * 1.0E+6 +
-                              detectorPulse.fp);
-              if (d2 < 4.294967296E+9) {
-                if (d2 >= 0.0) {
-                  timeStampSec = static_cast<unsigned int>(d2);
+              t9_t_f =
+                  std::round(Config.contents.channelCenterFreqMHz * 1.0E+6 +
+                             detectorPulse.fp);
+              if (t9_t_f < 4.294967296E+9) {
+                if (t9_t_f >= 0.0) {
+                  timeStampSec = static_cast<unsigned int>(t9_t_f);
                 } else {
                   timeStampSec = 0U;
                 }
-              } else if (d2 >= 4.294967296E+9) {
+              } else if (t9_t_f >= 4.294967296E+9) {
                 timeStampSec = MAX_uint32_T;
               } else {
                 timeStampSec = 0U;
@@ -2415,8 +2465,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
               doublesBuffer[8] = 10.0 * missingSamples;
               doublesBuffer[9] = detectorPulse.det_dec;
               doublesBuffer[10] = detectorPulse.con_dec;
-              doublesBuffer[11] = detectorPulse.yw * (timeDiff * timeDiff) /
-                                  timeStamp * (1.0 / (c + 1.0));
+              doublesBuffer[11] = detectorPulse.yw * (timeDiff * timeDiff) / T *
+                                  (1.0 / (t9_t_0 + 1.0));
               udpSenderSendDoubles(val, &doublesBuffer[0], 12U);
               //  ROS send
               std::printf("(Skipping ROS2 Pulse send)");
@@ -2449,15 +2499,15 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             // for derivation
             //  uint8(detectorPulse.det_dec);
             // uint8(detectorPulse.con_dec);
-            d2 = std::round(Config.contents.channelCenterFreqMHz * 1.0E+6 +
-                            detectorPulse.fp);
-            if (d2 < 4.294967296E+9) {
-              if (d2 >= 0.0) {
-                timeStampSec = static_cast<unsigned int>(d2);
+            t9_t_f = std::round(Config.contents.channelCenterFreqMHz * 1.0E+6 +
+                                detectorPulse.fp);
+            if (t9_t_f < 4.294967296E+9) {
+              if (t9_t_f >= 0.0) {
+                timeStampSec = static_cast<unsigned int>(t9_t_f);
               } else {
                 timeStampSec = 0U;
               }
-            } else if (d2 >= 4.294967296E+9) {
+            } else if (t9_t_f >= 4.294967296E+9) {
               timeStampSec = MAX_uint32_T;
             } else {
               timeStampSec = 0U;
@@ -2471,8 +2521,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
                         u1, timeStampSec, detectorPulse.t_0,
                         detectorPulse.t_next[0], detectorPulse.SNR,
                         detectorPulse.yw, u2, u3, 10.0 * missingSamples,
-                        detectorPulse.yw * (timeDiff * timeDiff) / timeStamp *
-                            (1.0 / (c + 1.0)),
+                        detectorPulse.yw * (timeDiff * timeDiff) / T *
+                            (1.0 / (t9_t_0 + 1.0)),
                         static_cast<unsigned char>(detectorPulse.det_dec),
                         static_cast<unsigned char>(detectorPulse.con_dec));
             std::fflush(stdout);

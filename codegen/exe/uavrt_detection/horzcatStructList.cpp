@@ -5,7 +5,7 @@
 // File: horzcatStructList.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 12-Dec-2023 09:08:48
+// C/C++ source code generated on  : 29-Feb-2024 15:45:33
 //
 
 // Include Files
@@ -64,7 +64,7 @@ void b_horzcatStructList(const array<c_struct_T, 2U> &structure,
   }
   result.set_size(1, resultSize_idx_1);
   for (resultSize_idx_1 = 0; resultSize_idx_1 < n; resultSize_idx_1++) {
-    result[resultSize_idx_1] = structure[resultSize_idx_1].t_0;
+    result[resultSize_idx_1] = structure[resultSize_idx_1].fp;
   }
 }
 
@@ -114,7 +114,7 @@ void c_horzcatStructList(const array<c_struct_T, 2U> &structure,
   }
   result.set_size(1, resultSize_idx_1);
   for (resultSize_idx_1 = 0; resultSize_idx_1 < n; resultSize_idx_1++) {
-    result[resultSize_idx_1] = structure[resultSize_idx_1].fp;
+    result[resultSize_idx_1] = structure[resultSize_idx_1].t_0;
   }
 }
 
