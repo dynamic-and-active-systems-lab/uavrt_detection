@@ -5,7 +5,7 @@
 // File: sparse.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 29-Feb-2024 15:45:33
+// C/C++ source code generated on  : 04-Mar-2024 13:02:36
 //
 
 // Include Files
@@ -180,7 +180,7 @@ void i_sparse(const array<double, 1U> &varargin_1, g_sparse &y)
   int row;
   mInt = varargin_1.size(0);
   if (varargin_1.size(0) >= MAX_int32_T) {
-    uc_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
+    uc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
   }
   numalloc = 0;
   row = varargin_1.size(0);
@@ -227,7 +227,7 @@ void j_sparse(const array<boolean_T, 2U> &varargin_1, d_sparse &y)
   int numalloc;
   nInt = varargin_1.size(1);
   if (varargin_1.size(1) >= MAX_int32_T) {
-    uc_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
+    uc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
   }
   numalloc = 0;
   i = varargin_1.size(1);

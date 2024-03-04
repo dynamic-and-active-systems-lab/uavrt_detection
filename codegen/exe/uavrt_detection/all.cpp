@@ -5,7 +5,7 @@
 // File: all.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 29-Feb-2024 15:45:33
+// C/C++ source code generated on  : 04-Mar-2024 13:02:36
 //
 
 // Include Files
@@ -52,7 +52,7 @@ void all(const array<boolean_T, 2U> &x, array<boolean_T, 1U> &y)
       overflow = (i2 > MAX_int32_T - vstride);
     }
     if (vstride == 0) {
-      cc_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
+      cc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
     }
     if (overflow) {
       check_forloop_overflow_error();

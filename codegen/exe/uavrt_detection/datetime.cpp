@@ -5,7 +5,7 @@
 // File: datetime.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 29-Feb-2024 15:45:33
+// C/C++ source code generated on  : 04-Mar-2024 13:02:36
 //
 
 // Include Files
@@ -122,9 +122,9 @@ void datetime::init()
     }
     ahi.re = shi;
     ahi.im = check;
-    data = matlab::internal::coder::doubledouble::d_plus(
-        matlab::internal::coder::doubledouble::d_plus(
-            matlab::internal::coder::doubledouble::d_plus(
+    data = matlab::internal::coder::doubledouble::c_plus(
+        matlab::internal::coder::doubledouble::c_plus(
+            matlab::internal::coder::doubledouble::c_plus(
                 ahi, (60.0 * c_tm_hour + c_tm_min) * 60000.0),
             b_second * 1000.0),
         fracSecs);

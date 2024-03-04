@@ -5,7 +5,7 @@
 // File: uavrt_detection_data.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 29-Feb-2024 15:45:33
+// C/C++ source code generated on  : 04-Mar-2024 13:02:36
 //
 
 // Include Files
@@ -411,14 +411,6 @@ rtRunTimeErrorInfo ec_emlrtRTEI{
     "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elfun/sqrt.m" // pName
 };
 
-rtRunTimeErrorInfo gc_emlrtRTEI{
-    1626,              // lineNo
-    31,                // colNo
-    "assertValidSize", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
-    "+internal/@sparse/sparse.m" // pName
-};
-
 rtDoubleCheckInfo o_emlrtDCI{
     1495,                  // lineNo
     44,                    // colNo
@@ -428,7 +420,7 @@ rtDoubleCheckInfo o_emlrtDCI{
     4                             // checkKind
 };
 
-rtRunTimeErrorInfo jc_emlrtRTEI{
+rtRunTimeErrorInfo hc_emlrtRTEI{
     18,                               // lineNo
     27,                               // colNo
     "eml_int_forloop_overflow_check", // fName
@@ -436,7 +428,7 @@ rtRunTimeErrorInfo jc_emlrtRTEI{
     "eml_int_forloop_overflow_check.m" // pName
 };
 
-rtRunTimeErrorInfo kc_emlrtRTEI{
+rtRunTimeErrorInfo ic_emlrtRTEI{
     133,                   // lineNo
     23,                    // colNo
     "dynamic_size_checks", // fName
@@ -444,7 +436,7 @@ rtRunTimeErrorInfo kc_emlrtRTEI{
     "eml_mtimes_helper.m" // pName
 };
 
-rtRunTimeErrorInfo lc_emlrtRTEI{
+rtRunTimeErrorInfo jc_emlrtRTEI{
     138,                   // lineNo
     23,                    // colNo
     "dynamic_size_checks", // fName
@@ -452,8 +444,16 @@ rtRunTimeErrorInfo lc_emlrtRTEI{
     "eml_mtimes_helper.m" // pName
 };
 
+rtRunTimeErrorInfo lc_emlrtRTEI{
+    1626,              // lineNo
+    31,                // colNo
+    "assertValidSize", // fName
+    "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
+    "+internal/@sparse/sparse.m" // pName
+};
+
 rtRunTimeErrorInfo
-    pc_emlrtRTEI{
+    oc_emlrtRTEI{
         28,        // lineNo
         19,        // colNo
         "sub2ind", // fName
@@ -461,14 +461,14 @@ rtRunTimeErrorInfo
         "sub2ind.m" // pName
     };
 
-rtRunTimeErrorInfo uc_emlrtRTEI{
+rtRunTimeErrorInfo tc_emlrtRTEI{
     48,        // lineNo
     5,         // colNo
     "fprintf", // fName
     "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/fprintf.m" // pName
 };
 
-rtRunTimeErrorInfo vc_emlrtRTEI{
+rtRunTimeErrorInfo uc_emlrtRTEI{
     125,        // lineNo
     17,         // colNo
     "cfprintf", // fName

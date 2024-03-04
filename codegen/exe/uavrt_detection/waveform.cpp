@@ -5,7 +5,7 @@
 // File: waveform.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 29-Feb-2024 15:45:33
+// C/C++ source code generated on  : 04-Mar-2024 13:02:36
 //
 
 // Include Files
@@ -86,6 +86,8 @@ static void b_and(coder::array<boolean_T, 1U> &in1, const coder::array<boolean_T
                   1U> &in2);
 static void b_or(coder::array<boolean_T, 1U> &in1, const coder::array<boolean_T,
                  1U> &in2);
+static void b_plus(coder::array<double, 2U> &in1, const coder::array<double, 2U>
+                   &in2);
 static void binary_expand_op_1(waveform *in1, const coder::array<double, 2U>
   &in2, const coder::array<double, 2U> &in3);
 static void binary_expand_op_13(coder::array<boolean_T, 1U> &in1, const coder::
@@ -113,8 +115,6 @@ static void binary_expand_op_7(coder::array<double, 1U> &in1, const coder::array
   double, 1U> &in2, const coder::array<boolean_T, 1U> &in3);
 static void c_and(coder::array<boolean_T, 1U> &in1, const coder::array<boolean_T,
                   1U> &in2, const coder::array<boolean_T, 1U> &in3);
-static void c_plus(coder::array<double, 2U> &in1, const coder::array<double, 2U>
-                   &in2);
 static void g_rtErrorWithMessageID(const char *r, const char *aFcnName, int
   aLineNum);
 static void minus(coder::array<double, 2U> &in1, const coder::array<double, 2U>
@@ -2727,9 +2727,11 @@ void waveform::findpulse(const char time_searchtype_data[], const int
   previousToc = coder::toc();
   std::printf("\t Conducting incoherent summation step  ...");
   std::fflush(stdout);
+
+  // [serialRejectionMatrix] = repetitionrejector(obj.stft.t, [2 3 5 10]);
   repetitionrejector(stft->t, serialRejectionMatrix);
 
-  // [serialRejectionMatrix] = repetitionrejector(obj.stft.t, 0);%Outputs Identity for testing purposes
+  // Outputs Identity for testing purposes
   obj.set_size(W.size(1), W.size(0));
   loop_ub = W.size(0);
   for (i = 0; i < loop_ub; i++) {
@@ -3020,7 +3022,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
       searchmat[i] = refmat[i] + searchmat[i];
     }
   } else {
-    c_plus(searchmat, refmat);
+    b_plus(searchmat, refmat);
   }
 
   r3.set_size(refmat.size(0), refmat.size(1));
@@ -3118,7 +3120,7 @@ void waveform::findpulse(const char time_searchtype_data[], const int
       r3[i] = searchmat[i] + r3[i];
     }
   } else {
-    c_plus(r3, searchmat);
+    b_plus(r3, searchmat);
   }
 
   coder::f_circshift(searchmat);
@@ -5246,9 +5248,9 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 {
   static rtBoundsCheckInfo ab_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1891,                              // lineNo
-    47,                                // colNo
-    "selectedIndex",                   // aName
+    1834,                              // lineNo
+    60,                                // colNo
+    "candidateList",                   // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -5266,9 +5268,9 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo bb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1834,                              // lineNo
-    60,                                // colNo
-    "candidateList",                   // aName
+    1891,                              // lineNo
+    47,                                // colNo
+    "selectedIndex",                   // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -5810,7 +5812,7 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
         if ((d < 1.0) || (static_cast<int>(d) > candidateList.size(0))) {
           rtDynamicBoundsError(static_cast<int>(d), 1, candidateList.size(0),
-                               bb_emlrtBCI);
+                               ab_emlrtBCI);
         }
 
         if (candidateList.size(1) < 1) {
@@ -6092,7 +6094,7 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
       }
 
       if (resultSize_idx_1 == 0) {
-        cc_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
+        cc_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
       }
 
       if (overflow) {
@@ -6146,7 +6148,7 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
     // There will only be 1, but we use n = 1 so coder knows there selectedIndex will be a scalar
     if (resultSize_idx_1 < 1) {
-      rtDynamicBoundsError(1, 1, resultSize_idx_1, ab_emlrtBCI);
+      rtDynamicBoundsError(1, 1, resultSize_idx_1, bb_emlrtBCI);
     }
 
     selectedIndex = maxdimlen;
@@ -6502,6 +6504,62 @@ static void b_or(coder::array<boolean_T, 1U> &in1, const coder::array<boolean_T,
   loop_ub = b_in1.size(0);
   for (int i{0}; i < loop_ub; i++) {
     in1[i] = b_in1[i];
+  }
+}
+
+//
+// Arguments    : coder::array<double, 2U> &in1
+//                const coder::array<double, 2U> &in2
+// Return Type  : void
+//
+static void b_plus(coder::array<double, 2U> &in1, const coder::array<double, 2U>
+                   &in2)
+{
+  coder::array<double, 2U> b_in2;
+  int aux_0_1;
+  int aux_1_1;
+  int b_loop_ub;
+  int loop_ub;
+  int stride_0_0;
+  int stride_0_1;
+  int stride_1_0;
+  int stride_1_1;
+  if (in1.size(0) == 1) {
+    loop_ub = in2.size(0);
+  } else {
+    loop_ub = in1.size(0);
+  }
+
+  if (in1.size(1) == 1) {
+    b_loop_ub = in2.size(1);
+  } else {
+    b_loop_ub = in1.size(1);
+  }
+
+  b_in2.set_size(loop_ub, b_loop_ub);
+  stride_0_0 = (in2.size(0) != 1);
+  stride_0_1 = (in2.size(1) != 1);
+  stride_1_0 = (in1.size(0) != 1);
+  stride_1_1 = (in1.size(1) != 1);
+  aux_0_1 = 0;
+  aux_1_1 = 0;
+  for (int i{0}; i < b_loop_ub; i++) {
+    for (int i1{0}; i1 < loop_ub; i1++) {
+      b_in2[i1 + b_in2.size(0) * i] = in2[i1 * stride_0_0 + in2.size(0) *
+        aux_0_1] + in1[i1 * stride_1_0 + in1.size(0) * aux_1_1];
+    }
+
+    aux_1_1 += stride_1_1;
+    aux_0_1 += stride_0_1;
+  }
+
+  in1.set_size(b_in2.size(0), b_in2.size(1));
+  loop_ub = b_in2.size(1);
+  for (int i{0}; i < loop_ub; i++) {
+    b_loop_ub = b_in2.size(0);
+    for (int i1{0}; i1 < b_loop_ub; i1++) {
+      in1[i1 + in1.size(0) * i] = b_in2[i1 + b_in2.size(0) * i];
+    }
   }
 }
 
@@ -6993,62 +7051,6 @@ static void c_and(coder::array<boolean_T, 1U> &in1, const coder::array<boolean_T
   stride_1_0 = (in3.size(0) != 1);
   for (int i{0}; i < loop_ub; i++) {
     in1[i] = (in2[i * stride_0_0] && in3[i * stride_1_0]);
-  }
-}
-
-//
-// Arguments    : coder::array<double, 2U> &in1
-//                const coder::array<double, 2U> &in2
-// Return Type  : void
-//
-static void c_plus(coder::array<double, 2U> &in1, const coder::array<double, 2U>
-                   &in2)
-{
-  coder::array<double, 2U> b_in2;
-  int aux_0_1;
-  int aux_1_1;
-  int b_loop_ub;
-  int loop_ub;
-  int stride_0_0;
-  int stride_0_1;
-  int stride_1_0;
-  int stride_1_1;
-  if (in1.size(0) == 1) {
-    loop_ub = in2.size(0);
-  } else {
-    loop_ub = in1.size(0);
-  }
-
-  if (in1.size(1) == 1) {
-    b_loop_ub = in2.size(1);
-  } else {
-    b_loop_ub = in1.size(1);
-  }
-
-  b_in2.set_size(loop_ub, b_loop_ub);
-  stride_0_0 = (in2.size(0) != 1);
-  stride_0_1 = (in2.size(1) != 1);
-  stride_1_0 = (in1.size(0) != 1);
-  stride_1_1 = (in1.size(1) != 1);
-  aux_0_1 = 0;
-  aux_1_1 = 0;
-  for (int i{0}; i < b_loop_ub; i++) {
-    for (int i1{0}; i1 < loop_ub; i1++) {
-      b_in2[i1 + b_in2.size(0) * i] = in2[i1 * stride_0_0 + in2.size(0) *
-        aux_0_1] + in1[i1 * stride_1_0 + in1.size(0) * aux_1_1];
-    }
-
-    aux_1_1 += stride_1_1;
-    aux_0_1 += stride_0_1;
-  }
-
-  in1.set_size(b_in2.size(0), b_in2.size(1));
-  loop_ub = b_in2.size(1);
-  for (int i{0}; i < loop_ub; i++) {
-    b_loop_ub = b_in2.size(0);
-    for (int i1{0}; i1 < b_loop_ub; i1++) {
-      in1[i1 + in1.size(0) * i] = b_in2[i1 + b_in2.size(0) * i];
-    }
   }
 }
 

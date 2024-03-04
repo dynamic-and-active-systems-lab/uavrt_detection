@@ -773,8 +773,8 @@ classdef waveform < handle
             previousToc = toc;
             fprintf('\t Conducting incoherent summation step  ...')
 
-            [serialRejectionMatrix] = repetitionrejector(obj.stft.t, [2 3 5 10]);
-            %[serialRejectionMatrix] = repetitionrejector(obj.stft.t, 0);%Outputs Identity for testing purposes
+            %[serialRejectionMatrix] = repetitionrejector(obj.stft.t, [2 3 5 10]);
+            [serialRejectionMatrix] = repetitionrejector(obj.stft.t, 0);%Outputs Identity for testing purposes
 
             [yw_max_all_freq,S_cols] = incohsumtoeplitz(freq_mask,obj.W',obj.stft.S,serialRejectionMatrix,timeBlinderVec, Wq);%obj.TimeCorr.Wq(obj.K));
             fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
