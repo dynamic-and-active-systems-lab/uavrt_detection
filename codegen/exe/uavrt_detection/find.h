@@ -5,7 +5,7 @@
 // File: find.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 28-Nov-2023 16:36:41
+// C/C++ source code generated on  : 04-Mar-2024 13:02:36
 //
 
 #ifndef FIND_H
@@ -40,6 +40,8 @@ int c_eml_find(const array<boolean_T, 1U> &x, int i_data[]);
 int d_eml_find(const array<boolean_T, 1U> &x, int i_data[]);
 
 void e_eml_find(const sparse &x, array<int, 1U> &i, array<int, 1U> &j);
+
+int e_eml_find(const array<double, 1U> &x, int i_data[]);
 
 void eml_find(const array<boolean_T, 2U> &x, int i_data[], int i_size[2]);
 

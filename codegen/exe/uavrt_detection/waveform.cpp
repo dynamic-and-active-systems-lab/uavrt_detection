@@ -5,7 +5,7 @@
 // File: waveform.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 28-Nov-2023 16:36:41
+// C/C++ source code generated on  : 04-Mar-2024 13:02:36
 //
 
 // Include Files
@@ -5248,8 +5248,8 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 {
   static rtBoundsCheckInfo ab_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1832,                              // lineNo
-    56,                                // colNo
+    1834,                              // lineNo
+    60,                                // colNo
     "candidateList",                   // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
@@ -5258,9 +5258,9 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo ac_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1910,                              // lineNo
-    82,                                // colNo
-    "candidateList",                   // aName
+    1900,                              // lineNo
+    66,                                // colNo
+    "peakIndexList",                   // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -5268,7 +5268,7 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo bb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1866,                              // lineNo
+    1891,                              // lineNo
     47,                                // colNo
     "selectedIndex",                   // aName
     "waveform/selectpeakindex",        // fName
@@ -5278,9 +5278,9 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo bc_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1910,                              // lineNo
-    66,                                // colNo
-    "peakIndexList",                   // aName
+    1900,                              // lineNo
+    52,                                // colNo
+    "candidateList",                   // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -5288,8 +5288,8 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo cb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1832,                              // lineNo
-    70,                                // colNo
+    1834,                              // lineNo
+    74,                                // colNo
     "peakIndexList",                   // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
@@ -5298,8 +5298,8 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo cc_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1910,                              // lineNo
-    52,                                // colNo
+    1908,                              // lineNo
+    82,                                // colNo
     "candidateList",                   // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
@@ -5308,9 +5308,9 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo db_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1832,                              // lineNo
-    126,                               // colNo
-    "peakIndexList",                   // aName
+    1834,                              // lineNo
+    77,                                // colNo
+    "candidateList",                   // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -5318,27 +5318,7 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo dc_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1918,                              // lineNo
-    82,                                // colNo
-    "candidateList",                   // aName
-    "waveform/selectpeakindex",        // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
-    0                                  // checkKind
-  };
-
-  static rtBoundsCheckInfo eb_emlrtBCI{ -1,// iFirst
-    -1,                                // iLast
-    1832,                              // lineNo
-    112,                               // colNo
-    "obj.ps_pre.clst",                 // aName
-    "waveform/selectpeakindex",        // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
-    0                                  // checkKind
-  };
-
-  static rtBoundsCheckInfo ec_emlrtBCI{ -1,// iFirst
-    -1,                                // iLast
-    1918,                              // lineNo
+    1908,                              // lineNo
     66,                                // colNo
     "peakIndexList",                   // aName
     "waveform/selectpeakindex",        // fName
@@ -5346,10 +5326,30 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
     0                                  // checkKind
   };
 
+  static rtBoundsCheckInfo eb_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1834,                              // lineNo
+    118,                               // colNo
+    "peakIndexList",                   // aName
+    "waveform/selectpeakindex",        // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo ec_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1908,                              // lineNo
+    52,                                // colNo
+    "candidateList",                   // aName
+    "waveform/selectpeakindex",        // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
   static rtBoundsCheckInfo fb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1832,                              // lineNo
-    129,                               // colNo
+    1834,                              // lineNo
+    104,                               // colNo
     "obj.ps_pre.clst",                 // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
@@ -5358,8 +5358,8 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo fc_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1918,                              // lineNo
-    52,                                // colNo
+    1916,                              // lineNo
+    82,                                // colNo
     "candidateList",                   // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
@@ -5368,9 +5368,9 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo gb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1833,                              // lineNo
-    39,                                // colNo
-    "interPulseAligned",               // aName
+    1834,                              // lineNo
+    121,                               // colNo
+    "obj.ps_pre.clst",                 // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -5378,9 +5378,9 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo gc_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1832,                              // lineNo
-    73,                                // colNo
-    "candidateList",                   // aName
+    1916,                              // lineNo
+    66,                                // colNo
+    "peakIndexList",                   // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -5388,9 +5388,9 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo hb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1837,                              // lineNo
-    54,                                // colNo
-    "candidateList",                   // aName
+    1835,                              // lineNo
+    43,                                // colNo
+    "interPulseAligned",               // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -5398,8 +5398,8 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo hc_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1832,                              // lineNo
-    76,                                // colNo
+    1916,                              // lineNo
+    52,                                // colNo
     "candidateList",                   // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
@@ -5408,37 +5408,17 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo ib_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1867,                              // lineNo
-    78,                                // colNo
+    1849,                              // lineNo
+    77,                                // colNo
     "candidateList",                   // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
-  static rtBoundsCheckInfo jb_emlrtBCI{ -1,// iFirst
+  static rtBoundsCheckInfo ic_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1867,                              // lineNo
-    62,                                // colNo
-    "peakIndexList",                   // aName
-    "waveform/selectpeakindex",        // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
-    0                                  // checkKind
-  };
-
-  static rtBoundsCheckInfo kb_emlrtBCI{ -1,// iFirst
-    -1,                                // iLast
-    1867,                              // lineNo
-    48,                                // colNo
-    "candidateList",                   // aName
-    "waveform/selectpeakindex",        // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
-    0                                  // checkKind
-  };
-
-  static rtBoundsCheckInfo lb_emlrtBCI{ -1,// iFirst
-    -1,                                // iLast
-    1874,                              // lineNo
+    1926,                              // lineNo
     51,                                // colNo
     "selectedIndex",                   // aName
     "waveform/selectpeakindex",        // fName
@@ -5446,9 +5426,79 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
     0                                  // checkKind
   };
 
+  static rtBoundsCheckInfo jb_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1849,                              // lineNo
+    74,                                // colNo
+    "peakIndexList",                   // aName
+    "waveform/selectpeakindex",        // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo jc_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1927,                              // lineNo
+    82,                                // colNo
+    "candidateList",                   // aName
+    "waveform/selectpeakindex",        // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo kb_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1849,                              // lineNo
+    60,                                // colNo
+    "candidateList",                   // aName
+    "waveform/selectpeakindex",        // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo kc_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1927,                              // lineNo
+    66,                                // colNo
+    "peakIndexList",                   // aName
+    "waveform/selectpeakindex",        // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo lb_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1849,                              // lineNo
+    116,                               // colNo
+    "peakIndexList",                   // aName
+    "waveform/selectpeakindex",        // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo lc_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1927,                              // lineNo
+    52,                                // colNo
+    "candidateList",                   // aName
+    "waveform/selectpeakindex",        // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
   static rtBoundsCheckInfo mb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1875,                              // lineNo
+    1849,                              // lineNo
+    102,                               // colNo
+    "obj.ps_pre.clst",                 // aName
+    "waveform/selectpeakindex",        // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo mc_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1935,                              // lineNo
     82,                                // colNo
     "candidateList",                   // aName
     "waveform/selectpeakindex",        // fName
@@ -5458,7 +5508,17 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo nb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1875,                              // lineNo
+    1849,                              // lineNo
+    119,                               // colNo
+    "obj.ps_pre.clst",                 // aName
+    "waveform/selectpeakindex",        // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo nc_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1935,                              // lineNo
     66,                                // colNo
     "peakIndexList",                   // aName
     "waveform/selectpeakindex",        // fName
@@ -5468,7 +5528,17 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo ob_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1875,                              // lineNo
+    1852,                              // lineNo
+    82,                                // colNo
+    "peakIndexList",                   // aName
+    "waveform/selectpeakindex",        // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo oc_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1935,                              // lineNo
     52,                                // colNo
     "candidateList",                   // aName
     "waveform/selectpeakindex",        // fName
@@ -5478,7 +5548,17 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo pb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1883,                              // lineNo
+    1852,                              // lineNo
+    68,                                // colNo
+    "obj.ps_pre.clst",                 // aName
+    "waveform/selectpeakindex",        // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo pc_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1943,                              // lineNo
     82,                                // colNo
     "candidateList",                   // aName
     "waveform/selectpeakindex",        // fName
@@ -5488,7 +5568,17 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo qb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1883,                              // lineNo
+    1852,                              // lineNo
+    85,                                // colNo
+    "obj.ps_pre.clst",                 // aName
+    "waveform/selectpeakindex",        // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo qc_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1943,                              // lineNo
     66,                                // colNo
     "peakIndexList",                   // aName
     "waveform/selectpeakindex",        // fName
@@ -5498,7 +5588,17 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo rb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1883,                              // lineNo
+    1852,                              // lineNo
+    47,                                // colNo
+    "interPulseAligned",               // aName
+    "waveform/selectpeakindex",        // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    0                                  // checkKind
+  };
+
+  static rtBoundsCheckInfo rc_emlrtBCI{ -1,// iFirst
+    -1,                                // iLast
+    1943,                              // lineNo
     52,                                // colNo
     "candidateList",                   // aName
     "waveform/selectpeakindex",        // fName
@@ -5508,9 +5608,9 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo sb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1891,                              // lineNo
-    82,                                // colNo
-    "candidateList",                   // aName
+    1854,                              // lineNo
+    47,                                // colNo
+    "interPulseAligned",               // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -5518,9 +5618,9 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo tb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1891,                              // lineNo
-    66,                                // colNo
-    "peakIndexList",                   // aName
+    1862,                              // lineNo
+    54,                                // colNo
+    "candidateList",                   // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -5528,8 +5628,8 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo ub_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1891,                              // lineNo
-    52,                                // colNo
+    1892,                              // lineNo
+    78,                                // colNo
     "candidateList",                   // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
@@ -5538,9 +5638,9 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo vb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1901,                              // lineNo
-    51,                                // colNo
-    "selectedIndex",                   // aName
+    1892,                              // lineNo
+    62,                                // colNo
+    "peakIndexList",                   // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -5548,8 +5648,8 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo wb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1902,                              // lineNo
-    82,                                // colNo
+    1892,                              // lineNo
+    48,                                // colNo
     "candidateList",                   // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
@@ -5558,9 +5658,9 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo xb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1902,                              // lineNo
-    66,                                // colNo
-    "peakIndexList",                   // aName
+    1899,                              // lineNo
+    51,                                // colNo
+    "selectedIndex",                   // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
@@ -5568,113 +5668,115 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
   static rtBoundsCheckInfo yb_emlrtBCI{ -1,// iFirst
     -1,                                // iLast
-    1902,                              // lineNo
-    52,                                // colNo
+    1900,                              // lineNo
+    82,                                // colNo
     "candidateList",                   // aName
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     0                                  // checkKind
   };
 
-  static rtDoubleCheckInfo s_emlrtDCI{ 1832,// lineNo
-    56,                                // colNo
+  static rtDoubleCheckInfo s_emlrtDCI{ 1834,// lineNo
+    60,                                // colNo
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
-  static rtDoubleCheckInfo t_emlrtDCI{ 1832,// lineNo
-    112,                               // colNo
+  static rtDoubleCheckInfo t_emlrtDCI{ 1834,// lineNo
+    104,                               // colNo
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
-  static rtDoubleCheckInfo u_emlrtDCI{ 1837,// lineNo
+  static rtDoubleCheckInfo u_emlrtDCI{ 1849,// lineNo
+    60,                                // colNo
+    "waveform/selectpeakindex",        // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    1                                  // checkKind
+  };
+
+  static rtDoubleCheckInfo v_emlrtDCI{ 1849,// lineNo
+    102,                               // colNo
+    "waveform/selectpeakindex",        // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    1                                  // checkKind
+  };
+
+  static rtDoubleCheckInfo w_emlrtDCI{ 1852,// lineNo
+    68,                                // colNo
+    "waveform/selectpeakindex",        // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
+    1                                  // checkKind
+  };
+
+  static rtDoubleCheckInfo x_emlrtDCI{ 1862,// lineNo
     54,                                // colNo
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
     1                                  // checkKind
   };
 
-  static rtDoubleCheckInfo v_emlrtDCI{ 1832,// lineNo
-    76,                                // colNo
-    "waveform/selectpeakindex",        // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m",// pName
-    1                                  // checkKind
-  };
-
-  static rtEqualityCheckInfo g_emlrtECI{ 2,// nDims
-    1833,                              // lineNo
-    48,                                // colNo
-    "waveform/selectpeakindex",        // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
-  };
-
-  static rtEqualityCheckInfo h_emlrtECI{ 1,// nDims
-    1870,                              // lineNo
+  static rtEqualityCheckInfo g_emlrtECI{ 1,// nDims
+    1895,                              // lineNo
     24,                                // colNo
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
   };
 
-  static rtEqualityCheckInfo i_emlrtECI{ 1,// nDims
-    1873,                              // lineNo
+  static rtEqualityCheckInfo h_emlrtECI{ 1,// nDims
+    1898,                              // lineNo
     42,                                // colNo
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
   };
 
-  static rtEqualityCheckInfo j_emlrtECI{ 1,// nDims
-    1877,                              // lineNo
+  static rtEqualityCheckInfo i_emlrtECI{ 1,// nDims
+    1902,                              // lineNo
     29,                                // colNo
+    "waveform/selectpeakindex",        // fName
+    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
+  };
+
+  static rtEqualityCheckInfo j_emlrtECI{ 1,// nDims
+    1906,                              // lineNo
+    45,                                // colNo
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
   };
 
   static rtEqualityCheckInfo k_emlrtECI{ 1,// nDims
-    1881,                              // lineNo
-    45,                                // colNo
-    "waveform/selectpeakindex",        // fName
-    "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
-  };
-
-  static rtEqualityCheckInfo l_emlrtECI{ 1,// nDims
-    1885,                              // lineNo
+    1910,                              // lineNo
     29,                                // colNo
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
   };
 
-  static rtEqualityCheckInfo m_emlrtECI{ 1,// nDims
-    1908,                              // lineNo
+  static rtEqualityCheckInfo l_emlrtECI{ 1,// nDims
+    1933,                              // lineNo
     45,                                // colNo
     "waveform/selectpeakindex",        // fName
     "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/uavrt_detection/waveform.m"// pName
   };
 
-  coder::array<c_struct_T, 2U> b_candidateList;
   coder::array<c_struct_T, 2U> structure;
-  coder::array<double, 2U> deltaTimeFromPrev;
   coder::array<double, 2U> r;
+  coder::array<double, 2U> r1;
   coder::array<double, 2U> y;
   coder::array<double, 1U> sumScores;
   coder::array<double, 1U> x_tmp;
   coder::array<boolean_T, 2U> b_x;
-  coder::array<boolean_T, 2U> r1;
-  coder::array<boolean_T, 2U> r2;
-  coder::array<boolean_T, 1U> c_x;
   coder::array<boolean_T, 1U> interPulseAligned;
   coder::array<boolean_T, 1U> likelyCaughSingleBigPeak;
   double d;
+  double deltaTimeFromPrev;
   double interpulseTimeRangeMax;
   double interpulseTimeRangeMin;
   double selectedIndex;
-  int b_peakIndexList[2];
-  int b_i1;
   int i;
   int i1;
-  int ii_data;
+  int ix;
   int j;
   int maxdimlen;
   int resultSize_idx_1;
@@ -5691,123 +5793,216 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
   if (ps_pre->clst.size(0) * ps_pre->clst.size(1) != 1) {
     // There is a previous candidate list
     i = peakIndexList.size(0);
-    if (peakIndexList.size(0) - 1 >= 0) {
-      d = (static_cast<double>(candidateList.size(1)) - K) + 2.0;
-      if (d < 1.0) {
-        ii_data = 0;
-      } else {
+    for (i1 = 0; i1 < i; i1++) {
+      //  deltaTimeFromPrev = [candidateList(peakIndexList(i),1:(end-obj.K+2)).t_0]-[obj.ps_pre.clst(peakIndexList(i),end).t_0];
+      if (K > 1.0) {
+        double deltaTimeFromPrev_idx_0;
+        boolean_T varargin_1[2];
+
+        // Need to consider first two candidate pulses in case the first was in the last segment due to overlap
+        if (i1 + 1 > peakIndexList.size(0)) {
+          rtDynamicBoundsError(i1 + 1, 1, peakIndexList.size(0), cb_emlrtBCI);
+        }
+
+        d = peakIndexList[i1];
+        j = static_cast<int>(std::floor(d));
+        if (d != j) {
+          rtIntegerError(d, s_emlrtDCI);
+        }
+
+        if ((d < 1.0) || (static_cast<int>(d) > candidateList.size(0))) {
+          rtDynamicBoundsError(static_cast<int>(d), 1, candidateList.size(0),
+                               ab_emlrtBCI);
+        }
+
         if (candidateList.size(1) < 1) {
-          rtDynamicBoundsError(1, 1, candidateList.size(1), gc_emlrtBCI);
+          rtDynamicBoundsError(1, 1, candidateList.size(1), db_emlrtBCI);
         }
 
-        if (d != static_cast<int>(std::floor(d))) {
-          rtIntegerError(d, v_emlrtDCI);
+        resultSize_idx_1 = static_cast<int>(peakIndexList[i1]) - 1;
+        if (candidateList.size(1) < 2) {
+          rtDynamicBoundsError(2, 1, candidateList.size(1), db_emlrtBCI);
         }
 
-        if ((static_cast<int>(d) < 1) || (static_cast<int>(d) >
-             candidateList.size(1))) {
-          rtDynamicBoundsError(static_cast<int>(d), 1, candidateList.size(1),
-                               hc_emlrtBCI);
-        }
-
-        ii_data = static_cast<int>(d);
-      }
-    }
-
-    for (int b_i{0}; b_i < i; b_i++) {
-      if (b_i + 1 > peakIndexList.size(0)) {
-        rtDynamicBoundsError(b_i + 1, 1, peakIndexList.size(0), cb_emlrtBCI);
-      }
-
-      d = peakIndexList[b_i];
-      j = static_cast<int>(std::floor(d));
-      if (d != j) {
-        rtIntegerError(d, s_emlrtDCI);
-      }
-
-      if ((d < 1.0) || (static_cast<int>(d) > candidateList.size(0))) {
-        rtDynamicBoundsError(static_cast<int>(d), 1, candidateList.size(0),
-                             ab_emlrtBCI);
-      }
-
-      b_candidateList.set_size(1, ii_data);
-      for (b_i1 = 0; b_i1 < ii_data; b_i1++) {
-        b_candidateList[b_i1] = candidateList[(static_cast<int>
-          (peakIndexList[b_i]) + candidateList.size(0) * b_i1) - 1];
-      }
-
-      coder::internal::b_horzcatStructList(b_candidateList, deltaTimeFromPrev);
-      deltaTimeFromPrev.set_size(1, deltaTimeFromPrev.size(1));
-      i1 = deltaTimeFromPrev.size(1) - 1;
-      for (b_i1 = 0; b_i1 <= i1; b_i1++) {
-        resultSize_idx_1 = ps_pre->clst.size(0);
-        if (b_i + 1 > peakIndexList.size(0)) {
-          rtDynamicBoundsError(b_i + 1, 1, peakIndexList.size(0), db_emlrtBCI);
+        ix = ps_pre->clst.size(0);
+        if (i1 + 1 > peakIndexList.size(0)) {
+          rtDynamicBoundsError(i1 + 1, 1, peakIndexList.size(0), eb_emlrtBCI);
         }
 
         if (static_cast<int>(d) != j) {
           rtIntegerError(d, t_emlrtDCI);
         }
 
-        if (static_cast<int>(d) > resultSize_idx_1) {
-          rtDynamicBoundsError(static_cast<int>(d), 1, resultSize_idx_1,
-                               eb_emlrtBCI);
+        if (static_cast<int>(d) > ix) {
+          rtDynamicBoundsError(static_cast<int>(d), 1, ix, fb_emlrtBCI);
         }
 
-        resultSize_idx_1 = ps_pre->clst.size(1);
+        ix = ps_pre->clst.size(1);
         maxdimlen = ps_pre->clst.size(1);
-        if ((maxdimlen < 1) || (maxdimlen > resultSize_idx_1)) {
-          rtDynamicBoundsError(maxdimlen, 1, resultSize_idx_1, fb_emlrtBCI);
+        if ((maxdimlen < 1) || (maxdimlen > ix)) {
+          rtDynamicBoundsError(maxdimlen, 1, ix, gb_emlrtBCI);
         }
 
-        deltaTimeFromPrev[b_i1] = deltaTimeFromPrev[b_i1] - ps_pre->clst[(
-          static_cast<int>(d) + ps_pre->clst.size(0) * (maxdimlen - 1)) - 1].t_0;
-      }
+        deltaTimeFromPrev_idx_0 = candidateList[resultSize_idx_1].t_0 -
+          ps_pre->clst[(static_cast<int>(d) + ps_pre->clst.size(0) * (maxdimlen
+          - 1)) - 1].t_0;
+        ix = ps_pre->clst.size(0);
+        if (i1 + 1 > peakIndexList.size(0)) {
+          rtDynamicBoundsError(i1 + 1, 1, peakIndexList.size(0), eb_emlrtBCI);
+        }
 
-      r1.set_size(1, deltaTimeFromPrev.size(1));
-      i1 = deltaTimeFromPrev.size(1);
-      r2.set_size(1, deltaTimeFromPrev.size(1));
-      for (j = 0; j < i1; j++) {
-        d = deltaTimeFromPrev[j];
-        r1[j] = (d < interpulseTimeRangeMax);
-        r2[j] = (d > interpulseTimeRangeMin);
-      }
+        if (static_cast<int>(d) != j) {
+          rtIntegerError(d, t_emlrtDCI);
+        }
 
-      if (r1.size(1) != r2.size(1)) {
-        rtSizeEqNDCheck(r1.size(), r2.size(), g_emlrtECI);
-      }
+        if (static_cast<int>(d) > ix) {
+          rtDynamicBoundsError(static_cast<int>(d), 1, ix, fb_emlrtBCI);
+        }
 
-      b_x.set_size(1, r1.size(1));
-      i1 = r1.size(1);
-      for (j = 0; j < i1; j++) {
-        b_x[j] = (r1[j] && r2[j]);
-      }
+        j = ps_pre->clst.size(1);
+        ix = ps_pre->clst.size(1);
+        if ((ix < 1) || (ix > j)) {
+          rtDynamicBoundsError(ix, 1, j, gb_emlrtBCI);
+        }
 
-      resultSize_idx_1 = b_x.size(1);
-      if (b_i + 1 > interPulseAligned.size(0)) {
-        rtDynamicBoundsError(b_i + 1, 1, interPulseAligned.size(0), gb_emlrtBCI);
-      }
+        deltaTimeFromPrev = candidateList[resultSize_idx_1 + candidateList.size
+          (0)].t_0 - ps_pre->clst[(static_cast<int>(d) + ps_pre->clst.size(0) *
+          (ix - 1)) - 1].t_0;
+        varargin_1[0] = ((deltaTimeFromPrev_idx_0 < interpulseTimeRangeMax) &&
+                         (deltaTimeFromPrev_idx_0 > interpulseTimeRangeMin));
+        varargin_1[1] = ((deltaTimeFromPrev < interpulseTimeRangeMax) &&
+                         (deltaTimeFromPrev > interpulseTimeRangeMin));
+        if (i1 + 1 > interPulseAligned.size(0)) {
+          rtDynamicBoundsError(i1 + 1, 1, interPulseAligned.size(0), hb_emlrtBCI);
+        }
 
-      c_x = b_x.reshape(resultSize_idx_1);
-      interPulseAligned[b_i] = coder::internal::allOrAny_anonFcn1(c_x);
+        interPulseAligned[i1] = false;
+        resultSize_idx_1 = 0;
+        exitg1 = false;
+        while ((!exitg1) && (resultSize_idx_1 < 2)) {
+          if (varargin_1[resultSize_idx_1]) {
+            if (i1 + 1 > interPulseAligned.size(0)) {
+              rtDynamicBoundsError(i1 + 1, 1, interPulseAligned.size(0),
+                                   hb_emlrtBCI);
+            }
+
+            interPulseAligned[i1] = true;
+            exitg1 = true;
+          } else {
+            resultSize_idx_1++;
+          }
+        }
+      } else {
+        // Due to overlap, there is a chance that the current
+        // detetion is the same as the last detection. This
+        // is why we check for time alignment of the first
+        // twp pulses in the 'if' statement above. But for K
+        // = 1, we only have one pulse to check in the
+        // current candidate list. That pulse could be the
+        // same as the one in the previous segement due to
+        // the overlap. If we are detecting the same pulse as
+        // was in the last segment, we can't look back beyond
+        // the previous segment, but we can use that pulses
+        // confirmation status, which would only have been
+        // set if the interpulse duration was correct.
+        if (candidateList.size(1) < 1) {
+          rtDynamicBoundsError(1, 1, candidateList.size(1), ib_emlrtBCI);
+        }
+
+        if (i1 + 1 > peakIndexList.size(0)) {
+          rtDynamicBoundsError(i1 + 1, 1, peakIndexList.size(0), jb_emlrtBCI);
+        }
+
+        d = peakIndexList[i1];
+        j = static_cast<int>(std::floor(d));
+        if (d != j) {
+          rtIntegerError(d, u_emlrtDCI);
+        }
+
+        ix = static_cast<int>(d);
+        if ((d < 1.0) || (ix > candidateList.size(0))) {
+          rtDynamicBoundsError(static_cast<int>(d), 1, candidateList.size(0),
+                               kb_emlrtBCI);
+        }
+
+        maxdimlen = ps_pre->clst.size(0);
+        if (i1 + 1 > peakIndexList.size(0)) {
+          rtDynamicBoundsError(i1 + 1, 1, peakIndexList.size(0), lb_emlrtBCI);
+        }
+
+        if (ix != j) {
+          rtIntegerError(d, v_emlrtDCI);
+        }
+
+        if (ix > maxdimlen) {
+          rtDynamicBoundsError(static_cast<int>(d), 1, maxdimlen, mb_emlrtBCI);
+        }
+
+        maxdimlen = ps_pre->clst.size(1);
+        resultSize_idx_1 = ps_pre->clst.size(1);
+        if ((resultSize_idx_1 < 1) || (resultSize_idx_1 > maxdimlen)) {
+          rtDynamicBoundsError(resultSize_idx_1, 1, maxdimlen, nb_emlrtBCI);
+        }
+
+        deltaTimeFromPrev = candidateList[static_cast<int>(d) - 1].t_0 -
+          ps_pre->clst[(static_cast<int>(d) + ps_pre->clst.size(0) *
+                        (resultSize_idx_1 - 1)) - 1].t_0;
+        if (deltaTimeFromPrev < 2.0 * ps_pre->t_p) {
+          // detected same pulse as previous due to overlap
+          maxdimlen = ps_pre->clst.size(0);
+          if (i1 + 1 > peakIndexList.size(0)) {
+            rtDynamicBoundsError(i1 + 1, 1, peakIndexList.size(0), ob_emlrtBCI);
+          }
+
+          if (ix != j) {
+            rtIntegerError(d, w_emlrtDCI);
+          }
+
+          if (ix > maxdimlen) {
+            rtDynamicBoundsError(static_cast<int>(d), 1, maxdimlen, pb_emlrtBCI);
+          }
+
+          j = ps_pre->clst.size(1);
+          ix = ps_pre->clst.size(1);
+          if ((ix < 1) || (ix > j)) {
+            rtDynamicBoundsError(ix, 1, j, qb_emlrtBCI);
+          }
+
+          if (i1 + 1 > interPulseAligned.size(0)) {
+            rtDynamicBoundsError(i1 + 1, 1, interPulseAligned.size(0),
+                                 rb_emlrtBCI);
+          }
+
+          interPulseAligned[i1] = ps_pre->clst[(static_cast<int>(d) +
+            ps_pre->clst.size(0) * (ix - 1)) - 1].con_dec;
+        } else {
+          if (i1 + 1 > interPulseAligned.size(0)) {
+            rtDynamicBoundsError(i1 + 1, 1, interPulseAligned.size(0),
+                                 sb_emlrtBCI);
+          }
+
+          interPulseAligned[i1] = ((deltaTimeFromPrev < interpulseTimeRangeMax) &&
+            (deltaTimeFromPrev > interpulseTimeRangeMin));
+        }
+      }
     }
   }
 
   structure.set_size(peakIndexList.size(0), candidateList.size(1));
   i1 = candidateList.size(1);
   for (i = 0; i < i1; i++) {
-    ii_data = peakIndexList.size(0);
-    for (j = 0; j < ii_data; j++) {
+    resultSize_idx_1 = peakIndexList.size(0);
+    for (j = 0; j < resultSize_idx_1; j++) {
       if (peakIndexList[j] != static_cast<int>(std::floor(peakIndexList[j]))) {
-        rtIntegerError(peakIndexList[j], u_emlrtDCI);
+        rtIntegerError(peakIndexList[j], x_emlrtDCI);
       }
 
-      b_i1 = static_cast<int>(peakIndexList[j]);
-      if ((b_i1 < 1) || (b_i1 > candidateList.size(0))) {
-        rtDynamicBoundsError(b_i1, 1, candidateList.size(0), hb_emlrtBCI);
+      ix = static_cast<int>(peakIndexList[j]);
+      if ((ix < 1) || (ix > candidateList.size(0))) {
+        rtDynamicBoundsError(ix, 1, candidateList.size(0), tb_emlrtBCI);
       }
 
-      structure[j + structure.size(0) * i] = candidateList[(b_i1 +
+      structure[j + structure.size(0) * i] = candidateList[(ix +
         candidateList.size(0) * i) - 1];
     }
   }
@@ -5823,13 +6018,13 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
   }
 
   r.set_size(1, resultSize_idx_1);
-  for (int b_i{0}; b_i < maxdimlen; b_i++) {
-    r[b_i] = structure[b_i].yw;
+  for (i1 = 0; i1 < maxdimlen; i1++) {
+    r[i1] = structure[i1].yw;
   }
 
-  interpulseTimeRangeMin = K;
+  deltaTimeFromPrev = K;
   coder::internal::assertValidSizeArg(static_cast<double>(peakIndexList.size(0)));
-  coder::internal::assertValidSizeArg(interpulseTimeRangeMin);
+  coder::internal::assertValidSizeArg(deltaTimeFromPrev);
   maxdimlen = 1;
   if (r.size(1) > 1) {
     maxdimlen = r.size(1);
@@ -5844,31 +6039,31 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
     k_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
   }
 
-  if (static_cast<int>(interpulseTimeRangeMin) > maxdimlen) {
+  if (static_cast<int>(deltaTimeFromPrev) > maxdimlen) {
     k_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
   }
 
-  if (static_cast<int>(interpulseTimeRangeMin) < 0) {
+  if (static_cast<int>(deltaTimeFromPrev) < 0) {
     jb_rtErrorWithMessageID(yb_emlrtRTEI.fName, yb_emlrtRTEI.lineNo);
   }
 
-  i1 = peakIndexList.size(0) * static_cast<int>(interpulseTimeRangeMin);
+  i1 = peakIndexList.size(0) * static_cast<int>(deltaTimeFromPrev);
   if (i1 != r.size(1)) {
     l_rtErrorWithMessageID(o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
   }
 
-  b_peakIndexList[0] = peakIndexList.size(0);
-  resultSize_idx_1 = static_cast<int>(K);
-  deltaTimeFromPrev = r.reshape(b_peakIndexList[0], resultSize_idx_1);
-  coder::sum(deltaTimeFromPrev, sumScores);
+  resultSize_idx_1 = peakIndexList.size(0);
+  maxdimlen = static_cast<int>(K);
+  r1 = r.reshape(resultSize_idx_1, maxdimlen);
+  coder::sum(r1, sumScores);
   if (K > 1.0) {
     coder::repmat(sumScores, K, y);
-    b_peakIndexList[0] = peakIndexList.size(0);
-    deltaTimeFromPrev = r.reshape(b_peakIndexList[0], resultSize_idx_1);
-    coder::internal::assertCompatibleDims(deltaTimeFromPrev, y);
+    resultSize_idx_1 = peakIndexList.size(0);
+    r1 = r.reshape(resultSize_idx_1, maxdimlen);
+    coder::internal::assertCompatibleDims(r1, y);
     if ((peakIndexList.size(0) == y.size(0)) && (static_cast<int>(K) == y.size(1)))
     {
-      b_x.set_size(peakIndexList.size(0), resultSize_idx_1);
+      b_x.set_size(peakIndexList.size(0), maxdimlen);
       for (i = 0; i < i1; i++) {
         b_x[i] = (r[i] / y[i] > 0.8);
       }
@@ -5906,14 +6101,14 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
         coder::check_forloop_overflow_error();
       }
 
-      ii_data = i1;
+      ix = i1;
       exitg1 = false;
-      while ((!exitg1) && (ii_data <= maxdimlen)) {
-        if (b_x[ii_data - 1]) {
+      while ((!exitg1) && (ix <= maxdimlen)) {
+        if (b_x[ix - 1]) {
           likelyCaughSingleBigPeak[j] = true;
           exitg1 = true;
         } else {
-          ii_data += resultSize_idx_1;
+          ix += resultSize_idx_1;
         }
       }
     }
@@ -5949,30 +6144,30 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
     // Only one option that has pulse times aligned with
     // previous segment, so select that even if there are
     // stronger (higher scoring) pulses available
-    resultSize_idx_1 = coder::c_eml_find(interPulseAligned, (int *)&ii_data);
+    resultSize_idx_1 = coder::c_eml_find(interPulseAligned, (int *)&maxdimlen);
 
     // There will only be 1, but we use n = 1 so coder knows there selectedIndex will be a scalar
     if (resultSize_idx_1 < 1) {
       rtDynamicBoundsError(1, 1, resultSize_idx_1, bb_emlrtBCI);
     }
 
-    selectedIndex = ii_data;
+    selectedIndex = maxdimlen;
     if (candidateList.size(1) < 1) {
-      rtDynamicBoundsError(1, 1, candidateList.size(1), ib_emlrtBCI);
+      rtDynamicBoundsError(1, 1, candidateList.size(1), ub_emlrtBCI);
     }
 
-    if ((ii_data < 1) || (ii_data > peakIndexList.size(0))) {
-      rtDynamicBoundsError(ii_data, 1, peakIndexList.size(0), jb_emlrtBCI);
+    if ((maxdimlen < 1) || (maxdimlen > peakIndexList.size(0))) {
+      rtDynamicBoundsError(maxdimlen, 1, peakIndexList.size(0), vb_emlrtBCI);
     }
 
-    i = static_cast<int>(peakIndexList[ii_data - 1]);
+    i = static_cast<int>(peakIndexList[maxdimlen - 1]);
     if ((i < 1) || (i > candidateList.size(0))) {
-      rtDynamicBoundsError(i, 1, candidateList.size(0), kb_emlrtBCI);
+      rtDynamicBoundsError(i, 1, candidateList.size(0), wb_emlrtBCI);
     }
 
     std::printf("Selected peak at frequency %f Hz from center because it was the only one that was aligned in time with candidates from the previ"
                 "ous segment.", candidateList[static_cast<int>
-                (peakIndexList[ii_data - 1]) - 1].fp);
+                (peakIndexList[maxdimlen - 1]) - 1].fp);
     std::fflush(stdout);
   } else {
     resultSize_idx_1 = coder::combineVectorElements(interPulseAligned);
@@ -5981,7 +6176,7 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
           ((interPulseAligned.size(0) != 1) && (likelyCaughSingleBigPeak.size(0)
             != 1))) {
         emlrtDimSizeImpxCheckR2021b(interPulseAligned.size(0),
-          likelyCaughSingleBigPeak.size(0), h_emlrtECI);
+          likelyCaughSingleBigPeak.size(0), g_emlrtECI);
       }
 
       if (interPulseAligned.size(0) == likelyCaughSingleBigPeak.size(0)) {
@@ -6003,69 +6198,34 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
             ((interPulseAligned.size(0) != 1) && (likelyCaughSingleBigPeak.size
               (0) != 1))) {
           emlrtDimSizeImpxCheckR2021b(interPulseAligned.size(0),
-            likelyCaughSingleBigPeak.size(0), i_emlrtECI);
+            likelyCaughSingleBigPeak.size(0), h_emlrtECI);
         }
 
-        resultSize_idx_1 = (x_tmp.size(0) >= 1);
-        if (resultSize_idx_1 > x_tmp.size(0)) {
-          i_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
-        }
-
-        maxdimlen = 0;
-        if (x_tmp.size(0) > 2147483646) {
-          coder::check_forloop_overflow_error();
-        }
-
-        i1 = 0;
-        exitg1 = false;
-        while ((!exitg1) && (i1 <= x_tmp.size(0) - 1)) {
-          if (x_tmp[i1] != 0.0) {
-            maxdimlen = 1;
-            ii_data = i1 + 1;
-            exitg1 = true;
-          } else {
-            i1++;
-          }
-        }
-
-        if (maxdimlen > resultSize_idx_1) {
-          i_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
-        }
-
-        if (resultSize_idx_1 == 1) {
-          if (maxdimlen == 0) {
-            resultSize_idx_1 = 0;
-          }
-        } else {
-          resultSize_idx_1 = (maxdimlen >= 1);
-          b_peakIndexList[0] = 1;
-          b_peakIndexList[1] = resultSize_idx_1;
-          coder::internal::indexShapeCheck(0, b_peakIndexList);
-        }
+        resultSize_idx_1 = coder::e_eml_find(x_tmp, (int *)&maxdimlen);
 
         // There will only be 1, but we use n = 1 so coder knows there selectedIndex will be a scalar
         if (resultSize_idx_1 < 1) {
-          rtDynamicBoundsError(1, 1, 0, lb_emlrtBCI);
+          rtDynamicBoundsError(1, 1, resultSize_idx_1, xb_emlrtBCI);
         }
 
-        selectedIndex = ii_data;
+        selectedIndex = maxdimlen;
         if (candidateList.size(1) < 1) {
-          rtDynamicBoundsError(1, 1, candidateList.size(1), mb_emlrtBCI);
+          rtDynamicBoundsError(1, 1, candidateList.size(1), yb_emlrtBCI);
         }
 
-        if (ii_data > peakIndexList.size(0)) {
-          rtDynamicBoundsError(ii_data, 1, peakIndexList.size(0), nb_emlrtBCI);
+        if ((maxdimlen < 1) || (maxdimlen > peakIndexList.size(0))) {
+          rtDynamicBoundsError(maxdimlen, 1, peakIndexList.size(0), ac_emlrtBCI);
         }
 
-        i = static_cast<int>(peakIndexList[ii_data - 1]);
+        i = static_cast<int>(peakIndexList[maxdimlen - 1]);
         if ((i < 1) || (i > candidateList.size(0))) {
-          rtDynamicBoundsError(i, 1, candidateList.size(0), ob_emlrtBCI);
+          rtDynamicBoundsError(i, 1, candidateList.size(0), bc_emlrtBCI);
         }
 
         std::printf("Selected peak at frequency %f Hz from center because of those that were aligned in time with candidates from the previous segmen"
                     "t, it was the only one without a single big peak.",
-                    candidateList[static_cast<int>(peakIndexList[ii_data - 1]) -
-                    1].fp);
+                    candidateList[static_cast<int>(peakIndexList[maxdimlen - 1])
+                    - 1].fp);
         std::fflush(stdout);
       } else {
         overflow = ((interPulseAligned.size(0) != likelyCaughSingleBigPeak.size
@@ -6073,7 +6233,7 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
                               (likelyCaughSingleBigPeak.size(0) != 1)));
         if (overflow) {
           emlrtDimSizeImpxCheckR2021b(interPulseAligned.size(0),
-            likelyCaughSingleBigPeak.size(0), j_emlrtECI);
+            likelyCaughSingleBigPeak.size(0), i_emlrtECI);
         }
 
         if (d > 1.0) {
@@ -6082,13 +6242,13 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
           // with the biggest score from that subset.
           if (overflow) {
             emlrtDimSizeImpxCheckR2021b(interPulseAligned.size(0),
-              likelyCaughSingleBigPeak.size(0), k_emlrtECI);
+              likelyCaughSingleBigPeak.size(0), j_emlrtECI);
           }
 
           if ((x_tmp.size(0) != sumScores.size(0)) && ((x_tmp.size(0) != 1) &&
                (sumScores.size(0) != 1))) {
             emlrtDimSizeImpxCheckR2021b(x_tmp.size(0), sumScores.size(0),
-              k_emlrtECI);
+              j_emlrtECI);
           }
 
           if (x_tmp.size(0) == sumScores.size(0)) {
@@ -6104,18 +6264,18 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
           selectedIndex = resultSize_idx_1;
           if (candidateList.size(1) < 1) {
-            rtDynamicBoundsError(1, 1, candidateList.size(1), pb_emlrtBCI);
+            rtDynamicBoundsError(1, 1, candidateList.size(1), cc_emlrtBCI);
           }
 
           if ((resultSize_idx_1 < 1) || (resultSize_idx_1 > peakIndexList.size(0)))
           {
             rtDynamicBoundsError(resultSize_idx_1, 1, peakIndexList.size(0),
-                                 qb_emlrtBCI);
+                                 dc_emlrtBCI);
           }
 
           i = static_cast<int>(peakIndexList[resultSize_idx_1 - 1]);
           if ((i < 1) || (i > candidateList.size(0))) {
-            rtDynamicBoundsError(i, 1, candidateList.size(0), rb_emlrtBCI);
+            rtDynamicBoundsError(i, 1, candidateList.size(0), ec_emlrtBCI);
           }
 
           std::printf("Selected peak at frequency %f Hz from center because of those that were aligned in time with candidates from the previous segmen"
@@ -6126,7 +6286,7 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
         } else {
           if (overflow) {
             emlrtDimSizeImpxCheckR2021b(interPulseAligned.size(0),
-              likelyCaughSingleBigPeak.size(0), l_emlrtECI);
+              likelyCaughSingleBigPeak.size(0), k_emlrtECI);
           }
 
           if (d == 0.0) {
@@ -6136,18 +6296,18 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
             coder::internal::b_maximum(sumScores, resultSize_idx_1);
             selectedIndex = resultSize_idx_1;
             if (candidateList.size(1) < 1) {
-              rtDynamicBoundsError(1, 1, candidateList.size(1), sb_emlrtBCI);
+              rtDynamicBoundsError(1, 1, candidateList.size(1), fc_emlrtBCI);
             }
 
             if ((resultSize_idx_1 < 1) || (resultSize_idx_1 > peakIndexList.size
                  (0))) {
               rtDynamicBoundsError(resultSize_idx_1, 1, peakIndexList.size(0),
-                                   tb_emlrtBCI);
+                                   gc_emlrtBCI);
             }
 
             i = static_cast<int>(peakIndexList[resultSize_idx_1 - 1]);
             if ((i < 1) || (i > candidateList.size(0))) {
-              rtDynamicBoundsError(i, 1, candidateList.size(0), ub_emlrtBCI);
+              rtDynamicBoundsError(i, 1, candidateList.size(0), hc_emlrtBCI);
             }
 
             std::printf("Selected peak at frequency %f Hz from center because there were no pulses that aligned in time with the previous segment that al"
@@ -6168,30 +6328,31 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
           // Single option that doesn't contain a single big
           // peak and pulses are aligned in time so pick that one
           resultSize_idx_1 = coder::c_eml_find(likelyCaughSingleBigPeak, (int *)
-            &ii_data);
+            &maxdimlen);
 
           // There will only be 1, but we use n = 1 so coder knows there selectedIndex will be a scalar
           if (resultSize_idx_1 < 1) {
-            rtDynamicBoundsError(1, 1, resultSize_idx_1, vb_emlrtBCI);
+            rtDynamicBoundsError(1, 1, resultSize_idx_1, ic_emlrtBCI);
           }
 
-          selectedIndex = ii_data;
+          selectedIndex = maxdimlen;
           if (candidateList.size(1) < 1) {
-            rtDynamicBoundsError(1, 1, candidateList.size(1), wb_emlrtBCI);
+            rtDynamicBoundsError(1, 1, candidateList.size(1), jc_emlrtBCI);
           }
 
-          if ((ii_data < 1) || (ii_data > peakIndexList.size(0))) {
-            rtDynamicBoundsError(ii_data, 1, peakIndexList.size(0), xb_emlrtBCI);
+          if ((maxdimlen < 1) || (maxdimlen > peakIndexList.size(0))) {
+            rtDynamicBoundsError(maxdimlen, 1, peakIndexList.size(0),
+                                 kc_emlrtBCI);
           }
 
-          i = static_cast<int>(peakIndexList[ii_data - 1]);
+          i = static_cast<int>(peakIndexList[maxdimlen - 1]);
           if ((i < 1) || (i > candidateList.size(0))) {
-            rtDynamicBoundsError(i, 1, candidateList.size(0), yb_emlrtBCI);
+            rtDynamicBoundsError(i, 1, candidateList.size(0), lc_emlrtBCI);
           }
 
           std::printf("Selected peak at frequency %f Hz from center because no pulses that aligned in time with the previous segment were found and thi"
                       "s was the only one that did not have a single big peak.",
-                      candidateList[static_cast<int>(peakIndexList[ii_data - 1])
+                      candidateList[static_cast<int>(peakIndexList[maxdimlen - 1])
                       - 1].fp);
           std::fflush(stdout);
         } else {
@@ -6205,7 +6366,7 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
                 ((likelyCaughSingleBigPeak.size(0) != 1) && (sumScores.size(0)
                   != 1))) {
               emlrtDimSizeImpxCheckR2021b(likelyCaughSingleBigPeak.size(0),
-                sumScores.size(0), m_emlrtECI);
+                sumScores.size(0), l_emlrtECI);
             }
 
             if (likelyCaughSingleBigPeak.size(0) == sumScores.size(0)) {
@@ -6224,18 +6385,18 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
 
             selectedIndex = resultSize_idx_1;
             if (candidateList.size(1) < 1) {
-              rtDynamicBoundsError(1, 1, candidateList.size(1), ac_emlrtBCI);
+              rtDynamicBoundsError(1, 1, candidateList.size(1), mc_emlrtBCI);
             }
 
             if ((resultSize_idx_1 < 1) || (resultSize_idx_1 > peakIndexList.size
                  (0))) {
               rtDynamicBoundsError(resultSize_idx_1, 1, peakIndexList.size(0),
-                                   bc_emlrtBCI);
+                                   nc_emlrtBCI);
             }
 
             i = static_cast<int>(peakIndexList[resultSize_idx_1 - 1]);
             if ((i < 1) || (i > candidateList.size(0))) {
-              rtDynamicBoundsError(i, 1, candidateList.size(0), cc_emlrtBCI);
+              rtDynamicBoundsError(i, 1, candidateList.size(0), oc_emlrtBCI);
             }
 
             std::printf("Selected peak at frequency %f Hz from center because no pulses that aligned in time with the previous segment were found and of "
@@ -6253,18 +6414,18 @@ double waveform::selectpeakindex(const coder::array<c_struct_T, 2U>
               coder::internal::b_maximum(sumScores, resultSize_idx_1);
               selectedIndex = resultSize_idx_1;
               if (candidateList.size(1) < 1) {
-                rtDynamicBoundsError(1, 1, candidateList.size(1), dc_emlrtBCI);
+                rtDynamicBoundsError(1, 1, candidateList.size(1), pc_emlrtBCI);
               }
 
               if ((resultSize_idx_1 < 1) || (resultSize_idx_1 >
                    peakIndexList.size(0))) {
                 rtDynamicBoundsError(resultSize_idx_1, 1, peakIndexList.size(0),
-                                     ec_emlrtBCI);
+                                     qc_emlrtBCI);
               }
 
               i = static_cast<int>(peakIndexList[resultSize_idx_1 - 1]);
               if ((i < 1) || (i > candidateList.size(0))) {
-                rtDynamicBoundsError(i, 1, candidateList.size(0), fc_emlrtBCI);
+                rtDynamicBoundsError(i, 1, candidateList.size(0), rc_emlrtBCI);
               }
 
               std::printf("Selected peak at frequency %f Hz from center because no pulses that aligned in time with the previous segment were found and all"

@@ -5,7 +5,7 @@
 // File: str2matrix.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 28-Nov-2023 16:36:41
+// C/C++ source code generated on  : 04-Mar-2024 13:02:36
 //
 
 // Include Files
@@ -18,8 +18,52 @@
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
+#include "omp.h"
+#include <cstdio>
+#include <cstdlib>
+#include <sstream>
+#include <stdexcept>
+#include <string>
+
+// Function Declarations
+static void rtSizeEqNDCheck(const int &aDims1, const int &aDims2,
+                            const rtEqualityCheckInfo &aInfo);
 
 // Function Definitions
+//
+// Arguments    : const int &aDims1
+//                const int &aDims2
+//                const rtEqualityCheckInfo &aInfo
+// Return Type  : void
+//
+static void rtSizeEqNDCheck(const int &aDims1, const int &aDims2,
+                            const rtEqualityCheckInfo &aInfo)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  for (int i{0}; i < aInfo.nDims; i++) {
+    if ((&aDims1)[i] != (&aDims2)[i]) {
+      std::string dims1Str;
+      std::string dims2Str;
+      dims1Str = rtGenSizeString(aInfo.nDims, &aDims1);
+      dims2Str = rtGenSizeString(aInfo.nDims, &aDims2);
+      ((((outStream << "Sizes mismatch: ") << dims1Str) << " ~= ") << dims2Str)
+          << ".";
+      outStream << "\n";
+      ((((outStream << "Error in ") << aInfo.fName) << " (line ")
+       << aInfo.lineNo)
+          << ")";
+      if (omp_in_parallel()) {
+        errMsg = outStream.str();
+        std::fprintf(stderr, "%s", errMsg.c_str());
+        std::abort();
+      } else {
+        throw std::runtime_error(outStream.str());
+      }
+    }
+  }
+}
+
 //
 // STR2MATRIX Converts a string containing a matrix in Matlab notation to a
 // numeric array. Arrays must be no greater than two dimensions. Hard
@@ -783,7 +827,7 @@ void str2matrix(coder::array<char, 2U> &inputStr,
     iv[0] = 1;
     iv[1] = leftBracketLoc.size(1);
     if (leftBracketLoc.size(1) != iv1[1]) {
-      rtSizeEqNDCheck(&iv[0], &iv1[0], g_emlrtECI);
+      rtSizeEqNDCheck(iv[0], iv1[0], g_emlrtECI);
     }
     j2 = 0;
     for (int b_j1{0}; b_j1 <= end; b_j1++) {

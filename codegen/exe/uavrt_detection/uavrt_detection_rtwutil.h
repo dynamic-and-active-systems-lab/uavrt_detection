@@ -5,7 +5,7 @@
 // File: uavrt_detection_rtwutil.h
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 28-Nov-2023 16:36:41
+// C/C++ source code generated on  : 04-Mar-2024 13:02:36
 //
 
 #ifndef UAVRT_DETECTION_RTWUTIL_H
@@ -69,10 +69,10 @@ extern void j_rtErrorWithMessageID(const char *r, const char *aFcnName,
 
 extern void jb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
+extern void k_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
 extern void k_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum);
-
-extern void k_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 extern void l_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
@@ -92,11 +92,11 @@ extern void rtDivisionByZeroErrorN();
 extern void rtDynamicBoundsError(int aIndexValue, int aLoBound, int aHiBound,
                                  const rtBoundsCheckInfo &aInfo);
 
-extern void rtErrorWithMessageID(const std::string r, const int i,
-                                 const char *aFcnName, int aLineNum);
-
 extern void rtErrorWithMessageID(const char *r, const char *aFcnName,
                                  int aLineNum);
+
+extern void rtErrorWithMessageID(const std::string r, const int i,
+                                 const char *aFcnName, int aLineNum);
 
 extern void rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
@@ -111,9 +111,6 @@ extern void rtNonNegativeError(const double aPositive,
                                const rtDoubleCheckInfo &aInfo);
 
 extern void rtSizeEq1DError(const int aDim1, const int aDim2,
-                            const rtEqualityCheckInfo &aInfo);
-
-extern void rtSizeEqNDCheck(const int *aDims1, const int *aDims2,
                             const rtEqualityCheckInfo &aInfo);
 
 extern void rtSubAssignSizeCheck(const int *aDims1, const int aNDims1,

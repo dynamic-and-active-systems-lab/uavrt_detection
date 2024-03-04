@@ -5,7 +5,7 @@
 // File: uavrt_detection_rtwutil.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 28-Nov-2023 16:36:41
+// C/C++ source code generated on  : 04-Mar-2024 13:02:36
 //
 
 // Include Files
@@ -454,28 +454,6 @@ void jb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 }
 
 //
-// Arguments    : const char *r
-//                const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-void k_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  ((outStream << "Expected ") << r) << " to be integer-valued.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
 // Arguments    : const char *aFcnName
 //                int aLineNum
 // Return Type  : void
@@ -488,6 +466,28 @@ void k_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
       << "To RESHAPE the number of elements must not change, and if the input "
          "is empty, the maximum dimension length cannot be increased u"
          "nless the output size is fixed.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *r
+//                const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+void k_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  ((outStream << "Expected ") << r) << " to be integer-valued.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -710,6 +710,30 @@ void rtDynamicBoundsError(int aIndexValue, int aLoBound, int aHiBound,
 }
 
 //
+// Arguments    : const char *r
+//                const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+void rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  ((outStream << "Domain error. To compute complex results from real x, use \'")
+   << r)
+      << "(complex(x))\'.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
 // Arguments    : const std::string r
 //                const int i
 //                const char *aFcnName
@@ -723,30 +747,6 @@ void rtErrorWithMessageID(const std::string r, const int i,
   std::stringstream outStream;
   ((((outStream << "Call to \'") << r) << "\' failed with return value ") << i)
       << ".";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *r
-//                const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-void rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  ((outStream << "Domain error. To compute complex results from real x, use \'")
-   << r)
-      << "(complex(x))\'.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -876,40 +876,6 @@ void rtSizeEq1DError(const int aDim1, const int aDim2,
     std::abort();
   } else {
     throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const int *aDims1
-//                const int *aDims2
-//                const rtEqualityCheckInfo &aInfo
-// Return Type  : void
-//
-void rtSizeEqNDCheck(const int *aDims1, const int *aDims2,
-                     const rtEqualityCheckInfo &aInfo)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  for (int i{0}; i < aInfo.nDims; i++) {
-    if (aDims1[i] != aDims2[i]) {
-      std::string dims1Str;
-      std::string dims2Str;
-      dims1Str = rtGenSizeString(aInfo.nDims, aDims1);
-      dims2Str = rtGenSizeString(aInfo.nDims, aDims2);
-      ((((outStream << "Sizes mismatch: ") << dims1Str) << " ~= ") << dims2Str)
-          << ".";
-      outStream << "\n";
-      ((((outStream << "Error in ") << aInfo.fName) << " (line ")
-       << aInfo.lineNo)
-          << ")";
-      if (omp_in_parallel()) {
-        errMsg = outStream.str();
-        std::fprintf(stderr, "%s", errMsg.c_str());
-        std::abort();
-      } else {
-        throw std::runtime_error(outStream.str());
-      }
-    }
   }
 }
 

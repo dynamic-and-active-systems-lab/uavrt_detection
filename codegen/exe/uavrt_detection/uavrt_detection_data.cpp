@@ -5,7 +5,7 @@
 // File: uavrt_detection_data.cpp
 //
 // MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 28-Nov-2023 16:36:41
+// C/C++ source code generated on  : 04-Mar-2024 13:02:36
 //
 
 // Include Files
@@ -66,20 +66,6 @@ rtRunTimeErrorInfo f_emlrtRTEI{
     5,             // colNo
     "getFileStar", // fName
     "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/fseek.m" // pName
-};
-
-rtRunTimeErrorInfo j_emlrtRTEI{
-    81,         // lineNo
-    1,          // colNo
-    "eml_find", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elmat/find.m" // pName
-};
-
-rtRunTimeErrorInfo k_emlrtRTEI{
-    392,                  // lineNo
-    1,                    // colNo
-    "find_first_indices", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/elmat/find.m" // pName
 };
 
 rtRunTimeErrorInfo l_emlrtRTEI{
