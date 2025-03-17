@@ -949,6 +949,25 @@ classdef waveform < handle
                 peak     = NaN(1,1);%[];
             end
 
+            %PRINT OUT FREQUENCIES, THRESHOLDS, AND SCORES BEFORE WE ENTER
+            %INTO THE LOOP IN CASE IT CRASHES WE CAN STILL SEE THESE IT THE
+            %LOGS. 
+            fprintf('Frequencies are:\n')
+            for i = 1:numel(obj.Wf)
+                fprintf('%.6f,',obj.Wf(i))
+            end
+            fprintf('\n')
+            fprintf('Threshold vector is equal to:\n')
+            for i = 1:numel(thresh)
+                fprintf('%f,',thresh(i))
+            end
+            fprintf('\n')
+            fprintf('Scores vector is equal to:\n')
+            for i = 1:numel(scores)
+                fprintf('%f,',scores(i))
+            end
+            fprintf('\n')
+
             %Keep doing this loop below while there are scores that exceed
             %the threshold which aren't masked as a valley, +slope, -slope,
             %or previously identified peak/sideband. 
@@ -1130,14 +1149,34 @@ classdef waveform < handle
                     %so far. The msk(:,p+1) entry is here because we are
                     %looping through n_blks and are updating the p+1 column
                     %each time. 
-                   
+                    if p < n_freqs
+                        %I got an error on this line in a flight with an
+                        %index bounds error on msk(:,p+1) saying that 151
+                        %exceeded the bounds, which had been 150. The stuff
+                        %in this part of the if statement was the original
+                        %code and I thought it was okay because there
+                        %shouldn't ever be more peaks than n_freqs, or
+                        %anywhere close. 
                     msk(:,p+1) = msk(:,p)|...
                                  msk(:,p+1)|...
                                 (sideband_msk |...
                                 ((n_diff_to_curr_pk<=diff_thresh)|...
                                  (n_diff_check_back<=diff_thresh)|...
                                  (n_diff_check_for<=diff_thresh))|...
-                                 diff_check_curr);                 
+                                 diff_check_curr);  
+                    fprintf('Everything normal, p = %f \n',p)
+                    else
+                       %This will let me know if there is a problem and
+                       %keep the code from crashing so that I can 
+                       fprintf('!!!!!!!!!!!!!!!!!!!!!!!!\n')
+                       fprintf('SOMETHING WEIRD HAPPENED AND THE PEELING ALGORITHM GOT ALL THE WAY TO THE END OF THE MSK COLUMNS MEANING THERE WERE AT LEAST AS MANY PEAKS AS THERE ARE FREQUENCIES.:\n') 
+                       fprintf('p = %f \n',p)
+                       fprintf('peak_masked_curr_scores are:\n')
+                        for uniquecounter = 1:numel(peak_masked_curr_scores)
+                            fprintf('%.6f,',peak_masked_curr_scores(uniquecounter))
+                        end
+                       fprintf('!!!!!!!!!!!!!!!!!!!!!!!!\n')
+                    end
                 end
                 %Extract the mask for this peak and no others
                 indiv_msk(:,p) = msk(:,p+1)-msk(:,p);
@@ -1224,21 +1263,11 @@ classdef waveform < handle
             end
 
             pl_out   = cur_pl;
-            fprintf('Frequencies are:\n')
-            for i = 1:numel(obj.Wf)
-                fprintf('%.6f,',obj.Wf(i))
-            end
-            fprintf('\n')
-            fprintf('Threshold vector is equal to:\n')
-            for i = 1:numel(thresh)
-                fprintf('%f,',thresh(i))
-            end
-            fprintf('\n')
-            fprintf('Scores vector is equal to:\n')
-            for i = 1:numel(scores)
-                fprintf('%f,',scores(i))
-            end
-            fprintf('\n')
+
+            %FREQUENCY, THRESHOLD, AND SCORES PRINTING USED TO GO HERE. 
+            %MOVED TO ABOVE PEELING ALGORITHM SO THAT I CAN SEE THIS WHEN
+            %IF THE ALGORITHM CRASHES
+            
 
 fprintf('complete. Elapsed time: %f seconds \n', toc - previousToc)
 previousToc = toc;

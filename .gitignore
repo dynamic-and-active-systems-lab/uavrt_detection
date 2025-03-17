@@ -51,3 +51,10 @@ src
 *.asv
 *.tgz
 *.zip
+*.drawio
+*.drawio.bkp
+OLD_CODE
+data_for_testing_detection_code/
+gettextfilelinelocs.m
+uavrt_detection_debug.m
+
