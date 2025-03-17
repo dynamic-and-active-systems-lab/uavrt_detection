@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: _coder_uavrt_detection_mex.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -23,11 +23,8 @@
 void mexFunction(int32_T nlhs, mxArray *[], int32_T nrhs, const mxArray *prhs[])
 {
   mexAtExit(&uavrt_detection_atexit);
-  // Module initialization.
   uavrt_detection_initialize();
-  // Dispatch the entry-point.
   uavrt_detection_mexFunction(nlhs, nrhs, prhs);
-  // Module termination.
   uavrt_detection_terminate();
 }
 

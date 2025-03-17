@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: strcmp.h
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 #ifndef STRCMP_H
@@ -63,6 +63,10 @@ boolean_T o_strcmp(const array<char, 2U> &a);
 boolean_T p_strcmp(const array<char, 2U> &a);
 
 boolean_T q_strcmp(const array<char, 2U> &a);
+
+boolean_T r_strcmp(const array<char, 2U> &a);
+
+boolean_T s_strcmp(const array<char, 2U> &a);
 
 } // namespace internal
 } // namespace coder

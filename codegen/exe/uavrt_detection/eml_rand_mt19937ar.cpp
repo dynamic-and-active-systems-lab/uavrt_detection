@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: eml_rand_mt19937ar.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -22,12 +22,16 @@
 
 // Function Declarations
 namespace coder {
+namespace internal {
+namespace randfun {
 static void genrand_uint32_vector(unsigned int mt[625], unsigned int u[2]);
 
 static double genrandu(unsigned int mt[625]);
 
+} // namespace randfun
+} // namespace internal
 } // namespace coder
-static void oc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void pc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -36,6 +40,8 @@ static void oc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 // Return Type  : void
 //
 namespace coder {
+namespace internal {
+namespace randfun {
 static void genrand_uint32_vector(unsigned int mt[625], unsigned int u[2])
 {
   for (int j{0}; j < 2; j++) {
@@ -85,14 +91,11 @@ static void genrand_uint32_vector(unsigned int mt[625], unsigned int u[2])
 //
 static double genrandu(unsigned int mt[625])
 {
-  static rtRunTimeErrorInfo bd_emlrtRTEI{
-      158,        // lineNo
-      17,         // colNo
-      "genrandu", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/randfun/"
-      "eml_rand_mt19937ar.m" // pName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      125,       // lineNo
+      "genrandu" // fName
   };
-  double r;
+  unsigned int u[2];
   // ========================= COPYRIGHT NOTICE ============================
   //  This is a uniform (0,1) pseudorandom number generator based on:
   //
@@ -131,16 +134,13 @@ static double genrandu(unsigned int mt[625])
   //  OF THIS  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   //
   // =============================   END   =================================
-  unsigned int u[2];
   int exitg1;
   do {
     exitg1 = 0;
     genrand_uint32_vector(mt, u);
     u[0] >>= 5U;
     u[1] >>= 6U;
-    r = 1.1102230246251565E-16 *
-        (static_cast<double>(u[0]) * 6.7108864E+7 + static_cast<double>(u[1]));
-    if (r == 0.0) {
+    if ((u[0] == 0U) && (u[1] == 0U)) {
       boolean_T isvalid;
       if ((mt[624] >= 1U) && (mt[624] < 625U)) {
         isvalid = true;
@@ -163,13 +163,14 @@ static double genrandu(unsigned int mt[625])
         }
       }
       if (!isvalid) {
-        oc_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
+        pc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
       }
     } else {
       exitg1 = 1;
     }
   } while (exitg1 == 0);
-  return r;
+  return 1.1102230246251565E-16 *
+         (static_cast<double>(u[0]) * 6.7108864E+7 + static_cast<double>(u[1]));
 }
 
 //
@@ -177,8 +178,10 @@ static double genrandu(unsigned int mt[625])
 //                int aLineNum
 // Return Type  : void
 //
+} // namespace randfun
+} // namespace internal
 } // namespace coder
-static void oc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void pc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -200,7 +203,9 @@ static void oc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 // Return Type  : double
 //
 namespace coder {
-double eml_rand_mt19937ar(unsigned int b_state[625])
+namespace internal {
+namespace randfun {
+double b_eml_rand_mt19937ar(unsigned int b_state[625])
 {
   static const double dv[257]{0.0,
                               0.215241895984875,
@@ -725,7 +730,7 @@ double eml_rand_mt19937ar(unsigned int b_state[625])
     genrand_uint32_vector(b_state, u32);
     i = static_cast<int>((u32[1] >> 24U) + 1U);
     r = ((static_cast<double>(u32[0] >> 3U) * 1.6777216E+7 +
-          static_cast<double>(static_cast<int>(u32[1]) & 16777215)) *
+          static_cast<double>(u32[1] & 16777215U)) *
              2.2204460492503131E-16 -
          1.0) *
         dv[i];
@@ -756,6 +761,24 @@ double eml_rand_mt19937ar(unsigned int b_state[625])
   return r;
 }
 
+//
+// Arguments    : unsigned int b_state[625]
+// Return Type  : void
+//
+void eml_rand_mt19937ar(unsigned int b_state[625])
+{
+  unsigned int r;
+  r = 5489U;
+  b_state[0] = 5489U;
+  for (int mti{0}; mti < 623; mti++) {
+    r = ((r ^ r >> 30U) * 1812433253U + static_cast<unsigned int>(mti)) + 1U;
+    b_state[mti + 1] = r;
+  }
+  b_state[624] = 624U;
+}
+
+} // namespace randfun
+} // namespace internal
 } // namespace coder
 
 //

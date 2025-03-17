@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: ftell.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -32,7 +32,7 @@ double b_ftell(double fileID)
   f = internal::getfilestar(fileID, a);
   filestar = f;
   if (f == nullptr) {
-    c_rtErrorWithMessageID(f_emlrtRTEI.fName, f_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(b_emlrtRTEI.fName, b_emlrtRTEI.lineNo);
   }
   if ((!(fileID != 0.0)) || (!(fileID != 1.0)) || (!(fileID != 2.0))) {
     filestar = nullptr;

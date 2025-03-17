@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: FFTImplementationCallback.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -19,13 +19,9 @@
 #include <cmath>
 
 // Variable Definitions
-static rtDoubleCheckInfo k_emlrtDCI{
-    33,                     // lineNo
-    28,                     // colNo
-    "bluestein_setup_impl", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
-    "bluesteinSetup.m", // pName
-    4                   // checkKind
+static rtDoubleCheckInfo i_emlrtDCI{
+    33,                    // lineNo
+    "bluestein_setup_impl" // fName
 };
 
 // Function Definitions
@@ -45,17 +41,14 @@ void FFTImplementationCallback::r2br_r2dit_trig_impl(
     const array<float, 2U> &costab, const array<float, 2U> &sintab,
     array<creal32_T, 1U> &y)
 {
+  float im;
   float temp_im;
   float temp_re;
   float temp_re_tmp;
-  float twid_re;
   int i;
-  int iDelta;
   int iDelta2;
   int iheight;
-  int ihi;
   int iy;
-  int j;
   int ju;
   int k;
   int nRowsD2;
@@ -67,19 +60,20 @@ void FFTImplementationCallback::r2br_r2dit_trig_impl(
       y[iy].im = 0.0F;
     }
   }
-  j = x.size(0);
-  if (j > unsigned_nRows) {
-    j = unsigned_nRows;
+  if (x.size(0) <= unsigned_nRows) {
+    iDelta2 = x.size(0) - 1;
+  } else {
+    iDelta2 = unsigned_nRows - 1;
   }
-  ihi = unsigned_nRows - 2;
+  iheight = unsigned_nRows - 2;
   nRowsD2 = unsigned_nRows / 2;
   k = nRowsD2 / 2;
   iy = 0;
   ju = 0;
-  if (j - 1 > 2147483646) {
+  if (iDelta2 > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (i = 0; i <= j - 2; i++) {
+  for (i = 0; i < iDelta2; i++) {
     boolean_T tst;
     y[iy] = x[i];
     iy = unsigned_nRows;
@@ -91,62 +85,64 @@ void FFTImplementationCallback::r2br_r2dit_trig_impl(
     }
     iy = ju;
   }
-  if (j - 2 < 0) {
-    j = 0;
-  } else {
-    j--;
+  if (iDelta2 - 1 < 0) {
+    iDelta2 = 0;
   }
-  y[iy] = x[j];
+  y[iy] = x[iDelta2];
   if (unsigned_nRows > 1) {
-    for (i = 0; i <= ihi; i += 2) {
+    for (i = 0; i <= iheight; i += 2) {
       temp_re_tmp = y[i + 1].re;
       temp_im = y[i + 1].im;
       temp_re = y[i].re;
-      twid_re = y[i].im;
+      im = y[i].im;
       y[i + 1].re = temp_re - temp_re_tmp;
-      y[i + 1].im = twid_re - temp_im;
+      y[i + 1].im = y[i].im - y[i + 1].im;
+      im += temp_im;
       y[i].re = temp_re + temp_re_tmp;
-      y[i].im = twid_re + temp_im;
+      y[i].im = im;
     }
   }
-  iDelta = 2;
+  iy = 2;
   iDelta2 = 4;
   iheight = ((k - 1) << 2) + 1;
   while (k > 0) {
+    int b_temp_re_tmp;
     for (i = 0; i < iheight; i += iDelta2) {
-      iy = i + iDelta;
-      temp_re = y[iy].re;
-      temp_im = y[iy].im;
-      y[iy].re = y[i].re - temp_re;
-      y[iy].im = y[i].im - temp_im;
+      b_temp_re_tmp = i + iy;
+      temp_re = y[b_temp_re_tmp].re;
+      temp_im = y[b_temp_re_tmp].im;
+      y[b_temp_re_tmp].re = y[i].re - temp_re;
+      y[b_temp_re_tmp].im = y[i].im - temp_im;
       y[i].re = y[i].re + temp_re;
       y[i].im = y[i].im + temp_im;
     }
-    iy = 1;
-    for (j = k; j < nRowsD2; j += k) {
+    ju = 1;
+    for (int j{k}; j < nRowsD2; j += k) {
       float twid_im;
+      float twid_re;
+      int ihi;
       twid_re = costab[j];
       twid_im = sintab[j];
-      i = iy;
-      ihi = iy + iheight;
+      i = ju;
+      ihi = ju + iheight;
       while (i < ihi) {
-        ju = i + iDelta;
-        temp_re_tmp = y[ju].im;
-        temp_im = y[ju].re;
-        temp_re = twid_re * temp_im - twid_im * temp_re_tmp;
-        temp_im = twid_re * temp_re_tmp + twid_im * temp_im;
-        y[ju].re = y[i].re - temp_re;
-        y[ju].im = y[i].im - temp_im;
+        b_temp_re_tmp = i + iy;
+        temp_re_tmp = y[b_temp_re_tmp].im;
+        im = y[b_temp_re_tmp].re;
+        temp_re = twid_re * im - twid_im * temp_re_tmp;
+        temp_im = twid_re * temp_re_tmp + twid_im * im;
+        y[b_temp_re_tmp].re = y[i].re - temp_re;
+        y[b_temp_re_tmp].im = y[i].im - temp_im;
         y[i].re = y[i].re + temp_re;
         y[i].im = y[i].im + temp_im;
         i += iDelta2;
       }
-      iy++;
+      ju++;
     }
     k /= 2;
-    iDelta = iDelta2;
+    iy = iDelta2;
     iDelta2 += iDelta2;
-    iheight -= iDelta;
+    iheight -= iy;
   }
 }
 
@@ -163,17 +159,14 @@ void FFTImplementationCallback::r2br_r2dit_trig_impl(
     const array<double, 2U> &costab, const array<double, 2U> &sintab,
     array<creal_T, 1U> &y)
 {
+  double im;
   double temp_im;
   double temp_re;
   double temp_re_tmp;
-  double twid_re;
   int i;
-  int iDelta;
   int iDelta2;
   int iheight;
-  int ihi;
   int iy;
-  int j;
   int ju;
   int k;
   int nRowsD2;
@@ -185,19 +178,20 @@ void FFTImplementationCallback::r2br_r2dit_trig_impl(
       y[iy].im = 0.0;
     }
   }
-  j = x.size(0);
-  if (j > unsigned_nRows) {
-    j = unsigned_nRows;
+  if (x.size(0) <= unsigned_nRows) {
+    iDelta2 = x.size(0) - 1;
+  } else {
+    iDelta2 = unsigned_nRows - 1;
   }
-  ihi = unsigned_nRows - 2;
+  iheight = unsigned_nRows - 2;
   nRowsD2 = unsigned_nRows / 2;
   k = nRowsD2 / 2;
   iy = 0;
   ju = 0;
-  if (j - 1 > 2147483646) {
+  if (iDelta2 > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (i = 0; i <= j - 2; i++) {
+  for (i = 0; i < iDelta2; i++) {
     boolean_T tst;
     y[iy] = x[i];
     iy = unsigned_nRows;
@@ -209,62 +203,64 @@ void FFTImplementationCallback::r2br_r2dit_trig_impl(
     }
     iy = ju;
   }
-  if (j - 2 < 0) {
-    j = 0;
-  } else {
-    j--;
+  if (iDelta2 - 1 < 0) {
+    iDelta2 = 0;
   }
-  y[iy] = x[j];
+  y[iy] = x[iDelta2];
   if (unsigned_nRows > 1) {
-    for (i = 0; i <= ihi; i += 2) {
+    for (i = 0; i <= iheight; i += 2) {
       temp_re_tmp = y[i + 1].re;
       temp_im = y[i + 1].im;
       temp_re = y[i].re;
-      twid_re = y[i].im;
+      im = y[i].im;
       y[i + 1].re = temp_re - temp_re_tmp;
-      y[i + 1].im = twid_re - temp_im;
+      y[i + 1].im = y[i].im - y[i + 1].im;
+      im += temp_im;
       y[i].re = temp_re + temp_re_tmp;
-      y[i].im = twid_re + temp_im;
+      y[i].im = im;
     }
   }
-  iDelta = 2;
+  iy = 2;
   iDelta2 = 4;
   iheight = ((k - 1) << 2) + 1;
   while (k > 0) {
+    int b_temp_re_tmp;
     for (i = 0; i < iheight; i += iDelta2) {
-      iy = i + iDelta;
-      temp_re = y[iy].re;
-      temp_im = y[iy].im;
-      y[iy].re = y[i].re - temp_re;
-      y[iy].im = y[i].im - temp_im;
+      b_temp_re_tmp = i + iy;
+      temp_re = y[b_temp_re_tmp].re;
+      temp_im = y[b_temp_re_tmp].im;
+      y[b_temp_re_tmp].re = y[i].re - temp_re;
+      y[b_temp_re_tmp].im = y[i].im - temp_im;
       y[i].re = y[i].re + temp_re;
       y[i].im = y[i].im + temp_im;
     }
-    iy = 1;
-    for (j = k; j < nRowsD2; j += k) {
+    ju = 1;
+    for (int j{k}; j < nRowsD2; j += k) {
       double twid_im;
+      double twid_re;
+      int ihi;
       twid_re = costab[j];
       twid_im = sintab[j];
-      i = iy;
-      ihi = iy + iheight;
+      i = ju;
+      ihi = ju + iheight;
       while (i < ihi) {
-        ju = i + iDelta;
-        temp_re_tmp = y[ju].im;
-        temp_im = y[ju].re;
-        temp_re = twid_re * temp_im - twid_im * temp_re_tmp;
-        temp_im = twid_re * temp_re_tmp + twid_im * temp_im;
-        y[ju].re = y[i].re - temp_re;
-        y[ju].im = y[i].im - temp_im;
+        b_temp_re_tmp = i + iy;
+        temp_re_tmp = y[b_temp_re_tmp].im;
+        im = y[b_temp_re_tmp].re;
+        temp_re = twid_re * im - twid_im * temp_re_tmp;
+        temp_im = twid_re * temp_re_tmp + twid_im * im;
+        y[b_temp_re_tmp].re = y[i].re - temp_re;
+        y[b_temp_re_tmp].im = y[i].im - temp_im;
         y[i].re = y[i].re + temp_re;
         y[i].im = y[i].im + temp_im;
         i += iDelta2;
       }
-      iy++;
+      ju++;
     }
     k /= 2;
-    iDelta = iDelta2;
+    iy = iDelta2;
     iDelta2 += iDelta2;
-    iheight -= iDelta;
+    iheight -= iy;
   }
 }
 
@@ -287,19 +283,16 @@ void FFTImplementationCallback::dobluesteinfft(
   array<creal32_T, 1U> fy;
   array<creal32_T, 1U> r;
   array<creal32_T, 1U> wwc;
-  float re_tmp;
   float temp_im;
   float temp_re;
-  float temp_re_tmp;
   float twid_im;
   float twid_re;
   int b_i;
   int b_k;
   int b_y;
   int i;
-  int iDelta;
-  int iDelta2;
-  int iheight;
+  int ihi;
+  int istart;
   int iy;
   int ju;
   int minNrowsNx;
@@ -311,7 +304,7 @@ void FFTImplementationCallback::dobluesteinfft(
   boolean_T tst;
   nInt2m1 = (nfft + nfft) - 1;
   if (nInt2m1 < 0) {
-    rtNonNegativeError(static_cast<double>(nInt2m1), k_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(nInt2m1), i_emlrtDCI);
   }
   wwc.set_size(nInt2m1);
   rt = 0;
@@ -351,19 +344,19 @@ void FFTImplementationCallback::dobluesteinfft(
   if (x.size(1) > 2147483646) {
     check_forloop_overflow_error();
   }
-  b_y = x.size(1) - 1;
+  b_y = x.size(1);
 #pragma omp parallel for num_threads(omp_get_max_threads()) private(           \
-    fv, fy, r, xoff, ju, minNrowsNx, b_k, iy, temp_re, temp_im, twid_im,       \
-    re_tmp, iDelta, nRowsD2, b_i, tst, temp_re_tmp, twid_re, iDelta2, iheight)
+        fv, fy, r, xoff, minNrowsNx, b_k, iy, temp_re, temp_im, istart,        \
+            nRowsD2, ju, b_i, tst, twid_re, twid_im, ihi)
 
-  for (int chan = 0; chan <= b_y; chan++) {
+  for (int chan = 0; chan < b_y; chan++) {
     xoff = chan * nInt2m1;
     r.set_size(nfft);
     if (nfft > x.size(0)) {
       r.set_size(nfft);
-      for (ju = 0; ju < nfft; ju++) {
-        r[ju].re = 0.0F;
-        r[ju].im = 0.0F;
+      for (minNrowsNx = 0; minNrowsNx < nfft; minNrowsNx++) {
+        r[minNrowsNx].re = 0.0F;
+        r[minNrowsNx].im = 0.0F;
       }
     }
     minNrowsNx = x.size(0);
@@ -374,14 +367,10 @@ void FFTImplementationCallback::dobluesteinfft(
       check_forloop_overflow_error();
     }
     for (b_k = 0; b_k < minNrowsNx; b_k++) {
-      iy = (nfft + b_k) - 1;
-      temp_re = wwc[iy].re;
-      temp_im = wwc[iy].im;
-      ju = xoff + b_k;
-      twid_im = x[ju].im;
-      re_tmp = x[ju].re;
-      r[b_k].re = temp_re * re_tmp + temp_im * twid_im;
-      r[b_k].im = temp_re * twid_im - temp_im * re_tmp;
+      temp_re = wwc[(nfft + b_k) - 1].re;
+      temp_im = wwc[(nfft + b_k) - 1].im;
+      r[b_k].re = temp_re * x[xoff + b_k].re + temp_im * x[xoff + b_k].im;
+      r[b_k].im = temp_re * x[xoff + b_k].im - temp_im * x[xoff + b_k].re;
     }
     iy = minNrowsNx + 1;
     if ((minNrowsNx + 1 <= nfft) && (nfft > 2147483646)) {
@@ -394,25 +383,25 @@ void FFTImplementationCallback::dobluesteinfft(
     fy.set_size(n2blue);
     if (n2blue > r.size(0)) {
       fy.set_size(n2blue);
-      for (ju = 0; ju < n2blue; ju++) {
-        fy[ju].re = 0.0F;
-        fy[ju].im = 0.0F;
+      for (minNrowsNx = 0; minNrowsNx < n2blue; minNrowsNx++) {
+        fy[minNrowsNx].re = 0.0F;
+        fy[minNrowsNx].im = 0.0F;
       }
     }
-    iy = r.size(0);
-    iDelta = n2blue;
-    if (iy <= n2blue) {
-      iDelta = iy;
+    if (r.size(0) <= n2blue) {
+      minNrowsNx = r.size(0) - 1;
+    } else {
+      minNrowsNx = n2blue - 1;
     }
-    minNrowsNx = n2blue - 2;
+    istart = n2blue - 2;
     nRowsD2 = n2blue / 2;
     b_k = nRowsD2 / 2;
     iy = 0;
     ju = 0;
-    if (iDelta - 1 > 2147483646) {
+    if (minNrowsNx > 2147483646) {
       check_forloop_overflow_error();
     }
-    for (b_i = 0; b_i <= iDelta - 2; b_i++) {
+    for (b_i = 0; b_i < minNrowsNx; b_i++) {
       fy[iy] = r[b_i];
       xoff = n2blue;
       tst = true;
@@ -423,81 +412,76 @@ void FFTImplementationCallback::dobluesteinfft(
       }
       iy = ju;
     }
-    if (iDelta - 2 < 0) {
-      xoff = 0;
-    } else {
-      xoff = iDelta - 1;
+    if (minNrowsNx - 1 < 0) {
+      minNrowsNx = 0;
     }
-    fy[iy] = r[xoff];
+    fy[iy] = r[minNrowsNx];
     if (n2blue > 1) {
-      for (b_i = 0; b_i <= minNrowsNx; b_i += 2) {
-        temp_re_tmp = fy[b_i + 1].re;
+      for (b_i = 0; b_i <= istart; b_i += 2) {
+        temp_re = fy[b_i + 1].re;
         temp_im = fy[b_i + 1].im;
-        re_tmp = fy[b_i].re;
-        twid_re = fy[b_i].im;
-        fy[b_i + 1].re = re_tmp - temp_re_tmp;
-        fy[b_i + 1].im = twid_re - temp_im;
-        fy[b_i].re = re_tmp + temp_re_tmp;
-        fy[b_i].im = twid_re + temp_im;
+        twid_re = fy[b_i].re;
+        twid_im = fy[b_i].im;
+        fy[b_i + 1].re = fy[b_i].re - fy[b_i + 1].re;
+        fy[b_i + 1].im = fy[b_i].im - fy[b_i + 1].im;
+        twid_re += temp_re;
+        twid_im += temp_im;
+        fy[b_i].re = twid_re;
+        fy[b_i].im = twid_im;
       }
     }
-    iDelta = 2;
-    iDelta2 = 4;
-    iheight = ((b_k - 1) << 2) + 1;
+    xoff = 2;
+    minNrowsNx = 4;
+    iy = ((b_k - 1) << 2) + 1;
     while (b_k > 0) {
-      for (b_i = 0; b_i < iheight; b_i += iDelta2) {
-        iy = b_i + iDelta;
-        temp_re = fy[iy].re;
-        temp_im = fy[iy].im;
-        fy[iy].re = fy[b_i].re - temp_re;
-        fy[iy].im = fy[b_i].im - temp_im;
+      for (b_i = 0; b_i < iy; b_i += minNrowsNx) {
+        temp_re = fy[b_i + xoff].re;
+        temp_im = fy[b_i + xoff].im;
+        fy[b_i + xoff].re = fy[b_i].re - temp_re;
+        fy[b_i + xoff].im = fy[b_i].im - temp_im;
         fy[b_i].re = fy[b_i].re + temp_re;
         fy[b_i].im = fy[b_i].im + temp_im;
       }
-      xoff = 1;
-      for (minNrowsNx = b_k; minNrowsNx < nRowsD2; minNrowsNx += b_k) {
-        twid_re = costab[minNrowsNx];
-        twid_im = sintab[minNrowsNx];
-        b_i = xoff;
-        iy = xoff + iheight;
-        while (b_i < iy) {
-          ju = b_i + iDelta;
-          temp_re_tmp = fy[ju].im;
-          temp_im = fy[ju].re;
-          temp_re = twid_re * temp_im - twid_im * temp_re_tmp;
-          temp_im = twid_re * temp_re_tmp + twid_im * temp_im;
-          fy[ju].re = fy[b_i].re - temp_re;
-          fy[ju].im = fy[b_i].im - temp_im;
+      istart = 1;
+      for (ju = b_k; ju < nRowsD2; ju += b_k) {
+        twid_re = costab[ju];
+        twid_im = sintab[ju];
+        b_i = istart;
+        ihi = istart + iy;
+        while (b_i < ihi) {
+          temp_re = twid_re * fy[b_i + xoff].re - twid_im * fy[b_i + xoff].im;
+          temp_im = twid_re * fy[b_i + xoff].im + twid_im * fy[b_i + xoff].re;
+          fy[b_i + xoff].re = fy[b_i].re - temp_re;
+          fy[b_i + xoff].im = fy[b_i].im - temp_im;
           fy[b_i].re = fy[b_i].re + temp_re;
           fy[b_i].im = fy[b_i].im + temp_im;
-          b_i += iDelta2;
+          b_i += minNrowsNx;
         }
-        xoff++;
+        istart++;
       }
       b_k /= 2;
-      iDelta = iDelta2;
-      iDelta2 += iDelta2;
-      iheight -= iDelta;
+      xoff = minNrowsNx;
+      minNrowsNx += minNrowsNx;
+      iy -= xoff;
     }
     FFTImplementationCallback::r2br_r2dit_trig_impl(wwc, n2blue, costab, sintab,
                                                     fv);
     iy = fy.size(0);
-    for (ju = 0; ju < iy; ju++) {
-      re_tmp = fy[ju].re;
-      temp_im = fv[ju].im;
-      twid_re = fy[ju].im;
-      twid_im = fv[ju].re;
-      fy[ju].re = re_tmp * twid_im - twid_re * temp_im;
-      fy[ju].im = re_tmp * temp_im + twid_re * twid_im;
+    for (minNrowsNx = 0; minNrowsNx < iy; minNrowsNx++) {
+      twid_im = fy[minNrowsNx].re * fv[minNrowsNx].im +
+                fy[minNrowsNx].im * fv[minNrowsNx].re;
+      fy[minNrowsNx].re = fy[minNrowsNx].re * fv[minNrowsNx].re -
+                          fy[minNrowsNx].im * fv[minNrowsNx].im;
+      fy[minNrowsNx].im = twid_im;
     }
     FFTImplementationCallback::r2br_r2dit_trig_impl(fy, n2blue, costab,
                                                     sintabinv, fv);
     if (fv.size(0) > 1) {
-      temp_im = 1.0F / static_cast<float>(fv.size(0));
+      twid_re = 1.0F / static_cast<float>(fv.size(0));
       iy = fv.size(0);
-      for (ju = 0; ju < iy; ju++) {
-        fv[ju].re = temp_im * fv[ju].re;
-        fv[ju].im = temp_im * fv[ju].im;
+      for (minNrowsNx = 0; minNrowsNx < iy; minNrowsNx++) {
+        fv[minNrowsNx].re = twid_re * fv[minNrowsNx].re;
+        fv[minNrowsNx].im = twid_re * fv[minNrowsNx].im;
       }
     }
     iy = static_cast<int>(static_cast<float>(nfft));
@@ -507,17 +491,14 @@ void FFTImplementationCallback::dobluesteinfft(
       check_forloop_overflow_error();
     }
     for (b_k = iy; b_k <= xoff; b_k++) {
-      twid_im = wwc[b_k - 1].re;
-      re_tmp = fv[b_k - 1].im;
-      temp_im = wwc[b_k - 1].im;
-      twid_re = fv[b_k - 1].re;
-      ju = b_k - static_cast<int>(static_cast<float>(nfft));
-      r[ju].re = twid_im * twid_re + temp_im * re_tmp;
-      r[ju].im = twid_im * re_tmp - temp_im * twid_re;
+      r[b_k - static_cast<int>(static_cast<float>(nfft))].re =
+          wwc[b_k - 1].re * fv[b_k - 1].re + wwc[b_k - 1].im * fv[b_k - 1].im;
+      r[b_k - static_cast<int>(static_cast<float>(nfft))].im =
+          wwc[b_k - 1].re * fv[b_k - 1].im - wwc[b_k - 1].im * fv[b_k - 1].re;
     }
-    iy = r.size(0);
-    for (ju = 0; ju < iy; ju++) {
-      y[ju + y.size(0) * chan] = r[ju];
+    iy = y.size(0);
+    for (minNrowsNx = 0; minNrowsNx < iy; minNrowsNx++) {
+      y[minNrowsNx + y.size(0) * chan] = r[minNrowsNx];
     }
   }
 }
@@ -552,7 +533,7 @@ void FFTImplementationCallback::dobluesteinfft(
   int rt;
   nInt2m1 = (nfft + nfft) - 1;
   if (nInt2m1 < 0) {
-    rtNonNegativeError(static_cast<double>(nInt2m1), k_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(nInt2m1), i_emlrtDCI);
   }
   wwc.set_size(nInt2m1);
   rt = 0;
@@ -587,12 +568,11 @@ void FFTImplementationCallback::dobluesteinfft(
       y[i].im = 0.0;
     }
   }
-  nInt2m1 = x.size(0);
-  if (nfft <= nInt2m1) {
-    nInt2m1 = nfft;
+  rt = x.size(0);
+  if (nfft <= rt) {
+    rt = nfft;
   }
-  rt = nInt2m1 + 1;
-  nInt2 = wwc.size(0);
+  nInt2 = rt + 1;
   r.set_size(nfft);
   if (nfft > x.size(0)) {
     r.set_size(nfft);
@@ -601,10 +581,10 @@ void FFTImplementationCallback::dobluesteinfft(
       r[i].im = 0.0;
     }
   }
-  if (nInt2m1 > 2147483646) {
+  if (rt > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (int k{0}; k < nInt2m1; k++) {
+  for (int k{0}; k < rt; k++) {
     b_y = (nfft + k) - 1;
     nt_re = wwc[b_y].re;
     nt_im = wwc[b_y].im;
@@ -613,10 +593,10 @@ void FFTImplementationCallback::dobluesteinfft(
     r[k].re = nt_re * b_re_tmp + nt_im * re_tmp;
     r[k].im = nt_re * re_tmp - nt_im * b_re_tmp;
   }
-  if ((nInt2m1 + 1 <= nfft) && (nfft > 2147483646)) {
+  if ((rt + 1 <= nfft) && (nfft > 2147483646)) {
     check_forloop_overflow_error();
   }
-  for (int k{rt}; k <= nfft; k++) {
+  for (int k{nInt2}; k <= nfft; k++) {
     r[k - 1].re = 0.0;
     r[k - 1].im = 0.0;
   }
@@ -646,7 +626,7 @@ void FFTImplementationCallback::dobluesteinfft(
   if ((nfft <= wwc.size(0)) && (wwc.size(0) > 2147483646)) {
     check_forloop_overflow_error();
   }
-  for (int k{nfft}; k <= nInt2; k++) {
+  for (int k{nfft}; k <= nInt2m1; k++) {
     re_tmp = wwc[k - 1].re;
     b_re_tmp = fv[k - 1].im;
     nt_re = wwc[k - 1].im;
@@ -655,7 +635,7 @@ void FFTImplementationCallback::dobluesteinfft(
     r[i].re = re_tmp * nt_im + nt_re * b_re_tmp;
     r[i].im = re_tmp * b_re_tmp - nt_re * nt_im;
   }
-  b_y = r.size(0);
+  b_y = y.size(0);
   for (i = 0; i < b_y; i++) {
     y[i] = r[i];
   }
@@ -682,12 +662,9 @@ void FFTImplementationCallback::dobluesteinfft(
   array<creal_T, 1U> wwc;
   double a_im;
   double a_re;
-  double b_re_tmp;
-  double re_tmp;
   int b_k;
   int b_y;
   int i;
-  int i1;
   int minNrowsNx;
   int nChan;
   int nInt2;
@@ -698,7 +675,7 @@ void FFTImplementationCallback::dobluesteinfft(
   nChan = x.size(1) * x.size(2);
   nInt2m1 = (nfft + nfft) - 1;
   if (nInt2m1 < 0) {
-    rtNonNegativeError(static_cast<double>(nInt2m1), k_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(nInt2m1), i_emlrtDCI);
   }
   wwc.set_size(nInt2m1);
   rt = 0;
@@ -739,18 +716,17 @@ void FFTImplementationCallback::dobluesteinfft(
   if (nChan > 2147483646) {
     check_forloop_overflow_error();
   }
-  b_y = nChan - 1;
 #pragma omp parallel for num_threads(omp_get_max_threads()) private(           \
-    fv, fy, r, xoff, i1, minNrowsNx, b_k, u0, a_re, a_im, re_tmp, b_re_tmp)
+        fv, fy, r, xoff, minNrowsNx, b_k, u0, a_re, a_im)
 
-  for (int chan = 0; chan <= b_y; chan++) {
+  for (int chan = 0; chan < nChan; chan++) {
     xoff = chan * nInt2m1;
     r.set_size(nfft);
     if (nfft > x.size(0)) {
       r.set_size(nfft);
-      for (i1 = 0; i1 < nfft; i1++) {
-        r[i1].re = 0.0;
-        r[i1].im = 0.0;
+      for (minNrowsNx = 0; minNrowsNx < nfft; minNrowsNx++) {
+        r[minNrowsNx].re = 0.0;
+        r[minNrowsNx].im = 0.0;
       }
     }
     minNrowsNx = x.size(0);
@@ -761,14 +737,10 @@ void FFTImplementationCallback::dobluesteinfft(
       check_forloop_overflow_error();
     }
     for (b_k = 0; b_k < minNrowsNx; b_k++) {
-      u0 = (nfft + b_k) - 1;
-      a_re = wwc[u0].re;
-      a_im = wwc[u0].im;
-      i1 = xoff + b_k;
-      re_tmp = x[i1].im;
-      b_re_tmp = x[i1].re;
-      r[b_k].re = a_re * b_re_tmp + a_im * re_tmp;
-      r[b_k].im = a_re * re_tmp - a_im * b_re_tmp;
+      a_re = wwc[(nfft + b_k) - 1].re;
+      a_im = wwc[(nfft + b_k) - 1].im;
+      r[b_k].re = a_re * x[xoff + b_k].re + a_im * x[xoff + b_k].im;
+      r[b_k].im = a_re * x[xoff + b_k].im - a_im * x[xoff + b_k].re;
     }
     u0 = minNrowsNx + 1;
     if ((minNrowsNx + 1 <= nfft) && (nfft > 2147483646)) {
@@ -783,22 +755,21 @@ void FFTImplementationCallback::dobluesteinfft(
     FFTImplementationCallback::r2br_r2dit_trig_impl(wwc, n2blue, costab, sintab,
                                                     fv);
     u0 = fy.size(0);
-    for (i1 = 0; i1 < u0; i1++) {
-      a_re = fy[i1].re;
-      a_im = fv[i1].im;
-      re_tmp = fy[i1].im;
-      b_re_tmp = fv[i1].re;
-      fy[i1].re = a_re * b_re_tmp - re_tmp * a_im;
-      fy[i1].im = a_re * a_im + re_tmp * b_re_tmp;
+    for (minNrowsNx = 0; minNrowsNx < u0; minNrowsNx++) {
+      a_re = fy[minNrowsNx].re * fv[minNrowsNx].im +
+             fy[minNrowsNx].im * fv[minNrowsNx].re;
+      fy[minNrowsNx].re = fy[minNrowsNx].re * fv[minNrowsNx].re -
+                          fy[minNrowsNx].im * fv[minNrowsNx].im;
+      fy[minNrowsNx].im = a_re;
     }
     FFTImplementationCallback::r2br_r2dit_trig_impl(fy, n2blue, costab,
                                                     sintabinv, fv);
     if (fv.size(0) > 1) {
       a_re = 1.0 / static_cast<double>(fv.size(0));
       u0 = fv.size(0);
-      for (i1 = 0; i1 < u0; i1++) {
-        fv[i1].re = a_re * fv[i1].re;
-        fv[i1].im = a_re * fv[i1].im;
+      for (minNrowsNx = 0; minNrowsNx < u0; minNrowsNx++) {
+        fv[minNrowsNx].re = a_re * fv[minNrowsNx].re;
+        fv[minNrowsNx].im = a_re * fv[minNrowsNx].im;
       }
     }
     u0 = wwc.size(0);
@@ -806,18 +777,15 @@ void FFTImplementationCallback::dobluesteinfft(
       check_forloop_overflow_error();
     }
     for (b_k = nfft; b_k <= u0; b_k++) {
-      re_tmp = wwc[b_k - 1].re;
-      b_re_tmp = fv[b_k - 1].im;
-      a_re = wwc[b_k - 1].im;
-      a_im = fv[b_k - 1].re;
-      i1 = b_k - nfft;
-      r[i1].re = re_tmp * a_im + a_re * b_re_tmp;
-      r[i1].im = re_tmp * b_re_tmp - a_re * a_im;
+      r[b_k - nfft].re =
+          wwc[b_k - 1].re * fv[b_k - 1].re + wwc[b_k - 1].im * fv[b_k - 1].im;
+      r[b_k - nfft].im =
+          wwc[b_k - 1].re * fv[b_k - 1].im - wwc[b_k - 1].im * fv[b_k - 1].re;
     }
     xoff = y.size(0);
-    u0 = r.size(0);
-    for (i1 = 0; i1 < u0; i1++) {
-      y[i1 + xoff * chan] = r[i1];
+    u0 = y.size(0);
+    for (minNrowsNx = 0; minNrowsNx < u0; minNrowsNx++) {
+      y[minNrowsNx + xoff * chan] = r[minNrowsNx];
     }
   }
 }
@@ -836,7 +804,6 @@ void FFTImplementationCallback::generate_twiddle_tables(
 {
   array<double, 2U> costab1q;
   double e;
-  int i;
   int n;
   int nd2;
   e = 6.2831853071795862 / static_cast<double>(nRows);
@@ -847,50 +814,50 @@ void FFTImplementationCallback::generate_twiddle_tables(
   for (int k{0}; k <= nd2; k++) {
     costab1q[k + 1] = std::cos(e * (static_cast<double>(k) + 1.0));
   }
-  i = nd2 + 2;
-  nd2 = n - 1;
-  for (int k{i}; k <= nd2; k++) {
+  nd2 += 2;
+  for (int k{nd2}; k < n; k++) {
     costab1q[k] = std::sin(e * static_cast<double>(n - k));
   }
   costab1q[n] = 0.0;
   if (!useRadix2) {
+    int n2;
     n = costab1q.size(1) - 1;
-    nd2 = (costab1q.size(1) - 1) << 1;
-    costab.set_size(1, nd2 + 1);
-    sintab.set_size(1, nd2 + 1);
+    n2 = (costab1q.size(1) - 1) << 1;
+    costab.set_size(1, n2 + 1);
+    sintab.set_size(1, n2 + 1);
     costab[0] = 1.0;
     sintab[0] = 0.0;
-    sintabinv.set_size(1, nd2 + 1);
+    sintabinv.set_size(1, n2 + 1);
     for (int k{0}; k < n; k++) {
       sintabinv[k + 1] = costab1q[(n - k) - 1];
     }
-    i = costab1q.size(1);
-    for (int k{i}; k <= nd2; k++) {
+    nd2 = costab1q.size(1);
+    for (int k{nd2}; k <= n2; k++) {
       sintabinv[k] = costab1q[k - n];
     }
     for (int k{0}; k < n; k++) {
       costab[k + 1] = costab1q[k + 1];
       sintab[k + 1] = -costab1q[(n - k) - 1];
     }
-    i = costab1q.size(1);
-    for (int k{i}; k <= nd2; k++) {
-      costab[k] = -costab1q[nd2 - k];
+    for (int k{nd2}; k <= n2; k++) {
+      costab[k] = -costab1q[n2 - k];
       sintab[k] = -costab1q[k - n];
     }
   } else {
+    int n2;
     n = costab1q.size(1) - 1;
-    nd2 = (costab1q.size(1) - 1) << 1;
-    costab.set_size(1, nd2 + 1);
-    sintab.set_size(1, nd2 + 1);
+    n2 = (costab1q.size(1) - 1) << 1;
+    costab.set_size(1, n2 + 1);
+    sintab.set_size(1, n2 + 1);
     costab[0] = 1.0;
     sintab[0] = 0.0;
     for (int k{0}; k < n; k++) {
       costab[k + 1] = costab1q[k + 1];
       sintab[k + 1] = -costab1q[(n - k) - 1];
     }
-    i = costab1q.size(1);
-    for (int k{i}; k <= nd2; k++) {
-      costab[k] = -costab1q[nd2 - k];
+    nd2 = costab1q.size(1);
+    for (int k{nd2}; k <= n2; k++) {
+      costab[k] = -costab1q[n2 - k];
       sintab[k] = -costab1q[k - n];
     }
     sintabinv.set_size(1, 0);
@@ -906,12 +873,9 @@ void FFTImplementationCallback::generate_twiddle_tables(
 int FFTImplementationCallback::get_algo_sizes(int nfft, boolean_T useRadix2,
                                               int &nRows)
 {
-  static rtRunTimeErrorInfo bd_emlrtRTEI{
-      417,                                        // lineNo
-      17,                                         // colNo
-      "FFTImplementationCallback/get_algo_sizes", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/lib/+coder/"
-      "+internal/FFTImplementationCallback.m" // pName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      792,                                       // lineNo
+      "FFTImplementationCallback/get_algo_sizes" // fName
   };
   int n2blue;
   n2blue = 1;
@@ -920,39 +884,38 @@ int FFTImplementationCallback::get_algo_sizes(int nfft, boolean_T useRadix2,
   } else {
     int n;
     if (nfft > 0) {
-      int pmax;
       n = (nfft + nfft) - 1;
-      pmax = 31;
+      n2blue = 31;
       if (n <= 1) {
-        pmax = 0;
+        n2blue = 0;
       } else {
         int pmin;
         boolean_T exitg1;
         pmin = 0;
         exitg1 = false;
-        while ((!exitg1) && (pmax - pmin > 1)) {
+        while ((!exitg1) && (n2blue - pmin > 1)) {
           int k;
           int pow2p;
-          k = (pmin + pmax) >> 1;
+          k = (pmin + n2blue) >> 1;
           pow2p = 1 << k;
           if (pow2p == n) {
-            pmax = k;
+            n2blue = k;
             exitg1 = true;
           } else if (pow2p > n) {
-            pmax = k;
+            n2blue = k;
           } else {
             pmin = k;
           }
         }
       }
-      n2blue = 1 << pmax;
+      n2blue = 1 << n2blue;
     }
     n = nfft << 2;
     if (n < 1) {
       n = 1;
     }
     if (n2blue > n) {
-      i_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
+      g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
     }
     nRows = n2blue;
   }
@@ -976,18 +939,16 @@ void FFTImplementationCallback::r2br_r2dit_trig(const array<creal32_T, 2U> &x,
   array<creal32_T, 1U> r;
   float temp_im;
   float temp_re;
-  float temp_re_tmp;
   float twid_im;
   float twid_re;
   int b_i;
-  int iDelta;
+  int iDelta2;
   int iheight;
-  int ihi;
+  int istart;
   int iy;
-  int j;
   int ju;
   int k;
-  int loop_ub;
+  int loop_ub_tmp;
   int nRowsD2;
   int nrows;
   int xoff;
@@ -996,8 +957,8 @@ void FFTImplementationCallback::r2br_r2dit_trig(const array<creal32_T, 2U> &x,
   y.set_size(n1_unsigned, x.size(1));
   if (n1_unsigned > x.size(0)) {
     y.set_size(n1_unsigned, x.size(1));
-    loop_ub = n1_unsigned * x.size(1);
-    for (int i{0}; i < loop_ub; i++) {
+    loop_ub_tmp = n1_unsigned * x.size(1);
+    for (int i{0}; i < loop_ub_tmp; i++) {
       y[i].re = 0.0F;
       y[i].im = 0.0F;
     }
@@ -1005,102 +966,100 @@ void FFTImplementationCallback::r2br_r2dit_trig(const array<creal32_T, 2U> &x,
   if (x.size(1) > 2147483646) {
     check_forloop_overflow_error();
   }
-  loop_ub = x.size(1) - 1;
+  loop_ub_tmp = x.size(1);
 #pragma omp parallel for num_threads(omp_get_max_threads()) private(           \
-    r, xoff, j, iy, iDelta, ihi, nRowsD2, k, ju, b_i, tst, temp_re_tmp,        \
-    temp_im, temp_re, twid_re, iheight, twid_im)
+        r, xoff, iDelta2, iheight, istart, nRowsD2, k, iy, ju, b_i, tst,       \
+            temp_re, temp_im, twid_re, twid_im)
 
-  for (int chan = 0; chan <= loop_ub; chan++) {
+  for (int chan = 0; chan < loop_ub_tmp; chan++) {
     xoff = chan * nrows;
     r.set_size(n1_unsigned);
     if (n1_unsigned > x.size(0)) {
       r.set_size(n1_unsigned);
-      for (j = 0; j < n1_unsigned; j++) {
-        r[j].re = 0.0F;
-        r[j].im = 0.0F;
+      for (iDelta2 = 0; iDelta2 < n1_unsigned; iDelta2++) {
+        r[iDelta2].re = 0.0F;
+        r[iDelta2].im = 0.0F;
       }
     }
-    iy = x.size(0);
-    iDelta = n1_unsigned;
-    if (iy <= n1_unsigned) {
-      iDelta = iy;
+    if (x.size(0) <= n1_unsigned) {
+      iheight = x.size(0) - 1;
+    } else {
+      iheight = n1_unsigned - 1;
     }
-    ihi = n1_unsigned - 2;
+    istart = n1_unsigned - 2;
     nRowsD2 = n1_unsigned / 2;
     k = nRowsD2 / 2;
     iy = 0;
     ju = 0;
-    if (iDelta - 1 > 2147483646) {
+    if (iheight > 2147483646) {
       check_forloop_overflow_error();
     }
-    for (b_i = 0; b_i <= iDelta - 2; b_i++) {
+    for (b_i = 0; b_i < iheight; b_i++) {
       r[iy] = x[xoff + b_i];
-      j = n1_unsigned;
+      iDelta2 = n1_unsigned;
       tst = true;
       while (tst) {
-        j >>= 1;
-        ju ^= j;
-        tst = ((ju & j) == 0);
+        iDelta2 >>= 1;
+        ju ^= iDelta2;
+        tst = ((ju & iDelta2) == 0);
       }
       iy = ju;
     }
-    if (iDelta - 2 >= 0) {
-      xoff = (xoff + iDelta) - 1;
+    if (iheight - 1 >= 0) {
+      xoff += iheight;
     }
     r[iy] = x[xoff];
     if (n1_unsigned > 1) {
-      for (b_i = 0; b_i <= ihi; b_i += 2) {
-        temp_re_tmp = r[b_i + 1].re;
+      for (b_i = 0; b_i <= istart; b_i += 2) {
+        temp_re = r[b_i + 1].re;
         temp_im = r[b_i + 1].im;
-        temp_re = r[b_i].re;
-        twid_re = r[b_i].im;
-        r[b_i + 1].re = temp_re - temp_re_tmp;
-        r[b_i + 1].im = twid_re - temp_im;
-        r[b_i].re = temp_re + temp_re_tmp;
-        r[b_i].im = twid_re + temp_im;
+        twid_re = r[b_i].re;
+        twid_im = r[b_i].im;
+        r[b_i + 1].re = r[b_i].re - r[b_i + 1].re;
+        r[b_i + 1].im = r[b_i].im - r[b_i + 1].im;
+        twid_re += temp_re;
+        twid_im += temp_im;
+        r[b_i].re = twid_re;
+        r[b_i].im = twid_im;
       }
     }
-    iDelta = 2;
-    xoff = 4;
+    iy = 2;
+    iDelta2 = 4;
     iheight = ((k - 1) << 2) + 1;
     while (k > 0) {
-      for (b_i = 0; b_i < iheight; b_i += xoff) {
-        iy = b_i + iDelta;
-        temp_re = r[iy].re;
-        temp_im = r[iy].im;
-        r[iy].re = r[b_i].re - temp_re;
-        r[iy].im = r[b_i].im - temp_im;
+      for (b_i = 0; b_i < iheight; b_i += iDelta2) {
+        temp_re = r[b_i + iy].re;
+        temp_im = r[b_i + iy].im;
+        r[b_i + iy].re = r[b_i].re - temp_re;
+        r[b_i + iy].im = r[b_i].im - temp_im;
         r[b_i].re = r[b_i].re + temp_re;
         r[b_i].im = r[b_i].im + temp_im;
       }
-      iy = 1;
-      for (j = k; j < nRowsD2; j += k) {
-        twid_re = costab[j];
-        twid_im = sintab[j];
-        b_i = iy;
-        ihi = iy + iheight;
-        while (b_i < ihi) {
-          ju = b_i + iDelta;
-          temp_re_tmp = r[ju].im;
-          temp_im = r[ju].re;
-          temp_re = twid_re * temp_im - twid_im * temp_re_tmp;
-          temp_im = twid_re * temp_re_tmp + twid_im * temp_im;
-          r[ju].re = r[b_i].re - temp_re;
-          r[ju].im = r[b_i].im - temp_im;
+      istart = 1;
+      for (ju = k; ju < nRowsD2; ju += k) {
+        twid_re = costab[ju];
+        twid_im = sintab[ju];
+        b_i = istart;
+        xoff = istart + iheight;
+        while (b_i < xoff) {
+          temp_re = twid_re * r[b_i + iy].re - twid_im * r[b_i + iy].im;
+          temp_im = twid_re * r[b_i + iy].im + twid_im * r[b_i + iy].re;
+          r[b_i + iy].re = r[b_i].re - temp_re;
+          r[b_i + iy].im = r[b_i].im - temp_im;
           r[b_i].re = r[b_i].re + temp_re;
           r[b_i].im = r[b_i].im + temp_im;
-          b_i += xoff;
+          b_i += iDelta2;
         }
-        iy++;
+        istart++;
       }
       k /= 2;
-      iDelta = xoff;
-      xoff += xoff;
-      iheight -= iDelta;
+      iy = iDelta2;
+      iDelta2 += iDelta2;
+      iheight -= iy;
     }
-    iy = r.size(0);
-    for (j = 0; j < iy; j++) {
-      y[j + y.size(0) * chan] = r[j];
+    iy = y.size(0);
+    for (iDelta2 = 0; iDelta2 < iy; iDelta2++) {
+      y[iDelta2 + y.size(0) * chan] = r[iDelta2];
     }
   }
 }
@@ -1120,20 +1079,17 @@ void FFTImplementationCallback::r2br_r2dit_trig(const array<creal_T, 2U> &x,
                                                 array<creal_T, 2U> &y)
 {
   array<creal_T, 1U> r;
+  double im;
   double temp_im;
   double temp_re;
   double temp_re_tmp;
-  double twid_re;
   int i;
-  int iDelta;
-  int iDelta2;
   int iheight;
-  int ihi;
+  int istart;
   int iy;
   int ju;
   int k;
   int nRowsD2;
-  int nRowsM2;
   y.set_size(n1_unsigned, 1);
   if (n1_unsigned > x.size(0)) {
     y.set_size(n1_unsigned, 1);
@@ -1142,11 +1098,12 @@ void FFTImplementationCallback::r2br_r2dit_trig(const array<creal_T, 2U> &x,
       y[ju].im = 0.0;
     }
   }
-  ihi = x.size(0);
-  if (ihi > n1_unsigned) {
-    ihi = n1_unsigned;
+  if (x.size(0) <= n1_unsigned) {
+    iheight = x.size(0) - 1;
+  } else {
+    iheight = n1_unsigned - 1;
   }
-  nRowsM2 = n1_unsigned - 2;
+  istart = n1_unsigned - 2;
   nRowsD2 = n1_unsigned / 2;
   k = nRowsD2 / 2;
   r.set_size(n1_unsigned);
@@ -1159,10 +1116,10 @@ void FFTImplementationCallback::r2br_r2dit_trig(const array<creal_T, 2U> &x,
   }
   iy = 0;
   ju = 0;
-  if (ihi - 1 > 2147483646) {
+  if (iheight > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (i = 0; i <= ihi - 2; i++) {
+  for (i = 0; i < iheight; i++) {
     boolean_T tst;
     r[iy] = x[i];
     iy = n1_unsigned;
@@ -1174,64 +1131,66 @@ void FFTImplementationCallback::r2br_r2dit_trig(const array<creal_T, 2U> &x,
     }
     iy = ju;
   }
-  if (ihi - 2 < 0) {
-    ihi = 0;
-  } else {
-    ihi--;
+  if (iheight - 1 < 0) {
+    iheight = 0;
   }
-  r[iy] = x[ihi];
+  r[iy] = x[iheight];
   if (n1_unsigned > 1) {
-    for (i = 0; i <= nRowsM2; i += 2) {
+    for (i = 0; i <= istart; i += 2) {
       temp_re_tmp = r[i + 1].re;
       temp_im = r[i + 1].im;
       temp_re = r[i].re;
-      twid_re = r[i].im;
+      im = r[i].im;
       r[i + 1].re = temp_re - temp_re_tmp;
-      r[i + 1].im = twid_re - temp_im;
+      r[i + 1].im = r[i].im - r[i + 1].im;
+      im += temp_im;
       r[i].re = temp_re + temp_re_tmp;
-      r[i].im = twid_re + temp_im;
+      r[i].im = im;
     }
   }
-  iDelta = 2;
-  iDelta2 = 4;
+  iy = 2;
+  ju = 4;
   iheight = ((k - 1) << 2) + 1;
   while (k > 0) {
-    for (i = 0; i < iheight; i += iDelta2) {
-      iy = i + iDelta;
-      temp_re = r[iy].re;
-      temp_im = r[iy].im;
-      r[iy].re = r[i].re - temp_re;
-      r[iy].im = r[i].im - temp_im;
+    int b_temp_re_tmp;
+    for (i = 0; i < iheight; i += ju) {
+      b_temp_re_tmp = i + iy;
+      temp_re = r[b_temp_re_tmp].re;
+      temp_im = r[b_temp_re_tmp].im;
+      r[b_temp_re_tmp].re = r[i].re - temp_re;
+      r[b_temp_re_tmp].im = r[i].im - temp_im;
       r[i].re = r[i].re + temp_re;
       r[i].im = r[i].im + temp_im;
     }
-    iy = 1;
-    for (ju = k; ju < nRowsD2; ju += k) {
+    istart = 1;
+    for (int j{k}; j < nRowsD2; j += k) {
       double twid_im;
-      twid_re = costab[ju];
-      twid_im = sintab[ju];
-      i = iy;
-      ihi = iy + iheight;
+      double twid_re;
+      int ihi;
+      twid_re = costab[j];
+      twid_im = sintab[j];
+      i = istart;
+      ihi = istart + iheight;
       while (i < ihi) {
-        nRowsM2 = i + iDelta;
-        temp_re_tmp = r[nRowsM2].im;
-        temp_im = r[nRowsM2].re;
-        temp_re = twid_re * temp_im - twid_im * temp_re_tmp;
-        temp_im = twid_re * temp_re_tmp + twid_im * temp_im;
-        r[nRowsM2].re = r[i].re - temp_re;
-        r[nRowsM2].im = r[i].im - temp_im;
+        b_temp_re_tmp = i + iy;
+        temp_re_tmp = r[b_temp_re_tmp].im;
+        im = r[b_temp_re_tmp].re;
+        temp_re = twid_re * im - twid_im * temp_re_tmp;
+        temp_im = twid_re * temp_re_tmp + twid_im * im;
+        r[b_temp_re_tmp].re = r[i].re - temp_re;
+        r[b_temp_re_tmp].im = r[i].im - temp_im;
         r[i].re = r[i].re + temp_re;
         r[i].im = r[i].im + temp_im;
-        i += iDelta2;
+        i += ju;
       }
-      iy++;
+      istart++;
     }
     k /= 2;
-    iDelta = iDelta2;
-    iDelta2 += iDelta2;
-    iheight -= iDelta;
+    iy = ju;
+    ju += ju;
+    iheight -= iy;
   }
-  iy = r.size(0);
+  iy = y.size(0);
   for (ju = 0; ju < iy; ju++) {
     y[ju] = r[ju];
   }
@@ -1254,15 +1213,13 @@ void FFTImplementationCallback::r2br_r2dit_trig(const array<creal_T, 3U> &x,
   array<creal_T, 1U> r;
   double temp_im;
   double temp_re;
-  double temp_re_tmp;
   double twid_im;
   double twid_re;
   int b_i;
-  int iDelta;
+  int iDelta2;
   int iheight;
-  int ihi;
+  int istart;
   int iy;
-  int j;
   int ju;
   int k;
   int nChan;
@@ -1274,10 +1231,10 @@ void FFTImplementationCallback::r2br_r2dit_trig(const array<creal_T, 3U> &x,
   nrows = x.size(0);
   y.set_size(n1_unsigned, x.size(1), x.size(2));
   if (n1_unsigned > x.size(0)) {
-    int loop_ub;
+    int loop_ub_tmp;
     y.set_size(n1_unsigned, x.size(1), x.size(2));
-    loop_ub = n1_unsigned * x.size(1) * x.size(2);
-    for (int i{0}; i < loop_ub; i++) {
+    loop_ub_tmp = n1_unsigned * x.size(1) * x.size(2);
+    for (int i{0}; i < loop_ub_tmp; i++) {
       y[i].re = 0.0;
       y[i].im = 0.0;
     }
@@ -1285,103 +1242,100 @@ void FFTImplementationCallback::r2br_r2dit_trig(const array<creal_T, 3U> &x,
   if (nChan > 2147483646) {
     check_forloop_overflow_error();
   }
-  nChan--;
 #pragma omp parallel for num_threads(omp_get_max_threads()) private(           \
-    r, xoff, ihi, iy, iDelta, nRowsD2, k, ju, b_i, j, tst, temp_re_tmp,        \
-    temp_im, temp_re, twid_re, iheight, twid_im)
+        r, xoff, iheight, istart, nRowsD2, k, iy, ju, b_i, iDelta2, tst,       \
+            temp_re, temp_im, twid_re, twid_im)
 
-  for (int chan = 0; chan <= nChan; chan++) {
+  for (int chan = 0; chan < nChan; chan++) {
     xoff = chan * nrows;
     r.set_size(n1_unsigned);
     if (n1_unsigned > x.size(0)) {
       r.set_size(n1_unsigned);
-      for (ihi = 0; ihi < n1_unsigned; ihi++) {
-        r[ihi].re = 0.0;
-        r[ihi].im = 0.0;
+      for (iheight = 0; iheight < n1_unsigned; iheight++) {
+        r[iheight].re = 0.0;
+        r[iheight].im = 0.0;
       }
     }
-    iy = x.size(0);
-    iDelta = n1_unsigned;
-    if (iy <= n1_unsigned) {
-      iDelta = iy;
+    if (x.size(0) <= n1_unsigned) {
+      iheight = x.size(0) - 1;
+    } else {
+      iheight = n1_unsigned - 1;
     }
-    ihi = n1_unsigned - 2;
+    istart = n1_unsigned - 2;
     nRowsD2 = n1_unsigned / 2;
     k = nRowsD2 / 2;
     iy = 0;
     ju = 0;
-    if (iDelta - 1 > 2147483646) {
+    if (iheight > 2147483646) {
       check_forloop_overflow_error();
     }
-    for (b_i = 0; b_i <= iDelta - 2; b_i++) {
+    for (b_i = 0; b_i < iheight; b_i++) {
       r[iy] = x[xoff + b_i];
-      j = n1_unsigned;
+      iDelta2 = n1_unsigned;
       tst = true;
       while (tst) {
-        j >>= 1;
-        ju ^= j;
-        tst = ((ju & j) == 0);
+        iDelta2 >>= 1;
+        ju ^= iDelta2;
+        tst = ((ju & iDelta2) == 0);
       }
       iy = ju;
     }
-    if (iDelta - 2 >= 0) {
-      xoff = (xoff + iDelta) - 1;
+    if (iheight - 1 >= 0) {
+      xoff += iheight;
     }
     r[iy] = x[xoff];
     if (n1_unsigned > 1) {
-      for (b_i = 0; b_i <= ihi; b_i += 2) {
-        temp_re_tmp = r[b_i + 1].re;
+      for (b_i = 0; b_i <= istart; b_i += 2) {
+        temp_re = r[b_i + 1].re;
         temp_im = r[b_i + 1].im;
-        temp_re = r[b_i].re;
-        twid_re = r[b_i].im;
-        r[b_i + 1].re = temp_re - temp_re_tmp;
-        r[b_i + 1].im = twid_re - temp_im;
-        r[b_i].re = temp_re + temp_re_tmp;
-        r[b_i].im = twid_re + temp_im;
+        twid_re = r[b_i].re;
+        twid_im = r[b_i].im;
+        r[b_i + 1].re = r[b_i].re - r[b_i + 1].re;
+        r[b_i + 1].im = r[b_i].im - r[b_i + 1].im;
+        twid_re += temp_re;
+        twid_im += temp_im;
+        r[b_i].re = twid_re;
+        r[b_i].im = twid_im;
       }
     }
-    iDelta = 2;
-    xoff = 4;
+    iy = 2;
+    iDelta2 = 4;
     iheight = ((k - 1) << 2) + 1;
     while (k > 0) {
-      for (b_i = 0; b_i < iheight; b_i += xoff) {
-        iy = b_i + iDelta;
-        temp_re = r[iy].re;
-        temp_im = r[iy].im;
-        r[iy].re = r[b_i].re - temp_re;
-        r[iy].im = r[b_i].im - temp_im;
+      for (b_i = 0; b_i < iheight; b_i += iDelta2) {
+        temp_re = r[b_i + iy].re;
+        temp_im = r[b_i + iy].im;
+        r[b_i + iy].re = r[b_i].re - temp_re;
+        r[b_i + iy].im = r[b_i].im - temp_im;
         r[b_i].re = r[b_i].re + temp_re;
         r[b_i].im = r[b_i].im + temp_im;
       }
-      iy = 1;
-      for (j = k; j < nRowsD2; j += k) {
-        twid_re = costab[j];
-        twid_im = sintab[j];
-        b_i = iy;
-        ihi = iy + iheight;
-        while (b_i < ihi) {
-          ju = b_i + iDelta;
-          temp_re_tmp = r[ju].im;
-          temp_im = r[ju].re;
-          temp_re = twid_re * temp_im - twid_im * temp_re_tmp;
-          temp_im = twid_re * temp_re_tmp + twid_im * temp_im;
-          r[ju].re = r[b_i].re - temp_re;
-          r[ju].im = r[b_i].im - temp_im;
+      istart = 1;
+      for (ju = k; ju < nRowsD2; ju += k) {
+        twid_re = costab[ju];
+        twid_im = sintab[ju];
+        b_i = istart;
+        xoff = istart + iheight;
+        while (b_i < xoff) {
+          temp_re = twid_re * r[b_i + iy].re - twid_im * r[b_i + iy].im;
+          temp_im = twid_re * r[b_i + iy].im + twid_im * r[b_i + iy].re;
+          r[b_i + iy].re = r[b_i].re - temp_re;
+          r[b_i + iy].im = r[b_i].im - temp_im;
           r[b_i].re = r[b_i].re + temp_re;
           r[b_i].im = r[b_i].im + temp_im;
-          b_i += xoff;
+          b_i += iDelta2;
         }
-        iy++;
+        istart++;
       }
       k /= 2;
-      iDelta = xoff;
-      xoff += xoff;
-      iheight -= iDelta;
+      iy = iDelta2;
+      iDelta2 += iDelta2;
+      iheight -= iy;
     }
     iy = y.size(0);
-    j = r.size(0);
-    for (ihi = 0; ihi < j; ihi++) {
-      y[ihi + iy * chan] = r[ihi];
+    iDelta2 = y.size(0);
+    for (iheight = 0; iheight < iDelta2; iheight++) {
+      y[iheight + iy * chan] = r[iheight];
     }
   }
 }

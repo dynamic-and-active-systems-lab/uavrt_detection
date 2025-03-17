@@ -4,15 +4,16 @@
 // government, commercial, or other organizational use.
 // File: incohsumtoeplitz.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
 #include "incohsumtoeplitz.h"
+#include "abs.h"
 #include "any1.h"
 #include "assertValidSizeArg.h"
-#include "eml_int_forloop_overflow_check.h"
+#include "eml_mtimes_helper.h"
 #include "find.h"
 #include "indexShapeCheck.h"
 #include "minOrMax.h"
@@ -21,6 +22,7 @@
 #include "rt_nonfinite.h"
 #include "sparse.h"
 #include "sparse1.h"
+#include "speye.h"
 #include "sub2ind.h"
 #include "sum.h"
 #include "uavrt_detection_data.h"
@@ -141,122 +143,82 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
                       coder::array<double, 2U> &Scols)
 {
   static rtBoundsCheckInfo ab_emlrtBCI{
-      -1,                 // iFirst
-      -1,                 // iLast
-      165,                // lineNo
-      37,                 // colNo
-      "Fb",               // aName
-      "incohsumtoeplitz", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
-      0                                                     // checkKind
+      193,               // lineNo
+      "allScores",       // aName
+      "incohsumtoeplitz" // fName
   };
   static rtBoundsCheckInfo bb_emlrtBCI{
-      -1,                 // iFirst
-      -1,                 // iLast
-      178,                // lineNo
-      37,                 // colNo
-      "Tb",               // aName
-      "incohsumtoeplitz", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
-      0                                                     // checkKind
+      165,               // lineNo
+      "Fb",              // aName
+      "incohsumtoeplitz" // fName
   };
   static rtBoundsCheckInfo cb_emlrtBCI{
-      -1,                 // iFirst
-      -1,                 // iLast
-      199,                // lineNo
-      1,                  // colNo
-      "Scols",            // aName
-      "incohsumtoeplitz", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
-      0                                                     // checkKind
+      178,               // lineNo
+      "Tb",              // aName
+      "incohsumtoeplitz" // fName
   };
   static rtBoundsCheckInfo db_emlrtBCI{
-      -1,                 // iFirst
-      -1,                 // iLast
-      198,                // lineNo
-      1,                  // colNo
-      "Sscores",          // aName
-      "incohsumtoeplitz", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
-      0                                                     // checkKind
+      199,               // lineNo
+      "Scols",           // aName
+      "incohsumtoeplitz" // fName
   };
   static rtBoundsCheckInfo eb_emlrtBCI{
-      -1,                 // iFirst
-      -1,                 // iLast
-      193,                // lineNo
-      24,                 // colNo
-      "allScores",        // aName
-      "incohsumtoeplitz", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/incohsumtoeplitz.m", // pName
-      0                                                     // checkKind
+      198,               // lineNo
+      "Sscores",         // aName
+      "incohsumtoeplitz" // fName
   };
   coder::b_sparse pulsesInEachColumn;
   coder::c_sparse firstPulseNum;
   coder::d_sparse r;
   coder::d_sparse sameAsFirst;
-  coder::e_sparse b_this;
+  coder::e_sparse r1;
   coder::f_sparse FbSparseMat;
   coder::f_sparse TbSparseMat;
-  coder::g_sparse r2;
+  coder::g_sparse r3;
   coder::h_sparse Tbdiags;
-  coder::sparse b_y;
-  coder::array<creal_T, 2U> d_y;
+  coder::sparse y;
+  coder::array<creal_T, 2U> c_y;
   coder::array<double, 2U> FbmatDiagInds;
   coder::array<double, 2U> Sinds;
   coder::array<double, 2U> Srows;
   coder::array<double, 2U> allScores;
-  coder::array<double, 2U> c_y;
+  coder::array<double, 2U> b_y;
+  coder::array<double, 2U> selectedCombinedScores;
   coder::array<double, 1U> ex;
-  coder::array<int, 2U> r1;
-  coder::array<int, 2U> r3;
-  coder::array<int, 1U> b_idx;
+  coder::array<int, 2U> r2;
+  coder::array<int, 2U> r4;
+  coder::array<int, 1U> idx;
   coder::array<int, 1U> jj;
-  coder::array<int, 1U> r4;
-  coder::array<boolean_T, 2U> Fbdiags;
-  coder::array<boolean_T, 2U> b_S;
+  coder::array<int, 1U> r5;
+  coder::array<boolean_T, 2U> b_Fb;
+  coder::array<boolean_T, 1U> Fbdiags;
+  double Fbsz[2];
+  double Ssz[2];
+  double Fbnumrows_tmp;
   double K;
-  double varargin_1;
-  int b_Fbnumrows_tmp[2];
-  int Fbnumrows_tmp;
-  int Tbnumrows_tmp;
-  int a;
-  int b_minval_tmp;
-  int cend;
-  int loop_ub_tmp;
-  int maxdimlen;
-  int minval_tmp;
-  boolean_T y;
-  if (Tb.size(0) > 1) {
-    minval_tmp = 1;
-  } else {
-    minval_tmp = Tb.size(0);
-  }
-  if (Fb.size(0) > 1) {
-    b_minval_tmp = 1;
-  } else {
-    b_minval_tmp = Fb.size(0);
-  }
-  if ((minval_tmp != 1) && (Tb.size(0) != 1)) {
+  double Tbnumrows_tmp;
+  double minval_tmp;
+  int iv[2];
+  int K_tmp;
+  int b_i;
+  int i;
+  int loop_ub;
+  int n;
+  int u0;
+  Ssz[0] = Tb.size(0);
+  Ssz[1] = 1.0;
+  Fbsz[0] = Fb.size(0);
+  Fbsz[1] = 1.0;
+  minval_tmp = coder::internal::minimum(Ssz);
+  K = coder::internal::minimum(Fbsz);
+  if ((minval_tmp != 1.0) && (Tb.size(0) != 1)) {
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
   }
-  if ((b_minval_tmp != 1) && (Fb.size(0) != 1)) {
+  if ((K != 1.0) && (Fb.size(0) != 1)) {
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
   }
-  if (Tb.size(0) < 1) {
-    Tbnumrows_tmp = 1;
-  } else {
-    Tbnumrows_tmp = Tb.size(0);
-  }
-  if (Fb.size(0) < 1) {
-    Fbnumrows_tmp = 1;
-  } else {
-    Fbnumrows_tmp = Fb.size(0);
-  }
+  Tbnumrows_tmp = coder::internal::maximum(Ssz);
+  Fbnumrows_tmp = coder::internal::maximum(Fbsz);
   if (Fbnumrows_tmp != Wfherm.size(0)) {
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
   }
@@ -266,338 +228,277 @@ void incohsumtoeplitz(const coder::array<boolean_T, 1U> &Fb,
   if (S.size(1) != Tbnumrows_tmp) {
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
   }
-  if (Tbnumrows_tmp != Wq.m) {
+  i = static_cast<int>(Tbnumrows_tmp);
+  if (i != Wq.m) {
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
   }
   // Make sure the number of pulses considered for all Wq columns is the same
   coder::sum(Wq, pulsesInEachColumn);
   pulsesInEachColumn.parenReference(firstPulseNum);
-  b_S.set_size(1, pulsesInEachColumn.n);
-  loop_ub_tmp = pulsesInEachColumn.n;
-  for (int idx{0}; idx < loop_ub_tmp; idx++) {
-    b_S[idx] = true;
-  }
-  if (pulsesInEachColumn.n > 2147483646) {
-    coder::check_forloop_overflow_error();
-  }
-  for (cend = 0; cend < loop_ub_tmp; cend++) {
-    a = pulsesInEachColumn.colidx[cend];
-    maxdimlen = pulsesInEachColumn.colidx[cend + 1] - 1;
-    if ((pulsesInEachColumn.colidx[cend] <= maxdimlen) &&
-        (maxdimlen > 2147483646)) {
-      coder::check_forloop_overflow_error();
-    }
-    for (int idx{a}; idx <= maxdimlen; idx++) {
-      b_S[cend] = (pulsesInEachColumn.d[idx - 1] <= 0.0);
-    }
-  }
-  coder::j_sparse(b_S, sameAsFirst);
-  coder::any(sameAsFirst, b_this);
-  y = false;
-  cend = b_this.colidx[1] - 1;
-  a = b_this.colidx[0];
-  if ((b_this.colidx[0] <= b_this.colidx[1] - 1) &&
-      (b_this.colidx[1] - 1 > 2147483646)) {
-    coder::check_forloop_overflow_error();
-  }
-  for (int idx{a}; idx <= cend; idx++) {
-    y = b_this.d[idx - 1];
-  }
-  if (y) {
+  pulsesInEachColumn.c_le(r);
+  coder::any(r, r1);
+  if (r1.full()) {
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
   }
   pulsesInEachColumn.eq(firstPulseNum, sameAsFirst);
   sameAsFirst.b_not(r);
-  coder::any(r, b_this);
-  y = false;
-  cend = b_this.colidx[1] - 1;
-  a = b_this.colidx[0];
-  if ((b_this.colidx[0] <= b_this.colidx[1] - 1) &&
-      (b_this.colidx[1] - 1 > 2147483646)) {
-    coder::check_forloop_overflow_error();
-  }
-  for (int idx{a}; idx <= cend; idx++) {
-    y = b_this.d[idx - 1];
-  }
-  if (y) {
+  coder::any(r, r1);
+  if (r1.full()) {
     // numel(unique(full(pulsesInEachColumn)))~=1 %Unique doesn't support sparse
     // for code-generation. %numel(unique(sum(Wq,1)))~=1
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
   }
   //  Generate Tb and Fb sparse matrices if entered as vectors
   // Frequency Blinder (Fb) matrix definitions:
-  coder::internal::assertValidSizeArg(static_cast<double>(Fbnumrows_tmp));
-  coder::internal::assertValidSizeArg(static_cast<double>(Fbnumrows_tmp));
-  coder::sparse::eyeLike(Fbnumrows_tmp, Fbnumrows_tmp, Fbnumrows_tmp, b_y);
-  b_y.logical(FbSparseMat);
+  Ssz[0] = Fbnumrows_tmp;
+  Ssz[1] = Fbnumrows_tmp;
+  coder::speye(Ssz, y);
+  y.logical(FbSparseMat);
   // Prototype Fb matrix with identity logical matrix
-  if (Fbnumrows_tmp < 1) {
+  if (Fbnumrows_tmp < 1.0) {
     FbmatDiagInds.set_size(1, 0);
-    c_y.set_size(1, 0);
+    b_y.set_size(1, 0);
   } else {
-    FbmatDiagInds.set_size(1, Fbnumrows_tmp);
-    loop_ub_tmp = Fbnumrows_tmp - 1;
-    c_y.set_size(1, Fbnumrows_tmp);
-    for (int idx{0}; idx <= loop_ub_tmp; idx++) {
-      FbmatDiagInds[idx] = static_cast<double>(idx) + 1.0;
-      c_y[idx] = static_cast<double>(idx) + 1.0;
+    n = static_cast<int>(Fbnumrows_tmp - 1.0);
+    b_i = n + 1;
+    FbmatDiagInds.set_size(1, b_i);
+    b_y.set_size(1, b_i);
+    for (b_i = 0; b_i <= n; b_i++) {
+      FbmatDiagInds[b_i] = static_cast<double>(b_i) + 1.0;
+      b_y[b_i] = static_cast<double>(b_i) + 1.0;
     }
   }
-  b_Fbnumrows_tmp[0] = Fbnumrows_tmp;
-  b_Fbnumrows_tmp[1] = Fbnumrows_tmp;
-  coder::internal::sub2ind(b_Fbnumrows_tmp, FbmatDiagInds, c_y, r1);
-  FbmatDiagInds.set_size(1, r1.size(1));
-  maxdimlen = r1.size(1);
-  for (int idx{0}; idx < maxdimlen; idx++) {
-    FbmatDiagInds[idx] = r1[idx];
+  n = static_cast<int>(Fbnumrows_tmp);
+  iv[0] = n;
+  iv[1] = n;
+  coder::internal::sub2ind(iv, FbmatDiagInds, b_y, r2);
+  loop_ub = r2.size(1);
+  FbmatDiagInds.set_size(1, r2.size(1));
+  for (b_i = 0; b_i < loop_ub; b_i++) {
+    FbmatDiagInds[b_i] = r2[b_i];
   }
-  if (b_minval_tmp == 1) {
+  if (K == 1.0) {
     // Passed a vector, so make the matrix
-    Fbdiags.set_size(Fb.size(0), 1);
-    maxdimlen = Fb.size(0);
-    for (int idx{0}; idx < maxdimlen; idx++) {
-      Fbdiags[idx] = Fb[idx];
+    loop_ub = Fb.size(0);
+    Fbdiags.set_size(Fb.size(0));
+    for (b_i = 0; b_i < loop_ub; b_i++) {
+      Fbdiags[b_i] = Fb[b_i];
     }
     // FbSparseMat = logical(speye(max(Fbsz)));
     FbSparseMat.parenAssign(Fb, FbmatDiagInds);
   } else {
     // Passed a matrix, so make sparse.
     // FbSparseMat = logical(sparse(Fb));
-    b_S.set_size(1, FbmatDiagInds.size(1));
-    maxdimlen = FbmatDiagInds.size(1);
-    for (int idx{0}; idx < maxdimlen; idx++) {
-      a = static_cast<int>(FbmatDiagInds[idx]);
-      if ((a < 1) || (a > Fb.size(0))) {
-        rtDynamicBoundsError(a, 1, Fb.size(0), ab_emlrtBCI);
+    b_Fb.set_size(1, r2.size(1));
+    for (b_i = 0; b_i < loop_ub; b_i++) {
+      n = static_cast<int>(FbmatDiagInds[b_i]);
+      if ((n < 1) || (n > Fb.size(0))) {
+        rtDynamicBoundsError(n, 1, Fb.size(0), bb_emlrtBCI);
       }
-      b_S[idx] = Fb[a - 1];
+      b_Fb[b_i] = Fb[n - 1];
     }
-    FbSparseMat.b_parenAssign(b_S, FbmatDiagInds);
+    FbSparseMat.b_parenAssign(b_Fb, FbmatDiagInds);
     // Had do do it this way rather than with logical(sparse(Fb)) to get code to
     // work with Fb being either a vector or matrix.
     FbSparseMat.parenReference(FbmatDiagInds, r);
-    r.full(b_S);
-    cend = b_S.size(1);
-    FbSparseMat.parenReference(FbmatDiagInds, r);
-    r.full(b_S);
-    Fbdiags.set_size(cend, 1);
-    for (int idx{0}; idx < cend; idx++) {
-      Fbdiags[idx] = b_S[idx];
+    r.full(b_Fb);
+    loop_ub = b_Fb.size(1);
+    Fbdiags.set_size(b_Fb.size(1));
+    for (b_i = 0; b_i < loop_ub; b_i++) {
+      Fbdiags[b_i] = b_Fb[b_i];
     }
     // Get the diag elements. Transpose needed for size considerations for code
     // generation.
   }
   // Time Blinder (Tb) matrix definitions:
-  coder::internal::assertValidSizeArg(static_cast<double>(Tbnumrows_tmp));
-  coder::internal::assertValidSizeArg(static_cast<double>(Tbnumrows_tmp));
-  coder::sparse::eyeLike(Tbnumrows_tmp, Tbnumrows_tmp, Tbnumrows_tmp, b_y);
-  b_y.logical(TbSparseMat);
+  Ssz[0] = Tbnumrows_tmp;
+  Ssz[1] = Tbnumrows_tmp;
+  coder::speye(Ssz, y);
+  y.logical(TbSparseMat);
   // Prototype Fb matrix with identity logical matrix
-  if (Tbnumrows_tmp < 1) {
+  if (Tbnumrows_tmp < 1.0) {
     FbmatDiagInds.set_size(1, 0);
-    c_y.set_size(1, 0);
+    b_y.set_size(1, 0);
   } else {
-    FbmatDiagInds.set_size(1, Tbnumrows_tmp);
-    loop_ub_tmp = Tbnumrows_tmp - 1;
-    c_y.set_size(1, Tbnumrows_tmp);
-    for (int idx{0}; idx <= loop_ub_tmp; idx++) {
-      FbmatDiagInds[idx] = static_cast<double>(idx) + 1.0;
-      c_y[idx] = static_cast<double>(idx) + 1.0;
+    n = static_cast<int>(Tbnumrows_tmp - 1.0);
+    b_i = n + 1;
+    FbmatDiagInds.set_size(1, b_i);
+    b_y.set_size(1, b_i);
+    for (b_i = 0; b_i <= n; b_i++) {
+      FbmatDiagInds[b_i] = static_cast<double>(b_i) + 1.0;
+      b_y[b_i] = static_cast<double>(b_i) + 1.0;
     }
   }
-  b_Fbnumrows_tmp[0] = Tbnumrows_tmp;
-  b_Fbnumrows_tmp[1] = Tbnumrows_tmp;
-  coder::internal::sub2ind(b_Fbnumrows_tmp, FbmatDiagInds, c_y, r1);
-  FbmatDiagInds.set_size(1, r1.size(1));
-  maxdimlen = r1.size(1);
-  for (int idx{0}; idx < maxdimlen; idx++) {
-    FbmatDiagInds[idx] = r1[idx];
+  iv[0] = i;
+  iv[1] = i;
+  coder::internal::sub2ind(iv, FbmatDiagInds, b_y, r2);
+  loop_ub = r2.size(1);
+  FbmatDiagInds.set_size(1, r2.size(1));
+  for (i = 0; i < loop_ub; i++) {
+    FbmatDiagInds[i] = r2[i];
   }
-  if (minval_tmp == 1) {
-    coder::i_sparse(Tb, r2);
-    r2.logical(Tbdiags);
-    coder::internal::assertValidSizeArg(static_cast<double>(Tbnumrows_tmp));
-    coder::sparse::eyeLike(Tbnumrows_tmp, Tbnumrows_tmp, Tbnumrows_tmp, b_y);
-    b_y.logical(TbSparseMat);
+  if (minval_tmp == 1.0) {
+    coder::i_sparse(Tb, r3);
+    r3.logical(Tbdiags);
+    coder::internal::assertValidSizeArg(Tbnumrows_tmp);
+    coder::sparse::eyeLike(static_cast<int>(Tbnumrows_tmp),
+                           static_cast<int>(Tbnumrows_tmp),
+                           static_cast<int>(Tbnumrows_tmp), y);
+    y.logical(TbSparseMat);
     TbSparseMat.c_parenAssign(Tbdiags, FbmatDiagInds);
   } else {
-    c_y.set_size(1, FbmatDiagInds.size(1));
-    maxdimlen = FbmatDiagInds.size(1);
-    for (int idx{0}; idx < maxdimlen; idx++) {
-      a = static_cast<int>(FbmatDiagInds[idx]);
-      if ((a < 1) || (a > Tb.size(0))) {
-        rtDynamicBoundsError(a, 1, Tb.size(0), bb_emlrtBCI);
+    b_y.set_size(1, r2.size(1));
+    for (i = 0; i < loop_ub; i++) {
+      b_i = static_cast<int>(FbmatDiagInds[i]);
+      if ((b_i < 1) || (b_i > Tb.size(0))) {
+        rtDynamicBoundsError(b_i, 1, Tb.size(0), cb_emlrtBCI);
       }
-      c_y[idx] = Tb[a - 1];
+      b_y[i] = Tb[b_i - 1];
     }
-    TbSparseMat.c_parenAssign(c_y, FbmatDiagInds);
+    TbSparseMat.c_parenAssign(b_y, FbmatDiagInds);
     // Had do do it this way rather than with logical(sparse(Tb)) to get code to
     // work with Tb being either a vector or matrix.
   }
   //  Perform the incoherent summation
-  Wq.parenReference(r2);
-  coder::sum(r2, firstPulseNum);
-  K = 0.0;
-  cend = firstPulseNum.colidx[1] - 1;
-  a = firstPulseNum.colidx[0];
-  if ((firstPulseNum.colidx[0] <= firstPulseNum.colidx[1] - 1) &&
-      (firstPulseNum.colidx[1] - 1 > 2147483646)) {
-    coder::check_forloop_overflow_error();
-  }
-  for (int idx{a}; idx <= cend; idx++) {
-    K = firstPulseNum.d[0];
-  }
-  if (S.size(0) != Wfherm.size(1)) {
-    if (((Wfherm.size(0) == 1) && (Wfherm.size(1) == 1)) ||
-        ((S.size(0) == 1) && (S.size(1) == 1))) {
-      dc_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
-    } else {
-      tb_rtErrorWithMessageID(jc_emlrtRTEI.fName, jc_emlrtRTEI.lineNo);
-    }
-  }
-  coder::internal::blas::mtimes(Wfherm, S, d_y);
-  cend = d_y.size(0) * d_y.size(1);
-  Srows.set_size(d_y.size(0), d_y.size(1));
-  if (cend > 2147483646) {
-    coder::check_forloop_overflow_error();
-  }
-  for (maxdimlen = 0; maxdimlen < cend; maxdimlen++) {
-    Srows[maxdimlen] = rt_hypotd_snf(d_y[maxdimlen].re, d_y[maxdimlen].im);
-  }
+  Wq.parenReference(r3);
+  coder::sum(r3, firstPulseNum);
+  K = firstPulseNum.full();
+  coder::dynamic_size_checks(Wfherm, S, Wfherm.size(1), S.size(0));
+  coder::internal::blas::b_mtimes(Wfherm, S, c_y);
+  coder::b_abs(c_y, Srows);
   Sinds.set_size(Srows.size(0), Srows.size(1));
-  maxdimlen = Srows.size(0) * Srows.size(1);
-  for (int idx{0}; idx < maxdimlen; idx++) {
-    varargin_1 = Srows[idx];
-    Sinds[idx] = varargin_1 * varargin_1;
+  n = Srows.size(0) * Srows.size(1);
+  for (i = 0; i < n; i++) {
+    minval_tmp = Srows[i];
+    Sinds[i] = minval_tmp * minval_tmp;
   }
   IR.mtimes(Sinds, allScores);
   FbSparseMat.mtimes(allScores, Srows);
   TbSparseMat.b_mtimes(Srows, Sinds);
-  Wq.mtimes(Sinds, Srows);
-  coder::internal::maximum(Srows, ex, b_idx);
+  Wq.b_mtimes(Sinds, selectedCombinedScores);
+  coder::internal::maximum(selectedCombinedScores, ex, idx);
   // Check max on each row (frequency). This gives the columns of the resulting
   // matrix output with the max for each frequency bin This and the next line
   // gets the column numbers (time windows) of the S matrix where the highest
   // K-summed entries exist for each row (frequency bin)
-  ex.set_size(b_idx.size(0));
-  maxdimlen = b_idx.size(0);
-  for (int idx{0}; idx < maxdimlen; idx++) {
-    ex[idx] = b_idx[idx];
+  loop_ub = idx.size(0);
+  ex.set_size(idx.size(0));
+  for (i = 0; i < loop_ub; i++) {
+    ex[i] = idx[i];
   }
-  Wq.parenReference(ex, b_y);
-  coder::e_eml_find(b_y, b_idx, jj);
-  ex.set_size(b_idx.size(0));
-  maxdimlen = b_idx.size(0);
-  for (int idx{0}; idx < maxdimlen; idx++) {
-    ex[idx] = b_idx[idx];
+  Wq.parenReference(ex, y);
+  coder::e_eml_find(y, idx, jj);
+  loop_ub = idx.size(0);
+  ex.set_size(idx.size(0));
+  for (i = 0; i < loop_ub; i++) {
+    ex[i] = idx[i];
   }
   // Get the rows that had 1s in them that corresponded to the winning columns
-  varargin_1 = static_cast<double>(ex.size(0)) / K;
+  minval_tmp = static_cast<double>(ex.size(0)) / K;
   coder::internal::assertValidSizeArg(K);
-  coder::internal::assertValidSizeArg(varargin_1);
-  maxdimlen = ex.size(0);
+  coder::internal::assertValidSizeArg(minval_tmp);
+  n = idx.size(0);
   if (ex.size(0) < 1) {
-    maxdimlen = 1;
+    n = 1;
   }
-  cend = ex.size(0);
-  if (cend >= maxdimlen) {
-    maxdimlen = cend;
+  u0 = ex.size(0);
+  if (u0 >= n) {
+    n = u0;
   }
-  if (static_cast<int>(K) > maxdimlen) {
-    k_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+  if (static_cast<int>(K) > n) {
+    k_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
   }
-  if (static_cast<int>(varargin_1) > maxdimlen) {
-    k_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+  if (static_cast<int>(minval_tmp) > n) {
+    k_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
   }
-  if (static_cast<int>(varargin_1) < 0) {
-    jb_rtErrorWithMessageID(yb_emlrtRTEI.fName, yb_emlrtRTEI.lineNo);
+  if (static_cast<int>(minval_tmp) < 0) {
+    ib_rtErrorWithMessageID(tb_emlrtRTEI.fName, tb_emlrtRTEI.lineNo);
   }
-  if (static_cast<int>(K) * static_cast<int>(varargin_1) != ex.size(0)) {
-    l_rtErrorWithMessageID(o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
+  if (static_cast<int>(K) * static_cast<int>(minval_tmp) != ex.size(0)) {
+    l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
   }
-  cend = static_cast<int>(K);
-  maxdimlen = static_cast<int>(varargin_1);
-  Scols.set_size(static_cast<int>(varargin_1), static_cast<int>(K));
-  for (int idx{0}; idx < cend; idx++) {
-    for (a = 0; a < maxdimlen; a++) {
-      Scols[a + Scols.size(0) * idx] = ex[idx + static_cast<int>(K) * a];
+  K_tmp = static_cast<int>(K);
+  n = static_cast<int>(minval_tmp);
+  Scols.set_size(static_cast<int>(minval_tmp), static_cast<int>(K));
+  for (i = 0; i < K_tmp; i++) {
+    for (b_i = 0; b_i < n; b_i++) {
+      Scols[b_i + Scols.size(0) * i] = ex[i + static_cast<int>(K) * b_i];
     }
   }
   if (Wfherm.size(0) < 1) {
     FbmatDiagInds.set_size(1, 0);
   } else {
     FbmatDiagInds.set_size(1, Wfherm.size(0));
-    maxdimlen = Wfherm.size(0) - 1;
-    for (int idx{0}; idx <= maxdimlen; idx++) {
-      FbmatDiagInds[idx] = static_cast<double>(idx) + 1.0;
+    loop_ub = Wfherm.size(0) - 1;
+    for (i = 0; i <= loop_ub; i++) {
+      FbmatDiagInds[i] = static_cast<double>(i) + 1.0;
     }
   }
+  loop_ub = FbmatDiagInds.size(1);
   ex.set_size(FbmatDiagInds.size(1));
-  maxdimlen = FbmatDiagInds.size(1);
-  for (int idx{0}; idx < maxdimlen; idx++) {
-    ex[idx] = FbmatDiagInds[idx];
+  for (i = 0; i < loop_ub; i++) {
+    ex[i] = FbmatDiagInds[i];
   }
   coder::repmat(ex, K, Srows);
-  b_Fbnumrows_tmp[0] = (*(int(*)[2])allScores.size())[0];
-  b_Fbnumrows_tmp[1] = (*(int(*)[2])allScores.size())[1];
-  coder::internal::b_sub2ind(b_Fbnumrows_tmp, Srows, Scols, r3);
-  Sinds.set_size(r3.size(0), r3.size(1));
-  loop_ub_tmp = r3.size(0) * r3.size(1);
-  for (int idx{0}; idx < loop_ub_tmp; idx++) {
-    Sinds[idx] = r3[idx];
+  iv[0] = (*(int(*)[2])allScores.size())[0];
+  iv[1] = (*(int(*)[2])allScores.size())[1];
+  coder::internal::b_sub2ind(iv, Srows, Scols, r4);
+  loop_ub = r4.size(1);
+  Sinds.set_size(r4.size(0), r4.size(1));
+  n = r4.size(0) * r4.size(1);
+  for (i = 0; i < n; i++) {
+    Sinds[i] = r4[i];
   }
-  int iv[2];
-  b_Fbnumrows_tmp[0] = (*(int(*)[2])allScores.size())[0];
-  b_Fbnumrows_tmp[1] = (*(int(*)[2])allScores.size())[1];
-  iv[0] = (*(int(*)[2])Sinds.size())[0];
-  iv[1] = (*(int(*)[2])Sinds.size())[1];
-  coder::internal::indexShapeCheck(b_Fbnumrows_tmp, iv);
-  Sscores.set_size(Sinds.size(0), Sinds.size(1));
-  cend = allScores.size(0) * allScores.size(1);
-  for (int idx{0}; idx < loop_ub_tmp; idx++) {
-    a = static_cast<int>(Sinds[idx]);
-    if ((a < 1) || (a > cend)) {
-      rtDynamicBoundsError(a, 1, cend, eb_emlrtBCI);
+  int iv1[2];
+  iv[0] = (*(int(*)[2])allScores.size())[0];
+  iv[1] = (*(int(*)[2])allScores.size())[1];
+  iv1[0] = (*(int(*)[2])Sinds.size())[0];
+  iv1[1] = (*(int(*)[2])Sinds.size())[1];
+  coder::internal::indexShapeCheck(iv, iv1);
+  Sscores.set_size(r4.size(0), r4.size(1));
+  u0 = allScores.size(0) * allScores.size(1);
+  for (i = 0; i < n; i++) {
+    b_i = static_cast<int>(Sinds[i]);
+    if ((b_i < 1) || (b_i > u0)) {
+      rtDynamicBoundsError(b_i, 1, u0, ab_emlrtBCI);
     }
-    Sscores[idx] = allScores[a - 1];
+    Sscores[i] = allScores[b_i - 1];
   }
   // Extract individual pulse scores
   // The max function will just return the first index if all elements are
   // equal. Here we zero out the scores and set the cols to NaN for frequencies
   // were ignored with the frequency blinder matrix.
-  maxdimlen = Fbdiags.size(0) - 1;
-  cend = 0;
-  for (a = 0; a <= maxdimlen; a++) {
-    if (!Fbdiags[a]) {
-      cend++;
+  u0 = Fbdiags.size(0);
+  n = 0;
+  for (b_i = 0; b_i < u0; b_i++) {
+    if (!Fbdiags[b_i]) {
+      n++;
     }
   }
-  r4.set_size(cend);
-  cend = 0;
-  for (a = 0; a <= maxdimlen; a++) {
-    if (!Fbdiags[a]) {
-      r4[cend] = a;
-      cend++;
+  r5.set_size(n);
+  n = 0;
+  for (b_i = 0; b_i < u0; b_i++) {
+    if (!Fbdiags[b_i]) {
+      r5[n] = b_i;
+      n++;
     }
   }
-  maxdimlen = Sinds.size(1);
-  for (int idx{0}; idx < maxdimlen; idx++) {
-    cend = r4.size(0);
-    for (a = 0; a < cend; a++) {
-      if (r4[a] > Sinds.size(0) - 1) {
-        rtDynamicBoundsError(r4[a], 0, Sinds.size(0) - 1, db_emlrtBCI);
+  for (i = 0; i < loop_ub; i++) {
+    n = r5.size(0);
+    for (b_i = 0; b_i < n; b_i++) {
+      if (r5[b_i] > Sinds.size(0) - 1) {
+        rtDynamicBoundsError(r5[b_i], 0, Sinds.size(0) - 1, eb_emlrtBCI);
       }
-      Sscores[r4[a] + Sscores.size(0) * idx] = rtNaN;
+      Sscores[r5[b_i] + Sscores.size(0) * i] = rtNaN;
     }
   }
-  maxdimlen = Scols.size(1);
-  for (int idx{0}; idx < maxdimlen; idx++) {
-    cend = r4.size(0);
-    for (a = 0; a < cend; a++) {
-      if (r4[a] > Scols.size(0) - 1) {
-        rtDynamicBoundsError(r4[a], 0, Scols.size(0) - 1, cb_emlrtBCI);
+  for (i = 0; i < K_tmp; i++) {
+    loop_ub = r5.size(0);
+    for (b_i = 0; b_i < loop_ub; b_i++) {
+      if (r5[b_i] > Scols.size(0) - 1) {
+        rtDynamicBoundsError(r5[b_i], 0, Scols.size(0) - 1, db_emlrtBCI);
       }
-      Scols[r4[a] + Scols.size(0) * idx] = rtNaN;
+      Scols[r5[b_i] + Scols.size(0) * i] = rtNaN;
     }
   }
 }

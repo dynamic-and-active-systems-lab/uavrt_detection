@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: wgn.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -43,7 +43,7 @@ static const char cv[128]{
     '~',    '\x7f'};
 
 // Function Declarations
-static void sb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void rb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -51,7 +51,7 @@ static void sb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void sb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void rb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -142,11 +142,9 @@ void wgn(creal_T y[1000])
 void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
          array<creal_T, 2U> &y)
 {
-  static rtRunTimeErrorInfo bd_emlrtRTEI{
-      180,                                                      // lineNo
-      1,                                                        // colNo
-      "wgn",                                                    // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/comm/comm/wgn.m" // pName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      180,  // lineNo
+      "wgn" // fName
   };
   static const char b_cv1[7]{'c', 'o', 'm', 'p', 'l', 'e', 'x'};
   static const char a[6]{'l', 'i', 'n', 'e', 'a', 'r'};
@@ -154,7 +152,6 @@ void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
   array<double, 2U> b;
   double noisePower;
   int i;
-  int k;
   char a_data[7];
   char switch_expression_data[6];
   boolean_T x[6];
@@ -167,32 +164,32 @@ void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
   x[4] = (varargin_1 - std::floor(varargin_1) != 0.0);
   x[5] = false;
   b_y = false;
-  k = 0;
+  i = 0;
   exitg1 = false;
-  while ((!exitg1) && (k < 6)) {
-    if (x[k]) {
+  while ((!exitg1) && (i < 6)) {
+    if (x[i]) {
       b_y = true;
       exitg1 = true;
     } else {
-      k++;
+      i++;
     }
   }
   if (b_y) {
-    sb_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
+    rb_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
   }
-  for (k = 0; k < 6; k++) {
-    switch_expression_data[k] = cv[static_cast<int>(a[k])];
+  for (i = 0; i < 6; i++) {
+    switch_expression_data[i] = cv[static_cast<int>(a[i])];
   }
   b_y = false;
-  k = 0;
+  i = 0;
   int exitg2;
   do {
     exitg2 = 0;
-    if (k < 6) {
-      if (b_cv[k] != switch_expression_data[k]) {
+    if (i < 6) {
+      if (b_cv[i] != switch_expression_data[i]) {
         exitg2 = 1;
       } else {
-        k++;
+        i++;
       }
     } else {
       b_y = true;
@@ -209,31 +206,31 @@ void wgn(double varargin_1, unsigned int varargin_2, double varargin_3,
   } else {
     noisePower = rt_powd_snf(10.0, (varargin_3 - 30.0) / 10.0);
   }
-  for (i = 0; i < 7; i++) {
-    a_data[i] = b_cv1[i];
+  for (int i1{0}; i1 < 7; i1++) {
+    a_data[i1] = b_cv1[i1];
   }
   if (cv[static_cast<int>(a_data[0])] == 'r') {
     if (noisePower < 0.0) {
-      rtErrorWithMessageID("sqrt", ec_emlrtRTEI.fName, ec_emlrtRTEI.lineNo);
+      n_rtErrorWithMessageID("sqrt", xb_emlrtRTEI.fName, xb_emlrtRTEI.lineNo);
     }
     noisePower = std::sqrt(noisePower);
     randn(varargin_1, varargin_2, b);
     y.set_size(b.size(0), b.size(1));
-    k = b.size(0) * b.size(1);
-    for (i = 0; i < k; i++) {
-      y[i].re = noisePower * b[i];
-      y[i].im = 0.0;
+    i = b.size(0) * b.size(1);
+    for (int i1{0}; i1 < i; i1++) {
+      y[i1].re = noisePower * b[i1];
+      y[i1].im = 0.0;
     }
   } else {
     if (noisePower < 0.0) {
-      rtErrorWithMessageID("sqrt", ec_emlrtRTEI.fName, ec_emlrtRTEI.lineNo);
+      n_rtErrorWithMessageID("sqrt", xb_emlrtRTEI.fName, xb_emlrtRTEI.lineNo);
     }
     noisePower = std::sqrt(noisePower);
     complexLike(varargin_1, varargin_2, y);
-    k = y.size(0) * y.size(1);
-    for (i = 0; i < k; i++) {
-      y[i].re = noisePower * y[i].re;
-      y[i].im = noisePower * y[i].im;
+    i = y.size(0) * y.size(1);
+    for (int i1{0}; i1 < i; i1++) {
+      y[i1].re = noisePower * y[i1].re;
+      y[i1].im = noisePower * y[i1].im;
     }
   }
 }

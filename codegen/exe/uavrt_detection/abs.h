@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: abs.h
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 #ifndef ABS_H
@@ -19,9 +19,13 @@
 
 // Function Declarations
 namespace coder {
+double b_abs(const creal_T x);
+
 void b_abs(const array<creal_T, 2U> &x, array<double, 2U> &y);
 
-}
+void b_abs(const array<double, 1U> &x, array<double, 1U> &y);
+
+} // namespace coder
 
 #endif
 //

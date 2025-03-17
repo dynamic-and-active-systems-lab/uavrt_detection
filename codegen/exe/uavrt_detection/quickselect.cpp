@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: quickselect.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -158,29 +158,28 @@ double quickselect(array<double, 1U> &v, int n, int vlen, int &nfirst,
     isslow = false;
     exitg1 = false;
     while ((!exitg1) && (ia + 1 < ib + 1)) {
-      double vref;
       boolean_T guard1;
-      vref = v[ipiv - 1];
+      vn = v[ipiv - 1];
       v[ipiv - 1] = v[ib];
-      v[ib] = vref;
+      v[ib] = vn;
       ilast = ia;
       ipiv = -1;
       for (int k{ia + 1}; k <= ib; k++) {
         double vk_tmp;
         vk_tmp = v[k - 1];
-        if (vk_tmp == vref) {
+        if (vk_tmp == vn) {
           v[k - 1] = v[ilast];
           v[ilast] = vk_tmp;
           ipiv++;
           ilast++;
-        } else if (vk_tmp < vref) {
+        } else if (vk_tmp < vn) {
           v[k - 1] = v[ilast];
           v[ilast] = vk_tmp;
           ilast++;
         }
       }
       v[ib] = v[ilast];
-      v[ilast] = vref;
+      v[ilast] = vn;
       guard1 = false;
       if (n <= ilast + 1) {
         nfirst = ilast - ipiv;
@@ -212,17 +211,17 @@ double quickselect(array<double, 1U> &v, int n, int vlen, int &nfirst,
               ipiv = (ia + k * 5) + 1;
               ipiv = thirdOfFive(v, ipiv, ipiv + 4) - 1;
               ilast = ia + k;
-              vref = v[ilast];
+              vn = v[ilast];
               v[ilast] = v[ipiv];
-              v[ipiv] = vref;
+              v[ipiv] = vn;
             }
             if (nlast > 0) {
               ipiv = (ia + ngroupsof5 * 5) + 1;
               ipiv = thirdOfFive(v, ipiv, (ipiv + nlast) - 1) - 1;
               ilast = ia + ngroupsof5;
-              vref = v[ilast];
+              vn = v[ilast];
               v[ilast] = v[ipiv];
-              v[ipiv] = vref;
+              v[ipiv] = vn;
               c = ngroupsof5 + 1;
             }
           }
@@ -242,9 +241,9 @@ double quickselect(array<double, 1U> &v, int n, int vlen, int &nfirst,
             ipiv = ib;
           }
           if (ipiv + 1 > ia + 1) {
-            vref = v[ia];
+            vn = v[ia];
             v[ia] = v[ipiv];
-            v[ipiv] = vref;
+            v[ipiv] = vn;
           }
         }
         ipiv = ia + 1;

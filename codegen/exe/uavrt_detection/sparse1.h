@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: sparse1.h
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 #ifndef SPARSE1_H
@@ -39,12 +39,13 @@ public:
                                   array<int, 1U> &sint);
   static void eyeLike(int ndiag, int b_m, int b_n, sparse &b_I);
   void mtimes(const array<double, 2U> &a, array<double, 2U> &c) const;
+  void b_mtimes(const array<double, 2U> &a, array<double, 2U> &c) const;
   void logical(f_sparse &y) const;
   void parenReference(g_sparse &s) const;
   void parenReference(const array<double, 1U> &varargin_2, sparse &s) const;
   void fillIn();
   static void b_realloc(f_sparse *b_this, int numAllocRequested, int ub1,
-                        int lb2, int ub2);
+                        int lb2, int ub2, int offs);
   array<double, 1U> d;
   array<int, 1U> colidx;
   array<int, 1U> rowidx;
@@ -56,6 +57,7 @@ public:
 class b_sparse {
 public:
   void parenReference(c_sparse &s) const;
+  void c_le(d_sparse &s) const;
   void eq(const c_sparse &b, d_sparse &s) const;
   array<double, 1U> d;
   array<int, 1U> colidx;
@@ -65,6 +67,7 @@ public:
 
 class c_sparse {
 public:
+  double full() const;
   array<double, 1U> d;
   array<int, 1U> colidx;
   array<int, 1U> rowidx;
@@ -82,6 +85,7 @@ public:
 
 class e_sparse {
 public:
+  boolean_T full() const;
   array<boolean_T, 1U> d;
   array<int, 1U> colidx;
   array<int, 1U> rowidx;
@@ -94,7 +98,8 @@ public:
   void b_mtimes(const array<double, 2U> &a, array<double, 2U> &c) const;
   void parenAssign(const array<boolean_T, 1U> &rhs,
                    const array<double, 2U> &varargin_1);
-  void parenAssign2D(boolean_T rhs, double r, double c);
+  void parenAssign2D(const array<boolean_T, 1U> &rhs, const array<int, 1U> &r,
+                     int c);
   void b_parenAssign(const array<boolean_T, 2U> &rhs,
                      const array<double, 2U> &varargin_1);
   void c_parenAssign(const h_sparse &rhs, const array<double, 2U> &varargin_1);

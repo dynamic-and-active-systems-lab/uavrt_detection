@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: randn.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -29,8 +29,8 @@ void complexLike(creal_T r[1000])
   double im;
   double re;
   for (int k{0}; k < 1000; k++) {
-    re = eml_rand_mt19937ar(state);
-    im = eml_rand_mt19937ar(state);
+    re = internal::randfun::b_eml_rand_mt19937ar(state);
+    im = internal::randfun::b_eml_rand_mt19937ar(state);
     r[k].re = re;
     r[k].im = im;
   }
@@ -62,48 +62,44 @@ void complexLike(creal_T r[1000])
 void complexLike(double varargin_1, unsigned int varargin_2,
                  array<creal_T, 2U> &r)
 {
-  static rtDoubleCheckInfo s_emlrtDCI{
-      29,                            // lineNo
-      34,                            // colNo
-      "eml_rand_mt19937ar_stateful", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/randfun/private/"
-      "eml_rand_mt19937ar_stateful.m", // pName
-      4                                // checkKind
+  static rtDoubleCheckInfo q_emlrtDCI{
+      29,                           // lineNo
+      "eml_rand_mt19937ar_stateful" // fName
   };
+  double d;
   double im;
-  double re;
   int loop_ub;
   if ((varargin_1 != std::floor(varargin_1)) || std::isinf(varargin_1) ||
       (varargin_1 < -2.147483648E+9) || (varargin_1 > 2.147483647E+9)) {
-    b_rtErrorWithMessageID(MIN_int32_T, nb_emlrtRTEI.fName,
-                           nb_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(MIN_int32_T, jb_emlrtRTEI.fName,
+                           jb_emlrtRTEI.lineNo);
   }
   if (varargin_2 > 2147483647U) {
-    b_rtErrorWithMessageID(MIN_int32_T, nb_emlrtRTEI.fName,
-                           nb_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(MIN_int32_T, jb_emlrtRTEI.fName,
+                           jb_emlrtRTEI.lineNo);
   }
   if (varargin_1 <= 0.0) {
-    re = 0.0;
+    d = 0.0;
   } else {
-    re = varargin_1;
+    d = varargin_1;
   }
   if (varargin_2 <= 0U) {
-    re = 0.0;
+    d = 0.0;
   } else {
-    re *= static_cast<double>(varargin_2);
+    d *= static_cast<double>(varargin_2);
   }
-  if (!(re <= 2.147483647E+9)) {
-    m_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
+  if (!(d <= 2.147483647E+9)) {
+    m_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
   }
   if (!(varargin_1 >= 0.0)) {
-    rtNonNegativeError(varargin_1, s_emlrtDCI);
+    rtNonNegativeError(varargin_1, q_emlrtDCI);
   }
   r.set_size(static_cast<int>(varargin_1), static_cast<int>(varargin_2));
   loop_ub = static_cast<int>(varargin_1) * static_cast<int>(varargin_2);
   for (int k{0}; k < loop_ub; k++) {
-    re = eml_rand_mt19937ar(state);
-    im = eml_rand_mt19937ar(state);
-    r[k].re = re;
+    d = internal::randfun::b_eml_rand_mt19937ar(state);
+    im = internal::randfun::b_eml_rand_mt19937ar(state);
+    r[k].re = d;
     r[k].im = im;
   }
   for (int k{0}; k < loop_ub; k++) {
@@ -111,16 +107,16 @@ void complexLike(double varargin_1, unsigned int varargin_2,
     im = r[k].re;
     ai = r[k].im;
     if (ai == 0.0) {
-      re = im / 1.4142135623730951;
+      d = im / 1.4142135623730951;
       im = 0.0;
     } else if (im == 0.0) {
-      re = 0.0;
+      d = 0.0;
       im = ai / 1.4142135623730951;
     } else {
-      re = im / 1.4142135623730951;
+      d = im / 1.4142135623730951;
       im = ai / 1.4142135623730951;
     }
-    r[k].re = re;
+    r[k].re = d;
     r[k].im = im;
   }
 }
@@ -132,7 +128,7 @@ void complexLike(double varargin_1, unsigned int varargin_2,
 void randn(double r[1000])
 {
   for (int k{0}; k < 1000; k++) {
-    r[k] = eml_rand_mt19937ar(state);
+    r[k] = internal::randfun::b_eml_rand_mt19937ar(state);
   }
 }
 
@@ -144,22 +140,18 @@ void randn(double r[1000])
 //
 void randn(double varargin_1, unsigned int varargin_2, array<double, 2U> &r)
 {
-  static rtDoubleCheckInfo s_emlrtDCI{
-      37,                            // lineNo
-      34,                            // colNo
-      "eml_rand_mt19937ar_stateful", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/randfun/private/"
-      "eml_rand_mt19937ar_stateful.m", // pName
-      4                                // checkKind
+  static rtDoubleCheckInfo q_emlrtDCI{
+      37,                           // lineNo
+      "eml_rand_mt19937ar_stateful" // fName
   };
   int i;
   if (!(varargin_1 >= 0.0)) {
-    rtNonNegativeError(varargin_1, s_emlrtDCI);
+    rtNonNegativeError(varargin_1, q_emlrtDCI);
   }
   r.set_size(static_cast<int>(varargin_1), static_cast<int>(varargin_2));
   i = static_cast<int>(varargin_1) * static_cast<int>(varargin_2);
   for (int k{0}; k < i; k++) {
-    r[k] = eml_rand_mt19937ar(state);
+    r[k] = internal::randfun::b_eml_rand_mt19937ar(state);
   }
 }
 

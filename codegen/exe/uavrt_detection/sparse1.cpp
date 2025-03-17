@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: sparse1.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -15,8 +15,10 @@
 #include "eml_int_forloop_overflow_check.h"
 #include "ind2sub.h"
 #include "indexShapeCheck.h"
+#include "issorted.h"
 #include "locBsearch.h"
 #include "rt_nonfinite.h"
+#include "sort.h"
 #include "sparse.h"
 #include "uavrt_detection_data.h"
 #include "uavrt_detection_internal_types.h"
@@ -34,70 +36,50 @@
 #include <string>
 
 // Variable Definitions
-static rtRunTimeErrorInfo fc_emlrtRTEI{
-    29,              // lineNo
-    23,              // colNo
-    "sparse/mtimes", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
-    "+internal/@sparse/mtimes.m" // pName
+static rtRunTimeErrorInfo yb_emlrtRTEI{
+    29,             // lineNo
+    "sparse/mtimes" // fName
 };
 
-static rtRunTimeErrorInfo kc_emlrtRTEI{
-    12,                                   // lineNo
-    27,                                   // colNo
-    "sparse/sparse_validateNumericIndex", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
-    "+internal/@sparse/private/validateNumericIndex.m" // pName
+static rtRunTimeErrorInfo bc_emlrtRTEI{
+    12,                                  // lineNo
+    "sparse/sparse_validateNumericIndex" // fName
 };
 
-static rtRunTimeErrorInfo nc_emlrtRTEI{
-    1623,              // lineNo
-    9,                 // colNo
-    "assertValidSize", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
-    "+internal/@sparse/sparse.m" // pName
+static rtRunTimeErrorInfo dc_emlrtRTEI{
+    1623,             // lineNo
+    "assertValidSize" // fName
 };
 
-static rtRunTimeErrorInfo rc_emlrtRTEI{
-    11,                                   // lineNo
-    27,                                   // colNo
-    "sparse/sparse_validateNumericIndex", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
-    "+internal/@sparse/private/validateNumericIndex.m" // pName
+static rtRunTimeErrorInfo hc_emlrtRTEI{
+    11,                                  // lineNo
+    "sparse/sparse_validateNumericIndex" // fName
 };
 
-static rtRunTimeErrorInfo sc_emlrtRTEI{
-    92,                        // lineNo
-    1,                         // colNo
-    "parenReference2DColumns", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
-    "+internal/@sparse/parenReference2D.m" // pName
+static rtRunTimeErrorInfo ic_emlrtRTEI{
+    92,                       // lineNo
+    "parenReference2DColumns" // fName
 };
 
-static rtRunTimeErrorInfo yc_emlrtRTEI{
-    11,                     // lineNo
-    23,                     // colNo
-    "sparse/parenAssign1D", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
-    "+internal/@sparse/parenAssign1D.m" // pName
+static rtRunTimeErrorInfo pc_emlrtRTEI{
+    18,                    // lineNo
+    "sparse/parenAssign1D" // fName
 };
 
 // Function Declarations
+static void dc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
 static void ec_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void fc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-static void gc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void ic_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-static void jc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void ob_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void pb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void qb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
-
-static void qc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
-
-static void rb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 static void rc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
@@ -107,6 +89,10 @@ static void rtErrorWithMessageID(const int i, const int i1,
 static void rtErrorWithMessageID(const long i, const int i1,
                                  const char *aFcnName, int aLineNum);
 
+static void sc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+static void tc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
 // Function Definitions
 //
 // Arguments    : f_sparse *b_this
@@ -114,30 +100,28 @@ static void rtErrorWithMessageID(const long i, const int i1,
 //                int ub1
 //                int lb2
 //                int ub2
+//                int offs
 // Return Type  : void
 //
 namespace coder {
 void sparse::b_realloc(f_sparse *b_this, int numAllocRequested, int ub1,
-                       int lb2, int ub2)
+                       int lb2, int ub2, int offs)
 {
-  static rtRunTimeErrorInfo bd_emlrtRTEI{
-      237,            // lineNo
-      13,             // colNo
-      "sparse/numel", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
-      "+internal/@sparse/sparse.m" // pName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      237,           // lineNo
+      "sparse/numel" // fName
   };
   array<int, 1U> rowidxt;
   array<boolean_T, 1U> dt;
   int numAlloc;
   int overflow;
-  rowidxt.set_size(b_this->rowidx.size(0));
   numAlloc = b_this->rowidx.size(0);
+  rowidxt.set_size(numAlloc);
   for (overflow = 0; overflow < numAlloc; overflow++) {
     rowidxt[overflow] = b_this->rowidx[overflow];
   }
-  dt.set_size(b_this->d.size(0));
   numAlloc = b_this->d.size(0);
+  dt.set_size(numAlloc);
   for (overflow = 0; overflow < numAlloc; overflow++) {
     dt[overflow] = b_this->d[overflow];
   }
@@ -145,7 +129,7 @@ void sparse::b_realloc(f_sparse *b_this, int numAllocRequested, int ub1,
   if (overflow == 0) {
     internal::b_bigProduct(b_this->m, b_this->n, overflow);
     if (overflow != 0) {
-      rc_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
+      tc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
     }
     numAlloc = b_this->m * b_this->n;
     if (numAllocRequested <= numAlloc) {
@@ -177,93 +161,237 @@ void sparse::b_realloc(f_sparse *b_this, int numAllocRequested, int ub1,
     check_forloop_overflow_error();
   }
   for (numAlloc = lb2; numAlloc <= ub2; numAlloc++) {
-    b_this->rowidx[numAlloc] = rowidxt[numAlloc - 1];
-    b_this->d[numAlloc] = dt[numAlloc - 1];
+    overflow = (numAlloc + offs) - 1;
+    b_this->rowidx[overflow] = rowidxt[numAlloc - 1];
+    b_this->d[overflow] = dt[numAlloc - 1];
   }
 }
 
 //
-// Arguments    : boolean_T rhs
-//                double r
-//                double c
+// Arguments    : const array<boolean_T, 1U> &rhs
+//                const array<int, 1U> &r
+//                int c
 // Return Type  : void
 //
-void f_sparse::parenAssign2D(boolean_T rhs, double r, double c)
+void f_sparse::parenAssign2D(const array<boolean_T, 1U> &rhs,
+                             const array<int, 1U> &r, int c)
 {
-  double b_d;
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      42,                    // lineNo
+      "sparse/parenAssign2D" // fName
+  };
+  int extraAlloc;
+  int low_i;
+  int nrow;
+  int pass;
+  int shiftleft;
+  int sm;
   int vidx;
-  boolean_T b;
-  boolean_T thisv;
-  b_d = std::floor(r);
-  if ((!(b_d == r)) || std::isinf(r) || (!(r > 0.0))) {
-    jc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+  if ((static_cast<int>(static_cast<unsigned int>(rhs.size(0)) & 65535U) +
+           ((rhs.size(0) >> 16) << 16) !=
+       r.size(0)) &&
+      (r.size(0) != rhs.size(0))) {
+    sc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
   }
-  if (!(r <= m)) {
-    rtErrorWithMessageID(static_cast<long>(b_d), m, kc_emlrtRTEI.fName,
-                         kc_emlrtRTEI.lineNo);
+  nrow = m;
+  sm = r.size(0);
+  for (low_i = 0; low_i < sm; low_i++) {
+    if (r[low_i] <= 0) {
+      ic_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
+    }
+    if (r[low_i] > nrow) {
+      rtErrorWithMessageID(r[low_i], nrow, bc_emlrtRTEI.fName,
+                           bc_emlrtRTEI.lineNo);
+    }
   }
-  b_d = std::floor(c);
-  if ((!(b_d == c)) || std::isinf(c) || (!(c > 0.0))) {
-    jc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+  if (c <= 0) {
+    ic_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
   }
-  if (!(c <= n)) {
-    rtErrorWithMessageID(static_cast<long>(b_d), n, kc_emlrtRTEI.fName,
-                         kc_emlrtRTEI.lineNo);
+  if (c > n) {
+    rtErrorWithMessageID(c, n, bc_emlrtRTEI.fName, bc_emlrtRTEI.lineNo);
   }
-  vidx = b_sparse_locBsearch(rowidx, static_cast<int>(r),
-                             colidx[static_cast<int>(c) - 1],
-                             colidx[static_cast<int>(c)], thisv);
-  if (thisv) {
-    thisv = d[vidx - 1];
-  } else {
-    thisv = false;
+  pass = 0;
+  shiftleft = 0;
+  extraAlloc = 0;
+  vidx = 0;
+  if (r.size(0) > 2147483646) {
+    check_forloop_overflow_error();
   }
-  b = !thisv;
-  if ((!b) || rhs) {
-    if (thisv && rhs) {
-      d[vidx - 1] = true;
-    } else if (b) {
-      int nelem;
-      if (colidx[colidx.size(0) - 1] - 1 == maxnz) {
-        sparse::b_realloc(this, colidx[colidx.size(0) - 1] + 9, vidx, vidx + 1,
-                          colidx[colidx.size(0) - 1] - 1);
-        rowidx[vidx] = static_cast<int>(r);
-        d[vidx] = rhs;
-      } else {
-        nelem = (colidx[colidx.size(0) - 1] - vidx) - 1;
-        if (nelem > 0) {
-          std::memmove((void *)&rowidx[vidx + 1], (void *)&rowidx[vidx],
-                       (unsigned int)((size_t)nelem * sizeof(int)));
-          std::memmove((void *)&d[vidx + 1], (void *)&d[vidx],
-                       (unsigned int)((size_t)nelem * sizeof(boolean_T)));
-        }
-        d[vidx] = rhs;
-        rowidx[vidx] = static_cast<int>(r);
-      }
-      nelem = static_cast<int>(c) + 1;
-      vidx = n + 1;
-      if ((nelem <= n + 1) && (n + 1 > 2147483646)) {
-        check_forloop_overflow_error();
-      }
-      for (int k{nelem}; k <= vidx; k++) {
-        colidx[k - 1] = colidx[k - 1] + 1;
+  for (int ridx{0}; ridx < sm; ridx++) {
+    if (ridx + 1 != sm) {
+      nrow = r[ridx + 1];
+    } else {
+      nrow = 0;
+    }
+    if (r[ridx] == nrow) {
+      if (pass != 0) {
+        shiftleft++;
+        pass--;
       }
     } else {
-      int nelem;
-      nelem = (colidx[colidx.size(0) - 1] - vidx) - 1;
-      if (nelem > 0) {
-        std::memmove((void *)&rowidx[vidx - 1], (void *)&rowidx[vidx],
-                     (unsigned int)((size_t)nelem * sizeof(int)));
-        std::memmove((void *)&d[vidx - 1], (void *)&d[vidx],
-                     (unsigned int)((size_t)nelem * sizeof(boolean_T)));
+      int low_ip1;
+      int mid_i;
+      boolean_T guard1;
+      boolean_T guard2;
+      boolean_T thisv;
+      guard1 = false;
+      guard2 = false;
+      if (pass == 0) {
+        if (colidx[c - 1] < colidx[c]) {
+          if (r[ridx] < rowidx[colidx[c - 1] - 1]) {
+            low_i = colidx[c - 1] - 1;
+            thisv = false;
+          } else {
+            nrow = colidx[c];
+            low_i = colidx[c - 1];
+            low_ip1 = colidx[c - 1];
+            while (nrow > low_ip1 + 1) {
+              mid_i = (low_i >> 1) + (nrow >> 1);
+              if (((static_cast<unsigned int>(low_i) & 1U) == 1U) &&
+                  ((static_cast<unsigned int>(nrow) & 1U) == 1U)) {
+                mid_i++;
+              }
+              if (r[ridx] >= rowidx[mid_i - 1]) {
+                low_i = mid_i;
+                low_ip1 = mid_i;
+              } else {
+                nrow = mid_i;
+              }
+            }
+            thisv = (rowidx[low_i - 1] == r[ridx]);
+          }
+        } else if (colidx[c - 1] == colidx[c]) {
+          low_i = colidx[c - 1] - 1;
+          thisv = false;
+        } else {
+          low_i = 0;
+          thisv = false;
+        }
+        vidx = low_i - 1;
+        if (thisv) {
+          thisv = d[low_i - 1];
+        } else {
+          thisv = false;
+        }
+        if ((colidx[c] - low_i > 1) ||
+            ((colidx[c] - low_i == 1) && (r[ridx] != m))) {
+          if (colidx[c] - low_i > 1) {
+            nrow = rowidx[low_i];
+          } else {
+            nrow = m + 1;
+          }
+          if ((ridx + 2 <= sm) && (sm > 2147483646)) {
+            check_forloop_overflow_error();
+          }
+          low_ip1 = ridx + 1;
+          while ((low_ip1 + 1 <= sm) && (r[low_ip1] < nrow)) {
+            pass++;
+            low_ip1++;
+          }
+        }
+        extraAlloc = pass;
+        shiftleft = 0;
+        if (!thisv) {
+          if (colidx[colidx.size(0) - 1] + pass > maxnz) {
+            if (pass + 1 < 10) {
+              nrow = 9;
+            } else {
+              nrow = pass;
+            }
+            sparse::b_realloc(this, colidx[colidx.size(0) - 1] + nrow, low_i,
+                              low_i + 1, colidx[colidx.size(0) - 1] - 1,
+                              pass + 1);
+          } else {
+            nrow = (low_i + pass) + 1;
+            low_ip1 = (colidx[colidx.size(0) - 1] - low_i) - 1;
+            if (low_ip1 > 0) {
+              std::memmove((void *)&rowidx[nrow], (void *)&rowidx[low_i],
+                           (unsigned int)((size_t)low_ip1 * sizeof(int)));
+              std::memmove((void *)&d[nrow], (void *)&d[low_i],
+                           (unsigned int)((size_t)low_ip1 * sizeof(boolean_T)));
+            }
+          }
+          extraAlloc = pass + 1;
+          vidx = low_i;
+          guard2 = true;
+        } else {
+          if ((colidx[colidx.size(0) - 1] + pass) - 1 > maxnz) {
+            if (pass < 10) {
+              nrow = 10;
+            } else {
+              nrow = pass;
+            }
+            sparse::b_realloc(this, (colidx[colidx.size(0) - 1] + nrow) - 1,
+                              low_i, low_i + 1, colidx[colidx.size(0) - 1] - 1,
+                              pass);
+          } else {
+            nrow = low_i + pass;
+            low_ip1 = (colidx[colidx.size(0) - 1] - low_i) - 1;
+            if (low_ip1 > 0) {
+              std::memmove((void *)&rowidx[nrow], (void *)&rowidx[low_i],
+                           (unsigned int)((size_t)low_ip1 * sizeof(int)));
+              std::memmove((void *)&d[nrow], (void *)&d[low_i],
+                           (unsigned int)((size_t)low_ip1 * sizeof(boolean_T)));
+            }
+          }
+          guard1 = true;
+        }
+      } else {
+        thisv = false;
+        pass--;
+        guard2 = true;
       }
-      nelem = static_cast<int>(c) + 1;
-      vidx = n + 1;
-      if ((nelem <= vidx) && (vidx > 2147483646)) {
-        check_forloop_overflow_error();
+      if (guard2) {
+        if (!rhs[ridx]) {
+          shiftleft++;
+        } else {
+          guard1 = true;
+        }
       }
-      for (int k{nelem}; k <= vidx; k++) {
-        colidx[k - 1] = colidx[k - 1] - 1;
+      if (guard1) {
+        if (thisv && rhs[ridx]) {
+          d[vidx] = true;
+          vidx++;
+        } else if (!thisv) {
+          d[vidx] = rhs[ridx];
+          rowidx[vidx] = r[ridx];
+          vidx++;
+        } else {
+          shiftleft++;
+        }
+      }
+      if (pass == 0) {
+        low_ip1 = extraAlloc - shiftleft;
+        if (low_ip1 > 0) {
+          mid_i = c + 1;
+          nrow = n + 1;
+          if ((c + 1 <= nrow) && (nrow > 2147483646)) {
+            check_forloop_overflow_error();
+          }
+          for (low_i = mid_i; low_i <= nrow; low_i++) {
+            colidx[low_i - 1] = colidx[low_i - 1] + low_ip1;
+          }
+        } else if (low_ip1 < 0) {
+          low_ip1 = shiftleft - extraAlloc;
+          mid_i = c + 1;
+          nrow = n + 1;
+          if ((c + 1 <= n + 1) && (n + 1 > 2147483646)) {
+            check_forloop_overflow_error();
+          }
+          for (low_i = mid_i; low_i <= nrow; low_i++) {
+            colidx[low_i - 1] = colidx[low_i - 1] - low_ip1;
+          }
+        }
+        if (shiftleft != 0) {
+          nrow = vidx + shiftleft;
+          low_ip1 = (colidx[colidx.size(0) - 1] - vidx) - 1;
+          if (low_ip1 > 0) {
+            std::memmove((void *)&rowidx[vidx], (void *)&rowidx[nrow],
+                         (unsigned int)((size_t)low_ip1 * sizeof(int)));
+            std::memmove((void *)&d[vidx], (void *)&d[nrow],
+                         (unsigned int)((size_t)low_ip1 * sizeof(boolean_T)));
+          }
+        }
       }
     }
   }
@@ -275,7 +403,7 @@ void f_sparse::parenAssign2D(boolean_T rhs, double r, double c)
 // Return Type  : void
 //
 } // namespace coder
-static void ec_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void dc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -297,7 +425,7 @@ static void ec_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void fc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void ec_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -318,7 +446,7 @@ static void fc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void gc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void fc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -340,7 +468,7 @@ static void gc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void jc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void ic_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -362,7 +490,7 @@ static void jc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void pb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void ob_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -383,7 +511,7 @@ static void pb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void qb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void pb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -404,29 +532,7 @@ static void qb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void qc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  outStream << "In an assignment  A(:) = B, the number of elements in A and B "
-               "must be the same.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-static void rb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void qb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -451,7 +557,8 @@ static void rc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
-  outStream << "Number of elements exceeds maximum representable value.";
+  outStream << "In an assignment  A(:) = B, the number of elements in A and B "
+               "must be the same.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -475,10 +582,9 @@ static void rtErrorWithMessageID(const long i, const int i1,
 {
   std::string errMsg;
   std::stringstream outStream;
-  ((((((outStream
-        << "Index expression out of bounds. Attempted to access element ")
-       << i)
-      << ". The valid range is ")
+  ((((((outStream << "Array element ") << i)
+      << " is out-of-bounds. Modify the index expression to access elements in "
+         "the range ")
      << 1)
     << "-")
    << i1)
@@ -506,14 +612,56 @@ static void rtErrorWithMessageID(const int i, const int i1,
 {
   std::string errMsg;
   std::stringstream outStream;
-  ((((((outStream
-        << "Index expression out of bounds. Attempted to access element ")
-       << i)
-      << ". The valid range is ")
+  ((((((outStream << "Array element ") << i)
+      << " is out-of-bounds. Modify the index expression to access elements in "
+         "the range ")
      << 1)
     << "-")
    << i1)
       << ".";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void sc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Unable to perform assignment because the indices on the left "
+               "side are not compatible with the size of the right side.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void tc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Number of elements exceeds maximum representable value.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -534,42 +682,33 @@ namespace coder {
 void sparse::assertValidIndexArg(const array<double, 1U> &s,
                                  array<int, 1U> &sint)
 {
-  static rtRunTimeErrorInfo bd_emlrtRTEI{
-      1652,                  // lineNo
-      31,                    // colNo
-      "assertValidIndexArg", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
-      "+internal/@sparse/sparse.m" // pName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      1652,                 // lineNo
+      "assertValidIndexArg" // fName
   };
-  static rtRunTimeErrorInfo cd_emlrtRTEI{
-      1654,                  // lineNo
-      31,                    // colNo
-      "assertValidIndexArg", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
-      "+internal/@sparse/sparse.m" // pName
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
+      1654,                 // lineNo
+      "assertValidIndexArg" // fName
   };
-  static rtRunTimeErrorInfo dd_emlrtRTEI{
-      1656,                  // lineNo
-      31,                    // colNo
-      "assertValidIndexArg", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
-      "+internal/@sparse/sparse.m" // pName
+  static rtRunTimeErrorInfo tc_emlrtRTEI{
+      1656,                 // lineNo
+      "assertValidIndexArg" // fName
   };
-  int ns;
-  ns = s.size(0);
+  int ns_tmp;
+  ns_tmp = s.size(0);
   sint.set_size(s.size(0));
   if (s.size(0) > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (int k{0}; k < ns; k++) {
+  for (int k{0}; k < ns_tmp; k++) {
     if (!(std::floor(s[k]) == s[k])) {
-      pb_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
+      ob_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
     }
     if (!(s[k] < 2.147483647E+9)) {
-      qb_rtErrorWithMessageID(cd_emlrtRTEI.fName, cd_emlrtRTEI.lineNo);
+      pb_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
     }
     if (!(s[k] > 0.0)) {
-      rb_rtErrorWithMessageID(dd_emlrtRTEI.fName, dd_emlrtRTEI.lineNo);
+      qb_rtErrorWithMessageID(tc_emlrtRTEI.fName, tc_emlrtRTEI.lineNo);
     }
     sint[k] = static_cast<int>(s[k]);
   }
@@ -583,62 +722,61 @@ void sparse::assertValidIndexArg(const array<double, 1U> &s,
 void f_sparse::b_mtimes(const array<double, 2U> &a, array<double, 2U> &c) const
 {
   int aoff;
-  int b_m;
-  int b_n;
-  int cidx;
+  int i;
+  int m_tmp;
+  int n_tmp;
   if (a.size(1) != m) {
-    tb_rtErrorWithMessageID(fc_emlrtRTEI.fName, fc_emlrtRTEI.lineNo);
+    sb_rtErrorWithMessageID(yb_emlrtRTEI.fName, yb_emlrtRTEI.lineNo);
   }
-  b_m = a.size(0);
-  b_n = n - 1;
+  m_tmp = a.size(0);
+  n_tmp = n;
   c.set_size(a.size(0), n);
   aoff = a.size(0) * n;
-  for (cidx = 0; cidx < aoff; cidx++) {
-    c[cidx] = 0.0;
+  for (i = 0; i < aoff; i++) {
+    c[i] = 0.0;
   }
   if ((a.size(1) != 0) && (a.size(0) != 0) && (n != 0) &&
       (colidx[colidx.size(0) - 1] - 1 != 0)) {
     if (a.size(0) == 1) {
-      aoff = n;
       if (n > 2147483646) {
         check_forloop_overflow_error();
       }
-      for (int aidx_tmp{0}; aidx_tmp < aoff; aidx_tmp++) {
+      for (aoff = 0; aoff < n_tmp; aoff++) {
         double cd;
         int b_a;
         cd = 0.0;
-        cidx = colidx[aidx_tmp + 1] - 1;
-        b_a = colidx[aidx_tmp];
-        if ((colidx[aidx_tmp] <= cidx) && (cidx > 2147483646)) {
+        i = colidx[aoff + 1];
+        b_a = colidx[aoff];
+        if ((colidx[aoff] <= i - 1) && (i - 1 > 2147483646)) {
           check_forloop_overflow_error();
         }
-        for (int mend{b_a}; mend <= cidx; mend++) {
-          cd += static_cast<double>(d[mend - 1]) * a[rowidx[mend - 1] - 1];
+        for (int cidx{b_a}; cidx < i; cidx++) {
+          cd += static_cast<double>(d[cidx - 1]) * a[rowidx[cidx - 1] - 1];
         }
-        c[aidx_tmp] = cd;
+        c[aoff] = cd;
       }
     } else if (a.size(0) >= 4) {
       if (n > 2147483646) {
         check_forloop_overflow_error();
       }
-      for (int ccol{0}; ccol <= b_n; ccol++) {
+      for (int ccol{0}; ccol < n_tmp; ccol++) {
         int b_a;
-        int bpend_tmp;
         int coff;
         coff = ccol * c.size(0);
-        bpend_tmp = colidx[ccol + 1] - 1;
+        i = colidx[ccol + 1];
         b_a = colidx[ccol];
-        if ((colidx[ccol] <= bpend_tmp) && (bpend_tmp > 2147483646)) {
+        if ((colidx[ccol] <= i - 1) && (i - 1 > 2147483646)) {
           check_forloop_overflow_error();
         }
-        for (int bp{b_a}; bp <= bpend_tmp; bp++) {
+        for (int bp{b_a}; bp < i; bp++) {
           int aoff_tmp;
+          int cidx;
           int mend;
           boolean_T bd;
           aoff_tmp = rowidx[bp - 1] - 1;
           aoff = aoff_tmp * a.size(0);
           bd = d[bp - 1];
-          mend = (b_m / 4) << 2;
+          mend = (m_tmp / 4) << 2;
           if (mend > 2147483643) {
             check_forloop_overflow_error();
           }
@@ -654,13 +792,13 @@ void f_sparse::b_mtimes(const array<double, 2U> &a, array<double, 2U> &c) const
             c[cidx + 2] =
                 c[cidx + 2] + a[aidx_tmp + 2] * static_cast<double>(bd);
           }
-          aoff = mend + 1;
-          if ((mend + 1 <= b_m) && (b_m > 2147483646)) {
+          cidx = mend + 1;
+          if ((mend + 1 <= m_tmp) && (m_tmp > 2147483646)) {
             check_forloop_overflow_error();
           }
-          for (int crow{aoff}; crow <= b_m; crow++) {
-            cidx = (crow + coff) - 1;
-            c[cidx] = c[cidx] + a[(crow + a.size(0) * aoff_tmp) - 1] *
+          for (int crow{cidx}; crow <= m_tmp; crow++) {
+            aoff = (crow + coff) - 1;
+            c[aoff] = c[aoff] + a[(crow + a.size(0) * aoff_tmp) - 1] *
                                     static_cast<double>(bd);
           }
         }
@@ -669,20 +807,127 @@ void f_sparse::b_mtimes(const array<double, 2U> &a, array<double, 2U> &c) const
       if (n > 2147483646) {
         check_forloop_overflow_error();
       }
-      for (int ccol{0}; ccol <= b_n; ccol++) {
+      for (int ccol{0}; ccol < n_tmp; ccol++) {
         int b_a;
-        int bpend_tmp;
-        bpend_tmp = colidx[ccol + 1] - 1;
+        i = colidx[ccol + 1];
         b_a = colidx[ccol];
-        if ((colidx[ccol] <= bpend_tmp) && (bpend_tmp > 2147483646)) {
+        if ((colidx[ccol] <= i - 1) && (i - 1 > 2147483646)) {
           check_forloop_overflow_error();
         }
-        for (int bp{b_a}; bp <= bpend_tmp; bp++) {
-          for (int crow{0}; crow < b_m; crow++) {
+        for (int bp{b_a}; bp < i; bp++) {
+          for (int crow{0}; crow < m_tmp; crow++) {
             c[crow + c.size(0) * ccol] =
                 c[crow + c.size(0) * ccol] +
                 a[crow + a.size(0) * (rowidx[bp - 1] - 1)] *
                     static_cast<double>(d[bp - 1]);
+          }
+        }
+      }
+    }
+  }
+}
+
+//
+// Arguments    : const array<double, 2U> &a
+//                array<double, 2U> &c
+// Return Type  : void
+//
+void sparse::b_mtimes(const array<double, 2U> &a, array<double, 2U> &c) const
+{
+  int aoff;
+  int i;
+  int m_tmp;
+  int n_tmp;
+  if (a.size(1) != m) {
+    sb_rtErrorWithMessageID(yb_emlrtRTEI.fName, yb_emlrtRTEI.lineNo);
+  }
+  m_tmp = a.size(0);
+  n_tmp = n;
+  c.set_size(a.size(0), n);
+  aoff = a.size(0) * n;
+  for (i = 0; i < aoff; i++) {
+    c[i] = 0.0;
+  }
+  if ((a.size(1) != 0) && (a.size(0) != 0) && (n != 0) &&
+      (colidx[colidx.size(0) - 1] - 1 != 0)) {
+    if (a.size(0) == 1) {
+      if (n > 2147483646) {
+        check_forloop_overflow_error();
+      }
+      for (aoff = 0; aoff < n_tmp; aoff++) {
+        double bd;
+        int b_a;
+        bd = 0.0;
+        i = colidx[aoff + 1];
+        b_a = colidx[aoff];
+        if ((colidx[aoff] <= i - 1) && (i - 1 > 2147483646)) {
+          check_forloop_overflow_error();
+        }
+        for (int cidx{b_a}; cidx < i; cidx++) {
+          bd += d[cidx - 1] * a[rowidx[cidx - 1] - 1];
+        }
+        c[aoff] = bd;
+      }
+    } else if (a.size(0) >= 4) {
+      if (n > 2147483646) {
+        check_forloop_overflow_error();
+      }
+      for (int ccol{0}; ccol < n_tmp; ccol++) {
+        int b_a;
+        int coff;
+        coff = ccol * c.size(0);
+        i = colidx[ccol + 1];
+        b_a = colidx[ccol];
+        if ((colidx[ccol] <= i - 1) && (i - 1 > 2147483646)) {
+          check_forloop_overflow_error();
+        }
+        for (int bp{b_a}; bp < i; bp++) {
+          double bd;
+          int aoff_tmp;
+          int cidx;
+          int mend;
+          aoff_tmp = rowidx[bp - 1] - 1;
+          aoff = aoff_tmp * a.size(0);
+          bd = d[bp - 1];
+          mend = (m_tmp / 4) << 2;
+          if (mend > 2147483643) {
+            check_forloop_overflow_error();
+          }
+          for (int crow{1}; crow <= mend; crow += 4) {
+            int aidx_tmp;
+            cidx = crow + coff;
+            aidx_tmp = crow + aoff;
+            c[cidx - 1] = c[cidx - 1] + a[aidx_tmp - 1] * bd;
+            c[cidx] = c[cidx] + a[aidx_tmp] * bd;
+            c[cidx + 1] = c[cidx + 1] + a[aidx_tmp + 1] * bd;
+            c[cidx + 2] = c[cidx + 2] + a[aidx_tmp + 2] * bd;
+          }
+          cidx = mend + 1;
+          if ((mend + 1 <= m_tmp) && (m_tmp > 2147483646)) {
+            check_forloop_overflow_error();
+          }
+          for (int crow{cidx}; crow <= m_tmp; crow++) {
+            aoff = (crow + coff) - 1;
+            c[aoff] = c[aoff] + a[(crow + a.size(0) * aoff_tmp) - 1] * bd;
+          }
+        }
+      }
+    } else {
+      if (n > 2147483646) {
+        check_forloop_overflow_error();
+      }
+      for (int ccol{0}; ccol < n_tmp; ccol++) {
+        int b_a;
+        i = colidx[ccol + 1];
+        b_a = colidx[ccol];
+        if ((colidx[ccol] <= i - 1) && (i - 1 > 2147483646)) {
+          check_forloop_overflow_error();
+        }
+        for (int bp{b_a}; bp < i; bp++) {
+          for (int crow{0}; crow < m_tmp; crow++) {
+            c[crow + c.size(0) * ccol] =
+                c[crow + c.size(0) * ccol] +
+                a[crow + a.size(0) * (rowidx[bp - 1] - 1)] * d[bp - 1];
           }
         }
       }
@@ -696,12 +941,9 @@ void f_sparse::b_mtimes(const array<double, 2U> &a, array<double, 2U> &c) const
 //
 void d_sparse::b_not(d_sparse &out) const
 {
-  static rtRunTimeErrorInfo bd_emlrtRTEI{
-      83,       // lineNo
-      27,       // colNo
-      "notnnz", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
-      "+internal/@sparse/not.m" // pName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      83,      // lineNo
+      "notnnz" // fName
   };
   int b;
   int curPosition;
@@ -714,7 +956,7 @@ void d_sparse::b_not(d_sparse &out) const
     if (larger == 0) {
       larger = 0;
     } else if (div_s32(MAX_int32_T, larger) < 1) {
-      gc_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
+      fc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
     }
   }
   nzmax = larger;
@@ -725,7 +967,7 @@ void d_sparse::b_not(d_sparse &out) const
   out.d.set_size(nzmax);
   out.rowidx.set_size(nzmax);
   if (n + 1 < 0) {
-    rtNonNegativeError(static_cast<double>(n + 1), o_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(n + 1), m_emlrtDCI);
   }
   out.colidx.set_size(n + 1);
   if (larger < 1) {
@@ -778,51 +1020,151 @@ void d_sparse::b_not(d_sparse &out) const
 void f_sparse::b_parenAssign(const array<boolean_T, 2U> &rhs,
                              const array<double, 2U> &varargin_1)
 {
-  int nidx;
+  array<double, 2U> y;
+  array<int, 2U> iidx;
+  array<int, 1U> b_rowsToAssign;
+  array<int, 1U> rowsToAssign;
+  array<boolean_T, 2U> b_rhs;
+  array<boolean_T, 1U> rhsv;
+  int cnt;
+  int col;
+  int i;
+  int lb;
   int overflow;
-  int varargout_4;
+  int prevcol;
   internal::bigProduct(m, n, overflow);
   if (rhs.size(1) != varargin_1.size(1)) {
-    qc_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+    rc_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
   }
   if (overflow == 0) {
-    overflow = m * n;
-    nidx = varargin_1.size(1);
-    for (int k{0}; k < nidx; k++) {
+    cnt = m * n;
+    i = varargin_1.size(1);
+    for (int k{0}; k < i; k++) {
       double b_d;
       double d1;
       b_d = varargin_1[k];
       d1 = std::floor(b_d);
       if ((!(d1 == b_d)) || std::isinf(b_d)) {
-        jc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+        ic_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
       }
-      if (!(b_d <= overflow)) {
-        rtErrorWithMessageID(static_cast<long>(d1), overflow,
-                             kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+      if (!(b_d <= cnt)) {
+        rtErrorWithMessageID(static_cast<long>(d1), cnt, bc_emlrtRTEI.fName,
+                             bc_emlrtRTEI.lineNo);
       }
     }
   } else {
-    nidx = varargin_1.size(1);
-    for (int k{0}; k < nidx; k++) {
+    i = varargin_1.size(1);
+    for (int k{0}; k < i; k++) {
       double b_d;
       b_d = varargin_1[k];
       if ((!(std::floor(b_d) == b_d)) || std::isinf(b_d)) {
-        jc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+        ic_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
       }
     }
   }
-  nidx = varargin_1.size(1);
-  if (varargin_1.size(1) > 2147483646) {
+  overflow = varargin_1.size(1);
+  y.set_size(1, varargin_1.size(1));
+  for (i = 0; i < overflow; i++) {
+    y[i] = varargin_1[i];
+  }
+  overflow = rhs.size(1);
+  b_rhs.set_size(1, rhs.size(1));
+  for (i = 0; i < overflow; i++) {
+    b_rhs[i] = rhs[i];
+  }
+  if (!issorted(varargin_1)) {
+    internal::sort(y, iidx);
+    if (y.size(1) != 1) {
+      i = y.size(1);
+      for (int b_i{0}; b_i < i; b_i++) {
+        b_rhs[b_i] = rhs[iidx[b_i] - 1];
+      }
+    }
+  }
+  lb = -1;
+  cnt = 0;
+  overflow = y.size(1);
+  rowsToAssign.set_size(y.size(1));
+  for (i = 0; i < overflow; i++) {
+    rowsToAssign[i] = 0;
+  }
+  prevcol = 0;
+  for (int k{0}; k <= overflow; k++) {
+    if (static_cast<unsigned int>(k) + 1U <=
+        static_cast<unsigned int>(y.size(1))) {
+      double b_this[2];
+      b_this[0] = m;
+      b_this[1] = n;
+      rowsToAssign[k] = internal::ind2sub(b_this, y[k], col);
+    } else {
+      col = -1;
+    }
+    if (col == prevcol) {
+      cnt++;
+    } else {
+      if (cnt > 0) {
+        int iv[2];
+        rhsv.set_size(cnt);
+        for (i = 0; i < cnt; i++) {
+          rhsv[i] = false;
+        }
+        if (cnt > 2147483646) {
+          check_forloop_overflow_error();
+        }
+        for (int b_i{0}; b_i < cnt; b_i++) {
+          rhsv[b_i] = b_rhs[lb + b_i];
+        }
+        i = lb + cnt;
+        if (lb + 1 > i) {
+          lb = 0;
+          i = 0;
+        }
+        iv[0] = 1;
+        cnt = i - lb;
+        iv[1] = cnt;
+        internal::indexShapeCheck(rowsToAssign.size(0), iv);
+        b_rowsToAssign.set_size(cnt);
+        for (i = 0; i < cnt; i++) {
+          b_rowsToAssign[i] = rowsToAssign[lb + i];
+        }
+        parenAssign2D(rhsv, b_rowsToAssign, prevcol);
+      }
+      lb = k;
+      cnt = 1;
+      prevcol = col;
+    }
+  }
+}
+
+//
+// Arguments    : d_sparse &s
+// Return Type  : void
+//
+void b_sparse::c_le(d_sparse &s) const
+{
+  array<boolean_T, 2U> S;
+  int a;
+  int loop_ub_tmp;
+  S.set_size(1, n);
+  loop_ub_tmp = n;
+  for (a = 0; a < loop_ub_tmp; a++) {
+    S[a] = true;
+  }
+  if (n > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (int k{0}; k < nidx; k++) {
-    double b_this[2];
-    b_this[0] = m;
-    b_this[1] = n;
-    overflow = internal::ind2sub(b_this, varargin_1[k], varargout_4);
-    parenAssign2D(rhs[k], static_cast<double>(overflow),
-                  static_cast<double>(varargout_4));
+  for (int col{0}; col < loop_ub_tmp; col++) {
+    int b_tmp;
+    a = colidx[col];
+    b_tmp = colidx[col + 1];
+    if ((colidx[col] <= b_tmp - 1) && (b_tmp - 1 > 2147483646)) {
+      check_forloop_overflow_error();
+    }
+    for (int idx{a}; idx < b_tmp; idx++) {
+      S[col] = (d[idx - 1] <= 0.0);
+    }
   }
+  j_sparse(S, s);
 }
 
 //
@@ -833,87 +1175,145 @@ void f_sparse::b_parenAssign(const array<boolean_T, 2U> &rhs,
 void f_sparse::c_parenAssign(const h_sparse &rhs,
                              const array<double, 2U> &varargin_1)
 {
-  e_sparse s;
-  double varargout_1_tmp[2];
+  array<double, 2U> y;
+  array<int, 2U> iidx;
+  array<int, 1U> b_rowsToAssign;
+  array<int, 1U> rowsToAssign;
+  array<boolean_T, 1U> b_rhs;
+  array<boolean_T, 1U> temp;
   int cend;
-  int highOrderRHS;
-  int nidx;
-  int varargout_4;
-  boolean_T rhsv;
-  internal::bigProduct(m, n, nidx);
-  varargout_1_tmp[0] = rhs.m;
-  varargout_1_tmp[1] = 1.0;
-  cend = internal::bigProduct(rhs.m, 1, highOrderRHS);
-  if (((varargin_1.size(1) & 65535) + ((varargin_1.size(1) >> 16) << 16) !=
-       cend) ||
-      (highOrderRHS != 0)) {
-    qc_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+  int col;
+  int i;
+  int lb;
+  int partialResults_idx_2;
+  int prevcol;
+  internal::bigProduct(m, n, prevcol);
+  cend = static_cast<int>(static_cast<unsigned int>(rhs.m) & 65535U);
+  partialResults_idx_2 = (rhs.m >> 16) << 16;
+  lb = 0;
+  if (cend > MAX_int32_T - partialResults_idx_2) {
+    cend = (cend + partialResults_idx_2) - MAX_int32_T;
+    lb = 1;
+  } else {
+    cend += partialResults_idx_2;
   }
-  if (nidx == 0) {
+  if ((static_cast<int>(static_cast<unsigned int>(varargin_1.size(1)) &
+                        65535U) +
+           ((varargin_1.size(1) >> 16) << 16) !=
+       cend) ||
+      (lb != 0)) {
+    rc_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
+  }
+  if (prevcol == 0) {
     cend = m * n;
-    highOrderRHS = varargin_1.size(1);
-    for (int k{0}; k < highOrderRHS; k++) {
+    i = varargin_1.size(1);
+    for (int k{0}; k < i; k++) {
       double b_d;
       double d1;
       b_d = varargin_1[k];
       d1 = std::floor(b_d);
       if ((!(d1 == b_d)) || std::isinf(b_d)) {
-        jc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+        ic_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
       }
       if (!(b_d <= cend)) {
-        rtErrorWithMessageID(static_cast<long>(d1), cend, kc_emlrtRTEI.fName,
-                             kc_emlrtRTEI.lineNo);
+        rtErrorWithMessageID(static_cast<long>(d1), cend, bc_emlrtRTEI.fName,
+                             bc_emlrtRTEI.lineNo);
       }
     }
   } else {
-    highOrderRHS = varargin_1.size(1);
-    for (int k{0}; k < highOrderRHS; k++) {
+    i = varargin_1.size(1);
+    for (int k{0}; k < i; k++) {
       double b_d;
       b_d = varargin_1[k];
       if ((!(std::floor(b_d) == b_d)) || std::isinf(b_d)) {
-        jc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+        ic_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
       }
     }
   }
-  nidx = varargin_1.size(1);
-  if (varargin_1.size(1) > 2147483646) {
+  cend = varargin_1.size(1);
+  y.set_size(1, varargin_1.size(1));
+  for (i = 0; i < cend; i++) {
+    y[i] = varargin_1[i];
+  }
+  b_rhs.set_size(rhs.m);
+  lb = rhs.m;
+  for (i = 0; i < lb; i++) {
+    b_rhs[i] = false;
+  }
+  cend = rhs.colidx[1];
+  partialResults_idx_2 = rhs.colidx[0];
+  if ((rhs.colidx[0] <= rhs.colidx[1] - 1) &&
+      (rhs.colidx[1] - 1 > 2147483646)) {
     check_forloop_overflow_error();
   }
-  for (int k{0}; k < nidx; k++) {
-    double b_this[2];
-    int idx;
-    int varargout_3;
-    b_this[0] = m;
-    b_this[1] = n;
-    varargout_3 = internal::ind2sub(b_this, varargin_1[k], varargout_4);
-    if (((rhs.m & 65535) <= MAX_int32_T - ((rhs.m >> 16) << 16)) &&
-        (k + 1 > rhs.m)) {
-      rtErrorWithMessageID(k + 1, rhs.m, kc_emlrtRTEI.fName,
-                           kc_emlrtRTEI.lineNo);
+  for (prevcol = partialResults_idx_2; prevcol < cend; prevcol++) {
+    b_rhs[rhs.rowidx[prevcol - 1] - 1] = rhs.d[prevcol - 1];
+  }
+  if (!issorted(varargin_1)) {
+    internal::sort(y, iidx);
+    temp.set_size(rhs.m);
+    for (i = 0; i < lb; i++) {
+      temp[i] = b_rhs[i];
     }
-    s.colidx.set_size(2);
-    s.colidx[0] = 1;
-    s.colidx[1] = 1;
-    cend = internal::ind2sub(varargout_1_tmp, k + 1, highOrderRHS);
-    idx = sparse_locBsearch(rhs.rowidx, static_cast<double>(cend),
-                            rhs.colidx[highOrderRHS - 1],
-                            rhs.colidx[highOrderRHS], rhsv);
-    if (rhsv) {
-      s.d.set_size(1);
-      s.d[0] = rhs.d[idx - 1];
-      s.colidx[1] = 2;
+    if (y.size(1) != 1) {
+      i = y.size(1);
+      for (int b_i{0}; b_i < i; b_i++) {
+        b_rhs[b_i] = temp[iidx[b_i] - 1];
+      }
+    }
+  }
+  lb = -1;
+  partialResults_idx_2 = 0;
+  cend = y.size(1);
+  rowsToAssign.set_size(y.size(1));
+  for (i = 0; i < cend; i++) {
+    rowsToAssign[i] = 0;
+  }
+  prevcol = 0;
+  for (int k{0}; k <= cend; k++) {
+    if (static_cast<unsigned int>(k) + 1U <=
+        static_cast<unsigned int>(y.size(1))) {
+      double b_this[2];
+      b_this[0] = m;
+      b_this[1] = n;
+      rowsToAssign[k] = internal::ind2sub(b_this, y[k], col);
     } else {
-      s.d.set_size(1);
-      s.d[0] = false;
+      col = -1;
     }
-    rhsv = false;
-    cend = s.colidx[1] - 1;
-    highOrderRHS = s.colidx[0];
-    for (idx = highOrderRHS; idx <= cend; idx++) {
-      rhsv = s.d[idx - 1];
+    if (col == prevcol) {
+      partialResults_idx_2++;
+    } else {
+      if (partialResults_idx_2 > 0) {
+        int c_rhs[2];
+        temp.set_size(partialResults_idx_2);
+        for (i = 0; i < partialResults_idx_2; i++) {
+          temp[i] = false;
+        }
+        if (partialResults_idx_2 > 2147483646) {
+          check_forloop_overflow_error();
+        }
+        for (int b_i{0}; b_i < partialResults_idx_2; b_i++) {
+          temp[b_i] = b_rhs[lb + b_i];
+        }
+        i = lb + partialResults_idx_2;
+        if (lb + 1 > i) {
+          lb = 0;
+          i = 0;
+        }
+        c_rhs[0] = 1;
+        partialResults_idx_2 = i - lb;
+        c_rhs[1] = partialResults_idx_2;
+        internal::indexShapeCheck(rowsToAssign.size(0), c_rhs);
+        b_rowsToAssign.set_size(partialResults_idx_2);
+        for (i = 0; i < partialResults_idx_2; i++) {
+          b_rowsToAssign[i] = rowsToAssign[lb + i];
+        }
+        parenAssign2D(temp, b_rowsToAssign, prevcol);
+      }
+      lb = k;
+      partialResults_idx_2 = 1;
+      prevcol = col;
     }
-    parenAssign2D(rhsv, static_cast<double>(varargout_3),
-                  static_cast<double>(varargout_4));
   }
 }
 
@@ -925,122 +1325,118 @@ void f_sparse::c_parenAssign(const h_sparse &rhs,
 void f_sparse::c_parenAssign(const array<double, 2U> &rhs,
                              const array<double, 2U> &varargin_1)
 {
-  int lowOrderSize;
-  int nidx;
+  array<double, 2U> b_rhs;
+  array<double, 2U> y;
+  array<int, 2U> iidx;
+  array<int, 1U> b_rowsToAssign;
+  array<int, 1U> rowsToAssign;
+  array<boolean_T, 1U> rhsv;
+  int cnt;
+  int col;
+  int i;
+  int lb;
   int overflow;
-  int varargout_4;
-  boolean_T thisv;
+  int prevcol;
   internal::bigProduct(m, n, overflow);
   if (rhs.size(1) != varargin_1.size(1)) {
-    qc_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+    rc_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
   }
   if (overflow == 0) {
-    overflow = m * n;
-    lowOrderSize = varargin_1.size(1);
-    for (int k{0}; k < lowOrderSize; k++) {
+    cnt = m * n;
+    i = varargin_1.size(1);
+    for (int k{0}; k < i; k++) {
       double b_d;
       double d1;
       b_d = varargin_1[k];
       d1 = std::floor(b_d);
       if ((!(d1 == b_d)) || std::isinf(b_d)) {
-        jc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+        ic_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
       }
-      if (!(b_d <= overflow)) {
-        rtErrorWithMessageID(static_cast<long>(d1), overflow,
-                             kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+      if (!(b_d <= cnt)) {
+        rtErrorWithMessageID(static_cast<long>(d1), cnt, bc_emlrtRTEI.fName,
+                             bc_emlrtRTEI.lineNo);
       }
     }
   } else {
-    lowOrderSize = varargin_1.size(1);
-    for (int k{0}; k < lowOrderSize; k++) {
+    i = varargin_1.size(1);
+    for (int k{0}; k < i; k++) {
       double b_d;
       b_d = varargin_1[k];
       if ((!(std::floor(b_d) == b_d)) || std::isinf(b_d)) {
-        jc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+        ic_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
       }
     }
   }
-  nidx = varargin_1.size(1);
-  if (varargin_1.size(1) > 2147483646) {
-    check_forloop_overflow_error();
+  overflow = varargin_1.size(1);
+  y.set_size(1, varargin_1.size(1));
+  for (i = 0; i < overflow; i++) {
+    y[i] = varargin_1[i];
   }
-  for (int k{0}; k < nidx; k++) {
-    double b_this[2];
-    boolean_T b;
-    b_this[0] = m;
-    b_this[1] = n;
-    lowOrderSize = internal::ind2sub(b_this, varargin_1[k], varargout_4);
-    if (lowOrderSize <= 0) {
-      jc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+  overflow = rhs.size(1);
+  b_rhs.set_size(1, rhs.size(1));
+  for (i = 0; i < overflow; i++) {
+    b_rhs[i] = rhs[i];
+  }
+  if (!issorted(varargin_1)) {
+    internal::sort(y, iidx);
+    if (y.size(1) != 1) {
+      i = y.size(1);
+      for (int b_i{0}; b_i < i; b_i++) {
+        b_rhs[b_i] = rhs[iidx[b_i] - 1];
+      }
     }
-    if (lowOrderSize > m) {
-      rtErrorWithMessageID(static_cast<long>(lowOrderSize), m,
-                           kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
-    }
-    if (varargout_4 <= 0) {
-      jc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
-    }
-    if (varargout_4 > n) {
-      rtErrorWithMessageID(static_cast<long>(varargout_4), n,
-                           kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
-    }
-    overflow =
-        b_sparse_locBsearch(rowidx, lowOrderSize, colidx[varargout_4 - 1],
-                            colidx[varargout_4], thisv);
-    if (thisv) {
-      thisv = d[overflow - 1];
+  }
+  lb = -1;
+  cnt = 0;
+  overflow = y.size(1);
+  rowsToAssign.set_size(y.size(1));
+  for (i = 0; i < overflow; i++) {
+    rowsToAssign[i] = 0;
+  }
+  prevcol = 0;
+  for (int k{0}; k <= overflow; k++) {
+    if (static_cast<unsigned int>(k) + 1U <=
+        static_cast<unsigned int>(y.size(1))) {
+      double b_this[2];
+      b_this[0] = m;
+      b_this[1] = n;
+      rowsToAssign[k] = internal::ind2sub(b_this, y[k], col);
     } else {
-      thisv = false;
+      col = -1;
     }
-    b = !thisv;
-    if ((!b) || (!(rhs[k] == 0.0))) {
-      if (thisv && (rhs[k] != 0.0)) {
-        d[overflow - 1] = true;
-      } else if (b) {
-        int nelem;
-        if (colidx[colidx.size(0) - 1] - 1 == maxnz) {
-          sparse::b_realloc(this, colidx[colidx.size(0) - 1] + 9, overflow,
-                            overflow + 1, colidx[colidx.size(0) - 1] - 1);
-          rowidx[overflow] = lowOrderSize;
-          d[overflow] = (rhs[k] != 0.0);
-        } else {
-          nelem = (colidx[colidx.size(0) - 1] - overflow) - 1;
-          if (nelem > 0) {
-            std::memmove((void *)&rowidx[overflow + 1],
-                         (void *)&rowidx[overflow],
-                         (unsigned int)((size_t)nelem * sizeof(int)));
-            std::memmove((void *)&d[overflow + 1], (void *)&d[overflow],
-                         (unsigned int)((size_t)nelem * sizeof(boolean_T)));
-          }
-          d[overflow] = (rhs[k] != 0.0);
-          rowidx[overflow] = lowOrderSize;
+    if (col == prevcol) {
+      cnt++;
+    } else {
+      if (cnt > 0) {
+        int iv[2];
+        rhsv.set_size(cnt);
+        for (i = 0; i < cnt; i++) {
+          rhsv[i] = false;
         }
-        overflow = varargout_4 + 1;
-        lowOrderSize = n + 1;
-        if ((varargout_4 + 1 <= n + 1) && (n + 1 > 2147483646)) {
+        if (cnt > 2147483646) {
           check_forloop_overflow_error();
         }
-        for (nelem = overflow; nelem <= lowOrderSize; nelem++) {
-          colidx[nelem - 1] = colidx[nelem - 1] + 1;
+        for (int b_i{0}; b_i < cnt; b_i++) {
+          rhsv[b_i] = (b_rhs[lb + b_i] != 0.0);
         }
-      } else {
-        int nelem;
-        nelem = (colidx[colidx.size(0) - 1] - overflow) - 1;
-        if (nelem > 0) {
-          std::memmove((void *)&rowidx[overflow - 1], (void *)&rowidx[overflow],
-                       (unsigned int)((size_t)nelem * sizeof(int)));
-          std::memmove((void *)&d[overflow - 1], (void *)&d[overflow],
-                       (unsigned int)((size_t)nelem * sizeof(boolean_T)));
+        i = lb + cnt;
+        if (lb + 1 > i) {
+          lb = 0;
+          i = 0;
         }
-        overflow = varargout_4 + 1;
-        lowOrderSize = n + 1;
-        if ((varargout_4 + 1 <= lowOrderSize) && (lowOrderSize > 2147483646)) {
-          check_forloop_overflow_error();
+        iv[0] = 1;
+        cnt = i - lb;
+        iv[1] = cnt;
+        internal::indexShapeCheck(rowsToAssign.size(0), iv);
+        b_rowsToAssign.set_size(cnt);
+        for (i = 0; i < cnt; i++) {
+          b_rowsToAssign[i] = rowsToAssign[lb + i];
         }
-        for (nelem = overflow; nelem <= lowOrderSize; nelem++) {
-          colidx[nelem - 1] = colidx[nelem - 1] - 1;
-        }
+        parenAssign2D(rhsv, b_rowsToAssign, prevcol);
       }
+      lb = k;
+      cnt = 1;
+      prevcol = col;
     }
   }
 }
@@ -1052,19 +1448,13 @@ void f_sparse::c_parenAssign(const array<double, 2U> &rhs,
 //
 void b_sparse::eq(const c_sparse &b, d_sparse &s) const
 {
-  static rtRunTimeErrorInfo bd_emlrtRTEI{
-      460,                // lineNo
-      34,                 // colNo
-      "sparse/spfunImpl", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
-      "+internal/@sparse/sparse.m" // pName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      460,               // lineNo
+      "sparse/spfunImpl" // fName
   };
-  static rtRunTimeErrorInfo cd_emlrtRTEI{
-      178,             // lineNo
-      39,              // colNo
-      "sparse/sparse", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/shared/coder/coder/+coder/"
-      "+internal/@sparse/sparse.m" // pName
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
+      178,            // lineNo
+      "sparse/sparse" // fName
   };
   d_anonymous_function uniOp;
   array<boolean_T, 2U> S;
@@ -1076,43 +1466,44 @@ void b_sparse::eq(const c_sparse &b, d_sparse &s) const
   }
   if (!(uniOp.workspace.sb == 0.0)) {
     int col;
+    int currRowIdx;
     int i;
     int idx;
     int loop_ub_tmp;
     int numalloc;
-    int ridx;
+    int nzs_tmp_tmp;
     boolean_T val;
-    col = colidx[colidx.size(0) - 1];
-    if (col - 1 < 1) {
-      numalloc = 0;
+    nzs_tmp_tmp = colidx[colidx.size(0) - 1];
+    if (nzs_tmp_tmp - 1 < 1) {
+      col = 0;
     } else {
-      numalloc = col - 1;
+      col = nzs_tmp_tmp - 1;
     }
-    tmpd.set_size(numalloc);
-    for (i = 0; i < numalloc; i++) {
+    tmpd.set_size(col);
+    for (i = 0; i < col; i++) {
       tmpd[i] = (d[i] == uniOp.workspace.sb);
     }
-    if (tmpd.size(0) != col - 1) {
-      ob_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
+    if (tmpd.size(0) != nzs_tmp_tmp - 1) {
+      nb_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
     }
     if (n < 0) {
-      fc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+      ec_rtErrorWithMessageID(dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
     }
     if (n >= MAX_int32_T) {
-      uc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+      wc_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
     }
     s.n = n;
-    if (col - 1 < 0) {
-      fc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+    if (nzs_tmp_tmp - 1 < 0) {
+      ec_rtErrorWithMessageID(dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
     }
-    if (col - 1 >= MAX_int32_T) {
-      uc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+    if (nzs_tmp_tmp - 1 >= MAX_int32_T) {
+      wc_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
     }
-    if (col - 1 < 0) {
-      ec_rtErrorWithMessageID(cd_emlrtRTEI.fName, cd_emlrtRTEI.lineNo);
+    if (nzs_tmp_tmp - 1 < 0) {
+      dc_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
     }
-    if (col - 1 >= 1) {
-      numalloc = col - 2;
+    if (nzs_tmp_tmp - 1 >= 1) {
+      numalloc = nzs_tmp_tmp - 2;
     } else {
       numalloc = 0;
     }
@@ -1120,82 +1511,74 @@ void b_sparse::eq(const c_sparse &b, d_sparse &s) const
     for (i = 0; i <= numalloc; i++) {
       s.d[i] = false;
     }
-    s.colidx.set_size(n + 1);
+    i = n + 1;
+    s.colidx.set_size(i);
     loop_ub_tmp = n;
-    for (i = 0; i <= loop_ub_tmp; i++) {
-      s.colidx[i] = 0;
+    for (currRowIdx = 0; currRowIdx <= loop_ub_tmp; currRowIdx++) {
+      s.colidx[currRowIdx] = 0;
     }
     s.colidx[0] = 1;
     s.rowidx.set_size(numalloc + 1);
-    for (i = 0; i <= numalloc; i++) {
-      s.rowidx[i] = 0;
+    for (currRowIdx = 0; currRowIdx <= numalloc; currRowIdx++) {
+      s.rowidx[currRowIdx] = 0;
     }
     for (int c{0}; c < loop_ub_tmp; c++) {
       s.colidx[c + 1] = 1;
     }
     idx = 0;
-    i = s.colidx.size(0);
     for (int c{0}; c <= i - 2; c++) {
-      ridx = s.colidx[c];
+      numalloc = s.colidx[c];
       s.colidx[c] = idx + 1;
-      int exitg1;
-      do {
-        exitg1 = 0;
-        numalloc = s.colidx[c + 1];
-        if (ridx < numalloc) {
-          val = false;
-          while (ridx < numalloc) {
-            if (val || s.d[ridx - 1]) {
-              val = true;
-            }
-            ridx++;
+      while (numalloc < s.colidx[c + 1]) {
+        val = false;
+        while (numalloc < s.colidx[c + 1]) {
+          if (val || s.d[numalloc - 1]) {
+            val = true;
           }
-          if (val) {
-            s.d[idx] = true;
-            s.rowidx[idx] = 0;
-            idx++;
-          }
-        } else {
-          exitg1 = 1;
+          numalloc++;
         }
-      } while (exitg1 == 0);
-    }
-    if (col - 1 < 1) {
-      numalloc = 1;
-    } else {
-      numalloc = col;
-    }
-    for (i = 0; i <= numalloc - 2; i++) {
-      s.rowidx[i] = rowidx[i];
-    }
-    s.colidx.set_size(colidx.size(0));
-    numalloc = colidx.size(0);
-    for (i = 0; i < numalloc; i++) {
-      s.colidx[i] = colidx[i];
-    }
-    if (col - 1 > 2147483646) {
-      check_forloop_overflow_error();
-    }
-    for (numalloc = 0; numalloc <= col - 2; numalloc++) {
-      s.d[numalloc] = tmpd[numalloc];
-    }
-    idx = 1;
-    i = colidx.size(0);
-    for (int c{0}; c <= i - 2; c++) {
-      ridx = s.colidx[c];
-      s.colidx[c] = idx;
-      while (ridx < s.colidx[c + 1]) {
-        numalloc = s.rowidx[ridx - 1];
-        val = s.d[ridx - 1];
-        ridx++;
         if (val) {
-          s.d[idx - 1] = true;
-          s.rowidx[idx - 1] = numalloc;
+          s.d[idx] = true;
+          s.rowidx[idx] = 0;
           idx++;
         }
       }
     }
-    s.colidx[s.colidx.size(0) - 1] = idx;
+    if (nzs_tmp_tmp - 1 < 1) {
+      col = 1;
+    } else {
+      col = nzs_tmp_tmp;
+    }
+    for (i = 0; i <= col - 2; i++) {
+      s.rowidx[i] = rowidx[i];
+    }
+    col = colidx.size(0);
+    s.colidx.set_size(colidx.size(0));
+    for (i = 0; i < col; i++) {
+      s.colidx[i] = colidx[i];
+    }
+    if (nzs_tmp_tmp - 1 > 2147483646) {
+      check_forloop_overflow_error();
+    }
+    for (numalloc = 0; numalloc <= nzs_tmp_tmp - 2; numalloc++) {
+      s.d[numalloc] = tmpd[numalloc];
+    }
+    idx = 1;
+    for (int c{0}; c <= col - 2; c++) {
+      numalloc = s.colidx[c];
+      s.colidx[c] = idx;
+      while (numalloc < s.colidx[c + 1]) {
+        currRowIdx = s.rowidx[numalloc - 1];
+        val = s.d[numalloc - 1];
+        numalloc++;
+        if (val) {
+          s.d[idx - 1] = true;
+          s.rowidx[idx - 1] = currRowIdx;
+          idx++;
+        }
+      }
+    }
+    s.colidx[colidx.size(0) - 1] = idx;
   } else {
     int loop_ub_tmp;
     S.set_size(1, n);
@@ -1207,14 +1590,14 @@ void b_sparse::eq(const c_sparse &b, d_sparse &s) const
       check_forloop_overflow_error();
     }
     for (int col{0}; col < loop_ub_tmp; col++) {
+      int currRowIdx;
       int numalloc;
-      int ridx;
       numalloc = colidx[col];
-      ridx = colidx[col + 1] - 1;
-      if ((colidx[col] <= ridx) && (ridx > 2147483646)) {
+      currRowIdx = colidx[col + 1];
+      if ((colidx[col] <= currRowIdx - 1) && (currRowIdx - 1 > 2147483646)) {
         check_forloop_overflow_error();
       }
-      for (int idx{numalloc}; idx <= ridx; idx++) {
+      for (int idx{numalloc}; idx < currRowIdx; idx++) {
         S[col] = (d[idx - 1] == uniOp.workspace.sb);
       }
     }
@@ -1243,7 +1626,7 @@ void sparse::eyeLike(int ndiag, int b_m, int b_n, sparse &b_I)
   b_I.d.set_size(nzmax);
   b_I.rowidx.set_size(nzmax);
   if (b_n + 1 < 0) {
-    rtNonNegativeError(static_cast<double>(b_n + 1), o_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(b_n + 1), m_emlrtDCI);
   }
   b_I.colidx.set_size(b_n + 1);
   if (ndiag > 2147483646) {
@@ -1281,29 +1664,21 @@ void sparse::fillIn()
     int ridx;
     ridx = colidx[c];
     colidx[c] = idx;
-    int exitg1;
-    int i1;
-    do {
-      exitg1 = 0;
-      i1 = colidx[c + 1];
-      if (ridx < i1) {
-        double val;
-        int currRowIdx;
-        val = 0.0;
-        currRowIdx = rowidx[ridx - 1];
-        while ((ridx < i1) && (rowidx[ridx - 1] == currRowIdx)) {
-          val += d[ridx - 1];
-          ridx++;
-        }
-        if (val != 0.0) {
-          d[idx - 1] = val;
-          rowidx[idx - 1] = currRowIdx;
-          idx++;
-        }
-      } else {
-        exitg1 = 1;
+    while (ridx < colidx[c + 1]) {
+      double val;
+      int currRowIdx;
+      val = 0.0;
+      currRowIdx = rowidx[ridx - 1];
+      while ((ridx < colidx[c + 1]) && (rowidx[ridx - 1] == currRowIdx)) {
+        val += d[ridx - 1];
+        ridx++;
       }
-    } while (exitg1 == 0);
+      if (val != 0.0) {
+        d[idx - 1] = val;
+        rowidx[idx - 1] = currRowIdx;
+        idx++;
+      }
+    }
   }
   colidx[colidx.size(0) - 1] = idx;
 }
@@ -1314,27 +1689,69 @@ void sparse::fillIn()
 //
 void d_sparse::full(array<boolean_T, 2U> &y) const
 {
-  int cend_tmp;
+  int i;
   int loop_ub_tmp;
   y.set_size(1, n);
   loop_ub_tmp = n;
-  for (cend_tmp = 0; cend_tmp < loop_ub_tmp; cend_tmp++) {
-    y[cend_tmp] = false;
+  for (i = 0; i < loop_ub_tmp; i++) {
+    y[i] = false;
   }
   if (n > 2147483646) {
     check_forloop_overflow_error();
   }
   for (int c{0}; c < loop_ub_tmp; c++) {
     int a;
-    cend_tmp = colidx[c + 1] - 1;
+    i = colidx[c + 1];
     a = colidx[c];
-    if ((colidx[c] <= cend_tmp) && (cend_tmp > 2147483646)) {
+    if ((colidx[c] <= i - 1) && (i - 1 > 2147483646)) {
       check_forloop_overflow_error();
     }
-    for (int idx{a}; idx <= cend_tmp; idx++) {
+    for (int idx{a}; idx < i; idx++) {
       y[c] = d[idx - 1];
     }
   }
+}
+
+//
+// Arguments    : void
+// Return Type  : double
+//
+double c_sparse::full() const
+{
+  double y;
+  int a;
+  int cend;
+  y = 0.0;
+  cend = colidx[1];
+  a = colidx[0];
+  if ((colidx[0] <= colidx[1] - 1) && (colidx[1] - 1 > 2147483646)) {
+    check_forloop_overflow_error();
+  }
+  for (int idx{a}; idx < cend; idx++) {
+    y = d[0];
+  }
+  return y;
+}
+
+//
+// Arguments    : void
+// Return Type  : boolean_T
+//
+boolean_T e_sparse::full() const
+{
+  int a;
+  int cend;
+  boolean_T y;
+  y = false;
+  cend = colidx[1];
+  a = colidx[0];
+  if ((colidx[0] <= colidx[1] - 1) && (colidx[1] - 1 > 2147483646)) {
+    check_forloop_overflow_error();
+  }
+  for (int idx{a}; idx < cend; idx++) {
+    y = d[idx - 1];
+  }
+  return y;
 }
 
 //
@@ -1347,24 +1764,24 @@ void sparse::logical(f_sparse &y) const
   int numalloc;
   int ridx;
   if (m < 0) {
-    fc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+    ec_rtErrorWithMessageID(dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
   }
   if (m >= MAX_int32_T) {
-    uc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+    wc_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
   }
   if (n < 0) {
-    fc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+    ec_rtErrorWithMessageID(dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
   }
   if (n >= MAX_int32_T) {
-    uc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+    wc_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
   }
   y.m = m;
   y.n = n;
   if (maxnz < 0) {
-    fc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+    ec_rtErrorWithMessageID(dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
   }
   if (maxnz >= MAX_int32_T) {
-    uc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+    wc_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
   }
   numalloc = maxnz;
   if (numalloc < 1) {
@@ -1376,54 +1793,41 @@ void sparse::logical(f_sparse &y) const
   }
   y.maxnz = numalloc;
   y.colidx.set_size(n + 1);
-  ridx = n;
-  for (i = 0; i <= ridx; i++) {
+  numalloc = n;
+  for (i = 0; i <= numalloc; i++) {
     y.colidx[i] = 0;
   }
   y.colidx[0] = 1;
-  y.rowidx.set_size(numalloc);
-  for (i = 0; i < numalloc; i++) {
-    y.rowidx[i] = 0;
-  }
-  for (int c{0}; c < ridx; c++) {
+  for (int c{0}; c < numalloc; c++) {
     y.colidx[c + 1] = 1;
   }
-  numalloc = 0;
+  numalloc = 1;
   i = y.colidx.size(0);
   for (int c{0}; c <= i - 2; c++) {
     ridx = y.colidx[c];
-    y.colidx[c] = numalloc + 1;
-    int exitg1;
-    int i1;
-    do {
-      exitg1 = 0;
-      i1 = y.colidx[c + 1];
-      if (ridx < i1) {
-        boolean_T val;
-        val = false;
-        while (ridx < i1) {
-          if (val || y.d[ridx - 1]) {
-            val = true;
-          }
-          ridx++;
+    y.colidx[c] = numalloc;
+    while (ridx < y.colidx[c + 1]) {
+      boolean_T val;
+      val = false;
+      while (ridx < y.colidx[c + 1]) {
+        if (val || y.d[ridx - 1]) {
+          val = true;
         }
-        if (val) {
-          y.d[numalloc] = true;
-          y.rowidx[numalloc] = 0;
-          numalloc++;
-        }
-      } else {
-        exitg1 = 1;
+        ridx++;
       }
-    } while (exitg1 == 0);
+      if (val) {
+        y.d[numalloc - 1] = true;
+        numalloc++;
+      }
+    }
   }
-  y.rowidx.set_size(rowidx.size(0));
   numalloc = rowidx.size(0);
+  y.rowidx.set_size(rowidx.size(0));
   for (i = 0; i < numalloc; i++) {
     y.rowidx[i] = rowidx[i];
   }
-  y.colidx.set_size(colidx.size(0));
   numalloc = colidx.size(0);
+  y.colidx.set_size(colidx.size(0));
   for (i = 0; i < numalloc; i++) {
     y.colidx[i] = colidx[i];
   }
@@ -1433,7 +1837,7 @@ void sparse::logical(f_sparse &y) const
   }
   for (ridx = 0; ridx < numalloc; ridx++) {
     if (std::isnan(d[ridx])) {
-      ab_rtErrorWithMessageID(lb_emlrtRTEI.fName, lb_emlrtRTEI.lineNo);
+      y_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
     }
   }
   for (i = 0; i < numalloc; i++) {
@@ -1449,38 +1853,36 @@ void g_sparse::logical(h_sparse &y) const
 {
   int numalloc;
   if (m < 0) {
-    fc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+    ec_rtErrorWithMessageID(dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
   }
   if (m >= MAX_int32_T) {
-    uc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+    wc_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
   }
   y.m = m;
   if (maxnz < 0) {
-    fc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+    ec_rtErrorWithMessageID(dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
   }
   if (maxnz >= MAX_int32_T) {
-    uc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+    wc_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
   }
   numalloc = maxnz;
   if (numalloc < 1) {
     numalloc = 1;
   }
   y.d.set_size(numalloc);
-  y.colidx.set_size(2);
-  y.rowidx.set_size(numalloc);
   for (int k{0}; k < numalloc; k++) {
     y.d[k] = false;
-    y.rowidx[k] = 0;
   }
+  y.colidx.set_size(2);
   y.colidx[1] = 1;
   y.colidx[0] = 1;
-  y.rowidx.set_size(rowidx.size(0));
   numalloc = rowidx.size(0);
+  y.rowidx.set_size(rowidx.size(0));
   for (int k{0}; k < numalloc; k++) {
     y.rowidx[k] = rowidx[k];
   }
-  y.colidx.set_size(colidx.size(0));
   numalloc = colidx.size(0);
+  y.colidx.set_size(colidx.size(0));
   for (int k{0}; k < numalloc; k++) {
     y.colidx[k] = colidx[k];
   }
@@ -1490,121 +1892,11 @@ void g_sparse::logical(h_sparse &y) const
   }
   for (int k{0}; k < numalloc; k++) {
     if (std::isnan(d[k])) {
-      ab_rtErrorWithMessageID(lb_emlrtRTEI.fName, lb_emlrtRTEI.lineNo);
+      y_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
     }
   }
   for (int k{0}; k < numalloc; k++) {
     y.d[k] = (d[k] != 0.0);
-  }
-}
-
-//
-// Arguments    : const array<double, 2U> &a
-//                array<double, 2U> &c
-// Return Type  : void
-//
-void sparse::mtimes(const array<double, 2U> &a, array<double, 2U> &c) const
-{
-  int aoff;
-  int b_m;
-  int b_n;
-  int cidx;
-  if (a.size(1) != m) {
-    tb_rtErrorWithMessageID(fc_emlrtRTEI.fName, fc_emlrtRTEI.lineNo);
-  }
-  b_m = a.size(0);
-  b_n = n - 1;
-  c.set_size(a.size(0), n);
-  aoff = a.size(0) * n;
-  for (cidx = 0; cidx < aoff; cidx++) {
-    c[cidx] = 0.0;
-  }
-  if ((a.size(1) != 0) && (a.size(0) != 0) && (n != 0) &&
-      (colidx[colidx.size(0) - 1] - 1 != 0)) {
-    if (a.size(0) == 1) {
-      aoff = n;
-      if (n > 2147483646) {
-        check_forloop_overflow_error();
-      }
-      for (int aidx_tmp{0}; aidx_tmp < aoff; aidx_tmp++) {
-        double bd;
-        int b_a;
-        bd = 0.0;
-        cidx = colidx[aidx_tmp + 1] - 1;
-        b_a = colidx[aidx_tmp];
-        if ((colidx[aidx_tmp] <= cidx) && (cidx > 2147483646)) {
-          check_forloop_overflow_error();
-        }
-        for (int mend{b_a}; mend <= cidx; mend++) {
-          bd += d[mend - 1] * a[rowidx[mend - 1] - 1];
-        }
-        c[aidx_tmp] = bd;
-      }
-    } else if (a.size(0) >= 4) {
-      if (n > 2147483646) {
-        check_forloop_overflow_error();
-      }
-      for (int ccol{0}; ccol <= b_n; ccol++) {
-        int b_a;
-        int bpend_tmp;
-        int coff;
-        coff = ccol * c.size(0);
-        bpend_tmp = colidx[ccol + 1] - 1;
-        b_a = colidx[ccol];
-        if ((colidx[ccol] <= bpend_tmp) && (bpend_tmp > 2147483646)) {
-          check_forloop_overflow_error();
-        }
-        for (int bp{b_a}; bp <= bpend_tmp; bp++) {
-          double bd;
-          int aoff_tmp;
-          int mend;
-          aoff_tmp = rowidx[bp - 1] - 1;
-          aoff = aoff_tmp * a.size(0);
-          bd = d[bp - 1];
-          mend = (b_m / 4) << 2;
-          if (mend > 2147483643) {
-            check_forloop_overflow_error();
-          }
-          for (int crow{1}; crow <= mend; crow += 4) {
-            int aidx_tmp;
-            cidx = crow + coff;
-            aidx_tmp = crow + aoff;
-            c[cidx - 1] = c[cidx - 1] + a[aidx_tmp - 1] * bd;
-            c[cidx] = c[cidx] + a[aidx_tmp] * bd;
-            c[cidx + 1] = c[cidx + 1] + a[aidx_tmp + 1] * bd;
-            c[cidx + 2] = c[cidx + 2] + a[aidx_tmp + 2] * bd;
-          }
-          aoff = mend + 1;
-          if ((mend + 1 <= b_m) && (b_m > 2147483646)) {
-            check_forloop_overflow_error();
-          }
-          for (int crow{aoff}; crow <= b_m; crow++) {
-            cidx = (crow + coff) - 1;
-            c[cidx] = c[cidx] + a[(crow + a.size(0) * aoff_tmp) - 1] * bd;
-          }
-        }
-      }
-    } else {
-      if (n > 2147483646) {
-        check_forloop_overflow_error();
-      }
-      for (int ccol{0}; ccol <= b_n; ccol++) {
-        int b_a;
-        int bpend_tmp;
-        bpend_tmp = colidx[ccol + 1] - 1;
-        b_a = colidx[ccol];
-        if ((colidx[ccol] <= bpend_tmp) && (bpend_tmp > 2147483646)) {
-          check_forloop_overflow_error();
-        }
-        for (int bp{b_a}; bp <= bpend_tmp; bp++) {
-          for (int crow{0}; crow < b_m; crow++) {
-            c[crow + c.size(0) * ccol] =
-                c[crow + c.size(0) * ccol] +
-                a[crow + a.size(0) * (rowidx[bp - 1] - 1)] * d[bp - 1];
-          }
-        }
-      }
-    }
   }
 }
 
@@ -1615,17 +1907,17 @@ void sparse::mtimes(const array<double, 2U> &a, array<double, 2U> &c) const
 //
 void f_sparse::mtimes(const array<double, 2U> &b, array<double, 2U> &c) const
 {
-  int apendm1_tmp;
-  int b_n;
+  int i;
+  int n_tmp;
   int nap;
   if (n != b.size(0)) {
-    tb_rtErrorWithMessageID(fc_emlrtRTEI.fName, fc_emlrtRTEI.lineNo);
+    sb_rtErrorWithMessageID(yb_emlrtRTEI.fName, yb_emlrtRTEI.lineNo);
   }
-  b_n = b.size(1);
+  n_tmp = b.size(1);
   c.set_size(m, b.size(1));
   nap = m * b.size(1);
-  for (apendm1_tmp = 0; apendm1_tmp < nap; apendm1_tmp++) {
-    c[apendm1_tmp] = 0.0;
+  for (i = 0; i < nap; i++) {
+    c[i] = 0.0;
   }
   if ((n != 0) && (m != 0) && (b.size(1) != 0) &&
       (colidx[colidx.size(0) - 1] - 1 != 0)) {
@@ -1638,47 +1930,41 @@ void f_sparse::mtimes(const array<double, 2U> &b, array<double, 2U> &c) const
       for (int acol{0}; acol < b_b; acol++) {
         double bc;
         int a;
-        int nap_tmp;
         bc = b[acol];
         a = colidx[acol];
-        nap_tmp = colidx[acol + 1];
-        nap = nap_tmp - colidx[acol];
+        i = colidx[acol + 1];
+        nap = i - colidx[acol];
         if (nap >= 4) {
-          nap = ((nap_tmp - nap) + ((nap / 4) << 2)) - 1;
-          if ((colidx[acol] <= nap) && (nap > 2147483643)) {
+          int apend1;
+          apend1 = ((i - nap) + ((nap / 4) << 2)) - 1;
+          if ((colidx[acol] <= apend1) && (apend1 > 2147483643)) {
             check_forloop_overflow_error();
           }
-          for (int ap{a}; ap <= nap; ap += 4) {
-            apendm1_tmp = rowidx[ap - 1] - 1;
-            c[apendm1_tmp] =
-                c[apendm1_tmp] + static_cast<double>(d[ap - 1]) * bc;
+          for (int ap{a}; ap <= apend1; ap += 4) {
+            nap = rowidx[ap - 1] - 1;
+            c[nap] = c[nap] + static_cast<double>(d[ap - 1]) * bc;
             c[rowidx[ap] - 1] =
                 c[rowidx[ap] - 1] + static_cast<double>(d[ap]) * bc;
-            apendm1_tmp = rowidx[ap + 1] - 1;
-            c[apendm1_tmp] =
-                c[apendm1_tmp] + static_cast<double>(d[ap + 1]) * bc;
-            apendm1_tmp = rowidx[ap + 2] - 1;
-            c[apendm1_tmp] =
-                c[apendm1_tmp] + static_cast<double>(d[ap + 2]) * bc;
+            nap = rowidx[ap + 1] - 1;
+            c[nap] = c[nap] + static_cast<double>(d[ap + 1]) * bc;
+            nap = rowidx[ap + 2] - 1;
+            c[nap] = c[nap] + static_cast<double>(d[ap + 2]) * bc;
           }
-          apendm1_tmp = nap_tmp - 1;
-          a = nap + 1;
-          if ((nap + 1 <= nap_tmp - 1) && (nap_tmp - 1 > 2147483646)) {
+          a = apend1 + 1;
+          if ((apend1 + 1 <= i - 1) && (i - 1 > 2147483646)) {
             check_forloop_overflow_error();
           }
-          for (int ap{a}; ap <= apendm1_tmp; ap++) {
+          for (int ap{a}; ap < i; ap++) {
             nap = rowidx[ap - 1] - 1;
             c[nap] = c[nap] + static_cast<double>(d[ap - 1]) * bc;
           }
         } else {
-          nap = nap_tmp - 1;
-          if ((colidx[acol] <= nap_tmp - 1) && (nap_tmp - 1 > 2147483646)) {
+          if ((colidx[acol] <= i - 1) && (i - 1 > 2147483646)) {
             check_forloop_overflow_error();
           }
-          for (int ap{a}; ap <= nap; ap++) {
-            apendm1_tmp = rowidx[ap - 1] - 1;
-            c[apendm1_tmp] =
-                c[apendm1_tmp] + static_cast<double>(d[ap - 1]) * bc;
+          for (int ap{a}; ap < i; ap++) {
+            nap = rowidx[ap - 1] - 1;
+            c[nap] = c[nap] + static_cast<double>(d[ap - 1]) * bc;
           }
         }
       }
@@ -1690,7 +1976,7 @@ void f_sparse::mtimes(const array<double, 2U> &b, array<double, 2U> &c) const
       }
       b_b = n;
       overflow = (n > 2147483646);
-      for (int j{0}; j < b_n; j++) {
+      for (int j{0}; j < n_tmp; j++) {
         int coff;
         coff = j * c.size(0) - 1;
         if (overflow) {
@@ -1699,49 +1985,149 @@ void f_sparse::mtimes(const array<double, 2U> &b, array<double, 2U> &c) const
         for (int acol{0}; acol < b_b; acol++) {
           double bc;
           int a;
-          int nap_tmp;
           bc = b[acol + b.size(0) * j];
           a = colidx[acol];
-          nap_tmp = colidx[acol + 1];
-          nap = nap_tmp - colidx[acol];
+          i = colidx[acol + 1];
+          nap = i - colidx[acol];
           if (nap >= 4) {
-            nap = ((nap_tmp - nap) + ((nap / 4) << 2)) - 1;
-            if ((colidx[acol] <= nap) && (nap > 2147483643)) {
+            int apend1;
+            apend1 = ((i - nap) + ((nap / 4) << 2)) - 1;
+            if ((colidx[acol] <= apend1) && (apend1 > 2147483643)) {
               check_forloop_overflow_error();
             }
-            for (int ap{a}; ap <= nap; ap += 4) {
-              apendm1_tmp = rowidx[ap - 1] + coff;
-              c[apendm1_tmp] =
-                  c[apendm1_tmp] + static_cast<double>(d[ap - 1]) * bc;
-              apendm1_tmp = rowidx[ap] + coff;
-              c[apendm1_tmp] = c[apendm1_tmp] + static_cast<double>(d[ap]) * bc;
-              apendm1_tmp = rowidx[ap + 1] + coff;
-              c[apendm1_tmp] =
-                  c[apendm1_tmp] + static_cast<double>(d[ap + 1]) * bc;
-              apendm1_tmp = rowidx[ap + 2] + coff;
-              c[apendm1_tmp] =
-                  c[apendm1_tmp] + static_cast<double>(d[ap + 2]) * bc;
+            for (int ap{a}; ap <= apend1; ap += 4) {
+              nap = rowidx[ap - 1] + coff;
+              c[nap] = c[nap] + static_cast<double>(d[ap - 1]) * bc;
+              nap = rowidx[ap] + coff;
+              c[nap] = c[nap] + static_cast<double>(d[ap]) * bc;
+              nap = rowidx[ap + 1] + coff;
+              c[nap] = c[nap] + static_cast<double>(d[ap + 1]) * bc;
+              nap = rowidx[ap + 2] + coff;
+              c[nap] = c[nap] + static_cast<double>(d[ap + 2]) * bc;
             }
-            apendm1_tmp = nap_tmp - 1;
-            a = nap + 1;
-            if ((nap + 1 <= nap_tmp - 1) && (nap_tmp - 1 > 2147483646)) {
+            a = apend1 + 1;
+            if ((apend1 + 1 <= i - 1) && (i - 1 > 2147483646)) {
               check_forloop_overflow_error();
             }
-            for (int ap{a}; ap <= apendm1_tmp; ap++) {
+            for (int ap{a}; ap < i; ap++) {
               nap = rowidx[ap - 1] - 1;
               c[nap + c.size(0) * j] =
                   c[nap + c.size(0) * j] + static_cast<double>(d[ap - 1]) * bc;
             }
           } else {
-            nap = nap_tmp - 1;
-            if ((colidx[acol] <= nap_tmp - 1) && (nap_tmp - 1 > 2147483646)) {
+            if ((colidx[acol] <= i - 1) && (i - 1 > 2147483646)) {
               check_forloop_overflow_error();
             }
-            for (int ap{a}; ap <= nap; ap++) {
-              apendm1_tmp = rowidx[ap - 1] + coff;
-              c[apendm1_tmp] =
-                  c[apendm1_tmp] + static_cast<double>(d[ap - 1]) * bc;
+            for (int ap{a}; ap < i; ap++) {
+              nap = rowidx[ap - 1] + coff;
+              c[nap] = c[nap] + static_cast<double>(d[ap - 1]) * bc;
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+//
+// Arguments    : const array<double, 2U> &a
+//                array<double, 2U> &c
+// Return Type  : void
+//
+void sparse::mtimes(const array<double, 2U> &a, array<double, 2U> &c) const
+{
+  int aoff;
+  int i;
+  int m_tmp;
+  int n_tmp;
+  if (a.size(1) != m) {
+    sb_rtErrorWithMessageID(yb_emlrtRTEI.fName, yb_emlrtRTEI.lineNo);
+  }
+  m_tmp = a.size(0);
+  n_tmp = n;
+  c.set_size(a.size(0), n);
+  aoff = a.size(0) * n;
+  for (i = 0; i < aoff; i++) {
+    c[i] = 0.0;
+  }
+  if ((a.size(1) != 0) && (a.size(0) != 0) && (n != 0) &&
+      (colidx[colidx.size(0) - 1] - 1 != 0)) {
+    if (a.size(0) == 1) {
+      if (n > 2147483646) {
+        check_forloop_overflow_error();
+      }
+      for (aoff = 0; aoff < n_tmp; aoff++) {
+        double cd;
+        int b_a;
+        cd = 0.0;
+        i = colidx[aoff + 1];
+        b_a = colidx[aoff];
+        if ((colidx[aoff] <= i - 1) && (i - 1 > 2147483646)) {
+          check_forloop_overflow_error();
+        }
+        for (int cidx{b_a}; cidx < i; cidx++) {
+          cd += a[rowidx[cidx - 1] - 1];
+        }
+        c[aoff] = cd;
+      }
+    } else if (a.size(0) >= 4) {
+      if (n > 2147483646) {
+        check_forloop_overflow_error();
+      }
+      for (int ccol{0}; ccol < n_tmp; ccol++) {
+        int b_a;
+        int coff;
+        coff = ccol * c.size(0);
+        i = colidx[ccol + 1];
+        b_a = colidx[ccol];
+        if ((colidx[ccol] <= i - 1) && (i - 1 > 2147483646)) {
+          check_forloop_overflow_error();
+        }
+        for (int bp{b_a}; bp < i; bp++) {
+          int aoff_tmp;
+          int cidx;
+          int mend;
+          aoff_tmp = rowidx[bp - 1] - 1;
+          aoff = aoff_tmp * a.size(0);
+          mend = (m_tmp / 4) << 2;
+          if (mend > 2147483643) {
+            check_forloop_overflow_error();
+          }
+          for (int crow{1}; crow <= mend; crow += 4) {
+            int aidx_tmp;
+            cidx = crow + coff;
+            aidx_tmp = crow + aoff;
+            c[cidx - 1] = c[cidx - 1] + a[aidx_tmp - 1];
+            c[cidx] = c[cidx] + a[aidx_tmp];
+            c[cidx + 1] = c[cidx + 1] + a[aidx_tmp + 1];
+            c[cidx + 2] = c[cidx + 2] + a[aidx_tmp + 2];
+          }
+          cidx = mend + 1;
+          if ((mend + 1 <= m_tmp) && (m_tmp > 2147483646)) {
+            check_forloop_overflow_error();
+          }
+          for (int crow{cidx}; crow <= m_tmp; crow++) {
+            aoff = (crow + coff) - 1;
+            c[aoff] = c[aoff] + a[(crow + a.size(0) * aoff_tmp) - 1];
+          }
+        }
+      }
+    } else {
+      if (n > 2147483646) {
+        check_forloop_overflow_error();
+      }
+      for (int ccol{0}; ccol < n_tmp; ccol++) {
+        int b_a;
+        i = colidx[ccol + 1];
+        b_a = colidx[ccol];
+        if ((colidx[ccol] <= i - 1) && (i - 1 > 2147483646)) {
+          check_forloop_overflow_error();
+        }
+        for (int bp{b_a}; bp < i; bp++) {
+          for (int crow{0}; crow < m_tmp; crow++) {
+            c[crow + c.size(0) * ccol] =
+                c[crow + c.size(0) * ccol] +
+                a[crow + a.size(0) * (rowidx[bp - 1] - 1)];
           }
         }
       }
@@ -1757,50 +2143,119 @@ void f_sparse::mtimes(const array<double, 2U> &b, array<double, 2U> &c) const
 void f_sparse::parenAssign(const array<boolean_T, 1U> &rhs,
                            const array<double, 2U> &varargin_1)
 {
-  int nidx;
+  array<double, 2U> y;
+  array<int, 2U> iidx;
+  array<int, 1U> b_rowsToAssign;
+  array<int, 1U> rowsToAssign;
+  array<boolean_T, 1U> b_rhs;
+  array<boolean_T, 1U> rhsv;
+  int cnt;
+  int col;
+  int i;
+  int lb;
   int overflow;
-  int varargout_4;
+  int prevcol;
   internal::bigProduct(m, n, overflow);
   if (rhs.size(0) != varargin_1.size(1)) {
-    qc_rtErrorWithMessageID(yc_emlrtRTEI.fName, yc_emlrtRTEI.lineNo);
+    rc_rtErrorWithMessageID(pc_emlrtRTEI.fName, pc_emlrtRTEI.lineNo);
   }
   if (overflow == 0) {
-    overflow = m * n;
-    nidx = varargin_1.size(1);
-    for (int k{0}; k < nidx; k++) {
+    cnt = m * n;
+    i = varargin_1.size(1);
+    for (int k{0}; k < i; k++) {
       double b_d;
       double d1;
       b_d = varargin_1[k];
       d1 = std::floor(b_d);
       if ((!(d1 == b_d)) || std::isinf(b_d)) {
-        jc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+        ic_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
       }
-      if (!(b_d <= overflow)) {
-        rtErrorWithMessageID(static_cast<long>(d1), overflow,
-                             kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+      if (!(b_d <= cnt)) {
+        rtErrorWithMessageID(static_cast<long>(d1), cnt, bc_emlrtRTEI.fName,
+                             bc_emlrtRTEI.lineNo);
       }
     }
   } else {
-    nidx = varargin_1.size(1);
-    for (int k{0}; k < nidx; k++) {
+    i = varargin_1.size(1);
+    for (int k{0}; k < i; k++) {
       double b_d;
       b_d = varargin_1[k];
       if ((!(std::floor(b_d) == b_d)) || std::isinf(b_d)) {
-        jc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+        ic_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
       }
     }
   }
-  nidx = varargin_1.size(1);
-  if (varargin_1.size(1) > 2147483646) {
-    check_forloop_overflow_error();
+  overflow = varargin_1.size(1);
+  y.set_size(1, varargin_1.size(1));
+  for (i = 0; i < overflow; i++) {
+    y[i] = varargin_1[i];
   }
-  for (int k{0}; k < nidx; k++) {
-    double b_this[2];
-    b_this[0] = m;
-    b_this[1] = n;
-    overflow = internal::ind2sub(b_this, varargin_1[k], varargout_4);
-    parenAssign2D(rhs[k], static_cast<double>(overflow),
-                  static_cast<double>(varargout_4));
+  overflow = rhs.size(0);
+  b_rhs.set_size(rhs.size(0));
+  for (i = 0; i < overflow; i++) {
+    b_rhs[i] = rhs[i];
+  }
+  if (!issorted(varargin_1)) {
+    internal::sort(y, iidx);
+    if (y.size(1) != 1) {
+      i = y.size(1);
+      for (int b_i{0}; b_i < i; b_i++) {
+        b_rhs[b_i] = rhs[iidx[b_i] - 1];
+      }
+    }
+  }
+  lb = -1;
+  cnt = 0;
+  overflow = y.size(1);
+  rowsToAssign.set_size(y.size(1));
+  for (i = 0; i < overflow; i++) {
+    rowsToAssign[i] = 0;
+  }
+  prevcol = 0;
+  for (int k{0}; k <= overflow; k++) {
+    if (static_cast<unsigned int>(k) + 1U <=
+        static_cast<unsigned int>(y.size(1))) {
+      double b_this[2];
+      b_this[0] = m;
+      b_this[1] = n;
+      rowsToAssign[k] = internal::ind2sub(b_this, y[k], col);
+    } else {
+      col = -1;
+    }
+    if (col == prevcol) {
+      cnt++;
+    } else {
+      if (cnt > 0) {
+        int iv[2];
+        rhsv.set_size(cnt);
+        for (i = 0; i < cnt; i++) {
+          rhsv[i] = false;
+        }
+        if (cnt > 2147483646) {
+          check_forloop_overflow_error();
+        }
+        for (int b_i{0}; b_i < cnt; b_i++) {
+          rhsv[b_i] = b_rhs[lb + b_i];
+        }
+        i = lb + cnt;
+        if (lb + 1 > i) {
+          lb = 0;
+          i = 0;
+        }
+        iv[0] = 1;
+        cnt = i - lb;
+        iv[1] = cnt;
+        internal::indexShapeCheck(rowsToAssign.size(0), iv);
+        b_rowsToAssign.set_size(cnt);
+        for (i = 0; i < cnt; i++) {
+          b_rowsToAssign[i] = rowsToAssign[lb + i];
+        }
+        parenAssign2D(rhsv, b_rowsToAssign, prevcol);
+      }
+      lb = k;
+      cnt = 1;
+      prevcol = col;
+    }
   }
 }
 
@@ -1813,49 +2268,48 @@ void sparse::parenReference(const array<double, 1U> &varargin_2,
                             sparse &s) const
 {
   int i;
+  int loop_ub;
   int nd;
   int nd_tmp;
-  int sn;
   int ub;
   ub = n;
-  i = varargin_2.size(0);
-  for (int k{0}; k < i; k++) {
+  loop_ub = varargin_2.size(0);
+  for (int k{0}; k < loop_ub; k++) {
     double b_d;
     b_d = std::floor(varargin_2[k]);
     if ((!(b_d == varargin_2[k])) || std::isinf(varargin_2[k])) {
-      jc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+      ic_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
     }
     if (!(varargin_2[k] <= ub)) {
-      rtErrorWithMessageID(static_cast<long>(b_d), ub, kc_emlrtRTEI.fName,
-                           kc_emlrtRTEI.lineNo);
+      rtErrorWithMessageID(static_cast<long>(b_d), ub, bc_emlrtRTEI.fName,
+                           bc_emlrtRTEI.lineNo);
     }
   }
-  sn = varargin_2.size(0) - 1;
   ub = m * varargin_2.size(0);
   nd = 0;
   if (varargin_2.size(0) > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (int cidx{0}; cidx <= sn; cidx++) {
+  for (int cidx{0}; cidx < loop_ub; cidx++) {
     nd_tmp = static_cast<int>(varargin_2[cidx]);
     nd = (nd + colidx[nd_tmp]) - colidx[nd_tmp - 1];
   }
   if ((nd > ub) && (ub != 0)) {
-    i_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
   }
   if (m < 0) {
-    fc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+    ec_rtErrorWithMessageID(dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
   }
   if (m >= MAX_int32_T) {
-    uc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+    wc_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
   }
   s.m = m;
   s.n = varargin_2.size(0);
   if (nd < 0) {
-    fc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+    ec_rtErrorWithMessageID(dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
   }
   if (nd >= MAX_int32_T) {
-    uc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+    wc_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
   }
   if (nd >= 1) {
     ub = nd;
@@ -1868,8 +2322,7 @@ void sparse::parenReference(const array<double, 1U> &varargin_2,
   }
   s.maxnz = ub;
   s.colidx.set_size(varargin_2.size(0) + 1);
-  nd_tmp = varargin_2.size(0);
-  for (i = 0; i <= nd_tmp; i++) {
+  for (i = 0; i <= loop_ub; i++) {
     s.colidx[i] = 0;
   }
   s.colidx[0] = 1;
@@ -1877,14 +2330,13 @@ void sparse::parenReference(const array<double, 1U> &varargin_2,
   for (i = 0; i < ub; i++) {
     s.rowidx[i] = 0;
   }
-  ub = varargin_2.size(0);
-  for (nd_tmp = 0; nd_tmp < ub; nd_tmp++) {
-    s.colidx[nd_tmp + 1] = 1;
+  for (ub = 0; ub < loop_ub; ub++) {
+    s.colidx[ub + 1] = 1;
   }
   s.fillIn();
   if (nd != 0) {
     nd = 0;
-    for (int cidx{0}; cidx <= sn; cidx++) {
+    for (int cidx{0}; cidx < loop_ub; cidx++) {
       int colstart_tmp;
       ub = static_cast<int>(varargin_2[cidx]);
       colstart_tmp = colidx[ub - 1];
@@ -1917,24 +2369,24 @@ void sparse::parenReference(g_sparse &s) const
   int numalloc;
   if (n < 1) {
     rtErrorWithMessageID(static_cast<long>(1L), static_cast<int>(0),
-                         kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+                         bc_emlrtRTEI.fName, bc_emlrtRTEI.lineNo);
   }
   nd_tmp = colidx[1] - colidx[0];
   if ((nd_tmp > m) && (m != 0)) {
-    i_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(ic_emlrtRTEI.fName, ic_emlrtRTEI.lineNo);
   }
   if (m < 0) {
-    fc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+    ec_rtErrorWithMessageID(dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
   }
   if (m >= MAX_int32_T) {
-    uc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+    wc_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
   }
   s.m = m;
   if (nd_tmp < 0) {
-    fc_rtErrorWithMessageID(nc_emlrtRTEI.fName, nc_emlrtRTEI.lineNo);
+    ec_rtErrorWithMessageID(dc_emlrtRTEI.fName, dc_emlrtRTEI.lineNo);
   }
   if (nd_tmp >= MAX_int32_T) {
-    uc_rtErrorWithMessageID(lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
+    wc_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
   }
   if (nd_tmp >= 1) {
     numalloc = nd_tmp;
@@ -1971,56 +2423,55 @@ void f_sparse::parenReference(const array<double, 2U> &varargin_1,
                               d_sparse &s) const
 {
   double dv[2];
-  double varargout_1_tmp[2];
-  int a__1;
+  double dv1[2];
+  double b_d;
   int colNnz;
   int i;
-  int ncol;
+  int ncol_tmp;
   int overflow;
+  int vk;
   boolean_T found;
   internal::b_bigProduct(m, n, overflow);
   if (overflow == 0) {
-    a__1 = m * n;
+    vk = m * n;
     i = varargin_1.size(1);
     for (overflow = 0; overflow < i; overflow++) {
-      double b_d;
       double d1;
       b_d = varargin_1[overflow];
       d1 = std::floor(b_d);
       if ((!(d1 == b_d)) || std::isinf(b_d)) {
-        jc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+        ic_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
       }
-      if (!(b_d <= a__1)) {
-        rtErrorWithMessageID(static_cast<long>(d1), a__1, kc_emlrtRTEI.fName,
-                             kc_emlrtRTEI.lineNo);
+      if (!(b_d <= vk)) {
+        rtErrorWithMessageID(static_cast<long>(d1), vk, bc_emlrtRTEI.fName,
+                             bc_emlrtRTEI.lineNo);
       }
     }
   } else {
     i = varargin_1.size(1);
     for (overflow = 0; overflow < i; overflow++) {
-      double b_d;
       b_d = varargin_1[overflow];
       if ((!(std::floor(b_d) == b_d)) || std::isinf(b_d)) {
-        jc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
+        ic_rtErrorWithMessageID(hc_emlrtRTEI.fName, hc_emlrtRTEI.lineNo);
       }
     }
   }
-  ncol = varargin_1.size(1);
-  varargout_1_tmp[0] = m;
-  varargout_1_tmp[1] = n;
-  dv[0] = 1.0;
-  dv[1] = (static_cast<double>(varargin_1.size(1)) - 1.0) + 1.0;
-  internal::indexShapeCheck(varargout_1_tmp, dv);
+  ncol_tmp = varargin_1.size(1);
+  dv[0] = m;
+  dv[1] = n;
+  dv1[0] = 1.0;
+  dv1[1] = (static_cast<double>(varargin_1.size(1)) - 1.0) + 1.0;
+  internal::indexShapeCheck(dv, dv1);
   s.n = varargin_1.size(1);
   found = (varargin_1.size(1) + 1 < 0);
   if (found) {
-    rtNonNegativeError(static_cast<double>(varargin_1.size(1) + 1), o_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(varargin_1.size(1) + 1), m_emlrtDCI);
   }
   s.d.set_size(0);
   s.rowidx.set_size(0);
-  a__1 = varargin_1.size(1) + 1;
+  vk = varargin_1.size(1) + 1;
   s.colidx.set_size(varargin_1.size(1) + 1);
-  for (i = 0; i < a__1; i++) {
+  for (i = 0; i < vk; i++) {
     s.colidx[i] = 0;
   }
   s.colidx[0] = 1;
@@ -2028,17 +2479,24 @@ void f_sparse::parenReference(const array<double, 2U> &varargin_1,
   if (varargin_1.size(1) > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (int cidx{0}; cidx < ncol; cidx++) {
-    a__1 = internal::ind2sub(varargout_1_tmp,
-                             static_cast<int>(varargin_1[cidx]), overflow);
-    a__1 = sparse_locBsearch(rowidx, static_cast<double>(a__1),
-                             colidx[overflow - 1], colidx[overflow], found);
+  for (int cidx{0}; cidx < ncol_tmp; cidx++) {
+    b_d = varargin_1[cidx];
+    if ((static_cast<int>(b_d) < 1) ||
+        (static_cast<int>(b_d) >
+         static_cast<int>(dv[0]) * static_cast<int>(dv[1]))) {
+      gc_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
+    }
+    i = static_cast<int>(dv[0]);
+    vk = div_s32(static_cast<int>(b_d) - 1, i);
+    vk = sparse_locBsearch(rowidx,
+                           static_cast<double>(static_cast<int>(b_d) - vk * i),
+                           colidx[vk], colidx[vk + 1], found);
     if (found) {
       i = s.d.size(0);
+      overflow = s.d.size(0) + 1;
       s.d.set_size(s.d.size(0) + 1);
-      s.d[i] = d[a__1 - 1];
-      i = s.rowidx.size(0);
-      s.rowidx.set_size(s.rowidx.size(0) + 1);
+      s.d[i] = d[vk - 1];
+      s.rowidx.set_size(overflow);
       s.rowidx[i] = 1;
       colNnz++;
     }
@@ -2062,7 +2520,7 @@ void b_sparse::parenReference(c_sparse &s) const
   boolean_T found;
   if (n < 1) {
     rtErrorWithMessageID(static_cast<long>(1L), static_cast<int>(0),
-                         kc_emlrtRTEI.fName, kc_emlrtRTEI.lineNo);
+                         bc_emlrtRTEI.fName, bc_emlrtRTEI.lineNo);
   }
   s.colidx.set_size(2);
   s.colidx[0] = 1;

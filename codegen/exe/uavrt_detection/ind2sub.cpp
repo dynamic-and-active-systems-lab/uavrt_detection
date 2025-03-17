@@ -4,25 +4,16 @@
 // government, commercial, or other organizational use.
 // File: ind2sub.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
 #include "ind2sub.h"
 #include "rt_nonfinite.h"
+#include "uavrt_detection_data.h"
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
-
-// Variable Definitions
-static rtRunTimeErrorInfo
-    qc_emlrtRTEI{
-        21,        // lineNo
-        15,        // colNo
-        "ind2sub", // fName
-        "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
-        "ind2sub.m" // pName
-    };
 
 // Function Definitions
 //
@@ -35,31 +26,15 @@ namespace coder {
 namespace internal {
 int ind2sub(const double siz[2], double ndx, int &varargout_2)
 {
-  int vk;
-  if (static_cast<int>(ndx) >
-      static_cast<int>(siz[0]) * static_cast<int>(siz[1])) {
-    hc_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+  int varargout_1;
+  if ((static_cast<int>(ndx) < 1) ||
+      (static_cast<int>(ndx) >
+       static_cast<int>(siz[0]) * static_cast<int>(siz[1]))) {
+    gc_rtErrorWithMessageID(gc_emlrtRTEI.fName, gc_emlrtRTEI.lineNo);
   }
-  vk = div_s32(static_cast<int>(ndx) - 1, static_cast<int>(siz[0]));
-  varargout_2 = vk + 1;
-  return static_cast<int>(ndx) - vk * static_cast<int>(siz[0]);
-}
-
-//
-// Arguments    : const double siz[2]
-//                int ndx
-//                int &varargout_2
-// Return Type  : int
-//
-int ind2sub(const double siz[2], int ndx, int &varargout_2)
-{
-  int vk;
-  if (ndx > static_cast<int>(siz[0]) * static_cast<int>(siz[1])) {
-    hc_rtErrorWithMessageID(qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
-  }
-  vk = div_s32(ndx - 1, static_cast<int>(siz[0]));
-  varargout_2 = vk + 1;
-  return ndx - vk * static_cast<int>(siz[0]);
+  varargout_1 = div_s32(static_cast<int>(ndx) - 1, static_cast<int>(siz[0]));
+  varargout_2 = varargout_1 + 1;
+  return static_cast<int>(ndx) - varargout_1 * static_cast<int>(siz[0]);
 }
 
 } // namespace internal

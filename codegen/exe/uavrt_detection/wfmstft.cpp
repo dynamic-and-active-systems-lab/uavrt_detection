@@ -4,22 +4,21 @@
 // government, commercial, or other organizational use.
 // File: wfmstft.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
 #include "wfmstft.h"
-#include "eml_int_forloop_overflow_check.h"
+#include "abs.h"
 #include "mean.h"
-#include "movSumProdOrMean.h"
-#include "quickselect.h"
+#include "median.h"
+#include "movmean.h"
 #include "repmat.h"
 #include "rt_nonfinite.h"
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
-#include <cmath>
 
 // Function Declarations
 static void gt(coder::array<boolean_T, 2U> &in1,
@@ -90,292 +89,81 @@ static void gt(coder::array<boolean_T, 2U> &in1,
 void wfmstft::updatepsd()
 {
   static rtBoundsCheckInfo ab_emlrtBCI{
-      -1,                  // iFirst
-      -1,                  // iLast
-      155,                 // lineNo
-      21,                  // colNo
-      "magSqrd",           // aName
-      "wfmstft/updatepsd", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/wfmstft.m", // pName
-      0                                            // checkKind
+      155,                // lineNo
+      "magSqrd",          // aName
+      "wfmstft/updatepsd" // fName
   };
   static rtEqualityCheckInfo g_emlrtECI{
-      1,                   // nDims
-      154,                 // lineNo
-      27,                  // colNo
-      "wfmstft/updatepsd", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/wfmstft.m" // pName
+      1,                  // nDims
+      154,                // lineNo
+      "wfmstft/updatepsd" // fName
   };
   static rtEqualityCheckInfo h_emlrtECI{
-      2,                   // nDims
-      154,                 // lineNo
-      27,                  // colNo
-      "wfmstft/updatepsd", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/wfmstft.m" // pName
+      2,                  // nDims
+      154,                // lineNo
+      "wfmstft/updatepsd" // fName
   };
   coder::array<double, 2U> magSqrd;
   coder::array<double, 2U> movMeanMagSqrd;
-  coder::array<double, 1U> xv;
-  coder::array<double, 1U> yv;
+  coder::array<double, 1U> medMovMeanMagSqrd;
   coder::array<boolean_T, 2U> r;
   double varargin_1;
-  int b_loop_ub;
-  int len;
-  int loop_ub;
+  int b_loop_ub_tmp;
+  int end_tmp;
+  int i;
   int loop_ub_tmp;
-  int midm1;
-  int nx;
-  int outsize_idx_0;
-  int stride;
-  boolean_T overflow;
-  nx = S.size(0) * S.size(1);
-  movMeanMagSqrd.set_size(S.size(0), S.size(1));
-  if (nx > 2147483646) {
-    coder::check_forloop_overflow_error();
-  }
-  for (midm1 = 0; midm1 < nx; midm1++) {
-    movMeanMagSqrd[midm1] = rt_hypotd_snf(S[midm1].re, S[midm1].im);
-  }
+  coder::b_abs(S, movMeanMagSqrd);
+  i = movMeanMagSqrd.size(0);
+  end_tmp = movMeanMagSqrd.size(1);
   magSqrd.set_size(movMeanMagSqrd.size(0), movMeanMagSqrd.size(1));
   loop_ub_tmp = movMeanMagSqrd.size(0) * movMeanMagSqrd.size(1);
-  for (midm1 = 0; midm1 < loop_ub_tmp; midm1++) {
-    varargin_1 = movMeanMagSqrd[midm1];
-    magSqrd[midm1] = varargin_1 * varargin_1;
+  for (int i1{0}; i1 < loop_ub_tmp; i1++) {
+    varargin_1 = movMeanMagSqrd[i1];
+    magSqrd[i1] = varargin_1 * varargin_1;
   }
-  movMeanMagSqrd.set_size(magSqrd.size(0), magSqrd.size(1));
-  loop_ub = magSqrd.size(0) * magSqrd.size(1);
-  for (midm1 = 0; midm1 < loop_ub; midm1++) {
-    movMeanMagSqrd[midm1] = 0.0;
-  }
-  nx = magSqrd.size(1);
-  stride = magSqrd.size(0);
-  if (magSqrd.size(0) > 2147483646) {
-    coder::check_forloop_overflow_error();
-  }
-  if (magSqrd.size(0) - 1 >= 0) {
-    outsize_idx_0 = magSqrd.size(1);
-    b_loop_ub = magSqrd.size(1);
-    overflow = (magSqrd.size(1) > 2147483646);
-  }
-  for (int j{0}; j < stride; j++) {
-    xv.set_size(outsize_idx_0);
-    for (midm1 = 0; midm1 < b_loop_ub; midm1++) {
-      xv[midm1] = 0.0;
-    }
-    if (overflow) {
-      coder::check_forloop_overflow_error();
-    }
-    for (midm1 = 0; midm1 < nx; midm1++) {
-      xv[midm1] = magSqrd[j + midm1 * stride];
-    }
-    coder::vmovfun(xv, magSqrd.size(1), yv);
-    len = yv.size(0);
-    if (yv.size(0) > 2147483646) {
-      coder::check_forloop_overflow_error();
-    }
-    for (midm1 = 0; midm1 < len; midm1++) {
-      movMeanMagSqrd[j + midm1 * stride] = yv[midm1];
-    }
-  }
-  if ((movMeanMagSqrd.size(0) == 0) || (movMeanMagSqrd.size(1) == 0)) {
-    yv.set_size(movMeanMagSqrd.size(0));
-    loop_ub = movMeanMagSqrd.size(0);
-    for (midm1 = 0; midm1 < loop_ub; midm1++) {
-      yv[midm1] = rtNaN;
-    }
-  } else {
-    int n;
-    boolean_T b_overflow;
-    yv.set_size(movMeanMagSqrd.size(0));
-    loop_ub = movMeanMagSqrd.size(0);
-    for (midm1 = 0; midm1 < loop_ub; midm1++) {
-      yv[midm1] = 0.0;
-    }
-    nx = movMeanMagSqrd.size(1);
-    stride = movMeanMagSqrd.size(0);
-    if (movMeanMagSqrd.size(0) > 2147483646) {
-      coder::check_forloop_overflow_error();
-    }
-    loop_ub = movMeanMagSqrd.size(1);
-    overflow = (movMeanMagSqrd.size(1) > 2147483646);
-    n = movMeanMagSqrd.size(1);
-    b_overflow = (movMeanMagSqrd.size(1) > 2147483646);
-    for (int j{0}; j < stride; j++) {
-      xv.set_size(nx);
-      for (midm1 = 0; midm1 < loop_ub; midm1++) {
-        xv[midm1] = 0.0;
-      }
-      if (overflow) {
-        coder::check_forloop_overflow_error();
-      }
-      for (midm1 = 0; midm1 < nx; midm1++) {
-        xv[midm1] = movMeanMagSqrd[j + midm1 * stride];
-      }
-      if (b_overflow) {
-        coder::check_forloop_overflow_error();
-      }
-      midm1 = 0;
-      int exitg1;
-      do {
-        exitg1 = 0;
-        if (midm1 <= n - 1) {
-          if (std::isnan(xv[midm1])) {
-            yv[j] = rtNaN;
-            exitg1 = 1;
-          } else {
-            midm1++;
-          }
-        } else {
-          if (n <= 4) {
-            if (n == 1) {
-              yv[j] = xv[0];
-            } else if (n == 2) {
-              if (((xv[0] < 0.0) != (xv[1] < 0.0)) || std::isinf(xv[0])) {
-                yv[j] = (xv[0] + xv[1]) / 2.0;
-              } else {
-                yv[j] = xv[0] + (xv[1] - xv[0]) / 2.0;
-              }
-            } else if (n == 3) {
-              if (xv[0] < xv[1]) {
-                if (xv[1] < xv[2]) {
-                  outsize_idx_0 = 1;
-                } else if (xv[0] < xv[2]) {
-                  outsize_idx_0 = 2;
-                } else {
-                  outsize_idx_0 = 0;
-                }
-              } else if (xv[0] < xv[2]) {
-                outsize_idx_0 = 0;
-              } else if (xv[1] < xv[2]) {
-                outsize_idx_0 = 2;
-              } else {
-                outsize_idx_0 = 1;
-              }
-              yv[j] = xv[outsize_idx_0];
-            } else {
-              if (xv[0] < xv[1]) {
-                if (xv[1] < xv[2]) {
-                  len = 0;
-                  outsize_idx_0 = 1;
-                  b_loop_ub = 2;
-                } else if (xv[0] < xv[2]) {
-                  len = 0;
-                  outsize_idx_0 = 2;
-                  b_loop_ub = 1;
-                } else {
-                  len = 2;
-                  outsize_idx_0 = 0;
-                  b_loop_ub = 1;
-                }
-              } else if (xv[0] < xv[2]) {
-                len = 1;
-                outsize_idx_0 = 0;
-                b_loop_ub = 2;
-              } else if (xv[1] < xv[2]) {
-                len = 1;
-                outsize_idx_0 = 2;
-                b_loop_ub = 0;
-              } else {
-                len = 2;
-                outsize_idx_0 = 1;
-                b_loop_ub = 0;
-              }
-              if (xv[len] < xv[3]) {
-                if (xv[3] < xv[b_loop_ub]) {
-                  if (((xv[outsize_idx_0] < 0.0) != (xv[3] < 0.0)) ||
-                      std::isinf(xv[outsize_idx_0])) {
-                    yv[j] = (xv[outsize_idx_0] + xv[3]) / 2.0;
-                  } else {
-                    yv[j] =
-                        xv[outsize_idx_0] + (xv[3] - xv[outsize_idx_0]) / 2.0;
-                  }
-                } else if (((xv[outsize_idx_0] < 0.0) !=
-                            (xv[b_loop_ub] < 0.0)) ||
-                           std::isinf(xv[outsize_idx_0])) {
-                  yv[j] = (xv[outsize_idx_0] + xv[b_loop_ub]) / 2.0;
-                } else {
-                  yv[j] = xv[outsize_idx_0] +
-                          (xv[b_loop_ub] - xv[outsize_idx_0]) / 2.0;
-                }
-              } else if (((xv[len] < 0.0) != (xv[outsize_idx_0] < 0.0)) ||
-                         std::isinf(xv[len])) {
-                yv[j] = (xv[len] + xv[outsize_idx_0]) / 2.0;
-              } else {
-                yv[j] = xv[len] + (xv[outsize_idx_0] - xv[len]) / 2.0;
-              }
-            }
-          } else {
-            midm1 = n >> 1;
-            if ((n & 1) == 0) {
-              varargin_1 = coder::internal::quickselect(xv, midm1 + 1, n, len,
-                                                        b_loop_ub);
-              yv[j] = varargin_1;
-              if (midm1 < len) {
-                double b;
-                b = coder::internal::quickselect(xv, midm1, b_loop_ub - 1, len,
-                                                 outsize_idx_0);
-                if (((varargin_1 < 0.0) != (b < 0.0)) ||
-                    std::isinf(varargin_1)) {
-                  yv[j] = (varargin_1 + b) / 2.0;
-                } else {
-                  yv[j] = varargin_1 + (b - varargin_1) / 2.0;
-                }
-              }
-            } else {
-              yv[j] = coder::internal::quickselect(xv, midm1 + 1, n,
-                                                   outsize_idx_0, len);
-            }
-          }
-          exitg1 = 1;
-        }
-      } while (exitg1 == 0);
-    }
-  }
+  coder::movmean(magSqrd, movMeanMagSqrd);
+  coder::median(movMeanMagSqrd, medMovMeanMagSqrd);
   // transpose(median(transpose(movMeanMagSqrd)));%median(rand(80,32767),2);
-  coder::repmat(yv, static_cast<double>(magSqrd.size(1)), movMeanMagSqrd);
-  loop_ub = movMeanMagSqrd.size(0) * movMeanMagSqrd.size(1);
-  for (midm1 = 0; midm1 < loop_ub; midm1++) {
-    movMeanMagSqrd[midm1] = 10.0 * movMeanMagSqrd[midm1];
+  coder::repmat(medMovMeanMagSqrd, static_cast<double>(magSqrd.size(1)),
+                movMeanMagSqrd);
+  b_loop_ub_tmp = movMeanMagSqrd.size(0) * movMeanMagSqrd.size(1);
+  for (int i1{0}; i1 < b_loop_ub_tmp; i1++) {
+    movMeanMagSqrd[i1] = 10.0 * movMeanMagSqrd[i1];
   }
-  if ((magSqrd.size(0) != movMeanMagSqrd.size(0)) &&
-      ((magSqrd.size(0) != 1) && (movMeanMagSqrd.size(0) != 1))) {
-    emlrtDimSizeImpxCheckR2021b(magSqrd.size(0), movMeanMagSqrd.size(0),
-                                g_emlrtECI);
+  if ((i != movMeanMagSqrd.size(0)) &&
+      ((i != 1) && (movMeanMagSqrd.size(0) != 1))) {
+    emlrtDimSizeImpxCheckR2021b(i, movMeanMagSqrd.size(0), g_emlrtECI);
   }
-  if ((magSqrd.size(1) != movMeanMagSqrd.size(1)) &&
-      ((magSqrd.size(1) != 1) && (movMeanMagSqrd.size(1) != 1))) {
-    emlrtDimSizeImpxCheckR2021b(magSqrd.size(1), movMeanMagSqrd.size(1),
-                                h_emlrtECI);
+  if ((end_tmp != movMeanMagSqrd.size(1)) &&
+      ((end_tmp != 1) && (movMeanMagSqrd.size(1) != 1))) {
+    emlrtDimSizeImpxCheckR2021b(end_tmp, movMeanMagSqrd.size(1), h_emlrtECI);
   }
   if ((magSqrd.size(0) == movMeanMagSqrd.size(0)) &&
       (magSqrd.size(1) == movMeanMagSqrd.size(1))) {
-    r.set_size(magSqrd.size(0), magSqrd.size(1));
-    for (midm1 = 0; midm1 < loop_ub_tmp; midm1++) {
-      r[midm1] = (magSqrd[midm1] > movMeanMagSqrd[midm1]);
+    r.set_size(i, end_tmp);
+    for (i = 0; i < loop_ub_tmp; i++) {
+      r[i] = (magSqrd[i] > movMeanMagSqrd[i]);
     }
   } else {
     gt(r, magSqrd, movMeanMagSqrd);
   }
-  len = r.size(0) * r.size(1) - 1;
-  for (outsize_idx_0 = 0; outsize_idx_0 <= len; outsize_idx_0++) {
-    if (r[outsize_idx_0]) {
-      midm1 = magSqrd.size(0) * magSqrd.size(1) - 1;
-      if (outsize_idx_0 > midm1) {
-        rtDynamicBoundsError(outsize_idx_0, 0, midm1, ab_emlrtBCI);
+  end_tmp = r.size(0) * r.size(1);
+  for (loop_ub_tmp = 0; loop_ub_tmp < end_tmp; loop_ub_tmp++) {
+    if (r[loop_ub_tmp]) {
+      i = magSqrd.size(0) * magSqrd.size(1);
+      if (loop_ub_tmp > i - 1) {
+        rtDynamicBoundsError(loop_ub_tmp, 0, i - 1, ab_emlrtBCI);
       }
-      magSqrd[outsize_idx_0] = rtNaN;
+      magSqrd[loop_ub_tmp] = rtNaN;
     }
   }
   varargin_1 = dt;
   varargin_1 = varargin_1 * varargin_1 / T;
-  coder::mean(magSqrd, yv);
-  psd.set_size(yv.size(0));
-  loop_ub = yv.size(0);
-  for (midm1 = 0; midm1 < loop_ub; midm1++) {
-    psd[midm1] = varargin_1 * yv[midm1];
+  coder::mean(magSqrd, medMovMeanMagSqrd);
+  end_tmp = medMovMeanMagSqrd.size(0);
+  psd.set_size(medMovMeanMagSqrd.size(0));
+  for (i = 0; i < end_tmp; i++) {
+    psd[i] = varargin_1 * medMovMeanMagSqrd[i];
   }
   // use median to exclude outliers from short pulses
 }

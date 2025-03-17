@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: validator_check_size.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -27,7 +27,7 @@
 static void b_rtErrorWithMessageID(const long i, const char *aFcnName,
                                    int aLineNum);
 
-static void o_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void oc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -63,7 +63,7 @@ static void b_rtErrorWithMessageID(const long i, const char *aFcnName,
 //                int aLineNum
 // Return Type  : void
 //
-static void o_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void oc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -91,48 +91,45 @@ namespace coder {
 namespace internal {
 void validator_check_size(const array<double, 2U> &in, array<double, 2U> &out)
 {
-  static rtRunTimeErrorInfo bd_emlrtRTEI{
-      164,               // lineNo
-      31,                // colNo
-      "expandOrReshape", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
-      "validator_check_size.m" // pName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      167,              // lineNo
+      "expandOrReshape" // fName
   };
   if ((in.size(0) != 1) || (in.size(1) != 1)) {
     if (in.size(1) != 2) {
-      b_rtErrorWithMessageID(static_cast<long>(in.size(1)), bd_emlrtRTEI.fName,
-                             bd_emlrtRTEI.lineNo);
+      b_rtErrorWithMessageID(static_cast<long>(in.size(1)), rc_emlrtRTEI.fName,
+                             rc_emlrtRTEI.lineNo);
     }
     if (in.size(0) == 0) {
       out.set_size(0, 2);
     } else {
-      int maxdimlen;
+      int n;
       int nx;
       nx = in.size(0) * in.size(1);
-      maxdimlen = in.size(0);
+      n = in.size(0);
       if (in.size(1) > in.size(0)) {
-        maxdimlen = in.size(1);
+        n = in.size(1);
       }
-      if (nx >= maxdimlen) {
-        maxdimlen = nx;
+      if (nx >= n) {
+        n = nx;
       }
-      if (in.size(0) > maxdimlen) {
-        k_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+      if (in.size(0) > n) {
+        k_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
       }
-      if (maxdimlen < 2) {
-        k_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+      if (n < 2) {
+        k_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
       }
-      maxdimlen = in.size(0) << 1;
-      if (maxdimlen != nx) {
-        l_rtErrorWithMessageID(o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
+      n = in.size(0) << 1;
+      if (n != nx) {
+        l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
       }
       out.set_size(in.size(0), 2);
-      for (nx = 0; nx < maxdimlen; nx++) {
+      for (nx = 0; nx < n; nx++) {
         out[nx] = in[nx];
       }
     }
   } else {
-    int maxdimlen;
+    int n;
     unsigned int u;
     if (in.size(0) <= 0) {
       u = 0U;
@@ -140,30 +137,25 @@ void validator_check_size(const array<double, 2U> &in, array<double, 2U> &out)
       u = static_cast<unsigned int>(in.size(0));
     }
     if ((u << 1) > 2147483647U) {
-      m_rtErrorWithMessageID(p_emlrtRTEI.fName, p_emlrtRTEI.lineNo);
+      m_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
     }
     out.set_size(in.size(0), 2);
-    maxdimlen = in.size(0) << 1;
-    for (int nx{0}; nx < maxdimlen; nx++) {
+    n = in.size(0) << 1;
+    for (int nx{0}; nx < n; nx++) {
       out[nx] = in[0];
     }
   }
 }
 
 //
-// Arguments    : const array<c_struct_T, 2U> &in
-//                array<c_struct_T, 2U> &out
+// Arguments    : array<c_struct_T, 2U> &in
 // Return Type  : void
 //
-void validator_check_size(const array<c_struct_T, 2U> &in,
-                          array<c_struct_T, 2U> &out)
+void validator_check_size(array<c_struct_T, 2U> &in)
 {
-  static rtRunTimeErrorInfo bd_emlrtRTEI{
-      219,               // lineNo
-      32,                // colNo
-      "expandOrReshape", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
-      "validator_check_size.m" // pName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      222,              // lineNo
+      "expandOrReshape" // fName
   };
   int inVectorLength;
   inVectorLength = 1;
@@ -172,9 +164,9 @@ void validator_check_size(const array<c_struct_T, 2U> &in,
   }
   if (in.size(1) == 0) {
     if (inVectorLength != 0) {
-      o_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
+      oc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
     }
-    out.set_size(1, 0);
+    in.set_size(1, 0);
   } else {
     int u0;
     int u1;
@@ -187,15 +179,12 @@ void validator_check_size(const array<c_struct_T, 2U> &in,
       u1 = u0;
     }
     if (inVectorLength > u1) {
-      k_rtErrorWithMessageID(n_emlrtRTEI.fName, n_emlrtRTEI.lineNo);
+      k_rtErrorWithMessageID(k_emlrtRTEI.fName, k_emlrtRTEI.lineNo);
     }
     if (inVectorLength != in.size(1)) {
-      l_rtErrorWithMessageID(o_emlrtRTEI.fName, o_emlrtRTEI.lineNo);
+      l_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
     }
-    out.set_size(1, inVectorLength);
-    for (u1 = 0; u1 < inVectorLength; u1++) {
-      out[u1] = in[u1];
-    }
+    in.set_size(1, inVectorLength);
   }
 }
 

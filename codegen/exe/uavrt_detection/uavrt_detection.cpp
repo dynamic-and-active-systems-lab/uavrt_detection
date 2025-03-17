@@ -4,21 +4,23 @@
 // government, commercial, or other organizational use.
 // File: uavrt_detection.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
 #include "uavrt_detection.h"
 #include "AsyncBuffer.h"
-#include "AsyncBuffercgHelper.h"
+#include "AsyncBufferSysObj.h"
 #include "ComplexSingleSamplesUDPReceiver.h"
 #include "DetectorConfig.h"
+#include "PulseInfoStruct.h"
 #include "all.h"
 #include "blockedSummation.h"
 #include "datetime.h"
 #include "diff.h"
 #include "eml_int_forloop_overflow_check.h"
+#include "feof.h"
 #include "fgetl.h"
 #include "fileManager.h"
 #include "find.h"
@@ -28,15 +30,20 @@
 #include "horzcatStructList.h"
 #include "ifWhileCond.h"
 #include "indexShapeCheck.h"
+#include "log10.h"
 #include "makepulsestruc.h"
+#include "mpower.h"
+#include "mustBeInteger.h"
 #include "pulsestats.h"
-#include "pwd.h"
+#include "pwd1.h"
 #include "ref.h"
 #include "rt_nonfinite.h"
+#include "sprintf.h"
 #include "str2double.h"
 #include "str2matrix.h"
 #include "strcmp.h"
 #include "string1.h"
+#include "sum.h"
 #include "threshold.h"
 #include "tic.h"
 #include "toc.h"
@@ -69,14 +76,14 @@
 // Function Declarations
 static void b_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-static void b_rtErrorWithMessageID(const char *r, const char *aFcnName,
-                                   int aLineNum);
-
-static void e_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
-
 static void
 interleaveComplexVector(const coder::array<creal32_T, 1U> &complexDataIn,
                         coder::array<float, 1U> &interleaveDataOut);
+
+static void j_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+
+static void rtErrorWithMessageID(const char *r, const char *aFcnName,
+                                 int aLineNum);
 
 static void
 updatebufferreadvariables(const coder::b_captured_var &Config,
@@ -86,7 +93,7 @@ updatebufferreadvariables(const coder::b_captured_var &Config,
                           const pulsestats *ps_input);
 
 static void updateconfig(coder::b_captured_var &Config,
-                         const coder::captured_var &configPath);
+                         coder::captured_var &configPath);
 
 // Function Definitions
 //
@@ -99,50 +106,6 @@ static void b_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
   std::string errMsg;
   std::stringstream outStream;
   outStream << "fopen(\'all\') is not supported for code generation.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *r
-//                const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-static void b_rtErrorWithMessageID(const char *r, const char *aFcnName,
-                                   int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  ((outStream << "Value must be less than ") << r) << ".";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-static void e_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  outStream << "Value must be nonnegative.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -172,18 +135,17 @@ interleaveComplexVector(const coder::array<creal32_T, 1U> &complexDataIn,
   coder::array<float, 1U> varargin_2;
   int loop_ub;
   // Enforce column vector
-  varargin_1.set_size(complexDataIn.size(0));
   loop_ub = complexDataIn.size(0);
+  varargin_1.set_size(complexDataIn.size(0));
   varargin_2.set_size(complexDataIn.size(0));
   for (int i{0}; i < loop_ub; i++) {
     varargin_1[i] = complexDataIn[i].re;
     varargin_2[i] = complexDataIn[i].im;
   }
   if (varargin_2.size(0) != varargin_1.size(0)) {
-    gb_rtErrorWithMessageID(ub_emlrtRTEI.fName, ub_emlrtRTEI.lineNo);
+    fb_rtErrorWithMessageID(qb_emlrtRTEI.fName, qb_emlrtRTEI.lineNo);
   }
-  dataMatrix.set_size(2, varargin_1.size(0));
-  loop_ub = varargin_1.size(0);
+  dataMatrix.set_size(2, complexDataIn.size(0));
   for (int i{0}; i < loop_ub; i++) {
     dataMatrix[2 * i] = varargin_1[i];
     dataMatrix[2 * i + 1] = varargin_2[i];
@@ -194,6 +156,50 @@ interleaveComplexVector(const coder::array<creal32_T, 1U> &complexDataIn,
     interleaveDataOut[i] = dataMatrix[i];
   }
   // Interleave
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void j_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Value must be nonnegative.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *r
+//                const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void rtErrorWithMessageID(const char *r, const char *aFcnName,
+                                 int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  ((outStream << "Value must be less than ") << r) << ".";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
 }
 
 //
@@ -223,6 +229,7 @@ updatebufferreadvariables(const coder::b_captured_var &Config,
   double N;
   double a__2;
   double n_ol;
+  unsigned int validatedHoleFilling[3];
   unsigned int u;
   unsigned int u1;
   unsigned int u2;
@@ -407,7 +414,10 @@ updatebufferreadvariables(const coder::b_captured_var &Config,
   } else {
     u2 = 0U;
   }
-  std::printf("Updated buffer read vars -- N: %u, M: %u, J: %u,\n", u, u1, u2);
+  coder::internal::validate_print_arguments(u, u1, u2, validatedHoleFilling);
+  std::printf("Updated buffer read vars -- N: %u, M: %u, J: %u,\n",
+              validatedHoleFilling[0], validatedHoleFilling[1],
+              validatedHoleFilling[2]);
   std::fflush(stdout);
   a__2 = std::round(sampsForKPulses.contents);
   if (a__2 < 4.294967296E+9) {
@@ -446,149 +456,75 @@ updatebufferreadvariables(const coder::b_captured_var &Config,
 //
 //
 // Arguments    : coder::b_captured_var &Config
-//                const coder::captured_var &configPath
+//                coder::captured_var &configPath
 // Return Type  : void
 //
 static void updateconfig(coder::b_captured_var &Config,
-                         const coder::captured_var &configPath)
+                         coder::captured_var &configPath)
 {
   static rtBoundsCheckInfo ab_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      124,                          // lineNo
-      28,                           // colNo
-      "rawLine",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      124,                         // lineNo
+      "rawLine",                   // aName
+      "DetectorConfig/setFromFile" // fName
   };
   static rtBoundsCheckInfo bb_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      155,                          // lineNo
-      31,                           // colNo
-      "sepByte",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      155,                         // lineNo
+      "sepByte",                   // aName
+      "DetectorConfig/setFromFile" // fName
   };
   static rtBoundsCheckInfo cb_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      159,                          // lineNo
-      28,                           // colNo
-      "lineStr",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      159,                         // lineNo
+      "lineStr",                   // aName
+      "DetectorConfig/setFromFile" // fName
   };
   static rtBoundsCheckInfo db_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      162,                          // lineNo
-      55,                           // colNo
-      "tabLocs",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      162,                         // lineNo
+      "tabLocs",                   // aName
+      "DetectorConfig/setFromFile" // fName
   };
   static rtBoundsCheckInfo eb_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      163,                          // lineNo
-      63,                           // colNo
-      "colonLocation",              // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      163,                         // lineNo
+      "colonLocation",             // aName
+      "DetectorConfig/setFromFile" // fName
   };
   static rtBoundsCheckInfo fb_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      202,                          // lineNo
-      69,                           // colNo
-      "sepByte",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      202,                         // lineNo
+      "sepByte",                   // aName
+      "DetectorConfig/setFromFile" // fName
   };
   static rtBoundsCheckInfo gb_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      164,                          // lineNo
-      47,                           // colNo
-      "lineStr",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      164,                         // lineNo
+      "lineStr",                   // aName
+      "DetectorConfig/setFromFile" // fName
   };
   static rtBoundsCheckInfo hb_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      164,                          // lineNo
-      74,                           // colNo
-      "lineStr",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      164,                         // lineNo
+      "lineStr",                   // aName
+      "DetectorConfig/setFromFile" // fName
   };
   static rtBoundsCheckInfo ib_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      163,                          // lineNo
-      47,                           // colNo
-      "lineStr",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      163,                         // lineNo
+      "lineStr",                   // aName
+      "DetectorConfig/setFromFile" // fName
   };
   static rtBoundsCheckInfo jb_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      163,                          // lineNo
-      49,                           // colNo
-      "lineStr",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      163,                         // lineNo
+      "lineStr",                   // aName
+      "DetectorConfig/setFromFile" // fName
   };
   static rtBoundsCheckInfo kb_emlrtBCI{
-      -1,                           // iFirst
-      -1,                           // iLast
-      204,                          // lineNo
-      69,                           // colNo
-      "sepByte",                    // aName
-      "DetectorConfig/setFromFile", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/DetectorConfig.m", // pName
-      0                                                   // checkKind
+      204,                         // lineNo
+      "sepByte",                   // aName
+      "DetectorConfig/setFromFile" // fName
   };
-  static rtRunTimeErrorInfo bd_emlrtRTEI{
-      37,      // lineNo
-      9,       // colNo
-      "fopen", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/fopen.m" // pName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      38,     // lineNo
+      "fopen" // fName
   };
-  static rtRunTimeErrorInfo cd_emlrtRTEI{
-      11,                  // lineNo
-      24,                  // colNo
-      "mustBeNonnegative", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/validators/"
-      "mustBeNonnegative.m" // pName
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
+      11,                 // lineNo
+      "mustBeNonnegative" // fName
   };
-  static const char b_cv[2]{'I', 'D'};
-  int st;
-  std::FILE *f;
   DetectorConfig r;
   coder::array<creal_T, 2U> r1;
   coder::array<double, 2U> sepByte;
@@ -602,19 +538,18 @@ static void updateconfig(coder::b_captured_var &Config,
   coder::array<boolean_T, 2U> b_lineStr;
   double configNum;
   double d;
-  int b_st;
-  int c_st;
+  int b_i;
   int fid;
   int i;
   int ii_data;
   int loop_ub;
-  int text_len;
-  boolean_T a;
+  int match_idx;
   boolean_T done;
   r.init();
-  lineStr.set_size(1, configPath.contents.size(1));
   loop_ub = configPath.contents.size(1);
-  for (i = 0; i < loop_ub; i++) {
+  lineStr.set_size(1, loop_ub);
+  match_idx = configPath.contents.size(1);
+  for (i = 0; i < match_idx; i++) {
     lineStr[i] = configPath.contents[i];
   }
   // fillFromFile Replaces the properties of the instance passed to
@@ -637,7 +572,7 @@ static void updateconfig(coder::b_captured_var &Config,
   //    none (method modifies the properties of the instance)
   //
   if (coder::internal::b_strcmp(lineStr)) {
-    b_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
+    b_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
   } else {
     signed char fileid;
     fileid = coder::internal::cfopen(lineStr, "rb");
@@ -645,11 +580,10 @@ static void updateconfig(coder::b_captured_var &Config,
   }
   if (fid == -1) {
     configType.set_size(1, lineStr.size(1) + 1);
-    loop_ub = lineStr.size(1);
     for (i = 0; i < loop_ub; i++) {
       configType[i] = lineStr[i];
     }
-    configType[lineStr.size(1)] = '\x00';
+    configType[loop_ub] = '\x00';
     std::printf("UAV-RT: Error opening configurationfile file with error. "
                 "Attempted to find config file at the location %s:\n",
                 &configType[0]);
@@ -683,26 +617,19 @@ static void updateconfig(coder::b_captured_var &Config,
       }
       configNum++;
     }
-    f = coder::internal::getfilestar(static_cast<double>(fid), a);
-    if (f == nullptr) {
-      c_rtErrorWithMessageID(c_emlrtRTEI.fName, c_emlrtRTEI.lineNo);
-    } else {
-      st = std::feof(f);
-      text_len = ((int)st != 0);
-    }
-    done = (text_len == 1);
+    done = (coder::b_feof(static_cast<double>(fid)) == 1.0);
   }
   // sepByte(configNum) = ftell(fid);
   d = coder::b_ftell(static_cast<double>(fid));
   i = sepByte.size(1);
+  b_i = sepByte.size(1) + 1;
   sepByte.set_size(1, sepByte.size(1) + 1);
   sepByte[i] = d;
   // Modified for Coder compatibility
   // Jump to the line for the entry requested
   if ((static_cast<int>(configNum) < 1) ||
-      (static_cast<int>(configNum) > sepByte.size(1))) {
-    rtDynamicBoundsError(static_cast<int>(configNum), 1, sepByte.size(1),
-                         bb_emlrtBCI);
+      (static_cast<int>(configNum) > b_i)) {
+    rtDynamicBoundsError(static_cast<int>(configNum), 1, b_i, bb_emlrtBCI);
   }
   coder::b_fseek(static_cast<double>(fid),
                  sepByte[static_cast<int>(configNum) - 1]);
@@ -712,14 +639,13 @@ static void updateconfig(coder::b_captured_var &Config,
     exitg1 = 0;
     if (!done) {
       coder::fgetl(static_cast<double>(fid), lineStr);
+      loop_ub = lineStr.size(1);
       if (lineStr.size(1) < 1) {
         rtDynamicBoundsError(1, 1, lineStr.size(1), cb_emlrtBCI);
       }
       if (lineStr[0] != '#') {
         int ii_size[2];
-        int match_idx;
         b_lineStr.set_size(1, lineStr.size(1));
-        loop_ub = lineStr.size(1);
         for (i = 0; i < loop_ub; i++) {
           b_lineStr[i] = (lineStr[i] == ':');
         }
@@ -728,15 +654,14 @@ static void updateconfig(coder::b_captured_var &Config,
         if (lineStr.size(1) == 0) {
           tabLocs.set_size(1, 0);
         } else {
-          text_len = lineStr.size(1);
           matches.set_size(1, lineStr.size(1));
           match_idx = 0;
           if (lineStr.size(1) > 2147483646) {
             coder::check_forloop_overflow_error();
           }
-          for (loop_ub = 0; loop_ub < text_len; loop_ub++) {
-            if (lineStr[loop_ub] == '\t') {
-              matches[match_idx] = loop_ub + 1;
+          for (i = 0; i < loop_ub; i++) {
+            if (lineStr[i] == '\t') {
+              matches[match_idx] = i + 1;
               match_idx++;
             }
           }
@@ -744,11 +669,11 @@ static void updateconfig(coder::b_captured_var &Config,
           if (match_idx > 2147483646) {
             coder::check_forloop_overflow_error();
           }
-          for (loop_ub = 0; loop_ub < match_idx; loop_ub++) {
-            match_out[loop_ub] = matches[loop_ub];
+          for (i = 0; i < match_idx; i++) {
+            match_out[i] = matches[i];
           }
-          tabLocs.set_size(1, match_out.size(1));
           loop_ub = match_out.size(1);
+          tabLocs.set_size(1, match_out.size(1));
           for (i = 0; i < loop_ub; i++) {
             tabLocs[i] = static_cast<unsigned int>(match_out[i]);
           }
@@ -779,7 +704,7 @@ static void updateconfig(coder::b_captured_var &Config,
         }
         if (tabLocs[0] + 1U > static_cast<unsigned int>(lineStr.size(1))) {
           i = 0;
-          text_len = 0;
+          match_idx = 0;
         } else {
           i = static_cast<int>(tabLocs[0] + 1U);
           if ((i < 1) || (i > lineStr.size(1))) {
@@ -790,253 +715,201 @@ static void updateconfig(coder::b_captured_var &Config,
             rtDynamicBoundsError(lineStr.size(1), 1, lineStr.size(1),
                                  hb_emlrtBCI);
           }
-          text_len = lineStr.size(1);
+          match_idx = lineStr.size(1);
         }
-        match_idx = text_len - i;
-        configValStr.set_size(1, match_idx);
-        for (text_len = 0; text_len < match_idx; text_len++) {
-          configValStr[text_len] = lineStr[i + text_len];
+        loop_ub = match_idx - i;
+        configValStr.set_size(1, loop_ub);
+        for (match_idx = 0; match_idx < loop_ub; match_idx++) {
+          configValStr[match_idx] = lineStr[i + match_idx];
         }
-        a = false;
-        if (loop_ub == 2) {
-          text_len = 0;
-          int exitg2;
-          do {
-            exitg2 = 0;
-            if (text_len < 2) {
-              if (lineStr[text_len] != b_cv[text_len]) {
-                exitg2 = 1;
-              } else {
-                text_len++;
-              }
-            } else {
-              a = true;
-              exitg2 = 1;
-            }
-          } while (exitg2 == 0);
-        }
-        if (a) {
+        if (coder::internal::c_strcmp(configType)) {
           creal_T x;
           unsigned int in;
-          unsigned int in_tmp;
           x = coder::internal::str2double(configValStr);
           d = std::round(x.re);
           if (d < 4.294967296E+9) {
             if (d >= 0.0) {
-              in_tmp = static_cast<unsigned int>(d);
-              in = in_tmp;
+              in = static_cast<unsigned int>(d);
             } else {
-              in_tmp = 0U;
               in = 0U;
             }
           } else if (d >= 4.294967296E+9) {
-            in_tmp = MAX_uint32_T;
             in = MAX_uint32_T;
           } else {
-            in_tmp = 0U;
             in = 0U;
           }
-          r.ID = in_tmp;
+          r.ID = in;
           if (in <= 0U) {
-            d_rtErrorWithMessageID(d_emlrtRTEI.fName, d_emlrtRTEI.lineNo);
+            h_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
           }
-        } else if (coder::internal::c_strcmp(configType)) {
+          coder::mustBeInteger(static_cast<double>(in));
+        } else if (coder::internal::d_strcmp(configType)) {
           creal_T x;
           x = coder::internal::str2double(configValStr);
           if (!(x.re >= 0.0)) {
-            e_rtErrorWithMessageID(cd_emlrtRTEI.fName, cd_emlrtRTEI.lineNo);
+            j_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
           }
           r.channelCenterFreqMHz = x.re;
-        } else if (!coder::internal::d_strcmp(configType)) {
-          if (coder::internal::e_strcmp(configType)) {
+        } else if (!coder::internal::e_strcmp(configType)) {
+          if (coder::internal::f_strcmp(configType)) {
             creal_T x;
-            unsigned short b_in_tmp;
-            unsigned short u;
+            unsigned short b_in;
             x = coder::internal::str2double(configValStr);
             d = std::round(x.re);
             if (d < 65536.0) {
               if (d >= 0.0) {
-                b_in_tmp = static_cast<unsigned short>(d);
-                u = b_in_tmp;
+                b_in = static_cast<unsigned short>(d);
               } else {
-                b_in_tmp = 0U;
-                u = 0U;
+                b_in = 0U;
               }
             } else if (d >= 65536.0) {
-              b_in_tmp = MAX_uint16_T;
-              u = MAX_uint16_T;
+              b_in = MAX_uint16_T;
             } else {
-              b_in_tmp = 0U;
-              u = 0U;
+              b_in = 0U;
             }
-            r.portData = b_in_tmp;
-            if (u <= 0) {
-              d_rtErrorWithMessageID(d_emlrtRTEI.fName, d_emlrtRTEI.lineNo);
+            r.portData = b_in;
+            if (b_in <= 0) {
+              h_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
             }
-          } else if (coder::internal::f_strcmp(configType)) {
-            creal_T x;
-            x = coder::internal::str2double(configValStr);
-            if (!(x.re > 0.0)) {
-              d_rtErrorWithMessageID(d_emlrtRTEI.fName, d_emlrtRTEI.lineNo);
-            }
-            r.Fs = x.re;
+            coder::mustBeInteger(static_cast<double>(b_in));
           } else if (coder::internal::g_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
-            r.tagFreqMHz = x.re;
+            if (!(x.re > 0.0)) {
+              h_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+            }
+            r.Fs = x.re;
           } else if (coder::internal::h_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
-            if (!(x.re > 0.0)) {
-              d_rtErrorWithMessageID(d_emlrtRTEI.fName, d_emlrtRTEI.lineNo);
-            }
-            r.tp = x.re;
+            r.tagFreqMHz = x.re;
           } else if (coder::internal::i_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re > 0.0)) {
-              d_rtErrorWithMessageID(d_emlrtRTEI.fName, d_emlrtRTEI.lineNo);
+              h_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
             }
-            r.tip = x.re;
+            r.tp = x.re;
           } else if (coder::internal::j_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
-            if (!(x.re >= 0.0)) {
-              e_rtErrorWithMessageID(cd_emlrtRTEI.fName, cd_emlrtRTEI.lineNo);
+            if (!(x.re > 0.0)) {
+              h_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
             }
-            r.tipu = x.re;
+            r.tip = x.re;
           } else if (coder::internal::k_strcmp(configType)) {
             creal_T x;
             x = coder::internal::str2double(configValStr);
             if (!(x.re >= 0.0)) {
-              e_rtErrorWithMessageID(cd_emlrtRTEI.fName, cd_emlrtRTEI.lineNo);
+              j_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
+            }
+            r.tipu = x.re;
+          } else if (coder::internal::l_strcmp(configType)) {
+            creal_T x;
+            x = coder::internal::str2double(configValStr);
+            if (!(x.re >= 0.0)) {
+              j_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
             }
             r.tipj = x.re;
-          } else {
-            a = false;
-            if ((loop_ub == 1) && (lineStr[0] == 'K')) {
-              a = true;
-            }
-            if (a) {
-              creal_T x;
-              unsigned char c_in_tmp;
-              unsigned char u1;
-              x = coder::internal::str2double(configValStr);
-              d = std::round(x.re);
-              if (d < 256.0) {
-                if (d >= 0.0) {
-                  c_in_tmp = static_cast<unsigned char>(d);
-                  u1 = c_in_tmp;
-                } else {
-                  c_in_tmp = 0U;
-                  u1 = 0U;
-                }
-              } else if (d >= 256.0) {
-                c_in_tmp = MAX_uint8_T;
-                u1 = MAX_uint8_T;
+          } else if (coder::internal::m_strcmp(configType)) {
+            creal_T x;
+            unsigned char c_in;
+            x = coder::internal::str2double(configValStr);
+            d = std::round(x.re);
+            if (d < 256.0) {
+              if (d >= 0.0) {
+                c_in = static_cast<unsigned char>(d);
               } else {
-                c_in_tmp = 0U;
-                u1 = 0U;
+                c_in = 0U;
               }
-              r.K = c_in_tmp;
-              if (u1 <= 0) {
-                d_rtErrorWithMessageID(d_emlrtRTEI.fName, d_emlrtRTEI.lineNo);
+            } else if (d >= 256.0) {
+              c_in = MAX_uint8_T;
+            } else {
+              c_in = 0U;
+            }
+            r.K = c_in;
+            if (c_in <= 0) {
+              h_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+            }
+            coder::mustBeInteger(static_cast<double>(c_in));
+          } else if (!coder::internal::n_strcmp(configType)) {
+            if (coder::internal::o_strcmp(configType)) {
+              str2matrix(configValStr, r1);
+              val.set_size(r1.size(0), r1.size(1));
+              match_idx = r1.size(0) * r1.size(1);
+              for (i = 0; i < match_idx; i++) {
+                val[i] = r1[i].re;
               }
-            } else if (!coder::internal::l_strcmp(configType)) {
-              if (coder::internal::m_strcmp(configType)) {
-                str2matrix(configValStr, r1);
-                val.set_size(r1.size(0), r1.size(1));
-                loop_ub = r1.size(0) * r1.size(1);
-                for (i = 0; i < loop_ub; i++) {
-                  val[i] = r1[i].re;
+              coder::internal::validator_check_size(val, r.excldFreqs);
+            } else if (coder::internal::p_strcmp(configType)) {
+              creal_T x;
+              x = coder::internal::str2double(configValStr);
+              if (!(x.re > 0.0)) {
+                h_rtErrorWithMessageID(j_emlrtRTEI.fName, j_emlrtRTEI.lineNo);
+              }
+              if (!(x.re < 1.0)) {
+                rtErrorWithMessageID("1", n_emlrtRTEI.fName,
+                                     n_emlrtRTEI.lineNo);
+              }
+              r.falseAlarmProb = x.re;
+            } else if (!coder::internal::q_strcmp(configType)) {
+              if (coder::internal::r_strcmp(configType)) {
+                r.logPath.Value.set_size(1, loop_ub);
+                for (match_idx = 0; match_idx < loop_ub; match_idx++) {
+                  r.logPath.Value[match_idx] = lineStr[i + match_idx];
                 }
-                coder::internal::validator_check_size(val, r.excldFreqs);
-              } else if (coder::internal::n_strcmp(configType)) {
+              } else if (coder::internal::s_strcmp(configType)) {
                 creal_T x;
+                unsigned int in;
                 x = coder::internal::str2double(configValStr);
-                if (!(x.re > 0.0)) {
-                  d_rtErrorWithMessageID(d_emlrtRTEI.fName, d_emlrtRTEI.lineNo);
-                }
-                if (!(x.re < 1.0)) {
-                  b_rtErrorWithMessageID("1", e_emlrtRTEI.fName,
-                                         e_emlrtRTEI.lineNo);
-                }
-                r.falseAlarmProb = x.re;
-              } else if (!coder::internal::o_strcmp(configType)) {
-                if (coder::internal::p_strcmp(configType)) {
-                  r.logPath.Value.set_size(1, match_idx);
-                  for (text_len = 0; text_len < match_idx; text_len++) {
-                    r.logPath.Value[text_len] = lineStr[i + text_len];
-                  }
-                } else if (coder::internal::q_strcmp(configType)) {
-                  creal_T x;
-                  unsigned int in;
-                  x = coder::internal::str2double(configValStr);
-                  d = std::round(x.re);
-                  if (d < 4.294967296E+9) {
-                    if (d >= 0.0) {
-                      in = static_cast<unsigned int>(d);
-                    } else {
-                      in = 0U;
-                    }
-                  } else if (d >= 4.294967296E+9) {
-                    in = MAX_uint32_T;
+                d = std::round(x.re);
+                if (d < 4.294967296E+9) {
+                  if (d >= 0.0) {
+                    in = static_cast<unsigned int>(d);
                   } else {
                     in = 0U;
                   }
-                  r.startIndex = in;
+                } else if (d >= 4.294967296E+9) {
+                  in = MAX_uint32_T;
+                } else {
+                  in = 0U;
                 }
+                r.startIndex = in;
+                coder::mustBeInteger(static_cast<double>(in));
               }
             }
           }
         }
         // Stop when we have finished reading this entry.
-        f = coder::internal::getfilestar(static_cast<double>(fid), a);
-        if (f == nullptr) {
-          c_rtErrorWithMessageID(c_emlrtRTEI.fName, c_emlrtRTEI.lineNo);
-        } else {
-          st = std::feof(f);
-          c_st = ((int)st != 0);
-        }
-        if (c_st == 1) {
+        if (coder::b_feof(static_cast<double>(fid)) == 1.0) {
           done = true;
         } else {
           if ((static_cast<int>(static_cast<unsigned int>(configNum) + 1U) <
                1) ||
               (static_cast<int>(static_cast<unsigned int>(configNum) + 1U) >
-               sepByte.size(1))) {
+               b_i)) {
             rtDynamicBoundsError(
                 static_cast<int>(static_cast<unsigned int>(configNum) + 1U), 1,
-                sepByte.size(1), fb_emlrtBCI);
+                b_i, fb_emlrtBCI);
           }
           if (coder::b_ftell(static_cast<double>(fid)) ==
               sepByte[static_cast<int>(static_cast<unsigned int>(configNum))]) {
             done = true;
           }
         }
+      } else if (coder::b_feof(static_cast<double>(fid)) == 1.0) {
+        done = true;
       } else {
-        f = coder::internal::getfilestar(static_cast<double>(fid), a);
-        if (f == nullptr) {
-          c_rtErrorWithMessageID(c_emlrtRTEI.fName, c_emlrtRTEI.lineNo);
-        } else {
-          st = std::feof(f);
-          b_st = ((int)st != 0);
+        if ((static_cast<int>(static_cast<unsigned int>(configNum) + 1U) < 1) ||
+            (static_cast<int>(static_cast<unsigned int>(configNum) + 1U) >
+             b_i)) {
+          rtDynamicBoundsError(
+              static_cast<int>(static_cast<unsigned int>(configNum) + 1U), 1,
+              b_i, kb_emlrtBCI);
         }
-        if (b_st == 1) {
+        if (coder::b_ftell(static_cast<double>(fid)) ==
+            sepByte[static_cast<int>(static_cast<unsigned int>(configNum))]) {
           done = true;
-        } else {
-          if ((static_cast<int>(static_cast<unsigned int>(configNum) + 1U) <
-               1) ||
-              (static_cast<int>(static_cast<unsigned int>(configNum) + 1U) >
-               sepByte.size(1))) {
-            rtDynamicBoundsError(
-                static_cast<int>(static_cast<unsigned int>(configNum) + 1U), 1,
-                sepByte.size(1), kb_emlrtBCI);
-          }
-          if (coder::b_ftell(static_cast<double>(fid)) ==
-              sepByte[static_cast<int>(static_cast<unsigned int>(configNum))]) {
-            done = true;
-          }
         }
       }
     } else {
@@ -1063,151 +936,70 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   static coder::dsp::b_AsyncBuffer asyncTimeBuff;
   static coder::dsp::c_AsyncBuffer asyncWriteBuff;
   static rtBoundsCheckInfo ab_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      302,               // lineNo
-      82,                // colNo
-      "timeVector",      // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
+      302,              // lineNo
+      "timeVector",     // aName
+      "uavrt_detection" // fName
   };
   static rtBoundsCheckInfo bb_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      317,               // lineNo
-      32,                // colNo
-      "t",               // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
+      317,              // lineNo
+      "t",              // aName
+      "uavrt_detection" // fName
   };
   static rtBoundsCheckInfo cb_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      416,               // lineNo
-      26,                // colNo
-      "X.x",             // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
+      416,              // lineNo
+      "X.x",            // aName
+      "uavrt_detection" // fName
   };
   static rtBoundsCheckInfo db_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      421,               // lineNo
-      26,                // colNo
-      "X.x",             // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
+      421,              // lineNo
+      "X.x",            // aName
+      "uavrt_detection" // fName
   };
   static rtBoundsCheckInfo eb_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      427,               // lineNo
-      26,                // colNo
-      "X.x",             // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
+      427,              // lineNo
+      "X.x",            // aName
+      "uavrt_detection" // fName
   };
   static rtBoundsCheckInfo fb_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      432,               // lineNo
-      26,                // colNo
-      "X.x",             // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
+      432,              // lineNo
+      "X.x",            // aName
+      "uavrt_detection" // fName
   };
   static rtBoundsCheckInfo gb_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      515,               // lineNo
-      61,                // colNo
-      "X.ps_pos.pl",     // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
+      515,              // lineNo
+      "X.ps_pos.pl",    // aName
+      "uavrt_detection" // fName
   };
   static rtBoundsCheckInfo hb_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
       520,               // lineNo
-      79,                // colNo
       "ps_pre_struc.pl", // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
+      "uavrt_detection"  // fName
   };
   static rtBoundsCheckInfo ib_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      526,               // lineNo
-      50,                // colNo
-      "pulsesToSkip",    // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
+      526,              // lineNo
+      "pulsesToSkip",   // aName
+      "uavrt_detection" // fName
   };
   static rtBoundsCheckInfo jb_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      555,               // lineNo
-      91,                // colNo
-      "X.ps_pos.pl",     // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
+      555,              // lineNo
+      "X.ps_pos.pl",    // aName
+      "uavrt_detection" // fName
   };
   static rtBoundsCheckInfo kb_emlrtBCI{
-      -1,                // iFirst
-      -1,                // iLast
-      571,               // lineNo
-      50,                // colNo
-      "pulsesToSkip",    // aName
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      0                                                    // checkKind
+      571,              // lineNo
+      "pulsesToSkip",   // aName
+      "uavrt_detection" // fName
   };
-  static rtDoubleCheckInfo s_emlrtDCI{
-      247,               // lineNo
-      50,                // colNo
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      4                                                    // checkKind
+  static rtDoubleCheckInfo q_emlrtDCI{
+      247,              // lineNo
+      "uavrt_detection" // fName
   };
-  static rtDoubleCheckInfo t_emlrtDCI{
-      247,               // lineNo
-      50,                // colNo
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m", // pName
-      1                                                    // checkKind
-  };
-  static rtEqualityCheckInfo g_emlrtECI{
-      -1,                // nDims
-      247,               // lineNo
-      37,                // colNo
-      "uavrt_detection", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/uavrt_detection.m" // pName
+  static rtDoubleCheckInfo r_emlrtDCI{
+      247,              // lineNo
+      "uavrt_detection" // fName
   };
   ComplexSingleSamplesUDPReceiver udpReceiver;
+  PulseInfoStruct pulseInfoStruct;
   b_waveform X;
   coder::b_captured_var Config;
   coder::c_captured_var overlapSamples;
@@ -1221,7 +1013,6 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   pulsestats lobj_17;
   pulsestats lobj_18;
   pulsestats *pulseStatsPriori;
-  threshold Xhold_tmp;
   threshold _in;
   waveform b_X;
   waveform lobj_13;
@@ -1240,11 +1031,11 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   coder::array<creal32_T, 1U> dataWriterBuffData;
   coder::array<creal32_T, 1U> x;
   coder::array<cuint8_T, 1U> r;
+  coder::array<double, 2U> b_varargin_1;
   coder::array<double, 2U> b_x;
-  coder::array<double, 2U> groupSNRList;
   coder::array<double, 2U> ps_pre_struc_cpki;
-  coder::array<double, 1U> b_groupSNRList;
   coder::array<double, 1U> b_timeVector;
+  coder::array<double, 1U> d_varargin_1;
   coder::array<double, 1U> t;
   coder::array<double, 1U> timeVector;
   coder::array<float, 1U> r1;
@@ -1256,43 +1047,39 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   coder::array<boolean_T, 2U> r3;
   coder::array<boolean_T, 1U> r2;
   c_struct_T detectorPulse;
-  c_struct_T expl_temp;
+  c_struct_T pulseStatsPriori_tmp;
   creal_T dcv[1000];
   creal32_T dataReceived_data[1024];
   creal32_T b_dataReceived_data[1023];
   creal32_T exampleData[1000];
   double doublesBuffer[12];
   double ps_pre_struc_tmplt[2];
-  double T;
   double d;
   double d1;
+  double d2;
   double dataWriterSamples;
   double expectedNextTimeStamp;
   double framesReceived;
   double groupSeqCounter;
-  double missingSamples;
   double previousPulseTime;
-  double prioriRelativeFreqHz;
   double ps_pre_struc_fend;
   double ps_pre_struc_fp;
   double ps_pre_struc_fstart;
+  double ps_pre_struc_t_ip;
+  double ps_pre_struc_t_ipj;
+  double ps_pre_struc_t_ipu;
+  double ps_pre_struc_t_p;
   double segmentsProcessed;
   double startTime;
-  double t9_fend;
-  double t9_fp;
-  double t9_fstart;
-  double t9_t_0;
-  double t9_t_f;
-  double timeDiff;
-  double timeStamp;
   double trackedCount;
   int iv[2];
+  int b_currDir;
+  int dataWriterFileID;
   int i;
+  int i1;
   int loop_ub;
-  int nPulseList;
-  int nbytes;
+  int loop_ub_tmp;
   unsigned int u1;
-  int val;
   unsigned short u2;
   signed char fileid;
   char mode;
@@ -1302,13 +1089,17 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   boolean_T fLock;
   boolean_T resetBuffersFlag;
   boolean_T staleDataFlag;
-  boolean_T t9_con_dec;
-  boolean_T t9_det_dec;
   if (!isInitialized_uavrt_detection) {
     uavrt_detection_initialize();
   }
-  b_configPath.contents.set_size(1, configPath.size(1));
+  asyncDataBuff.pBuffer.matlabCodegenIsDeleted = true;
+  asyncDataBuff.matlabCodegenIsDeleted = true;
+  asyncTimeBuff.pBuffer.matlabCodegenIsDeleted = true;
+  asyncTimeBuff.matlabCodegenIsDeleted = true;
+  asyncWriteBuff.pBuffer.matlabCodegenIsDeleted = true;
+  asyncWriteBuff.matlabCodegenIsDeleted = true;
   loop_ub = configPath.size(1);
+  b_configPath.contents.set_size(1, configPath.size(1));
   for (i = 0; i < loop_ub; i++) {
     b_configPath.contents[i] = configPath[i];
   }
@@ -1317,8 +1108,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   //  files are stored.
   //                          If not specified thresholds will be re-generated.
   // Needed for usleep function in generated code
-  globalThresholdCachePath.set_size(1, thresholdCachePath.size(1));
   loop_ub = thresholdCachePath.size(1);
+  globalThresholdCachePath.set_size(1, thresholdCachePath.size(1));
   for (i = 0; i < loop_ub; i++) {
     globalThresholdCachePath[i] = thresholdCachePath[i];
   }
@@ -1347,8 +1138,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   //       end
   //  end
   varargin_1.set_size(1, currDir.size(1) + 1);
-  loop_ub = currDir.size(1);
-  for (i = 0; i < loop_ub; i++) {
+  loop_ub_tmp = currDir.size(1);
+  for (i = 0; i < loop_ub_tmp; i++) {
     varargin_1[i] = currDir[i];
   }
   varargin_1[currDir.size(1)] = '\x00';
@@ -1356,28 +1147,16 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   std::fflush(stdout);
   std::printf("ROS2 setup disabled\n");
   std::fflush(stdout);
-  detectorPulse.A = makepulsestruc(
-      detectorPulse.t_next, detectorPulse.mode, detectorPulse.P,
-      detectorPulse.SNR, detectorPulse.yw, detectorPulse.t_0, detectorPulse.t_f,
-      detectorPulse.fp, detectorPulse.fstart, detectorPulse.fend,
-      detectorPulse.det_dec, detectorPulse.con_dec);
-  missingSamples = makepulsestruc(expl_temp.t_next, expl_temp.mode, timeDiff,
-                                  timeStamp, T, t9_t_0, t9_t_f, t9_fp,
-                                  t9_fstart, t9_fend, t9_det_dec, t9_con_dec);
-  expl_temp.con_dec = t9_con_dec;
-  expl_temp.det_dec = t9_det_dec;
-  expl_temp.fend = t9_fend;
-  expl_temp.fstart = t9_fstart;
-  expl_temp.fp = t9_fp;
-  expl_temp.t_f = t9_t_f;
-  expl_temp.t_0 = t9_t_0;
-  expl_temp.yw = T;
-  expl_temp.SNR = timeStamp;
-  expl_temp.P = timeDiff;
-  expl_temp.A = missingSamples;
-  pulseStatsPriori = lobj_21[1].init(Config.contents.tp, Config.contents.tip,
-                                     Config.contents.tipu, Config.contents.tipj,
-                                     detectorPulse, expl_temp);
+  pulseStatsPriori_tmp.A = makepulsestruc(
+      pulseStatsPriori_tmp.t_next, pulseStatsPriori_tmp.mode,
+      pulseStatsPriori_tmp.P, pulseStatsPriori_tmp.SNR, pulseStatsPriori_tmp.yw,
+      pulseStatsPriori_tmp.t_0, pulseStatsPriori_tmp.t_f,
+      pulseStatsPriori_tmp.fp, pulseStatsPriori_tmp.fstart,
+      pulseStatsPriori_tmp.fend, pulseStatsPriori_tmp.det_dec,
+      pulseStatsPriori_tmp.con_dec);
+  pulseStatsPriori = lobj_21[1].init(
+      Config.contents.tp, Config.contents.tip, Config.contents.tipu,
+      Config.contents.tipj, pulseStatsPriori_tmp, pulseStatsPriori_tmp);
   //  % tp, tip, tipu
   //  % tipj, fp, fstart, fend, tmplt, mode
   //   % pl ,clst
@@ -1403,23 +1182,14 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   //  stftOverlapFraction);
   //  [~,~,~,maxn_ws,~,~,maxN,maxM] = Xmax.getprioridependentprops(Xmax.ps_pre);
   //  sampsForMaxPulses = maxK*maxn_ws*(maxN+maxM+1+1);
-  asyncDataBuff.pBuffer.NumChannels = -1;
-  asyncDataBuff.pBuffer.isInitialized = 0;
-  asyncDataBuff.pBuffer.matlabCodegenIsDeleted = false;
-  asyncDataBuff.matlabCodegenIsDeleted = false;
-  asyncTimeBuff.pBuffer.NumChannels = -1;
-  asyncTimeBuff.pBuffer.isInitialized = 0;
-  asyncTimeBuff.pBuffer.matlabCodegenIsDeleted = false;
-  asyncTimeBuff.matlabCodegenIsDeleted = false;
+  asyncDataBuff.init();
+  asyncTimeBuff.init();
   std::printf("Startup set 2 complete. \n");
   std::fflush(stdout);
   // Write interval in seconds. 2.5*60*4000*32/8 should work out the 2.4Mb of
   // data at 4ksps.
   dataWriterSamples = std::ceil(10.0 / (1024.0 / Config.contents.Fs)) * 1025.0;
-  asyncWriteBuff.pBuffer.NumChannels = -1;
-  asyncWriteBuff.pBuffer.isInitialized = 0;
-  asyncWriteBuff.pBuffer.matlabCodegenIsDeleted = false;
-  asyncWriteBuff.matlabCodegenIsDeleted = false;
+  asyncWriteBuff.init();
   // 600650 is the result of the nominal settings of ceil(150/(1024/4000)*1025.
   asyncWriteBuff.write();
   // Write to give Code the type. Read to remove data.
@@ -1439,33 +1209,23 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   d1 = std::round(Config.contents.startIndex);
   if (d1 < 2.147483648E+9) {
     if (d1 >= -2.147483648E+9) {
-      nPulseList = static_cast<int>(d1);
+      i1 = static_cast<int>(d1);
     } else {
-      nPulseList = MIN_int32_T;
+      i1 = MIN_int32_T;
     }
   } else if (d1 >= 2.147483648E+9) {
-    nPulseList = MAX_int32_T;
+    i1 = MAX_int32_T;
   } else {
-    nPulseList = 0;
+    i1 = 0;
   }
-  nbytes = std::snprintf(nullptr, 0, "data_record.%d.%d.bin", i, nPulseList);
-  if (nbytes + 1 < 0) {
-    rtNonNegativeError(static_cast<double>(nbytes + 1), emlrtDCI);
-  }
-  currDir.set_size(1, nbytes + 1);
-  std::snprintf(&currDir[0], (size_t)(nbytes + 1), "data_record.%d.%d.bin", i,
-                nPulseList);
-  if (nbytes < 1) {
-    nbytes = 0;
-  }
-  currDir.set_size(currDir.size(0), nbytes);
+  coder::b_sprintf(i, i1, currDir);
   // dataWriterFileID    =
   // fopen(fullfile(Config.logPath,dataRecordFilename),'w');%Use this after
   // upgrade to R2023b that supports full file
   varargin_1.set_size(
       1, (Config.contents.logPath.Value.size(1) + currDir.size(1)) + 1);
-  loop_ub = Config.contents.logPath.Value.size(1);
-  for (i = 0; i < loop_ub; i++) {
+  loop_ub_tmp = Config.contents.logPath.Value.size(1);
+  for (i = 0; i < loop_ub_tmp; i++) {
     varargin_1[i] = Config.contents.logPath.Value[i];
   }
   varargin_1[Config.contents.logPath.Value.size(1)] = '/';
@@ -1474,6 +1234,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
     varargin_1[(i + Config.contents.logPath.Value.size(1)) + 1] = currDir[i];
   }
   fileid = coder::internal::cfopen(varargin_1, "wb");
+  dataWriterFileID = fileid;
   if (fileid == -1) {
     std::printf(
         "UAV-RT: Error opening/creating data record file with error:\n");
@@ -1492,22 +1253,17 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   // dims 0 if fixed, 1 if variable
   std::printf("Startup set 4 complete. \n");
   std::fflush(stdout);
-  t9_fp = 0.0;
-  t9_fstart = 0.0;
-  t9_fend = 0.0;
-  prioriRelativeFreqHz = 0.0;
+  ps_pre_struc_t_p = 0.0;
+  ps_pre_struc_t_ip = 0.0;
+  ps_pre_struc_t_ipu = 0.0;
+  ps_pre_struc_t_ipj = 0.0;
   ps_pre_struc_fp = 0.0;
   ps_pre_struc_fstart = 0.0;
   ps_pre_struc_fend = 0.0;
   ps_pre_struc_tmplt[0] = 1.0;
   ps_pre_struc_tmplt[1] = 1.0;
-  detectorPulse.A = makepulsestruc(
-      detectorPulse.t_next, detectorPulse.mode, detectorPulse.P,
-      detectorPulse.SNR, detectorPulse.yw, detectorPulse.t_0, detectorPulse.t_f,
-      detectorPulse.fp, detectorPulse.fstart, detectorPulse.fend,
-      detectorPulse.det_dec, detectorPulse.con_dec);
   ps_pre_struc_pl.set_size(1, 1);
-  ps_pre_struc_pl[0] = detectorPulse;
+  ps_pre_struc_pl[0] = pulseStatsPriori_tmp;
   detectorPulse.A = makepulsestruc(
       detectorPulse.t_next, detectorPulse.mode, detectorPulse.P,
       detectorPulse.SNR, detectorPulse.yw, detectorPulse.t_0, detectorPulse.t_f,
@@ -1519,8 +1275,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   ps_pre_struc_cmsk[0] = false;
   ps_pre_struc_cpki.set_size(1, 1);
   ps_pre_struc_cpki[0] = rtNaN;
-  val = udpSenderSetup(50000.0);
-  if (val <= 0) {
+  b_currDir = udpSenderSetup(50000.0);
+  pulseInfoStruct.udpSender = b_currDir;
+  if (b_currDir <= 0) {
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
   }
   //  The specified frame size must exactly match the size of udp packets sent
@@ -1534,9 +1291,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
     exampleData[i].re = static_cast<float>(dcv[i].re);
     exampleData[i].im = static_cast<float>(dcv[i].im);
   }
-  Xhold_tmp.init(Config.contents.falseAlarmProb);
-  Xhold = lobj_20.init(exampleData, Config.contents.Fs, pulseStatsPriori,
-                       Xhold_tmp);
+  _in.init(Config.contents.falseAlarmProb);
+  Xhold = lobj_20.init(exampleData, Config.contents.Fs, pulseStatsPriori, _in);
   // THRESHOLD Constructs an instance of this class
   // INPUTS:
   //    pf  probability of false alarm
@@ -1569,6 +1325,10 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
   iv[0] = 1;
   iv[1] = 1023;
   while (1) {
+    double missingSamples;
+    double timeDiff;
+    double timeStamp;
+    int pulseCount;
     unsigned int timeStampNanoSec;
     unsigned int timeStampSec;
     if (resetBuffersFlag) {
@@ -1611,13 +1371,13 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       }
     } else {
       timeDiff = timeStamp - expectedNextTimeStamp;
-      t9_t_f = Config.contents.tp / 2.0;
-      if (std::abs(timeDiff) < t9_t_f) {
+      d2 = Config.contents.tp / 2.0;
+      if (std::abs(timeDiff) < d2) {
         iqDataToWrite.set_size(1023, 1);
         for (i = 0; i < 1023; i++) {
           iqDataToWrite[i] = dataReceived_data[i + 1];
         }
-      } else if ((timeDiff >= t9_t_f) && (timeDiff < Config.contents.tip)) {
+      } else if ((timeDiff >= d2) && (timeDiff < Config.contents.tip)) {
         unsigned long u;
         // missed samples but not a whole lot
         missingSamples = std::round(timeDiff * Config.contents.Fs);
@@ -1636,10 +1396,10 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             "Missing samples detected. Filling with zeros for %lu samples.", u);
         std::fflush(stdout);
         if (!(missingSamples >= 0.0)) {
-          rtNonNegativeError(missingSamples, s_emlrtDCI);
+          rtNonNegativeError(missingSamples, q_emlrtDCI);
         }
         if (missingSamples != static_cast<int>(missingSamples)) {
-          rtIntegerError(missingSamples, t_emlrtDCI);
+          rtIntegerError(missingSamples, r_emlrtDCI);
         }
         loop_ub = static_cast<int>(missingSamples);
         r.set_size(static_cast<int>(missingSamples));
@@ -1647,11 +1407,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           r[i].re = 0U;
           r[i].im = 0U;
         }
-        if (static_cast<int>(missingSamples) != r.size(0)) {
-          rtSizeEq1DError(static_cast<int>(missingSamples), r.size(0),
-                          g_emlrtECI);
-        }
-        c_iqDataToWrite.set_size(static_cast<int>(missingSamples) + 1023);
+        b_currDir = static_cast<int>(missingSamples) + 1023;
+        c_iqDataToWrite.set_size(b_currDir);
         for (i = 0; i < loop_ub; i++) {
           c_iqDataToWrite[i].re = 0.0F;
           c_iqDataToWrite[i].im = static_cast<signed char>(r[i].im);
@@ -1660,12 +1417,11 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           c_iqDataToWrite[i + static_cast<int>(missingSamples)] =
               dataReceived_data[i + 1];
         }
-        iqDataToWrite.set_size(c_iqDataToWrite.size(0), 1);
-        loop_ub = c_iqDataToWrite.size(0);
-        for (i = 0; i < loop_ub; i++) {
+        iqDataToWrite.set_size(b_currDir, 1);
+        for (i = 0; i < b_currDir; i++) {
           iqDataToWrite[i] = c_iqDataToWrite[i];
         }
-      } else if (((timeDiff >= t9_t_f) && (timeDiff >= Config.contents.tip)) ||
+      } else if (((timeDiff >= d2) && (timeDiff >= Config.contents.tip)) ||
                  (timeDiff < -Config.contents.tp / 2.0)) {
         //  %missed a lot of samples. Reset buffers
         // predictions is ahead of recently received packet. Shouldn't ever
@@ -1676,137 +1432,62 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         iqDataToWrite.set_size(0, 1);
       }
     }
-    nbytes = iqDataToWrite.size(0) * iqDataToWrite.size(1);
-    loop_ub = nbytes - 1;
-    if (nbytes - 1 < 0) {
-      groupSNRList.set_size(1, 0);
+    pulseCount = iqDataToWrite.size(0) * iqDataToWrite.size(1);
+    b_currDir = pulseCount - 1;
+    if (pulseCount - 1 < 0) {
+      b_varargin_1.set_size(1, 0);
     } else {
-      groupSNRList.set_size(1, nbytes);
-      for (i = 0; i <= loop_ub; i++) {
-        groupSNRList[i] = i;
+      b_varargin_1.set_size(1, pulseCount);
+      for (i = 0; i <= b_currDir; i++) {
+        b_varargin_1[i] = i;
       }
     }
-    missingSamples = 1.0 / Config.contents.Fs;
-    timeVector.set_size(groupSNRList.size(1));
-    loop_ub = groupSNRList.size(1);
+    timeDiff = 1.0 / Config.contents.Fs;
+    loop_ub = b_varargin_1.size(1);
+    timeVector.set_size(b_varargin_1.size(1));
     for (i = 0; i < loop_ub; i++) {
-      timeVector[i] = timeStamp + missingSamples * groupSNRList[i];
+      timeVector[i] = timeStamp + timeDiff * b_varargin_1[i];
     }
-    expectedNextTimeStamp = timeStamp + missingSamples * 1023.0;
+    expectedNextTimeStamp = timeStamp + timeDiff * 1023.0;
     framesReceived++;
     // Write out data and time.
-    b_iqDataToWrite = iqDataToWrite.reshape(nbytes);
+    b_iqDataToWrite = iqDataToWrite.reshape(pulseCount);
     asyncDataBuff.write(b_iqDataToWrite);
     asyncTimeBuff.write(timeVector);
     std::copy(&dataReceived_data[1], &dataReceived_data[1024],
               &b_dataReceived_data[0]);
     asyncWriteBuff.write(b_dataReceived_data);
-    if ((asyncWriteBuff.pBuffer.WritePointer >= 0) &&
-        (asyncWriteBuff.pBuffer.ReadPointer <
-         asyncWriteBuff.pBuffer.WritePointer - MAX_int32_T)) {
-      nbytes = MAX_int32_T;
-    } else if ((asyncWriteBuff.pBuffer.WritePointer < 0) &&
-               (asyncWriteBuff.pBuffer.ReadPointer >
-                asyncWriteBuff.pBuffer.WritePointer - MIN_int32_T)) {
-      nbytes = MIN_int32_T;
-    } else {
-      nbytes = asyncWriteBuff.pBuffer.WritePointer -
-               asyncWriteBuff.pBuffer.ReadPointer;
-    }
-    if (nbytes < -2147483647) {
-      nbytes = MIN_int32_T;
-    } else {
-      nbytes--;
-    }
-    if (asyncWriteBuff.pBuffer.ReadPointer < -2146882997) {
-      loop_ub = MAX_int32_T;
-    } else {
-      loop_ub = 600650 - asyncWriteBuff.pBuffer.ReadPointer;
-    }
-    if ((loop_ub < 0) &&
-        (asyncWriteBuff.pBuffer.WritePointer < MIN_int32_T - loop_ub)) {
-      loop_ub = MIN_int32_T;
-    } else if ((loop_ub > 0) &&
-               (asyncWriteBuff.pBuffer.WritePointer > MAX_int32_T - loop_ub)) {
-      loop_ub = MAX_int32_T;
-    } else {
-      loop_ub += asyncWriteBuff.pBuffer.WritePointer;
-    }
-    if (asyncWriteBuff.pBuffer.ReadPointer <
-        asyncWriteBuff.pBuffer.WritePointer) {
-      loop_ub = nbytes;
-    } else if (asyncWriteBuff.pBuffer.ReadPointer ==
-               asyncWriteBuff.pBuffer.WritePointer) {
-      loop_ub = 600650;
-    }
-    if (loop_ub >= dataWriterSamples) {
+    if (asyncWriteBuff.get_NumUnreadSamples() >= dataWriterSamples) {
       asyncWriteBuff.read(dataWriterBuffData);
-      if (fileid != -1) {
+      if (dataWriterFileID != -1) {
         interleaveComplexVector(dataWriterBuffData, r1);
-        coder::b_fwrite(static_cast<double>(fileid), r1);
+        coder::b_fwrite(static_cast<double>(dataWriterFileID), r1);
       }
     }
     //                 %% Process data if there is enough in the buffers
-    if ((asyncDataBuff.pBuffer.WritePointer >= 0) &&
-        (asyncDataBuff.pBuffer.ReadPointer <
-         asyncDataBuff.pBuffer.WritePointer - MAX_int32_T)) {
-      nbytes = MAX_int32_T;
-    } else if ((asyncDataBuff.pBuffer.WritePointer < 0) &&
-               (asyncDataBuff.pBuffer.ReadPointer >
-                asyncDataBuff.pBuffer.WritePointer - MIN_int32_T)) {
-      nbytes = MIN_int32_T;
-    } else {
-      nbytes = asyncDataBuff.pBuffer.WritePointer -
-               asyncDataBuff.pBuffer.ReadPointer;
-    }
-    if (nbytes < -2147483647) {
-      nbytes = MIN_int32_T;
-    } else {
-      nbytes--;
-    }
-    if (asyncDataBuff.pBuffer.ReadPointer < -2141683327) {
-      loop_ub = MAX_int32_T;
-    } else {
-      loop_ub = 5800320 - asyncDataBuff.pBuffer.ReadPointer;
-    }
-    if ((loop_ub < 0) &&
-        (asyncDataBuff.pBuffer.WritePointer < MIN_int32_T - loop_ub)) {
-      loop_ub = MIN_int32_T;
-    } else if ((loop_ub > 0) &&
-               (asyncDataBuff.pBuffer.WritePointer > MAX_int32_T - loop_ub)) {
-      loop_ub = MAX_int32_T;
-    } else {
-      loop_ub += asyncDataBuff.pBuffer.WritePointer;
-    }
-    if (asyncDataBuff.pBuffer.ReadPointer <
-        asyncDataBuff.pBuffer.WritePointer) {
-      loop_ub = nbytes;
-    } else if (asyncDataBuff.pBuffer.ReadPointer ==
-               asyncDataBuff.pBuffer.WritePointer) {
-      loop_ub = 5800320;
-    }
-    if (loop_ub >= sampsForKPulses.contents + overlapSamples.contents) {
+    if (asyncDataBuff.get_NumUnreadSamples() >=
+        sampsForKPulses.contents + overlapSamples.contents) {
       double processingStartToc;
-      t9_t_f = std::round(sampsForKPulses.contents);
-      if (t9_t_f < 4.294967296E+9) {
-        if (t9_t_f >= 0.0) {
-          timeStampSec = static_cast<unsigned int>(t9_t_f);
+      d2 = std::round(sampsForKPulses.contents);
+      if (d2 < 4.294967296E+9) {
+        if (d2 >= 0.0) {
+          timeStampSec = static_cast<unsigned int>(d2);
         } else {
           timeStampSec = 0U;
         }
-      } else if (t9_t_f >= 4.294967296E+9) {
+      } else if (d2 >= 4.294967296E+9) {
         timeStampSec = MAX_uint32_T;
       } else {
         timeStampSec = 0U;
       }
-      t9_t_f = std::round(overlapSamples.contents);
-      if (t9_t_f < 4.294967296E+9) {
-        if (t9_t_f >= 0.0) {
-          timeStampNanoSec = static_cast<unsigned int>(t9_t_f);
+      d2 = std::round(overlapSamples.contents);
+      if (d2 < 4.294967296E+9) {
+        if (d2 >= 0.0) {
+          timeStampNanoSec = static_cast<unsigned int>(d2);
         } else {
           timeStampNanoSec = 0U;
         }
-      } else if (t9_t_f >= 4.294967296E+9) {
+      } else if (d2 >= 4.294967296E+9) {
         timeStampNanoSec = MAX_uint32_T;
       } else {
         timeStampNanoSec = 0U;
@@ -1815,7 +1496,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
                   "sampsForKPulses: %u, overlapSamples: %u,\n",
                   timeStampSec, timeStampNanoSec);
       std::fflush(stdout);
-      processingStartToc = coder::toc();
+      missingSamples = coder::toc();
+      processingStartToc = missingSamples;
       if (cleanBuffer) {
         // Overlap reads back into the buffer, but there
         // isn't anything back there on the first segment.
@@ -1833,9 +1515,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         asyncTimeBuff.read(sampsForKPulses.contents, overlapSamples.contents,
                            t);
       }
-      if (timeVector.size(0) < 1) {
-        rtDynamicBoundsError(timeVector.size(0), 1, timeVector.size(0),
-                             ab_emlrtBCI);
+      if (loop_ub < 1) {
+        rtDynamicBoundsError(loop_ub, 1, loop_ub, ab_emlrtBCI);
       }
       b_this.init();
       std::printf("Sample elapsed seconds: %f \t Posix elapsed seconds: %f \n",
@@ -1850,13 +1531,12 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       // detection will likely fail or produces bad results. In
       // this case. Skip the processing and clear the buffer.
       coder::diff(t, timeVector);
-      b_timeVector.set_size(timeVector.size(0));
       loop_ub = timeVector.size(0);
+      b_timeVector.set_size(timeVector.size(0));
       for (i = 0; i < loop_ub; i++) {
-        b_timeVector[i] = timeVector[i] - missingSamples;
+        b_timeVector[i] = timeVector[i] - timeDiff;
       }
-      missingSamples =
-          coder::blockedSummation(b_timeVector, b_timeVector.size(0));
+      missingSamples = coder::sum(b_timeVector);
       if ((Config.contents.K > 1.0) &&
           (missingSamples > Config.contents.tipu + Config.contents.tipj)) {
         std::printf("Significant time differences found in timestamp record. "
@@ -1867,9 +1547,10 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
       } else {
         float validatedHoleFilling_idx_0;
         unsigned int validatedHoleFilling[3];
-        int pulseCount;
+        int j;
+        int nPulseList_tmp;
         unsigned int varargin_3;
-        char b_varargin_1[2];
+        char c_varargin_1[2];
         if (t.size(0) < 1) {
           rtDynamicBoundsError(1, 1, t.size(0), bb_emlrtBCI);
         }
@@ -1880,86 +1561,69 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           // Initialize states for operational modes
           fLock = false;
           //  switch Config.opMode
-          prioriRelativeFreqHz =
+          missingSamples =
               1.0E-5 * std::abs(Config.contents.tagFreqMHz -
                                 Config.contents.channelCenterFreqMHz);
-          detectorPulse.A = makepulsestruc(
-              detectorPulse.t_next, detectorPulse.mode, detectorPulse.P,
-              detectorPulse.SNR, detectorPulse.yw, detectorPulse.t_0,
-              detectorPulse.t_f, detectorPulse.fp, detectorPulse.fstart,
-              detectorPulse.fend, detectorPulse.det_dec, detectorPulse.con_dec);
-          missingSamples = makepulsestruc(
-              expl_temp.t_next, expl_temp.mode, timeDiff, timeStamp, T, t9_t_0,
-              t9_t_f, t9_fp, t9_fstart, t9_fend, t9_det_dec, t9_con_dec);
-          expl_temp.con_dec = t9_con_dec;
-          expl_temp.det_dec = t9_det_dec;
-          expl_temp.fend = t9_fend;
-          expl_temp.fstart = t9_fstart;
-          expl_temp.fp = t9_fp;
-          expl_temp.t_f = t9_t_f;
-          expl_temp.t_0 = t9_t_0;
-          expl_temp.yw = T;
-          expl_temp.SNR = timeStamp;
-          expl_temp.P = timeDiff;
-          expl_temp.A = missingSamples;
-          missingSamples = std::ceil(Config.contents.Fs / 2.0);
+          timeStamp = std::ceil(Config.contents.Fs / 2.0);
           pulseStatsPriori = lobj_17.init(
               Config.contents.tp, Config.contents.tip, Config.contents.tipu,
-              Config.contents.tipj, prioriRelativeFreqHz,
-              prioriRelativeFreqHz - missingSamples,
-              prioriRelativeFreqHz + missingSamples, detectorPulse, expl_temp);
+              Config.contents.tipj, missingSamples, missingSamples - timeStamp,
+              missingSamples + timeStamp, pulseStatsPriori_tmp,
+              pulseStatsPriori_tmp);
           configUpdatedFlag = false;
         } else {
           pulseStatsPriori = lobj_18.c_init(
-              t9_fp, t9_fstart, t9_fend, prioriRelativeFreqHz, ps_pre_struc_fp,
-              ps_pre_struc_fstart, ps_pre_struc_fend, ps_pre_struc_tmplt,
-              (char *)&mode, ps_pre_struc_pl, ps_pre_struc_clst,
-              ps_pre_struc_cmsk, ps_pre_struc_cpki);
+              ps_pre_struc_t_p, ps_pre_struc_t_ip, ps_pre_struc_t_ipu,
+              ps_pre_struc_t_ipj, ps_pre_struc_fp, ps_pre_struc_fstart,
+              ps_pre_struc_fend, ps_pre_struc_tmplt, (char *)&mode,
+              ps_pre_struc_pl, ps_pre_struc_clst, ps_pre_struc_cmsk,
+              ps_pre_struc_cpki);
         }
-        timeStamp = pulseStatsPriori->fstart;
-        missingSamples = pulseStatsPriori->fend;
+        missingSamples = pulseStatsPriori->fstart;
+        timeStamp = pulseStatsPriori->fend;
         std::printf("ps_pre.fstart and ps.pre.fend before making waveform X: "
                     "\t %f \t to \t %f. \n",
-                    timeStamp, missingSamples);
+                    missingSamples, timeStamp);
         std::fflush(stdout);
         // (1) is for coder so it knows it is a scalar
         //                         %% PRIMARY PROCESSING BLOCK
         // Prep waveform for processing/detection
-        b_X.init(x, Config.contents.Fs, t[0], pulseStatsPriori, Xhold_tmp,
-                 lobj_16, lobj_15);
+        _in.init(Config.contents.falseAlarmProb);
+        b_X.init(x, Config.contents.Fs, t[0], pulseStatsPriori, _in, lobj_16,
+                 lobj_15);
         b_X.K = Config.contents.K;
-        t9_t_f = std::round(b_X.N);
-        if (t9_t_f < 4.294967296E+9) {
-          if (t9_t_f >= 0.0) {
-            timeStampSec = static_cast<unsigned int>(t9_t_f);
+        d2 = std::round(b_X.N);
+        if (d2 < 4.294967296E+9) {
+          if (d2 >= 0.0) {
+            timeStampSec = static_cast<unsigned int>(d2);
           } else {
             timeStampSec = 0U;
           }
-        } else if (t9_t_f >= 4.294967296E+9) {
+        } else if (d2 >= 4.294967296E+9) {
           timeStampSec = MAX_uint32_T;
         } else {
           timeStampSec = 0U;
         }
-        t9_t_f = std::round(b_X.M);
-        if (t9_t_f < 4.294967296E+9) {
-          if (t9_t_f >= 0.0) {
-            timeStampNanoSec = static_cast<unsigned int>(t9_t_f);
+        d2 = std::round(b_X.M);
+        if (d2 < 4.294967296E+9) {
+          if (d2 >= 0.0) {
+            timeStampNanoSec = static_cast<unsigned int>(d2);
           } else {
             timeStampNanoSec = 0U;
           }
-        } else if (t9_t_f >= 4.294967296E+9) {
+        } else if (d2 >= 4.294967296E+9) {
           timeStampNanoSec = MAX_uint32_T;
         } else {
           timeStampNanoSec = 0U;
         }
-        t9_t_f = std::round(b_X.J);
-        if (t9_t_f < 4.294967296E+9) {
-          if (t9_t_f >= 0.0) {
-            varargin_3 = static_cast<unsigned int>(t9_t_f);
+        d2 = std::round(b_X.J);
+        if (d2 < 4.294967296E+9) {
+          if (d2 >= 0.0) {
+            varargin_3 = static_cast<unsigned int>(d2);
           } else {
             varargin_3 = 0U;
           }
-        } else if (t9_t_f >= 4.294967296E+9) {
+        } else if (d2 >= 4.294967296E+9) {
           varargin_3 = MAX_uint32_T;
         } else {
           varargin_3 = 0U;
@@ -1978,26 +1642,26 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         std::printf("Computing STFT...");
         std::fflush(stdout);
         b_X.spectro(lobj_14);
-        timeStamp = coder::toc() - missingSamples;
-        std::printf("complete. Elapsed time: %f seconds \n", timeStamp);
+        missingSamples = coder::toc() - missingSamples;
+        std::printf("complete. Elapsed time: %f seconds \n", missingSamples);
         std::fflush(stdout);
         std::printf("Building weighting matrix...");
         std::fflush(stdout);
         missingSamples = coder::toc();
         b_X.setweightingmatrix();
-        timeStamp = coder::toc() - missingSamples;
-        std::printf("complete. Elapsed time: %f seconds \n", timeStamp);
+        missingSamples = coder::toc() - missingSamples;
+        std::printf("complete. Elapsed time: %f seconds \n", missingSamples);
         std::fflush(stdout);
         if (suggestedMode == 'S') {
-          nbytes = 0;
+          b_currDir = 0;
         } else if (suggestedMode == 'C') {
-          nbytes = 1;
+          b_currDir = 1;
         } else if (suggestedMode == 'T') {
-          nbytes = 2;
+          b_currDir = 2;
         } else {
-          nbytes = -1;
+          b_currDir = -1;
         }
-        switch (nbytes) {
+        switch (b_currDir) {
         case 0:
           if (fLock) {
             mode = 'I';
@@ -2044,10 +1708,10 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           _in.setthreshprops(Xhold->thresh.thresh1W, b_X);
           b_X.thresh = _in;
         }
-        timeStamp = coder::toc() - missingSamples;
+        missingSamples = coder::toc() - missingSamples;
         std::printf(
             " \n \t Threshold setting complete. Elapsed time: %f seconds \n",
-            timeStamp);
+            missingSamples);
         std::fflush(stdout);
         timeStampSec = static_cast<unsigned int>(b_X.stft->S.size(1));
         std::printf("Time windows in S: %u \n", timeStampSec);
@@ -2077,22 +1741,22 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         //  % self.detection_status ...
         //  % self.confirmed_status ...
         //  % self.noise_psd ...
-        udpSenderSendDoubles(val, &doublesBuffer[0], 12U);
-        b_varargin_1[0] = mode;
-        b_varargin_1[1] = '\x00';
-        std::printf("BEGINNING PROCESSING IN %s MODE \n", &b_varargin_1[0]);
+        udpSenderSendDoubles(pulseInfoStruct.udpSender, &doublesBuffer[0], 12U);
+        c_varargin_1[0] = mode;
+        c_varargin_1[1] = '\x00';
+        std::printf("BEGINNING PROCESSING IN %s MODE \n", &c_varargin_1[0]);
         std::fflush(stdout);
         std::printf("====================================\n");
         std::fflush(stdout);
         std::printf(
             "First 5 entries of the real data block being processed are:\n");
         std::fflush(stdout);
-        for (pulseCount = 0; pulseCount < 5; pulseCount++) {
+        for (b_currDir = 0; b_currDir < 5; b_currDir++) {
           i = b_X.x.size(1);
-          if (pulseCount + 1 > i) {
-            rtDynamicBoundsError(pulseCount + 1, 1, i, cb_emlrtBCI);
+          if (b_currDir + 1 > i) {
+            rtDynamicBoundsError(b_currDir + 1, 1, i, cb_emlrtBCI);
           }
-          validatedHoleFilling_idx_0 = b_X.x[pulseCount].re;
+          validatedHoleFilling_idx_0 = b_X.x[b_currDir].re;
           std::printf("%.8f,", validatedHoleFilling_idx_0);
           std::fflush(stdout);
         }
@@ -2101,12 +1765,12 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         std::printf("First 5 entries of the imaginary data block being "
                     "processed are:\n");
         std::fflush(stdout);
-        for (pulseCount = 0; pulseCount < 5; pulseCount++) {
+        for (b_currDir = 0; b_currDir < 5; b_currDir++) {
           i = b_X.x.size(1);
-          if (pulseCount + 1 > i) {
-            rtDynamicBoundsError(pulseCount + 1, 1, i, db_emlrtBCI);
+          if (b_currDir + 1 > i) {
+            rtDynamicBoundsError(b_currDir + 1, 1, i, db_emlrtBCI);
           }
-          validatedHoleFilling_idx_0 = b_X.x[pulseCount].im;
+          validatedHoleFilling_idx_0 = b_X.x[b_currDir].im;
           std::printf("%.8f,", validatedHoleFilling_idx_0);
           std::fflush(stdout);
         }
@@ -2116,15 +1780,15 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             "Last 5 entries of the real data block being processed are:\n");
         std::fflush(stdout);
         i = b_X.x.size(1) - 5;
-        nPulseList = b_X.x.size(1);
-        nPulseList -= i;
-        for (pulseCount = 0; pulseCount <= nPulseList; pulseCount++) {
-          nbytes = b_X.x.size(1);
-          loop_ub = i + pulseCount;
-          if ((loop_ub < 1) || (loop_ub > nbytes)) {
-            rtDynamicBoundsError(loop_ub, 1, nbytes, eb_emlrtBCI);
+        i1 = b_X.x.size(1);
+        i1 -= i;
+        for (b_currDir = 0; b_currDir <= i1; b_currDir++) {
+          j = b_X.x.size(1);
+          pulseCount = i + b_currDir;
+          if ((pulseCount < 1) || (pulseCount > j)) {
+            rtDynamicBoundsError(pulseCount, 1, j, eb_emlrtBCI);
           }
-          validatedHoleFilling_idx_0 = b_X.x[loop_ub - 1].re;
+          validatedHoleFilling_idx_0 = b_X.x[pulseCount - 1].re;
           std::printf("%.8f,", validatedHoleFilling_idx_0);
           std::fflush(stdout);
         }
@@ -2134,36 +1798,36 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
                     "processed are:\n");
         std::fflush(stdout);
         i = b_X.x.size(1) - 5;
-        nPulseList = b_X.x.size(1);
-        nPulseList -= i;
-        for (pulseCount = 0; pulseCount <= nPulseList; pulseCount++) {
-          nbytes = b_X.x.size(1);
-          loop_ub = i + pulseCount;
-          if ((loop_ub < 1) || (loop_ub > nbytes)) {
-            rtDynamicBoundsError(loop_ub, 1, nbytes, fb_emlrtBCI);
+        i1 = b_X.x.size(1);
+        i1 -= i;
+        for (b_currDir = 0; b_currDir <= i1; b_currDir++) {
+          j = b_X.x.size(1);
+          pulseCount = i + b_currDir;
+          if ((pulseCount < 1) || (pulseCount > j)) {
+            rtDynamicBoundsError(pulseCount, 1, j, fb_emlrtBCI);
           }
-          validatedHoleFilling_idx_0 = b_X.x[loop_ub - 1].im;
+          validatedHoleFilling_idx_0 = b_X.x[pulseCount - 1].im;
           std::printf("%.8f,", validatedHoleFilling_idx_0);
           std::fflush(stdout);
         }
         std::printf("\n");
         std::fflush(stdout);
         b_X.process(mode, Config.contents.excldFreqs);
-        timeStamp = coder::toc() - missingSamples;
-        std::printf("complete. Elapsed time: %f seconds \n", timeStamp);
+        missingSamples = coder::toc() - missingSamples;
+        std::printf("complete. Elapsed time: %f seconds \n", missingSamples);
         std::fflush(stdout);
-        timeStamp = b_X.ps_pre->fstart;
-        missingSamples = b_X.ps_pre->fend;
+        missingSamples = b_X.ps_pre->fstart;
+        timeStamp = b_X.ps_pre->fend;
         std::printf("ps_pre.fstart and ps_pre.fend after PROCESS step : \t %f "
                     "\t to \t %f.\n",
-                    timeStamp, missingSamples);
+                    missingSamples, timeStamp);
         std::fflush(stdout);
         // (1) is for coder so it knows it is a scalar
-        timeStamp = b_X.ps_pos->fstart;
-        missingSamples = b_X.ps_pos->fend;
+        missingSamples = b_X.ps_pos->fstart;
+        timeStamp = b_X.ps_pos->fend;
         std::printf("ps_pos.fstart and ps_pos.fend after PROCESS step : \t %f "
                     "\t to \t %f.\n",
-                    timeStamp, missingSamples);
+                    missingSamples, timeStamp);
         std::fflush(stdout);
         // (1) is for coder so it knows it is a scalar
         timeDiff = coder::toc() - processingStartToc;
@@ -2173,12 +1837,7 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         // Latch/Release the frequency lock and setup the
         // suggested mode
         suggestedMode = b_X.ps_pos->mode;
-        ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
-        loop_ub = b_X.ps_pos->pl.size(0) * b_X.ps_pos->pl.size(1) - 1;
-        for (i = 0; i <= loop_ub; i++) {
-          ps_pre_struc_pl[i] = b_X.ps_pos->pl[i];
-        }
-        coder::internal::d_horzcatStructList(ps_pre_struc_pl, pulsesToSkip);
+        coder::internal::d_horzcatStructList(b_X.ps_pos->pl, pulsesToSkip);
         coder::all(pulsesToSkip, r2);
         if (coder::internal::ifWhileCond(r2)) {
           // Check if all were confirmed
@@ -2207,27 +1866,27 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             b_X.ps_pos->b_updateposteriori(b_X.ps_pre, ps_pre_struc_pl);
           }
         }
-        timeStamp = b_X.ps_pre->fstart;
-        missingSamples = b_X.ps_pre->fend;
+        missingSamples = b_X.ps_pre->fstart;
+        timeStamp = b_X.ps_pre->fend;
         std::printf("ps_pre.fstart and ps_pre.fend after PRIORI UPDATE step : "
                     "\t %f \t to \t %f.\n",
-                    timeStamp, missingSamples);
+                    missingSamples, timeStamp);
         std::fflush(stdout);
         // (1) is for coder so it knows it is a scalar
-        timeStamp = b_X.ps_pos->fstart;
-        missingSamples = b_X.ps_pos->fend;
+        missingSamples = b_X.ps_pos->fstart;
+        timeStamp = b_X.ps_pos->fend;
         std::printf("ps_pos.fstart and ps_pos.fend after PRIORI UPDATE step : "
                     "\t %f \t to \t %f.\n",
-                    timeStamp, missingSamples);
+                    missingSamples, timeStamp);
         std::fflush(stdout);
         // (1) is for coder so it knows it is a scalar
         // Check lagging processing
         if ((segmentsProcessed != 0.0) && (Config.contents.K > 1.0) &&
             (timeDiff > 0.9 * sampsForKPulses.contents / Config.contents.Fs)) {
           // Config.K = Config.K - 1;
-          t9_t_f = std::round(Config.contents.K - 1.0);
-          if (t9_t_f < 4.294967296E+9) {
-            timeStampSec = static_cast<unsigned int>(t9_t_f);
+          d2 = std::round(Config.contents.K - 1.0);
+          if (d2 < 4.294967296E+9) {
+            timeStampSec = static_cast<unsigned int>(d2);
           } else {
             timeStampSec = MAX_uint32_T;
           }
@@ -2250,71 +1909,73 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         // Prepare priori for next segment
         std::printf("Updating priori...\n");
         std::fflush(stdout);
-        t9_fp = b_X.ps_pos->t_p;
-        t9_fstart = b_X.ps_pos->t_ip;
-        t9_fend = b_X.ps_pos->t_ipu;
-        prioriRelativeFreqHz = b_X.ps_pos->t_ipj;
+        ps_pre_struc_t_p = b_X.ps_pos->t_p;
+        ps_pre_struc_t_ip = b_X.ps_pos->t_ip;
+        ps_pre_struc_t_ipu = b_X.ps_pos->t_ipu;
+        ps_pre_struc_t_ipj = b_X.ps_pos->t_ipj;
         ps_pre_struc_fp = b_X.ps_pos->fp;
         ps_pre_struc_fstart = b_X.ps_pos->fstart;
         ps_pre_struc_fend = b_X.ps_pos->fend;
         ps_pre_struc_tmplt[0] = b_X.ps_pos->tmplt[0];
         ps_pre_struc_tmplt[1] = b_X.ps_pos->tmplt[1];
         mode = b_X.ps_pos->mode;
-        ps_pre_struc_pl.set_size(1, b_X.ps_pos->pl.size(1));
+        i = b_X.ps_pos->pl.size(1);
+        ps_pre_struc_pl.set_size(1, i);
         loop_ub = b_X.ps_pos->pl.size(1);
-        for (i = 0; i < loop_ub; i++) {
-          ps_pre_struc_pl[i] = b_X.ps_pos->pl[i];
+        for (i1 = 0; i1 < loop_ub; i1++) {
+          ps_pre_struc_pl[i1] = b_X.ps_pos->pl[i1];
         }
         ps_pre_struc_clst.set_size(b_X.ps_pos->clst.size(0),
                                    b_X.ps_pos->clst.size(1));
         loop_ub = b_X.ps_pos->clst.size(0) * b_X.ps_pos->clst.size(1);
-        for (i = 0; i < loop_ub; i++) {
-          ps_pre_struc_clst[i] = b_X.ps_pos->clst[i];
+        for (i1 = 0; i1 < loop_ub; i1++) {
+          ps_pre_struc_clst[i1] = b_X.ps_pos->clst[i1];
         }
         ps_pre_struc_cmsk.set_size(b_X.ps_pos->cmsk.size(0),
                                    b_X.ps_pos->cmsk.size(1));
         loop_ub = b_X.ps_pos->cmsk.size(0) * b_X.ps_pos->cmsk.size(1);
-        for (i = 0; i < loop_ub; i++) {
-          ps_pre_struc_cmsk[i] = b_X.ps_pos->cmsk[i];
+        for (i1 = 0; i1 < loop_ub; i1++) {
+          ps_pre_struc_cmsk[i1] = b_X.ps_pos->cmsk[i1];
         }
         ps_pre_struc_cpki.set_size(b_X.ps_pos->cpki.size(0),
                                    b_X.ps_pos->cpki.size(1));
         loop_ub = b_X.ps_pos->cpki.size(0) * b_X.ps_pos->cpki.size(1);
-        for (i = 0; i < loop_ub; i++) {
-          ps_pre_struc_cpki[i] = b_X.ps_pos->cpki[i];
+        for (i1 = 0; i1 < loop_ub; i1++) {
+          ps_pre_struc_cpki[i1] = b_X.ps_pos->cpki[i1];
         }
         updatebufferreadvariables(Config, stftOverlapFraction, overlapSamples,
                                   sampsForKPulses, b_X.ps_pos);
-        timeStamp = coder::toc() - missingSamples;
-        std::printf("complete. Elapsed time: %f seconds \n", timeStamp);
+        missingSamples = coder::toc() - missingSamples;
+        std::printf("complete. Elapsed time: %f seconds \n", missingSamples);
         std::fflush(stdout);
         Xhold = waveformcopy(b_X, lobj_11, lobj_12[0], lobj_13);
-        nPulseList = b_X.ps_pos->pl.size(1);
-        pulsesToSkip.set_size(1, nPulseList);
-        for (i = 0; i < nPulseList; i++) {
-          pulsesToSkip[i] = false;
+        nPulseList_tmp = b_X.ps_pos->pl.size(1);
+        pulsesToSkip.set_size(1, nPulseList_tmp);
+        for (i1 = 0; i1 < nPulseList_tmp; i1++) {
+          pulsesToSkip[i1] = false;
         }
         // Report pulses and check for repeat detections
-        b_x.set_size(b_X.ps_pos->cpki.size(0), b_X.ps_pos->cpki.size(1));
+        i1 = b_X.ps_pos->cpki.size(0);
+        j = b_X.ps_pos->cpki.size(1);
+        b_x.set_size(i1, j);
         loop_ub = b_X.ps_pos->cpki.size(0) * b_X.ps_pos->cpki.size(1);
-        for (i = 0; i < loop_ub; i++) {
-          b_x[i] = b_X.ps_pos->cpki[i];
+        for (pulseCount = 0; pulseCount < loop_ub; pulseCount++) {
+          b_x[pulseCount] = b_X.ps_pos->cpki[pulseCount];
         }
-        r3.set_size(b_x.size(0), b_x.size(1));
-        loop_ub = b_x.size(0) * b_x.size(1);
-        for (i = 0; i < loop_ub; i++) {
-          r3[i] = !std::isnan(b_x[i]);
+        r3.set_size(i1, j);
+        b_currDir = b_x.size(0) * b_x.size(1);
+        for (i1 = 0; i1 < b_currDir; i1++) {
+          r3[i1] = !std::isnan(b_x[i1]);
         }
         if (coder::internal::b_ifWhileCond(r3)) {
-          for (int j{0}; j < nPulseList; j++) {
-            i = b_X.ps_pos->pl.size(1);
-            if (j + 1 > i) {
-              rtDynamicBoundsError(j + 1, 1, i, gb_emlrtBCI);
+          for (j = 0; j < nPulseList_tmp; j++) {
+            i1 = b_X.ps_pos->pl.size(1);
+            if (j + 1 > i1) {
+              rtDynamicBoundsError(j + 1, 1, i1, gb_emlrtBCI);
             }
             missingSamples = b_X.ps_pos->pl[j].t_0;
-            if (j + 1 > ps_pre_struc_pl.size(1)) {
-              rtDynamicBoundsError(j + 1, 1, ps_pre_struc_pl.size(1),
-                                   hb_emlrtBCI);
+            if (j + 1 > i) {
+              rtDynamicBoundsError(j + 1, 1, i, hb_emlrtBCI);
             }
             std::printf("Pulse at %f Hz detected. SNR: %f \n \t Confirmation "
                         "status: %u \n\t Interpulse time    : %f \n",
@@ -2329,9 +1990,8 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
               std::printf("(\t ^---This likely a repeat of a previously "
                           "detected pulse. Will not be transmitted. \n");
               std::fflush(stdout);
-              if (j + 1 > pulsesToSkip.size(1)) {
-                rtDynamicBoundsError(j + 1, 1, pulsesToSkip.size(1),
-                                     ib_emlrtBCI);
+              if (j + 1 > nPulseList_tmp) {
+                rtDynamicBoundsError(j + 1, 1, nPulseList_tmp, ib_emlrtBCI);
               }
               pulsesToSkip[j] = true;
             } else {
@@ -2343,20 +2003,22 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
           std::fflush(stdout);
         }
         pulseCount = 0;
-        b_x.set_size(b_X.ps_pos->cpki.size(0), b_X.ps_pos->cpki.size(1));
+        i = b_X.ps_pos->cpki.size(0);
+        i1 = b_X.ps_pos->cpki.size(1);
+        b_x.set_size(i, i1);
         loop_ub = b_X.ps_pos->cpki.size(0) * b_X.ps_pos->cpki.size(1);
-        for (i = 0; i < loop_ub; i++) {
-          b_x[i] = b_X.ps_pos->cpki[i];
+        for (j = 0; j < loop_ub; j++) {
+          b_x[j] = b_X.ps_pos->cpki[j];
         }
-        r3.set_size(b_x.size(0), b_x.size(1));
-        loop_ub = b_x.size(0) * b_x.size(1);
-        for (i = 0; i < loop_ub; i++) {
+        r3.set_size(i, i1);
+        b_currDir = b_x.size(0) * b_x.size(1);
+        for (i = 0; i < b_currDir; i++) {
           r3[i] = !std::isnan(b_x[i]);
         }
         if (coder::internal::b_ifWhileCond(r3)) {
           std::printf("Transmitting pulse messages.  ");
           std::fflush(stdout);
-          if (nPulseList - 1 >= 0) {
+          if (nPulseList_tmp - 1 >= 0) {
             if (d < 4.294967296E+9) {
               if (d >= 0.0) {
                 u1 = static_cast<unsigned int>(d);
@@ -2374,32 +2036,25 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
               u2 = MAX_uint16_T;
             }
           }
-          for (int j{0}; j < nPulseList; j++) {
+          for (j = 0; j < nPulseList_tmp; j++) {
+            double a;
             unsigned short u3;
-            nbytes = b_X.ps_pos->pl.size(1);
-            c_X.set_size(nbytes);
-            loop_ub = nbytes - 1;
-            for (i = 0; i <= loop_ub; i++) {
-              c_X[i] = b_X.ps_pos->pl[i];
-            }
-            coder::internal::c_horzcatStructList(c_X, groupSNRList);
-            groupSNRList.set_size(1, groupSNRList.size(1));
-            loop_ub = groupSNRList.size(1) - 1;
-            for (i = 0; i <= loop_ub; i++) {
-              missingSamples = groupSNRList[i] / 10.0;
-              groupSNRList[i] = rt_powd_snf(10.0, missingSamples);
-            }
+            b_currDir = b_X.ps_pos->pl.size(1);
+            c_X = b_X.ps_pos->pl.reshape(b_currDir);
+            coder::internal::c_horzcatStructList(c_X, b_varargin_1);
             // Average SNR in dB
-            nbytes = groupSNRList.size(1);
-            b_groupSNRList = groupSNRList.reshape(nbytes);
-            missingSamples =
-                coder::blockedSummation(b_groupSNRList, groupSNRList.size(1)) /
-                static_cast<double>(groupSNRList.size(1));
-            if (missingSamples < 0.0) {
-              rtErrorWithMessageID("log10", b_emlrtRTEI.fName,
-                                   b_emlrtRTEI.lineNo);
+            b_varargin_1.set_size(1, b_varargin_1.size(1));
+            loop_ub = b_varargin_1.size(1) - 1;
+            for (i = 0; i <= loop_ub; i++) {
+              missingSamples = b_varargin_1[i] / 10.0;
+              b_varargin_1[i] = rt_powd_snf(10.0, missingSamples);
             }
-            missingSamples = std::log10(missingSamples);
+            b_currDir = b_varargin_1.size(1);
+            d_varargin_1 = b_varargin_1.reshape(b_currDir);
+            d2 = coder::blockedSummation(d_varargin_1, b_varargin_1.size(1)) /
+                 static_cast<double>(b_varargin_1.size(1));
+            coder::b_log10(d2);
+            missingSamples = 10.0 * d2;
             // 10log10 can produce complex results and group_snr required a real
             // value. Otherwise coder will generate type errors
             // 10*log10(mean(10.^([X.ps_pos.clst(X.ps_pos.cpki(j),:).SNR]/10)));%Average
@@ -2411,11 +2066,11 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             }
             detectorPulse = b_X.ps_pos->pl[j];
             timeDiff = b_X.stft->dt;
-            T = b_X.stft->T;
-            t9_t_0 = rt_powd_snf(10.0, detectorPulse.SNR / 10.0);
+            timeStamp = b_X.stft->T;
+            a = 1.0 + coder::mpower(10.0, detectorPulse.SNR / 10.0);
             // See Notebook Entry 2023-07-07 for derivation
-            if (j + 1 > pulsesToSkip.size(1)) {
-              rtDynamicBoundsError(j + 1, 1, pulsesToSkip.size(1), kb_emlrtBCI);
+            if (j + 1 > nPulseList_tmp) {
+              rtDynamicBoundsError(j + 1, 1, nPulseList_tmp, kb_emlrtBCI);
             }
             if (!pulsesToSkip[j]) {
               //  UDP Send
@@ -2431,16 +2086,15 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
                 timeStampSec = 0U;
               }
               doublesBuffer[0] = timeStampSec;
-              t9_t_f =
-                  std::round(Config.contents.channelCenterFreqMHz * 1.0E+6 +
-                             detectorPulse.fp);
-              if (t9_t_f < 4.294967296E+9) {
-                if (t9_t_f >= 0.0) {
-                  timeStampSec = static_cast<unsigned int>(t9_t_f);
+              d2 = std::round(Config.contents.channelCenterFreqMHz * 1.0E+6 +
+                              detectorPulse.fp);
+              if (d2 < 4.294967296E+9) {
+                if (d2 >= 0.0) {
+                  timeStampSec = static_cast<unsigned int>(d2);
                 } else {
                   timeStampSec = 0U;
                 }
-              } else if (t9_t_f >= 4.294967296E+9) {
+              } else if (d2 >= 4.294967296E+9) {
                 timeStampSec = MAX_uint32_T;
               } else {
                 timeStampSec = 0U;
@@ -2462,12 +2116,13 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
                 u3 = MAX_uint16_T;
               }
               doublesBuffer[7] = u3;
-              doublesBuffer[8] = 10.0 * missingSamples;
+              doublesBuffer[8] = missingSamples;
               doublesBuffer[9] = detectorPulse.det_dec;
               doublesBuffer[10] = detectorPulse.con_dec;
-              doublesBuffer[11] = detectorPulse.yw * (timeDiff * timeDiff) / T *
-                                  (1.0 / (t9_t_0 + 1.0));
-              udpSenderSendDoubles(val, &doublesBuffer[0], 12U);
+              doublesBuffer[11] = detectorPulse.yw * (timeDiff * timeDiff) /
+                                  timeStamp * (1.0 / a);
+              udpSenderSendDoubles(pulseInfoStruct.udpSender, &doublesBuffer[0],
+                                   12U);
               //  ROS send
               std::printf("(Skipping ROS2 Pulse send)");
               std::fflush(stdout);
@@ -2499,15 +2154,15 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             // for derivation
             //  uint8(detectorPulse.det_dec);
             // uint8(detectorPulse.con_dec);
-            t9_t_f = std::round(Config.contents.channelCenterFreqMHz * 1.0E+6 +
-                                detectorPulse.fp);
-            if (t9_t_f < 4.294967296E+9) {
-              if (t9_t_f >= 0.0) {
-                timeStampSec = static_cast<unsigned int>(t9_t_f);
+            d2 = std::round(Config.contents.channelCenterFreqMHz * 1.0E+6 +
+                            detectorPulse.fp);
+            if (d2 < 4.294967296E+9) {
+              if (d2 >= 0.0) {
+                timeStampSec = static_cast<unsigned int>(d2);
               } else {
                 timeStampSec = 0U;
               }
-            } else if (t9_t_f >= 4.294967296E+9) {
+            } else if (d2 >= 4.294967296E+9) {
               timeStampSec = MAX_uint32_T;
             } else {
               timeStampSec = 0U;
@@ -2520,9 +2175,9 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
             std::printf("%u, %u, %.3f, %.3f, %g, %g, %u, %u, %g, %g, %u, %u\n",
                         u1, timeStampSec, detectorPulse.t_0,
                         detectorPulse.t_next[0], detectorPulse.SNR,
-                        detectorPulse.yw, u2, u3, 10.0 * missingSamples,
-                        detectorPulse.yw * (timeDiff * timeDiff) / T *
-                            (1.0 / (t9_t_0 + 1.0)),
+                        detectorPulse.yw, u2, u3, missingSamples,
+                        detectorPulse.yw * (timeDiff * timeDiff) / timeStamp *
+                            (1.0 / a),
                         static_cast<unsigned char>(detectorPulse.det_dec),
                         static_cast<unsigned char>(detectorPulse.con_dec));
             std::fflush(stdout);
@@ -2548,47 +2203,34 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         }
         if (d1 < 2.147483648E+9) {
           if (d1 >= -2.147483648E+9) {
-            nPulseList = static_cast<int>(d1);
+            i1 = static_cast<int>(d1);
           } else {
-            nPulseList = MIN_int32_T;
+            i1 = MIN_int32_T;
           }
         } else if (d1 >= 2.147483648E+9) {
-          nPulseList = MAX_int32_T;
+          i1 = MAX_int32_T;
         } else {
-          nPulseList = 0;
+          i1 = 0;
         }
-        nbytes = std::snprintf(nullptr, 0, "spectro_segment.%d.%d.csv", i,
-                               nPulseList);
-        if (nbytes + 1 < 0) {
-          rtNonNegativeError(static_cast<double>(nbytes + 1), emlrtDCI);
-        }
-        currDir.set_size(1, nbytes + 1);
-        std::snprintf(&currDir[0], (size_t)(nbytes + 1),
-                      "spectro_segment.%d.%d.csv", i, nPulseList);
-        if (nbytes < 1) {
-          nbytes = 0;
-        }
-        currDir.set_size(currDir.size(0), nbytes);
+        coder::c_sprintf(i, i1, currDir);
         // waveformRecordPath =fullfile(Config.logPath,spectroFileName);%Use
         // this after upgrade to R2023b that supports full file
-        waveformRecordPath.set_size(
-            1, (Config.contents.logPath.Value.size(1) + currDir.size(1)) + 1);
-        loop_ub = Config.contents.logPath.Value.size(1);
-        for (i = 0; i < loop_ub; i++) {
+        loop_ub = (Config.contents.logPath.Value.size(1) + currDir.size(1)) + 1;
+        waveformRecordPath.set_size(1, loop_ub);
+        for (i = 0; i < loop_ub_tmp; i++) {
           waveformRecordPath[i] = Config.contents.logPath.Value[i];
         }
-        waveformRecordPath[Config.contents.logPath.Value.size(1)] = '/';
-        loop_ub = currDir.size(1);
-        for (i = 0; i < loop_ub; i++) {
+        waveformRecordPath[loop_ub_tmp] = '/';
+        b_currDir = currDir.size(1);
+        for (i = 0; i < b_currDir; i++) {
           waveformRecordPath[(i + Config.contents.logPath.Value.size(1)) + 1] =
               currDir[i];
         }
         varargin_1.set_size(1, waveformRecordPath.size(1) + 1);
-        loop_ub = waveformRecordPath.size(1);
         for (i = 0; i < loop_ub; i++) {
           varargin_1[i] = waveformRecordPath[i];
         }
-        varargin_1[waveformRecordPath.size(1)] = '\x00';
+        varargin_1[loop_ub] = '\x00';
         std::printf("Writing waveform record csv file: %s\n", &varargin_1[0]);
         std::fflush(stdout);
         wfmcsvwrite(b_X, Config.contents.channelCenterFreqMHz,
@@ -2597,11 +2239,11 @@ void uavrt_detection(const coder::array<char, 2U> &configPath,
         std::fflush(stdout);
       }
       b_this.init();
-      missingSamples = coder::toc();
+      missingSamples =
+          std::round(b_this.data.re / 1000.0 * 1.0E+6) / 1.0E+6 - startTime;
+      timeStamp = coder::toc();
       std::printf("tocElapsed - clockElapsed = %0.6f  **************** \n",
-                  missingSamples -
-                      (std::round(b_this.data.re / 1000.0 * 1.0E+6) / 1.0E+6 -
-                       startTime));
+                  timeStamp - missingSamples);
       std::fflush(stdout);
       timeStamp = coder::toc() - processingStartToc;
       std::printf("TOTAL SEGMENT PROCESSING TIME: %f seconds \n", timeStamp);

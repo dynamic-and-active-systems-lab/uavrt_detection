@@ -4,59 +4,108 @@
 // government, commercial, or other organizational use.
 // File: nullAssignment.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
 #include "nullAssignment.h"
 #include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
-#include "uavrt_detection_data.h"
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
+#include "omp.h"
+#include <cstdio>
+#include <cstdlib>
+#include <sstream>
+#include <stdexcept>
+#include <string>
+
+// Variable Definitions
+static rtRunTimeErrorInfo mc_emlrtRTEI{
+    85,               // lineNo
+    "validate_inputs" // fName
+};
+
+// Function Declarations
+static void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+static void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Matrix index is out of range for deletion.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : array<char, 2U> &x
+//                int idx
+// Return Type  : void
+//
+namespace coder {
+namespace internal {
+void nullAssignment(array<char, 2U> &x, int idx)
+{
+  int nxout;
+  if (idx > x.size(1)) {
+    nc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
+  }
+  nxout = x.size(1);
+  for (int k{idx}; k < nxout; k++) {
+    x[k - 1] = x[k];
+  }
+  if (x.size(1) - 1 < 1) {
+    nxout = 0;
+  } else {
+    nxout = x.size(1) - 1;
+  }
+  x.set_size(x.size(0), nxout);
+}
+
 //
 // Arguments    : array<creal_T, 3U> &x
 //                const array<int, 2U> &idx
 // Return Type  : void
 //
-namespace coder {
-namespace internal {
 void nullAssignment(array<creal_T, 3U> &x, const array<int, 2U> &idx)
 {
-  static rtDoubleCheckInfo s_emlrtDCI{
-      451,                       // lineNo
-      58,                        // colNo
-      "general_null_assignment", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
-      "nullAssignment.m", // pName
-      4                   // checkKind
+  static rtDoubleCheckInfo q_emlrtDCI{
+      451,                      // lineNo
+      "general_null_assignment" // fName
   };
-  static rtRunTimeErrorInfo bd_emlrtRTEI{
-      448,                       // lineNo
-      1,                         // colNo
-      "general_null_assignment", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
-      "nullAssignment.m" // pName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      448,                      // lineNo
+      "general_null_assignment" // fName
   };
-  static rtRunTimeErrorInfo cd_emlrtRTEI{
-      81,                // lineNo
-      27,                // colNo
-      "validate_inputs", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
-      "nullAssignment.m" // pName
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
+      81,               // lineNo
+      "validate_inputs" // fName
   };
   array<creal_T, 3U> b_x;
   array<boolean_T, 2U> b;
+  int i;
+  int i1;
+  int ix0;
   int k;
-  int loop_ub_tmp;
-  int npages;
+  int loop_ub;
+  int loop_ub_tmp_tmp;
   int nxout;
-  int vlen;
-  int vstride;
   boolean_T exitg1;
   boolean_T p;
   p = true;
@@ -71,19 +120,20 @@ void nullAssignment(array<creal_T, 3U> &x, const array<int, 2U> &idx)
     }
   }
   if (!p) {
-    j_rtErrorWithMessageID(cd_emlrtRTEI.fName, cd_emlrtRTEI.lineNo);
+    nc_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
   }
-  b_x.set_size(x.size(0), x.size(1), x.size(2));
-  loop_ub_tmp = x.size(0) * x.size(1);
-  nxout = loop_ub_tmp * x.size(2);
-  for (npages = 0; npages < nxout; npages++) {
-    b_x[npages] = x[npages];
+  i = x.size(0);
+  loop_ub = x.size(1);
+  i1 = x.size(2);
+  b_x.set_size(i, loop_ub, i1);
+  loop_ub_tmp_tmp = x.size(0) * x.size(1);
+  nxout = loop_ub_tmp_tmp * x.size(2);
+  for (ix0 = 0; ix0 < nxout; ix0++) {
+    b_x[ix0] = x[ix0];
   }
-  vlen = x.size(1);
-  b.set_size(1, x.size(1));
-  nxout = x.size(1);
-  for (npages = 0; npages < nxout; npages++) {
-    b[npages] = false;
+  b.set_size(1, loop_ub);
+  for (ix0 = 0; ix0 < loop_ub; ix0++) {
+    b[ix0] = false;
   }
   nxout = idx.size(1);
   if (idx.size(1) > 2147483646) {
@@ -92,47 +142,43 @@ void nullAssignment(array<creal_T, 3U> &x, const array<int, 2U> &idx)
   for (k = 0; k < nxout; k++) {
     b[idx[k] - 1] = true;
   }
-  npages = 0;
-  nxout = b.size(1);
+  nxout = 0;
   if (b.size(1) > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (k = 0; k < nxout; k++) {
-    npages += b[k];
+  for (k = 0; k < loop_ub; k++) {
+    nxout += b[k];
   }
-  nxout = x.size(1) - npages;
+  nxout = x.size(1) - nxout;
   if (nxout > x.size(1)) {
-    i_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
   }
   if (nxout < 0) {
-    rtNonNegativeError(static_cast<double>(nxout), s_emlrtDCI);
+    rtNonNegativeError(static_cast<double>(nxout), q_emlrtDCI);
   }
   x.set_size(x.size(0), nxout, x.size(2));
-  vstride = b_x.size(0);
   nxout *= b_x.size(0);
-  npages = b_x.size(2);
   if (b_x.size(2) > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (int i{0}; i < npages; i++) {
-    int ix0;
+  for (int b_i{0}; b_i < i1; b_i++) {
     int iy0;
-    ix0 = i * loop_ub_tmp;
-    iy0 = i * nxout;
-    if (vlen > 2147483646) {
+    ix0 = b_i * loop_ub_tmp_tmp;
+    iy0 = b_i * nxout;
+    if (loop_ub > 2147483646) {
       check_forloop_overflow_error();
     }
-    for (k = 0; k < vlen; k++) {
+    for (k = 0; k < loop_ub; k++) {
       if ((k + 1 > b.size(1)) || (!b[k])) {
-        if (vstride > 2147483646) {
+        if (i > 2147483646) {
           check_forloop_overflow_error();
         }
-        for (int j{0}; j < vstride; j++) {
+        for (int j{0}; j < i; j++) {
           x[iy0 + j] = b_x[ix0 + j];
         }
-        iy0 += vstride;
+        iy0 += i;
       }
-      ix0 += vstride;
+      ix0 += i;
     }
   }
 }
@@ -144,17 +190,14 @@ void nullAssignment(array<creal_T, 3U> &x, const array<int, 2U> &idx)
 //
 void nullAssignment(array<double, 1U> &x, const array<int, 2U> &idx)
 {
-  static rtRunTimeErrorInfo bd_emlrtRTEI{
-      181,                      // lineNo
-      9,                        // colNo
-      "onearg_null_assignment", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
-      "nullAssignment.m" // pName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      181,                     // lineNo
+      "onearg_null_assignment" // fName
   };
   array<boolean_T, 2U> b;
   int k;
   int k0;
-  int nxin;
+  int nxin_tmp;
   int nxout;
   boolean_T exitg1;
   boolean_T p;
@@ -170,13 +213,12 @@ void nullAssignment(array<double, 1U> &x, const array<int, 2U> &idx)
     }
   }
   if (!p) {
-    j_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
+    nc_rtErrorWithMessageID(mc_emlrtRTEI.fName, mc_emlrtRTEI.lineNo);
   }
-  nxin = x.size(0);
-  b.set_size(1, x.size(0));
-  nxout = x.size(0);
-  for (k0 = 0; k0 < nxout; k0++) {
-    b[k0] = false;
+  nxin_tmp = x.size(0);
+  b.set_size(1, nxin_tmp);
+  for (nxout = 0; nxout < nxin_tmp; nxout++) {
+    b[nxout] = false;
   }
   nxout = idx.size(1);
   if (idx.size(1) > 2147483646) {
@@ -185,27 +227,26 @@ void nullAssignment(array<double, 1U> &x, const array<int, 2U> &idx)
   for (k = 0; k < nxout; k++) {
     b[idx[k] - 1] = true;
   }
-  k0 = 0;
-  nxout = b.size(1);
+  nxout = 0;
   if (b.size(1) > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (k = 0; k < nxout; k++) {
-    k0 += b[k];
+  for (k = 0; k < nxin_tmp; k++) {
+    nxout += b[k];
   }
-  nxout = x.size(0) - k0;
+  nxout = x.size(0) - nxout;
   k0 = -1;
   if (x.size(0) > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (k = 0; k < nxin; k++) {
+  for (k = 0; k < nxin_tmp; k++) {
     if ((k + 1 > b.size(1)) || (!b[k])) {
       k0++;
       x[k0] = x[k];
     }
   }
   if (nxout > x.size(0)) {
-    i_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
   }
   if (nxout < 1) {
     nxout = 0;

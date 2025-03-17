@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: ComplexSingleSamplesUDPReceiver.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -25,7 +25,6 @@
 //
 void ComplexSingleSamplesUDPReceiver::init(double ipPort)
 {
-  samplesPerFrame = 1024.0;
   udpReceiver = udpReceiverSetup(ipPort);
   if (udpReceiver <= 0) {
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);

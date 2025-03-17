@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: sum.h
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 #ifndef SUM_H
@@ -31,6 +31,8 @@ class c_sparse;
 
 // Function Declarations
 namespace coder {
+double sum(const array<double, 1U> &x);
+
 void sum(const sparse &x, b_sparse &y);
 
 void sum(const g_sparse &x, c_sparse &y);

@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: unique.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -26,11 +26,9 @@
 namespace coder {
 void unique_rows(const array<double, 2U> &a, array<double, 2U> &b)
 {
-  static rtRunTimeErrorInfo bd_emlrtRTEI{
-      331,           // lineNo
-      1,             // colNo
-      "unique_rows", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/ops/unique.m" // pName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      331,          // lineNo
+      "unique_rows" // fName
   };
   array<double, 1U> ycol;
   array<int, 2U> col;
@@ -41,21 +39,22 @@ void unique_rows(const array<double, 2U> &a, array<double, 2U> &b)
     b.set_size(0, a.size(1));
   } else {
     int b_i;
+    int b_n;
     int i;
     int i1;
     int i2;
     int j;
     int k;
+    int loop_ub;
     int n;
-    int p;
     int pEnd;
-    int q;
+    loop_ub = a.size(0);
+    n = a.size(1);
     b.set_size(a.size(0), a.size(1));
     i2 = a.size(0) * a.size(1);
     for (i = 0; i < i2; i++) {
       b[i] = a[i];
     }
-    n = a.size(1);
     col.set_size(1, a.size(1));
     if (a.size(1) > 2147483646) {
       check_forloop_overflow_error();
@@ -63,26 +62,25 @@ void unique_rows(const array<double, 2U> &a, array<double, 2U> &b)
     for (k = 0; k < n; k++) {
       col[k] = k + 1;
     }
-    n = a.size(0) + 1;
+    b_n = a.size(0) + 1;
     idx.set_size(a.size(0));
-    i2 = a.size(0);
-    for (i = 0; i < i2; i++) {
+    for (i = 0; i < loop_ub; i++) {
       idx[i] = 0;
     }
     if (a.size(1) == 0) {
       if (a.size(0) > 2147483646) {
         check_forloop_overflow_error();
       }
-      for (k = 0; k <= n - 2; k++) {
+      for (k = 0; k <= b_n - 2; k++) {
         idx[k] = k + 1;
       }
     } else {
       iwork.set_size(a.size(0));
-      q = a.size(0) - 1;
+      i2 = a.size(0) - 1;
       if (a.size(0) - 1 > 2147483645) {
         check_forloop_overflow_error();
       }
-      for (k = 1; k <= q; k += 2) {
+      for (k = 1; k <= i2; k += 2) {
         if (internal::sortLE(a, col, k, k + 1)) {
           idx[k - 1] = k;
           idx[k] = k + 1;
@@ -91,28 +89,30 @@ void unique_rows(const array<double, 2U> &a, array<double, 2U> &b)
           idx[k] = k;
         }
       }
-      if ((a.size(0) & 1) != 0) {
+      if ((static_cast<unsigned int>(a.size(0)) & 1U) != 0U) {
         idx[a.size(0) - 1] = a.size(0);
       }
       b_i = 2;
-      while (b_i < n - 1) {
+      while (b_i < b_n - 1) {
         i2 = b_i << 1;
         j = 1;
-        for (pEnd = b_i + 1; pEnd < n; pEnd = qEnd + b_i) {
+        for (pEnd = b_i + 1; pEnd < b_n; pEnd = qEnd + b_i) {
           int kEnd;
+          int p;
+          int q;
           p = j;
           q = pEnd;
           qEnd = j + i2;
-          if (qEnd > n) {
-            qEnd = n;
+          if (qEnd > b_n) {
+            qEnd = b_n;
           }
           k = 0;
           kEnd = qEnd - j;
           while (k + 1 <= kEnd) {
-            i = idx[p - 1];
-            i1 = idx[q - 1];
-            if (internal::sortLE(a, col, i, i1)) {
-              iwork[k] = i;
+            i = idx[q - 1];
+            i1 = idx[p - 1];
+            if (internal::sortLE(a, col, i1, i)) {
+              iwork[k] = i1;
               p++;
               if (p == pEnd) {
                 while (q < qEnd) {
@@ -122,7 +122,7 @@ void unique_rows(const array<double, 2U> &a, array<double, 2U> &b)
                 }
               }
             } else {
-              iwork[k] = i1;
+              iwork[k] = i;
               q++;
               if (q == qEnd) {
                 while (p < pEnd) {
@@ -142,30 +142,27 @@ void unique_rows(const array<double, 2U> &a, array<double, 2U> &b)
         b_i = i2;
       }
     }
-    i2 = a.size(0);
-    n = a.size(1);
     ycol.set_size(a.size(0));
     for (j = 0; j < n; j++) {
-      if (i2 > 2147483646) {
+      if (loop_ub > 2147483646) {
         check_forloop_overflow_error();
       }
-      for (b_i = 0; b_i < i2; b_i++) {
+      for (b_i = 0; b_i < loop_ub; b_i++) {
         ycol[b_i] = b[(idx[b_i] + b.size(0) * j) - 1];
       }
-      for (b_i = 0; b_i < i2; b_i++) {
+      for (b_i = 0; b_i < loop_ub; b_i++) {
         b[b_i + b.size(0) * j] = ycol[b_i];
       }
     }
-    p = 0;
-    i2 = a.size(0);
+    pEnd = 0;
     k = 0;
-    while (k + 1 <= i2) {
-      pEnd = k;
+    while (k + 1 <= loop_ub) {
+      i2 = k;
       int exitg1;
       do {
         exitg1 = 0;
         k++;
-        if (k + 1 > i2) {
+        if (k + 1 > loop_ub) {
           exitg1 = 1;
         } else {
           boolean_T b_p;
@@ -174,7 +171,7 @@ void unique_rows(const array<double, 2U> &a, array<double, 2U> &b)
           j = 0;
           exitg2 = false;
           while ((!exitg2) && (j <= b.size(1) - 1)) {
-            if (b[pEnd + b.size(0) * j] != b[k + b.size(0) * j]) {
+            if (b[i2 + b.size(0) * j] != b[k + b.size(0) * j]) {
               b_p = true;
               exitg2 = true;
             } else {
@@ -186,34 +183,32 @@ void unique_rows(const array<double, 2U> &a, array<double, 2U> &b)
           }
         }
       } while (exitg1 == 0);
-      p++;
-      q = b.size(1);
+      pEnd++;
       if (b.size(1) > 2147483646) {
         check_forloop_overflow_error();
       }
-      for (j = 0; j < q; j++) {
-        b[(p + b.size(0) * j) - 1] = b[pEnd + b.size(0) * j];
+      for (j = 0; j < n; j++) {
+        b[(pEnd + b.size(0) * j) - 1] = b[i2 + b.size(0) * j];
       }
-      if ((pEnd + 1 <= k) && (k > 2147483646)) {
+      if ((i2 + 1 <= k) && (k > 2147483646)) {
         check_forloop_overflow_error();
       }
     }
-    if (p > a.size(0)) {
-      i_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
+    if (pEnd > a.size(0)) {
+      g_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
     }
-    if (p < 1) {
-      i2 = 0;
+    if (pEnd < 1) {
+      loop_ub = 0;
     } else {
-      i2 = p;
+      loop_ub = pEnd;
     }
-    q = b.size(1);
-    for (i = 0; i < q; i++) {
-      for (i1 = 0; i1 < i2; i1++) {
-        b[i1 + i2 * i] = b[i1 + b.size(0) * i];
+    for (i = 0; i < n; i++) {
+      for (i1 = 0; i1 < loop_ub; i1++) {
+        b[i1 + loop_ub * i] = b[i1 + b.size(0) * i];
       }
     }
-    b.set_size(i2, b.size(1));
-    if (p > 2147483646) {
+    b.set_size(loop_ub, b.size(1));
+    if (pEnd > 2147483646) {
       check_forloop_overflow_error();
     }
   }

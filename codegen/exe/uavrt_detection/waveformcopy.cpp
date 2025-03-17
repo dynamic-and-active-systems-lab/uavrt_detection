@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: waveformcopy.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -19,7 +19,6 @@
 #include "waveform.h"
 #include "wfmstft.h"
 #include "coder_array.h"
-#include "coder_bounded_array.h"
 
 // Function Definitions
 //
@@ -48,18 +47,17 @@ waveform *waveformcopy(waveform &wfmIn, wfmstft &iobj_0, pulsestats &iobj_1,
   wfmstft *obj;
   coder::array<c_struct_T, 2U> b__in;
   coder::array<c_struct_T, 2U> b_wfmIn;
-  coder::array<c_struct_T, 2U> r2;
-  coder::array<c_struct_T, 2U> r3;
   coder::array<creal_T, 2U> c__in;
   coder::array<creal32_T, 2U> e__in;
   coder::array<double, 2U> d_wfmIn;
   coder::array<double, 1U> d__in;
   coder::array<boolean_T, 2U> c_wfmIn;
-  coder::bounded_array<c_struct_T, 1U, 2U> r1;
   c_struct_T r;
   double e_wfmIn[2];
   double b_val;
+  int i;
   int loop_ub;
+  int loop_ub_tmp;
   // WAVEFORM Constructs an instance of this class
   // INPUTS:
   //    x       1xn     Vector of samples
@@ -142,23 +140,22 @@ waveform *waveformcopy(waveform &wfmIn, wfmstft &iobj_0, pulsestats &iobj_1,
   // Now actually assign them
   r.A = makepulsestruc(r.t_next, r.mode, r.P, r.SNR, r.yw, r.t_0, r.t_f, r.fp,
                        r.fstart, r.fend, r.det_dec, r.con_dec);
-  r1.size[0] = 1;
-  r1.size[1] = 1;
-  r1.data[0] = r;
-  r2.set(&r1.data[0], r1.size[0], r1.size[1]);
-  coder::internal::validator_check_size(r2, b__in);
-  (&(&iobj_1)[0])[0].pl.set_size(1, b__in.size(1));
+  b__in.set_size(1, 1);
+  b__in[0] = r;
+  coder::internal::validator_check_size(b__in);
+  (&iobj_1)[0].pl.set_size(1, (&iobj_1)[0].pl.size(1));
   loop_ub = b__in.size(1);
-  for (int i{0}; i < loop_ub; i++) {
-    (&(&iobj_1)[0])[0].pl[i] = b__in[i];
+  (&iobj_1)[0].pl.set_size((&iobj_1)[0].pl.size(0), b__in.size(1));
+  for (i = 0; i < loop_ub; i++) {
+    (&iobj_1)[0].pl[i] = b__in[i];
   }
   r.A = makepulsestruc(r.t_next, r.mode, r.P, r.SNR, r.yw, r.t_0, r.t_f, r.fp,
                        r.fstart, r.fend, r.det_dec, r.con_dec);
-  (&(&iobj_1)[0])[0].clst.set_size(1, 1);
-  (&(&iobj_1)[0])[0].clst[0] = r;
-  (&(&iobj_1)[0])[0].cmsk.set_size(0, 0);
-  (&(&iobj_1)[0])[0].cpki.set_size(0, 0);
-  iobj_2.ps_pre = &(&(&iobj_1)[0])[0];
+  (&iobj_1)[0].clst.set_size(1, 1);
+  (&iobj_1)[0].clst[0] = r;
+  (&iobj_1)[0].cmsk.set_size(0, 0);
+  (&iobj_1)[0].cpki.set_size(0, 0);
+  iobj_2.ps_pre = &(&iobj_1)[0];
   // PULSESTATS Constructs an instance of this class
   //
   // INPUTS:
@@ -185,41 +182,40 @@ waveform *waveformcopy(waveform &wfmIn, wfmstft &iobj_0, pulsestats &iobj_1,
   // Now actually assign them
   r.A = makepulsestruc(r.t_next, r.mode, r.P, r.SNR, r.yw, r.t_0, r.t_f, r.fp,
                        r.fstart, r.fend, r.det_dec, r.con_dec);
-  r1.size[0] = 1;
-  r1.size[1] = 1;
-  r1.data[0] = r;
-  r3.set(&r1.data[0], r1.size[0], r1.size[1]);
-  coder::internal::validator_check_size(r3, b__in);
-  (&(&iobj_1)[0])[1].pl.set_size(1, b__in.size(1));
+  b__in.set_size(1, 1);
+  b__in[0] = r;
+  coder::internal::validator_check_size(b__in);
+  (&iobj_1)[1].pl.set_size(1, (&iobj_1)[1].pl.size(1));
   loop_ub = b__in.size(1);
-  for (int i{0}; i < loop_ub; i++) {
-    (&(&iobj_1)[0])[1].pl[i] = b__in[i];
+  (&iobj_1)[1].pl.set_size((&iobj_1)[1].pl.size(0), b__in.size(1));
+  for (i = 0; i < loop_ub; i++) {
+    (&iobj_1)[1].pl[i] = b__in[i];
   }
   r.A = makepulsestruc(r.t_next, r.mode, r.P, r.SNR, r.yw, r.t_0, r.t_f, r.fp,
                        r.fstart, r.fend, r.det_dec, r.con_dec);
-  (&(&iobj_1)[0])[1].clst.set_size(1, 1);
-  (&(&iobj_1)[0])[1].clst[0] = r;
-  (&(&iobj_1)[0])[1].cmsk.set_size(0, 0);
-  (&(&iobj_1)[0])[1].cpki.set_size(0, 0);
-  iobj_2.ps_pos = &(&(&iobj_1)[0])[1];
+  (&iobj_1)[1].clst.set_size(1, 1);
+  (&iobj_1)[1].clst[0] = r;
+  (&iobj_1)[1].cmsk.set_size(0, 0);
+  (&iobj_1)[1].cpki.set_size(0, 0);
+  iobj_2.ps_pos = &(&iobj_1)[1];
   b__in.set_size(1, wfmIn.ps_pre->pl.size(1));
   loop_ub = wfmIn.ps_pre->pl.size(0) * wfmIn.ps_pre->pl.size(1) - 1;
-  for (int i{0}; i <= loop_ub; i++) {
+  for (i = 0; i <= loop_ub; i++) {
     b__in[i] = wfmIn.ps_pre->pl[i];
   }
   b_wfmIn.set_size(wfmIn.ps_pre->clst.size(0), wfmIn.ps_pre->clst.size(1));
   loop_ub = wfmIn.ps_pre->clst.size(0) * wfmIn.ps_pre->clst.size(1) - 1;
-  for (int i{0}; i <= loop_ub; i++) {
+  for (i = 0; i <= loop_ub; i++) {
     b_wfmIn[i] = wfmIn.ps_pre->clst[i];
   }
   c_wfmIn.set_size(wfmIn.ps_pre->cmsk.size(0), wfmIn.ps_pre->cmsk.size(1));
   loop_ub = wfmIn.ps_pre->cmsk.size(0) * wfmIn.ps_pre->cmsk.size(1) - 1;
-  for (int i{0}; i <= loop_ub; i++) {
+  for (i = 0; i <= loop_ub; i++) {
     c_wfmIn[i] = wfmIn.ps_pre->cmsk[i];
   }
   d_wfmIn.set_size(wfmIn.ps_pre->cpki.size(0), wfmIn.ps_pre->cpki.size(1));
   loop_ub = wfmIn.ps_pre->cpki.size(0) * wfmIn.ps_pre->cpki.size(1) - 1;
-  for (int i{0}; i <= loop_ub; i++) {
+  for (i = 0; i <= loop_ub; i++) {
     d_wfmIn[i] = wfmIn.ps_pre->cpki[i];
   }
   e_wfmIn[0] = wfmIn.ps_pre->tmplt[0];
@@ -232,22 +228,22 @@ waveform *waveformcopy(waveform &wfmIn, wfmstft &iobj_0, pulsestats &iobj_1,
   iobj_2.ps_pre = val;
   b__in.set_size(1, wfmIn.ps_pos->pl.size(1));
   loop_ub = wfmIn.ps_pos->pl.size(0) * wfmIn.ps_pos->pl.size(1) - 1;
-  for (int i{0}; i <= loop_ub; i++) {
+  for (i = 0; i <= loop_ub; i++) {
     b__in[i] = wfmIn.ps_pos->pl[i];
   }
   b_wfmIn.set_size(wfmIn.ps_pos->clst.size(0), wfmIn.ps_pos->clst.size(1));
   loop_ub = wfmIn.ps_pos->clst.size(0) * wfmIn.ps_pos->clst.size(1) - 1;
-  for (int i{0}; i <= loop_ub; i++) {
+  for (i = 0; i <= loop_ub; i++) {
     b_wfmIn[i] = wfmIn.ps_pos->clst[i];
   }
   c_wfmIn.set_size(wfmIn.ps_pos->cmsk.size(0), wfmIn.ps_pos->cmsk.size(1));
   loop_ub = wfmIn.ps_pos->cmsk.size(0) * wfmIn.ps_pos->cmsk.size(1) - 1;
-  for (int i{0}; i <= loop_ub; i++) {
+  for (i = 0; i <= loop_ub; i++) {
     c_wfmIn[i] = wfmIn.ps_pos->cmsk[i];
   }
   d_wfmIn.set_size(wfmIn.ps_pos->cpki.size(0), wfmIn.ps_pos->cpki.size(1));
   loop_ub = wfmIn.ps_pos->cpki.size(0) * wfmIn.ps_pos->cpki.size(1) - 1;
-  for (int i{0}; i <= loop_ub; i++) {
+  for (i = 0; i <= loop_ub; i++) {
     d_wfmIn[i] = wfmIn.ps_pos->cpki[i];
   }
   e_wfmIn[0] = wfmIn.ps_pos->tmplt[0];
@@ -261,47 +257,49 @@ waveform *waveformcopy(waveform &wfmIn, wfmstft &iobj_0, pulsestats &iobj_1,
   _in = wfmIn.thresh;
   iobj_2.thresh = _in;
   obj = iobj_2.stft;
-  c__in.set_size(wfmIn.stft->S.size(0), wfmIn.stft->S.size(1));
+  i = wfmIn.stft->S.size(0);
+  loop_ub_tmp = wfmIn.stft->S.size(1);
+  c__in.set_size(i, loop_ub_tmp);
   loop_ub = wfmIn.stft->S.size(0) * wfmIn.stft->S.size(1);
-  for (int i{0}; i < loop_ub; i++) {
-    c__in[i] = wfmIn.stft->S[i];
+  for (int i1{0}; i1 < loop_ub; i1++) {
+    c__in[i1] = wfmIn.stft->S[i1];
   }
-  obj->S.set_size(c__in.size(0), c__in.size(1));
-  loop_ub = c__in.size(0) * c__in.size(1);
-  for (int i{0}; i < loop_ub; i++) {
+  obj->S.set_size(i, loop_ub_tmp);
+  loop_ub_tmp = c__in.size(0) * c__in.size(1);
+  for (i = 0; i < loop_ub_tmp; i++) {
     obj->S[i] = c__in[i];
   }
   obj = iobj_2.stft;
-  d__in.set_size(wfmIn.stft->f.size(0));
   loop_ub = wfmIn.stft->f.size(0);
-  for (int i{0}; i < loop_ub; i++) {
+  d__in.set_size(loop_ub);
+  loop_ub_tmp = wfmIn.stft->f.size(0);
+  for (i = 0; i < loop_ub_tmp; i++) {
     d__in[i] = wfmIn.stft->f[i];
   }
-  obj->f.set_size(d__in.size(0));
-  loop_ub = d__in.size(0);
-  for (int i{0}; i < loop_ub; i++) {
+  obj->f.set_size(loop_ub);
+  for (i = 0; i < loop_ub; i++) {
     obj->f[i] = d__in[i];
   }
   obj = iobj_2.stft;
-  d__in.set_size(wfmIn.stft->t.size(0));
   loop_ub = wfmIn.stft->t.size(0);
-  for (int i{0}; i < loop_ub; i++) {
+  d__in.set_size(loop_ub);
+  loop_ub_tmp = wfmIn.stft->t.size(0);
+  for (i = 0; i < loop_ub_tmp; i++) {
     d__in[i] = wfmIn.stft->t[i];
   }
-  obj->t.set_size(d__in.size(0));
-  loop_ub = d__in.size(0);
-  for (int i{0}; i < loop_ub; i++) {
+  obj->t.set_size(loop_ub);
+  for (i = 0; i < loop_ub; i++) {
     obj->t[i] = d__in[i];
   }
   obj = iobj_2.stft;
-  d__in.set_size(wfmIn.stft->psd.size(0));
   loop_ub = wfmIn.stft->psd.size(0);
-  for (int i{0}; i < loop_ub; i++) {
+  d__in.set_size(loop_ub);
+  loop_ub_tmp = wfmIn.stft->psd.size(0);
+  for (i = 0; i < loop_ub_tmp; i++) {
     d__in[i] = wfmIn.stft->psd[i];
   }
-  obj->psd.set_size(d__in.size(0));
-  loop_ub = d__in.size(0);
-  for (int i{0}; i < loop_ub; i++) {
+  obj->psd.set_size(loop_ub);
+  for (i = 0; i < loop_ub; i++) {
     obj->psd[i] = d__in[i];
   }
   obj = iobj_2.stft;
@@ -311,26 +309,26 @@ waveform *waveformcopy(waveform &wfmIn, wfmstft &iobj_0, pulsestats &iobj_1,
   b_val = wfmIn.stft->T;
   obj->T = b_val;
   obj = iobj_2.stft;
-  d__in.set_size(wfmIn.stft->wind.size(0));
   loop_ub = wfmIn.stft->wind.size(0);
-  for (int i{0}; i < loop_ub; i++) {
+  d__in.set_size(loop_ub);
+  loop_ub_tmp = wfmIn.stft->wind.size(0);
+  for (i = 0; i < loop_ub_tmp; i++) {
     d__in[i] = wfmIn.stft->wind[i];
   }
-  obj->wind.set_size(d__in.size(0));
-  loop_ub = d__in.size(0);
-  for (int i{0}; i < loop_ub; i++) {
+  obj->wind.set_size(loop_ub);
+  for (i = 0; i < loop_ub; i++) {
     obj->wind[i] = d__in[i];
   }
   b_val = wfmIn.K;
   iobj_2.K = b_val;
-  e__in.set_size(1, wfmIn.x.size(1));
   loop_ub = wfmIn.x.size(1);
-  for (int i{0}; i < loop_ub; i++) {
+  e__in.set_size(1, loop_ub);
+  loop_ub_tmp = wfmIn.x.size(1);
+  for (i = 0; i < loop_ub_tmp; i++) {
     e__in[i] = wfmIn.x[i];
   }
-  iobj_2.x.set_size(1, e__in.size(1));
-  loop_ub = e__in.size(1);
-  for (int i{0}; i < loop_ub; i++) {
+  iobj_2.x.set_size(1, loop_ub);
+  for (i = 0; i < loop_ub; i++) {
     iobj_2.x[i] = e__in[i];
   }
   double _in_idx_1;
@@ -348,24 +346,26 @@ waveform *waveformcopy(waveform &wfmIn, wfmstft &iobj_0, pulsestats &iobj_1,
   iobj_2.t_nextsegstart[1] = _in_idx_1;
   b_val = wfmIn.OLF;
   iobj_2.OLF = b_val;
-  c__in.set_size(wfmIn.W.size(0), wfmIn.W.size(1));
+  i = wfmIn.W.size(0);
+  loop_ub_tmp = wfmIn.W.size(1);
+  c__in.set_size(i, loop_ub_tmp);
   loop_ub = wfmIn.W.size(0) * wfmIn.W.size(1);
-  for (int i{0}; i < loop_ub; i++) {
-    c__in[i] = wfmIn.W[i];
+  for (int i1{0}; i1 < loop_ub; i1++) {
+    c__in[i1] = wfmIn.W[i1];
   }
-  iobj_2.W.set_size(c__in.size(0), c__in.size(1));
-  loop_ub = c__in.size(0) * c__in.size(1);
-  for (int i{0}; i < loop_ub; i++) {
+  iobj_2.W.set_size(i, loop_ub_tmp);
+  loop_ub_tmp = c__in.size(0) * c__in.size(1);
+  for (i = 0; i < loop_ub_tmp; i++) {
     iobj_2.W[i] = c__in[i];
   }
-  d__in.set_size(wfmIn.Wf.size(0));
   loop_ub = wfmIn.Wf.size(0);
-  for (int i{0}; i < loop_ub; i++) {
+  d__in.set_size(loop_ub);
+  loop_ub_tmp = wfmIn.Wf.size(0);
+  for (i = 0; i < loop_ub_tmp; i++) {
     d__in[i] = wfmIn.Wf[i];
   }
-  iobj_2.Wf.set_size(d__in.size(0));
-  loop_ub = d__in.size(0);
-  for (int i{0}; i < loop_ub; i++) {
+  iobj_2.Wf.set_size(loop_ub);
+  for (i = 0; i < loop_ub; i++) {
     iobj_2.Wf[i] = d__in[i];
   }
   b_val = wfmIn.n_p;

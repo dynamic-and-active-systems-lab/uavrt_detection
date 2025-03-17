@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: stft.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -33,173 +33,98 @@
 
 // Variable Definitions
 static rtEqualityCheckInfo c_emlrtECI{
-    -1,               // nDims
-    34,               // lineNo
-    9,                // colNo
-    "getSTFTColumns", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/getSTFTColumns.m" // pName
+    -1,              // nDims
+    35,              // lineNo
+    "getSTFTColumns" // fName
 };
 
 static rtBoundsCheckInfo d_emlrtBCI{
-    -1,               // iFirst
-    -1,               // iLast
-    34,               // lineNo
-    15,               // colNo
-    "",               // aName
-    "getSTFTColumns", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/getSTFTColumns.m", // pName
-    0                         // checkKind
+    35,              // lineNo
+    "",              // aName
+    "getSTFTColumns" // fName
 };
 
 static rtBoundsCheckInfo e_emlrtBCI{
-    -1,               // iFirst
-    -1,               // iLast
-    34,               // lineNo
-    46,               // colNo
-    "",               // aName
-    "getSTFTColumns", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/getSTFTColumns.m", // pName
-    0                         // checkKind
+    35,              // lineNo
+    "",              // aName
+    "getSTFTColumns" // fName
 };
 
 static rtDoubleCheckInfo c_emlrtDCI{
-    34,               // lineNo
-    46,               // colNo
-    "getSTFTColumns", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/getSTFTColumns.m", // pName
-    1                         // checkKind
+    35,              // lineNo
+    "getSTFTColumns" // fName
 };
 
 static rtBoundsCheckInfo f_emlrtBCI{
-    -1,               // iFirst
-    -1,               // iLast
-    34,               // lineNo
-    27,               // colNo
-    "",               // aName
-    "getSTFTColumns", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/getSTFTColumns.m", // pName
-    0                         // checkKind
+    35,              // lineNo
+    "",              // aName
+    "getSTFTColumns" // fName
 };
 
 static rtDoubleCheckInfo d_emlrtDCI{
-    34,               // lineNo
-    27,               // colNo
-    "getSTFTColumns", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/getSTFTColumns.m", // pName
-    1                         // checkKind
-};
-
-static rtRunTimeErrorInfo db_emlrtRTEI{
-    336,                 // lineNo
-    5,                   // colNo
-    "verifyDataAndTime", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/stftParser.m" // pName
-};
-
-static rtRunTimeErrorInfo eb_emlrtRTEI{
-    318,                 // lineNo
-    5,                   // colNo
-    "verifyDataAndTime", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/stftParser.m" // pName
-};
-
-static rtBoundsCheckInfo g_emlrtBCI{
-    -1,                                                             // iFirst
-    -1,                                                             // iLast
-    278,                                                            // lineNo
-    14,                                                             // colNo
-    "",                                                             // aName
-    "computeSTFT",                                                  // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/stft.m", // pName
-    0                                                               // checkKind
-};
-
-static rtBoundsCheckInfo h_emlrtBCI{
-    -1,                                                             // iFirst
-    -1,                                                             // iLast
-    278,                                                            // lineNo
-    12,                                                             // colNo
-    "",                                                             // aName
-    "computeSTFT",                                                  // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/stft.m", // pName
-    0                                                               // checkKind
-};
-
-static rtBoundsCheckInfo i_emlrtBCI{
-    -1,                                                             // iFirst
-    -1,                                                             // iLast
-    277,                                                            // lineNo
-    14,                                                             // colNo
-    "",                                                             // aName
-    "computeSTFT",                                                  // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/stft.m", // pName
-    0                                                               // checkKind
-};
-
-static rtBoundsCheckInfo j_emlrtBCI{
-    -1,                                                             // iFirst
-    -1,                                                             // iLast
-    277,                                                            // lineNo
-    12,                                                             // colNo
-    "",                                                             // aName
-    "computeSTFT",                                                  // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/stft.m", // pName
-    0                                                               // checkKind
+    35,              // lineNo
+    "getSTFTColumns" // fName
 };
 
 static rtDoubleCheckInfo e_emlrtDCI{
-    14,               // lineNo
-    30,               // colNo
-    "getSTFTColumns", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/getSTFTColumns.m", // pName
-    1                         // checkKind
+    15,              // lineNo
+    "getSTFTColumns" // fName
 };
 
 static rtDoubleCheckInfo f_emlrtDCI{
-    14,               // lineNo
-    30,               // colNo
-    "getSTFTColumns", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/getSTFTColumns.m", // pName
-    4                         // checkKind
+    15,              // lineNo
+    "getSTFTColumns" // fName
 };
 
-static rtDoubleCheckInfo g_emlrtDCI{
-    14,               // lineNo
-    5,                // colNo
-    "getSTFTColumns", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/signal/signal/+signal/+internal/"
-    "+stft/getSTFTColumns.m", // pName
-    1                         // checkKind
+static rtRunTimeErrorInfo y_emlrtRTEI{
+    336,                // lineNo
+    "verifyDataAndTime" // fName
 };
 
-static rtRunTimeErrorInfo gb_emlrtRTEI{
-    14,                 // lineNo
-    37,                 // colNo
-    "validatepositive", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/+valattr/"
-    "validatepositive.m" // pName
+static rtRunTimeErrorInfo ab_emlrtRTEI{
+    318,                // lineNo
+    "verifyDataAndTime" // fName
+};
+
+static rtBoundsCheckInfo g_emlrtBCI{
+    278,          // lineNo
+    "",           // aName
+    "computeSTFT" // fName
+};
+
+static rtBoundsCheckInfo h_emlrtBCI{
+    278,          // lineNo
+    "",           // aName
+    "computeSTFT" // fName
+};
+
+static rtBoundsCheckInfo i_emlrtBCI{
+    277,          // lineNo
+    "",           // aName
+    "computeSTFT" // fName
+};
+
+static rtBoundsCheckInfo j_emlrtBCI{
+    277,          // lineNo
+    "",           // aName
+    "computeSTFT" // fName
+};
+
+static rtRunTimeErrorInfo cb_emlrtRTEI{
+    14,                // lineNo
+    "validatepositive" // fName
 };
 
 // Function Declarations
-static void l_rtErrorWithMessageID(const char *r, const char *aFcnName,
+static void k_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum);
 
 static void rtErrorWithMessageID(const long i, const char *aFcnName,
                                  int aLineNum);
 
-static void t_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void s_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
-static void v_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void u_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -208,7 +133,7 @@ static void v_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void l_rtErrorWithMessageID(const char *r, const char *aFcnName,
+static void k_rtErrorWithMessageID(const char *r, const char *aFcnName,
                                    int aLineNum)
 {
   std::string errMsg;
@@ -256,7 +181,7 @@ static void rtErrorWithMessageID(const long i, const char *aFcnName,
 //                int aLineNum
 // Return Type  : void
 //
-static void t_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void s_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -278,7 +203,7 @@ static void t_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-static void v_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void u_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -311,11 +236,9 @@ void stft(const array<creal32_T, 2U> &x, double varargin_1,
           double varargin_7, array<creal32_T, 2U> &varargout_1,
           array<float, 1U> &varargout_2, array<float, 1U> &varargout_3)
 {
-  static rtRunTimeErrorInfo bd_emlrtRTEI{
-      398,          // lineNo
-      5,            // colNo
-      "checkrange", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/ops/colon.m" // pName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      398,         // lineNo
+      "checkrange" // fName
   };
   internal::j_stickyStruct obj;
   array<creal32_T, 2U> c;
@@ -332,8 +255,8 @@ void stft(const array<creal32_T, 2U> &x, double varargin_1,
   int i;
   int i1;
   int i2;
-  int iCol;
   int k;
+  int loop_ub;
   boolean_T exitg1;
   boolean_T p;
   validateattributes(varargin_3);
@@ -353,7 +276,7 @@ void stft(const array<creal32_T, 2U> &x, double varargin_1,
     }
   }
   if (!p) {
-    j_rtErrorWithMessageID("X", bb_emlrtRTEI.fName, bb_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID("X", w_emlrtRTEI.fName, w_emlrtRTEI.lineNo);
   }
   p = true;
   k = 0;
@@ -367,34 +290,33 @@ void stft(const array<creal32_T, 2U> &x, double varargin_1,
     }
   }
   if (!p) {
-    i_rtErrorWithMessageID("X", ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
+    h_rtErrorWithMessageID("X", v_emlrtRTEI.fName, v_emlrtRTEI.lineNo);
   }
   if (x.size(1) == 0) {
-    h_rtErrorWithMessageID("X", y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID("X", u_emlrtRTEI.fName, u_emlrtRTEI.lineNo);
   }
   if (x.size(1) < 2) {
-    v_rtErrorWithMessageID(eb_emlrtRTEI.fName, eb_emlrtRTEI.lineNo);
+    u_rtErrorWithMessageID(ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
   }
   if (varargin_3.size(0) > x.size(1)) {
     rtErrorWithMessageID(static_cast<long>(varargin_3.size(0)),
-                         db_emlrtRTEI.fName, db_emlrtRTEI.lineNo);
+                         y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
   }
   if (std::isinf(varargin_1) || std::isnan(varargin_1)) {
-    j_rtErrorWithMessageID("sample rate", bb_emlrtRTEI.fName,
-                           bb_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID("sample rate", w_emlrtRTEI.fName,
+                           w_emlrtRTEI.lineNo);
   }
   if (varargin_1 <= 0.0) {
-    l_rtErrorWithMessageID("sample rate", gb_emlrtRTEI.fName,
-                           gb_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID("sample rate", cb_emlrtRTEI.fName,
+                           cb_emlrtRTEI.lineNo);
   }
+  loop_ub = varargin_3.size(0);
   obj.value.set_size(varargin_3.size(0));
-  bcoef = varargin_3.size(0);
-  for (i = 0; i < bcoef; i++) {
+  for (i = 0; i < loop_ub; i++) {
     obj.value[i] = static_cast<float>(varargin_3[i]);
   }
   hopSize = static_cast<double>(varargin_3.size(0)) - varargin_5;
   nCol = std::trunc((static_cast<double>(x.size(1)) - varargin_5) / hopSize);
-  xin.set_size(varargin_3.size(0), xin.size(1));
   if (!(nCol >= 0.0)) {
     rtNonNegativeError(nCol, f_emlrtDCI);
   }
@@ -402,10 +324,7 @@ void stft(const array<creal32_T, 2U> &x, double varargin_1,
     rtIntegerError(nCol, e_emlrtDCI);
   }
   i = static_cast<int>(nCol);
-  xin.set_size(xin.size(0), static_cast<int>(nCol));
-  if (nCol != static_cast<int>(nCol)) {
-    rtIntegerError(nCol, g_emlrtDCI);
-  }
+  xin.set_size(varargin_3.size(0), static_cast<int>(nCol));
   bcoef = varargin_3.size(0) * static_cast<int>(nCol);
   for (i1 = 0; i1 < bcoef; i1++) {
     xin[i1].re = 0.0F;
@@ -415,7 +334,7 @@ void stft(const array<creal32_T, 2U> &x, double varargin_1,
     y.set_size(y.size(0), 0);
   } else {
     if (!(nCol - 1.0 <= 3.4028234663852886E+38)) {
-      t_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
+      s_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
     }
     y.set_size(1, static_cast<int>(nCol - 1.0) + 1);
     bcoef = static_cast<int>(nCol - 1.0);
@@ -423,80 +342,79 @@ void stft(const array<creal32_T, 2U> &x, double varargin_1,
       y[i1] = static_cast<float>(i1);
     }
   }
-  for (iCol = 0; iCol < i; iCol++) {
+  for (bcoef = 0; bcoef < i; bcoef++) {
     double d;
-    nCol = hopSize * ((static_cast<double>(iCol) + 1.0) - 1.0);
-    d = static_cast<double>(varargin_3.size(0)) + nCol;
-    if (nCol + 1.0 > d) {
-      i1 = 1;
+    double d1;
+    d = hopSize * ((static_cast<double>(bcoef) + 1.0) - 1.0);
+    d1 = static_cast<double>(varargin_3.size(0)) + d;
+    if (d + 1.0 > d1) {
+      i1 = 0;
       i2 = 0;
     } else {
-      if (nCol + 1.0 != static_cast<int>(std::floor(nCol + 1.0))) {
-        rtIntegerError(nCol + 1.0, d_emlrtDCI);
+      if (d + 1.0 != static_cast<int>(std::floor(d + 1.0))) {
+        rtIntegerError(d + 1.0, d_emlrtDCI);
       }
-      if ((static_cast<int>(nCol + 1.0) < 1) ||
-          (static_cast<int>(nCol + 1.0) > x.size(1))) {
-        rtDynamicBoundsError(static_cast<int>(nCol + 1.0), 1, x.size(1),
+      if ((static_cast<int>(d + 1.0) < 1) ||
+          (static_cast<int>(d + 1.0) > x.size(1))) {
+        rtDynamicBoundsError(static_cast<int>(d + 1.0), 1, x.size(1),
                              f_emlrtBCI);
       }
-      i1 = static_cast<int>(nCol + 1.0);
-      if (d != static_cast<int>(std::floor(d))) {
-        rtIntegerError(d, c_emlrtDCI);
+      i1 = static_cast<int>(d + 1.0) - 1;
+      if (d1 != static_cast<int>(std::floor(d1))) {
+        rtIntegerError(d1, c_emlrtDCI);
       }
-      if ((static_cast<int>(d) < 1) || (static_cast<int>(d) > x.size(1))) {
-        rtDynamicBoundsError(static_cast<int>(d), 1, x.size(1), e_emlrtBCI);
+      if ((static_cast<int>(d1) < 1) || (static_cast<int>(d1) > x.size(1))) {
+        rtDynamicBoundsError(static_cast<int>(d1), 1, x.size(1), e_emlrtBCI);
       }
-      i2 = static_cast<int>(d);
+      i2 = static_cast<int>(d1);
     }
-    if ((iCol + 1 < 1) || (iCol + 1 > xin.size(1))) {
-      rtDynamicBoundsError(iCol + 1, 1, xin.size(1), d_emlrtBCI);
+    if ((bcoef + 1 < 1) || (bcoef + 1 > static_cast<int>(nCol))) {
+      rtDynamicBoundsError(bcoef + 1, 1, static_cast<int>(nCol), d_emlrtBCI);
     }
-    bcoef = i2 - i1;
-    i2 = bcoef + 1;
-    rtSubAssignSizeCheck(xin.size(), 1, &i2, 1, c_emlrtECI);
-    for (i2 = 0; i2 <= bcoef; i2++) {
-      xin[i2 + xin.size(0) * iCol] = x[(i1 + i2) - 1];
+    i2 -= i1;
+    rtSubAssignSizeCheck(&loop_ub, 1, &i2, 1, c_emlrtECI);
+    for (i2 = 0; i2 < loop_ub; i2++) {
+      xin[i2 + xin.size(0) * bcoef] = x[i1 + i2];
     }
   }
   y.set_size(1, y.size(1));
   b_varargin_3 =
       static_cast<float>(static_cast<double>(varargin_3.size(0)) / 2.0);
-  bcoef = y.size(1) - 1;
-  for (i = 0; i <= bcoef; i++) {
-    y[i] = (y[i] * static_cast<float>(hopSize) + b_varargin_3) /
-           static_cast<float>(varargin_1);
+  loop_ub = y.size(1) - 1;
+  for (i1 = 0; i1 <= loop_ub; i1++) {
+    y[i1] = (y[i1] * static_cast<float>(hopSize) + b_varargin_3) /
+            static_cast<float>(varargin_1);
   }
   if (xin.size(0) == 1) {
-    csz_idx_0 = obj.value.size(0);
+    csz_idx_0 = varargin_3.size(0);
   } else if (obj.value.size(0) == 1) {
-    csz_idx_0 = xin.size(0);
+    csz_idx_0 = varargin_3.size(0);
   } else if (obj.value.size(0) == xin.size(0)) {
-    csz_idx_0 = obj.value.size(0);
+    csz_idx_0 = varargin_3.size(0);
   } else {
-    u_rtErrorWithMessageID(cb_emlrtRTEI.fName, cb_emlrtRTEI.lineNo);
+    t_rtErrorWithMessageID(x_emlrtRTEI.fName, x_emlrtRTEI.lineNo);
   }
-  c.set_size(csz_idx_0, xin.size(1));
+  c.set_size(csz_idx_0, static_cast<int>(nCol));
   if ((csz_idx_0 != 0) && (xin.size(1) != 0)) {
     bcoef = (xin.size(1) != 1);
-    i = xin.size(1) - 1;
-    csz_idx_0 = (obj.value.size(0) != 1);
-    for (k = 0; k <= i; k++) {
-      iCol = bcoef * k;
-      i1 = c.size(0) - 1;
-      for (int b_k{0}; b_k <= i1; b_k++) {
-        b_varargin_3 = obj.value[csz_idx_0 * b_k];
-        i2 = csz_idx_0 * b_k;
+    loop_ub = (obj.value.size(0) != 1);
+    for (k = 0; k < i; k++) {
+      csz_idx_0 = bcoef * k;
+      i1 = c.size(0);
+      for (int b_k{0}; b_k < i1; b_k++) {
+        i2 = loop_ub * b_k;
+        b_varargin_3 = obj.value[i2];
         c[b_k + c.size(0) * k].re =
-            b_varargin_3 * xin[i2 + xin.size(0) * iCol].re;
+            b_varargin_3 * xin[i2 + xin.size(0) * csz_idx_0].re;
         c[b_k + c.size(0) * k].im =
-            b_varargin_3 * xin[i2 + xin.size(0) * iCol].im;
+            b_varargin_3 * xin[i2 + xin.size(0) * csz_idx_0].im;
       }
     }
   }
   computeDFT(c, varargin_7, varargin_1, varargout_1, f);
   b_signal::internal::stft::formatSTFTOutput(varargout_1, f, b_f);
   if (varargout_1.size(0) < 1) {
-    bcoef = 0;
+    loop_ub = 0;
   } else {
     if (b_f.size(0) < 1) {
       rtDynamicBoundsError(1, 1, b_f.size(0), j_emlrtBCI);
@@ -504,17 +422,17 @@ void stft(const array<creal32_T, 2U> &x, double varargin_1,
     if (varargout_1.size(0) > b_f.size(0)) {
       rtDynamicBoundsError(varargout_1.size(0), 1, b_f.size(0), i_emlrtBCI);
     }
-    bcoef = varargout_1.size(0);
+    loop_ub = varargout_1.size(0);
   }
   iv[0] = 1;
-  iv[1] = bcoef;
+  iv[1] = loop_ub;
   internal::indexShapeCheck(b_f.size(0), iv);
-  varargout_2.set_size(bcoef);
-  for (i = 0; i < bcoef; i++) {
+  varargout_2.set_size(loop_ub);
+  for (i = 0; i < loop_ub; i++) {
     varargout_2[i] = static_cast<float>(b_f[i]);
   }
   if (varargout_1.size(1) < 1) {
-    bcoef = 0;
+    loop_ub = 0;
   } else {
     if (y.size(1) < 1) {
       rtDynamicBoundsError(1, 1, y.size(1), h_emlrtBCI);
@@ -522,10 +440,10 @@ void stft(const array<creal32_T, 2U> &x, double varargin_1,
     if (varargout_1.size(1) > y.size(1)) {
       rtDynamicBoundsError(varargout_1.size(1), 1, y.size(1), g_emlrtBCI);
     }
-    bcoef = varargout_1.size(1);
+    loop_ub = varargout_1.size(1);
   }
-  varargout_3.set_size(bcoef);
-  for (i = 0; i < bcoef; i++) {
+  varargout_3.set_size(loop_ub);
+  for (i = 0; i < loop_ub; i++) {
     varargout_3[i] = y[i];
   }
 }
@@ -557,11 +475,14 @@ void stft(const array<creal_T, 2U> &x, double varargin_1,
   array<double, 2U> y;
   array<double, 1U> b_f;
   array<double, 1U> f;
+  double b_varargin_3;
   double hopSize;
   double nCol;
   int b_xin[3];
   int c[2];
   int b_bcoef;
+  int b_loop_ub;
+  int b_varargin_5;
   int bcoef;
   int c_tmp;
   int csz_idx_0;
@@ -569,9 +490,9 @@ void stft(const array<creal_T, 2U> &x, double varargin_1,
   int i1;
   int i2;
   int i3;
-  int iCol;
   int k;
   int loop_ub;
+  int loop_ub_tmp;
   boolean_T exitg1;
   boolean_T useRadix2;
   validateattributes(varargin_3);
@@ -579,10 +500,10 @@ void stft(const array<creal_T, 2U> &x, double varargin_1,
   validateattributes(varargin_5, static_cast<double>(varargin_3.size(0)));
   b_validateattributes(varargin_7, static_cast<double>(varargin_3.size(0)));
   useRadix2 = true;
-  loop_ub = x.size(0) * x.size(1);
+  bcoef = x.size(0) * x.size(1);
   k = 0;
   exitg1 = false;
-  while ((!exitg1) && (k <= loop_ub - 1)) {
+  while ((!exitg1) && (k <= bcoef - 1)) {
     if ((!std::isinf(x[k].re)) && (!std::isinf(x[k].im)) &&
         ((!std::isnan(x[k].re)) && (!std::isnan(x[k].im)))) {
       k++;
@@ -592,12 +513,12 @@ void stft(const array<creal_T, 2U> &x, double varargin_1,
     }
   }
   if (!useRadix2) {
-    j_rtErrorWithMessageID("X", bb_emlrtRTEI.fName, bb_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID("X", w_emlrtRTEI.fName, w_emlrtRTEI.lineNo);
   }
   useRadix2 = true;
   k = 0;
   exitg1 = false;
-  while ((!exitg1) && (k <= loop_ub - 1)) {
+  while ((!exitg1) && (k <= bcoef - 1)) {
     if ((!std::isnan(x[k].re)) && (!std::isnan(x[k].im))) {
       k++;
     } else {
@@ -606,55 +527,54 @@ void stft(const array<creal_T, 2U> &x, double varargin_1,
     }
   }
   if (!useRadix2) {
-    i_rtErrorWithMessageID("X", ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
+    h_rtErrorWithMessageID("X", v_emlrtRTEI.fName, v_emlrtRTEI.lineNo);
   }
   if ((x.size(0) == 0) || (x.size(1) == 0)) {
-    h_rtErrorWithMessageID("X", y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID("X", u_emlrtRTEI.fName, u_emlrtRTEI.lineNo);
   }
   if (x.size(0) == 1) {
+    bcoef = x.size(1);
     wrappedData.set_size(x.size(1), 1);
-    loop_ub = x.size(1);
-    for (i = 0; i < loop_ub; i++) {
+    for (i = 0; i < bcoef; i++) {
       wrappedData[i] = x[i];
     }
   } else {
     wrappedData.set_size(x.size(0), x.size(1));
-    for (i = 0; i < loop_ub; i++) {
+    for (i = 0; i < bcoef; i++) {
       wrappedData[i] = x[i];
     }
   }
   if (wrappedData.size(0) < 2) {
-    v_rtErrorWithMessageID(eb_emlrtRTEI.fName, eb_emlrtRTEI.lineNo);
+    u_rtErrorWithMessageID(ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
   }
   if (varargin_3.size(0) > wrappedData.size(0)) {
     rtErrorWithMessageID(static_cast<long>(varargin_3.size(0)),
-                         db_emlrtRTEI.fName, db_emlrtRTEI.lineNo);
+                         y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
   }
   if (std::isinf(varargin_1) || std::isnan(varargin_1)) {
-    j_rtErrorWithMessageID("sample rate", bb_emlrtRTEI.fName,
-                           bb_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID("sample rate", w_emlrtRTEI.fName,
+                           w_emlrtRTEI.lineNo);
   }
   if (varargin_1 <= 0.0) {
-    l_rtErrorWithMessageID("sample rate", gb_emlrtRTEI.fName,
-                           gb_emlrtRTEI.lineNo);
+    k_rtErrorWithMessageID("sample rate", cb_emlrtRTEI.fName,
+                           cb_emlrtRTEI.lineNo);
   }
   hopSize = static_cast<double>(varargin_3.size(0)) - varargin_5;
   nCol = std::trunc((static_cast<double>(wrappedData.size(0)) - varargin_5) /
                     hopSize);
-  xin.set_size(varargin_3.size(0), xin.size(1), xin.size(2));
   if (!(nCol >= 0.0)) {
     rtNonNegativeError(nCol, f_emlrtDCI);
   }
   if (nCol != static_cast<int>(nCol)) {
     rtIntegerError(nCol, e_emlrtDCI);
   }
+  bcoef = varargin_3.size(0);
   i = static_cast<int>(nCol);
-  xin.set_size(xin.size(0), static_cast<int>(nCol), wrappedData.size(1));
-  if (nCol != static_cast<int>(nCol)) {
-    rtIntegerError(nCol, g_emlrtDCI);
-  }
-  loop_ub = varargin_3.size(0) * static_cast<int>(nCol) * wrappedData.size(1);
-  for (i1 = 0; i1 < loop_ub; i1++) {
+  loop_ub = wrappedData.size(1);
+  xin.set_size(varargin_3.size(0), static_cast<int>(nCol), wrappedData.size(1));
+  loop_ub_tmp =
+      varargin_3.size(0) * static_cast<int>(nCol) * wrappedData.size(1);
+  for (i1 = 0; i1 < loop_ub_tmp; i1++) {
     xin[i1].re = 0.0;
     xin[i1].im = 0.0;
   }
@@ -662,32 +582,38 @@ void stft(const array<creal_T, 2U> &x, double varargin_1,
     y.set_size(y.size(0), 0);
   } else {
     y.set_size(1, static_cast<int>(nCol - 1.0) + 1);
-    loop_ub = static_cast<int>(nCol - 1.0);
-    for (i1 = 0; i1 <= loop_ub; i1++) {
+    b_bcoef = static_cast<int>(nCol - 1.0);
+    for (i1 = 0; i1 <= b_bcoef; i1++) {
       y[i1] = i1;
     }
   }
   if (static_cast<int>(nCol) - 1 >= 0) {
     c[1] = wrappedData.size(1);
-    bcoef = wrappedData.size(1);
+    b_loop_ub = wrappedData.size(1);
   }
-  for (iCol = 0; iCol < i; iCol++) {
+  if (i - 1 >= 0) {
+    b_xin[0] = bcoef;
+    b_xin[1] = 1;
+    b_xin[2] = loop_ub;
+  }
+  for (b_bcoef = 0; b_bcoef < i; b_bcoef++) {
     double d;
-    nCol = hopSize * ((static_cast<double>(iCol) + 1.0) - 1.0);
-    d = static_cast<double>(varargin_3.size(0)) + nCol;
-    if (nCol + 1.0 > d) {
+    b_varargin_3 = hopSize * ((static_cast<double>(b_bcoef) + 1.0) - 1.0);
+    d = static_cast<double>(varargin_3.size(0)) + b_varargin_3;
+    if (b_varargin_3 + 1.0 > d) {
       i1 = 0;
       i2 = 0;
     } else {
-      if (nCol + 1.0 != static_cast<int>(std::floor(nCol + 1.0))) {
-        rtIntegerError(nCol + 1.0, d_emlrtDCI);
+      if (b_varargin_3 + 1.0 !=
+          static_cast<int>(std::floor(b_varargin_3 + 1.0))) {
+        rtIntegerError(b_varargin_3 + 1.0, d_emlrtDCI);
       }
-      if ((static_cast<int>(nCol + 1.0) < 1) ||
-          (static_cast<int>(nCol + 1.0) > wrappedData.size(0))) {
-        rtDynamicBoundsError(static_cast<int>(nCol + 1.0), 1,
+      if ((static_cast<int>(b_varargin_3 + 1.0) < 1) ||
+          (static_cast<int>(b_varargin_3 + 1.0) > wrappedData.size(0))) {
+        rtDynamicBoundsError(static_cast<int>(b_varargin_3 + 1.0), 1,
                              wrappedData.size(0), f_emlrtBCI);
       }
-      i1 = static_cast<int>(nCol + 1.0) - 1;
+      i1 = static_cast<int>(b_varargin_3 + 1.0) - 1;
       if (d != static_cast<int>(std::floor(d))) {
         rtIntegerError(d, c_emlrtDCI);
       }
@@ -698,127 +624,118 @@ void stft(const array<creal_T, 2U> &x, double varargin_1,
       }
       i2 = static_cast<int>(d);
     }
-    if ((iCol + 1 < 1) || (iCol + 1 > xin.size(1))) {
-      rtDynamicBoundsError(iCol + 1, 1, xin.size(1), d_emlrtBCI);
+    if ((b_bcoef + 1 < 1) || (b_bcoef + 1 > static_cast<int>(nCol))) {
+      rtDynamicBoundsError(b_bcoef + 1, 1, static_cast<int>(nCol), d_emlrtBCI);
     }
-    b_xin[0] = xin.size(0);
-    b_xin[1] = 1;
-    b_xin[2] = xin.size(2);
     c_tmp = i2 - i1;
     c[0] = c_tmp;
     rtSubAssignSizeCheck(&b_xin[0], 3, &c[0], 2, c_emlrtECI);
-    b_wrappedData.set_size(c_tmp, wrappedData.size(1));
-    for (i2 = 0; i2 < bcoef; i2++) {
+    b_wrappedData.set_size(c_tmp, loop_ub);
+    for (i2 = 0; i2 < b_loop_ub; i2++) {
       for (i3 = 0; i3 < c_tmp; i3++) {
         b_wrappedData[i3 + b_wrappedData.size(0) * i2] =
             wrappedData[(i1 + i3) + wrappedData.size(0) * i2];
       }
     }
-    b_xin[0] = xin.size(0);
-    loop_ub = xin.size(2);
-    b_bcoef = b_xin[0];
     for (i1 = 0; i1 < loop_ub; i1++) {
-      for (i2 = 0; i2 < b_bcoef; i2++) {
-        xin[(i2 + xin.size(0) * iCol) + xin.size(0) * xin.size(1) * i1] =
-            b_wrappedData[i2 + b_xin[0] * i1];
+      for (i2 = 0; i2 < bcoef; i2++) {
+        xin[(i2 + xin.size(0) * b_bcoef) + xin.size(0) * xin.size(1) * i1] =
+            b_wrappedData[i2 + bcoef * i1];
       }
     }
   }
   y.set_size(1, y.size(1));
-  nCol = static_cast<double>(varargin_3.size(0)) / 2.0;
-  loop_ub = y.size(1) - 1;
-  for (i = 0; i <= loop_ub; i++) {
-    y[i] = (y[i] * hopSize + nCol) / varargin_1;
+  b_varargin_3 = static_cast<double>(varargin_3.size(0)) / 2.0;
+  bcoef = y.size(1) - 1;
+  for (i1 = 0; i1 <= bcoef; i1++) {
+    y[i1] = (y[i1] * hopSize + b_varargin_3) / varargin_1;
   }
   if (xin.size(0) == 1) {
     csz_idx_0 = varargin_3.size(0);
   } else if (varargin_3.size(0) == 1) {
-    csz_idx_0 = xin.size(0);
+    csz_idx_0 = varargin_3.size(0);
   } else if (varargin_3.size(0) == xin.size(0)) {
     csz_idx_0 = varargin_3.size(0);
   } else {
-    u_rtErrorWithMessageID(cb_emlrtRTEI.fName, cb_emlrtRTEI.lineNo);
+    t_rtErrorWithMessageID(x_emlrtRTEI.fName, x_emlrtRTEI.lineNo);
   }
-  b_c.set_size(csz_idx_0, xin.size(1), xin.size(2));
+  b_c.set_size(csz_idx_0, static_cast<int>(nCol), wrappedData.size(1));
   if ((csz_idx_0 != 0) && (xin.size(1) != 0)) {
     b_bcoef = (xin.size(2) != 1);
-    i = xin.size(2) - 1;
     bcoef = (xin.size(1) != 1);
-    csz_idx_0 = (varargin_3.size(0) != 1);
-    for (k = 0; k <= i; k++) {
-      loop_ub = b_bcoef * k;
-      i1 = b_c.size(1) - 1;
-      for (c_tmp = 0; c_tmp <= i1; c_tmp++) {
-        iCol = bcoef * c_tmp;
-        i2 = b_c.size(0) - 1;
-        for (int b_k{0}; b_k <= i2; b_k++) {
-          nCol = varargin_3[csz_idx_0 * b_k];
-          i3 = csz_idx_0 * b_k;
-          b_c[(b_k + b_c.size(0) * c_tmp) + b_c.size(0) * b_c.size(1) * k].re =
-              nCol * xin[(i3 + xin.size(0) * iCol) +
-                         xin.size(0) * xin.size(1) * loop_ub]
-                         .re;
-          b_c[(b_k + b_c.size(0) * c_tmp) + b_c.size(0) * b_c.size(1) * k].im =
-              nCol * xin[(i3 + xin.size(0) * iCol) +
-                         xin.size(0) * xin.size(1) * loop_ub]
-                         .im;
+    b_loop_ub = (varargin_3.size(0) != 1);
+    for (k = 0; k < loop_ub; k++) {
+      csz_idx_0 = b_bcoef * k;
+      for (loop_ub_tmp = 0; loop_ub_tmp < i; loop_ub_tmp++) {
+        b_varargin_5 = bcoef * loop_ub_tmp;
+        i1 = b_c.size(0);
+        for (c_tmp = 0; c_tmp < i1; c_tmp++) {
+          i2 = b_loop_ub * c_tmp;
+          b_varargin_3 = varargin_3[i2];
+          b_c[(c_tmp + b_c.size(0) * loop_ub_tmp) +
+              b_c.size(0) * b_c.size(1) * k]
+              .re = b_varargin_3 * xin[(i2 + xin.size(0) * b_varargin_5) +
+                                       xin.size(0) * xin.size(1) * csz_idx_0]
+                                       .re;
+          b_c[(c_tmp + b_c.size(0) * loop_ub_tmp) +
+              b_c.size(0) * b_c.size(1) * k]
+              .im = b_varargin_3 * xin[(i2 + xin.size(0) * b_varargin_5) +
+                                       xin.size(0) * xin.size(1) * csz_idx_0]
+                                       .im;
         }
       }
     }
   }
   if (b_c.size(0) > varargin_7) {
     if (!(varargin_7 >= 0.0)) {
-      rtNonNegativeError(varargin_7, i_emlrtDCI);
+      rtNonNegativeError(varargin_7, g_emlrtDCI);
     }
-    i = static_cast<int>(std::floor(varargin_7));
-    if (varargin_7 != i) {
+    if (varargin_7 != std::floor(varargin_7)) {
       rtIntegerError(varargin_7, h_emlrtDCI);
     }
-    csz_idx_0 = static_cast<int>(varargin_7);
-    xin.set_size(csz_idx_0, b_c.size(1), b_c.size(2));
-    if (csz_idx_0 != i) {
-      rtIntegerError(varargin_7, j_emlrtDCI);
-    }
-    loop_ub = csz_idx_0 * b_c.size(1) * b_c.size(2);
-    for (i = 0; i < loop_ub; i++) {
+    loop_ub_tmp = static_cast<int>(varargin_7);
+    xin.set_size(loop_ub_tmp, static_cast<int>(nCol), wrappedData.size(1));
+    b_varargin_5 = static_cast<int>(varargin_7) * b_c.size(1) * b_c.size(2);
+    for (i = 0; i < b_varargin_5; i++) {
       xin[i].re = 0.0;
       xin[i].im = 0.0;
     }
     i = static_cast<int>(static_cast<double>(b_c.size(1)) *
                          static_cast<double>(b_c.size(2)));
-    for (iCol = 0; iCol < i; iCol++) {
-      loop_ub = b_c.size(0);
+    for (b_loop_ub = 0; b_loop_ub < i; b_loop_ub++) {
+      b_varargin_5 = b_c.size(0);
       c[0] = b_c.size(0);
       c_tmp = b_c.size(1) * b_c.size(2);
-      if ((static_cast<int>(static_cast<unsigned int>(iCol) + 1U) < 1) ||
-          (static_cast<int>(static_cast<unsigned int>(iCol) + 1U) > c_tmp)) {
+      if ((static_cast<int>(static_cast<unsigned int>(b_loop_ub) + 1U) < 1) ||
+          (static_cast<int>(static_cast<unsigned int>(b_loop_ub) + 1U) >
+           c_tmp)) {
         rtDynamicBoundsError(
-            static_cast<int>(static_cast<unsigned int>(iCol) + 1U), 1, c_tmp,
-            k_emlrtBCI);
+            static_cast<int>(static_cast<unsigned int>(b_loop_ub) + 1U), 1,
+            c_tmp, k_emlrtBCI);
       }
       b_x.set_size(b_c.size(0));
-      for (i1 = 0; i1 < loop_ub; i1++) {
-        b_x[i1] = b_c[i1 + c[0] * iCol];
+      for (i1 = 0; i1 < b_varargin_5; i1++) {
+        b_x[i1] = b_c[i1 + c[0] * b_loop_ub];
       }
       if (!(varargin_7 >= 1.0)) {
-        b_rtErrorWithMessageID(1, kb_emlrtRTEI.fName, kb_emlrtRTEI.lineNo);
+        b_rtErrorWithMessageID(1, gb_emlrtRTEI.fName, gb_emlrtRTEI.lineNo);
       }
       if (b_c.size(0) == 1) {
-        wrappedData.set_size(1, csz_idx_0);
-        for (i1 = 0; i1 < csz_idx_0; i1++) {
+        wrappedData.set_size(1, loop_ub_tmp);
+        for (i1 = 0; i1 < loop_ub_tmp; i1++) {
           wrappedData[i1].re = 0.0;
           wrappedData[i1].im = 0.0;
         }
       } else {
-        wrappedData.set_size(csz_idx_0, 1);
-        for (i1 = 0; i1 < csz_idx_0; i1++) {
+        wrappedData.set_size(loop_ub_tmp, 1);
+        for (i1 = 0; i1 < loop_ub_tmp; i1++) {
           wrappedData[i1].re = 0.0;
           wrappedData[i1].im = 0.0;
         }
       }
       i1 = static_cast<int>(static_cast<unsigned int>(b_c.size(0)) /
                             static_cast<unsigned int>(varargin_7));
-      bcoef = i1 * csz_idx_0;
+      bcoef = i1 * static_cast<int>(varargin_7);
       b_bcoef = b_c.size(0) - bcoef;
       if (b_bcoef > 2147483646) {
         check_forloop_overflow_error();
@@ -829,9 +746,8 @@ void stft(const array<creal_T, 2U> &x, double varargin_1,
           rtDynamicBoundsError(k + 1, 1, i2, n_emlrtBCI);
         }
         i3 = (bcoef + k) + 1;
-        useRadix2 = ((i3 < 1) || (i3 > b_c.size(0)));
-        if (useRadix2) {
-          rtDynamicBoundsError(i3, 1, b_c.size(0), m_emlrtBCI);
+        if ((i3 < 1) || (i3 > b_varargin_5)) {
+          rtDynamicBoundsError(i3, 1, b_varargin_5, m_emlrtBCI);
         }
         wrappedData[k].re = b_x[i3 - 1].re;
         if (k + 1 > i2) {
@@ -840,7 +756,7 @@ void stft(const array<creal_T, 2U> &x, double varargin_1,
         wrappedData[k].im = b_x[i3 - 1].im;
       }
       i2 = b_bcoef + 1;
-      for (k = i2; k <= csz_idx_0; k++) {
+      for (k = i2; k <= loop_ub_tmp; k++) {
         i3 = wrappedData.size(0) * wrappedData.size(1);
         if ((k < 1) || (k > i3)) {
           rtDynamicBoundsError(k, 1, i3, o_emlrtBCI);
@@ -854,17 +770,16 @@ void stft(const array<creal_T, 2U> &x, double varargin_1,
       if (i1 > 2147483646) {
         check_forloop_overflow_error();
       }
-      for (loop_ub = 0; loop_ub < i1; loop_ub++) {
-        bcoef = loop_ub * csz_idx_0;
-        for (k = 0; k < csz_idx_0; k++) {
+      for (b_bcoef = 0; b_bcoef < i1; b_bcoef++) {
+        bcoef = b_bcoef * static_cast<int>(varargin_7);
+        for (k = 0; k < loop_ub_tmp; k++) {
           i2 = wrappedData.size(0) * wrappedData.size(1);
           if (k + 1 > i2) {
             rtDynamicBoundsError(k + 1, 1, i2, r_emlrtBCI);
           }
           i3 = (bcoef + k) + 1;
-          useRadix2 = ((i3 < 1) || (i3 > b_c.size(0)));
-          if (useRadix2) {
-            rtDynamicBoundsError(i3, 1, b_c.size(0), q_emlrtBCI);
+          if ((i3 < 1) || (i3 > b_varargin_5)) {
+            rtDynamicBoundsError(i3, 1, b_varargin_5, q_emlrtBCI);
           }
           wrappedData[k].re = wrappedData[k].re + b_x[i3 - 1].re;
           if (k + 1 > i2) {
@@ -873,45 +788,47 @@ void stft(const array<creal_T, 2U> &x, double varargin_1,
           wrappedData[k].im = wrappedData[k].im + b_x[i3 - 1].im;
         }
       }
-      if ((iCol + 1 < 1) || (iCol + 1 > c_tmp)) {
-        rtDynamicBoundsError(iCol + 1, 1, c_tmp, l_emlrtBCI);
+      if ((b_loop_ub + 1 < 1) || (b_loop_ub + 1 > c_tmp)) {
+        rtDynamicBoundsError(b_loop_ub + 1, 1, c_tmp, l_emlrtBCI);
       }
       bcoef = wrappedData.size(0) * wrappedData.size(1);
-      rtSubAssignSizeCheck(xin.size(), 1, &bcoef, 1, d_emlrtECI);
-      c[0] = xin.size(0);
-      for (i1 = 0; i1 < bcoef; i1++) {
-        xin[i1 + c[0] * iCol] = wrappedData[i1];
+      rtSubAssignSizeCheck(&loop_ub_tmp, 1, &bcoef, 1, d_emlrtECI);
+      for (i1 = 0; i1 < loop_ub_tmp; i1++) {
+        xin[i1 + static_cast<int>(varargin_7) * b_loop_ub] = wrappedData[i1];
       }
     }
   } else {
-    xin.set_size(b_c.size(0), b_c.size(1), b_c.size(2));
-    loop_ub = b_c.size(0) * b_c.size(1) * b_c.size(2);
-    for (i = 0; i < loop_ub; i++) {
+    xin.set_size(b_c.size(0), static_cast<int>(nCol), wrappedData.size(1));
+    loop_ub_tmp = b_c.size(0) * b_c.size(1) * b_c.size(2);
+    for (i = 0; i < loop_ub_tmp; i++) {
       xin[i] = b_c[i];
     }
   }
   if (xin.size(0) == 1) {
-    w_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
+    v_rtErrorWithMessageID(db_emlrtRTEI.fName, db_emlrtRTEI.lineNo);
   }
   if ((!(varargin_7 >= 0.0)) || (!(varargin_7 == std::floor(varargin_7)))) {
-    x_rtErrorWithMessageID(ib_emlrtRTEI.fName, ib_emlrtRTEI.lineNo);
+    w_rtErrorWithMessageID(eb_emlrtRTEI.fName, eb_emlrtRTEI.lineNo);
   }
   if (!(varargin_7 <= 2.147483647E+9)) {
-    y_rtErrorWithMessageID(jb_emlrtRTEI.fName, jb_emlrtRTEI.lineNo);
+    x_rtErrorWithMessageID(fb_emlrtRTEI.fName, fb_emlrtRTEI.lineNo);
   }
   if ((xin.size(0) == 0) || (xin.size(1) == 0) ||
       (static_cast<int>(varargin_7) == 0)) {
     varargout_1.set_size(static_cast<int>(varargin_7), xin.size(1),
                          xin.size(2));
-    loop_ub = static_cast<int>(varargin_7) * xin.size(1) * xin.size(2);
-    for (i = 0; i < loop_ub; i++) {
+    loop_ub_tmp = static_cast<int>(varargin_7) * xin.size(1) * xin.size(2);
+    for (i = 0; i < loop_ub_tmp; i++) {
       varargout_1[i].re = 0.0;
       varargout_1[i].im = 0.0;
     }
   } else {
-    useRadix2 = ((static_cast<int>(varargin_7) > 0) &&
-                 ((static_cast<int>(varargin_7) &
-                   (static_cast<int>(varargin_7) - 1)) == 0));
+    useRadix2 =
+        ((static_cast<int>(varargin_7) > 0) &&
+         (static_cast<int>(
+              static_cast<unsigned int>(static_cast<int>(varargin_7)) &
+              static_cast<unsigned int>(static_cast<int>(varargin_7) - 1)) ==
+          0));
     bcoef = internal::fft::FFTImplementationCallback::get_algo_sizes(
         static_cast<int>(varargin_7), useRadix2, b_bcoef);
     internal::fft::FFTImplementationCallback::generate_twiddle_tables(
@@ -928,7 +845,7 @@ void stft(const array<creal_T, 2U> &x, double varargin_1,
   psdfreqvec(varargin_7, varargin_1, f);
   b_signal::internal::stft::formatSTFTOutput(varargout_1, f, b_f);
   if (varargout_1.size(0) < 1) {
-    loop_ub = 0;
+    bcoef = 0;
   } else {
     if (b_f.size(0) < 1) {
       rtDynamicBoundsError(1, 1, b_f.size(0), j_emlrtBCI);
@@ -936,17 +853,17 @@ void stft(const array<creal_T, 2U> &x, double varargin_1,
     if (varargout_1.size(0) > b_f.size(0)) {
       rtDynamicBoundsError(varargout_1.size(0), 1, b_f.size(0), i_emlrtBCI);
     }
-    loop_ub = varargout_1.size(0);
+    bcoef = varargout_1.size(0);
   }
   c[0] = 1;
-  c[1] = loop_ub;
+  c[1] = bcoef;
   internal::indexShapeCheck(b_f.size(0), c);
-  varargout_2.set_size(loop_ub);
-  for (i = 0; i < loop_ub; i++) {
+  varargout_2.set_size(bcoef);
+  for (i = 0; i < bcoef; i++) {
     varargout_2[i] = b_f[i];
   }
   if (varargout_1.size(1) < 1) {
-    loop_ub = 0;
+    bcoef = 0;
   } else {
     if (y.size(1) < 1) {
       rtDynamicBoundsError(1, 1, y.size(1), h_emlrtBCI);
@@ -954,10 +871,10 @@ void stft(const array<creal_T, 2U> &x, double varargin_1,
     if (varargout_1.size(1) > y.size(1)) {
       rtDynamicBoundsError(varargout_1.size(1), 1, y.size(1), g_emlrtBCI);
     }
-    loop_ub = varargout_1.size(1);
+    bcoef = varargout_1.size(1);
   }
-  varargout_3.set_size(loop_ub);
-  for (i = 0; i < loop_ub; i++) {
+  varargout_3.set_size(bcoef);
+  for (i = 0; i < bcoef; i++) {
     varargout_3[i] = y[i];
   }
 }

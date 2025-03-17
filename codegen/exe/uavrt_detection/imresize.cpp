@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: imresize.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -43,7 +43,7 @@ static void resizeAlongDim2D(const array<double, 2U> &in,
                              array<double, 2U> &out);
 
 } // namespace coder
-static void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void mc_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -68,18 +68,17 @@ static void b_resizeAlongDim2D(const array<double, 2U> &in,
   int ndx;
   int outCInd;
   int pixelIndex;
-  int pixelIndex_tmp;
   int ub_loop;
-  ub_loop = in.size(0) - 1;
+  ub_loop = in.size(0);
 #pragma omp parallel for num_threads(omp_get_max_threads()) private(           \
-    pixelIndex, sumVal1, i, outCInd, iv, ndx, i1, k, pixelIndex_tmp)
+        pixelIndex, sumVal1, i, outCInd, iv, ndx, i1, k)
 
-  for (int inRInd = 0; inRInd <= ub_loop; inRInd++) {
+  for (int inRInd = 0; inRInd < ub_loop; inRInd++) {
     if (inRInd + 1 > in.size(0)) {
-      hc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+      gc_rtErrorWithMessageID(ec_emlrtRTEI.fName, ec_emlrtRTEI.lineNo);
     }
     if (in.size(1) < 1) {
-      hc_rtErrorWithMessageID(oc_emlrtRTEI.fName, oc_emlrtRTEI.lineNo);
+      gc_rtErrorWithMessageID(ec_emlrtRTEI.fName, ec_emlrtRTEI.lineNo);
     }
     i = static_cast<int>(out_length);
     for (outCInd = 0; outCInd < i; outCInd++) {
@@ -90,9 +89,8 @@ static void b_resizeAlongDim2D(const array<double, 2U> &in,
       ndx = internal::sub2ind(iv, static_cast<double>(outCInd) + 1.0);
       i1 = weights.size(0);
       for (k = 0; k < i1; k++) {
-        pixelIndex_tmp = (ndx + k) - 1;
-        pixelIndex = (inRInd + (indices[pixelIndex_tmp] - 1) * in.size(0)) + 1;
-        sumVal1 += weights[pixelIndex_tmp] * in[pixelIndex - 1];
+        pixelIndex = (inRInd + (indices[(ndx + k) - 1] - 1) * in.size(0)) + 1;
+        sumVal1 += weights[(ndx + k) - 1] * in[pixelIndex - 1];
       }
       out[inRInd + out.size(0) * outCInd] = sumVal1;
     }
@@ -123,15 +121,15 @@ static void contributions(int in_length, double out_length, double scale,
   array<int, 2U> r;
   array<int, 1U> left;
   array<boolean_T, 2U> copyCols;
-  double b_kernel_width;
-  int b_i;
-  int b_k;
+  double k;
+  int acoef;
+  int b_csz_idx_0;
   int csz_idx_0;
   int i;
+  int loop_ub;
   int loop_ub_tmp;
-  int nx;
+  int n_tmp_tmp;
   int yk;
-  boolean_T iscompatible;
   //  Contributions, using pixel indices
   if (scale < 1.0) {
     kernel_width = 4.0 / scale;
@@ -143,80 +141,75 @@ static void contributions(int in_length, double out_length, double scale,
     y.set_size(1, 0);
   } else {
     y.set_size(1, static_cast<int>(out_length - 1.0) + 1);
-    yk = static_cast<int>(out_length - 1.0);
-    for (i = 0; i <= yk; i++) {
+    loop_ub = static_cast<int>(out_length - 1.0);
+    for (i = 0; i <= loop_ub; i++) {
       y[i] = static_cast<double>(i) + 1.0;
     }
   }
-  b_kernel_width = 0.5 * (1.0 - 1.0 / scale);
+  k = 0.5 * (1.0 - 1.0 / scale);
+  loop_ub = y.size(1);
   u.set_size(y.size(1));
-  yk = y.size(1);
-  for (i = 0; i < yk; i++) {
-    u[i] = y[i] / scale + b_kernel_width;
+  for (i = 0; i < loop_ub; i++) {
+    u[i] = y[i] / scale + k;
   }
-  b_kernel_width = kernel_width / 2.0;
-  x.set_size(u.size(0));
-  yk = u.size(0);
-  for (i = 0; i < yk; i++) {
-    x[i] = u[i] - b_kernel_width;
+  k = kernel_width / 2.0;
+  x.set_size(y.size(1));
+  for (i = 0; i < loop_ub; i++) {
+    x[i] = u[i] - k;
   }
-  nx = x.size(0);
   if (x.size(0) > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (int k{0}; k < nx; k++) {
-    x[k] = std::floor(x[k]);
+  for (int b_k{0}; b_k < loop_ub; b_k++) {
+    x[b_k] = std::floor(x[b_k]);
   }
-  left.set_size(x.size(0));
-  yk = x.size(0);
-  for (i = 0; i < yk; i++) {
+  left.set_size(y.size(1));
+  for (i = 0; i < loop_ub; i++) {
     left[i] = static_cast<int>(x[i]);
   }
-  nx = static_cast<int>(std::ceil(kernel_width) + 2.0);
-  aux.set_size(1, nx);
+  n_tmp_tmp = static_cast<int>(std::ceil(kernel_width) + 2.0);
+  aux.set_size(1, n_tmp_tmp);
   aux[0] = 0;
   yk = 0;
   if (static_cast<int>(std::ceil(kernel_width) + 2.0) > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (int k{2}; k <= nx; k++) {
+  for (int b_k{2}; b_k <= n_tmp_tmp; b_k++) {
     yk++;
-    aux[k - 1] = yk;
+    aux[b_k - 1] = yk;
   }
-  indices.set_size(left.size(0), aux.size(1));
+  indices.set_size(y.size(1), n_tmp_tmp);
   if (left.size(0) != 0) {
-    i = aux.size(1) - 1;
-    yk = (left.size(0) != 1);
-    for (int k{0}; k <= i; k++) {
-      b_i = indices.size(0) - 1;
-      for (b_k = 0; b_k <= b_i; b_k++) {
-        indices[b_k + indices.size(0) * k] = left[yk * b_k] + aux[k];
+    acoef = (left.size(0) != 1);
+    for (int b_k{0}; b_k < n_tmp_tmp; b_k++) {
+      for (int c_k{0}; c_k < loop_ub; c_k++) {
+        indices[c_k + indices.size(0) * b_k] = left[acoef * c_k] + aux[b_k];
       }
     }
   }
-  absx.set_size(indices.size(0), indices.size(1));
+  absx.set_size(y.size(1), n_tmp_tmp);
   loop_ub_tmp = indices.size(0) * indices.size(1);
   for (i = 0; i < loop_ub_tmp; i++) {
     absx[i] = indices[i];
   }
   if (absx.size(0) == 1) {
-    csz_idx_0 = u.size(0);
+    csz_idx_0 = y.size(1);
   } else if (u.size(0) == 1) {
-    csz_idx_0 = absx.size(0);
+    csz_idx_0 = y.size(1);
   } else if (u.size(0) == absx.size(0)) {
-    csz_idx_0 = u.size(0);
+    csz_idx_0 = y.size(1);
   } else {
-    u_rtErrorWithMessageID(cb_emlrtRTEI.fName, cb_emlrtRTEI.lineNo);
+    t_rtErrorWithMessageID(x_emlrtRTEI.fName, x_emlrtRTEI.lineNo);
   }
-  b_x.set_size(csz_idx_0, absx.size(1));
+  b_x.set_size(csz_idx_0, n_tmp_tmp);
   if (csz_idx_0 != 0) {
-    i = absx.size(1) - 1;
-    nx = (u.size(0) != 1);
-    for (int k{0}; k <= i; k++) {
-      b_i = b_x.size(0) - 1;
-      for (b_k = 0; b_k <= b_i; b_k++) {
-        yk = nx * b_k;
-        b_x[b_k + b_x.size(0) * k] = u[yk] - absx[yk + absx.size(0) * k];
+    yk = (u.size(0) != 1);
+    for (int b_k{0}; b_k < n_tmp_tmp; b_k++) {
+      i = b_x.size(0);
+      for (int c_k{0}; c_k < i; c_k++) {
+        acoef = yk * c_k;
+        b_x[c_k + b_x.size(0) * b_k] =
+            u[acoef] - absx[acoef + absx.size(0) * b_k];
       }
     }
   }
@@ -226,179 +219,164 @@ static void contributions(int in_length, double out_length, double scale,
       b_x[i] = scale * b_x[i];
     }
   }
-  nx = b_x.size(0) * b_x.size(1);
+  yk = b_x.size(0) * b_x.size(1);
   absx.set_size(b_x.size(0), b_x.size(1));
-  if (nx > 2147483646) {
+  if (yk > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (int k{0}; k < nx; k++) {
-    absx[k] = std::abs(b_x[k]);
+  for (int b_k{0}; b_k < yk; b_k++) {
+    absx[b_k] = std::abs(b_x[b_k]);
   }
   absx2.set_size(absx.size(0), absx.size(1));
-  nx = absx.size(0) * absx.size(1);
-  if (nx > 2147483646) {
+  yk = absx.size(0) * absx.size(1);
+  if (yk > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (int k{0}; k < nx; k++) {
-    absx2[k] = absx[k] * absx[k];
+  for (int b_k{0}; b_k < yk; b_k++) {
+    absx2[b_k] = absx[b_k] * absx[b_k];
   }
   weights.set_size(absx.size(0), absx.size(1));
-  for (int k{0}; k < nx; k++) {
-    weights[k] = rt_powd_snf(absx[k], 3.0);
+  for (int b_k{0}; b_k < yk; b_k++) {
+    weights[b_k] = rt_powd_snf(absx[b_k], 3.0);
   }
-  for (i = 0; i < nx; i++) {
+  for (i = 0; i < yk; i++) {
     absx2[i] = 2.5 * absx2[i];
   }
-  for (i = 0; i < nx; i++) {
+  for (i = 0; i < yk; i++) {
     weights[i] = ((1.5 * weights[i] - absx2[i]) + 1.0) *
                      static_cast<double>(absx[i] <= 1.0) +
                  (((-0.5 * weights[i] + absx2[i]) - 4.0 * absx[i]) + 2.0) *
                      static_cast<double>((absx[i] > 1.0) && (absx[i] <= 2.0));
   }
   if (scale < 1.0) {
-    for (i = 0; i < nx; i++) {
+    for (i = 0; i < yk; i++) {
       weights[i] = scale * weights[i];
     }
   }
+  i = weights.size(1);
   absx.set_size(weights.size(0), weights.size(1));
-  for (i = 0; i < nx; i++) {
-    absx[i] = weights[i];
+  for (csz_idx_0 = 0; csz_idx_0 < yk; csz_idx_0++) {
+    absx[csz_idx_0] = weights[csz_idx_0];
   }
   sum(weights, u);
-  iscompatible = true;
   if (u.size(0) == 1) {
-    csz_idx_0 = weights.size(0);
+    b_csz_idx_0 = weights.size(0);
   } else if (weights.size(0) == 1) {
-    csz_idx_0 = u.size(0);
+    b_csz_idx_0 = u.size(0);
   } else if (weights.size(0) == u.size(0)) {
-    csz_idx_0 = weights.size(0);
+    b_csz_idx_0 = weights.size(0);
   } else {
-    iscompatible = false;
-    nx = u.size(0);
-    csz_idx_0 = weights.size(0);
-    if (nx <= csz_idx_0) {
-      csz_idx_0 = nx;
-    }
+    t_rtErrorWithMessageID(x_emlrtRTEI.fName, x_emlrtRTEI.lineNo);
   }
-  nx = weights.size(1);
-  if (!iscompatible) {
-    u_rtErrorWithMessageID(cb_emlrtRTEI.fName, cb_emlrtRTEI.lineNo);
-  }
-  weights.set_size(csz_idx_0, nx);
-  if (csz_idx_0 != 0) {
-    i = nx - 1;
-    yk = (absx.size(0) != 1);
-    nx = (u.size(0) != 1);
-    for (int k{0}; k <= i; k++) {
-      b_i = weights.size(0) - 1;
-      for (b_k = 0; b_k <= b_i; b_k++) {
-        weights[b_k + weights.size(0) * k] =
-            absx[yk * b_k + absx.size(0) * k] / u[nx * b_k];
+  weights.set_size(b_csz_idx_0, i);
+  if (b_csz_idx_0 != 0) {
+    acoef = (absx.size(0) != 1);
+    yk = (u.size(0) != 1);
+    for (int b_k{0}; b_k < i; b_k++) {
+      csz_idx_0 = weights.size(0);
+      for (int c_k{0}; c_k < csz_idx_0; c_k++) {
+        weights[c_k + weights.size(0) * b_k] =
+            absx[acoef * c_k + absx.size(0) * b_k] / u[yk * c_k];
       }
     }
   }
   //  Create the auxiliary matrix:
-  nx = in_length << 1;
-  aux.set_size(1, nx);
+  yk = in_length << 1;
+  aux.set_size(1, yk);
   aux[0] = 1;
   aux[in_length] = in_length;
   if (in_length > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (b_i = 2; b_i <= in_length; b_i++) {
-    aux[b_i - 1] = aux[b_i - 2] + 1;
-    yk = in_length + b_i;
-    aux[yk - 1] = aux[yk - 2] - 1;
+  for (n_tmp_tmp = 2; n_tmp_tmp <= in_length; n_tmp_tmp++) {
+    aux[n_tmp_tmp - 1] = aux[n_tmp_tmp - 2] + 1;
+    acoef = in_length + n_tmp_tmp;
+    aux[acoef - 1] = aux[acoef - 2] - 1;
   }
   //  Mirror the out-of-bounds indices using mod:
-  for (b_i = 0; b_i < loop_ub_tmp; b_i++) {
-    double c_k;
-    b_kernel_width = static_cast<double>(indices[b_i]) - 1.0;
-    c_k = b_kernel_width;
-    if (nx == 0) {
-      if (b_kernel_width == 0.0) {
-        c_k = 0.0;
+  for (n_tmp_tmp = 0; n_tmp_tmp < loop_ub_tmp; n_tmp_tmp++) {
+    k = static_cast<double>(indices[n_tmp_tmp]) - 1.0;
+    if (yk == 0) {
+      if (k == 0.0) {
+        k = 0.0;
       }
-    } else if (b_kernel_width == 0.0) {
-      c_k = 0.0;
+    } else if (k == 0.0) {
+      k = 0.0;
     } else {
-      c_k = std::fmod(b_kernel_width, static_cast<double>(nx));
-      if (c_k == 0.0) {
-        c_k = 0.0;
-      } else if (b_kernel_width < 0.0) {
-        c_k += static_cast<double>(nx);
+      k = std::fmod(k, static_cast<double>(yk));
+      if (k == 0.0) {
+        k = 0.0;
+      } else if (k < 0.0) {
+        k += static_cast<double>(yk);
       }
     }
-    indices[b_i] = aux[static_cast<int>(c_k)];
+    indices[n_tmp_tmp] = aux[static_cast<int>(k)];
   }
   copyCols.set_size(1, weights.size(1));
-  yk = weights.size(1);
-  for (i = 0; i < yk; i++) {
-    copyCols[i] = false;
+  loop_ub_tmp = weights.size(1);
+  for (csz_idx_0 = 0; csz_idx_0 < loop_ub_tmp; csz_idx_0++) {
+    copyCols[csz_idx_0] = false;
   }
-  nx = weights.size(1);
   yk = 0;
   if (weights.size(1) > 2147483646) {
     check_forloop_overflow_error();
   }
-  for (b_i = 0; b_i < nx; b_i++) {
+  for (n_tmp_tmp = 0; n_tmp_tmp < i; n_tmp_tmp++) {
     boolean_T exitg1;
-    b_k = yk + weights.size(0);
+    acoef = yk + weights.size(0);
     csz_idx_0 = yk;
-    yk = b_k;
-    if ((csz_idx_0 + 1 <= b_k) && (b_k > 2147483646)) {
+    yk = acoef;
+    if ((csz_idx_0 + 1 <= acoef) && (acoef > 2147483646)) {
       check_forloop_overflow_error();
     }
     exitg1 = false;
-    while ((!exitg1) && (csz_idx_0 + 1 <= b_k)) {
+    while ((!exitg1) && (csz_idx_0 + 1 <= acoef)) {
       if ((weights[csz_idx_0] == 0.0) || std::isnan(weights[csz_idx_0])) {
         csz_idx_0++;
       } else {
-        copyCols[b_i] = true;
+        copyCols[n_tmp_tmp] = true;
         exitg1 = true;
       }
     }
   }
-  yk = copyCols.size(1) - 1;
-  nx = 0;
-  for (b_i = 0; b_i <= yk; b_i++) {
-    if (copyCols[b_i]) {
-      nx++;
+  yk = 0;
+  for (n_tmp_tmp = 0; n_tmp_tmp < loop_ub_tmp; n_tmp_tmp++) {
+    if (copyCols[n_tmp_tmp]) {
+      yk++;
     }
   }
-  r.set_size(1, nx);
-  nx = 0;
-  for (b_i = 0; b_i <= yk; b_i++) {
-    if (copyCols[b_i]) {
-      r[nx] = b_i;
-      nx++;
+  r.set_size(1, yk);
+  yk = 0;
+  for (n_tmp_tmp = 0; n_tmp_tmp < loop_ub_tmp; n_tmp_tmp++) {
+    if (copyCols[n_tmp_tmp]) {
+      r[yk] = n_tmp_tmp;
+      yk++;
     }
   }
-  nx = weights.size(0);
+  yk = weights.size(0);
+  acoef = r.size(1);
   absx.set_size(r.size(1), weights.size(0));
-  for (i = 0; i < nx; i++) {
-    yk = r.size(1);
-    for (b_i = 0; b_i < yk; b_i++) {
-      absx[b_i + absx.size(0) * i] = weights[i + weights.size(0) * r[b_i]];
+  for (i = 0; i < yk; i++) {
+    for (csz_idx_0 = 0; csz_idx_0 < acoef; csz_idx_0++) {
+      absx[csz_idx_0 + absx.size(0) * i] =
+          weights[i + weights.size(0) * r[csz_idx_0]];
     }
   }
-  weights.set_size(absx.size(0), absx.size(1));
-  yk = absx.size(0) * absx.size(1);
-  for (i = 0; i < yk; i++) {
+  weights.set_size(r.size(1), yk);
+  loop_ub_tmp = absx.size(0) * absx.size(1);
+  for (i = 0; i < loop_ub_tmp; i++) {
     weights[i] = absx[i];
   }
-  nx = indices.size(0);
-  b_indices.set_size(r.size(1), indices.size(0));
-  for (i = 0; i < nx; i++) {
-    yk = r.size(1);
-    for (b_i = 0; b_i < yk; b_i++) {
-      b_indices[b_i + b_indices.size(0) * i] =
-          indices[i + indices.size(0) * r[b_i]];
+  b_indices.set_size(r.size(1), y.size(1));
+  for (i = 0; i < loop_ub; i++) {
+    for (csz_idx_0 = 0; csz_idx_0 < acoef; csz_idx_0++) {
+      b_indices[csz_idx_0 + b_indices.size(0) * i] =
+          indices[i + indices.size(0) * r[csz_idx_0]];
     }
   }
-  indices.set_size(b_indices.size(0), b_indices.size(1));
-  yk = b_indices.size(0) * b_indices.size(1);
-  for (i = 0; i < yk; i++) {
+  indices.set_size(r.size(1), y.size(1));
+  loop_ub_tmp = b_indices.size(0) * b_indices.size(1);
+  for (i = 0; i < loop_ub_tmp; i++) {
     indices[i] = b_indices[i];
   }
 }
@@ -423,15 +401,13 @@ static void resizeAlongDim2D(const array<double, 2U> &in,
   int k;
   int ndx;
   int outRInd;
-  int sumVal1_tmp;
   int ub_loop;
   ub_loop = static_cast<int>(static_cast<double>(in.size(0) * in.size(1)) /
-                             static_cast<double>(in.size(0))) -
-            1;
+                             static_cast<double>(in.size(0)));
 #pragma omp parallel for num_threads(omp_get_max_threads()) private(           \
-    sumVal1, i, outRInd, iv, ndx, i1, k, sumVal1_tmp)
+        sumVal1, i, outRInd, iv, ndx, i1, k)
 
-  for (int inCInd = 0; inCInd <= ub_loop; inCInd++) {
+  for (int inCInd = 0; inCInd < ub_loop; inCInd++) {
     i = static_cast<int>(out_length);
     for (outRInd = 0; outRInd < i; outRInd++) {
       sumVal1 = 0.0;
@@ -441,9 +417,8 @@ static void resizeAlongDim2D(const array<double, 2U> &in,
       //  Core - first dimension
       i1 = weights.size(0);
       for (k = 0; k < i1; k++) {
-        sumVal1_tmp = (ndx + k) - 1;
-        sumVal1 += weights[sumVal1_tmp] *
-                   in[(indices[sumVal1_tmp] + in.size(0) * inCInd) - 1];
+        sumVal1 += weights[(ndx + k) - 1] *
+                   in[(indices[(ndx + k) - 1] + in.size(0) * inCInd) - 1];
       }
       out[outRInd + out.size(0) * inCInd] = sumVal1;
     }
@@ -456,7 +431,7 @@ static void resizeAlongDim2D(const array<double, 2U> &in,
 // Return Type  : void
 //
 } // namespace coder
-static void nc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void mc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -482,14 +457,10 @@ namespace coder {
 void imresize(const array<double, 2U> &Ain, const double varargin_1[2],
               array<double, 2U> &Bout)
 {
-  static rtRunTimeErrorInfo
-      bd_emlrtRTEI{
-          319,        // lineNo
-          5,          // colNo
-          "imresize", // fName
-          "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/images/"
-          "imresize.m" // pName
-      };
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      319,       // lineNo
+      "imresize" // fName
+  };
   array<double, 2U> out;
   array<double, 2U> weights;
   array<int, 2U> indices;
@@ -502,8 +473,8 @@ void imresize(const array<double, 2U> &Ain, const double varargin_1[2],
   boolean_T exitg1;
   boolean_T y;
   if ((Ain.size(0) == 0) || (Ain.size(1) == 0)) {
-    h_rtErrorWithMessageID("input number 1, A,", y_emlrtRTEI.fName,
-                           y_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID("input number 1, A,", u_emlrtRTEI.fName,
+                           u_emlrtRTEI.lineNo);
   }
   x[0] = (varargin_1[0] <= 0.0);
   x[1] = (varargin_1[1] <= 0.0);
@@ -519,7 +490,7 @@ void imresize(const array<double, 2U> &Ain, const double varargin_1[2],
     }
   }
   if (y) {
-    nc_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
+    mc_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
   }
   if (std::isnan(varargin_1[0])) {
     outputSize_idx_0 =

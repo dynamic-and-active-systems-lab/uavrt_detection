@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: any1.h
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 #ifndef ANY1_H
@@ -13,6 +13,7 @@
 
 // Include Files
 #include "rtwtypes.h"
+#include "coder_array.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -28,7 +29,11 @@ class e_sparse;
 namespace coder {
 void any(const d_sparse &x, e_sparse &y);
 
-}
+boolean_T b_any(const boolean_T x[2]);
+
+void c_any(const array<boolean_T, 2U> &x, array<boolean_T, 1U> &y);
+
+} // namespace coder
 
 #endif
 //

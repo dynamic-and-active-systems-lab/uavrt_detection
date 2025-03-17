@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: circshift.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -45,12 +45,13 @@ void b_circshift(array<double, 2U> &a)
       if (a.size(1) > 2147483646) {
         check_forloop_overflow_error();
       }
-      for (ns = 0; ns < npages; ns++) {
-        pageroot = ns * nv;
+      for (int b_i{0}; b_i < npages; b_i++) {
+        pageroot = b_i * nv;
         buffer[0] = a[pageroot];
-        for (int k{0}; k <= nv - 2; k++) {
-          i = pageroot + k;
-          a[i] = a[i + 1];
+        i = nv - 2;
+        for (int k{0}; k <= i; k++) {
+          ns = pageroot + k;
+          a[ns] = a[ns + 1];
         }
         a[(pageroot + nv) - 1] = buffer[0];
       }
@@ -122,6 +123,45 @@ void c_circshift(array<double, 2U> &a)
           }
         }
       }
+    }
+  }
+}
+
+//
+// Arguments    : array<creal_T, 2U> &a
+// Return Type  : void
+//
+void circshift(array<creal_T, 2U> &a)
+{
+  array<creal_T, 2U> buffer;
+  if ((a.size(0) != 0) && (a.size(0) != 1)) {
+    int i;
+    int i1;
+    int ns;
+    ns = 1;
+    if (a.size(0) <= 1) {
+      ns = 0;
+    }
+    i = a.size(0);
+    if (i < 1) {
+      i = 1;
+    }
+    if (a.size(0) == 0) {
+      i = 0;
+    }
+    i /= 2;
+    buffer.set_size(1, i);
+    for (i1 = 0; i1 < i; i1++) {
+      buffer[i1].re = 0.0;
+      buffer[i1].im = 0.0;
+    }
+    i1 = a.size(0) - 1;
+    if ((a.size(0) > 1) && (ns > 0)) {
+      buffer[0] = a[0];
+      for (i = 0; i < i1; i++) {
+        a[i] = a[i + 1];
+      }
+      a[i1] = buffer[0];
     }
   }
 }
@@ -295,7 +335,7 @@ void f_circshift(array<double, 2U> &a)
     for (stride = 0; stride < unnamed_idx_1; stride++) {
       buffer[stride] = 0.0;
     }
-    unnamed_idx_1 = a.size(1) - 2;
+    unnamed_idx_1 = a.size(1) - 1;
     stride = a.size(0);
     if ((a.size(1) > 1) && (ns > 0)) {
       if (a.size(0) > 2147483646) {
@@ -303,10 +343,10 @@ void f_circshift(array<double, 2U> &a)
       }
       for (ns = 0; ns < stride; ns++) {
         buffer[0] = a[ns];
-        for (int k{0}; k <= unnamed_idx_1; k++) {
+        for (int k{0}; k < unnamed_idx_1; k++) {
           a[ns + k * stride] = a[ns + (k + 1) * stride];
         }
-        a[ns + (unnamed_idx_1 + 1) * stride] = buffer[0];
+        a[ns + unnamed_idx_1 * stride] = buffer[0];
       }
     }
   }
@@ -333,7 +373,7 @@ void g_circshift(array<boolean_T, 2U> &a)
     for (stride = 0; stride < unnamed_idx_1; stride++) {
       buffer[stride] = false;
     }
-    unnamed_idx_1 = a.size(1) - 2;
+    unnamed_idx_1 = a.size(1) - 1;
     stride = a.size(0);
     if ((a.size(1) > 1) && (ns > 0)) {
       if (a.size(0) > 2147483646) {
@@ -341,10 +381,10 @@ void g_circshift(array<boolean_T, 2U> &a)
       }
       for (ns = 0; ns < stride; ns++) {
         buffer[0] = a[ns];
-        for (int k{0}; k <= unnamed_idx_1; k++) {
+        for (int k{0}; k < unnamed_idx_1; k++) {
           a[ns + k * stride] = a[ns + (k + 1) * stride];
         }
-        a[ns + (unnamed_idx_1 + 1) * stride] = buffer[0];
+        a[ns + unnamed_idx_1 * stride] = buffer[0];
       }
     }
   }

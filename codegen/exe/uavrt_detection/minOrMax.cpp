@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: minOrMax.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -85,7 +85,7 @@ double b_maximum(const array<double, 1U> &x, int &idx)
   double ex;
   int last;
   if (x.size(0) < 1) {
-    nb_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
+    mb_rtErrorWithMessageID(wb_emlrtRTEI.fName, wb_emlrtRTEI.lineNo);
   }
   last = x.size(0);
   if (x.size(0) <= 2) {
@@ -144,16 +144,17 @@ double b_maximum(const array<double, 1U> &x, int &idx)
 }
 
 //
-// Arguments    : const double x[2]
+// Arguments    : const double x_data[]
 // Return Type  : double
 //
-double b_minimum(const double x[2])
+double b_minimum(const double x_data[])
 {
   double ex;
-  if ((x[0] > x[1]) || (std::isnan(x[0]) && (!std::isnan(x[1])))) {
-    ex = x[1];
+  if ((x_data[0] > x_data[1]) ||
+      (std::isnan(x_data[0]) && (!std::isnan(x_data[1])))) {
+    ex = x_data[1];
   } else {
-    ex = x[0];
+    ex = x_data[0];
   }
   return ex;
 }
@@ -167,7 +168,7 @@ double maximum(const array<double, 1U> &x)
   double ex;
   int last;
   if (x.size(0) < 1) {
-    nb_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
+    mb_rtErrorWithMessageID(wb_emlrtRTEI.fName, wb_emlrtRTEI.lineNo);
   }
   last = x.size(0);
   if (x.size(0) <= 2) {
@@ -230,45 +231,43 @@ double maximum(const array<double, 1U> &x)
 void maximum(const array<double, 2U> &x, array<double, 1U> &ex,
              array<int, 1U> &idx)
 {
-  int loop_ub;
-  int m;
+  int m_tmp;
   int n;
   if (x.size(1) < 1) {
-    nb_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
+    mb_rtErrorWithMessageID(wb_emlrtRTEI.fName, wb_emlrtRTEI.lineNo);
   }
-  m = x.size(0);
+  m_tmp = x.size(0);
   n = x.size(1);
   ex.set_size(x.size(0));
   idx.set_size(x.size(0));
-  loop_ub = x.size(0);
-  for (int j{0}; j < loop_ub; j++) {
-    idx[j] = 1;
+  for (int i{0}; i < m_tmp; i++) {
+    idx[i] = 1;
   }
   if (x.size(0) >= 1) {
     if (x.size(0) > 2147483646) {
       check_forloop_overflow_error();
     }
-    for (loop_ub = 0; loop_ub < m; loop_ub++) {
-      ex[loop_ub] = x[loop_ub];
+    for (int i{0}; i < m_tmp; i++) {
+      ex[i] = x[i];
     }
     for (int j{2}; j <= n; j++) {
-      if (m > 2147483646) {
+      if (m_tmp > 2147483646) {
         check_forloop_overflow_error();
       }
-      for (loop_ub = 0; loop_ub < m; loop_ub++) {
+      for (int i{0}; i < m_tmp; i++) {
         double b;
         boolean_T p;
-        b = x[loop_ub + x.size(0) * (j - 1)];
+        b = x[i + x.size(0) * (j - 1)];
         if (std::isnan(b)) {
           p = false;
-        } else if (std::isnan(ex[loop_ub])) {
+        } else if (std::isnan(ex[i])) {
           p = true;
         } else {
-          p = (ex[loop_ub] < b);
+          p = (ex[i] < b);
         }
         if (p) {
-          ex[loop_ub] = b;
-          idx[loop_ub] = j;
+          ex[i] = b;
+          idx[i] = j;
         }
       }
     }
@@ -285,7 +284,7 @@ double maximum(const array<double, 1U> &x, int &idx)
   double ex;
   int last;
   if (x.size(0) < 1) {
-    nb_rtErrorWithMessageID(cc_emlrtRTEI.fName, cc_emlrtRTEI.lineNo);
+    mb_rtErrorWithMessageID(wb_emlrtRTEI.fName, wb_emlrtRTEI.lineNo);
   }
   last = x.size(0);
   if (x.size(0) <= 2) {
@@ -359,17 +358,16 @@ double maximum(const double x[2])
 }
 
 //
-// Arguments    : const double x_data[]
+// Arguments    : const double x[2]
 // Return Type  : double
 //
-double minimum(const double x_data[])
+double minimum(const double x[2])
 {
   double ex;
-  if ((x_data[0] > x_data[1]) ||
-      (std::isnan(x_data[0]) && (!std::isnan(x_data[1])))) {
-    ex = x_data[1];
+  if ((x[0] > x[1]) || (std::isnan(x[0]) && (!std::isnan(x[1])))) {
+    ex = x[1];
   } else {
-    ex = x_data[0];
+    ex = x[0];
   }
   return ex;
 }

@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: datetime.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -23,7 +23,7 @@
 #include <string>
 
 // Function Declarations
-static void eb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
+static void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 
 // Function Definitions
 //
@@ -31,7 +31,7 @@ static void eb_rtErrorWithMessageID(const char *aFcnName, int aLineNum);
 //                int aLineNum
 // Return Type  : void
 //
-static void eb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+static void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -55,12 +55,9 @@ static void eb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 namespace coder {
 void datetime::init()
 {
-  static rtRunTimeErrorInfo bd_emlrtRTEI{
-      1,                   // lineNo
-      1,                   // colNo
-      "createFromDateVec", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/matlab/datatypes/codegen/"
-      "datetime/+matlab/+internal/+coder/+datetime/createFromDateVec.p" // pName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      1,                  // lineNo
+      "createFromDateVec" // fName
   };
   double b_second;
   double c_tm_hour;
@@ -84,10 +81,10 @@ void datetime::init()
         (!(std::ceil(c_tm_mon) == c_tm_mon)) || (!(std::ceil(shi) == shi)) ||
         (!(std::ceil(c_tm_hour) == c_tm_hour)) ||
         (!(std::ceil(c_tm_min) == c_tm_min))) {
-      eb_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
+      db_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
     }
     if (std::ceil(b_second) != b_second) {
-      eb_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
+      db_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
     }
     if ((c_tm_mon < 1.0) || (c_tm_mon > 12.0)) {
       wholeSecsFromMillis = std::floor((c_tm_mon - 1.0) / 12.0);

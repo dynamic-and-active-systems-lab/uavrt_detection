@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: div.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -36,8 +36,7 @@ void rdivide(coder::array<double, 1U> &in1, const coder::array<double, 1U> &in2)
   for (int i{0}; i < loop_ub; i++) {
     b_in1[i] = in1[i * stride_0_0] / in2[i * stride_1_0];
   }
-  in1.set_size(b_in1.size(0));
-  loop_ub = b_in1.size(0);
+  in1.set_size(loop_ub);
   for (int i{0}; i < loop_ub; i++) {
     in1[i] = b_in1[i];
   }

@@ -1169,7 +1169,7 @@ classdef waveform < handle
                        %This will let me know if there is a problem and
                        %keep the code from crashing so that I can 
                        fprintf('!!!!!!!!!!!!!!!!!!!!!!!!\n')
-                       fprintf('SOMETHING WEIRD HAPPENED AND THE PEELING ALGORITHM GOT ALL THE WAY TO THE END OF THE MSK COLUMNS MEANING THERE WERE AT LEAST AS MANY PEAKS AS THERE ARE FREQUENCIES.:\n') 
+                       fprintf('SOMETHING WEIRD HAPPENED AND THE PEELING ALGORITHM GOT ALL THE WAY TO THE END OF THE MSK COLUMNS MEANING THERE WERE AT LEAST AS MANY PEAKS AS THERE ARE FREQUENCIES.:\n')
                        fprintf('p = %f \n',p)
                        fprintf('peak_masked_curr_scores are:\n')
                         for uniquecounter = 1:numel(peak_masked_curr_scores)

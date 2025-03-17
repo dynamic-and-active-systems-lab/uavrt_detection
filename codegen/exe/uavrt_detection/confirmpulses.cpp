@@ -4,13 +4,13 @@
 // government, commercial, or other organizational use.
 // File: confirmpulses.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
 #include "confirmpulses.h"
-#include "eml_int_forloop_overflow_check.h"
+#include "all.h"
 #include "horzcatStructList.h"
 #include "pulsestats.h"
 #include "rt_nonfinite.h"
@@ -128,8 +128,7 @@ static void binary_expand_op_25(coder::array<boolean_T, 2U> &in1,
   for (int i{0}; i < loop_ub; i++) {
     b_in2[i] = (in2[0] && in1[i * stride_1_0]);
   }
-  in1.set_size(b_in2.size(0), 1);
-  loop_ub = b_in2.size(0);
+  in1.set_size(loop_ub, 1);
   for (int i{0}; i < loop_ub; i++) {
     in1[i] = b_in2[i];
   }
@@ -213,8 +212,7 @@ static void binary_expand_op_28(coder::array<double, 2U> &in1, double in2,
   for (int i{0}; i < loop_ub; i++) {
     b_in2[i] = (in2 + in1[i * stride_0_1]) + in3[i * stride_1_1];
   }
-  in1.set_size(1, b_in2.size(1));
-  loop_ub = b_in2.size(1);
+  in1.set_size(1, loop_ub);
   for (int i{0}; i < loop_ub; i++) {
     in1[i] = b_in2[i];
   }
@@ -244,8 +242,7 @@ static void binary_expand_op_29(coder::array<double, 2U> &in1, double in2,
   for (int i{0}; i < loop_ub; i++) {
     b_in2[i] = (in2 + in1[i * stride_0_1]) - in3[i * stride_1_1];
   }
-  in1.set_size(1, b_in2.size(1));
-  loop_ub = b_in2.size(1);
+  in1.set_size(1, loop_ub);
   for (int i{0}; i < loop_ub; i++) {
     in1[i] = b_in2[i];
   }
@@ -274,8 +271,7 @@ static void d_and(coder::array<boolean_T, 2U> &in1,
   for (int i{0}; i < loop_ub; i++) {
     b_in1[i] = (in1[i * stride_0_1] && in2[i * stride_1_1]);
   }
-  in1.set_size(1, b_in1.size(1));
-  loop_ub = b_in1.size(1);
+  in1.set_size(1, loop_ub);
   for (int i{0}; i < loop_ub; i++) {
     in1[i] = b_in1[i];
   }
@@ -302,227 +298,125 @@ static void d_and(coder::array<boolean_T, 2U> &in1,
 void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
 {
   static rtBoundsCheckInfo ab_emlrtBCI{
-      -1,              // iFirst
-      -1,              // iLast
-      18,              // lineNo
-      20,              // colNo
-      "X.ps_pre.pl",   // aName
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      0                                                  // checkKind
+      24,             // lineNo
+      "X.ps_pos.pl",  // aName
+      "confirmpulses" // fName
   };
   static rtBoundsCheckInfo bb_emlrtBCI{
-      -1,              // iFirst
-      -1,              // iLast
-      24,              // lineNo
-      24,              // colNo
-      "X.ps_pos.pl",   // aName
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      0                                                  // checkKind
+      18,             // lineNo
+      "X.ps_pre.pl",  // aName
+      "confirmpulses" // fName
   };
   static rtBoundsCheckInfo cb_emlrtBCI{
-      -1,              // iFirst
-      -1,              // iLast
-      69,              // lineNo
-      27,              // colNo
-      "indivConfLog",  // aName
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      0                                                  // checkKind
+      69,             // lineNo
+      "indivConfLog", // aName
+      "confirmpulses" // fName
   };
   static rtBoundsCheckInfo db_emlrtBCI{
-      -1,              // iFirst
-      -1,              // iLast
-      94,              // lineNo
-      26,              // colNo
-      "X.ps_pre.pl",   // aName
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      0                                                  // checkKind
+      94,             // lineNo
+      "X.ps_pre.pl",  // aName
+      "confirmpulses" // fName
   };
   static rtBoundsCheckInfo eb_emlrtBCI{
-      -1,              // iFirst
-      -1,              // iLast
-      99,              // lineNo
-      36,              // colNo
-      "X.ps_pos.pl",   // aName
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      0                                                  // checkKind
+      99,             // lineNo
+      "X.ps_pos.pl",  // aName
+      "confirmpulses" // fName
   };
-  static rtDoubleCheckInfo ab_emlrtDCI{
-      38,              // lineNo
-      74,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      1                                                  // checkKind
+  static rtDoubleCheckInfo q_emlrtDCI{
+      28,             // lineNo
+      "confirmpulses" // fName
   };
-  static rtDoubleCheckInfo bb_emlrtDCI{
-      39,              // lineNo
-      74,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      1                                                  // checkKind
+  static rtDoubleCheckInfo r_emlrtDCI{
+      27,             // lineNo
+      "confirmpulses" // fName
   };
   static rtDoubleCheckInfo s_emlrtDCI{
-      28,              // lineNo
-      80,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      1                                                  // checkKind
+      27,             // lineNo
+      "confirmpulses" // fName
   };
   static rtDoubleCheckInfo t_emlrtDCI{
-      27,              // lineNo
-      80,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      1                                                  // checkKind
+      34,             // lineNo
+      "confirmpulses" // fName
   };
   static rtDoubleCheckInfo u_emlrtDCI{
-      27,              // lineNo
-      80,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      4                                                  // checkKind
+      34,             // lineNo
+      "confirmpulses" // fName
   };
   static rtDoubleCheckInfo v_emlrtDCI{
-      34,              // lineNo
-      78,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      4                                                  // checkKind
+      35,             // lineNo
+      "confirmpulses" // fName
   };
   static rtDoubleCheckInfo w_emlrtDCI{
-      34,              // lineNo
-      78,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      1                                                  // checkKind
+      38,             // lineNo
+      "confirmpulses" // fName
   };
   static rtDoubleCheckInfo x_emlrtDCI{
-      35,              // lineNo
-      78,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      1                                                  // checkKind
+      38,             // lineNo
+      "confirmpulses" // fName
   };
   static rtDoubleCheckInfo y_emlrtDCI{
-      38,              // lineNo
-      74,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m", // pName
-      4                                                  // checkKind
+      39,             // lineNo
+      "confirmpulses" // fName
   };
   static rtEqualityCheckInfo g_emlrtECI{
-      2,               // nDims
-      27,              // lineNo
-      38,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,              // nDims
+      27,             // lineNo
+      "confirmpulses" // fName
   };
   static rtEqualityCheckInfo h_emlrtECI{
-      2,               // nDims
-      28,              // lineNo
-      38,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,              // nDims
+      28,             // lineNo
+      "confirmpulses" // fName
   };
   static rtEqualityCheckInfo i_emlrtECI{
-      2,               // nDims
-      48,              // lineNo
-      15,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,              // nDims
+      48,             // lineNo
+      "confirmpulses" // fName
   };
   static rtEqualityCheckInfo j_emlrtECI{
-      2,               // nDims
-      50,              // lineNo
-      15,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,              // nDims
+      50,             // lineNo
+      "confirmpulses" // fName
   };
   static rtEqualityCheckInfo k_emlrtECI{
-      2,               // nDims
-      54,              // lineNo
-      14,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,              // nDims
+      54,             // lineNo
+      "confirmpulses" // fName
   };
   static rtEqualityCheckInfo l_emlrtECI{
-      2,               // nDims
-      55,              // lineNo
-      14,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,              // nDims
+      55,             // lineNo
+      "confirmpulses" // fName
   };
   static rtEqualityCheckInfo m_emlrtECI{
-      2,               // nDims
-      67,              // lineNo
-      16,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,              // nDims
+      67,             // lineNo
+      "confirmpulses" // fName
   };
   static rtEqualityCheckInfo n_emlrtECI{
-      1,               // nDims
-      103,             // lineNo
-      11,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      1,              // nDims
+      103,            // lineNo
+      "confirmpulses" // fName
   };
   static rtEqualityCheckInfo o_emlrtECI{
-      2,               // nDims
-      34,              // lineNo
-      38,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,              // nDims
+      34,             // lineNo
+      "confirmpulses" // fName
   };
   static rtEqualityCheckInfo p_emlrtECI{
-      2,               // nDims
-      35,              // lineNo
-      38,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,              // nDims
+      35,             // lineNo
+      "confirmpulses" // fName
   };
   static rtEqualityCheckInfo q_emlrtECI{
-      2,               // nDims
-      38,              // lineNo
-      34,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,              // nDims
+      38,             // lineNo
+      "confirmpulses" // fName
   };
   static rtEqualityCheckInfo r_emlrtECI{
-      2,               // nDims
-      39,              // lineNo
-      34,              // colNo
-      "confirmpulses", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/confirmpulses.m" // pName
+      2,              // nDims
+      39,             // lineNo
+      "confirmpulses" // fName
   };
   coder::array<c_struct_T, 1U> b_X;
   coder::array<double, 2U> SNRall;
@@ -530,7 +424,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   coder::array<double, 2U> pulsestarttimes_withuncert;
   coder::array<double, 2U> r;
   coder::array<double, 2U> r1;
-  coder::array<boolean_T, 2U> SNRnotNegInfLog;
+  coder::array<boolean_T, 2U> b_SNRall;
   coder::array<boolean_T, 2U> freqInBand;
   coder::array<boolean_T, 2U> maxstartlog;
   coder::array<boolean_T, 2U> minstartlog;
@@ -546,11 +440,11 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   int numPulses;
   boolean_T SNRnotNegInfAll;
   i = X->ps_pre->pl.size(1);
-  numPulses = X->ps_pre->pl.size(1);
-  if ((numPulses < 1) || (numPulses > i)) {
-    rtDynamicBoundsError(numPulses, 1, i, ab_emlrtBCI);
+  loop_ub_tmp = X->ps_pre->pl.size(1);
+  if ((loop_ub_tmp < 1) || (loop_ub_tmp > i)) {
+    rtDynamicBoundsError(loop_ub_tmp, 1, i, bb_emlrtBCI);
   }
-  tref = X->ps_pre->pl[numPulses - 1].t_0;
+  tref = X->ps_pre->pl[loop_ub_tmp - 1].t_0;
   tip = X->ps_pre->t_ip;
   tipu = X->ps_pre->t_ipu;
   tipj = X->ps_pre->t_ipj;
@@ -559,11 +453,12 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
     // overlap
     i = X->ps_pos->pl.size(1);
     if (i < 1) {
-      rtDynamicBoundsError(1, 1, i, bb_emlrtBCI);
+      rtDynamicBoundsError(1, 1, i, ab_emlrtBCI);
     }
     b_tmp = X->ps_pos->pl[0].t_0 - tref;
     if (std::abs(b_tmp) < tipu + tipj) {
       double a;
+      double d;
       // X.ps_pos.pl(1).t_0 <= tref + (tip + tipu + tipj)
       // new first pulse is the same one as the last one in the last
       // segment
@@ -590,28 +485,28 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
         pulsestarttimes_withuncert[i] = a * pulsestarttimes_withuncert[i];
       }
       if (!(X->K >= 0.0)) {
-        rtNonNegativeError(X->K, u_emlrtDCI);
+        rtNonNegativeError(X->K, s_emlrtDCI);
       }
-      i = static_cast<int>(std::floor(X->K));
-      if (X->K != i) {
-        rtIntegerError(X->K, t_emlrtDCI);
+      d = static_cast<int>(std::floor(X->K));
+      if (X->K != d) {
+        rtIntegerError(X->K, r_emlrtDCI);
       }
       loop_ub = static_cast<int>(X->K);
       r.set_size(1, loop_ub);
-      for (numPulses = 0; numPulses < loop_ub; numPulses++) {
-        r[numPulses] = tipj;
+      for (i = 0; i < loop_ub; i++) {
+        r[i] = tipj;
       }
-      if ((pulsestarttimes_withuncert.size(1) != r.size(1)) &&
-          ((pulsestarttimes_withuncert.size(1) != 1) && (r.size(1) != 1))) {
-        emlrtDimSizeImpxCheckR2021b(pulsestarttimes_withuncert.size(1),
-                                    r.size(1), g_emlrtECI);
+      if ((pulsestarttimes_withuncert.size(1) != loop_ub) &&
+          ((pulsestarttimes_withuncert.size(1) != 1) && (loop_ub != 1))) {
+        emlrtDimSizeImpxCheckR2021b(pulsestarttimes_withuncert.size(1), loop_ub,
+                                    g_emlrtECI);
       }
       if (pulsestarttimes_withuncert.size(1) == r.size(1)) {
         pulsestarttimes_withuncert.set_size(1,
                                             pulsestarttimes_withuncert.size(1));
-        for (numPulses = 0; numPulses <= loop_ub_tmp; numPulses++) {
-          pulsestarttimes_withuncert[numPulses] =
-              (tref + pulsestarttimes_withuncert[numPulses]) - r[numPulses];
+        for (i = 0; i <= loop_ub_tmp; i++) {
+          pulsestarttimes_withuncert[i] =
+              (tref + pulsestarttimes_withuncert[i]) - r[i];
         }
       } else {
         binary_expand_op_29(pulsestarttimes_withuncert, tref, r);
@@ -624,27 +519,26 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       } else {
         pulseendtimes_withuncert.set_size(1, static_cast<int>(b_tmp) + 1);
         loop_ub_tmp = static_cast<int>(b_tmp);
-        for (numPulses = 0; numPulses <= loop_ub_tmp; numPulses++) {
-          pulseendtimes_withuncert[numPulses] = numPulses;
+        for (i = 0; i <= loop_ub_tmp; i++) {
+          pulseendtimes_withuncert[i] = i;
         }
       }
       a = tip + tipu;
       pulseendtimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
       loop_ub_tmp = pulseendtimes_withuncert.size(1) - 1;
-      for (numPulses = 0; numPulses <= loop_ub_tmp; numPulses++) {
-        pulseendtimes_withuncert[numPulses] =
-            a * pulseendtimes_withuncert[numPulses];
+      for (i = 0; i <= loop_ub_tmp; i++) {
+        pulseendtimes_withuncert[i] = a * pulseendtimes_withuncert[i];
       }
-      if (X->K != i) {
-        rtIntegerError(X->K, s_emlrtDCI);
+      if (X->K != d) {
+        rtIntegerError(X->K, q_emlrtDCI);
       }
       r.set_size(1, loop_ub);
       for (i = 0; i < loop_ub; i++) {
         r[i] = tipj;
       }
-      if ((pulseendtimes_withuncert.size(1) != r.size(1)) &&
-          ((pulseendtimes_withuncert.size(1) != 1) && (r.size(1) != 1))) {
-        emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1), r.size(1),
+      if ((pulseendtimes_withuncert.size(1) != loop_ub) &&
+          ((pulseendtimes_withuncert.size(1) != 1) && (loop_ub != 1))) {
+        emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1), loop_ub,
                                     h_emlrtECI);
       }
       if (pulseendtimes_withuncert.size(1) == r.size(1)) {
@@ -658,6 +552,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       }
     } else {
       double a;
+      double d;
       // new first pulse isn't the same one as the last one in the last
       // segment because the detector detected the last K pulses in the
       // segment and not the first three. Remember that the segment can
@@ -686,28 +581,28 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
         pulsestarttimes_withuncert[i] = a * pulsestarttimes_withuncert[i];
       }
       if (!(X->K >= 0.0)) {
-        rtNonNegativeError(X->K, v_emlrtDCI);
+        rtNonNegativeError(X->K, t_emlrtDCI);
       }
-      i = static_cast<int>(std::floor(X->K));
-      if (X->K != i) {
-        rtIntegerError(X->K, w_emlrtDCI);
+      d = static_cast<int>(std::floor(X->K));
+      if (X->K != d) {
+        rtIntegerError(X->K, u_emlrtDCI);
       }
       loop_ub = static_cast<int>(X->K);
       r.set_size(1, loop_ub);
-      for (numPulses = 0; numPulses < loop_ub; numPulses++) {
-        r[numPulses] = tipj;
+      for (i = 0; i < loop_ub; i++) {
+        r[i] = tipj;
       }
-      if ((pulsestarttimes_withuncert.size(1) != r.size(1)) &&
-          ((pulsestarttimes_withuncert.size(1) != 1) && (r.size(1) != 1))) {
-        emlrtDimSizeImpxCheckR2021b(pulsestarttimes_withuncert.size(1),
-                                    r.size(1), o_emlrtECI);
+      if ((pulsestarttimes_withuncert.size(1) != loop_ub) &&
+          ((pulsestarttimes_withuncert.size(1) != 1) && (loop_ub != 1))) {
+        emlrtDimSizeImpxCheckR2021b(pulsestarttimes_withuncert.size(1), loop_ub,
+                                    o_emlrtECI);
       }
       if (pulsestarttimes_withuncert.size(1) == r.size(1)) {
         pulsestarttimes_withuncert.set_size(1,
                                             pulsestarttimes_withuncert.size(1));
-        for (numPulses = 0; numPulses <= loop_ub_tmp; numPulses++) {
-          pulsestarttimes_withuncert[numPulses] =
-              (tref + pulsestarttimes_withuncert[numPulses]) - r[numPulses];
+        for (i = 0; i <= loop_ub_tmp; i++) {
+          pulsestarttimes_withuncert[i] =
+              (tref + pulsestarttimes_withuncert[i]) - r[i];
         }
       } else {
         binary_expand_op_29(pulsestarttimes_withuncert, tref, r);
@@ -720,28 +615,26 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       } else {
         pulseendtimes_withuncert.set_size(1, static_cast<int>(b_tmp - 1.0) + 1);
         loop_ub_tmp = static_cast<int>(b_tmp - 1.0);
-        for (numPulses = 0; numPulses <= loop_ub_tmp; numPulses++) {
-          pulseendtimes_withuncert[numPulses] =
-              static_cast<double>(numPulses) + 1.0;
+        for (i = 0; i <= loop_ub_tmp; i++) {
+          pulseendtimes_withuncert[i] = static_cast<double>(i) + 1.0;
         }
       }
       a = tip + tipu;
       pulseendtimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
       loop_ub_tmp = pulseendtimes_withuncert.size(1) - 1;
-      for (numPulses = 0; numPulses <= loop_ub_tmp; numPulses++) {
-        pulseendtimes_withuncert[numPulses] =
-            a * pulseendtimes_withuncert[numPulses];
+      for (i = 0; i <= loop_ub_tmp; i++) {
+        pulseendtimes_withuncert[i] = a * pulseendtimes_withuncert[i];
       }
-      if (X->K != i) {
-        rtIntegerError(X->K, x_emlrtDCI);
+      if (X->K != d) {
+        rtIntegerError(X->K, v_emlrtDCI);
       }
       r.set_size(1, loop_ub);
       for (i = 0; i < loop_ub; i++) {
         r[i] = tipj;
       }
-      if ((pulseendtimes_withuncert.size(1) != r.size(1)) &&
-          ((pulseendtimes_withuncert.size(1) != 1) && (r.size(1) != 1))) {
-        emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1), r.size(1),
+      if ((pulseendtimes_withuncert.size(1) != loop_ub) &&
+          ((pulseendtimes_withuncert.size(1) != 1) && (loop_ub != 1))) {
+        emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1), loop_ub,
                                     p_emlrtECI);
       }
       if (pulseendtimes_withuncert.size(1) == r.size(1)) {
@@ -756,6 +649,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
     }
   } else {
     double a;
+    double d;
     // First pulse in this segment does not exists in last segment as well
     // because of overlap
     b_tmp = X->K;
@@ -780,28 +674,28 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
       pulsestarttimes_withuncert[i] = a * pulsestarttimes_withuncert[i];
     }
     if (!(X->K >= 0.0)) {
-      rtNonNegativeError(X->K, y_emlrtDCI);
+      rtNonNegativeError(X->K, w_emlrtDCI);
     }
-    i = static_cast<int>(std::floor(X->K));
-    if (X->K != i) {
-      rtIntegerError(X->K, ab_emlrtDCI);
+    d = static_cast<int>(std::floor(X->K));
+    if (X->K != d) {
+      rtIntegerError(X->K, x_emlrtDCI);
     }
     loop_ub = static_cast<int>(X->K);
     r.set_size(1, loop_ub);
-    for (numPulses = 0; numPulses < loop_ub; numPulses++) {
-      r[numPulses] = tipj;
+    for (i = 0; i < loop_ub; i++) {
+      r[i] = tipj;
     }
-    if ((pulsestarttimes_withuncert.size(1) != r.size(1)) &&
-        ((pulsestarttimes_withuncert.size(1) != 1) && (r.size(1) != 1))) {
-      emlrtDimSizeImpxCheckR2021b(pulsestarttimes_withuncert.size(1), r.size(1),
+    if ((pulsestarttimes_withuncert.size(1) != loop_ub) &&
+        ((pulsestarttimes_withuncert.size(1) != 1) && (loop_ub != 1))) {
+      emlrtDimSizeImpxCheckR2021b(pulsestarttimes_withuncert.size(1), loop_ub,
                                   q_emlrtECI);
     }
     if (pulsestarttimes_withuncert.size(1) == r.size(1)) {
       pulsestarttimes_withuncert.set_size(1,
                                           pulsestarttimes_withuncert.size(1));
-      for (numPulses = 0; numPulses <= loop_ub_tmp; numPulses++) {
-        pulsestarttimes_withuncert[numPulses] =
-            (tref + pulsestarttimes_withuncert[numPulses]) - r[numPulses];
+      for (i = 0; i <= loop_ub_tmp; i++) {
+        pulsestarttimes_withuncert[i] =
+            (tref + pulsestarttimes_withuncert[i]) - r[i];
       }
     } else {
       binary_expand_op_29(pulsestarttimes_withuncert, tref, r);
@@ -814,28 +708,26 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
     } else {
       pulseendtimes_withuncert.set_size(1, static_cast<int>(b_tmp - 1.0) + 1);
       loop_ub_tmp = static_cast<int>(b_tmp - 1.0);
-      for (numPulses = 0; numPulses <= loop_ub_tmp; numPulses++) {
-        pulseendtimes_withuncert[numPulses] =
-            static_cast<double>(numPulses) + 1.0;
+      for (i = 0; i <= loop_ub_tmp; i++) {
+        pulseendtimes_withuncert[i] = static_cast<double>(i) + 1.0;
       }
     }
     a = tip + tipu;
     pulseendtimes_withuncert.set_size(1, pulseendtimes_withuncert.size(1));
     loop_ub_tmp = pulseendtimes_withuncert.size(1) - 1;
-    for (numPulses = 0; numPulses <= loop_ub_tmp; numPulses++) {
-      pulseendtimes_withuncert[numPulses] =
-          a * pulseendtimes_withuncert[numPulses];
+    for (i = 0; i <= loop_ub_tmp; i++) {
+      pulseendtimes_withuncert[i] = a * pulseendtimes_withuncert[i];
     }
-    if (X->K != i) {
-      rtIntegerError(X->K, bb_emlrtDCI);
+    if (X->K != d) {
+      rtIntegerError(X->K, y_emlrtDCI);
     }
     r.set_size(1, loop_ub);
     for (i = 0; i < loop_ub; i++) {
       r[i] = tipj;
     }
-    if ((pulseendtimes_withuncert.size(1) != r.size(1)) &&
-        ((pulseendtimes_withuncert.size(1) != 1) && (r.size(1) != 1))) {
-      emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1), r.size(1),
+    if ((pulseendtimes_withuncert.size(1) != loop_ub) &&
+        ((pulseendtimes_withuncert.size(1) != 1) && (loop_ub != 1))) {
+      emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1), loop_ub,
                                   r_emlrtECI);
     }
     if (pulseendtimes_withuncert.size(1) == r.size(1)) {
@@ -856,6 +748,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   loop_ub_tmp = X->ps_pos->pl.size(1);
   b_X = X->ps_pos->pl.reshape(loop_ub_tmp);
   coder::internal::b_horzcatStructList(b_X, r);
+  loop_ub = r.size(1);
   if ((r.size(1) != pulsestarttimes_withuncert.size(1)) &&
       ((r.size(1) != 1) && (pulsestarttimes_withuncert.size(1) != 1))) {
     emlrtDimSizeImpxCheckR2021b(r.size(1), pulsestarttimes_withuncert.size(1),
@@ -863,7 +756,6 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   }
   if (r.size(1) == pulsestarttimes_withuncert.size(1)) {
     minstartlog.set_size(1, r.size(1));
-    loop_ub = r.size(1);
     for (i = 0; i < loop_ub; i++) {
       minstartlog[i] = (r[i] >= pulsestarttimes_withuncert[i]);
     }
@@ -874,6 +766,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   loop_ub_tmp = X->ps_pos->pl.size(1);
   b_X = X->ps_pos->pl.reshape(loop_ub_tmp);
   coder::internal::b_horzcatStructList(b_X, r);
+  loop_ub = r.size(1);
   if ((r.size(1) != pulseendtimes_withuncert.size(1)) &&
       ((r.size(1) != 1) && (pulseendtimes_withuncert.size(1) != 1))) {
     emlrtDimSizeImpxCheckR2021b(r.size(1), pulseendtimes_withuncert.size(1),
@@ -881,7 +774,6 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   }
   if (r.size(1) == pulseendtimes_withuncert.size(1)) {
     maxstartlog.set_size(1, r.size(1));
-    loop_ub = r.size(1);
     for (i = 0; i < loop_ub; i++) {
       maxstartlog[i] = (r[i] <= pulseendtimes_withuncert[i]);
     }
@@ -890,16 +782,18 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   }
   // Frequency check. Within +/- 100 Hz of previously
   // detected pulses?
-  coder::internal::b_horzcatStructList(X->ps_pos->pl, r);
-  coder::internal::b_horzcatStructList(X->ps_pre->pl,
+  coder::internal::c_horzcatStructList(X->ps_pos->pl, r);
+  coder::internal::c_horzcatStructList(X->ps_pre->pl,
                                        pulsestarttimes_withuncert);
+  loop_ub = r.size(1);
   if ((r.size(1) != pulsestarttimes_withuncert.size(1)) &&
       ((r.size(1) != 1) && (pulsestarttimes_withuncert.size(1) != 1))) {
     emlrtDimSizeImpxCheckR2021b(r.size(1), pulsestarttimes_withuncert.size(1),
                                 k_emlrtECI);
   }
-  coder::internal::b_horzcatStructList(X->ps_pos->pl, pulseendtimes_withuncert);
-  coder::internal::b_horzcatStructList(X->ps_pre->pl, r1);
+  coder::internal::c_horzcatStructList(X->ps_pos->pl, pulseendtimes_withuncert);
+  coder::internal::c_horzcatStructList(X->ps_pre->pl, r1);
+  loop_ub_tmp = pulseendtimes_withuncert.size(1);
   if ((pulseendtimes_withuncert.size(1) != r1.size(1)) &&
       ((pulseendtimes_withuncert.size(1) != 1) && (r1.size(1) != 1))) {
     emlrtDimSizeImpxCheckR2021b(pulseendtimes_withuncert.size(1), r1.size(1),
@@ -907,7 +801,6 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   }
   if (r.size(1) == pulsestarttimes_withuncert.size(1)) {
     freqInBand.set_size(1, r.size(1));
-    loop_ub = r.size(1);
     for (i = 0; i < loop_ub; i++) {
       freqInBand[i] = (r[i] >= pulsestarttimes_withuncert[i] - 100.0);
     }
@@ -916,8 +809,7 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
   }
   if (pulseendtimes_withuncert.size(1) == r1.size(1)) {
     r2.set_size(1, pulseendtimes_withuncert.size(1));
-    loop_ub = pulseendtimes_withuncert.size(1);
-    for (i = 0; i < loop_ub; i++) {
+    for (i = 0; i < loop_ub_tmp; i++) {
       r2[i] = (pulseendtimes_withuncert[i] <= r1[i] + 100.0);
     }
   } else {
@@ -988,7 +880,6 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
     confLog[i] = false;
   }
   if (numPulses > 1) {
-    boolean_T exitg1;
     loop_ub_tmp = X->ps_pos->pl.size(1);
     b_X = X->ps_pos->pl.reshape(loop_ub_tmp);
     coder::internal::c_horzcatStructList(b_X, r);
@@ -1004,28 +895,13 @@ void confirmpulses(const waveform *X, coder::array<boolean_T, 2U> &confLog)
     // SNRsimilar = SNRall >= SNRmax - abs(SNRmax/2);%use -abs() because SNRmax
     // could be negative. Can't just mult by 0.5 SNRsimilar = SNRall >= SNRmax -
     // 7;%use a fixed distance of 7 dB (5x)
-    SNRnotNegInfLog.set_size(SNRall.size(0), 1);
-    loop_ub = SNRall.size(0);
+    b_SNRall.set_size(r.size(1), 1);
     for (i = 0; i < loop_ub; i++) {
-      SNRnotNegInfLog[i] = (SNRall[i] != rtMinusInf);
+      b_SNRall[i] = (SNRall[i] != rtMinusInf);
     }
-    SNRnotNegInfAll = true;
-    if (SNRnotNegInfLog.size(0) > 2147483646) {
-      coder::check_forloop_overflow_error();
-    }
-    loop_ub_tmp = 1;
-    exitg1 = false;
-    while ((!exitg1) && (loop_ub_tmp <= SNRnotNegInfLog.size(0))) {
-      if (!SNRnotNegInfLog[loop_ub_tmp - 1]) {
-        SNRnotNegInfAll = false;
-        exitg1 = true;
-      } else {
-        loop_ub_tmp++;
-      }
-    }
-    loop_ub_tmp = SNRall.size(0);
-    confLog.set_size(SNRall.size(0), 1);
-    for (i = 0; i < loop_ub_tmp; i++) {
+    SNRnotNegInfAll = coder::b_all(b_SNRall);
+    confLog.set_size(r.size(1), 1);
+    for (i = 0; i < loop_ub; i++) {
       confLog[i] = SNRnotNegInfAll;
     }
   } else if (numPulses == 1) {

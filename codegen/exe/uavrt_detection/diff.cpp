@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: diff.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -17,11 +17,9 @@
 #include "coder_array.h"
 
 // Variable Definitions
-static rtRunTimeErrorInfo wb_emlrtRTEI{
-    51,     // lineNo
-    19,     // colNo
-    "diff", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/datafun/diff.m" // pName
+static rtRunTimeErrorInfo sb_emlrtRTEI{
+    51,    // lineNo
+    "diff" // fName
 };
 
 // Function Definitions
@@ -48,7 +46,7 @@ void diff(const array<double, 1U> &x, array<double, 1U> &y)
     } else {
       double work_data;
       if (x.size(0) == 1) {
-        w_rtErrorWithMessageID(wb_emlrtRTEI.fName, wb_emlrtRTEI.lineNo);
+        v_rtErrorWithMessageID(sb_emlrtRTEI.fName, sb_emlrtRTEI.lineNo);
       }
       y.set_size(x.size(0) - 1);
       work_data = x[0];
@@ -87,7 +85,7 @@ void diff(const array<double, 2U> &x, array<double, 2U> &y)
     } else {
       double work_data;
       if (x.size(0) == 1) {
-        w_rtErrorWithMessageID(wb_emlrtRTEI.fName, wb_emlrtRTEI.lineNo);
+        v_rtErrorWithMessageID(sb_emlrtRTEI.fName, sb_emlrtRTEI.lineNo);
       }
       y.set_size(x.size(0) - 1, 1);
       work_data = x[0];

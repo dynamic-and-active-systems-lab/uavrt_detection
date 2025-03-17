@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: psdfreqvec.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -15,39 +15,9 @@
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
-#include <cfloat>
 #include <cmath>
 
-// Function Declarations
-static double rt_remd_snf(double u0, double u1);
-
 // Function Definitions
-//
-// Arguments    : double u0
-//                double u1
-// Return Type  : double
-//
-static double rt_remd_snf(double u0, double u1)
-{
-  double y;
-  if (std::isnan(u0) || std::isnan(u1) || std::isinf(u0)) {
-    y = rtNaN;
-  } else if (std::isinf(u1)) {
-    y = u0;
-  } else if ((u1 != 0.0) && (u1 != std::trunc(u1))) {
-    double q;
-    q = std::abs(u0 / u1);
-    if (!(std::abs(q - std::floor(q + 0.5)) > DBL_EPSILON * q)) {
-      y = 0.0 * u0;
-    } else {
-      y = std::fmod(u0, u1);
-    }
-  } else {
-    y = std::fmod(u0, u1);
-  }
-  return y;
-}
-
 //
 // Arguments    : double varargin_2
 //                double varargin_4
@@ -58,69 +28,41 @@ namespace coder {
 void psdfreqvec(double varargin_2, double varargin_4, array<double, 1U> &w)
 {
   static rtBoundsCheckInfo ab_emlrtBCI{
-      -1,              // iFirst
-      -1,              // iLast
-      74,              // lineNo
-      8,               // colNo
-      "",              // aName
-      "frequencygrid", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/shared/siglib/psdfreqvec.m", // pName
-      0 // checkKind
+      74,             // lineNo
+      "",             // aName
+      "frequencygrid" // fName
   };
   static rtBoundsCheckInfo bb_emlrtBCI{
-      -1,              // iFirst
-      -1,              // iLast
-      75,              // lineNo
-      8,               // colNo
-      "",              // aName
-      "frequencygrid", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/shared/siglib/psdfreqvec.m", // pName
-      0 // checkKind
+      75,             // lineNo
+      "",             // aName
+      "frequencygrid" // fName
   };
   static rtBoundsCheckInfo cb_emlrtBCI{
-      -1,              // iFirst
-      -1,              // iLast
-      80,              // lineNo
-      4,               // colNo
-      "",              // aName
-      "frequencygrid", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/shared/siglib/psdfreqvec.m", // pName
-      0 // checkKind
+      80,             // lineNo
+      "",             // aName
+      "frequencygrid" // fName
   };
   static rtBoundsCheckInfo db_emlrtBCI{
-      -1,              // iFirst
-      -1,              // iLast
-      78,              // lineNo
-      8,               // colNo
-      "",              // aName
-      "frequencygrid", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/shared/siglib/psdfreqvec.m", // pName
-      0 // checkKind
+      78,             // lineNo
+      "",             // aName
+      "frequencygrid" // fName
+  };
+  static rtDoubleCheckInfo q_emlrtDCI{
+      74,             // lineNo
+      "frequencygrid" // fName
+  };
+  static rtDoubleCheckInfo r_emlrtDCI{
+      80,             // lineNo
+      "frequencygrid" // fName
   };
   static rtDoubleCheckInfo s_emlrtDCI{
-      74,              // lineNo
-      8,               // colNo
-      "frequencygrid", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/shared/siglib/psdfreqvec.m", // pName
-      1 // checkKind
-  };
-  static rtDoubleCheckInfo t_emlrtDCI{
-      80,              // lineNo
-      4,               // colNo
-      "frequencygrid", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/shared/siglib/psdfreqvec.m", // pName
-      1 // checkKind
-  };
-  static rtDoubleCheckInfo u_emlrtDCI{
-      78,              // lineNo
-      8,               // colNo
-      "frequencygrid", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/shared/siglib/psdfreqvec.m", // pName
-      1 // checkKind
+      78,             // lineNo
+      "frequencygrid" // fName
   };
   array<double, 2U> w1;
   double Fs1;
   double Nyq;
+  double d;
   double freq_res;
   double half_res;
   double x;
@@ -151,9 +93,13 @@ void psdfreqvec(double varargin_2, double varargin_4, array<double, 1U> &w)
   }
   Nyq = Fs1 / 2.0;
   half_res = freq_res / 2.0;
-  x = rt_remd_snf(varargin_2, 2.0);
+  if (std::isnan(varargin_2) || std::isinf(varargin_2)) {
+    x = rtNaN;
+  } else {
+    x = std::fmod(varargin_2, 2.0);
+  }
   if (std::isnan(x)) {
-    ab_rtErrorWithMessageID(lb_emlrtRTEI.fName, lb_emlrtRTEI.lineNo);
+    y_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
   }
   isNPTSodd = (x != 0.0);
   if (isNPTSodd) {
@@ -161,12 +107,17 @@ void psdfreqvec(double varargin_2, double varargin_4, array<double, 1U> &w)
   } else {
     x = varargin_2 / 2.0 + 1.0;
   }
-  if (std::isnan(rt_remd_snf(x, 2.0))) {
-    ab_rtErrorWithMessageID(lb_emlrtRTEI.fName, lb_emlrtRTEI.lineNo);
+  if (std::isnan(x) || std::isinf(x)) {
+    d = rtNaN;
+  } else {
+    d = std::fmod(x, 2.0);
+  }
+  if (std::isnan(d)) {
+    y_rtErrorWithMessageID(hb_emlrtRTEI.fName, hb_emlrtRTEI.lineNo);
   }
   if (isNPTSodd) {
     if (x != static_cast<int>(std::floor(x))) {
-      rtIntegerError(x, s_emlrtDCI);
+      rtIntegerError(x, q_emlrtDCI);
     }
     if ((static_cast<int>(x) < 1) || (static_cast<int>(x) > w1.size(1))) {
       rtDynamicBoundsError(static_cast<int>(x), 1, w1.size(1), ab_emlrtBCI);
@@ -180,15 +131,16 @@ void psdfreqvec(double varargin_2, double varargin_4, array<double, 1U> &w)
     w1[static_cast<int>(static_cast<unsigned int>(x))] = Nyq + half_res;
   } else {
     if (x != static_cast<int>(std::floor(x))) {
-      rtIntegerError(x, u_emlrtDCI);
+      rtIntegerError(x, s_emlrtDCI);
     }
     if ((static_cast<int>(x) < 1) || (static_cast<int>(x) > w1.size(1))) {
       rtDynamicBoundsError(static_cast<int>(x), 1, w1.size(1), db_emlrtBCI);
     }
     w1[static_cast<int>(x) - 1] = Nyq;
   }
+  loop_ub = w1.size(1);
   if (varargin_2 != static_cast<int>(std::floor(varargin_2))) {
-    rtIntegerError(varargin_2, t_emlrtDCI);
+    rtIntegerError(varargin_2, r_emlrtDCI);
   }
   if ((static_cast<int>(varargin_2) < 1) ||
       (static_cast<int>(varargin_2) > w1.size(1))) {
@@ -197,7 +149,6 @@ void psdfreqvec(double varargin_2, double varargin_4, array<double, 1U> &w)
   }
   w1[static_cast<int>(varargin_2) - 1] = Fs1 - freq_res;
   w.set_size(w1.size(1));
-  loop_ub = w1.size(1);
   for (int i{0}; i < loop_ub; i++) {
     w[i] = w1[i];
   }

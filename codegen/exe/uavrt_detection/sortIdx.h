@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: sortIdx.h
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 #ifndef SORTIDX_H
@@ -20,13 +20,11 @@
 // Function Declarations
 namespace coder {
 namespace internal {
-void merge_block(array<int, 2U> &idx, array<double, 2U> &x, int offset, int n,
-                 int preSortLevel, array<int, 1U> &iwork,
-                 array<double, 1U> &xwork);
-
 void merge_block(array<int, 1U> &idx, array<double, 1U> &x, int offset, int n,
                  int preSortLevel, array<int, 1U> &iwork,
                  array<double, 1U> &xwork);
+
+void sortIdx(array<double, 2U> &x, array<int, 2U> &idx);
 
 } // namespace internal
 } // namespace coder

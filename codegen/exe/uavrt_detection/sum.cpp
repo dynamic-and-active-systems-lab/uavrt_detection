@@ -4,12 +4,13 @@
 // government, commercial, or other organizational use.
 // File: sum.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
 #include "sum.h"
+#include "blockedSummation.h"
 #include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
 #include "sparse1.h"
@@ -20,27 +21,31 @@
 
 // Function Definitions
 //
+// Arguments    : const array<double, 1U> &x
+// Return Type  : double
+//
+namespace coder {
+double sum(const array<double, 1U> &x)
+{
+  return blockedSummation(x, x.size(0));
+}
+
+//
 // Arguments    : const sparse &x
 //                b_sparse &y
 // Return Type  : void
 //
-namespace coder {
 void sum(const sparse &x, b_sparse &y)
 {
-  static rtDoubleCheckInfo
-      s_emlrtDCI{
-          20,    // lineNo
-          1,     // colNo
-          "sum", // fName
-          "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/datafun/"
-          "sum.m", // pName
-          4        // checkKind
-      };
+  static rtDoubleCheckInfo q_emlrtDCI{
+      20,   // lineNo
+      "sum" // fName
+  };
   if ((x.m == 0) || (x.n == 0) || (x.m == 0)) {
     int outidx;
     y.n = x.n;
     if (x.n + 1 < 0) {
-      rtNonNegativeError(static_cast<double>(x.n + 1), s_emlrtDCI);
+      rtNonNegativeError(static_cast<double>(x.n + 1), q_emlrtDCI);
     }
     outidx = x.n + 1;
     y.colidx.set_size(x.n + 1);
@@ -66,7 +71,7 @@ void sum(const sparse &x, b_sparse &y)
     y.d.set_size(u1);
     y.rowidx.set_size(u1);
     if (x.n + 1 < 0) {
-      rtNonNegativeError(static_cast<double>(x.n + 1), o_emlrtDCI);
+      rtNonNegativeError(static_cast<double>(x.n + 1), m_emlrtDCI);
     }
     y.colidx.set_size(x.n + 1);
     y.colidx[0] = 1;
@@ -80,13 +85,13 @@ void sum(const sparse &x, b_sparse &y)
       int xend;
       int xstart_tmp;
       xstart_tmp = x.colidx[col];
-      xend = x.colidx[col + 1] - 1;
+      xend = x.colidx[col + 1];
       r = 0.0;
       if ((xstart_tmp <= x.colidx[col + 1] - 1) &&
           (x.colidx[col + 1] - 1 > 2147483646)) {
         check_forloop_overflow_error();
       }
-      for (int xp{xstart_tmp}; xp <= xend; xp++) {
+      for (int xp{xstart_tmp}; xp < xend; xp++) {
         r += x.d[xp - 1];
       }
       if (r != 0.0) {
@@ -130,12 +135,12 @@ void sum(const g_sparse &x, c_sparse &y)
     y.colidx[0] = 1;
     y.colidx[1] = 1;
     xstart = x.colidx[0];
-    xend = x.colidx[1] - 1;
+    xend = x.colidx[1];
     r = 0.0;
     if ((x.colidx[0] <= x.colidx[1] - 1) && (x.colidx[1] - 1 > 2147483646)) {
       check_forloop_overflow_error();
     }
-    for (int xp{xstart}; xp <= xend; xp++) {
+    for (int xp{xstart}; xp < xend; xp++) {
       r += x.d[xp - 1];
     }
     if (r != 0.0) {
@@ -158,8 +163,8 @@ void sum(const array<double, 2U> &x, array<double, 1U> &y)
   array<double, 1U> bsum;
   if ((x.size(0) == 0) || (x.size(1) == 0)) {
     int firstBlockLength;
-    y.set_size(x.size(0));
     firstBlockLength = x.size(0);
+    y.set_size(x.size(0));
     for (int xblockoffset{0}; xblockoffset < firstBlockLength; xblockoffset++) {
       y[xblockoffset] = 0.0;
     }
@@ -168,9 +173,9 @@ void sum(const array<double, 2U> &x, array<double, 1U> &y)
     int firstBlockLength;
     int lastBlockLength;
     int nblocks;
-    int vstride;
+    int vstride_tmp;
     int xoffset;
-    vstride = x.size(0);
+    vstride_tmp = x.size(0);
     bvstride = x.size(0) << 10;
     y.set_size(x.size(0));
     bsum.set_size(x.size(0));
@@ -191,26 +196,26 @@ void sum(const array<double, 2U> &x, array<double, 1U> &y)
     if (x.size(0) > 2147483646) {
       check_forloop_overflow_error();
     }
-    for (int xj{0}; xj < vstride; xj++) {
+    for (int xj{0}; xj < vstride_tmp; xj++) {
       y[xj] = x[xj];
       bsum[xj] = 0.0;
     }
     for (int k{2}; k <= firstBlockLength; k++) {
-      xoffset = (k - 1) * vstride;
-      if (vstride > 2147483646) {
+      xoffset = (k - 1) * vstride_tmp;
+      if (vstride_tmp > 2147483646) {
         check_forloop_overflow_error();
       }
-      for (int xj{0}; xj < vstride; xj++) {
+      for (int xj{0}; xj < vstride_tmp; xj++) {
         y[xj] = y[xj] + x[xoffset + xj];
       }
     }
     for (int ib{2}; ib <= nblocks; ib++) {
       int xblockoffset;
       xblockoffset = (ib - 1) * bvstride;
-      if (vstride > 2147483646) {
+      if (vstride_tmp > 2147483646) {
         check_forloop_overflow_error();
       }
-      for (int xj{0}; xj < vstride; xj++) {
+      for (int xj{0}; xj < vstride_tmp; xj++) {
         bsum[xj] = x[xblockoffset + xj];
       }
       if (ib == nblocks) {
@@ -219,12 +224,12 @@ void sum(const array<double, 2U> &x, array<double, 1U> &y)
         firstBlockLength = 1024;
       }
       for (int k{2}; k <= firstBlockLength; k++) {
-        xoffset = xblockoffset + (k - 1) * vstride;
-        for (int xj{0}; xj < vstride; xj++) {
+        xoffset = xblockoffset + (k - 1) * vstride_tmp;
+        for (int xj{0}; xj < vstride_tmp; xj++) {
           bsum[xj] = bsum[xj] + x[xoffset + xj];
         }
       }
-      for (int xj{0}; xj < vstride; xj++) {
+      for (int xj{0}; xj < vstride_tmp; xj++) {
         y[xj] = y[xj] + bsum[xj];
       }
     }

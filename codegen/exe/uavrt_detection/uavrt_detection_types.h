@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: uavrt_detection_types.h
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 #ifndef UAVRT_DETECTION_TYPES_H
@@ -16,38 +16,26 @@
 #define MAX_THREADS omp_get_max_threads()
 
 // Type Definitions
+struct rtRunTimeErrorInfo {
+  int lineNo;
+  const char *fName;
+};
+
 struct rtDoubleCheckInfo {
   int lineNo;
-  int colNo;
   const char *fName;
-  const char *pName;
-  int checkKind;
+};
+
+struct rtBoundsCheckInfo {
+  int lineNo;
+  const char *aName;
+  const char *fName;
 };
 
 struct rtEqualityCheckInfo {
   int nDims;
   int lineNo;
-  int colNo;
   const char *fName;
-  const char *pName;
-};
-
-struct rtBoundsCheckInfo {
-  int iFirst;
-  int iLast;
-  int lineNo;
-  int colNo;
-  const char *aName;
-  const char *fName;
-  const char *pName;
-  int checkKind;
-};
-
-struct rtRunTimeErrorInfo {
-  int lineNo;
-  int colNo;
-  const char *fName;
-  const char *pName;
 };
 
 #endif

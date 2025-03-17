@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: assembleWq.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -56,11 +56,9 @@ void plus(coder::array<double, 2U> &in1, const coder::array<double, 2U> &in2)
     aux_1_1 += stride_1_1;
     aux_0_1 += stride_0_1;
   }
-  in1.set_size(b_in1.size(0), b_in1.size(1));
-  loop_ub = b_in1.size(1);
-  for (int i{0}; i < loop_ub; i++) {
-    b_loop_ub = b_in1.size(0);
-    for (int i1{0}; i1 < b_loop_ub; i1++) {
+  in1.set_size(loop_ub, b_loop_ub);
+  for (int i{0}; i < b_loop_ub; i++) {
+    for (int i1{0}; i1 < loop_ub; i1++) {
       in1[i1 + in1.size(0) * i] = b_in1[i1 + b_in1.size(0) * i];
     }
   }

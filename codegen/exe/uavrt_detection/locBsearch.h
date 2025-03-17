@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: locBsearch.h
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 #ifndef LOCBSEARCH_H
@@ -19,13 +19,10 @@
 
 // Function Declarations
 namespace coder {
-int b_sparse_locBsearch(const array<int, 1U> &x, int xi, int xstart, int xend,
-                        boolean_T &found);
-
 int sparse_locBsearch(const array<int, 1U> &x, double xi, int xstart, int xend,
                       boolean_T &found);
 
-} // namespace coder
+}
 
 #endif
 //

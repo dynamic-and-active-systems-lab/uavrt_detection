@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: ifWhileCond.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -26,16 +26,16 @@ boolean_T b_ifWhileCond(const array<boolean_T, 2U> &x)
   boolean_T y;
   y = ((x.size(0) != 0) && (x.size(1) != 0));
   if (y) {
-    int b;
+    int b_tmp;
     int k;
     boolean_T exitg1;
-    b = x.size(0) * x.size(1);
-    if (b > 2147483646) {
+    b_tmp = x.size(0) * x.size(1);
+    if (b_tmp > 2147483646) {
       check_forloop_overflow_error();
     }
     k = 0;
     exitg1 = false;
-    while ((!exitg1) && (k <= b - 1)) {
+    while ((!exitg1) && (k <= b_tmp - 1)) {
       if (!x[k]) {
         y = false;
         exitg1 = true;

@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: ind2sub.h
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 #ifndef IND2SUB_H
@@ -21,9 +21,7 @@ namespace coder {
 namespace internal {
 int ind2sub(const double siz[2], double ndx, int &varargout_2);
 
-int ind2sub(const double siz[2], int ndx, int &varargout_2);
-
-} // namespace internal
+}
 } // namespace coder
 
 #endif

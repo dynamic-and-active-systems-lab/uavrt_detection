@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: validateattributes.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -64,23 +64,20 @@ static void rtErrorWithMessageID(const char *r, const char *r1, const char *r2,
 namespace coder {
 void b_validateattributes(double a, double attributesMixed_f9)
 {
-  static rtRunTimeErrorInfo bd_emlrtRTEI{
-      22,           // lineNo
-      27,           // colNo
-      "validatege", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
-      "+valattr/validatege.m" // pName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      22,          // lineNo
+      "validatege" // fName
   };
   if (std::isinf(a) || std::isnan(a) || (!(std::floor(a) == a))) {
-    k_rtErrorWithMessageID("FFTLength", fb_emlrtRTEI.fName,
-                           fb_emlrtRTEI.lineNo);
+    j_rtErrorWithMessageID("FFTLength", bb_emlrtRTEI.fName,
+                           bb_emlrtRTEI.lineNo);
   }
   if (a < 0.0) {
-    f_rtErrorWithMessageID("FFTLength", t_emlrtRTEI.fName, t_emlrtRTEI.lineNo);
+    e_rtErrorWithMessageID("FFTLength", r_emlrtRTEI.fName, r_emlrtRTEI.lineNo);
   }
   if (!(a >= attributesMixed_f9)) {
-    rtErrorWithMessageID("FFTLength", ">=", "NaN", bd_emlrtRTEI.fName,
-                         bd_emlrtRTEI.lineNo);
+    rtErrorWithMessageID("FFTLength", ">=", "NaN", rc_emlrtRTEI.fName,
+                         rc_emlrtRTEI.lineNo);
   }
 }
 
@@ -94,7 +91,7 @@ void validateattributes(const array<double, 1U> &a)
   boolean_T exitg1;
   boolean_T p;
   if (a.size(0) == 0) {
-    h_rtErrorWithMessageID("Window", y_emlrtRTEI.fName, y_emlrtRTEI.lineNo);
+    g_rtErrorWithMessageID("Window", u_emlrtRTEI.fName, u_emlrtRTEI.lineNo);
   }
   p = true;
   k = 0;
@@ -108,7 +105,7 @@ void validateattributes(const array<double, 1U> &a)
     }
   }
   if (!p) {
-    j_rtErrorWithMessageID("Window", bb_emlrtRTEI.fName, bb_emlrtRTEI.lineNo);
+    i_rtErrorWithMessageID("Window", w_emlrtRTEI.fName, w_emlrtRTEI.lineNo);
   }
   p = true;
   k = 0;
@@ -122,7 +119,7 @@ void validateattributes(const array<double, 1U> &a)
     }
   }
   if (!p) {
-    i_rtErrorWithMessageID("Window", ab_emlrtRTEI.fName, ab_emlrtRTEI.lineNo);
+    h_rtErrorWithMessageID("Window", v_emlrtRTEI.fName, v_emlrtRTEI.lineNo);
   }
 }
 
@@ -132,24 +129,21 @@ void validateattributes(const array<double, 1U> &a)
 //
 void validateattributes(double a)
 {
-  static rtRunTimeErrorInfo bd_emlrtRTEI{
-      22,           // lineNo
-      27,           // colNo
-      "validategt", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
-      "+valattr/validategt.m" // pName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      22,          // lineNo
+      "validategt" // fName
   };
   if (std::isinf(a) || std::isnan(a) || (!(std::floor(a) == a))) {
-    k_rtErrorWithMessageID("WindowLength", fb_emlrtRTEI.fName,
-                           fb_emlrtRTEI.lineNo);
+    j_rtErrorWithMessageID("WindowLength", bb_emlrtRTEI.fName,
+                           bb_emlrtRTEI.lineNo);
   }
   if (a < 0.0) {
-    f_rtErrorWithMessageID("WindowLength", t_emlrtRTEI.fName,
-                           t_emlrtRTEI.lineNo);
+    e_rtErrorWithMessageID("WindowLength", r_emlrtRTEI.fName,
+                           r_emlrtRTEI.lineNo);
   }
   if (!(a > 1.0)) {
-    rtErrorWithMessageID("WindowLength", ">", "1", bd_emlrtRTEI.fName,
-                         bd_emlrtRTEI.lineNo);
+    rtErrorWithMessageID("WindowLength", ">", "1", rc_emlrtRTEI.fName,
+                         rc_emlrtRTEI.lineNo);
   }
 }
 
@@ -160,24 +154,21 @@ void validateattributes(double a)
 //
 void validateattributes(double a, double attributesMixed_f11)
 {
-  static rtRunTimeErrorInfo bd_emlrtRTEI{
-      22,           // lineNo
-      27,           // colNo
-      "validatelt", // fName
-      "/Applications/MATLAB_R2023b.app/toolbox/eml/eml/+coder/+internal/"
-      "+valattr/validatelt.m" // pName
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      22,          // lineNo
+      "validatelt" // fName
   };
   if (std::isinf(a) || std::isnan(a) || (!(std::floor(a) == a))) {
-    k_rtErrorWithMessageID("OverlapLength", fb_emlrtRTEI.fName,
-                           fb_emlrtRTEI.lineNo);
+    j_rtErrorWithMessageID("OverlapLength", bb_emlrtRTEI.fName,
+                           bb_emlrtRTEI.lineNo);
   }
   if (a < 0.0) {
-    f_rtErrorWithMessageID("OverlapLength", t_emlrtRTEI.fName,
-                           t_emlrtRTEI.lineNo);
+    e_rtErrorWithMessageID("OverlapLength", r_emlrtRTEI.fName,
+                           r_emlrtRTEI.lineNo);
   }
   if (!(a < attributesMixed_f11)) {
-    rtErrorWithMessageID("OverlapLength", "<", "NaN", bd_emlrtRTEI.fName,
-                         bd_emlrtRTEI.lineNo);
+    rtErrorWithMessageID("OverlapLength", "<", "NaN", rc_emlrtRTEI.fName,
+                         rc_emlrtRTEI.lineNo);
   }
 }
 

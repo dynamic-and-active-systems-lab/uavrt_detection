@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: _coder_uavrt_detection_api.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -23,7 +23,7 @@ static uint32_T globalThresholdCachePath_guard;
 emlrtContext emlrtContextGlobal{
     true,                                                 // bFirstTime
     false,                                                // bInitialized
-    131643U,                                              // fVersionInfo
+    131659U,                                              // fVersionInfo
     nullptr,                                              // fErrorFunction
     "uavrt_detection",                                    // fFunctionName
     nullptr,                                              // fRTCallStack
@@ -36,6 +36,8 @@ emlrtContext emlrtContextGlobal{
 static void b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
                                const emlrtMsgIdentifier *msgId,
                                coder::array<char_T, 2U> &ret);
+
+static void emlrtExitTimeCleanupDtorFcn(const void *r);
 
 static void emlrt_marshallIn(const emlrtStack *sp, const mxArray *b_nullptr,
                              const char_T *identifier,
@@ -70,6 +72,15 @@ static void b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
   ret.set_size(iv[0], iv[1]);
   emlrtImportArrayR2015b((emlrtConstCTX)sp, src, &ret[0], 1, false);
   emlrtDestroyArray(&src);
+}
+
+//
+// Arguments    : const void *r
+// Return Type  : void
+//
+static void emlrtExitTimeCleanupDtorFcn(const void *r)
+{
+  emlrtExitTimeCleanup(&emlrtContextGlobal);
 }
 
 //
@@ -206,6 +217,9 @@ void uavrt_detection_atexit()
   };
   mexFunctionCreateRootTLS();
   st.tls = emlrtRootTLSGlobal;
+  emlrtPushHeapReferenceStackR2021a(&st, false, nullptr,
+                                    (void *)&emlrtExitTimeCleanupDtorFcn,
+                                    nullptr, nullptr, nullptr);
   emlrtEnterRtStackR2012b(&st);
   emlrtDestroyRootTLS(&emlrtRootTLSGlobal);
   uavrt_detection_xil_terminate();

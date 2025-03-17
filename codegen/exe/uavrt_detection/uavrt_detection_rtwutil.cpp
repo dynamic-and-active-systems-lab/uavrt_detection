@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: uavrt_detection_rtwutil.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -21,27 +21,6 @@
 #include <string>
 
 // Function Definitions
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-void ab_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  outStream << "NaN values cannot be converted to logicals.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
 //
 // Arguments    : const int i
 //                const char *aFcnName
@@ -94,49 +73,7 @@ void c_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-void cc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  outStream << "Vector expression with zero stride is not supported.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-void d_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  outStream << "Value must be positive.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+void cb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -157,15 +94,11 @@ void db_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-void dc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+void cc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
-  outStream
-      << "Inner dimensions must agree. Generated code for a general matrix "
-         "multiplication at this call site. If this should have been a sc"
-         "alar times a variable-size matrix, the scalar input must be "
-         "fixed-size.";
+  outStream << "Vector expression with zero stride is not supported.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -188,26 +121,69 @@ int div_s32(int numerator, int denominator)
   if (denominator == 0) {
     rtDivisionByZeroErrorN();
   } else {
-    unsigned int tempAbsQuotient;
     unsigned int u;
+    unsigned int u1;
     if (numerator < 0) {
-      tempAbsQuotient = ~static_cast<unsigned int>(numerator) + 1U;
+      u = ~static_cast<unsigned int>(numerator) + 1U;
     } else {
-      tempAbsQuotient = static_cast<unsigned int>(numerator);
+      u = static_cast<unsigned int>(numerator);
     }
     if (denominator < 0) {
-      u = ~static_cast<unsigned int>(denominator) + 1U;
+      u1 = ~static_cast<unsigned int>(denominator) + 1U;
     } else {
-      u = static_cast<unsigned int>(denominator);
+      u1 = static_cast<unsigned int>(denominator);
     }
-    tempAbsQuotient /= u;
+    u /= u1;
     if ((numerator < 0) != (denominator < 0)) {
-      quotient = -static_cast<int>(tempAbsQuotient);
+      quotient = -static_cast<int>(u);
     } else {
-      quotient = static_cast<int>(tempAbsQuotient);
+      quotient = static_cast<int>(u);
     }
   }
   return quotient;
+}
+
+//
+// Arguments    : const char *r
+//                const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+void e_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  ((outStream << "Expected ") << r) << " to be nonnegative.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+void e_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Operation is not implemented for requested file identifier.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
 }
 
 //
@@ -240,16 +216,15 @@ void emlrtDimSizeImpxCheckR2021b(const int aDim1, const int aDim2,
 }
 
 //
-// Arguments    : const char *r
-//                const char *aFcnName
+// Arguments    : const char *aFcnName
 //                int aLineNum
 // Return Type  : void
 //
-void f_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
+void fb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
-  ((outStream << "Expected ") << r) << " to be nonnegative.";
+  outStream << "Dimensions of arrays being concatenated are not consistent.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -267,91 +242,6 @@ void f_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
 // Return Type  : void
 //
 void g_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  outStream << "Operation is not implemented for requested file identifier.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-void gb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  outStream << "Dimensions of arrays being concatenated are not consistent.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *r
-//                const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-void h_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  ((outStream << "Expected ") << r) << " to be nonempty.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-void hc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  outStream << "Out of range subscript.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-void i_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -373,7 +263,50 @@ void i_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-void i_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
+void g_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  ((outStream << "Expected ") << r) << " to be nonempty.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+void gc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Out of range subscript.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *r
+//                const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+void h_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -394,11 +327,54 @@ void i_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-void j_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+void h_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
-  outStream << "Matrix index is out of range for deletion.";
+  outStream << "Value must be positive.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *r
+//                const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+void i_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  ((outStream << "Expected ") << r) << " to be finite.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+void ib_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Size vector elements should be nonnegative.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -420,28 +396,7 @@ void j_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
-  ((outStream << "Expected ") << r) << " to be finite.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-void jb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  outStream << "Size vector elements should be nonnegative.";
+  ((outStream << "Expected ") << r) << " to be integer-valued.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -466,28 +421,6 @@ void k_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
       << "To RESHAPE the number of elements must not change, and if the input "
          "is empty, the maximum dimension length cannot be increased u"
          "nless the output size is fixed.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *r
-//                const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-void k_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  ((outStream << "Expected ") << r) << " to be integer-valued.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -547,7 +480,7 @@ void m_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-void n_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
+void m_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -568,7 +501,7 @@ void n_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-void nb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+void mb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -586,11 +519,35 @@ void nb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 }
 
 //
+// Arguments    : const char *r
+//                const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+void n_rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  ((outStream << "Domain error. To compute complex results from real x, use \'")
+   << r)
+      << "(complex(x))\'.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
 // Arguments    : const char *aFcnName
 //                int aLineNum
 // Return Type  : void
 //
-void ob_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+void nb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -611,7 +568,7 @@ void ob_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-void r_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+void q_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -706,30 +663,6 @@ void rtDynamicBoundsError(int aIndexValue, int aLoBound, int aHiBound,
     } else {
       throw std::runtime_error(outStream.str());
     }
-  }
-}
-
-//
-// Arguments    : const char *r
-//                const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
-void rtErrorWithMessageID(const char *r, const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  ((outStream << "Domain error. To compute complex results from real x, use \'")
-   << r)
-      << "(complex(x))\'.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
   }
 }
 
@@ -939,32 +872,6 @@ void rtSubAssignSizeCheck(const int *aDims1, const int aNDims1,
 //                double u1
 // Return Type  : double
 //
-double rt_hypotd_snf(double u0, double u1)
-{
-  double a;
-  double b;
-  double y;
-  a = std::abs(u0);
-  b = std::abs(u1);
-  if (a < b) {
-    a /= b;
-    y = b * std::sqrt(a * a + 1.0);
-  } else if (a > b) {
-    b /= a;
-    y = a * std::sqrt(b * b + 1.0);
-  } else if (std::isnan(b)) {
-    y = rtNaN;
-  } else {
-    y = a * 1.4142135623730951;
-  }
-  return y;
-}
-
-//
-// Arguments    : double u0
-//                double u1
-// Return Type  : double
-//
 double rt_powd_snf(double u0, double u1)
 {
   double y;
@@ -972,13 +879,12 @@ double rt_powd_snf(double u0, double u1)
     y = rtNaN;
   } else {
     double d;
-    double d1;
-    d = std::abs(u0);
-    d1 = std::abs(u1);
+    y = std::abs(u0);
+    d = std::abs(u1);
     if (std::isinf(u1)) {
-      if (d == 1.0) {
+      if (y == 1.0) {
         y = 1.0;
-      } else if (d > 1.0) {
+      } else if (y > 1.0) {
         if (u1 > 0.0) {
           y = rtInf;
         } else {
@@ -989,9 +895,9 @@ double rt_powd_snf(double u0, double u1)
       } else {
         y = rtInf;
       }
-    } else if (d1 == 0.0) {
+    } else if (d == 0.0) {
       y = 1.0;
-    } else if (d1 == 1.0) {
+    } else if (d == 1.0) {
       if (u1 > 0.0) {
         y = u0;
       } else {
@@ -1015,7 +921,7 @@ double rt_powd_snf(double u0, double u1)
 //                int aLineNum
 // Return Type  : void
 //
-void tb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+void sb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -1040,7 +946,54 @@ void tb_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-void tc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+void t_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream << "Non-singleton dimensions of the two input arrays must match "
+               "each other.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+void v_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+{
+  std::string errMsg;
+  std::stringstream outStream;
+  outStream
+      << "The dimension to operate along was selected automatically, is "
+         "variable-length, and has length 1 at run time. This is not support"
+         "ed. Manually select the dimension to operate along by supplying the "
+         "DIM argument.";
+  outStream << "\n";
+  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
+  if (omp_in_parallel()) {
+    errMsg = outStream.str();
+    std::fprintf(stderr, "%s", errMsg.c_str());
+    std::abort();
+  } else {
+    throw std::runtime_error(outStream.str());
+  }
+}
+
+//
+// Arguments    : const char *aFcnName
+//                int aLineNum
+// Return Type  : void
+//
+void vc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -1063,12 +1016,11 @@ void tc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-void u_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+void w_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
-  outStream << "Non-singleton dimensions of the two input arrays must match "
-               "each other.";
+  outStream << "FFT length must be a nonnegative integer scalar.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -1085,7 +1037,7 @@ void u_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-void uc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
+void wc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
@@ -1111,36 +1063,11 @@ void uc_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 //                int aLineNum
 // Return Type  : void
 //
-void w_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
-{
-  std::string errMsg;
-  std::stringstream outStream;
-  outStream
-      << "The dimension to operate along was selected automatically, is "
-         "variable-length, and has length 1 at run time. This is not support"
-         "ed. Manually select the dimension to operate along by supplying the "
-         "DIM argument.";
-  outStream << "\n";
-  ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
-  if (omp_in_parallel()) {
-    errMsg = outStream.str();
-    std::fprintf(stderr, "%s", errMsg.c_str());
-    std::abort();
-  } else {
-    throw std::runtime_error(outStream.str());
-  }
-}
-
-//
-// Arguments    : const char *aFcnName
-//                int aLineNum
-// Return Type  : void
-//
 void x_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
-  outStream << "FFT length must be a nonnegative integer scalar.";
+  outStream << "Requested array exceeds the maximum possible variable size.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {
@@ -1161,7 +1088,7 @@ void y_rtErrorWithMessageID(const char *aFcnName, int aLineNum)
 {
   std::string errMsg;
   std::stringstream outStream;
-  outStream << "Requested array exceeds the maximum possible variable size.";
+  outStream << "NaN values cannot be converted to logicals.";
   outStream << "\n";
   ((((outStream << "Error in ") << aFcnName) << " (line ") << aLineNum) << ")";
   if (omp_in_parallel()) {

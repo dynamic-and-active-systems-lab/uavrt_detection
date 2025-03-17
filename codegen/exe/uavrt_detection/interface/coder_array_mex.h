@@ -1,4 +1,4 @@
-/* Copyright 2019-2023 The MathWorks, Inc. */
+/* Copyright 2019-2024 The MathWorks, Inc. */
 /* Copied from fullfile(matlabroot,'extern','include','coder','coder_array','coder_array_mex.h') */
 #pragma once
 
@@ -186,12 +186,12 @@ class data_ptr {
     }
     
   public:
-    void set(T* _data, SZ _sz) {
+    void set(T const* _data, SZ _sz) {
         if (owner_) {
             destroy_last_n(data_, size_);
             deallocate(data_);
         }
-        data_ = _data;
+        data_ = const_cast<T*>(_data);
         size_ = _sz;
         owner_ = false;
         capacity_ = size_;
@@ -274,13 +274,15 @@ class data_ptr {
 
 } // namespace detail
 
-// Implementing the random access iterator class so coder::array can be
-// used in STL iterators.
 template <typename T>
-class array_iterator : public std::iterator<std::random_access_iterator_tag,
-                                            typename T::value_type,
-                                            typename T::size_type> {
+class array_iterator {
   public:
+    using iterator_category = std::random_access_iterator_tag;
+    using value_type = typename T::value_type;
+    using difference_type = typename T::size_type;
+    using pointer = typename T::value_type *;
+    using reference = typename T::value_type &;    
+
     array_iterator()
         : arr_(nullptr)
         , i_(0) {
@@ -374,10 +376,14 @@ class array_iterator : public std::iterator<std::random_access_iterator_tag,
 
 // Const version of the array iterator.
 template <typename T>
-class const_array_iterator : public std::iterator<std::random_access_iterator_tag,
-                                                  typename T::value_type,
-                                                  typename T::size_type> {
+class const_array_iterator {
   public:
+    using iterator_category = std::random_access_iterator_tag;
+    using value_type = typename T::value_type;
+    using difference_type = typename T::size_type;
+    using pointer = typename T::value_type *;
+    using reference = typename T::value_type &;    
+
     const_array_iterator()
         : arr_(nullptr)
         , i_(0) {
@@ -610,7 +616,7 @@ class array_base {
     }
 
     template <typename... Dims>
-    void set(T* _data, Dims... dims) {
+    void set(T const* _data, Dims... dims) {
         coder::detail::match_dimensions<N == sizeof...(dims)>::check();
         data_.set(_data, coder::detail::product<SZ>(dims...));
         set_size_i<0>(dims...);
@@ -794,6 +800,7 @@ class array : public array_base<T, SizeType, N> {
     array(T* _data, SizeType const* _sz)
         : Base(_data, _sz) {
     }
+    array & operator = (array<T, N> const & _other) = default;
 };
 
 // Specialize on char_T (row vector) for better support on strings.

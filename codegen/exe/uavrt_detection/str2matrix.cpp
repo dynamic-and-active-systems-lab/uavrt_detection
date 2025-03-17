@@ -4,13 +4,16 @@
 // government, commercial, or other organizational use.
 // File: str2matrix.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
 #include "str2matrix.h"
 #include "find.h"
+#include "fliplr.h"
+#include "isspace.h"
+#include "nullAssignment.h"
 #include "rt_nonfinite.h"
 #include "sort.h"
 #include "str2double.h"
@@ -90,313 +93,141 @@ void str2matrix(coder::array<char, 2U> &inputStr,
                 coder::array<creal_T, 2U> &outMat)
 {
   static rtBoundsCheckInfo ab_emlrtBCI{
-      -1,               // iFirst
-      -1,               // iLast
       91,               // lineNo
-      28,               // colNo
       "rowDividerLocs", // aName
-      "str2matrix",     // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      "str2matrix"      // fName
   };
   static rtBoundsCheckInfo bb_emlrtBCI{
-      -1,           // iFirst
-      -1,           // iLast
-      26,           // lineNo
-      49,           // colNo
-      "inputStr",   // aName
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      26,          // lineNo
+      "inputStr",  // aName
+      "str2matrix" // fName
   };
   static rtBoundsCheckInfo cb_emlrtBCI{
-      -1,           // iFirst
-      -1,           // iLast
-      26,           // lineNo
-      25,           // colNo
-      "inputStr",   // aName
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      26,          // lineNo
+      "inputStr",  // aName
+      "str2matrix" // fName
   };
   static rtBoundsCheckInfo db_emlrtBCI{
-      -1,           // iFirst
-      -1,           // iLast
-      41,           // lineNo
-      17,           // colNo
-      "inputStr",   // aName
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      41,          // lineNo
+      "inputStr",  // aName
+      "str2matrix" // fName
   };
   static rtBoundsCheckInfo eb_emlrtBCI{
-      -1,           // iFirst
-      -1,           // iLast
-      41,           // lineNo
-      45,           // colNo
-      "inputStr",   // aName
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      41,          // lineNo
+      "inputStr",  // aName
+      "str2matrix" // fName
   };
   static rtBoundsCheckInfo fb_emlrtBCI{
-      -1,           // iFirst
-      -1,           // iLast
-      44,           // lineNo
-      46,           // colNo
-      "inputStr",   // aName
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      44,          // lineNo
+      "inputStr",  // aName
+      "str2matrix" // fName
   };
   static rtBoundsCheckInfo gb_emlrtBCI{
-      -1,           // iFirst
-      -1,           // iLast
-      47,           // lineNo
-      49,           // colNo
-      "inputStr",   // aName
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      47,          // lineNo
+      "inputStr",  // aName
+      "str2matrix" // fName
   };
   static rtBoundsCheckInfo hb_emlrtBCI{
-      -1,           // iFirst
-      -1,           // iLast
-      62,           // lineNo
-      17,           // colNo
-      "inputStr",   // aName
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      62,          // lineNo
+      "inputStr",  // aName
+      "str2matrix" // fName
   };
   static rtBoundsCheckInfo ib_emlrtBCI{
-      -1,           // iFirst
-      -1,           // iLast
-      62,           // lineNo
-      45,           // colNo
-      "inputStr",   // aName
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      62,          // lineNo
+      "inputStr",  // aName
+      "str2matrix" // fName
   };
   static rtBoundsCheckInfo jb_emlrtBCI{
-      -1,           // iFirst
-      -1,           // iLast
-      65,           // lineNo
-      46,           // colNo
-      "inputStr",   // aName
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      65,          // lineNo
+      "inputStr",  // aName
+      "str2matrix" // fName
   };
   static rtBoundsCheckInfo kb_emlrtBCI{
-      -1,           // iFirst
-      -1,           // iLast
-      68,           // lineNo
-      49,           // colNo
-      "inputStr",   // aName
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      68,          // lineNo
+      "inputStr",  // aName
+      "str2matrix" // fName
   };
   static rtBoundsCheckInfo lb_emlrtBCI{
-      -1,           // iFirst
-      -1,           // iLast
-      76,           // lineNo
-      10,           // colNo
-      "inputStr",   // aName
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      76,          // lineNo
+      "inputStr",  // aName
+      "str2matrix" // fName
   };
   static rtBoundsCheckInfo mb_emlrtBCI{
-      -1,               // iFirst
-      -1,               // iLast
       92,               // lineNo
-      28,               // colNo
       "rowDividerLocs", // aName
-      "str2matrix",     // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      "str2matrix"      // fName
   };
   static rtBoundsCheckInfo nb_emlrtBCI{
-      -1,           // iFirst
-      -1,           // iLast
-      93,           // lineNo
-      28,           // colNo
-      "commaLocs",  // aName
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      93,          // lineNo
+      "commaLocs", // aName
+      "str2matrix" // fName
   };
   static rtBoundsCheckInfo ob_emlrtBCI{
-      -1,               // iFirst
-      -1,               // iLast
       100,              // lineNo
-      32,               // colNo
       "rowDividerLocs", // aName
-      "str2matrix",     // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      "str2matrix"      // fName
   };
   static rtBoundsCheckInfo pb_emlrtBCI{
-      -1,               // iFirst
-      -1,               // iLast
       101,              // lineNo
-      32,               // colNo
       "rowDividerLocs", // aName
-      "str2matrix",     // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      "str2matrix"      // fName
   };
   static rtBoundsCheckInfo qb_emlrtBCI{
-      -1,           // iFirst
-      -1,           // iLast
-      102,          // lineNo
-      32,           // colNo
-      "commaLocs",  // aName
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      102,         // lineNo
+      "commaLocs", // aName
+      "str2matrix" // fName
   };
   static rtBoundsCheckInfo rb_emlrtBCI{
-      -1,               // iFirst
-      -1,               // iLast
       114,              // lineNo
-      54,               // colNo
       "colDividerLocs", // aName
-      "str2matrix",     // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      "str2matrix"      // fName
   };
   static rtBoundsCheckInfo sb_emlrtBCI{
-      -1,               // iFirst
-      -1,               // iLast
       114,              // lineNo
-      74,               // colNo
       "colDividerLocs", // aName
-      "str2matrix",     // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      "str2matrix"      // fName
   };
   static rtBoundsCheckInfo tb_emlrtBCI{
-      -1,           // iFirst
-      -1,           // iLast
-      115,          // lineNo
-      17,           // colNo
-      "tempRow",    // aName
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      115,         // lineNo
+      "tempRow",   // aName
+      "str2matrix" // fName
   };
   static rtBoundsCheckInfo ub_emlrtBCI{
-      -1,           // iFirst
-      -1,           // iLast
-      114,          // lineNo
-      39,           // colNo
-      "inputStr",   // aName
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      114,         // lineNo
+      "inputStr",  // aName
+      "str2matrix" // fName
   };
   static rtBoundsCheckInfo vb_emlrtBCI{
-      -1,           // iFirst
-      -1,           // iLast
-      114,          // lineNo
-      59,           // colNo
-      "inputStr",   // aName
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      114,         // lineNo
+      "inputStr",  // aName
+      "str2matrix" // fName
   };
   static rtBoundsCheckInfo wb_emlrtBCI{
-      -1,           // iFirst
-      -1,           // iLast
-      117,          // lineNo
-      12,           // colNo
-      "outMat",     // aName
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      0                                               // checkKind
+      117,         // lineNo
+      "outMat",    // aName
+      "str2matrix" // fName
+  };
+  static rtDoubleCheckInfo q_emlrtDCI{
+      96,          // lineNo
+      "str2matrix" // fName
+  };
+  static rtDoubleCheckInfo r_emlrtDCI{
+      96,          // lineNo
+      "str2matrix" // fName
   };
   static rtDoubleCheckInfo s_emlrtDCI{
-      96,           // lineNo
-      24,           // colNo
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      4                                               // checkKind
-  };
-  static rtDoubleCheckInfo t_emlrtDCI{
-      96,           // lineNo
-      34,           // colNo
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      1                                               // checkKind
-  };
-  static rtDoubleCheckInfo u_emlrtDCI{
-      96,           // lineNo
-      1,            // colNo
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      1                                               // checkKind
-  };
-  static rtDoubleCheckInfo v_emlrtDCI{
-      111,          // lineNo
-      31,           // colNo
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      1                                               // checkKind
-  };
-  static rtDoubleCheckInfo w_emlrtDCI{
-      111,          // lineNo
-      5,            // colNo
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m", // pName
-      1                                               // checkKind
+      111,         // lineNo
+      "str2matrix" // fName
   };
   static rtEqualityCheckInfo g_emlrtECI{
-      2,            // nDims
-      102,          // lineNo
-      32,           // colNo
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m" // pName
+      2,           // nDims
+      102,         // lineNo
+      "str2matrix" // fName
   };
   static rtEqualityCheckInfo h_emlrtECI{
-      -1,           // nDims
-      117,          // lineNo
-      5,            // colNo
-      "str2matrix", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/str2matrix.m" // pName
+      -1,          // nDims
+      117,         // lineNo
+      "str2matrix" // fName
   };
   coder::array<creal_T, 2U> tempRow;
   coder::array<double, 2U> rightBracketLoc;
@@ -409,13 +240,18 @@ void str2matrix(coder::array<char, 2U> &inputStr,
   coder::array<boolean_T, 2U> b_inputStr;
   int iv[2];
   int iv1[2];
-  int b_i;
   int b_leftBracketLoc;
+  int b_loop_ub;
+  int c_i;
   int end;
+  int end_tmp;
   unsigned int i;
-  int j2;
-  int nd2;
-  char xtmp;
+  int i1;
+  int i2;
+  int loop_ub;
+  int numelCommasLast;
+  int trueCount;
+  char c;
   boolean_T b;
   boolean_T done;
   boolean_T guard1;
@@ -427,39 +263,18 @@ void str2matrix(coder::array<char, 2U> &inputStr,
     done = (i + 1U == static_cast<unsigned int>(inputStr.size(1)));
     if ((static_cast<int>(i) < 1) || (static_cast<int>(i) > inputStr.size(1))) {
       rtDynamicBoundsError(static_cast<int>(i), 1, inputStr.size(1),
-                           cb_emlrtBCI);
+                           bb_emlrtBCI);
     }
-    b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i) - 1]);
-    if (b_i > 127) {
-      tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
-    }
-    if (bv[b_i]) {
-      if ((static_cast<int>(static_cast<double>(i) + 1.0) < 1) ||
-          (static_cast<int>(static_cast<double>(i) + 1.0) > inputStr.size(1))) {
-        rtDynamicBoundsError(static_cast<int>(static_cast<double>(i) + 1.0), 1,
-                             inputStr.size(1), bb_emlrtBCI);
+    if (coder::b_isspace(inputStr[static_cast<int>(i) - 1])) {
+      if ((static_cast<int>(i + 1U) < 1) ||
+          (static_cast<int>(i + 1U) > inputStr.size(1))) {
+        rtDynamicBoundsError(static_cast<int>(i + 1U), 1, inputStr.size(1),
+                             cb_emlrtBCI);
       }
-      b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
-      if (b_i > 127) {
-        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
-      }
-      if (bv[b_i]) {
+      if (coder::b_isspace(inputStr[static_cast<int>(i)])) {
         // inputStr(i+1) = '';
         // inputStr = inputStr(1:numel(inputStr) ~= i+1);
-        nd2 = static_cast<int>(i) + 1;
-        if (static_cast<int>(i) + 1 > inputStr.size(1)) {
-          j_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
-        }
-        j2 = inputStr.size(1) - 1;
-        for (int b_j1{nd2}; b_j1 <= j2; b_j1++) {
-          inputStr[b_j1 - 1] = inputStr[b_j1];
-        }
-        if (inputStr.size(1) - 1 < 1) {
-          b_i = 0;
-        } else {
-          b_i = inputStr.size(1) - 1;
-        }
-        inputStr.set_size(inputStr.size(0), b_i);
+        coder::internal::nullAssignment(inputStr, static_cast<int>(i) + 1);
         i = static_cast<unsigned int>(static_cast<int>(i) - 1);
       }
     }
@@ -475,34 +290,17 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       rtDynamicBoundsError(static_cast<int>(i), 1, inputStr.size(1),
                            db_emlrtBCI);
     }
-    xtmp = inputStr[static_cast<int>(i) - 1];
+    c = inputStr[static_cast<int>(i) - 1];
     guard1 = false;
     guard2 = false;
-    if (xtmp == '[') {
-      if ((static_cast<int>(static_cast<double>(i) + 1.0) < 1) ||
-          (static_cast<int>(static_cast<double>(i) + 1.0) > inputStr.size(1))) {
-        rtDynamicBoundsError(static_cast<int>(static_cast<double>(i) + 1.0), 1,
-                             inputStr.size(1), eb_emlrtBCI);
+    if (c == '[') {
+      if ((static_cast<int>(i + 1U) < 1) ||
+          (static_cast<int>(i + 1U) > inputStr.size(1))) {
+        rtDynamicBoundsError(static_cast<int>(i + 1U), 1, inputStr.size(1),
+                             eb_emlrtBCI);
       }
-      b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
-      if (b_i > 127) {
-        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
-      }
-      if (bv[b_i]) {
-        nd2 = static_cast<int>(i) + 1;
-        if (static_cast<int>(i) + 1 > inputStr.size(1)) {
-          j_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
-        }
-        j2 = inputStr.size(1) - 1;
-        for (int b_j1{nd2}; b_j1 <= j2; b_j1++) {
-          inputStr[b_j1 - 1] = inputStr[b_j1];
-        }
-        if (inputStr.size(1) - 1 < 1) {
-          b_i = 0;
-        } else {
-          b_i = inputStr.size(1) - 1;
-        }
-        inputStr.set_size(inputStr.size(0), b_i);
+      if (coder::b_isspace(inputStr[static_cast<int>(i)])) {
+        coder::internal::nullAssignment(inputStr, static_cast<int>(i) + 1);
         i = static_cast<unsigned int>(static_cast<int>(i) - 1);
       } else {
         guard2 = true;
@@ -511,32 +309,14 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       guard2 = true;
     }
     if (guard2) {
-      if (xtmp == ',') {
-        if ((static_cast<int>(static_cast<double>(i) + 1.0) < 1) ||
-            (static_cast<int>(static_cast<double>(i) + 1.0) >
-             inputStr.size(1))) {
-          rtDynamicBoundsError(static_cast<int>(static_cast<double>(i) + 1.0),
-                               1, inputStr.size(1), fb_emlrtBCI);
+      if (c == ',') {
+        if ((static_cast<int>(i + 1U) < 1) ||
+            (static_cast<int>(i + 1U) > inputStr.size(1))) {
+          rtDynamicBoundsError(static_cast<int>(i + 1U), 1, inputStr.size(1),
+                               fb_emlrtBCI);
         }
-        b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
-        if (b_i > 127) {
-          tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
-        }
-        if (bv[b_i]) {
-          nd2 = static_cast<int>(i) + 1;
-          if (static_cast<int>(i) + 1 > inputStr.size(1)) {
-            j_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
-          }
-          j2 = inputStr.size(1) - 1;
-          for (int b_j1{nd2}; b_j1 <= j2; b_j1++) {
-            inputStr[b_j1 - 1] = inputStr[b_j1];
-          }
-          if (inputStr.size(1) - 1 < 1) {
-            b_i = 0;
-          } else {
-            b_i = inputStr.size(1) - 1;
-          }
-          inputStr.set_size(inputStr.size(0), b_i);
+        if (coder::b_isspace(inputStr[static_cast<int>(i)])) {
+          coder::internal::nullAssignment(inputStr, static_cast<int>(i) + 1);
           i = static_cast<unsigned int>(static_cast<int>(i) - 1);
         } else {
           guard1 = true;
@@ -545,44 +325,21 @@ void str2matrix(coder::array<char, 2U> &inputStr,
         guard1 = true;
       }
     }
-    if (guard1 && (xtmp == ';')) {
-      if ((static_cast<int>(static_cast<double>(i) + 1.0) < 1) ||
-          (static_cast<int>(static_cast<double>(i) + 1.0) > inputStr.size(1))) {
-        rtDynamicBoundsError(static_cast<int>(static_cast<double>(i) + 1.0), 1,
-                             inputStr.size(1), gb_emlrtBCI);
+    if (guard1 && (c == ';')) {
+      if ((static_cast<int>(i + 1U) < 1) ||
+          (static_cast<int>(i + 1U) > inputStr.size(1))) {
+        rtDynamicBoundsError(static_cast<int>(i + 1U), 1, inputStr.size(1),
+                             gb_emlrtBCI);
       }
-      b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
-      if (b_i > 127) {
-        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
-      }
-      if (bv[b_i]) {
-        nd2 = static_cast<int>(i) + 1;
-        if (static_cast<int>(i) + 1 > inputStr.size(1)) {
-          j_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
-        }
-        j2 = inputStr.size(1) - 1;
-        for (int b_j1{nd2}; b_j1 <= j2; b_j1++) {
-          inputStr[b_j1 - 1] = inputStr[b_j1];
-        }
-        if (inputStr.size(1) - 1 < 1) {
-          b_i = 0;
-        } else {
-          b_i = inputStr.size(1) - 1;
-        }
-        inputStr.set_size(inputStr.size(0), b_i);
+      if (coder::b_isspace(inputStr[static_cast<int>(i)])) {
+        coder::internal::nullAssignment(inputStr, static_cast<int>(i) + 1);
         i = static_cast<unsigned int>(static_cast<int>(i) - 1);
       }
     }
     i++;
   }
   // Strip out white space before [ ; and , characters
-  nd2 = inputStr.size(1) >> 1;
-  for (int b_j1{0}; b_j1 < nd2; b_j1++) {
-    j2 = (inputStr.size(1) - b_j1) - 1;
-    xtmp = inputStr[b_j1];
-    inputStr[b_j1] = inputStr[j2];
-    inputStr[j2] = xtmp;
-  }
+  coder::fliplr(inputStr);
   done = false;
   i = 1U;
   while (!done) {
@@ -592,34 +349,17 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       rtDynamicBoundsError(static_cast<int>(i), 1, inputStr.size(1),
                            hb_emlrtBCI);
     }
-    xtmp = inputStr[static_cast<int>(i) - 1];
+    c = inputStr[static_cast<int>(i) - 1];
     guard1 = false;
     guard2 = false;
-    if (xtmp == '[') {
-      if ((static_cast<int>(static_cast<double>(i) + 1.0) < 1) ||
-          (static_cast<int>(static_cast<double>(i) + 1.0) > inputStr.size(1))) {
-        rtDynamicBoundsError(static_cast<int>(static_cast<double>(i) + 1.0), 1,
-                             inputStr.size(1), ib_emlrtBCI);
+    if (c == '[') {
+      if ((static_cast<int>(i + 1U) < 1) ||
+          (static_cast<int>(i + 1U) > inputStr.size(1))) {
+        rtDynamicBoundsError(static_cast<int>(i + 1U), 1, inputStr.size(1),
+                             ib_emlrtBCI);
       }
-      b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
-      if (b_i > 127) {
-        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
-      }
-      if (bv[b_i]) {
-        nd2 = static_cast<int>(i) + 1;
-        if (static_cast<int>(i) + 1 > inputStr.size(1)) {
-          j_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
-        }
-        j2 = inputStr.size(1) - 1;
-        for (int b_j1{nd2}; b_j1 <= j2; b_j1++) {
-          inputStr[b_j1 - 1] = inputStr[b_j1];
-        }
-        if (inputStr.size(1) - 1 < 1) {
-          b_i = 0;
-        } else {
-          b_i = inputStr.size(1) - 1;
-        }
-        inputStr.set_size(inputStr.size(0), b_i);
+      if (coder::b_isspace(inputStr[static_cast<int>(i)])) {
+        coder::internal::nullAssignment(inputStr, static_cast<int>(i) + 1);
         i = static_cast<unsigned int>(static_cast<int>(i) - 1);
       } else {
         guard2 = true;
@@ -628,32 +368,14 @@ void str2matrix(coder::array<char, 2U> &inputStr,
       guard2 = true;
     }
     if (guard2) {
-      if (xtmp == ',') {
-        if ((static_cast<int>(static_cast<double>(i) + 1.0) < 1) ||
-            (static_cast<int>(static_cast<double>(i) + 1.0) >
-             inputStr.size(1))) {
-          rtDynamicBoundsError(static_cast<int>(static_cast<double>(i) + 1.0),
-                               1, inputStr.size(1), jb_emlrtBCI);
+      if (c == ',') {
+        if ((static_cast<int>(i + 1U) < 1) ||
+            (static_cast<int>(i + 1U) > inputStr.size(1))) {
+          rtDynamicBoundsError(static_cast<int>(i + 1U), 1, inputStr.size(1),
+                               jb_emlrtBCI);
         }
-        b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
-        if (b_i > 127) {
-          tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
-        }
-        if (bv[b_i]) {
-          nd2 = static_cast<int>(i) + 1;
-          if (static_cast<int>(i) + 1 > inputStr.size(1)) {
-            j_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
-          }
-          j2 = inputStr.size(1) - 1;
-          for (int b_j1{nd2}; b_j1 <= j2; b_j1++) {
-            inputStr[b_j1 - 1] = inputStr[b_j1];
-          }
-          if (inputStr.size(1) - 1 < 1) {
-            b_i = 0;
-          } else {
-            b_i = inputStr.size(1) - 1;
-          }
-          inputStr.set_size(inputStr.size(0), b_i);
+        if (coder::b_isspace(inputStr[static_cast<int>(i)])) {
+          coder::internal::nullAssignment(inputStr, static_cast<int>(i) + 1);
           i = static_cast<unsigned int>(static_cast<int>(i) - 1);
         } else {
           guard1 = true;
@@ -662,104 +384,78 @@ void str2matrix(coder::array<char, 2U> &inputStr,
         guard1 = true;
       }
     }
-    if (guard1 && (xtmp == ';')) {
-      if ((static_cast<int>(static_cast<double>(i) + 1.0) < 1) ||
-          (static_cast<int>(static_cast<double>(i) + 1.0) > inputStr.size(1))) {
-        rtDynamicBoundsError(static_cast<int>(static_cast<double>(i) + 1.0), 1,
-                             inputStr.size(1), kb_emlrtBCI);
+    if (guard1 && (c == ';')) {
+      if ((static_cast<int>(i + 1U) < 1) ||
+          (static_cast<int>(i + 1U) > inputStr.size(1))) {
+        rtDynamicBoundsError(static_cast<int>(i + 1U), 1, inputStr.size(1),
+                             kb_emlrtBCI);
       }
-      b_i = static_cast<unsigned char>(inputStr[static_cast<int>(i)]);
-      if (b_i > 127) {
-        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
-      }
-      if (bv[b_i]) {
-        nd2 = static_cast<int>(i) + 1;
-        if (static_cast<int>(i) + 1 > inputStr.size(1)) {
-          j_rtErrorWithMessageID(m_emlrtRTEI.fName, m_emlrtRTEI.lineNo);
-        }
-        j2 = inputStr.size(1) - 1;
-        for (int b_j1{nd2}; b_j1 <= j2; b_j1++) {
-          inputStr[b_j1 - 1] = inputStr[b_j1];
-        }
-        if (inputStr.size(1) - 1 < 1) {
-          b_i = 0;
-        } else {
-          b_i = inputStr.size(1) - 1;
-        }
-        inputStr.set_size(inputStr.size(0), b_i);
+      if (coder::b_isspace(inputStr[static_cast<int>(i)])) {
+        coder::internal::nullAssignment(inputStr, static_cast<int>(i) + 1);
         i = static_cast<unsigned int>(static_cast<int>(i) - 1);
       }
     }
     i++;
   }
-  nd2 = inputStr.size(1) >> 1;
-  for (int b_j1{0}; b_j1 < nd2; b_j1++) {
-    j2 = (inputStr.size(1) - b_j1) - 1;
-    xtmp = inputStr[b_j1];
-    inputStr[b_j1] = inputStr[j2];
-    inputStr[j2] = xtmp;
-  }
+  coder::fliplr(inputStr);
   // Replace space with commas for marking columns
-  nd2 = inputStr.size(1) - 1;
-  for (int c_i{0}; c_i <= nd2; c_i++) {
-    if (inputStr[c_i] == ' ') {
-      if (c_i > nd2) {
-        rtDynamicBoundsError(c_i, 0, nd2, lb_emlrtBCI);
+  end_tmp = inputStr.size(1);
+  for (int b_i{0}; b_i < end_tmp; b_i++) {
+    if (inputStr[b_i] == ' ') {
+      if (b_i > inputStr.size(1) - 1) {
+        rtDynamicBoundsError(b_i, 0, inputStr.size(1) - 1, lb_emlrtBCI);
       }
-      inputStr[c_i] = ',';
+      inputStr[b_i] = ',';
     }
   }
   b_inputStr.set_size(1, inputStr.size(1));
-  j2 = inputStr.size(1);
-  for (b_i = 0; b_i < j2; b_i++) {
-    b_inputStr[b_i] = (inputStr[b_i] == '[');
+  for (c_i = 0; c_i < end_tmp; c_i++) {
+    b_inputStr[c_i] = (inputStr[c_i] == '[');
   }
   coder::b_eml_find(b_inputStr, ii);
+  loop_ub = ii.size(1);
   leftBracketLoc.set_size(1, ii.size(1));
-  j2 = ii.size(1);
-  for (b_i = 0; b_i < j2; b_i++) {
-    leftBracketLoc[b_i] = ii[b_i];
+  for (c_i = 0; c_i < loop_ub; c_i++) {
+    leftBracketLoc[c_i] = ii[c_i];
   }
   b_inputStr.set_size(1, inputStr.size(1));
-  j2 = inputStr.size(1);
-  for (b_i = 0; b_i < j2; b_i++) {
-    b_inputStr[b_i] = (inputStr[b_i] == ']');
+  for (c_i = 0; c_i < end_tmp; c_i++) {
+    b_inputStr[c_i] = (inputStr[c_i] == ']');
   }
   coder::b_eml_find(b_inputStr, ii);
+  loop_ub = ii.size(1);
   rightBracketLoc.set_size(1, ii.size(1));
-  j2 = ii.size(1);
-  for (b_i = 0; b_i < j2; b_i++) {
-    rightBracketLoc[b_i] = ii[b_i];
+  for (c_i = 0; c_i < loop_ub; c_i++) {
+    rightBracketLoc[c_i] = ii[c_i];
   }
   if ((leftBracketLoc.size(1) != 1) || (rightBracketLoc.size(1) != 1)) {
     rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
   }
   b_inputStr.set_size(1, inputStr.size(1));
-  j2 = inputStr.size(1);
-  for (b_i = 0; b_i < j2; b_i++) {
-    b_inputStr[b_i] = (inputStr[b_i] == ';');
+  for (c_i = 0; c_i < end_tmp; c_i++) {
+    b_inputStr[c_i] = (inputStr[c_i] == ';');
   }
   coder::b_eml_find(b_inputStr, ii);
   rowDividerLocs.set_size(1, ii.size(1) + 2);
   rowDividerLocs[0] = leftBracketLoc[0];
-  j2 = ii.size(1);
-  for (b_i = 0; b_i < j2; b_i++) {
-    rowDividerLocs[b_i + 1] = ii[b_i];
+  loop_ub = ii.size(1);
+  for (c_i = 0; c_i < loop_ub; c_i++) {
+    rowDividerLocs[c_i + 1] = ii[c_i];
   }
   rowDividerLocs[ii.size(1) + 1] = rightBracketLoc[0];
   coder::internal::sort(rowDividerLocs);
   b_inputStr.set_size(1, inputStr.size(1));
-  j2 = inputStr.size(1);
-  for (b_i = 0; b_i < j2; b_i++) {
-    b_inputStr[b_i] = (inputStr[b_i] == ',');
+  for (c_i = 0; c_i < end_tmp; c_i++) {
+    b_inputStr[c_i] = (inputStr[c_i] == ',');
   }
   coder::b_eml_find(b_inputStr, ii);
+  loop_ub = ii.size(1);
   leftBracketLoc.set_size(1, ii.size(1));
-  j2 = ii.size(1);
-  for (b_i = 0; b_i < j2; b_i++) {
-    leftBracketLoc[b_i] = ii[b_i];
+  for (c_i = 0; c_i < loop_ub; c_i++) {
+    leftBracketLoc[c_i] = ii[c_i];
   }
   // Check for the number of columns in the first row to preallocate outMat
+  c_i = rowDividerLocs.size(1);
   if (rowDividerLocs.size(1) < 1) {
     rtDynamicBoundsError(1, 1, rowDividerLocs.size(1), ab_emlrtBCI);
   }
@@ -767,161 +463,148 @@ void str2matrix(coder::array<char, 2U> &inputStr,
     rtDynamicBoundsError(2, 1, rowDividerLocs.size(1), mb_emlrtBCI);
   }
   iv1[0] = 1;
-  iv1[1] = leftBracketLoc.size(1);
-  nd2 = leftBracketLoc.size(1) - 1;
-  j2 = 0;
-  for (int c_i{0}; c_i <= nd2; c_i++) {
-    b_i = leftBracketLoc[c_i];
-    if ((b_i > rowDividerLocs[0]) && (b_i < rowDividerLocs[1])) {
-      j2++;
+  iv1[1] = ii.size(1);
+  trueCount = 0;
+  for (int b_i{0}; b_i < loop_ub; b_i++) {
+    i1 = leftBracketLoc[b_i];
+    if ((i1 > rowDividerLocs[0]) && (i1 < rowDividerLocs[1])) {
+      trueCount++;
     }
   }
-  r.set_size(1, j2);
-  j2 = 0;
-  for (int c_i{0}; c_i <= nd2; c_i++) {
-    b_i = leftBracketLoc[c_i];
-    if ((b_i > rowDividerLocs[0]) && (b_i < rowDividerLocs[1])) {
-      r[j2] = c_i;
-      j2++;
+  r.set_size(1, trueCount);
+  trueCount = 0;
+  for (int b_i{0}; b_i < loop_ub; b_i++) {
+    i1 = leftBracketLoc[b_i];
+    if ((i1 > rowDividerLocs[0]) && (i1 < rowDividerLocs[1])) {
+      r[trueCount] = b_i;
+      trueCount++;
     }
   }
-  j2 = r.size(1);
-  for (b_i = 0; b_i < j2; b_i++) {
-    if (r[b_i] > nd2) {
-      rtDynamicBoundsError(r[b_i], 0, nd2, nb_emlrtBCI);
+  b_loop_ub = r.size(1);
+  for (i1 = 0; i1 < b_loop_ub; i1++) {
+    if (r[i1] > leftBracketLoc.size(1) - 1) {
+      rtDynamicBoundsError(r[i1], 0, leftBracketLoc.size(1) - 1, nb_emlrtBCI);
     }
   }
-  b = (rowDividerLocs.size(1) - 1 < 0);
-  if (b) {
-    rtNonNegativeError(-1.0, s_emlrtDCI);
+  if (rowDividerLocs.size(1) - 1 < 0) {
+    rtNonNegativeError(-1.0, q_emlrtDCI);
   }
-  outMat.set_size(rowDividerLocs.size(1) - 1, outMat.size(1));
   if (static_cast<double>(r.size(1)) + 1.0 != r.size(1) + 1) {
-    rtIntegerError(static_cast<double>(r.size(1)) + 1.0, t_emlrtDCI);
+    rtIntegerError(static_cast<double>(r.size(1)) + 1.0, r_emlrtDCI);
   }
-  outMat.set_size(outMat.size(0), r.size(1) + 1);
-  if (static_cast<double>(r.size(1)) + 1.0 != r.size(1) + 1) {
-    rtIntegerError(static_cast<double>(r.size(1)) + 1.0, u_emlrtDCI);
+  i1 = rowDividerLocs.size(1) - 1;
+  b_loop_ub = r.size(1) + 1;
+  outMat.set_size(rowDividerLocs.size(1) - 1, r.size(1) + 1);
+  trueCount = (rowDividerLocs.size(1) - 1) * (r.size(1) + 1);
+  for (i2 = 0; i2 < trueCount; i2++) {
+    outMat[i2].re = 0.0;
+    outMat[i2].im = 0.0;
   }
-  j2 = (rowDividerLocs.size(1) - 1) * (r.size(1) + 1);
-  for (b_i = 0; b_i < j2; b_i++) {
-    outMat[b_i].re = 0.0;
-    outMat[b_i].im = 0.0;
-  }
-  nd2 = 0;
-  b_i = rowDividerLocs.size(1);
+  numelCommasLast = 0;
   if (rowDividerLocs.size(1) - 2 >= 0) {
     iv1[0] = 1;
-    iv1[1] = leftBracketLoc.size(1);
-    end = leftBracketLoc.size(1) - 1;
-    b_leftBracketLoc = leftBracketLoc.size(1);
+    iv1[1] = ii.size(1);
+    end = ii.size(1);
+    b_leftBracketLoc = ii.size(1);
   }
-  for (int c_i{0}; c_i <= b_i - 2; c_i++) {
-    int i1;
-    if (c_i + 1 > rowDividerLocs.size(1)) {
-      rtDynamicBoundsError(c_i + 1, 1, rowDividerLocs.size(1), ob_emlrtBCI);
+  for (int b_i{0}; b_i <= c_i - 2; b_i++) {
+    int i3;
+    if (b_i + 1 > c_i) {
+      rtDynamicBoundsError(b_i + 1, 1, c_i, ob_emlrtBCI);
     }
-    if (c_i + 2 > rowDividerLocs.size(1)) {
-      rtDynamicBoundsError(c_i + 2, 1, rowDividerLocs.size(1), pb_emlrtBCI);
+    if (b_i + 2 > c_i) {
+      rtDynamicBoundsError(b_i + 2, 1, c_i, pb_emlrtBCI);
     }
     iv[0] = 1;
-    iv[1] = leftBracketLoc.size(1);
-    if (leftBracketLoc.size(1) != iv1[1]) {
+    iv[1] = loop_ub;
+    if (loop_ub != iv1[1]) {
       rtSizeEqNDCheck(iv[0], iv1[0], g_emlrtECI);
     }
-    j2 = 0;
-    for (int b_j1{0}; b_j1 <= end; b_j1++) {
-      i1 = leftBracketLoc[b_j1];
-      if ((i1 > rowDividerLocs[c_i]) && (i1 < rowDividerLocs[c_i + 1])) {
-        j2++;
+    trueCount = 0;
+    for (int d_i{0}; d_i < end; d_i++) {
+      i2 = leftBracketLoc[d_i];
+      if ((i2 > rowDividerLocs[b_i]) && (i2 < rowDividerLocs[b_i + 1])) {
+        trueCount++;
       }
     }
-    r1.set_size(1, j2);
-    j2 = 0;
-    for (int b_j1{0}; b_j1 <= end; b_j1++) {
-      i1 = leftBracketLoc[b_j1];
-      if ((i1 > rowDividerLocs[c_i]) && (i1 < rowDividerLocs[c_i + 1])) {
-        r1[j2] = b_j1;
-        j2++;
+    r1.set_size(1, trueCount);
+    trueCount = 0;
+    for (int d_i{0}; d_i < end; d_i++) {
+      i2 = leftBracketLoc[d_i];
+      if ((i2 > rowDividerLocs[b_i]) && (i2 < rowDividerLocs[b_i + 1])) {
+        r1[trueCount] = d_i;
+        trueCount++;
       }
     }
-    j2 = r1.size(1);
-    for (i1 = 0; i1 < j2; i1++) {
-      if ((r1[i1] < 0) || (r1[i1] > b_leftBracketLoc - 1)) {
-        rtDynamicBoundsError(r1[i1], 0, b_leftBracketLoc - 1, qb_emlrtBCI);
+    trueCount = r1.size(1);
+    for (i2 = 0; i2 < trueCount; i2++) {
+      if ((r1[i2] < 0) || (r1[i2] > b_leftBracketLoc - 1)) {
+        rtDynamicBoundsError(r1[i2], 0, b_leftBracketLoc - 1, qb_emlrtBCI);
       }
     }
-    if ((c_i + 1 > 1) && (r1.size(1) != nd2)) {
+    if ((b_i + 1 > 1) && (r1.size(1) != numelCommasLast)) {
       rtErrorWithMessageID(emlrtRTEI.fName, emlrtRTEI.lineNo);
     }
-    j2 = r1.size(1);
+    i2 = r1.size(1) + 2;
     rightBracketLoc.set_size(1, r1.size(1) + 2);
-    rightBracketLoc[0] = rowDividerLocs[c_i];
-    for (i1 = 0; i1 < j2; i1++) {
-      rightBracketLoc[i1 + 1] = leftBracketLoc[r1[i1]];
+    rightBracketLoc[0] = rowDividerLocs[b_i];
+    for (i3 = 0; i3 < trueCount; i3++) {
+      rightBracketLoc[i3 + 1] = leftBracketLoc[r1[i3]];
     }
-    rightBracketLoc[r1.size(1) + 1] = rowDividerLocs[c_i + 1];
-    tempRow.set_size(1, tempRow.size(1));
+    trueCount = r1.size(1) + 1;
+    rightBracketLoc[r1.size(1) + 1] = rowDividerLocs[b_i + 1];
     if (static_cast<double>(r1.size(1)) + 1.0 != r1.size(1) + 1) {
-      rtIntegerError(static_cast<double>(r1.size(1)) + 1.0, v_emlrtDCI);
+      rtIntegerError(static_cast<double>(r1.size(1)) + 1.0, s_emlrtDCI);
     }
-    j2 = r1.size(1) + 1;
-    tempRow.set_size(tempRow.size(0), r1.size(1) + 1);
-    if (static_cast<double>(r1.size(1)) + 1.0 != r1.size(1) + 1) {
-      rtIntegerError(static_cast<double>(r1.size(1)) + 1.0, w_emlrtDCI);
+    tempRow.set_size(1, r1.size(1) + 1);
+    for (i3 = 0; i3 < trueCount; i3++) {
+      tempRow[i3].re = 0.0;
+      tempRow[i3].im = 0.0;
     }
-    for (i1 = 0; i1 < j2; i1++) {
-      tempRow[i1].re = 0.0;
-      tempRow[i1].im = 0.0;
-    }
-    i1 = rightBracketLoc.size(1);
-    for (int b_j1{0}; b_j1 <= i1 - 2; b_j1++) {
+    for (int d_i{0}; d_i <= i2 - 2; d_i++) {
       double d;
-      int i2;
-      if (b_j1 + 1 > rightBracketLoc.size(1)) {
-        rtDynamicBoundsError(b_j1 + 1, 1, rightBracketLoc.size(1), rb_emlrtBCI);
+      int i4;
+      if (d_i + 1 > i2) {
+        rtDynamicBoundsError(d_i + 1, 1, i2, rb_emlrtBCI);
       }
-      if (b_j1 + 2 > rightBracketLoc.size(1)) {
-        rtDynamicBoundsError(b_j1 + 2, 1, rightBracketLoc.size(1), sb_emlrtBCI);
+      if (d_i + 2 > i2) {
+        rtDynamicBoundsError(d_i + 2, 1, i2, sb_emlrtBCI);
       }
-      d = rightBracketLoc[b_j1 + 1] - 1.0;
-      if (rightBracketLoc[b_j1] + 1.0 > d) {
-        nd2 = 0;
-        i2 = 0;
+      d = rightBracketLoc[d_i + 1] - 1.0;
+      if (rightBracketLoc[d_i] + 1.0 > d) {
+        i3 = 0;
+        i4 = 0;
       } else {
-        nd2 = static_cast<int>(rightBracketLoc[b_j1] + 1.0);
-        if ((nd2 < 1) || (nd2 > inputStr.size(1))) {
-          rtDynamicBoundsError(nd2, 1, inputStr.size(1), ub_emlrtBCI);
+        i3 = static_cast<int>(rightBracketLoc[d_i] + 1.0);
+        if ((i3 < 1) || (i3 > end_tmp)) {
+          rtDynamicBoundsError(i3, 1, end_tmp, ub_emlrtBCI);
         }
-        nd2--;
-        if ((static_cast<int>(d) < 1) ||
-            (static_cast<int>(d) > inputStr.size(1))) {
-          rtDynamicBoundsError(static_cast<int>(d), 1, inputStr.size(1),
-                               vb_emlrtBCI);
+        i3--;
+        if ((static_cast<int>(d) < 1) || (static_cast<int>(d) > end_tmp)) {
+          rtDynamicBoundsError(static_cast<int>(d), 1, end_tmp, vb_emlrtBCI);
         }
-        i2 = static_cast<int>(d);
+        i4 = static_cast<int>(d);
       }
-      j2 = i2 - nd2;
-      c_inputStr.set_size(1, j2);
-      for (i2 = 0; i2 < j2; i2++) {
-        c_inputStr[i2] = inputStr[nd2 + i2];
+      numelCommasLast = i4 - i3;
+      c_inputStr.set_size(1, numelCommasLast);
+      for (i4 = 0; i4 < numelCommasLast; i4++) {
+        c_inputStr[i4] = inputStr[i3 + i4];
       }
-      if (b_j1 + 1 > tempRow.size(1)) {
-        rtDynamicBoundsError(b_j1 + 1, 1, tempRow.size(1), tb_emlrtBCI);
+      if (d_i + 1 > trueCount) {
+        rtDynamicBoundsError(d_i + 1, 1, trueCount, tb_emlrtBCI);
       }
-      tempRow[b_j1] = coder::internal::str2double(c_inputStr);
+      tempRow[d_i] = coder::internal::str2double(c_inputStr);
     }
-    if (c_i + 1 > outMat.size(0)) {
-      rtDynamicBoundsError(c_i + 1, 1, outMat.size(0), wb_emlrtBCI);
+    if (b_i + 1 > i1) {
+      rtDynamicBoundsError(b_i + 1, 1, i1, wb_emlrtBCI);
     }
     iv[0] = 1;
-    iv[1] = outMat.size(1);
+    iv[1] = b_loop_ub;
     rtSubAssignSizeCheck(&iv[0], 2, tempRow.size(), 2, h_emlrtECI);
-    j2 = tempRow.size(1);
-    for (i1 = 0; i1 < j2; i1++) {
-      outMat[c_i + outMat.size(0) * i1] = tempRow[i1];
+    for (i2 = 0; i2 < b_loop_ub; i2++) {
+      outMat[b_i + outMat.size(0) * i2] = tempRow[i2];
     }
-    nd2 = r1.size(1);
+    numelCommasLast = r1.size(1);
   }
 }
 

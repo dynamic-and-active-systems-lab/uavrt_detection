@@ -4,21 +4,21 @@
 // government, commercial, or other organizational use.
 // File: repetitionrejector.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
 #include "repetitionrejector.h"
-#include "blockedSummation.h"
+#include "assertValidSizeArg.h"
 #include "diff.h"
-#include "eml_int_forloop_overflow_check.h"
+#include "round.h"
 #include "rt_nonfinite.h"
 #include "sparse1.h"
+#include "sum.h"
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
-#include <cmath>
 #include <cstdio>
 
 // Function Definitions
@@ -45,30 +45,18 @@ void repetitionrejector(const coder::array<double, 1U> &t,
                         coder::sparse &allWeightsMat)
 {
   static rtBoundsCheckInfo ab_emlrtBCI{
-      -1,                   // iFirst
-      -1,                   // iLast
-      20,                   // lineNo
-      13,                   // colNo
-      "t",                  // aName
-      "repetitionrejector", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/repetitionrejector.m", // pName
-      0                                                       // checkKind
+      20,                  // lineNo
+      "t",                 // aName
+      "repetitionrejector" // fName
   };
   static rtBoundsCheckInfo bb_emlrtBCI{
-      -1,                   // iFirst
-      -1,                   // iLast
-      20,                   // lineNo
-      8,                    // colNo
-      "t",                  // aName
-      "repetitionrejector", // fName
-      "/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/"
-      "CODE_PLAYGROUND/uavrt_detection/repetitionrejector.m", // pName
-      0                                                       // checkKind
+      20,                  // lineNo
+      "t",                 // aName
+      "repetitionrejector" // fName
   };
   coder::array<double, 1U> a;
   double dt;
-  int nx;
+  int loop_ub;
   if (t.size(0) < 2) {
     std::printf("UAV-RT: Time vector must contain at least two elements.\n");
     std::fflush(stdout);
@@ -79,27 +67,22 @@ void repetitionrejector(const coder::array<double, 1U> &t,
   }
   dt = t[1] - t[0];
   coder::diff(t, a);
-  nx = a.size(0);
-  for (int k{0}; k < nx; k++) {
-    a[k] = a[k] * 1.0E+9;
+  loop_ub = a.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    a[i] = a[i] * 1.0E+9;
   }
-  nx = a.size(0);
-  if (a.size(0) > 2147483646) {
-    coder::check_forloop_overflow_error();
+  coder::b_round(a);
+  loop_ub = a.size(0);
+  for (int i{0}; i < loop_ub; i++) {
+    a[i] = a[i] / 1.0E+9 - dt;
   }
-  for (int k{0}; k < nx; k++) {
-    a[k] = std::round(a[k]);
-  }
-  nx = a.size(0);
-  for (int k{0}; k < nx; k++) {
-    a[k] = a[k] / 1.0E+9 - dt;
-  }
-  if (coder::blockedSummation(a, a.size(0)) != 0.0) {
+  if (coder::sum(a) != 0.0) {
     // dealing with numerical precision for diff(t)-dt
     std::printf("UAV-RT: Time difference in t vector must be constant.\n");
     std::fflush(stdout);
   }
   // Force to be a row vector
+  coder::internal::assertValidSizeArg(static_cast<double>(t.size(0)));
   coder::sparse::eyeLike(t.size(0), t.size(0), t.size(0), allWeightsMat);
 }
 

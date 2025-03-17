@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: getLocalTime.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -42,8 +42,8 @@ double getLocalTime(double &t_tm_sec, double &t_tm_min, double &t_tm_hour,
   int status;
   status = coderLocalTime(&structTm);
   if (status != 0) {
-    rtErrorWithMessageID(std::string(&fcn[0], 14), status, pb_emlrtRTEI.fName,
-                         pb_emlrtRTEI.lineNo);
+    rtErrorWithMessageID(std::string(&fcn[0], 14), status, lb_emlrtRTEI.fName,
+                         lb_emlrtRTEI.lineNo);
   }
   t_tm_nsec = (double)structTm.tm_nsec;
   t_tm_sec = structTm.tm_sec;

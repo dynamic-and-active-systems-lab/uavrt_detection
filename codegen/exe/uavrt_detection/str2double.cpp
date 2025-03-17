@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: str2double.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -85,9 +85,9 @@ static boolean_T b_copysign(array<char, 2U> &s1, int &idx,
       k++;
     } else {
       if (static_cast<unsigned char>(c) > 127) {
-        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+        vc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
       }
-      if (!bv[static_cast<unsigned char>(c) & 127]) {
+      if (!bv[static_cast<int>(static_cast<unsigned char>(c) & 127U)]) {
         exitg1 = true;
       } else {
         k++;
@@ -152,10 +152,10 @@ static boolean_T b_readfloat(array<char, 2U> &s1, int &idx,
       while ((!exitg1) && (k <= n)) {
         c = s[k - 1];
         if (static_cast<unsigned char>(c) > 127) {
-          tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+          vc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
         }
-        if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
-            (c == ',')) {
+        if (bv[static_cast<int>(static_cast<unsigned char>(c) & 127U)] ||
+            (c == '\x00') || (c == ',')) {
           k++;
         } else {
           exitg1 = true;
@@ -167,10 +167,10 @@ static boolean_T b_readfloat(array<char, 2U> &s1, int &idx,
         while ((!exitg1) && (k <= n)) {
           c = s[k - 1];
           if (static_cast<unsigned char>(c) > 127) {
-            tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+            vc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
           }
-          if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
-              (c == ',')) {
+          if (bv[static_cast<int>(static_cast<unsigned char>(c) & 127U)] ||
+              (c == '\x00') || (c == ',')) {
             k++;
           } else {
             exitg1 = true;
@@ -189,10 +189,10 @@ static boolean_T b_readfloat(array<char, 2U> &s1, int &idx,
     while ((!exitg1) && (k <= n)) {
       c = s[k - 1];
       if (static_cast<unsigned char>(c) > 127) {
-        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+        vc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
       }
-      if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
-          (c == ',')) {
+      if (bv[static_cast<int>(static_cast<unsigned char>(c) & 127U)] ||
+          (c == '\x00') || (c == ',')) {
         k++;
       } else {
         exitg1 = true;
@@ -421,9 +421,9 @@ static int readfloat(array<char, 2U> &s1, const array<char, 2U> &s, int &k,
       k++;
     } else {
       if (static_cast<unsigned char>(c) > 127) {
-        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+        vc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
       }
-      if (!bv[static_cast<unsigned char>(c) & 127]) {
+      if (!bv[static_cast<int>(static_cast<unsigned char>(c) & 127U)]) {
         exitg1 = true;
       } else {
         k++;
@@ -443,10 +443,10 @@ static int readfloat(array<char, 2U> &s1, const array<char, 2U> &s, int &k,
       while ((!exitg1) && (k <= n)) {
         c = s[k - 1];
         if (static_cast<unsigned char>(c) > 127) {
-          tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+          vc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
         }
-        if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
-            (c == ',')) {
+        if (bv[static_cast<int>(static_cast<unsigned char>(c) & 127U)] ||
+            (c == '\x00') || (c == ',')) {
           k++;
         } else {
           exitg1 = true;
@@ -475,10 +475,10 @@ static int readfloat(array<char, 2U> &s1, const array<char, 2U> &s, int &k,
       while ((!exitg1) && (k <= n)) {
         c = s[k - 1];
         if (static_cast<unsigned char>(c) > 127) {
-          tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+          vc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
         }
-        if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
-            (c == ',')) {
+        if (bv[static_cast<int>(static_cast<unsigned char>(c) & 127U)] ||
+            (c == '\x00') || (c == ',')) {
           k++;
         } else {
           exitg1 = true;
@@ -490,10 +490,10 @@ static int readfloat(array<char, 2U> &s1, const array<char, 2U> &s, int &k,
         while ((!exitg1) && (k <= n)) {
           c = s[k - 1];
           if (static_cast<unsigned char>(c) > 127) {
-            tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+            vc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
           }
-          if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
-              (c == ',')) {
+          if (bv[static_cast<int>(static_cast<unsigned char>(c) & 127U)] ||
+              (c == '\x00') || (c == ',')) {
             k++;
           } else {
             exitg1 = true;
@@ -512,10 +512,10 @@ static int readfloat(array<char, 2U> &s1, const array<char, 2U> &s, int &k,
     while ((!exitg1) && (k <= n)) {
       c = s[k - 1];
       if (static_cast<unsigned char>(c) > 127) {
-        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+        vc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
       }
-      if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
-          (c == ',')) {
+      if (bv[static_cast<int>(static_cast<unsigned char>(c) & 127U)] ||
+          (c == '\x00') || (c == ',')) {
         k++;
       } else {
         exitg1 = true;
@@ -557,37 +557,38 @@ creal_T str2double(const array<char, 2U> &s)
     k = 0;
     exitg1 = false;
     while ((!exitg1) && (k + 1 <= n)) {
-      idx = static_cast<unsigned char>(s[k]);
-      if (idx > 127) {
-        tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+      unsigned char u;
+      u = static_cast<unsigned char>(s[k]);
+      if (u > 127) {
+        vc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
       }
-      if (bv[idx] || (s[k] == '\x00')) {
+      if (bv[u] || (s[k] == '\x00')) {
         k++;
       } else {
         exitg1 = true;
       }
     }
+    idx = s.size(1) + 2;
     s1.set_size(1, s.size(1) + 2);
-    b_idx = s.size(1) + 2;
-    for (idx = 0; idx < b_idx; idx++) {
-      s1[idx] = '\x00';
+    for (b_idx = 0; b_idx < idx; b_idx++) {
+      s1[b_idx] = '\x00';
     }
     k++;
-    b_idx = readfloat(s1, s, k, s.size(1), isimag1, isfinite1, scanned1, a__1,
-                      success);
+    idx = readfloat(s1, s, k, s.size(1), isimag1, isfinite1, scanned1, a__1,
+                    success);
     if (isfinite1) {
       ntoread = 1;
     }
     if (success && (k <= s.size(1))) {
       boolean_T b_finite;
       boolean_T foundsign;
-      s1[b_idx - 1] = ' ';
+      s1[idx - 1] = ' ';
       a__1 = false;
       b_finite = true;
       scanned2 = 0.0;
-      idx = b_idx + 1;
-      foundsign = b_copysign(s1, idx, s, k, s.size(1), success);
-      b_idx = idx;
+      b_idx = idx + 1;
+      foundsign = b_copysign(s1, b_idx, s, k, s.size(1), success);
+      idx = b_idx;
       if (success) {
         char c;
         if (isUnitImag(s, k, s.size(1))) {
@@ -597,10 +598,10 @@ creal_T str2double(const array<char, 2U> &s)
           while ((!exitg1) && (k <= n)) {
             c = s[k - 1];
             if (static_cast<unsigned char>(c) > 127) {
-              tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+              vc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
             }
-            if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
-                (c == ',')) {
+            if (bv[static_cast<int>(static_cast<unsigned char>(c) & 127U)] ||
+                (c == '\x00') || (c == ',')) {
               k++;
             } else {
               exitg1 = true;
@@ -608,32 +609,32 @@ creal_T str2double(const array<char, 2U> &s)
           }
           if ((k <= s.size(1)) && (s[k - 1] == '*')) {
             k++;
-            b_readfloat(s1, b_idx, s, k, s.size(1), b_finite, scanned2, a__3,
+            b_readfloat(s1, idx, s, k, s.size(1), b_finite, scanned2, a__3,
                         success);
           } else {
-            s1[idx - 1] = '1';
-            b_idx = idx + 1;
+            s1[b_idx - 1] = '1';
+            idx = b_idx + 1;
           }
         } else {
           b_finite = readNonFinite(s, k, s.size(1), scanned2);
           if (b_finite) {
-            success = copydigits(s1, b_idx, s, k, s.size(1), true);
+            success = copydigits(s1, idx, s, k, s.size(1), true);
             if (success) {
-              success = copyexponent(s1, b_idx, s, k, s.size(1));
+              success = copyexponent(s1, idx, s, k, s.size(1));
             }
-          } else if ((idx >= 2) && (s1[idx - 2] == '-')) {
-            b_idx = idx - 1;
-            s1[idx - 2] = ' ';
+          } else if ((b_idx >= 2) && (s1[b_idx - 2] == '-')) {
+            idx = b_idx - 1;
+            s1[b_idx - 2] = ' ';
             scanned2 = -scanned2;
           }
           exitg1 = false;
           while ((!exitg1) && (k <= n)) {
             c = s[k - 1];
             if (static_cast<unsigned char>(c) > 127) {
-              tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+              vc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
             }
-            if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
-                (c == ',')) {
+            if (bv[static_cast<int>(static_cast<unsigned char>(c) & 127U)] ||
+                (c == '\x00') || (c == ',')) {
               k++;
             } else {
               exitg1 = true;
@@ -645,10 +646,10 @@ creal_T str2double(const array<char, 2U> &s)
             while ((!exitg1) && (k <= n)) {
               c = s[k - 1];
               if (static_cast<unsigned char>(c) > 127) {
-                tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+                vc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
               }
-              if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
-                  (c == ',')) {
+              if (bv[static_cast<int>(static_cast<unsigned char>(c) & 127U)] ||
+                  (c == '\x00') || (c == ',')) {
                 k++;
               } else {
                 exitg1 = true;
@@ -667,10 +668,10 @@ creal_T str2double(const array<char, 2U> &s)
         while ((!exitg1) && (k <= n)) {
           c = s[k - 1];
           if (static_cast<unsigned char>(c) > 127) {
-            tc_rtErrorWithMessageID(l_emlrtRTEI.fName, l_emlrtRTEI.lineNo);
+            vc_rtErrorWithMessageID(i_emlrtRTEI.fName, i_emlrtRTEI.lineNo);
           }
-          if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') ||
-              (c == ',')) {
+          if (bv[static_cast<int>(static_cast<unsigned char>(c) & 127U)] ||
+              (c == '\x00') || (c == ',')) {
             k++;
           } else {
             exitg1 = true;
@@ -689,17 +690,17 @@ creal_T str2double(const array<char, 2U> &s)
       scanned2 = 0.0;
     }
     if (success) {
-      s1[b_idx - 1] = '\x00';
+      s1[idx - 1] = '\x00';
       if (ntoread == 2) {
-        b_idx = std::sscanf(&s1[0], "%lf %lf", &scanned1, &scanned2);
-        if (b_idx != 2) {
+        idx = std::sscanf(&s1[0], "%lf %lf", &scanned1, &scanned2);
+        if (idx != 2) {
           scanned1 = rtNaN;
           scanned2 = rtNaN;
         }
       } else if (ntoread == 1) {
         double b_scanned1;
-        b_idx = std::sscanf(&s1[0], "%lf", &b_scanned1);
-        if (b_idx != 1) {
+        idx = std::sscanf(&s1[0], "%lf", &b_scanned1);
+        if (idx != 1) {
           b_scanned1 = rtNaN;
         }
         if (isfinite1) {

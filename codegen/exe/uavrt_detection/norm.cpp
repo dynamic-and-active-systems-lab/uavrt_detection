@@ -4,15 +4,14 @@
 // government, commercial, or other organizational use.
 // File: norm.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
 #include "norm.h"
 #include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
-#include "uavrt_detection_rtwutil.h"
 #include "coder_array.h"
 #include <cmath>
 
@@ -30,7 +29,21 @@ double b_norm(const array<creal_T, 2U> &x)
   } else {
     y = 0.0;
     if (x.size(0) == 1) {
-      y = rt_hypotd_snf(x[0].re, x[0].im);
+      double absxk;
+      double scale;
+      scale = std::abs(x[0].re);
+      absxk = std::abs(x[0].im);
+      if (scale < absxk) {
+        scale /= absxk;
+        y = absxk * std::sqrt(scale * scale + 1.0);
+      } else if (scale > absxk) {
+        absxk /= scale;
+        y = scale * std::sqrt(absxk * absxk + 1.0);
+      } else if (std::isnan(absxk)) {
+        y = rtNaN;
+      } else {
+        y = scale * 1.4142135623730951;
+      }
     } else {
       double scale;
       int kend;

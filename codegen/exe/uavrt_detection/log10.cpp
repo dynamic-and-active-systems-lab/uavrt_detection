@@ -4,26 +4,43 @@
 // government, commercial, or other organizational use.
 // File: log10.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
 #include "log10.h"
 #include "eml_int_forloop_overflow_check.h"
 #include "rt_nonfinite.h"
-#include "uavrt_detection_data.h"
 #include "uavrt_detection_rtwutil.h"
 #include "uavrt_detection_types.h"
 #include "coder_array.h"
 #include <cmath>
 
+// Variable Definitions
+static rtRunTimeErrorInfo qc_emlrtRTEI{
+    14,     // lineNo
+    "log10" // fName
+};
+
 // Function Definitions
+//
+// Arguments    : double &x
+// Return Type  : void
+//
+namespace coder {
+void b_log10(double &x)
+{
+  if (x < 0.0) {
+    n_rtErrorWithMessageID("log10", qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
+  }
+  x = std::log10(x);
+}
+
 //
 // Arguments    : array<double, 2U> &x
 // Return Type  : void
 //
-namespace coder {
 void b_log10(array<double, 2U> &x)
 {
   int i;
@@ -36,7 +53,7 @@ void b_log10(array<double, 2U> &x)
     }
   }
   if (p) {
-    rtErrorWithMessageID("log10", b_emlrtRTEI.fName, b_emlrtRTEI.lineNo);
+    n_rtErrorWithMessageID("log10", qc_emlrtRTEI.fName, qc_emlrtRTEI.lineNo);
   }
   if (i > 2147483646) {
     check_forloop_overflow_error();

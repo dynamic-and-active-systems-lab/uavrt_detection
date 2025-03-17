@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: fwrite.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -28,44 +28,34 @@
 namespace coder {
 double b_fwrite(double fileID, const array<float, 1U> &x)
 {
-  static rtRunTimeErrorInfo
-      bd_emlrtRTEI{
-          163,           // lineNo
-          5,             // colNo
-          "getFileStar", // fName
-          "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/"
-          "fwrite.m" // pName
-      };
-  static rtRunTimeErrorInfo
-      cd_emlrtRTEI{
-          33,       // lineNo
-          5,        // colNo
-          "fwrite", // fName
-          "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/iofun/"
-          "fwrite.m" // pName
-      };
+  static rtRunTimeErrorInfo rc_emlrtRTEI{
+      163,          // lineNo
+      "getFileStar" // fName
+  };
+  static rtRunTimeErrorInfo sc_emlrtRTEI{
+      33,      // lineNo
+      "fwrite" // fName
+  };
   std::FILE *f;
-  std::FILE *filestar;
   double count;
   boolean_T autoflush;
   if (!(fileID != 0.0)) {
-    g_rtErrorWithMessageID(cd_emlrtRTEI.fName, cd_emlrtRTEI.lineNo);
+    e_rtErrorWithMessageID(sc_emlrtRTEI.fName, sc_emlrtRTEI.lineNo);
   }
   f = internal::getfilestar(fileID, autoflush);
-  filestar = f;
   if (f == nullptr) {
-    c_rtErrorWithMessageID(bd_emlrtRTEI.fName, bd_emlrtRTEI.lineNo);
+    c_rtErrorWithMessageID(rc_emlrtRTEI.fName, rc_emlrtRTEI.lineNo);
   }
-  if ((filestar == nullptr) || (x.size(0) == 0)) {
+  if ((f == nullptr) || (x.size(0) == 0)) {
     count = 0.0;
   } else {
     size_t bytesOutSizet;
-    bytesOutSizet = std::fwrite(&(((array<float, 1U> *)&x)->data())[0],
-                                sizeof(float), (size_t)x.size(0), filestar);
+    bytesOutSizet =
+        std::fwrite(&(x.data())[0], sizeof(float), (size_t)x.size(0), f);
     count = (double)bytesOutSizet;
     if (((double)bytesOutSizet > 0.0) && autoflush) {
       int status;
-      status = std::fflush(filestar);
+      status = std::fflush(f);
       if (status != 0) {
         count = 0.0;
       }

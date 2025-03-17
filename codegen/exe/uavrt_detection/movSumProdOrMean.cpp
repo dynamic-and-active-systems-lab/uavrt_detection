@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: movSumProdOrMean.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -30,48 +30,47 @@ void vmovfun(const array<double, 1U> &x, int nx, array<double, 1U> &y)
   int b_k;
   int firstBlockLength;
   int hi;
+  int i1;
   int iLeft;
   int ib;
   int lastBlockLength;
   int loop_ub;
   int nblocks;
-  int vlen;
-  y.set_size(x.size(0));
   loop_ub = x.size(0);
+  y.set_size(x.size(0));
   for (int i{0}; i < loop_ub; i++) {
     y[i] = 0.0;
   }
   if (nx > 2147483646) {
     check_forloop_overflow_error();
   }
-  loop_ub = nx - 1;
 #pragma omp parallel for num_threads(omp_get_max_threads()) private(           \
-    iLeft, vlen, b_y, firstBlockLength, lastBlockLength, nblocks, b_k, ib,     \
-    bsum, hi)
+        iLeft, i1, b_y, firstBlockLength, lastBlockLength, nblocks, b_k, ib,   \
+            bsum, hi)
 
-  for (int k = 0; k <= loop_ub; k++) {
+  for (int k = 0; k < nx; k++) {
     if (k + 1 <= 1) {
       iLeft = 0;
     } else {
       iLeft = k - 1;
     }
     if (k + 2 > x.size(0)) {
-      vlen = x.size(0);
+      i1 = x.size(0);
     } else {
-      vlen = k + 2;
+      i1 = k + 2;
     }
-    vlen -= iLeft;
-    if ((x.size(0) == 0) || (vlen == 0)) {
+    i1 -= iLeft;
+    if ((x.size(0) == 0) || (i1 == 0)) {
       b_y = 0.0;
     } else {
-      if (vlen <= 1024) {
-        firstBlockLength = vlen;
+      if (i1 <= 1024) {
+        firstBlockLength = i1;
         lastBlockLength = 0;
         nblocks = 1;
       } else {
         firstBlockLength = 1024;
-        nblocks = vlen / 1024;
-        lastBlockLength = vlen - (nblocks << 10);
+        nblocks = i1 / 1024;
+        lastBlockLength = i1 - (nblocks << 10);
         if (lastBlockLength > 0) {
           nblocks++;
         } else {
@@ -96,7 +95,7 @@ void vmovfun(const array<double, 1U> &x, int nx, array<double, 1U> &y)
         b_y += bsum;
       }
     }
-    y[k] = b_y / static_cast<double>(vlen);
+    y[k] = b_y / static_cast<double>(i1);
   }
 }
 

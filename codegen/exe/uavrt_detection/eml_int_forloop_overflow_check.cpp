@@ -4,8 +4,8 @@
 // government, commercial, or other organizational use.
 // File: eml_int_forloop_overflow_check.cpp
 //
-// MATLAB Coder version            : 23.2
-// C/C++ source code generated on  : 04-Mar-2024 13:02:36
+// MATLAB Coder version            : 24.2
+// C/C++ source code generated on  : 18-Mar-2025 09:34:46
 //
 
 // Include Files
@@ -20,12 +20,9 @@
 #include <string>
 
 // Variable Definitions
-static rtRunTimeErrorInfo vc_emlrtRTEI{
-    87,                             // lineNo
-    33,                             // colNo
-    "check_forloop_overflow_error", // fName
-    "/Applications/MATLAB_R2023b.app/toolbox/eml/lib/matlab/eml/"
-    "eml_int_forloop_overflow_check.m" // pName
+static rtRunTimeErrorInfo lc_emlrtRTEI{
+    87,                            // lineNo
+    "check_forloop_overflow_error" // fName
 };
 
 // Function Declarations
@@ -65,7 +62,7 @@ static void o_rtErrorWithMessageID(const char *r, const char *aFcnName,
 namespace coder {
 void b_check_forloop_overflow_error()
 {
-  o_rtErrorWithMessageID("uint32", vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+  o_rtErrorWithMessageID("uint32", lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
 }
 
 //
@@ -74,7 +71,7 @@ void b_check_forloop_overflow_error()
 //
 void check_forloop_overflow_error()
 {
-  o_rtErrorWithMessageID("int32", vc_emlrtRTEI.fName, vc_emlrtRTEI.lineNo);
+  o_rtErrorWithMessageID("int32", lc_emlrtRTEI.fName, lc_emlrtRTEI.lineNo);
 }
 
 } // namespace coder
